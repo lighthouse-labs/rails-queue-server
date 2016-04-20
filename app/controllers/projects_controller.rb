@@ -12,7 +12,6 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
-    @project.slug = @project.name.gsub(/\s+/, "").downcase
     if @project.save
       redirect_to action: :index, notice: "#{@project.name} created."
     else
