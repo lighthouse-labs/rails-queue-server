@@ -13,7 +13,7 @@ class ActivitiesController < ApplicationController
     @activities = Activity
     unless params[:term].blank?
       @activities = @activities.search(params[:term])
-      @activities = @activities.where.not(day: nil) 
+      @activities = @activities.where.not(day: nil)
     end
 
     respond_to do |format|
@@ -25,7 +25,7 @@ class ActivitiesController < ApplicationController
   def new
     @activity = Activity.new(day: params[:day_number])
     if @section
-      @activity.section = @section 
+      @activity.section = @section
       @form_url = [@section, :activities]
     else
       @form_url = day_activities_path(params[:day_number])
@@ -115,7 +115,7 @@ class ActivitiesController < ApplicationController
 
   def load_activity_test
     if params[:id] && require_activity.try(:activity_test)
-      @activity_test = require_activity.activity_test 
+      @activity_test = require_activity.activity_test
     else
       @activity_test = ActivityTest.new
     end
@@ -124,6 +124,8 @@ class ActivitiesController < ApplicationController
   def load_section
     if slug = params[:prep_id]
       @section = Prep.find_by(slug: slug)
+    elsif slug = params[:project_id]
+      @section = Project.find_by(slug: slug)
     end
   end
 
