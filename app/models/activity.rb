@@ -1,7 +1,7 @@
 class Activity < ActiveRecord::Base
 
   belongs_to :section
-  
+
   has_many :activity_submissions, -> { order(:user_id) }
   has_many :messages, -> { order(created_at: :desc) }, class_name: 'ActivityMessage'
   has_many :recordings, -> { order(created_at: :desc) }
@@ -63,7 +63,11 @@ class Activity < ActiveRecord::Base
   end
 
   def prep?
-    self.section
+    self.section.is_a? Prep
+  end
+
+  def project?
+    self.section.is_a? Project
   end
 
   protected
