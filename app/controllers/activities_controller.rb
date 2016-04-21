@@ -155,7 +155,11 @@ class ActivitiesController < ApplicationController
 
   def handle_redirect(notice)
     if @activity.section
-      redirect_to prep_activity_path(@activity.section, @activity), notice: notice
+      if @activity.section.is_a? Prep
+        redirect_to prep_activity_path(@activity.section, @activity), notice: notice
+      elsif @activity.section.is_a? Project
+        redirect_to project_activity_path(@activity.section, @activity), notice: notice
+      end
     else
       redirect_to day_activity_path(@activity.day, @activity), notice: notice
     end
