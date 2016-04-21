@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :find_project, only: [:show, :edit, :update]
+  before_action :find_project, only: [:show, :edit, :update, :destroy]
   def index
     @projects = Project.all
   end
@@ -28,6 +28,10 @@ class ProjectsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    #if @project.destroy
   end
 
   private
