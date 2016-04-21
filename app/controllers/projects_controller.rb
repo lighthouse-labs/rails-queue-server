@@ -31,7 +31,11 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    #if @project.destroy
+    if @project.destroy
+      redirect_to action: :index, notice: "#{@project.name} deleted."
+    else
+      redirect_to action: :index, notice: "#{@project.name} not deleted."
+    end
   end
 
   private
