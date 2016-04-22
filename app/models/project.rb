@@ -3,6 +3,8 @@ class Project < Section
 
   before_save :set_slug
 
+  private
+
   def set_slug
     self.slug = self.name.gsub(/\s+/, "").downcase
   end
