@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :submitted_activities, through: :activity_submissions, source: :activity
   has_many :outcome_results
 
+  has_many :evaluations
+
   scope :order_by_last_assisted_at, -> {
     order("last_assisted_at ASC NULLS FIRST")
   }
@@ -94,7 +96,7 @@ class User < ActiveRecord::Base
   end
 
   def completed_activity?(activity)
-    if activity.section 
+    if activity.section
       !activity_submissions.where(finalized: true, activity: activity).empty?
     else
       submitted_activities.include?(activity)

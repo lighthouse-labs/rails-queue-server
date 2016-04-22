@@ -1,4 +1,7 @@
 class Project < Section
+
+  has_many :evaluations
+
   validates :name, :description, presence: true
 
   before_save :set_slug
