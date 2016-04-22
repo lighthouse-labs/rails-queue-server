@@ -6,7 +6,7 @@
     hr
 
 = f.input :name
-= f.input :day if day
+= f.input :day if (day || @activity.project?)
 = f.input :start_time, as: :string
 = f.input :duration, as: :string
 = f.input :gist_url, as: :string
