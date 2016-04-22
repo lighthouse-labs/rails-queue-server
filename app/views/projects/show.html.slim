@@ -1,16 +1,6 @@
-.col-md-4
-   ul.list-group.project-nav
-    li.list-group-item.list-group-item-success Project
-    - @project.activities.chronological.each do |activity|
-      li class = "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}"
-        = link_to activity.name, [@project, activity]
-        = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)
-
-    - if teacher?
-      li.list-group-item = link_to "Create Activity", [:new, @project, :activity]
-
-.col-md-8
-  h2 = @project.name
-  p = @project.description
+- content_for :project_nav do
+  = render 'shared/menus/project_side_menu', project: @project
+h2 = @project.name
+p = @project.description
 
 

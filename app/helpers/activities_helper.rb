@@ -55,7 +55,7 @@ module ActivitiesHelper
 
   def activity_type_options
     [
-      'Assignment', 
+      'Assignment',
       'Task',
       'Lecture',
       'Homework',
@@ -64,4 +64,9 @@ module ActivitiesHelper
     ]
   end
 
+  def get_activity_presenter_class(section)
+    if section
+      "#{section.class}ActivityPresenter".constantize
+    end
+  end
 end

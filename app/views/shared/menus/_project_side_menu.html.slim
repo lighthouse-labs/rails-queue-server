@@ -1,0 +1,9 @@
+ul.list-group.project-nav
+  li.list-group-item.list-group-item-success = project.name
+  - project.activities.chronological.each do |activity|
+    li class = "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}"
+      = link_to activity.name, [project, activity]
+      = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)
+
+  - if teacher?
+    li.list-group-item = link_to "Create Activity", [:new, project, :activity]

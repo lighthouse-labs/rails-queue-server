@@ -34,6 +34,11 @@ html
           == yield :prep_nav
         .content.col-md-8.prep-content
           == yield
+      - elsif content_for? :project_nav
+        aside.side-nav.col-md-4
+          == yield :project_nav
+        .content.col-md-8.prep-content
+          == yield
       - else
         .content.col-md-12
           == yield
