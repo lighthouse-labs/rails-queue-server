@@ -1,0 +1,22 @@
+name: 'Module 2: Dev Environment'
+questions:
+  - 
+    question: Hello yo yo
+    options_attributes: 
+      - 
+        answer: "Answer a"
+        explanation: "Because a"
+        correct: false
+      - 
+        answer: "Answer b"
+        explanation: "Because b"
+        correct: false
+      - 
+        answer: "Answer c"
+        explanation: "Because c"
+        correct: false
+      - 
+        answer: "Answer d"
+        explanation: "Because d"
+        correct: true
+

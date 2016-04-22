@@ -1,14 +1,38 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-# Environment variables (ENV['...']) can be set in the file .env file.
+puts "SEEDING"
+
+def dot
+  print '.'; STDOUT.flush
+end
+
+# Real shit
 
 if Rails.env.development?
+  puts "Purging the DB (development - only) ..."
+  User.destroy_all
+  Cohort.destroy_all
+  Location.destroy_all
+  Program.destroy_all
+  ContentRepository.destroy_all
+end
+
+program = Program.create!(name: "Web Immersive")
+location_van = Location.create!(name: "Vancouver")
+location_to = Location.create!(name: "Toronto")
+
+# Note: assumed that you (your github profile) will have access to this curriculum content repo
+#       and have set your GITHUB_ADMIN_OAUTH_TOKEN in the .env file
+repo = ContentRepository.create! github_username: 'lighthouse-labs', github_repo: '2016-web-curriculum-activities'
+
+require Rails.root.join('db/seeds/quizzes').to_s
+require Rails.root.join('db/seeds/prep').to_s
+
+
+# Fake shit
+if Rails.env.development?
   # => Create activities and content for cohort
+
+  DayInfo.delete_all
+
   1.upto(8).each do |week|
     1.upto(5).each do |day|
 
@@ -37,9 +61,6 @@ if Rails.env.development?
 
   Cohort.destroy_all
 
-  program = Program.create(name: "Web Immersive")
-  location_van = Location.create(name: "Vancouver")
-  location_to = Location.create(name: "Toronto")
   cohort_van = Cohort.create! name: "Current Cohort Van", code: "current van", location: location_van, start_date: Date.today - 7.days, program: program, code: "van"
   cohort_tor = Cohort.create! name: "Current Cohort Tor", code: "current tor", location: location_to, start_date: Date.today - 14.days, program: program, code: "toto"
 
