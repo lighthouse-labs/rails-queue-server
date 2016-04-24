@@ -11,7 +11,6 @@ class DayInfosController < ApplicationController
   def update
     if @day_info.update day_info_params
       redirect_to day_path(day.raw_date)
-    end
     else
       render :edit
     end
