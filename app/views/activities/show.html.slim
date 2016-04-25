@@ -49,19 +49,12 @@
               i.fa.fa-external-link
 
         - else
-          - if current_user.completed_activity?(@activity)
-            - if @activity_submission.github_url?
-              input.form-control.pull-left#activity_view value="#{@activity_submission.github_url}"
-              | &nbsp;
-            = link_to activity_activity_submission_path(@activity), method: :delete, class:'btn btn-activity-incomplete-status'
-              i.fa.fa-times
-              | &nbsp;Cancel Submission
-            - if @feedback
-                | &nbsp;
-                button.btn.btn-activity-complete-status data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{@feedback.id}"
-                  | Feedback
-          - else
-            = activity_presenter.submission_form
+          = activity_presenter.submission_form
+
+        - if @feedback
+            | &nbsp;
+            button.btn.btn-activity-complete-status data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{@feedback.id}"
+              | Feedback
 
     - if teacher?
       .collapse#student-progress
@@ -182,7 +175,7 @@
       - else
         pre = @activity.activity_test.test
 
-    = render "code_evaluation", activity: @activity if @activity.prep? && !teacher?
+    = render "code_evaluation", activity: @activity if !teacher? && @activity.evaluates_code?
 
   .modal.fade id="feedback_modal"
     .modal-dialog

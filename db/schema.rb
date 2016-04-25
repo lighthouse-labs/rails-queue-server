@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422041616) do
+ActiveRecord::Schema.define(version: 20160425214954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,11 +39,13 @@ ActiveRecord::Schema.define(version: 20160422041616) do
     t.boolean  "remote_content"
     t.integer  "section_id"
     t.boolean  "evaluates_code"
+    t.string   "uuid"
   end
 
   add_index "activities", ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
   add_index "activities", ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
   add_index "activities", ["start_time"], name: "index_activities_on_start_time", using: :btree
+  add_index "activities", ["uuid"], name: "index_activities_on_uuid", unique: true, using: :btree
 
   create_table "activity_messages", force: :cascade do |t|
     t.integer  "user_id"
@@ -71,8 +73,8 @@ ActiveRecord::Schema.define(version: 20160422041616) do
     t.string   "github_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "finalized",    default: false
-    t.text     "data"
+    t.boolean  "finalized",               default: false
+    t.text     "code_evaluation_results"
   end
 
   add_index "activity_submissions", ["activity_id"], name: "index_activity_submissions_on_activity_id", using: :btree
@@ -263,9 +265,11 @@ ActiveRecord::Schema.define(version: 20160422041616) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "outcome_id"
+    t.string   "uuid"
   end
 
   add_index "questions", ["outcome_id"], name: "index_questions_on_outcome_id", using: :btree
+  add_index "questions", ["uuid"], name: "index_questions_on_uuid", unique: true, using: :btree
 
   create_table "questions_quizzes", id: false, force: :cascade do |t|
     t.integer "question_id"
@@ -315,7 +319,10 @@ ActiveRecord::Schema.define(version: 20160422041616) do
     t.datetime "updated_at", null: false
     t.integer  "order"
     t.string   "type"
+    t.string   "uuid"
   end
+
+  add_index "sections", ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
 
   create_table "skills", force: :cascade do |t|
     t.string   "name"

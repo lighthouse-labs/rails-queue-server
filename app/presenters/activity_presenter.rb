@@ -42,7 +42,7 @@ class ActivityPresenter < BasePresenter
   end
 
   def submission_form
-    render "activity_submission_form"
+    render "activity_submission_form" if allow_completion?
   end
 
   def edit_button
@@ -57,6 +57,13 @@ class ActivityPresenter < BasePresenter
 
   def display_outcomes
     render "outcomes", activity: activity if activity.outcomes.present? || admin?
+  end
+
+  private
+
+  # for now, if the activity evaluates code, dont show submission
+  def allow_completion?
+    !activity.evaluates_code?
   end
 
 end

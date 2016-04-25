@@ -1,14 +1,14 @@
 class ActivitySubmission < ActiveRecord::Base
 
-  # => Serialize the data field
-  serialize :data
+  # => For submissions on activities that have evaluates_code=true
+  serialize :code_evaluation_results
   
   belongs_to :user
   belongs_to :activity
   
   has_one :code_review_request, dependent: :destroy
   
-  before_create :check_data_for_finalized
+  before_create :set_finalized_for_code_evaluation
 
   #after_save :request_code_review
   after_create :create_feedback
@@ -47,23 +47,22 @@ class ActivitySubmission < ActiveRecord::Base
 
   private
 
-  def check_data_for_finalized
-    unless self.data.blank?
+  def set_finalized_for_code_evaluation
+    if self.code_evaluation_results?
       # TODO handle more than just prep data
-      data = get_prep_code_result_data
-
-      self.finalized = data[:lint_results].zero? && data[:test_failures].zero?
+      results = formatted_code_evaluation_results
+      self.finalized = results[:lint_results].zero? && results[:test_failures].zero?
     end
 
     # => Return true so it saves!
     true
   end
 
-  def get_prep_code_result_data
+  def formatted_code_evaluation_results
     {
-      lint_results: self.data["lintResults"],
-      test_failures: self.data["testFailures"],
-      test_passes: self.data["testPasses"]
+      lint_results: self.code_evaluation_results["lintResults"],
+      test_failures: self.code_evaluation_results["testFailures"],
+      test_passes: self.code_evaluation_results["testPasses"]
     }
   end
 
@@ -106,7 +105,7 @@ class ActivitySubmission < ActiveRecord::Base
     self.activity.item_outcomes.each do |item_outcome|
       # TODO: change the way we calculate ratings
       if self.activity.prep?
-        self.user.outcome_results.create(outcome: item_outcome.outcome, resultable: item_outcome, rating: Prep.evaluate_rating(get_prep_code_result_data))
+        self.user.outcome_results.create(outcome: item_outcome.outcome, resultable: item_outcome, rating: Prep.evaluate_rating(formatted_code_evaluation_results))
       end
     end
   end

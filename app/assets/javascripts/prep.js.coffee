@@ -59,7 +59,7 @@ RULES = {
   "no-class-assign": "error",
   "no-cond-assign": "error",
   "no-confusing-arrow": "off",
-  "no-console": "error",
+  "no-console": "off",
   "no-const-assign": "error",
   "no-constant-condition": "error",
   "no-continue": "off",
@@ -216,8 +216,26 @@ $ ->
     expect = chai.expect
     assert = chai.assert
 
+    # stub out window.console
+    window.realConsole = window.console
+    window.console = {
+      messages: []
+      # simpler implementation of console.log that only takes one arg instead of inifinte - KV
+      log: (msg) -> 
+        @messages.push msg
+        realConsole.log msg
+      clearMessages: ->
+        @messages = []
+      clear: ->
+        @clearMessages()
+        realConsole.clear()
+    }
+
     # Load the user code into a local variable
-    eval("var userFunc = " + code)
+    eval(code)
+
+    beforeEach ->
+      console.clearMessages()
     
     # Load the mocha tests
     test_content = $('#test_content').val()
@@ -231,7 +249,10 @@ $ ->
     mocha.run()
 
   runLinter = (code) =>
-    results = eslint.verify(code, { rules: RULES })
+    results = eslint.verify(code, { 
+      rules: RULES,
+      env: {browser: true}
+    })
     
     if results.length > 0
       $('#linter ul').html('')
@@ -260,17 +281,17 @@ $ ->
         code: code
       }
       
-      $('#activity_submission_data').val(JSON.stringify(results))
-      
-      $form = $('#new_activity_submission')
       $.ajax(
-        url: $form.attr('action')
+        url: $('button.run-test').attr('data-url')
         type: 'POST'
-        data: $form.serialize()
+        data:
+          activity_submission:
+            code_evaluation_results: JSON.stringify(results)
         dataType: 'json'
         success: (response) =>
           # Reload the page because it's easier than changing a bunch of stuff
           if response.finalized
+            alert('Success! It looks like it works. Conrats!')
             window.location.reload()
       )
 
