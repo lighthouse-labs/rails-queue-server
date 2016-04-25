@@ -1,2 +1,8 @@
-h1 Evaluation#new
-p Find me in app/views/evaluation/create.html.slim
+- content_for :project_nav do
+  = render 'shared/menus/project_side_menu', project: @project
+
+= form_for @evaluation do |f|
+  = f.text_field :url
+  = f.text_field :notes
+  = f.submit
+end
