@@ -1,0 +1,34 @@
+name: 'Module 5: The Browser'
+slug: 'prep-mod-5-browser'
+uuid: 4d84dc53-f67b-444c-8dd3-fedb2ba250d0
+activities: 
+  -
+    uuid: d71625ca-e756-4f29-bf53-1e0554fcad95
+    name: 'The Browser - An Introduction'
+    type: 'Reading'
+    content_file_path: 'data/Prep Module 5 - The Browser/00__The Browser__Module Outline.md'
+    duration: 15
+  -
+    uuid: ce0a13be-9b47-42f0-a23b-67c337798182
+    name: 'Use Google Chrome'
+    type: 'Task'
+    content_file_path: 'data/Prep Module 5 - The Browser/01__Use Google Chrome__Task.md'
+    duration: 30
+  -
+    uuid: a3d47667-461f-4b0e-86d4-2394e4c0eef6
+    name: 'Intro to HTML'
+    type: 'Reading'
+    content_file_path: 'data/Prep Module 5 - The Browser/02__How an HTML Page is Put Together__Reading.md'
+    duration: 45
+  -
+    uuid: 09506e5d-618c-4bc1-984f-f47659aa22ba
+    name: 'First Web Page'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 5 - The Browser/03__First Web Page__Exercise.md'
+    duration: 45
+  -
+    uuid: 2a1d9abc-883c-4acf-bbb0-e077026792c7
+    name: 'Chrome DevTools'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 5 - The Browser/04__Chrome DevTools__Exercise.md'
+    duration: 150

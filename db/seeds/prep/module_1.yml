@@ -1,1 +1,16 @@
-module_1.yml
+name: 'Module 1: Welcome'
+uuid: '01011da3-d281-43d5-be04-7910979aaae2'
+slug: 'prep-mod-1-welcome'
+activities: 
+  - 
+    uuid: a95049a3-ee87-49bb-b0be-2817e8f88bb6
+    name: 'Welcome'
+    type: 'Reading'
+    content_file_path: 'data/Prep Module 1 - Welcome/00__Welcome__Outline.md'
+    duration: 15
+  -
+    uuid: ce8708d2-f53e-44d1-ac5e-8820b1462214
+    name: 'Our Philosophy'
+    type: 'Reading'
+    content_file_path: 'data/Prep Module 1 - Welcome/01__Our Philosophy__Reading.md'
+    duration: 30

@@ -1,0 +1,52 @@
+name: 'Module 4: Intro to Programming'
+slug: 'prep-mod-4-coding-101'
+uuid: 57535d38-bcec-4c93-9771-2f83db80d8b2
+activities: 
+  -
+    uuid: a2bbc279-3b58-4209-bc10-3baafe19e587
+    name: 'Fundamentals of Programming'
+    type: 'Reading'
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/00__Fundamentals of Programming__Module Outline.md'
+    duration: 90
+  -
+    uuid: 42290567-ca46-4cb8-886f-095ec140b9b0
+    name: 'Variables, Types and Operators'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/01__Variables, Types and Operators__Exercise.md'
+    duration: 90
+  -
+    uuid: 656af239-0e82-463e-99bb-4c1da925d46c
+    name: 'Code Reuse and Functions'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/02__Code Reuse and Functions__Exercise.md'
+    duration: 90
+  -
+    uuid: b21257a6-aa67-4c32-8cc1-feb731a77f20
+    name: 'Arrays'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/03__Arrays__Exercise.md'
+    duration: 90
+  -
+    uuid: ba6a4409-2a1b-413e-836a-11f3d05fc814
+    name: 'Conditional Execution'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/04__Conditional Execution__Exercise.md'
+    duration: 90
+  -
+    uuid: 047921f7-6f94-42f4-a7e2-af53f4ed2e21
+    name: 'Looping and Repetition'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/05__Looping and Repetition__Exercise.md'
+    duration: 90
+  -
+    uuid: 38f1d2b7-514e-4e5d-b3ee-68d7e923c8c6
+    name: 'Loopy Lighthouse'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/06__Loopy Lighthouse__Problem.md'
+    duration: 180
+  -
+    uuid: 3692e1a5-c6ba-4eb8-969c-dfb9d99db3ec
+    name: 'Objects and Functions'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/07__Objects and Functions__Exercise.md'
+    duration: 180

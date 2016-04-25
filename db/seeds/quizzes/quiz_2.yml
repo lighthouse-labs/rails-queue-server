@@ -1,9 +1,9 @@
-name: 'Module 2: Dev Environment'
-uuid: '5dbbcd96-8246-4248-b014-176b5a37d63e'
+name: 'Module 3: Bla bla - Quiz 1'
+uuid: 'e53bd8e5-45a3-4843-b4ea-11a6f385ef69'
 questions:
   - 
     question: Hello yo yo
-    uuid: 'edc6c3c8-ce7a-44f7-ac25-289cfd5355ae'
+    uuid: '699a7061-7308-4c08-a6bd-e4be4612d5c6'
     options_attributes: 
       - 
         answer: "Answer a"

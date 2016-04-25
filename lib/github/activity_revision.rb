@@ -13,6 +13,7 @@ class ActivityRevision
       create
     end
   rescue Octokit::Error => e
+    puts "WARN: Could not create/update revision gist for activity: #{@activity.id}"
     Raven.capture_exception(e)
     nil
   end

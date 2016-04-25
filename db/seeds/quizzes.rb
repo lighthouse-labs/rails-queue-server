@@ -3,27 +3,71 @@
 # QuizActivities to be generated in prep_seeds.rb
 
 if Rails.env.development?
-  puts "Purging quiz data (development only) ..."
+  puts "Purging quiz data (development only)"
   
   QuizActivity.destroy_all
   QuizSubmission.destroy_all
-  Option.delete_all
-  Question.delete_all
-  Quiz.delete_all
+  # Option.delete_all
+  # Question.delete_all
 end
 
-puts "Loading quiz data ..."
+# for tracking and preventing accidental dupe uuids in the data
+#   ie copy/paste mistakes 
+@question_uuids = []
+@quiz_uuids = []
+
+def generate_questions(question_data)
+  questions = []
+  question_data.each do |question_attributes|
+    uuid = question_attributes['uuid']
+    abort("\n\n---\nHALT! Question UUID required") if uuid.blank?
+    abort("\n\n---\nHALT! Dupe Question UUID found. Check your data, as this is potentially disasterous!") if @question_uuids.include?(uuid)
+
+    attrs = question_attributes.merge({active: true})
+    if question = Question.find_by(uuid: uuid)
+      question.update! attrs
+      comma
+    else
+      question = Question.create!(attrs)
+      dot
+    end
+
+    @question_uuids << uuid
+    questions << question
+  end
+  questions # created or found questions are returned
+end
+
+puts "Loading quiz data"
 
 dir = Rails.root.join('db/seeds/quizzes').to_s + '/*.yml'
 
 Dir.glob(dir).each do |file|
-  print "Parsing file #{file} ... "; STDOUT.flush
-  questions = []
   quiz_data = YAML.load_file(file)
-  quiz = Quiz.create! name: quiz_data['name']
-  quiz_data['questions'].each do |question_attributes|
-    quiz.questions << Question.create!(question_attributes.merge({active: true}))
+
+  print "Quiz #{file}: "; STDOUT.flush
+
+  question_data = quiz_data.delete 'questions'
+
+  uuid = quiz_data['uuid']
+  abort("\n\n---\nHALT! Quiz UUID required") if uuid.blank?
+  abort("\n\n---\nHALT! Dupe Quiz UUID found. Check your data, as this is potentially disasterous!") if @quiz_uuids.include?(uuid)
+  
+  if quiz = Quiz.find_by(uuid: quiz_data['uuid'])
+    quiz.update! quiz_data
+    comma # updated
+  else
+    quiz = Quiz.create! quiz_data
+    dot # created
   end
+
+  @quiz_uuids << uuid
+
+  print "\n - Questions: "; STDOUT.flush
+  questions = generate_questions(question_data)
+  # delta updates/creates to the habtm/join table
+  quiz.questions = questions
+  puts "\n--"
 end
 
 puts "DONE"
