@@ -19,9 +19,16 @@
 //= require ace-rails-ap
 //= require ace/theme-monokai
 //= require ace/mode-markdown
+<<<<<<< HEAD
 //= require ace/mode-javascript
 //= require jslint
 //= require eslint
+=======
+//= require default
+//= require ace-rails-ap
+//= require ace/theme-monokai
+//= require ace/mode-markdown
+>>>>>>> master
 
 //= require default
 

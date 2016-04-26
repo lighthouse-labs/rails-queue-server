@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20160425175307) do
     t.integer  "assistee_id"
     t.integer  "rating"
     t.text     "student_notes"
+    t.boolean  "imported",      default: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -155,7 +156,7 @@ ActiveRecord::Schema.define(version: 20160425175307) do
   end
 
   create_table "day_infos", force: :cascade do |t|
-    t.string   "day"
+    t.string   "day",         limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -179,12 +180,13 @@ ActiveRecord::Schema.define(version: 20160425175307) do
     t.integer  "style_rating"
     t.text     "notes"
     t.integer  "feedbackable_id"
-    t.string   "feedbackable_type"
+    t.string   "feedbackable_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "rating"
   end
 
+<<<<<<< HEAD
   create_table "item_outcomes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -195,13 +197,15 @@ ActiveRecord::Schema.define(version: 20160425175307) do
 
   add_index "item_outcomes", ["item_id"], name: "index_item_outcomes_on_item_id", using: :btree
 
+=======
+>>>>>>> master
   create_table "locations", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "calendar"
-    t.string   "timezone"
-    t.boolean  "has_code_reviews", default: true
+    t.string   "calendar",         limit: 255
+    t.string   "timezone",         limit: 255
+    t.boolean  "has_code_reviews",             default: true
   end
 
   create_table "options", force: :cascade do |t|
@@ -249,9 +253,9 @@ ActiveRecord::Schema.define(version: 20160425175307) do
     t.text     "lecture_tips"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "recordings_folder"
-    t.string   "recordings_bucket"
-    t.string   "tag"
+    t.string   "recordings_folder", limit: 255
+    t.string   "recordings_bucket", limit: 255
+    t.string   "tag",               limit: 255
   end
 
   create_table "questions", force: :cascade do |t|
@@ -365,13 +369,13 @@ ActiveRecord::Schema.define(version: 20160425175307) do
     t.boolean  "remote",                 default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "code_review_percent",    default: 80
-    t.boolean  "admin",                  default: false, null: false
-    t.string   "company_name"
-    t.string   "company_url"
+    t.integer  "code_review_percent",                default: 80
+    t.boolean  "admin",                              default: false, null: false
+    t.string   "company_name",           limit: 255
+    t.string   "company_url",            limit: 255
     t.text     "bio"
-    t.string   "quirky_fact"
-    t.string   "specialties"
+    t.string   "quirky_fact",            limit: 255
+    t.string   "specialties",            limit: 255
     t.integer  "location_id"
     t.boolean  "on_duty",                default: false
     t.integer  "mentor_id"
