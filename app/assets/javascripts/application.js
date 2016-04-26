@@ -21,7 +21,7 @@
 //= require ace/theme-monokai
 //= require ace/mode-markdown
 //= require ace/mode-javascript
-//= require jslint
+//= require prism
 //= require eslint
 
 //= require default

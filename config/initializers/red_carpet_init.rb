@@ -12,12 +12,18 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
     "</table>"
   end
 
+  # def block_code(code, language)
+  #   "<code class=\"language-#{language}\">" \
+  #     "#{code}" \
+  #   "</code>"
+  # end
+
   def block_code(code, lang)
     class_name = ""
     if lang
       ar = lang.split('-') 
-      class_name += ar.first if ar.first != "selectable"
-      class_name += " allow-select" if ar.include?("selectable")
+      class_name += "language-#{ar.first}" if ar.first != "selectable"
+      class_name += " allow-select" unless ar.include?("nonselectable")
     end
     "<pre>" \
       "<code class='#{class_name}'>#{ERB::Util.html_escape(code)}</code>" \
