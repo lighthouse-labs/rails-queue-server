@@ -8,4 +8,15 @@ class Evaluation < ActiveRecord::Base
 
   validates_presence_of :notes, :url
 
+  def status
+    if teacher && accepted
+      "accepted"
+    elsif teacher && !accepted
+      "rejected"
+    elsif teacher
+      "in progress"
+    else
+      "pending"
+    end
+  end
 end

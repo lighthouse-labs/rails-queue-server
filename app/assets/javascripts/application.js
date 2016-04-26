@@ -55,3 +55,4 @@
 //= require prep
 //= require profile
 //= require code_reviews
+//= require evaluations

@@ -1,2 +1,59 @@
-h1 Evaluation#edit
-p Find me in app/views/evaluation/edit.html.slim
+.col-md-3
+  = image_tag avatar_for(@evaluation.student), class: "evaluation-avatar"
+  p.text-center = @evaluation.student.full_name
+  p.text-center = @evaluation.student.cohort.code
+
+.col-md-9
+  .clearfix
+    h2.pull-left = "#{@evaluation.project.name}" + " (#{@evaluation.status})"
+    a.pull-right.btn.btn-default Mark Complete
+
+  a = @evaluation.url
+
+  h4 Outcomes
+
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title Functionality
+    .panel-body
+      table.table.table-borderless
+        tr
+          td
+            .checkbox
+              input type="checkbox" data-toggle="checkbox" Placeholder
+          td.form-inline
+            label.radio-inline
+              input type="radio"
+              == 1
+            label.radio-inline
+              input type="radio"
+              == 2
+            label.radio-inline
+              input type="radio"
+              == 3
+            label.radio-inline
+              input type="radio"
+              == 4
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title Code
+    .panel-body
+      table.table.table-borderless
+        tr
+          td
+            .checkbox
+              input type="checkbox" data-toggle="checkbox" Placeholder
+          td.form-inline
+            label.radio-inline
+              input type="radio"
+              == 1
+            label.radio-inline
+              input type="radio"
+              == 2
+            label.radio-inline
+              input type="radio"
+              == 3
+            label.radio-inline
+              input type="radio"
+              == 4
+

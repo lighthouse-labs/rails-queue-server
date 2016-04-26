@@ -35,7 +35,7 @@ class EvaluationsController < ApplicationController
   end
 
   def find_evaluation
-    @evaluation = Evaluation.find params[:evaluation_id]
+    @evaluation = Evaluation.find params[:id]
   end
 
   def evaluation_params
