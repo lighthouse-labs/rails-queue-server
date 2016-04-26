@@ -1,6 +1,8 @@
 class Project < Section
 
   has_many :evaluations
+  has_many :item_outcomes, dependent: :destroy
+  has_many :outcomes, through: :item_outcomes
 
   validates :name, :description, presence: true
 

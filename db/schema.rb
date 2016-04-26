@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425175307) do
+ActiveRecord::Schema.define(version: 20160426204736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 20160425175307) do
   end
 
   create_table "day_infos", force: :cascade do |t|
-    t.string   "day",         limit: 255
+    t.string   "day"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -180,7 +180,7 @@ ActiveRecord::Schema.define(version: 20160425175307) do
     t.integer  "style_rating"
     t.text     "notes"
     t.integer  "feedbackable_id"
-    t.string   "feedbackable_type", limit: 255
+    t.string   "feedbackable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "rating"
@@ -192,17 +192,18 @@ ActiveRecord::Schema.define(version: 20160425175307) do
     t.integer  "outcome_id"
     t.string   "item_type"
     t.integer  "item_id"
+    t.integer  "project_id"
   end
 
   add_index "item_outcomes", ["item_id"], name: "index_item_outcomes_on_item_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
-    t.string   "name",             limit: 255
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "calendar",         limit: 255
-    t.string   "timezone",         limit: 255
-    t.boolean  "has_code_reviews",             default: true
+    t.string   "calendar"
+    t.string   "timezone"
+    t.boolean  "has_code_reviews", default: true
   end
 
   create_table "options", force: :cascade do |t|
@@ -250,9 +251,9 @@ ActiveRecord::Schema.define(version: 20160425175307) do
     t.text     "lecture_tips"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "recordings_folder", limit: 255
-    t.string   "recordings_bucket", limit: 255
-    t.string   "tag",               limit: 255
+    t.string   "recordings_folder"
+    t.string   "recordings_bucket"
+    t.string   "tag"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -366,13 +367,13 @@ ActiveRecord::Schema.define(version: 20160425175307) do
     t.boolean  "remote",                 default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "code_review_percent",                default: 80
-    t.boolean  "admin",                              default: false, null: false
-    t.string   "company_name",           limit: 255
-    t.string   "company_url",            limit: 255
+    t.integer  "code_review_percent",    default: 80
+    t.boolean  "admin",                  default: false, null: false
+    t.string   "company_name"
+    t.string   "company_url"
     t.text     "bio"
-    t.string   "quirky_fact",            limit: 255
-    t.string   "specialties",            limit: 255
+    t.string   "quirky_fact"
+    t.string   "specialties"
     t.integer  "location_id"
     t.boolean  "on_duty",                default: false
     t.integer  "mentor_id"
