@@ -7,6 +7,7 @@ class CreateOutcomeResultsFromQuizSubmission
     outcome_results = []
     if @quiz_submission.initial
       @quiz_submission.answers.each do |answer|
+        next unless answer.option.question.outcome
         if answer.option.correct
           outcome_results << OutcomeResult.new(user: user,
                                                outcome: answer.option.question.outcome,
@@ -19,11 +20,11 @@ class CreateOutcomeResultsFromQuizSubmission
                                                source: answer.option.question)
         end
       end
-      unless @quiz_submission.answers.count >= @quiz_submission.quiz.questions.count
+      if @quiz_submission.answers.count < @quiz_submission.quiz.questions.count
         answer_question_ids = @quiz_submission.answers.map { |a| a.option.question.id }
-        unanswered_questions = @quiz_submission.quiz.questions.select { |question| answer_question_ids.exclude? question.id }
+        unanswered_questions = @quiz_submission.quiz.questions.select { |question| question.outcome && answer_question_ids.exclude?(question.id) }
         unanswered_questions.each do |question|
-          outcome_results << OutcomeResult.new(user: current_user,
+          outcome_results << OutcomeResult.new(user: user,
                                                outcome: question.outcome,
                                                rating: 1,
                                                source: question)

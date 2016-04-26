@@ -27,12 +27,12 @@ h3.text-center
                   - if option.correct? || option.selected?(submission)
                     = "(#{option.selected?(submission) ? 'selected, ' : ''}#{option.correct? ? 'correct' : 'incorrect'})"
                 .list-group-item-text
-                  div= option.answer
+                  div == markdown(option.answer)
                   - if option.selected?(submission) || option.correct?
-                    .explanation = option.explanation
+                    .explanation == markdown(option.explanation)
                   - else
                     p
                       a data-toggle="collapse" href="#option_#{option.id}_explanation" aria-expanded="false" aria-controls="option_#{option.id}_explanation"
                         | toggle explanation
                     .collapse id="option_#{option.id}_explanation"
-                      .explanation = option.explanation
+                      .explanation == markdown(option.explanation)
