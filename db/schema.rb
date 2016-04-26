@@ -186,7 +186,6 @@ ActiveRecord::Schema.define(version: 20160425175307) do
     t.float    "rating"
   end
 
-<<<<<<< HEAD
   create_table "item_outcomes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -197,8 +196,6 @@ ActiveRecord::Schema.define(version: 20160425175307) do
 
   add_index "item_outcomes", ["item_id"], name: "index_item_outcomes_on_item_id", using: :btree
 
-=======
->>>>>>> master
   create_table "locations", force: :cascade do |t|
     t.string   "name",             limit: 255
     t.datetime "created_at"
