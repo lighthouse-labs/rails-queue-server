@@ -14,3 +14,10 @@ activities:
     type: 'Reading'
     content_file_path: 'data/Prep Module 1 - Welcome/01__Our Philosophy__Reading.md'
     duration: 30
+  -
+    uuid: 61d62e67-b09b-465f-ba99-539164d31c81
+    name: 'About Quizzes'
+    type: 'Reading'
+    content_file_path: 'data/Prep Module 1 - Welcome/02__About Quizzes__Reading.md'
+    duration: 15
+  

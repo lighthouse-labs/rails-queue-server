@@ -26,12 +26,17 @@ puts "Loading prep data"
 
 def generate_activities(section, activity_data)
   activities = []
-  activity_data.each do |activity_attributes|
+  
+  activity_data.each_with_index do |activity_attributes, i|
     uuid = activity_attributes['uuid']
     abort("\n\n---\nHALT! Activity UUID required") if uuid.blank?
     abort("\n\n---\nHALT! Dupe Acitivty UUID found. Check your data, as this is potentially disasterous!") if @activity_uuids.include?(uuid)
 
-    attrs = activity_attributes.merge(@default_activity_attributes)
+    attrs = @default_activity_attributes.merge(activity_attributes)
+    attrs[:start_time] = 900 + (i * 30)
+    if quiz_uuid = attrs.delete('quiz')
+      attrs['quiz'] = Quiz.find_by(uuid: quiz_uuid) 
+    end
     if activity = Activity.find_by(uuid: uuid)
       activity.update! attrs.merge(section: section)
       comma
@@ -47,7 +52,7 @@ end
 
 puts "Loading prep section data"
 
-dir = Rails.root.join('db/seeds/prep').to_s + '/*.yml'
+dir = Rails.root.join('db/seeds/prep').to_s + '/**/*.yml'
 
 Dir.glob(dir).each_with_index do |file, i|
   section_data = YAML.load_file(file)

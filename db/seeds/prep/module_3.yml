@@ -33,6 +33,13 @@ activities:
     content_file_path: 'data/Prep Module 3 - Version Control/04__Github And Tips__Reading.md'
     duration: 30
   -
+    uuid: 8bb81290-8172-43b3-9859-c71b32ea551d
+    name: 'Git and Source Control'
+    type: 'QuizActivity'
+    quiz: 2adb6811-a96f-40d7-a48e-9ed962c3032b
+    content_repository: 
+    duration: 30
+  -
     uuid: 1fe50f97-fe2a-4063-88d5-9ff7bd804316
     name: 'Push Javascripting to Github'
     type: 'Assignment'

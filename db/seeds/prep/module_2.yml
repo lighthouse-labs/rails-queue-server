@@ -27,6 +27,13 @@ activities:
     content_file_path: 'data/Prep Module 2 - Dev Environment/04__Intro to Command Line__Reading.md'
     duration: 60
   -
+    uuid: 29a74796-d6b9-4fba-9a39-51a07d25306b
+    name: 'The Command Line'
+    type: 'QuizActivity'
+    quiz: 157681e4-5022-48f8-80d6-3a36c993cd2e
+    content_repository: 
+    duration: 20
+  -
     uuid: 5c1d897f-a420-4c02-9c78-b7a40533e592
     name: 'Virtual Machines'
     type: 'Reading'
@@ -43,9 +50,16 @@ activities:
     name: 'How your dev VM works'
     type: 'Video'
     remote_content: false
-    content_repository: nil
+    content_repository: 
     media_filename: 'vagrant-dev-environment'
     duration: 30
+  -
+    uuid: b65b7382-87b0-4688-9930-8cb1460b26a1
+    name: 'Vagrant & Virtualization'
+    type: 'QuizActivity'
+    quiz: 9c986b9f-2fb5-4d4e-a387-0c17524e156e
+    content_repository: 
+    duration: 20
   -
     uuid: 108d698f-0761-4cdb-9d74-243d72d2025a
     name: 'Javascripting in Vagrant'

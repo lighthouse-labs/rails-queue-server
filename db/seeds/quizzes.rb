@@ -25,8 +25,13 @@ def generate_questions(question_data)
 
     attrs = question_attributes.merge({active: true})
     if question = Question.find_by(uuid: uuid)
-      question.update! attrs
-      comma
+      if question.answers.any?
+        puts "Skipping Question #{question.id} as it has answers"
+      else
+        question.options.destroy_all
+        question.update! attrs
+        comma
+      end
     else
       question = Question.create!(attrs)
       dot
@@ -40,7 +45,7 @@ end
 
 puts "Loading quiz data"
 
-dir = Rails.root.join('db/seeds/quizzes').to_s + '/*.yml'
+dir = Rails.root.join('db/seeds/quizzes').to_s + '/**/*.yml'
 
 Dir.glob(dir).each do |file|
   quiz_data = YAML.load_file(file)

@@ -63,7 +63,7 @@ class ActivityPresenter < BasePresenter
 
   # for now, if the activity evaluates code, dont show submission
   def allow_completion?
-    !activity.evaluates_code?
+    !activity.evaluates_code? && !activity.is_a?(QuizActivity)
   end
 
 end

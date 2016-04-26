@@ -138,7 +138,7 @@
       .instructions
         == markdown @activity.teacher_notes
 
-    - if @messages.any?
+    - if @messages.present?
       hr
       h3 = "Messages"
       .messages
