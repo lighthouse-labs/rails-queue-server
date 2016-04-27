@@ -12,7 +12,7 @@ activities:
     uuid: 42290567-ca46-4cb8-886f-095ec140b9b0
     name: 'Variables, Types and Operators'
     type: 'Assignment'
-    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/01__Variables, Types and Operators__Exercise.md'
+    # content_file_path: 'data/Prep Module 4 - Programming Fundamentals/01__Variables, Types and Operators__Exercise.md'
     duration: 90
   -
     uuid: 656af239-0e82-463e-99bb-4c1da925d46c
@@ -140,13 +140,13 @@ activities:
             }
           });
         });
-  -
-    uuid: ce97e963-4bb4-45cf-978b-1fc123d66414
-    name: 'JS Fundamentals - Quiz 1 of 2'
-    type: 'QuizActivity'
-    quiz: 
-    content_repository: 
-    duration: 30
+  # -
+  #   uuid: ce97e963-4bb4-45cf-978b-1fc123d66414
+  #   name: 'JS Fundamentals - Quiz 1 of 2'
+  #   type: 'QuizActivity'
+  #   quiz: 
+  #   content_repository: 
+  #   duration: 30
   -
     uuid: 047921f7-6f94-42f4-a7e2-af53f4ed2e21
     name: 'Looping and Repetition'
