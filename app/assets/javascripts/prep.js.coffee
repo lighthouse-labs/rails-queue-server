@@ -208,24 +208,7 @@ RULES = {
 }
 
 $ ->
-
-  # For enabling console log to have a backlog
-  # (win) -> 
-  #   ncon = win.console
-
-  #   con = win.console = 
-  #     backlog: []
-
-  #   console.log(win.console.backlog)
-
-  #   for k in ['log', 'error', 'warn']
-  #     con[k] = (fn) ->
-  #       ->
-  #         con.backlog.push([new Date(), fn, arguments])
-  #         ncon[fn].apply(ncon, arguments)
-  #     (k);
-  # (window);
-
+  
   runTestSuite = (code) => 
     mocha.ui('bdd')
     mocha.suite.suites = []
@@ -234,10 +217,8 @@ $ ->
     assert = chai.assert
 
     # Load the user code into a local variable
+    console.clear()
     eval(code)
-
-    beforeEach ->
-      # console.clearMessages()
     
     # Load the mocha tests
     test_content = $('#test_content').val()

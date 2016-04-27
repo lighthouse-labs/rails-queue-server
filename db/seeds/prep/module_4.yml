@@ -21,11 +21,89 @@ activities:
     content_file_path: 'data/Prep Module 4 - Programming Fundamentals/02__Code Reuse and Functions__Exercise.md'
     duration: 90
   -
+    uuid: d908fff2-95da-4727-b90f-2819d86b8b6d
+    name: 'Functions - Age calculator'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/02b__Functions - age calculator__Problem.md'
+    duration: 60
+    evaluates_code: true
+    activity_test_attributes: 
+      test: |
+        describe("ageCalculator", function() {
+          it("exists as a function", function() {
+            expect(ageCalculator).to.be.function;            
+          });
+          it("reports Suzie as 32 years old", function() {
+            expect(ageCalculator("Suzie", 1984, 2016)).to.be.equal('Suzie is 32 years old.')
+          });
+          it("reports Jack as 12 years old", function() {
+            expect(ageCalculator("Jack", 2004, 2016)).to.be.equal('Jack is 12 years old.')
+          });
+          it("reports Ali as 0 years old", function() {
+            expect(ageCalculator("Ali", 2016, 2016)).to.be.equal('Ali is 0 years old.')
+          });        
+        });
+  -
     uuid: b21257a6-aa67-4c32-8cc1-feb731a77f20
     name: 'Arrays'
     type: 'Assignment'
     content_file_path: 'data/Prep Module 4 - Programming Fundamentals/03__Arrays__Exercise.md'
     duration: 90
+  -
+    uuid: 002b194d-4037-41b7-a561-8ba1ec15b37a
+    name: 'Arrays - Ice cream!'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/03b__Arrays - ice cream__Problem.md'
+    duration: 60
+    evaluates_code: true
+    activity_test_attributes: 
+      initial_code: |
+        // Do not modify these first two lines
+        var iceCreamFlavours = ["chocolate", "vanilla", "cookies and cream", "rocky road", "strawberry"];
+        console.log(iceCreamFlavours);
+
+        // Your code below here...
+      test: |
+        describe("The first console.log", function() {
+          it("should be logging the original flavours", function() {
+            var log = console.backlog[0];
+            assert(Array.isArray(log), "No initial console.log found! Did you remove or modify line 3?");
+            
+            assert(log[1] === 'log', "Initial console statement is not a log, did you remove or modify line 3?");
+            assert.deepEqual(log[2], ["chocolate", "vanilla", "cookies and cream", "rocky road", "strawberry"], "Original 5 flavours not found");
+          });
+          
+        });
+
+        describe("Step 1", function() {
+          it("should be logging the original flavours along with root beer", function() {
+            log = console.backlog[1];
+            assert(Array.isArray(log), "No console.log found for step 1");
+            
+            assert(log[1] === 'log', "No console.log found for step 1");
+            assert.deepEqual(log[2], ["chocolate", "vanilla", "cookies and cream", "rocky road", "strawberry", "root beer"], "6 flavours not found");
+          });
+        });
+
+        describe("Step 2", function() {
+          it("should be logging the first flavour, ie chocolate", function() {
+            log = console.backlog[2];
+            assert(Array.isArray(log), "No console.log found for step 2");
+            
+            assert(log[1] === 'log', "No console.log found for step 2");
+            assert.deepEqual(log[2], "chocolate", "chocolate not found in log statement");
+          });
+        });
+
+        describe("Step 3", function() {
+          it("should be logging the last flavour, ie root beer", function() {
+            log = console.backlog[3];
+            assert(Array.isArray(log), "No console.log found for step 3");
+            
+            assert(log[1] === 'log', "No console.log found for step 3");
+            assert.deepEqual(log[2], "root beer", "Original 5 flavours not found");
+          });
+        });
   -
     uuid: ba6a4409-2a1b-413e-836a-11f3d05fc814
     name: 'Conditional Execution'
@@ -37,7 +115,7 @@ activities:
     name: 'Conditional Execution - whichSchool'
     type: 'Assignment'
     content_file_path: 'data/Prep Module 4 - Programming Fundamentals/04b__Conditional Execution - whichSchool__Problem.md'
-    duration: 90
+    duration: 60
     evaluates_code: true
     activity_test_attributes: 
       initial_code: |
@@ -62,6 +140,13 @@ activities:
             }
           });
         });
+  -
+    uuid: ce97e963-4bb4-45cf-978b-1fc123d66414
+    name: 'JS Fundamentals - Quiz 1 of 2'
+    type: 'QuizActivity'
+    quiz: 
+    content_repository: 
+    duration: 30
   -
     uuid: 047921f7-6f94-42f4-a7e2-af53f4ed2e21
     name: 'Looping and Repetition'
