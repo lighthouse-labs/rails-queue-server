@@ -92,7 +92,7 @@ class ActivitiesController < ApplicationController
       :gist_url,
       :media_filename,
       :code_review_percent,
-      activity_test_attributes: [:id, :test, :activity_id]
+      activity_test_attributes: [:id, :initial_code, :test, :activity_id]
     )
   end
 

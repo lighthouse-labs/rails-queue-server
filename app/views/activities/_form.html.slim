@@ -50,4 +50,5 @@ pre#notes_content style="display:none" = @activity.teacher_notes
   = f.hidden_field :section_id
   = f.simple_fields_for :activity_test, @activity_test do |test|
     = test.hidden_field :test
+    = test.hidden_field :initial_code
 

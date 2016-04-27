@@ -42,8 +42,11 @@
 
 .prep-menu {
   .list-group-item {
+    padding-left: 0px;
+    padding-right: 0px;
     border-left: none;
     border-right: none;
+    font-size: 0.9em;
   }
 
   .fa {

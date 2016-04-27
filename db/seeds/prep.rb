@@ -38,6 +38,7 @@ def generate_activities(section, activity_data)
       attrs['quiz'] = Quiz.find_by(uuid: quiz_uuid) 
     end
     if activity = Activity.find_by(uuid: uuid)
+      activity.activity_test.try :destroy
       activity.update! attrs.merge(section: section)
       comma
     else

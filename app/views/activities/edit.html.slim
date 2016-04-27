@@ -7,9 +7,14 @@ hr
   = render "form", f: f
 
   - if @activity.evaluates_code?
-    h3 Optional Test
+    h3 Automated Test Cases
     pre#test_content style="display:none" = @activity_test.test
-    #test-editor.editor  
+    #test-editor.editor
+
+    h3 Initial Code (Optional)
+    pre#initial_code_content style="display:none" = @activity_test.initial_code
+    #initial-code-editor.editor
+
 
   .actions.well
     = f.submit 'Update', class: 'btn btn-primary', style: 'margin-right: 10px;'

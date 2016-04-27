@@ -13,7 +13,7 @@ RULES = {
   "comma-dangle": "error",
   "comma-spacing": "off",
   "comma-style": "off",
-  "complexity": [2, 2],
+  "complexity": [20, 20],
   "computed-property-spacing": "off",
   "consistent-return": "off",
   "consistent-this": "off",
@@ -209,6 +209,23 @@ RULES = {
 
 $ ->
 
+  # For enabling console log to have a backlog
+  # (win) -> 
+  #   ncon = win.console
+
+  #   con = win.console = 
+  #     backlog: []
+
+  #   console.log(win.console.backlog)
+
+  #   for k in ['log', 'error', 'warn']
+  #     con[k] = (fn) ->
+  #       ->
+  #         con.backlog.push([new Date(), fn, arguments])
+  #         ncon[fn].apply(ncon, arguments)
+  #     (k);
+  # (window);
+
   runTestSuite = (code) => 
     mocha.ui('bdd')
     mocha.suite.suites = []
@@ -216,26 +233,11 @@ $ ->
     expect = chai.expect
     assert = chai.assert
 
-    # stub out window.console
-    window.realConsole = window.console
-    window.console = {
-      messages: []
-      # simpler implementation of console.log that only takes one arg instead of inifinte - KV
-      log: (msg) -> 
-        @messages.push msg
-        realConsole.log msg
-      clearMessages: ->
-        @messages = []
-      clear: ->
-        @clearMessages()
-        realConsole.clear()
-    }
-
     # Load the user code into a local variable
     eval(code)
 
     beforeEach ->
-      console.clearMessages()
+      # console.clearMessages()
     
     # Load the mocha tests
     test_content = $('#test_content').val()
@@ -301,7 +303,8 @@ $ ->
       testRunner = runTestSuite(code)
       submitTestResults(code, lintResults, testRunner)
     catch err
-      $('#mocha').text("Your code has produced an error")
+      $('#mocha').text("Your code has produced an error: ")
+      console.log err
       $('#test_holder').removeClass('hidden')
     
   if($('#prep_test_editor').length > 0)

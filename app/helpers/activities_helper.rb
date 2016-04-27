@@ -37,7 +37,11 @@ module ActivitiesHelper
   def icon_for(activity)
     case activity.type.downcase
     when "assignment"
-      'fa fa-code'
+      if activity.evaluates_code?
+        'fa fa-gears'
+      else
+        'fa fa-code'
+      end
     when "task"
       'fa fa-flash'
     when "lecture"

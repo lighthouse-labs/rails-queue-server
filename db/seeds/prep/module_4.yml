@@ -33,6 +33,36 @@ activities:
     content_file_path: 'data/Prep Module 4 - Programming Fundamentals/04__Conditional Execution__Exercise.md'
     duration: 90
   -
+    uuid: 011bc098-b4a3-42e7-812e-e6bd2581964e
+    name: 'Conditional Execution - whichSchool'
+    type: 'Assignment'
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/04b__Conditional Execution - whichSchool__Problem.md'
+    duration: 90
+    evaluates_code: true
+    activity_test_attributes: 
+      initial_code: |
+        function whichSchool(age) {
+          // Your code in here ...
+        }
+      test: |
+        describe("whichSchool", function() {
+          it("For ages 13 to 18 returns Secondary School", function() {
+            for (i = 13; i < 18; i++) {
+              expect(whichSchool(i)).to.be.equal("Secondary School");
+            }
+          });
+          it("For ages 19 to let's say 100 returns Lighthouse Labs", function() {
+            for (i = 19; i < 100; i++) {
+              expect(whichSchool(i)).to.be.equal("Lighthouse Labs");
+            }
+          });
+          it("For ages 1 to 12 returns Elementary School", function() {
+            for (i = 1; i < 12; i++) {
+              expect(whichSchool(i)).to.be.equal("Elementary School");
+            }
+          });
+        });
+  -
     uuid: 047921f7-6f94-42f4-a7e2-af53f4ed2e21
     name: 'Looping and Repetition'
     type: 'Assignment'
