@@ -11,7 +11,7 @@ class EvaluationForm
     self.outcomes = []
     self.evaluation.project.activities.each do |activity|
       activity.outcomes.each do |outcome|
-          self.code_outcomes << {text: outcome.text, mark: 0, outcome_id: outcome.id, activity_id: activity.id}
+          self.outcomes << {text: outcome.text, mark: 0, id: outcome.id, activity_id: activity.id}
       end
     end
   end

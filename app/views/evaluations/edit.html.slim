@@ -4,55 +4,27 @@
   p.text-center = @evaluation.student.cohort.code
 
 .col-md-9
-  .clearfix
-    h2.pull-left = "#{@evaluation.project.name}" + " (#{@evaluation.status})"
-    a.pull-right.btn.btn-default Mark Complete
+  = form_for @evaluation_form, url: project_evaluation_path, method: :put do |f|
+    .clearfix
+      h2.pull-left = "#{@evaluation.project.name}" + " (#{@evaluation.status})"
+    a = @evaluation.url
+    = f.submit "Accept", class: "pull-right btn btn-default"
+    = f.submit "Reject", class: "pull-right btn btn-default"
 
-  a = @evaluation.url
+    h4 Outcomes
 
-  h4 Outcomes
-
-  .panel.panel-default
-    .panel-heading
-      h3.panel-title Functionality
-    .panel-body
-      table.table.table-borderless
-        tr
-          td
-            .checkbox
-              input type="checkbox" data-toggle="checkbox" Placeholder
-          td.form-inline
-            label.radio-inline
-              input type="radio"
-              = 1
-            label.radio-inline
-              input type="radio"
-              = 2
-            label.radio-inline
-              input type="radio"
-              = 3
-            label.radio-inline
-              input type="radio"
-              = 4
-  .panel.panel-default
-    .panel-heading
-      h3.panel-title Code
-    .panel-body
-      table.table.table-borderless
-        tr
-          td
-            .checkbox
-              input type="checkbox" data-toggle="checkbox" Placeholder
-          td.form-inline
-            label.radio-inline
-              input type="radio"
-              = 1
-            label.radio-inline
-              input type="radio"
-              = 2
-            label.radio-inline
-              input type="radio"
-              = 3
-            label.radio-inline
-              input type="radio"
-              = 4
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Code
+      .panel-body
+        - @evaluation_form.outcomes.each_with_index do |outcome, index|
+          .row
+            .col-md-6
+              - (1..4).each do |i|
+                label.radio.radio-inline
+                  = radio_button_tag "outcomes[#{index}][mark]", i, false, data: {toggle: "radio"}
+                  = i
+              = hidden_field_tag "outcomes[#{index}][id]", outcome[:id]
+              = hidden_field_tag "outcomes[#{index}][activity_id]", outcome[:activity_id]
+            .col-md-6
+              p = outcome[:text]

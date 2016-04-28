@@ -23,9 +23,11 @@ class EvaluationsController < ApplicationController
   end
 
   def edit
+    @evaluation_form = EvaluationForm.new @evaluation
   end
 
   def update
+    binding.pry
   end
 
   private
