@@ -27,7 +27,7 @@ class EvaluationsController < ApplicationController
   end
 
   def update
-    binding.pry
+    MarkEvaluation.call(evaluation_form: params, evaluation: @evaluation)
   end
 
   private
