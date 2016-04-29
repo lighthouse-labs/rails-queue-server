@@ -157,8 +157,29 @@ activities:
     uuid: 38f1d2b7-514e-4e5d-b3ee-68d7e923c8c6
     name: 'Loopy Lighthouse'
     type: 'Assignment'
+    evaluates_code: true
     content_file_path: 'data/Prep Module 4 - Programming Fundamentals/06__Loopy Lighthouse__Problem.md'
     duration: 180
+    activity_test_attributes: 
+      test: |
+        describe("Checking all 100 console.log statements", function() {
+          it("Matches the expected pattern for each log", function() {
+            expect(console.backlog.length).to.be.equal(100);
+            console.backlog.forEach(function(log, i) {
+              log = log[2]; // only care about the actual contents
+              var num = i + 100;
+              if (num % 12 === 0) {
+                assert.equal(log, "LoopyLighthouse", "For " + num + " output should be LoopyLighthouse but I found " + log);
+              } else if (num % 3 === 0) {
+                assert.equal(log, "Loopy", "For number " + num + " output should be Loopy but I found " + log);
+              } else if (num % 4 === 0) {
+                assert.equal(log, "Lighthouse", "For number " + num + " output should be Lighthouse but I found " + log);
+              } else {
+                expect(log).to.be.equal(num)
+              }
+            });
+          });
+        });
   -
     uuid: 3692e1a5-c6ba-4eb8-969c-dfb9d99db3ec
     name: 'Objects and Functions'
