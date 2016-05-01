@@ -208,7 +208,9 @@ RULES = {
 }
 
 $ ->
-  
+
+  firstRun = true
+
   runTestSuite = (code) => 
     mocha.ui('bdd')
     mocha.suite.suites = []
@@ -226,7 +228,10 @@ $ ->
 
     $('#test_holder').removeClass('hidden')
 
-    $('a[href="#results"]').tab('show')
+    if firstRun
+      beforeEach () ->
+        console.direct 'Running Test: ' + this.test.ctx.currentTest.fullTitle()
+      firstRun = false
 
     # Run the test suite
     mocha.run()
@@ -245,7 +250,7 @@ $ ->
         $span = $('<span>').text(result.message)
         $div = $('<div>').text("Line: " + result.line + ", Col: " + result.column)
 
-        $li.append($span).append($div);
+        $li.append($span).append($div)
         $('#linter ul').append($li)
 
       $('#linter').removeClass('hidden')

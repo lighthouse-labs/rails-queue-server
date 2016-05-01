@@ -143,3 +143,19 @@ pre {
  -webkit-user-select: text;
  -ms-user-select: text; 
 }
+
+#console {
+  background-color: black;
+  font-family: monospace;
+  color: #55ff55;
+
+  width: 100%;
+  padding: 10px;
+  margin: 20px 0px;
+  min-height: 200px;
+
+  .output {
+    color: white;
+  }
+}
+

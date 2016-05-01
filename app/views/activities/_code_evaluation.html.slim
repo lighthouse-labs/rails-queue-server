@@ -2,36 +2,6 @@
   == javascript_include_tag('https://cdnjs.cloudflare.com/ajax/libs/mocha/2.3.4/mocha.js')
   == javascript_include_tag('https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js')
 
-  javascript: 
-    (function(win) {
-      var ncon = win.console;
-
-      var con = win.console = {
-        backlog: []
-      };
-
-      ['log'].forEach( function(k) {
-        con[k] = (function(fn) {
-          return function() {
-            // ncon.log(arguments[0]);
-            var data = arguments[0];
-            if (data instanceof Array) {
-              data = data.slice(0);
-            } else if (typeof(data) == 'object') {
-              data = jQuery.extend({}, data);
-            }
-            con.backlog.push([new Date(), fn, data]);
-            ncon[fn].apply(ncon, arguments);
-          };
-        })(k);
-        con['clear'] = (function(fn) {
-          return function() {
-              con.backlog = []
-              ncon['clear'].apply(ncon, arguments);
-          };
-        })('clear');
-      });
-    })(window);
 
 - show_results = !@last_submission || (@last_submission && !@last_submission.finalized?)
 
@@ -56,4 +26,10 @@ code#code_content.hidden = @last_submission ? @last_submission.code_evaluation_r
 
 - if show_results
   button.run-test.btn.btn-success.btn-block data-url=activity_activity_submission_path(@activity) Evaluate 
+
+h3 Console Output
+
+#console
+
+
 

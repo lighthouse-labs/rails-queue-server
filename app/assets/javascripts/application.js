@@ -58,3 +58,4 @@
 //= require quiz_submissions
 //= require questions
 //= require quizzes
+//= require console

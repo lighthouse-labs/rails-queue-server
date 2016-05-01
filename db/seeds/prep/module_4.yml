@@ -169,11 +169,40 @@ activities:
               log = log[2]; // only care about the actual contents
               var num = i + 100;
               if (num % 12 === 0) {
-                assert.equal(log, "LoopyLighthouse", "For " + num + " output should be LoopyLighthouse but I found " + log);
+                assert.equal(log, "LoopyLighthouse", "For number " + num + " output should be LoopyLighthouse but I found " + log);
               } else if (num % 3 === 0) {
                 assert.equal(log, "Loopy", "For number " + num + " output should be Loopy but I found " + log);
               } else if (num % 4 === 0) {
                 assert.equal(log, "Lighthouse", "For number " + num + " output should be Lighthouse but I found " + log);
+              } else {
+                expect(log).to.be.equal(num)
+              }
+            });
+          });
+        });
+  -
+    uuid: 58451af3-8813-4f58-8407-c9b2cf0a9411
+    name: 'Loopy Lighthouse 2 (Stretch)'
+    type: 'Assignment'
+    evaluates_code: true
+    content_file_path: 'data/Prep Module 4 - Programming Fundamentals/06b__Loopy Lighthouse2__Problem.md'
+    duration: 180
+    activity_test_attributes: 
+      test: |
+        describe("Calling: loopyLighthouse([15, 90], [2, 5], [\"Batty\", \"Beacon\"]);", function() {
+          it("Matches the expected pattern for each log", function() {
+            console.clear();
+            loopyLighthouse([15, 90], [2, 5], ["Batty", "Beacon"]);
+            assert.equal(console.backlog.length, 75, "Should have 75 log statements");
+            console.backlog.forEach(function(log, i) {
+              log = log[2]; // only care about the actual contents
+              var num = i + 15;
+              if (num % 10 === 0) {
+                assert.equal(log, "BattyBeacon", "For number " + num + " output should be BattyBeacon but I found " + log);
+              } else if (num % 2 === 0) {
+                assert.equal(log, "Batty", "For number " + num + " output should be Batty but I found " + log);
+              } else if (num % 5 === 0) {
+                assert.equal(log, "Beacon", "For number " + num + " output should be Beacon but I found " + log);
               } else {
                 expect(log).to.be.equal(num)
               }
