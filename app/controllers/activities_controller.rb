@@ -55,6 +55,10 @@ class ActivitiesController < ApplicationController
 
     @feedback = @activity.feedbacks.find_by(student: current_user)
 
+    # new feedback model
+    @activity_feedbacks = @activity.activity_feedbacks
+    @activity_feedbacks = @activity_feedbacks.where(user: current_user) unless teacher?
+
     if teacher?
       @messages = @activity.messages
     elsif cohort # no messages if student or just User and no cohort is assigned
