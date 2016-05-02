@@ -37,7 +37,7 @@ class ExternalResource
 
   def self.fetch_frontmatter(file_path)
     if raw_content = self.fetch(file_path)
-      if matches = raw_content.lstrip.match(/---(.*)---.*/m)
+      if matches = raw_content.lstrip.match(/^---(.*?)---.*/m)
         return YAML.load(matches[1])
       end
     end
