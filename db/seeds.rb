@@ -19,9 +19,9 @@ end
   github_repo: '2016-web-curriculum-activities'
 )
 
+require Rails.root.join('db/seeds/outcomes/sync').to_s
 require Rails.root.join('db/seeds/quizzes').to_s
 require Rails.root.join('db/seeds/prep').to_s
-require Rails.root.join('db/seeds/outcomes/sync').to_s
 
 # Fake shit
 if Rails.env.development?
