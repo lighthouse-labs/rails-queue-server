@@ -1,6 +1,6 @@
 LaserShark::Application.routes.draw do
 
-  resources :projects do
+  resources :projects, only: [:index, :show] do
     resources :activities
     resources :evaluations, only: [:index, :show, :new, :create, :edit, :update]
   end
@@ -107,6 +107,7 @@ LaserShark::Application.routes.draw do
         get :assistance
         get :feedback
       end
+      resources :projects, only: [:new, :create, :edit, :update]
     end
 
     resources :cohorts, except: [:destroy]
