@@ -107,7 +107,6 @@ LaserShark::Application.routes.draw do
         get :assistance
         get :feedback
       end
-      resources :projects, only: [:new, :create, :edit, :update]
     end
 
     resources :cohorts, except: [:destroy]
@@ -132,7 +131,8 @@ LaserShark::Application.routes.draw do
       end
     end
 
-
+    #Projects CRUD
+    resources :projects, only: [:new, :create, :edit, :update]
   end
 
   # To test 500 error notifications on production
