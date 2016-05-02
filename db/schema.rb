@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(version: 20160501174727) do
     t.string   "revisions_gistid"
     t.integer  "code_review_percent",   default: 60
     t.boolean  "allow_feedback",        default: true
+    t.integer  "section_id"
     t.integer  "quiz_id"
     t.integer  "content_repository_id"
     t.string   "content_file_path"
     t.boolean  "remote_content"
-    t.integer  "section_id"
     t.boolean  "evaluates_code"
     t.string   "uuid"
   end
@@ -143,7 +143,10 @@ ActiveRecord::Schema.define(version: 20160501174727) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "uuid"
   end
+
+  add_index "categories", ["uuid"], name: "index_categories_on_uuid", unique: true, using: :btree
 
   create_table "code_reviews", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -258,9 +261,13 @@ ActiveRecord::Schema.define(version: 20160501174727) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "skill_id"
+    t.string   "uuid"
+    t.string   "taxonomy"
+    t.string   "importance"
   end
 
   add_index "outcomes", ["skill_id"], name: "index_outcomes_on_skill_id", using: :btree
+  add_index "outcomes", ["uuid"], name: "index_outcomes_on_uuid", unique: true, using: :btree
 
   create_table "programs", force: :cascade do |t|
     t.string   "name"
@@ -343,9 +350,11 @@ ActiveRecord::Schema.define(version: 20160501174727) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "category_id"
+    t.string   "uuid"
   end
 
   add_index "skills", ["category_id"], name: "index_skills_on_category_id", using: :btree
+  add_index "skills", ["uuid"], name: "index_skills_on_uuid", unique: true, using: :btree
 
   create_table "streams", force: :cascade do |t|
     t.string   "title"
