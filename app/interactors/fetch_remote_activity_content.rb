@@ -7,6 +7,7 @@ class FetchRemoteActivityContent
     repo_name = activity.content_repository.full_name
 
     content = github_client.contents(repo_name, path: file_path, accept: 'application/vnd.github.V3.raw')
+    content = content.lstrip.sub(/^---(.*?)---/m, "") # remove frontmatter
     activity.instructions = content
     activity.save
   rescue Octokit::NotFound => e
