@@ -1,0 +1,16 @@
+.activity-feedback.media
+  .media-left
+    a href='#'
+      = image_tag avatar_for(activity_feedback.user), class: 'media-object', size: '64x64'
+  .media-body
+    strong.media-heading
+      - if activity_feedback.positive?
+        i.fa.fa-thumbs-up
+      - elsif activity_feedback.negative?
+        i.fa.fa-thumbs-down
+      - if activity_feedback.rating?
+        small = " (#{activity_feedback.rating}/5)"
+      = " #{activity_feedback.user.try :full_name}: "
+
+    .content 
+      == simple_format(activity_feedback.detail.to_s)

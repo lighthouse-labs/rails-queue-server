@@ -9,6 +9,7 @@ class Activity < ActiveRecord::Base
   has_many :messages, -> { order(created_at: :desc) }, class_name: 'ActivityMessage'
   has_many :recordings, -> { order(created_at: :desc) }
   has_many :feedbacks, as: :feedbackable
+  has_many :activity_feedbacks # new, to replace the above
 
   has_many :item_outcomes, as: :item, dependent: :destroy
   has_many :outcomes, through: :item_outcomes

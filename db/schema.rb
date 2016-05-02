@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426230851) do
+ActiveRecord::Schema.define(version: 20160501174727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,19 @@ ActiveRecord::Schema.define(version: 20160426230851) do
   add_index "activities", ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
   add_index "activities", ["start_time"], name: "index_activities_on_start_time", using: :btree
   add_index "activities", ["uuid"], name: "index_activities_on_uuid", unique: true, using: :btree
+
+  create_table "activity_feedbacks", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.integer  "user_id"
+    t.integer  "sentiment"
+    t.integer  "rating"
+    t.text     "detail"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "activity_feedbacks", ["activity_id"], name: "index_activity_feedbacks_on_activity_id", using: :btree
+  add_index "activity_feedbacks", ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
 
   create_table "activity_messages", force: :cascade do |t|
     t.integer  "user_id"
@@ -391,6 +404,8 @@ ActiveRecord::Schema.define(version: 20160426230851) do
   add_index "users", ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
 
   add_foreign_key "activities", "quizzes"
+  add_foreign_key "activity_feedbacks", "activities"
+  add_foreign_key "activity_feedbacks", "users"
   add_foreign_key "answers", "options"
   add_foreign_key "answers", "quiz_submissions"
   add_foreign_key "options", "questions"

@@ -184,3 +184,23 @@
   .modal.fade id="feedback_modal"
     .modal-dialog
       .modal-content
+
+  hr
+
+  h3 Feedback / Discussion
+
+  p 
+    | Your feedback is <em>not anonymous</em> but it <em>is confidential</em>. Only teachers and admins can view it. 
+    | Do not use this mechansism to ask for help if you are stuck.
+    | &nbsp;
+    = link_to 'Our Private Discourse Forum', 'http://web-prep-help.lighthouselabs.ca/', target: '_blank'
+    | &nbsp;
+    | is a perfect place for you to get help from us and from your peers.
+
+  = render 'activity_feedbacks/form'
+  = render 'activity_feedbacks/list'
+
+
+
+
+
