@@ -21,6 +21,7 @@ end
 
 require Rails.root.join('db/seeds/quizzes').to_s
 require Rails.root.join('db/seeds/prep').to_s
+require Rails.root.join('db/seeds/outcomes/sync').to_s
 
 # Fake shit
 if Rails.env.development?
