@@ -40,6 +40,7 @@ class ActivityPresenter < BasePresenter
   end
 
   protected
+  
   def edit_button_path
     edit_day_activity_path(activity.day, activity)
   end

@@ -9,9 +9,7 @@ class Project < Section
   before_save :set_slug
 
   def complete?(user)
-    self.activities.each do |activity|
-      return false unless user.completed_activity?(activity)
-    end
+    self.activities.all? { |activity| user.completed_activity?(acitivity) }
   end
 
   private
