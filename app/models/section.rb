@@ -11,6 +11,7 @@ class Section < ActiveRecord::Base
   end
 
   def duration_in_hours
-    activities.sum(:duration) / 60.0
+    # add 10% for buffer
+    (activities.sum(:duration) / 60.0) * 1.1
   end
 end

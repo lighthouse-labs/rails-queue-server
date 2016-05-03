@@ -3,35 +3,15 @@ slug: 'prep-mod-3-version-control'
 uuid: 650ecf38-121f-48ed-9367-0a76cc3081e2
 activities: 
   -
-    uuid: 11e0c625-0647-4781-a713-3a47a394310c
-    name: 'Version Control and Git'
-    type: 'Reading'
-    content_file_path: 'data/Prep Module 3 - Version Control/00__Version Control and Git__Outline.md'
-    duration: 15
+    content_file_path: 'data/Prep Module 3 - Version Control/00__Version Control and Git__Outline.md' 
   -
-    uuid: 4a34a00a-5c28-42dc-a85b-6876b50dd092
-    name: 'Intro to Version Control'
-    type: 'Reading'
     content_file_path: 'data/Prep Module 3 - Version Control/01__Version Control__Reading.md'
-    duration: 60
   -
-    uuid: 771bb5a8-4469-4bf9-9e65-385fa0763bfc
-    name: 'Try Git'
-    type: 'Assignment'
-    content_file_path: 'data/Prep Module 3 - Version Control/02__Try Git__Practice.md'
-    duration: 120
+    content_file_path: 'data/Prep Module 3 - Version Control/02__Try Git__Practice.md' 
   -
-    uuid: ce587487-9968-4ae7-9816-f1a5f0fe695d
-    name: 'Git It'
-    type: 'Assignment'
-    content_file_path: 'data/Prep Module 3 - Version Control/03__Git It__Practice.md'
-    duration: 120
+    content_file_path: 'data/Prep Module 3 - Version Control/03__Git It__Practice.md'  
   -
-    uuid: 0d5b75e8-31a8-4180-a0f2-8066e2b37da8
-    name: 'Github and Tips'
-    type: 'Assignment'
-    content_file_path: 'data/Prep Module 3 - Version Control/04__Github And Tips__Reading.md'
-    duration: 30
+    content_file_path: 'data/Prep Module 3 - Version Control/04__Github And Tips__Reading.md' 
   -
     uuid: 8bb81290-8172-43b3-9859-c71b32ea551d
     name: 'Git and Source Control'
@@ -40,8 +20,5 @@ activities:
     content_repository: 
     duration: 30
   -
-    uuid: 1fe50f97-fe2a-4063-88d5-9ff7bd804316
-    name: 'Push Javascripting to Github'
-    type: 'Assignment'
     content_file_path: 'data/Prep Module 3 - Version Control/05__Push Javascripting to Github__Exercise.md'
-    duration: 45
+    

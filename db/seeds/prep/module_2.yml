@@ -3,29 +3,13 @@ uuid: '9993c3b0-5248-4c50-a2c7-292b17739f1f'
 slug: 'prep-mod-2-dev-env'
 activities:
   -
-    uuid: 0b7310cf-313a-403b-aee2-3fee93fd8906
-    name: 'Tools of the Trade'
-    type: 'Reading'
-    content_file_path: 'data/Prep Module 2 - Dev Environment/00__Tools of the Trade__Module Outline.md'
-    duration: 20
+    content_file_path: 'data/Prep Module 2 - Dev Environment/00__Tools of the Trade__Module Outline.md' 
   -
-    uuid: 67e8543a-0bc0-4b64-a311-b349497c2fb0
-    name: 'Sublime Code Editor'
-    type: 'Task'
-    content_file_path: 'data/Prep Module 2 - Dev Environment/02__Sublime Code Editor__Task.md'
-    duration: 15
+    content_file_path: 'data/Prep Module 2 - Dev Environment/02__Sublime Code Editor__Task.md' 
   -
-    uuid: 2c6159b9-8865-4aa3-8335-8d50b3075c28
-    name: 'Using Sublime'
-    type: 'Assignment'
     content_file_path: 'data/Prep Module 2 - Dev Environment/03__Creating and Editing Text Files Using Sublime__Practice.md'
-    duration: 60
   -
-    uuid: 0f6208fc-2052-426b-a933-9848b25202b0
-    name: 'The Command Line'
-    type: 'Reading'
     content_file_path: 'data/Prep Module 2 - Dev Environment/04__Intro to Command Line__Reading.md'
-    duration: 60
   -
     uuid: 29a74796-d6b9-4fba-9a39-51a07d25306b
     name: 'The Command Line'
@@ -34,17 +18,9 @@ activities:
     content_repository: 
     duration: 20
   -
-    uuid: 5c1d897f-a420-4c02-9c78-b7a40533e592
-    name: 'Virtual Machines'
-    type: 'Reading'
-    content_file_path: 'data/Prep Module 2 - Dev Environment/05__Virtual Machines__Reading.md'
-    duration: 30
+    content_file_path: 'data/Prep Module 2 - Dev Environment/05__Virtual Machines__Reading.md' 
   -
-    uuid: f252cd05-4b9d-4a70-89d4-40f5dcc2d553
-    name: 'Setup Your VM'
-    type: 'Task'
-    content_file_path: 'data/Prep Module 2 - Dev Environment/06__VM Setup__Exercise.md'
-    duration: 75
+    content_file_path: 'data/Prep Module 2 - Dev Environment/06__VM Setup__Exercise.md' 
   -
     uuid: 9002199d-c1bb-4b9a-9e8f-a4660793327e
     name: 'How your dev VM works'
@@ -61,8 +37,4 @@ activities:
     content_repository: 
     duration: 20
   -
-    uuid: 108d698f-0761-4cdb-9d74-243d72d2025a
-    name: 'Javascripting in Vagrant'
-    type: 'Assignment'
     content_file_path: 'data/Prep Module 2 - Dev Environment/07__Javascripting in Vagrant__Exercise.md'
-    duration: 180

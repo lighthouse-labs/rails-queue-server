@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :assistances, foreign_key: :assistee_id
 
   has_many :activity_submissions
+  has_many :activity_feedbacks, dependent: :destroy
   has_many :submitted_activities, through: :activity_submissions, source: :activity
   has_many :outcome_results
 

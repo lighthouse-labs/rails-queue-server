@@ -28,15 +28,15 @@ def generate_activities(section, activity_data)
   activities = []
 
   activity_data.each_with_index do |activity_attributes, i|
-    uuid = activity_attributes['uuid']
-    abort("\n\n---\nHALT! Activity UUID required") if uuid.blank?
-    abort("\n\n---\nHALT! Dupe Acitivty UUID found. Check your data, as this is potentially disasterous!") if @activity_uuids.include?(uuid)
-
     attrs = @default_activity_attributes.merge(activity_attributes)
 
     # merge YAML frontmatter from external resource
     external_attrs = ExternalResource.fetch_frontmatter(attrs['content_file_path'])
     attrs = attrs.merge(external_attrs)
+
+    uuid = attrs['uuid']
+    abort("\n\n---\nHALT! Activity UUID required") if uuid.blank?
+    abort("\n\n---\nHALT! Dupe Acitivty UUID found. Check your data, as this is potentially disasterous!") if @activity_uuids.include?(uuid)
 
     attrs[:start_time] = 900 + (i * 30)
     if outcome_uuids = attrs.delete('outcomes')

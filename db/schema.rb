@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(version: 20160501174727) do
     t.string   "revisions_gistid"
     t.integer  "code_review_percent",   default: 60
     t.boolean  "allow_feedback",        default: true
-    t.integer  "section_id"
     t.integer  "quiz_id"
     t.integer  "content_repository_id"
     t.string   "content_file_path"
     t.boolean  "remote_content"
+    t.integer  "section_id"
     t.boolean  "evaluates_code"
     t.string   "uuid"
   end

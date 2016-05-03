@@ -187,20 +187,18 @@
 
   hr
 
-  h3 Feedback / Discussion
+  h3 Feedback for this #{(@activity.type || 'Activity').titleize}
 
   p 
-    | Your feedback is <em>not anonymous</em> but it <em>is confidential</em>. Only teachers and admins can view it. 
+    | Your feedback is critical for us to iterate and improve upon our curriculum. In fact, you can even give us feedback for this and other activities multiple times! It is <em>not anonymous</em> but it <em>is confidential</em> meaning only teachers and admins can view it, not other students.
+  p
+    strong NEED HELP? 
     | Do not use this mechansism to ask for help if you are stuck.
     | &nbsp;
     = link_to 'Our Private Discourse Forum', 'http://web-prep-help.lighthouselabs.ca/', target: '_blank'
     | &nbsp;
-    | is a perfect place for you to get help from us and from your peers.
+    | is a perfect place for you to get help from us and from your peers. That said, only registered bootcamp students have access to this private forum.
 
   = render 'activity_feedbacks/form'
   = render 'activity_feedbacks/list'
-
-
-
-
 

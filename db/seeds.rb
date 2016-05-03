@@ -61,7 +61,7 @@ require Rails.root.join('db/seeds/prep').to_s
 
 # Fake shit
 if Rails.env.development?
-  # require Rails.root.join('db/seeds/dev_seeds').to_s
+  require Rails.root.join('db/seeds/dev_seeds').to_s
 end
 
 puts "DONE DONE!"

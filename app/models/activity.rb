@@ -26,9 +26,7 @@ class Activity < ActiveRecord::Base
   scope :for_day, -> (day) { where(day: day.to_s) }
   scope :search, -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
 
-  # Below hook should really be after_save (create and update)
-  # However, when seeding/mass-creating activties, github API will return error
-  after_save :load_instructions_from_repo, if: :remote_content?
+  after_save :fetch_from_remote_file, if: :fetch_from_remote_file?
   after_update :add_revision_to_gist
 
   # to avoid callback on .update via instruction download 
@@ -92,17 +90,14 @@ class Activity < ActiveRecord::Base
     self.gist_url.split('/').last
   end
 
-  def load_instructions_from_repo
-    if fetch_instructions_from_remote_file?
-      self.fetching_remote_content = true
-      FetchRemoteActivityContent.call(activity: self) 
-    end
-    # assume success
-    true
+  def fetch_from_remote_file
+    self.fetching_remote_content = true
+    FetchRemoteActivityContent.call(activity: self) 
+    true # FIXME: assumes success - KV
   end
 
-  def fetch_instructions_from_remote_file?
-    !fetching_remote_content && (content_file_path_changed? || content_repository_id_changed?)
+  def fetch_from_remote_file?
+    remote_content? && !fetching_remote_content && (content_file_path_changed? || content_repository_id_changed?)
   end
 
 end
