@@ -6,22 +6,19 @@ hr
 
   = render "form", f: f
 
-  h3 Instructions
-  pre#instructions_content style="display:none" = @activity.instructions
-
-  #instructions-editor.editor
-
-  h3 Teacher Notes
-  pre#notes_content style="display:none" = @activity.teacher_notes
-  #notes-editor.editor
-
-  - if f.object.section
-    h3 Optional Test
+  - if @activity.evaluates_code?
+    h3 Automated Test Cases
     pre#test_content style="display:none" = @activity_test.test
-    #test-editor.editor  
+    #test-editor.editor
+
+    h3 Initial Code (Optional)
+    pre#initial_code_content style="display:none" = @activity_test.initial_code
+    #initial-code-editor.editor
+
 
   .actions.well
     = f.submit 'Update', class: 'btn btn-primary', style: 'margin-right: 10px;'
     = link_to '&laquo; Cancel'.html_safe, :back
 
   = render 'editor'
+

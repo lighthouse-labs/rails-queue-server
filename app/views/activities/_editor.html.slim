@@ -1,6 +1,13 @@
 - content_for :end_of_body do
   javascript:
     function initEditors() {
+
+      var jsEditorOptions = {
+        mode: "ace/mode/javascript",
+        tabSize: 2,
+        useSoftTabs: true
+      }
+
       var instructionsEditor = ace.edit("instructions-editor");
       var notesEditor = ace.edit("notes-editor");
 
@@ -13,12 +20,24 @@
 
       instructionsEditor.setValue($('#instructions_content').text())
       notesEditor.setValue($('#notes_content').text())
-      
+
+      if ($('#activity-instructions').is(':disabled')) { 
+        instructionsEditor.setReadOnly(true);
+      }
+
+      // evaluates code
       if($('#test-editor').length > 0) {
         var testEditor = ace.edit("test-editor");
         testEditor.setTheme("ace/theme/monokai");
-        testEditor.getSession().setMode("ace/mode/javascript");
+        testEditor.session.setOptions(jsEditorOptions);
         testEditor.setValue($('#test_content').text())
+      }
+
+      if($('#initial-code-editor').length > 0) {
+        var initialCodeEditor = ace.edit("initial-code-editor");
+        initialCodeEditor.setTheme("ace/theme/monokai");
+        initialCodeEditor.session.setOptions(jsEditorOptions);
+        initialCodeEditor.setValue($('#initial_code_content').text())
       }
 
       $('#activity-form').submit(function(evt) {
@@ -29,6 +48,9 @@
         
         if($('#test-editor').length > 0) {
           $('#activity_activity_test_attributes_test').val(testEditor.getValue());
+        }
+        if($('#initial-code-editor').length > 0) {
+          $('#activity_activity_test_attributes_initial_code').val(initialCodeEditor.getValue());
         }
         
         this.submit();

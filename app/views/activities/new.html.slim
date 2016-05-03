@@ -5,14 +5,8 @@ hr
   html: { id: 'activity-form', class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
 
   = render "form", f: f
-  
-  h3 Instructions
-  #instructions-editor.editor = @activity.instructions
 
-  h3 Teacher Notes
-  #notes-editor.editor = @activity.teacher_notes
-
-  - if f.object.section
+  - if @activity.evaluates_code?
     h3 Optional Test
     pre#test_content style="display:none" = @activity_test.test
     #test-editor.editor  

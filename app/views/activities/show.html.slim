@@ -1,4 +1,5 @@
 - present @activity, get_activity_presenter_class(@activity.section) do |activity_presenter|
+
   = activity_presenter.render_sidenav
 
   section.activity-details
@@ -17,7 +18,7 @@
                 i.fa.fa-clock-o
                 | &nbsp;Time
               .form-control
-                - if weekend? || setup? || (@activity.display_duration?)
+                - if weekend? || @activity.display_duration?
                   = duration(@activity)
                 - else
                   = integer_time_to_s(@activity.start_time)
@@ -90,6 +91,16 @@
       .instructions
         == markdown @activity.instructions
 
+    - if @activity.is_a?(QuizActivity)
+      - if submission = @activity.quiz.latest_submission_by(current_user)
+        = render 'quiz_submissions/submission_details', submission: submission
+
+      = link_to 'Take Quiz', new_quiz_quiz_submission_path(@activity.quiz, activity_id: @activity.id), class: 'btn btn-primary'
+
+      - if teacher?
+        | &nbsp;
+        = link_to 'Quiz Details', @activity.quiz, class: 'btn btn-primary'
+
     - if @activity.recordings.length > 0
       .recordings
         h3
@@ -135,7 +146,7 @@
       .instructions
         == markdown @activity.teacher_notes
 
-    - if @messages.any?
+    - if @messages.present?
       hr
       h3 = "Messages"
       .messages
@@ -164,14 +175,37 @@
                 = link_to activity_message_path(@activity, msg), method: :delete, confirm: 'Sure ,lad?', class: 'delete'
                   i.fa.fa-times
 
-    - if @activity.prep? && teacher?
-      h4 Test Content
+    - if @activity.evaluates_code? && teacher?
+      hr
+      h3
+        i.fa.fa-gears
+        | &nbsp; Test Content
+      - if @activity.activity_test.try(:test).blank?
+        p There aren't any Mocha tests associated with this activity
+      - else
+        p The following code is run in the student's browser. They are not shown this code as part of the activity, mind you.
+        pre.language-js
+          code = @activity.activity_test.test
 
-      pre
-        = @activity.activity_test.try(:test).blank? ? "There aren't any Mocha tests associated with this activity" : @activity.activity_test.test
-
-    = render "prep_section", activity: @activity if @activity.prep? && !teacher?
+    = render "code_evaluation", activity: @activity if !teacher? && @activity.evaluates_code?
 
   .modal.fade id="feedback_modal"
     .modal-dialog
       .modal-content
+
+  hr
+
+  h3 Feedback for this #{(@activity.type || 'Activity').titleize}
+
+  p
+    | Your feedback is critical for us to iterate and improve upon our curriculum. In fact, you can even give us feedback for this and other activities multiple times! It is <em>not anonymous</em> but it <em>is confidential</em> meaning only teachers and admins can view it, not other students.
+  p
+    strong NEED HELP?
+    | Do not use this mechansism to ask for help if you are stuck.
+    | &nbsp;
+    = link_to 'Our Private Discourse Forum', 'http://web-prep-help.lighthouselabs.ca/', target: '_blank'
+    | &nbsp;
+    | is a perfect place for you to get help from us and from your peers. That said, only registered bootcamp students have access to this private forum.
+
+  = render 'activity_feedbacks/form'
+  = render 'activity_feedbacks/list'

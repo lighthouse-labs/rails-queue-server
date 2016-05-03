@@ -5,6 +5,17 @@ LaserShark::Application.routes.draw do
     resources :evaluations, only: [:index, :show, :new, :create, :edit, :update]
   end
 
+  resources :questions
+
+  resources :quiz_submissions, only: [:show]
+
+  resources :quizzes, only: [:index, :show, :new, :create, :destroy] do
+    resources :quiz_submissions, only: [:new, :create]
+    get 'add_question', to: 'quizzes#add_question', as: 'add_question'
+    post 'link_question', to: 'quizzes#link_question', as: 'link_question'
+    delete 'remove_question/:question_id', to: 'quizzes#remove_question', as: 'remove_question'
+  end
+
   match "/websocket", :to => ActionCable.server, via: [:get, :post]
 
   get '/i/:code', to: 'invitations#show' # student/teacher invitation handler
@@ -13,7 +24,9 @@ LaserShark::Application.routes.draw do
     resources :activities
   end
 
-  get 'setup' => 'setup#show' # temporary
+  # get 'setup' => 'setup#show' # temporary
+
+  post 'github-hook' => 'github_webhook_events#create'
 
   root to: 'home#show'
   get '/welcome', to: 'welcome#show'
@@ -71,6 +84,7 @@ LaserShark::Application.routes.draw do
     resource :activity_submission, only: [:create, :destroy]
     resources :messages, controller: 'activity_messages'
     resources :recordings, only: [:new, :create]
+    resources :activity_feedbacks, only: [:create]
   end
 
   resources :cohorts, only: [] do

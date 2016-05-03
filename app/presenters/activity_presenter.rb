@@ -1,7 +1,15 @@
 class ActivityPresenter < BasePresenter
   presents :activity
 
-  delegate :name, to: :activity
+  def name
+    result = ""
+    if activity.section
+      result += "<small>#{activity.section.name}</small><br>"
+    end
+    result += content_tag(:i, nil, class: icon_for(activity))
+    result += " #{activity.name}"
+    result.html_safe
+  end
 
   def render_sidenav
     unless current_user.prepping? || current_user.prospect? || activity.prep?
@@ -28,7 +36,7 @@ class ActivityPresenter < BasePresenter
   end
 
   def submission_form
-    render "activity_submission_form"
+    render "activity_submission_form" if allow_completion?
   end
 
   def edit_button
@@ -40,8 +48,16 @@ class ActivityPresenter < BasePresenter
   end
 
   protected
-  
+
   def edit_button_path
     edit_day_activity_path(activity.day, activity)
   end
+
+  private
+
+  # for now, if the activity evaluates code, dont show submission
+  def allow_completion?
+    !activity.evaluates_code? && !activity.is_a?(QuizActivity)
+  end
+
 end

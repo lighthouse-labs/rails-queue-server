@@ -13,7 +13,7 @@ RULES = {
   "comma-dangle": "error",
   "comma-spacing": "off",
   "comma-style": "off",
-  "complexity": [2, 2],
+  "complexity": [20, 20],
   "computed-property-spacing": "off",
   "consistent-return": "off",
   "consistent-this": "off",
@@ -59,7 +59,7 @@ RULES = {
   "no-class-assign": "error",
   "no-cond-assign": "error",
   "no-confusing-arrow": "off",
-  "no-console": "error",
+  "no-console": "off",
   "no-const-assign": "error",
   "no-constant-condition": "error",
   "no-continue": "off",
@@ -209,6 +209,8 @@ RULES = {
 
 $ ->
 
+  firstRun = true
+
   runTestSuite = (code) => 
     mocha.ui('bdd')
     mocha.suite.suites = []
@@ -217,7 +219,8 @@ $ ->
     assert = chai.assert
 
     # Load the user code into a local variable
-    eval("var userFunc = " + code)
+    console.clear()
+    eval(code)
     
     # Load the mocha tests
     test_content = $('#test_content').val()
@@ -225,13 +228,19 @@ $ ->
 
     $('#test_holder').removeClass('hidden')
 
-    $('a[href="#results"]').tab('show')
+    if firstRun
+      beforeEach () ->
+        console.direct 'Running Test: ' + this.test.ctx.currentTest.fullTitle()
+      firstRun = false
 
     # Run the test suite
     mocha.run()
 
   runLinter = (code) =>
-    results = eslint.verify(code, { rules: RULES })
+    results = eslint.verify(code, { 
+      rules: RULES,
+      env: {browser: true}
+    })
     
     if results.length > 0
       $('#linter ul').html('')
@@ -241,7 +250,7 @@ $ ->
         $span = $('<span>').text(result.message)
         $div = $('<div>').text("Line: " + result.line + ", Col: " + result.column)
 
-        $li.append($span).append($div);
+        $li.append($span).append($div)
         $('#linter ul').append($li)
 
       $('#linter').removeClass('hidden')
@@ -260,17 +269,17 @@ $ ->
         code: code
       }
       
-      $('#activity_submission_data').val(JSON.stringify(results))
-      
-      $form = $('#new_activity_submission')
       $.ajax(
-        url: $form.attr('action')
+        url: $('button.run-test').attr('data-url')
         type: 'POST'
-        data: $form.serialize()
+        data:
+          activity_submission:
+            code_evaluation_results: JSON.stringify(results)
         dataType: 'json'
         success: (response) =>
           # Reload the page because it's easier than changing a bunch of stuff
           if response.finalized
+            alert('Success! It looks like it works. Congrats!')
             window.location.reload()
       )
 
@@ -280,7 +289,8 @@ $ ->
       testRunner = runTestSuite(code)
       submitTestResults(code, lintResults, testRunner)
     catch err
-      $('#mocha').text("Your code has produced an error")
+      $('#mocha').text("Your code has produced an error: ")
+      console.log err
       $('#test_holder').removeClass('hidden')
     
   if($('#prep_test_editor').length > 0)

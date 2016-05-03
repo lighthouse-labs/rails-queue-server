@@ -45,10 +45,8 @@ class ActivitiesController < ApplicationController
   end
 
   def show
-    @setup = day.to_s == 'setup'
-
-    # => For prep always create a new submission
-    if @activity.section
+    # => If it evaluates code, we take multiple submissions (always a new submission)
+    if @activity.evaluates_code?
       @activity_submission = ActivitySubmission.new
       @last_submission = current_user.activity_submissions.where(activity: @activity).last
     else
@@ -57,9 +55,13 @@ class ActivitiesController < ApplicationController
 
     @feedback = @activity.feedbacks.find_by(student: current_user)
 
+    # new feedback model
+    @activity_feedbacks = @activity.activity_feedbacks
+    @activity_feedbacks = @activity_feedbacks.where(user: current_user) unless teacher?
+
     if teacher?
       @messages = @activity.messages
-    else
+    elsif cohort # no messages if student or just User and no cohort is assigned
       @messages = @activity.messages.for_cohort(cohort).where(for_students: true)
     end
   end
@@ -94,7 +96,7 @@ class ActivitiesController < ApplicationController
       :gist_url,
       :media_filename,
       :code_review_percent,
-      activity_test_attributes: [:id, :test, :activity_id]
+      activity_test_attributes: [:id, :initial_code, :test, :activity_id]
     )
   end
 
@@ -104,7 +106,7 @@ class ActivitiesController < ApplicationController
 
   def require_activity
     @activity = Activity.find(params[:id])
-    @activity = @activity.becomes(Activity)
+    # @activity = @activity.becomes(Activity)
   end
 
   def check_if_day_unlocked
@@ -148,8 +150,10 @@ class ActivitiesController < ApplicationController
   def load_edit_url
     @form_url = if params[:day_number]
       day_activity_path(params[:day_number], @activity)
-    else
-      [@section, @activity]
+    elsif @section && @section.is_a?(Prep)
+      prep_activity_path(@section, @activity)
+    #elsif @section && @section.is_a?(Project)
+      # project_activity_path <= Not yet supported - KV
     end
   end
 

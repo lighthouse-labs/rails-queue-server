@@ -5,9 +5,12 @@ class OutcomeResult < ActiveRecord::Base
 
   before_validation :populate_source
 
+  validates :user, presence: true
+  validates :outcome, presence: true
+
   protected
 
   def populate_source
-    self.source_name ||= self.resultable_type
+    self.source_name ||= self.source_type
   end
 end

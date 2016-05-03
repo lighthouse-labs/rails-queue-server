@@ -15,20 +15,14 @@
 //= require jquery-ui/autocomplete
 //= require bootstrap-sprockets
 //= require flat-ui-pro
+//= require chosen.jquery.min
 //= require default
 //= require ace-rails-ap
 //= require ace/theme-monokai
 //= require ace/mode-markdown
-<<<<<<< HEAD
 //= require ace/mode-javascript
-//= require jslint
+//= require prism
 //= require eslint
-=======
-//= require default
-//= require ace-rails-ap
-//= require ace/theme-monokai
-//= require ace/mode-markdown
->>>>>>> master
 
 //= require default
 
@@ -58,8 +52,11 @@
 //= require incomplete_activities
 //= require activities
 //= require reconnect_holder
-
 //= require prep
 //= require profile
 //= require code_reviews
 //= require evaluations
+//= require quiz_submissions
+//= require questions
+//= require quizzes
+//= require console

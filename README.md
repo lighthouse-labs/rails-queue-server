@@ -1,4 +1,4 @@
-LaserShark
+Compass - by Lighthouse Labs
 =========
 
 [![wercker status](https://app.wercker.com/status/6070c1bb6d7619eb6e874b177dc3f995/m/ "wercker status")](https://app.wercker.com/project/bykey/6070c1bb6d7619eb6e874b177dc3f995) [![Code Climate](https://codeclimate.com/github/lighthouse-labs/laser_shark.png)](https://codeclimate.com/github/lighthouse-labs/laser_shark) [![Code Climate](https://codeclimate.com/github/lighthouse-labs/laser_shark/coverage.png)](https://codeclimate.com/github/lighthouse-labs/laser_shark/code?sort=covered_percent&sort_direction=desc) [![Dependency Status](https://gemnasium.com/lighthouse-labs/laser_shark.svg)](https://gemnasium.com/lighthouse-labs/laser_shark)
@@ -7,11 +7,11 @@ LaserShark
 ## Ruby / Rails
 
 This project is built with :
-* ruby 2.1.1 (mentioned in the Gemfile)
-* rails 4.1.0 (rc2 for now)
+* ruby 2.1.7 (mentioned in the Gemfile)
+* rails 4.2.4
 * slim instead of erb/haml
 * postgres 9.x
-* bourbon instead of bootstrap/foundation
+* bootstrap 3.something with FlatUI
 * phantomjs (use `brew` to install) for integration test driver
   * Please make sure your phantomjs brew package is up2date: `brew update && brew upgrade phantomjs`
 * poltergeist for phantomjs driver
@@ -24,15 +24,27 @@ Follow these steps in order please:
 2. `bundle install`
 3. Setup your `config/database.yml` based off `config/database.example.yml` (`cp` it)
   * _If you are using vagrant_ (which already has postgres on it): please remove `host: localhost` from both the `development` and `test` db settings. Also, please add `username: ` and `password: ` as empty keys under both sections.
-4. `bin/rake db:setup`
+6. Setup a `.env` file based on `.env.example` in the project root: `cp .env.example .env`
 5. Setup new DNS Alias for `localhost`:
   * From your terminal, type in `sudo nano /etc/hosts` (Mac/Linux Only)
   * Note: if you are using a VM (Vagrant, etc), this should be done on your host (main) machine, not your virtual machine
   * Add the following entry as a new line at the end of the `/etc/hosts` file: `127.0.0.1 compass.dev`.
   * Now you can go to the URL `http://compass.dev:3000/` instead of `http://localhost:3000/` for when you are working on this app.
-6. Setup a `.env` file based on `.env.example` in the project root: `cp .env.example .env`
-7. Create a Github App (see steps below)
-8. Start the server, using the `bundle exec guard` or the `bin/rails server` command
+6. Create a [Developer level Oauth Application on Github](https://github.com/settings/developers)
+  * http://d.pr/i/182yT/1rXSKzEe
+  * Set the two client keys as GITHUB_KEY and GITHUB_SECRET in the env file
+  * More details below, if you need them.
+7. Generate a [GitHub personal access token](https://github.com/settings/tokens/new) for compass on localhost
+  * Screenshot of mine: http://d.pr/i/1hjsW/3kWb5gGZ
+  * It's needed b/c the curriculum repo with all the content is private and compass needs to use the GH API to access it when seeding/creating activities
+  * Set the key as the `GITHUB_ADMIN_OAUTH_TOKEN` in your env file
+8. `bin/rake db:setup`
+9. Start the server, using the `bundle exec guard` or the `bin/rails s` command
+10. Create an admin+teacher account for yourself. First sign up as a teacher using this URL:
+  * <http://compass.dev:3000/i/ggg> (teacher invite code URL)
+  * Once you've authenticated successfully, `rails c` in and update the user to `admin=true` status
+  * Save without validation (`user.save(validate: false)`) - FIXME: so this is not necessary
+11. It is recommended that you create/use another, fake github account to represent a student that can be logged in at the same time (in private browsing mode)
 
 ## Github App Setup
 
@@ -45,23 +57,15 @@ User (student/teacher) Authentication can only happen through Github. Much like 
 
 ## Server
 
-Use [guard](https://github.com/guard/guard) to start the server and run the tests: `bundle exec guard`
+Optional: Use [guard](https://github.com/guard/guard) to start the server and run the tests: `bundle exec guard`
 
-Alternatively, you could start the server using: `bin/rails s` and run the tests using `bin/rake spec`
-
-## Project Management
-
-At the moment, this project is managed via a [Public Trello Board](https://trello.com/b/5jhOVghs/laser-sharks)
+Or you could just start the server using the typical `bin/rails s`.
 
 
-## Notes
+## CSS UI Framwork
 
 <https://github.com/wingrunr21/flat-ui-sass> was used to convert FlatUI Pro from LESS to SASS (located in `vendor/assets` )
 
-
-## Activities Seed
-
-Ask the teachers for the `activites_seed.rb` which has some activities that can be populated by the `bin/rake db:seed` command. They will send you a gist with the rb file in it.
 
 ## Custom markdown
 
@@ -84,6 +88,16 @@ Some selectable text here
 
 ```
 ???ruby
+Some ruby code herecode
+Some ruby code herecode
+Some ruby code herecode
+???
+```
+
+or 
+
+```
+???ruby-selectable
 Some ruby code herecode
 Some ruby code herecode
 Some ruby code herecode

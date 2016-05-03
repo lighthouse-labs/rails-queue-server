@@ -1,12 +1,12 @@
 class ActivitySubmissionsController < ApplicationController
 
-  include CourseCalendar # concern
+  # include CourseCalendar # concern
 
   before_filter :retrieve_activity
 
   def create
     activity_params = activity_submission_params.dup
-    activity_params["data"] = JSON.parse(activity_params["data"]) unless activity_params["data"].blank?
+    activity_params["code_evaluation_results"] = JSON.parse(activity_params["code_evaluation_results"]) unless activity_params["code_evaluation_results"].blank?
     @activity_submission = @activity.activity_submissions.new(activity_params)
     @activity_submission.user = current_user
 
@@ -34,7 +34,7 @@ class ActivitySubmissionsController < ApplicationController
   end
 
   def activity_submission_params
-    params.require(:activity_submission).permit(:github_url, :data)
+    params.require(:activity_submission).permit(:github_url, :code_evaluation_results)
   end
 
 end

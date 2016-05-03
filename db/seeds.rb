@@ -1,94 +1,67 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-# Environment variables (ENV['...']) can be set in the file .env file.
+puts "SEEDING"
 
-if Rails.env.development?
-  # => Create activities and content for cohort
-  1.upto(8).each do |week|
-    1.upto(5).each do |day|
+def dot
+  print '.'; STDOUT.flush
+end
+def comma
+  print ','; STDOUT.flush
+end
 
-      day = "w#{week}d#{day}"
+# Note: assumed that you (your github profile) will have access to this curriculum content repo
+#       and have set your GITHUB_ADMIN_OAUTH_TOKEN in the .env file
+$github_username = "lighthouse-labs"
+$github_repo = "2016-web-curriculum-activities"
+$github_ref = "master"
 
-      DayInfo.create!(day: day)
+class ExternalResource
+  @@client = nil
 
-      [900, 1100, 1500, 1900, 2200].each do |time|
-        params = {
-          name: Faker::Commerce.product_name,
-          day: day,
-          start_time: time,
-          duration: rand(60..180),
-          instructions: Faker::Lorem.paragraphs.join("<br/><br/>")
-        }
+  def self.init
+    return @@client if @@client
+    @@client = Octokit::Client.new(access_token: ENV['GITHUB_ADMIN_OAUTH_TOKEN'])
+    @@client.login
+    @@client
+  end
 
-        if time == 900
-          Lecture.create!(params)
-        else
-          Assignment.create!(params)
-        end
-
+  def self.fetch(file_path)
+    if file_path
+      self.init
+      begin
+        return @@client.contents($github_username+"/"+$github_repo, path: file_path, accept: 'application/vnd.github.V3.raw', ref: $github_ref)
+      rescue Octokit::NotFound => e
+        puts "NOT FOUND:\n#{file_path}"
       end
     end
+    return nil
   end
 
-  Cohort.destroy_all
-
-  program = Program.create(name: "Web Immersive")
-  location_van = Location.create(name: "Vancouver")
-  location_to = Location.create(name: "Toronto")
-  cohort_van = Cohort.create! name: "Current Cohort Van", code: "current van", location: location_van, start_date: Date.today - 7.days, program: program, code: "van"
-  cohort_tor = Cohort.create! name: "Current Cohort Tor", code: "current tor", location: location_to, start_date: Date.today - 14.days, program: program, code: "toto"
-
-  10.times do |i|
-    Student.create!(
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      email: Faker::Internet.email,
-      cohort: cohort_van,
-      phone_number: '123-123-1234',
-      github_username: 'useruser',
-      location: location_van,
-      uid: 1000 + i,
-      token: 2000 + i,
-      completed_registration: true
-    )
+  def self.fetch_frontmatter(file_path)
+    if raw_content = self.fetch(file_path)
+      if matches = raw_content.lstrip.match(/^---(.*?)---.*/m)
+        return YAML.load(matches[1])
+      end
+    end
+    return {}
   end
-
-  10.times do |x|
-    Teacher.create!(
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      email: Faker::Internet.email,
-      uid: 1000 + x,
-      token: 2000 + x,
-      completed_registration: true,
-      company_name: Faker::Company.name,
-      bio: Faker::Lorem.sentence,
-      specialties: Faker::Lorem.sentence,
-      quirky_fact: Faker::Lorem.sentence,
-      phone_number: '123-123-1234',
-      github_username: 'useruser',
-      location: location_van,
-    )
-  end
-
-  10.times do |i|
-    Student.create!(
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      email: Faker::Internet.email,
-      cohort: cohort_tor,
-      uid: 1011 + i,
-      token: 2011 + i,
-      completed_registration: true,
-      phone_number: '123-123-1234',
-      github_username: 'useruser',
-      location: location_to,
-    )
-  end
-
 end
+
+# Real shit
+@program = Program.find_or_create_by!(name: "Web Immersive")
+@location_van = Location.find_or_create_by!(name: "Vancouver")
+@location_to = Location.find_or_create_by!(name: "Toronto")
+
+@repo = ContentRepository.find_or_create_by!(
+  github_username: $github_username,
+  github_repo: $github_repo
+)
+
+require Rails.root.join('db/seeds/outcomes/sync').to_s
+require Rails.root.join('db/seeds/quizzes').to_s
+require Rails.root.join('db/seeds/prep').to_s
+
+# Fake shit
+if Rails.env.development?
+  require Rails.root.join('db/seeds/dev_seeds').to_s
+end
+
+puts "DONE DONE!"
