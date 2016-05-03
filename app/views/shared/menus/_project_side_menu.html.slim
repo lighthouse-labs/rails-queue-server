@@ -1,11 +1,11 @@
-.panel.panel-default.project-nav
-  .panel-heading = project.name
+.panel.panel-default.project-nav.text-center
+  .panel-heading = link_to project.name, project
   ul.list-group
     - project.activities.chronological.each do |activity|
       li class = "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}"
-        = link_to activity.name, [project, activity]
+        = link_to activity.name, day_activity_path(activity.day, activity)
         = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)
-      - if student? && project.complete?(current_user)
-        li.list-group-item.list-group-item-success Submit
+    - if student? #&& project.complete?(current_user)
+      li.list-group-item = link_to "Submit", new_project_evaluation_path(project), class: "btn btn-primary center-block"
     - if teacher?
       li.list-group-item = link_to "Create Activity", [:new, project, :activity]

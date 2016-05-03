@@ -35,21 +35,25 @@ module ActivitiesHelper
   end
 
   def icon_for(activity)
-    case activity.type.downcase
-    when "assignment"
-      'fa fa-code'
-    when "task"
-      'fa fa-flash'
-    when "lecture"
-      'fa fa-group'
-    when "homework"
-      'fa fa-moon-o'
-    when "survey"
-      'fa fa-list-alt'
-    when "video"
-      'fa fa-video-camera'
-    when "test"
-      'fa fa-gavel'
+    if activity.type
+      case activity.type.downcase
+      when "assignment"
+        'fa fa-code'
+      when "task"
+        'fa fa-flash'
+      when "lecture"
+        'fa fa-group'
+      when "homework"
+        'fa fa-moon-o'
+      when "survey"
+        'fa fa-list-alt'
+      when "video"
+        'fa fa-video-camera'
+      when "test"
+        'fa fa-gavel'
+      end
+    elsif activity.section && activity.section.is_a?(Project)
+      'fa fa-pencil-square-o'
     end
   end
 

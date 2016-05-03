@@ -2,7 +2,7 @@ class CreateOutcomeResultsFromEvaluation
   include Interactor
 
   def call
-    outcomes = context.otucomes
+    outcomes = context.outcomes
     OutcomeResult.transaction do
       outcomes.each do |outcome|
         OutcomeResult.create!(outcome_id: outcome[:id],

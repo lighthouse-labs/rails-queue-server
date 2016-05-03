@@ -33,11 +33,9 @@ ActiveRecord::Schema.define(version: 20160426211921) do
     t.string   "revisions_gistid"
     t.integer  "code_review_percent", default: 60
     t.boolean  "allow_feedback",      default: true
-    t.integer  "quiz_id"
     t.integer  "section_id"
   end
 
-  add_index "activities", ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
   add_index "activities", ["start_time"], name: "index_activities_on_start_time", using: :btree
 
   create_table "activity_messages", force: :cascade do |t|
@@ -77,16 +75,6 @@ ActiveRecord::Schema.define(version: 20160426211921) do
     t.text    "test"
     t.integer "activity_id"
   end
-
-  create_table "answers", force: :cascade do |t|
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.integer  "option_id"
-    t.integer  "quiz_submission_id"
-  end
-
-  add_index "answers", ["option_id"], name: "index_answers_on_option_id", using: :btree
-  add_index "answers", ["quiz_submission_id"], name: "index_answers_on_quiz_submission_id", using: :btree
 
   create_table "assistance_requests", force: :cascade do |t|
     t.integer  "requestor_id"
@@ -205,17 +193,6 @@ ActiveRecord::Schema.define(version: 20160426211921) do
     t.boolean  "has_code_reviews", default: true
   end
 
-  create_table "options", force: :cascade do |t|
-    t.text     "answer"
-    t.text     "explanation"
-    t.boolean  "correct"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "question_id"
-  end
-
-  add_index "options", ["question_id"], name: "index_options_on_question_id", using: :btree
-
   create_table "outcome_results", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "outcome_id"
@@ -253,44 +230,6 @@ ActiveRecord::Schema.define(version: 20160426211921) do
     t.string   "recordings_folder"
     t.string   "recordings_bucket"
     t.string   "tag"
-  end
-
-  create_table "questions", force: :cascade do |t|
-    t.text     "question"
-    t.boolean  "active"
-    t.integer  "created_by_user_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.integer  "outcome_id"
-  end
-
-  add_index "questions", ["outcome_id"], name: "index_questions_on_outcome_id", using: :btree
-
-  create_table "questions_quizzes", id: false, force: :cascade do |t|
-    t.integer "question_id"
-    t.integer "quiz_id"
-  end
-
-  add_index "questions_quizzes", ["question_id"], name: "index_questions_quizzes_on_question_id", using: :btree
-  add_index "questions_quizzes", ["quiz_id"], name: "index_questions_quizzes_on_quiz_id", using: :btree
-
-  create_table "quiz_submissions", force: :cascade do |t|
-    t.string   "uuid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "quiz_id"
-    t.integer  "user_id"
-    t.boolean  "initial"
-  end
-
-  add_index "quiz_submissions", ["quiz_id"], name: "index_quiz_submissions_on_quiz_id", using: :btree
-  add_index "quiz_submissions", ["user_id"], name: "index_quiz_submissions_on_user_id", using: :btree
-
-  create_table "quizzes", force: :cascade do |t|
-    t.string   "day"
-    t.string   "uuid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "recordings", force: :cascade do |t|
@@ -381,14 +320,8 @@ ActiveRecord::Schema.define(version: 20160426211921) do
 
   add_index "users", ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
 
-  add_foreign_key "activities", "quizzes"
-  add_foreign_key "answers", "options"
-  add_foreign_key "answers", "quiz_submissions"
-  add_foreign_key "options", "questions"
   add_foreign_key "outcome_results", "outcomes"
   add_foreign_key "outcome_results", "users"
-  add_foreign_key "questions", "outcomes"
-  add_foreign_key "quiz_submissions", "quizzes"
   add_foreign_key "user_activity_outcomes", "item_outcomes", column: "activity_outcome_id"
   add_foreign_key "user_activity_outcomes", "users"
 end

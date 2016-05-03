@@ -10,7 +10,7 @@ class Project < Section
 
   def complete?(user)
     self.activities.each do |activity|
-      return false unless user.completed_activity(activity)
+      return false unless user.completed_activity?(activity)
     end
   end
 
