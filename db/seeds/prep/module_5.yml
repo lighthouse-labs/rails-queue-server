@@ -1,0 +1,14 @@
+name: 'Module 5: The Browser'
+slug: 'prep-mod-5-browser'
+uuid: 4d84dc53-f67b-444c-8dd3-fedb2ba250d0
+activities: 
+  -
+    content_file_path: 'data/Prep Module 5 - The Browser/00__The Browser__Module Outline.md'
+  -
+    content_file_path: 'data/Prep Module 5 - The Browser/01__Use Google Chrome__Task.md'
+  -
+    content_file_path: 'data/Prep Module 5 - The Browser/02__How an HTML Page is Put Together__Reading.md'
+  -
+    content_file_path: 'data/Prep Module 5 - The Browser/03__First Web Page__Exercise.md'
+  -
+    content_file_path: 'data/Prep Module 5 - The Browser/04__Chrome DevTools__Exercise.md'
