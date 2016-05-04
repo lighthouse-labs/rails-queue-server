@@ -5,7 +5,7 @@ host = window.location.hostname;
 if window.location.port isnt ""
   host += ":#{window.location.port}"
 
-App.cable = Cable.createConsumer('ws://' + host + '/websocket');
+App.cable = Cable.createConsumer('wss://' + host + '/websocket');
 
 window.connectToTeachersSocket = ->
   App.teacherChannel = App.cable.subscriptions.create("TeacherChannel",
