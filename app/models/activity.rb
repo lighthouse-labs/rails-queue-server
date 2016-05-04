@@ -80,9 +80,10 @@ class Activity < ActiveRecord::Base
 
   def add_revision_to_gist
     if self.changes.any?
-      puts "DOING REVISION GIST!"
-      g = ActivityRevision.new(self)
-      g.commit
+      # For now don't bother with this, content already mostly in repo - KV
+      # puts "DOING REVISION GIST!"
+      # g = ActivityRevision.new(self)
+      # g.commit
     end
   end
 
