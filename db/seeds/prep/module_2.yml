@@ -1,6 +1,7 @@
 name: 'Module 2: Dev Environment'
 uuid: '9993c3b0-5248-4c50-a2c7-292b17739f1f'
 slug: 'prep-mod-2-dev-env'
+order: 20
 activities:
   -
     content_file_path: 'data/Prep Module 2 - Dev Environment/00__Tools of the Trade__Module Outline.md' 

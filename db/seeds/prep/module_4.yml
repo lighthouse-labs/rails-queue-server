@@ -1,6 +1,7 @@
 name: 'Module 4: Intro to Programming'
 slug: 'prep-mod-4-coding-101'
 uuid: 57535d38-bcec-4c93-9771-2f83db80d8b2
+order: 40
 activities: 
   -
     content_file_path: 'data/Prep Module 4 - Programming Fundamentals/00__Fundamentals of Programming__Module Outline.md' 

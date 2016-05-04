@@ -76,8 +76,6 @@ Dir.glob(dir).each_with_index do |file, i|
   abort("\n\n---\nHALT! Section UUID required") if uuid.blank?
   abort("\n\n---\nHALT! Dupe Section UUID found. Check your data, as this is potentially disasterous!") if @section_uuids.include?(uuid)
 
-  section_data.merge!(order: i+1)
-
   if section = Prep.find_by(uuid: section_data['uuid'])
     section.update! section_data
     comma # updated

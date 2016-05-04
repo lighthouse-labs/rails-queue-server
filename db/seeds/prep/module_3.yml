@@ -1,6 +1,7 @@
 name: 'Module 3: Version Control'
 slug: 'prep-mod-3-version-control'
 uuid: 650ecf38-121f-48ed-9367-0a76cc3081e2
+order: 30
 activities: 
   -
     content_file_path: 'data/Prep Module 3 - Version Control/00__Version Control and Git__Outline.md' 

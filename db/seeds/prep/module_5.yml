@@ -1,6 +1,7 @@
 name: 'Module 5: The Browser'
 slug: 'prep-mod-5-browser'
 uuid: 4d84dc53-f67b-444c-8dd3-fedb2ba250d0
+order: 50
 activities: 
   -
     content_file_path: 'data/Prep Module 5 - The Browser/00__The Browser__Module Outline.md'
