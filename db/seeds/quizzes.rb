@@ -24,6 +24,10 @@ def generate_questions(question_data)
     abort("\n\n---\nHALT! Dupe Question UUID found. Check your data, as this is potentially disasterous!") if @question_uuids.include?(uuid)
 
     attrs = question_attributes.merge({active: true})
+    if attrs['outcome']
+      attrs['outcome'] = Outcome.find_by_uuid(attrs['outcome'])
+    end
+
     if question = Question.find_by(uuid: uuid)
       if question.answers.any?
         puts "Skipping Question #{question.id} as it has answers"
