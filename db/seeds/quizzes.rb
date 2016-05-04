@@ -4,7 +4,7 @@
 
 if Rails.env.development?
   puts "Purging quiz data (development only)"
-  
+
   QuizActivity.destroy_all
   QuizSubmission.destroy_all
   # Option.delete_all
@@ -12,7 +12,7 @@ if Rails.env.development?
 end
 
 # for tracking and preventing accidental dupe uuids in the data
-#   ie copy/paste mistakes 
+#   ie copy/paste mistakes
 @question_uuids = []
 @quiz_uuids = []
 
@@ -61,7 +61,7 @@ Dir.glob(dir).each do |file|
   uuid = quiz_data['uuid']
   abort("\n\n---\nHALT! Quiz UUID required") if uuid.blank?
   abort("\n\n---\nHALT! Dupe Quiz UUID found. Check your data, as this is potentially disasterous!") if @quiz_uuids.include?(uuid)
-  
+
   if quiz = Quiz.find_by(uuid: quiz_data['uuid'])
     quiz.update! quiz_data
     comma # updated
