@@ -5,6 +5,7 @@ class ActivityFeedback < ActiveRecord::Base
 
   validates :user, presence: true
   validates :activity, presence: true
+  validate :at_least_some_feedback
 
   default_scope -> { order(created_at: :desc) }
 
@@ -18,6 +19,12 @@ class ActivityFeedback < ActiveRecord::Base
 
   def ok?
     sentiment == 0
+  end
+
+  private
+
+  def at_least_some_feedback
+    errors.add(:base, "Need at least some feedback") if self.rating.blank? && self.detail.blank?
   end
 
 end

@@ -199,6 +199,8 @@
     | &nbsp;
     | is a perfect place for you to get help from us and from your peers. That said, only registered bootcamp students have access to this private forum.
 
-  = render 'activity_feedbacks/form'
+  .well
+    = simple_form_for [@activity.becomes(Activity), ActivityFeedback.new], remote: true do |f|
+      = render 'activity_feedbacks/form', form: f
   = render 'activity_feedbacks/list'
 

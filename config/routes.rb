@@ -77,6 +77,7 @@ LaserShark::Application.routes.draw do
 
   resources :activities, only: [:index] do
     resource :activity_submission, only: [:create, :destroy]
+    resource :submission_with_feedback, only: [:create], controller: 'activity_submission_with_feedback'
     resources :messages, controller: 'activity_messages'
     resources :recordings, only: [:new, :create]
     resources :activity_feedbacks, only: [:create]
