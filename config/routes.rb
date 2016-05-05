@@ -2,7 +2,9 @@ LaserShark::Application.routes.draw do
 
   resources :projects, only: [:index, :show] do
     resources :activities
-    resources :evaluations, only: [:index, :show, :new, :create, :edit, :update]
+    resources :evaluations, only: [:index, :show, :new, :create, :edit, :update] do
+      get 'start_marking', to: 'evaluations#start_marking'
+    end
   end
 
   resources :questions
@@ -146,7 +148,7 @@ LaserShark::Application.routes.draw do
     end
 
     #Projects CRUD
-    resources :projects, only: [:new, :create, :edit, :update]
+    resources :projects, only: [:new, :create, :edit, :update, :destroy]
   end
 
   # To test 500 error notifications on production

@@ -5,7 +5,7 @@
       li class = "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}"
         = link_to activity.name, day_activity_path(activity.day, activity)
         = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)
-    - if student? #&& project.complete?(current_user)
+    - if student?
       li.list-group-item = link_to "Submit", new_project_evaluation_path(project), class: "btn btn-primary center-block"
     - if teacher?
       li.list-group-item = link_to "Create Activity", [:new, project, :activity]

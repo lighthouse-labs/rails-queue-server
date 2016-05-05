@@ -1,2 +1,14 @@
-h1 Evaluation#index
-p Find me in app/views/evaluation/index.html.slim
+h2 = "Evaluations for #{@project.name}"
+
+table.table
+  thead
+    th Student Name
+    th Status
+    th
+  tbody
+    - @evaluations.each do |evaluation|
+      td = evaluation.student.full_name
+      td = evaluation.status
+      td
+        - if teacher? && evaluation.pending?
+          = link_to "Mark Project", project_evaluation_start_marking_path(@project, evaluation)

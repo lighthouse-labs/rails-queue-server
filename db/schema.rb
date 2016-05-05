@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501174727) do
+ActiveRecord::Schema.define(version: 20160504175829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,15 +193,28 @@ ActiveRecord::Schema.define(version: 20160501174727) do
     t.datetime "updated_at"
   end
 
+  create_table "evaluation_transitions", force: :cascade do |t|
+    t.string   "to_state",                     null: false
+    t.text     "metadata",      default: "{}"
+    t.integer  "sort_key",                     null: false
+    t.integer  "evaluation_id",                null: false
+    t.boolean  "most_recent",                  null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "evaluation_transitions", ["evaluation_id", "most_recent"], name: "index_evaluation_transitions_parent_most_recent", unique: true, where: "most_recent", using: :btree
+  add_index "evaluation_transitions", ["evaluation_id", "sort_key"], name: "index_evaluation_transitions_parent_sort", unique: true, using: :btree
+
   create_table "evaluations", force: :cascade do |t|
     t.integer  "project_id"
     t.integer  "student_id"
     t.integer  "teacher_id"
-    t.boolean  "accepted"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "url"
     t.text     "notes"
+    t.string   "status",     default: "pending"
   end
 
   create_table "feedbacks", force: :cascade do |t|

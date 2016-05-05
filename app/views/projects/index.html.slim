@@ -1,14 +1,21 @@
-= link_to "New Project", new_project_path, class: "btn btn-default pull-right"
+- if admin?
+  = link_to "New Project", new_admin_project_path, class: "btn btn-success pull-right"
 table.table
   thead
     th Name
     th # of Activities
+    - if teacher? || admin?
+      th # of Evaluations
     th
   tbody
     - @projects.each do |project|
       tr
         td = link_to project.name, project
         td = project.activities.length
-        td
-          = link_to "Edit", edit_project_path(project), class: "btn btn-default"
-          = button_to "Delete", project, method: "delete", data: { confirm: "Are you sure? "}, class: "btn btn-default"
+        - if teacher? || admin?
+          td
+            = project.evaluations.count
+        - if admin?
+          td
+            = link_to "Edit", edit_admin_project_path(project), class: "btn btn-warning"
+            = button_to "Delete", project, method: "delete", data: { confirm: "Are you sure? "}, class: "btn btn-danger"

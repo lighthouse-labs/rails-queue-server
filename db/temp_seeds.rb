@@ -32,7 +32,7 @@ skills2[2].outcomes << outcome6
 skills2.each {|skill| c2.skills << skill}
 c2.save!
 
-p = Project.create!(name: "Generic Ruby Project", description: "This project is as generic as can be!")
+p = Project.create!(name: "Generic Ruby Project", description: "This project is as generic as can be!", slug:"generic-ruby-project")
 p.outcomes << outcome4
 p.outcomes << outcome5
 p.outcomes << outcome6

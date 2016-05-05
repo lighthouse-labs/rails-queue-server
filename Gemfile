@@ -30,6 +30,8 @@ gem 'compass-rails'
 
 gem 'interactor-rails'
 
+gem 'statesman'
+
 gem 'actioncable', github: "rails/actioncable"
 
 gem 'email_validator'
@@ -59,8 +61,6 @@ gem 'slack-poster'
 gem 'aws-sdk-core'
 
 gem 'faker'
-
-gem 'interactor-rails', '~> 2.0'
 
 group :development do
   gem 'pry'

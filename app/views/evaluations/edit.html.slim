@@ -8,8 +8,8 @@
     .clearfix
       h2.pull-left = "#{@evaluation.project.name}" + " (#{@evaluation.status})"
     a = @evaluation.url
-    = f.submit "Accept", class: "pull-right btn btn-default"
-    = f.submit "Reject", class: "pull-right btn btn-default"
+    = f.submit "Reject", class: "pull-right btn btn-danger"
+    = f.submit "Accept", class: "pull-right btn btn-success"
 
     h4 Outcomes
 

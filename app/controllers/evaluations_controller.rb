@@ -1,8 +1,8 @@
 class EvaluationsController < ApplicationController
-  
-  before_action :find_project, only: [:new, :create]
-  before_action :find_evaluation, only: [:show, :edit, :update]
-  
+
+  before_action :find_project, only: [:index, :new, :create, :edit, :start_marking]
+  before_action :find_evaluation, only: [:show, :edit, :update, :start_marking]
+
   def index
     @evaluations = @project.evaluations
   end
@@ -37,6 +37,12 @@ class EvaluationsController < ApplicationController
     end
   end
 
+  def start_marking
+    @evaluation.teacher = current_user
+    @evaluation.state_machine.transition_to(:in_progress)
+    redirect_to edit_project_evaluation_path(@project, @evaluation)
+  end
+
   private
 
   def find_project
@@ -44,7 +50,7 @@ class EvaluationsController < ApplicationController
   end
 
   def find_evaluation
-    @evaluation = @project.evaluations.find params[:id]
+    @evaluation = @project.evaluations.find(params[:id] ? params[:id] : params[:evaluation_id])
   end
 
   def evaluation_params
