@@ -9,16 +9,11 @@ class MarkEvaluation
     # => @evaluation.score = 5
     # => @evaluation.reject
     if @evaluation_form[:commit] == "Accept"
-      @evaluation.accepted == true
+      @evaluation.transition_to :accepted
     else
-      @evaluation.accepted == false
+      @evaluation.transition_to :rejected
     end
 
-    if @evaluation.save
-      result = CreateOutcomeResultsFromEvaluation.call(outcomes: @evaluation_form.outcomes)
-      context.fail!(error: result.message) unless result.success
-    else
-      context.fail!
-    end
+    context.fail! unless @evaluation.save
   end
 end

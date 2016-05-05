@@ -1,6 +1,6 @@
 class EvaluationsController < ApplicationController
 
-  before_action :find_project, only: [:index, :show, :new, :create, :edit, :start_marking]
+  before_action :find_project, only: [:index, :show, :new, :create, :edit, :update, :start_marking]
   before_action :find_evaluation, only: [:show, :edit, :update, :start_marking]
 
   def index
@@ -29,7 +29,7 @@ class EvaluationsController < ApplicationController
   end
 
   def update
-    result = MarkEvaluation.call(evaluation_form: params, evaluation: @evaluation)
+    result = CompleteEvaluation.call(evaluation_form: params, evaluation: @evaluation)
     if result.success?
       redirect_to [@project, @evaluation], notice: "Evaluation successfully marked."
     else

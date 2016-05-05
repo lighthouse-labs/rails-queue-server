@@ -2,13 +2,14 @@ class CreateOutcomeResultsFromEvaluation
   include Interactor
 
   def call
-    outcomes = context.outcomes
+    outcomes = context.evaluation_form[:outcomes]
     OutcomeResult.transaction do
-      outcomes.each do |outcome|
+      outcomes.each do |key, outcome|
         OutcomeResult.create!(outcome_id: outcome[:id],
                              rating: outcome[:mark],
                              source_id: outcome[:activity_id],
-                             source_type: "Activity"
+                             source_type: "Activity",
+                             user: context.evaluation.student
                              )
       end
     end
