@@ -39,7 +39,7 @@ class EvaluationsController < ApplicationController
 
   def start_marking
     @evaluation.teacher = current_user
-    @evaluation.state_machine.transition_to(:in_progress)
+    @evaluation.transition_to(:in_progress)
     redirect_to edit_project_evaluation_path(@project, @evaluation)
   end
 

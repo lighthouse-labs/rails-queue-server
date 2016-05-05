@@ -10,5 +10,5 @@ table.table
       td = evaluation.student.full_name
       td = evaluation.status
       td
-        - if teacher? && evaluation.pending?
+        - if teacher? && evaluation.in_state?(:pending)
           = link_to "Mark Project", project_evaluation_start_marking_path(@project, evaluation)
