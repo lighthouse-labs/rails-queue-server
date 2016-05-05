@@ -12,6 +12,7 @@ class Activity < ActiveRecord::Base
 
   has_many :item_outcomes, as: :item, dependent: :destroy
   has_many :outcomes, through: :item_outcomes
+  has_many :outcome_results, as: :source
 
   has_one :activity_test
   accepts_nested_attributes_for :activity_test
