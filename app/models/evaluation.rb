@@ -28,8 +28,4 @@ class Evaluation < ActiveRecord::Base
 
   private_class_method :initial_state
 
-  def pending?
-    status == "pending"
-  end
-
 end

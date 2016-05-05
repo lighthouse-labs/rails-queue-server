@@ -1,6 +1,6 @@
 class EvaluationsController < ApplicationController
 
-  before_action :find_project, only: [:index, :new, :create, :edit, :start_marking]
+  before_action :find_project, only: [:index, :show, :new, :create, :edit, :start_marking]
   before_action :find_evaluation, only: [:show, :edit, :update, :start_marking]
 
   def index

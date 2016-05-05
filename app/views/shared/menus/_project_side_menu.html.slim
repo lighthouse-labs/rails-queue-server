@@ -2,7 +2,7 @@
   .panel-heading = link_to project.name, project
   ul.list-group
     - project.activities.chronological.each do |activity|
-      li class = "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}"
+      li class = (@activity ? "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}" : "list-group-item")
         = link_to activity.name, day_activity_path(activity.day, activity)
         = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)
     - if student?
