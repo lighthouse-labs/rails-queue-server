@@ -6,7 +6,7 @@
 .col-md-9
   = form_for @evaluation_form, url: project_evaluation_path, method: :put do |f|
     .clearfix
-      h2.pull-left = "#{@evaluation.project.name}" + " (#{@evaluation.status})"
+      h2.pull-left = "#{@evaluation.project.name}" + " (#{@evaluation.state})"
     a = @evaluation.url
     = f.submit "Reject", class: "pull-right btn btn-danger"
     = f.submit "Accept", class: "pull-right btn btn-success"

@@ -16,17 +16,17 @@ class EvaluationStateMachine
   end
 
   after_transition(to: :in_progress) do |evaluation, transition|
-    evaluation.status = "in_progress"
+    evaluation.state = "in_progress"
     evaluation.save
   end
 
   after_transition(to: :accepted) do |evaluation, transition|
-    evaluation.status = "accepted"
+    evaluation.state = "accepted"
     evaluation.save
   end
 
   after_transition(to: :rejected) do |evaluation, transition|
-    evaluation.status = "rejected"
+    evaluation.state = "rejected"
     evaluation.save
   end
 end

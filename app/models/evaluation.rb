@@ -20,6 +20,10 @@ class Evaluation < ActiveRecord::Base
     EvaluationTransition
   end
 
+  def status
+    state.gsub(/_/, " ").titleize
+  end
+
   private_class_method :transition_class
 
   def self.initial_state
