@@ -113,18 +113,18 @@ class User < ActiveRecord::Base
   end
 
   def non_code_reviewed_activity_submissions
-    @activities_struct = Struct.new(:id, :name)
-    @activity_submissions = self.activity_submissions.order(created_at: :desc).with_github_url.select{ |activity_submission| !activity_submission.code_reviewed?}
+    activities_struct = Struct.new(:id, :name)
+    activity_submissions = self.activity_submissions.order(created_at: :desc).with_github_url.select{ |activity_submission| !activity_submission.code_reviewed?}
     .map do |activity_submission|
-      @activities_struct.new(activity_submission.id ,activity_submission.activity.name)
+      activities_struct.new(activity_submission.activity_id ,activity_submission.activity.name)
     end
   end
 
   def code_reviewed_activitiy_submissions
-    @activities_struct = Struct.new(:id, :name)
-    @activity_submissions = self.activity_submissions.order(created_at: :desc).with_github_url.select{ |activity_submission| activity_submission.code_reviewed?}
+    activities_struct = Struct.new(:id, :name)
+    @ctivity_submissions = self.activity_submissions.order(created_at: :desc).with_github_url.select{ |activity_submission| activity_submission.code_reviewed?}
     .map do |activity_submission|
-      @activities_struct.new(activity_submission.id ,activity_submission.activity.name)
+      activities_struct.new(activity_submission.id ,activity_submission.activity.name)
     end
   end
 
@@ -143,7 +143,6 @@ class User < ActiveRecord::Base
     activity_groups << activitiy_group.new("Submitted", submitted)
     activity_groups << activitiy_group.new("Not Submitted", not_submitted)
     activity_groups << activitiy_group.new("Reviewed", reviewed)
-    activity_groups
   end
 
   class << self
