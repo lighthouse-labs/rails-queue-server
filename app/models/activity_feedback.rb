@@ -24,7 +24,7 @@ class ActivityFeedback < ActiveRecord::Base
   private
 
   def at_least_some_feedback
-    errors.add(:base, "Need at least some feedback") if self.rating.blank? && self.detail.blank?
+    errors.add(:base, "Need at least some feedback (rating and/or detail) please!") if self.rating.blank? && self.detail.blank?
   end
 
 end

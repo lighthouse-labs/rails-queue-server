@@ -150,4 +150,9 @@ main {
   }
 }
 
-
+span.anchor {
+  display: block;
+  padding-bottom: 80px; /*same height as header*/
+  margin-top: -80px; /*same height as header*/
+  visibility: hidden;
+}

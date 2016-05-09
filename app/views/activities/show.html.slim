@@ -23,7 +23,6 @@
                   = integer_time_to_s(@activity.start_time)
                   | &nbsp;to&nbsp;
                   = integer_time_to_s(@activity.end_time)
-
       - if @activity.gist_url?
         .actions
           .form-group
@@ -50,11 +49,8 @@
 
         - else
           = activity_presenter.submission_form
-
-        - if @feedback
-            | &nbsp;
-            button.btn.btn-activity-complete-status data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{@feedback.id}"
-              | Feedback
+          | &nbsp;
+          = link_to 'Give Feedback', '#feedback-form', class: 'btn btn-primary'
 
     - if teacher?
       .collapse#student-progress
@@ -169,9 +165,9 @@
 
     - if @activity.evaluates_code? && teacher?
       hr
-      h3 
+      h3
         i.fa.fa-gears
-        | &nbsp; Test Content 
+        | &nbsp; Test Content
       - if @activity.activity_test.try(:test).blank?
         p There aren't any Mocha tests associated with this activity
       - else
@@ -185,22 +181,4 @@
     .modal-dialog
       .modal-content
 
-  hr
-
-  h3 Feedback for this #{(@activity.type || 'Activity').titleize}
-
-  p 
-    | Your feedback is critical for us to iterate and improve upon our curriculum. In fact, you can even give us feedback for this and other activities multiple times! It is <em>not anonymous</em> but it <em>is confidential</em> meaning only teachers and admins can view it, not other students.
-  p
-    strong NEED HELP? 
-    | Do not use this mechansism to ask for help if you are stuck.
-    | &nbsp;
-    = link_to 'Our Private Discourse Forum', 'http://web-prep-help.lighthouselabs.ca/', target: '_blank'
-    | &nbsp;
-    | is a perfect place for you to get help from us and from your peers. That said, only registered bootcamp students have access to this private forum.
-
-  .well
-    = simple_form_for [@activity.becomes(Activity), ActivityFeedback.new], remote: true do |f|
-      = render 'activity_feedbacks/form', form: f
-  = render 'activity_feedbacks/list'
-
+  = render 'feedback'
