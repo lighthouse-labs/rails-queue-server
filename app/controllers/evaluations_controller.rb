@@ -1,6 +1,7 @@
 class EvaluationsController < ApplicationController
 
-  before_action :find_project, only: [:index, :show, :new, :create, :edit, :update, :start_marking]
+  before_action :teacher_required, except: [:new]
+  before_action :find_project
   before_action :find_evaluation, only: [:show, :edit, :update, :start_marking]
 
   def index
@@ -55,5 +56,9 @@ class EvaluationsController < ApplicationController
 
   def evaluation_params
     params.require(:evaluation).permit(:url, :notes)
+  end
+
+  def teacher_required
+    redirect_to day_path('today'), alert: 'Not allowed' unless teacher?
   end
 end
