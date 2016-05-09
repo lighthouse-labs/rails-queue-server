@@ -8,9 +8,9 @@ class Admin::ProjectsController < Admin::BaseController
   def create
     @project = Project.new(project_params)
     if @project.save
-      redirect_to action: :index, notice: "#{@project.name} created."
+      redirect_to project_path(@project), notice: "#{@project.name} created."
     else
-      render :new
+      render :new, notice: @project.errors
     end
   end
 
@@ -27,9 +27,9 @@ class Admin::ProjectsController < Admin::BaseController
 
   def destroy
     if @project.destroy
-      redirect_to action: :index, notice: "#{@project.name} deleted."
+      redirect_to projects_path, notice: "#{@project.name} deleted."
     else
-      redirect_to action: :index, notice: "#{@project.name} not deleted."
+      redirect_to projects_path, notice: "#{@project.name} not deleted."
     end
   end
 

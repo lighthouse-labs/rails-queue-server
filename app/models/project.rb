@@ -6,7 +6,7 @@ class Project < Section
 
   validates :name, :description, presence: true
 
-  before_save :set_slug
+  before_validation :set_slug
 
   def complete?(user)
     self.activities.all? { |activity| user.completed_activity?(acitivity) }
@@ -15,6 +15,6 @@ class Project < Section
   private
 
   def set_slug
-    self.slug = self.name.gsub(/\s+/, "").downcase
+    self.slug ||= name.gsub(/\s+/, "").downcase
   end
 end

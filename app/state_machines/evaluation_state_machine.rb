@@ -17,16 +17,19 @@ class EvaluationStateMachine
 
   after_transition(to: :in_progress) do |evaluation, transition|
     evaluation.state = "in_progress"
+    evaluation.started_at = DateTime.now
     evaluation.save
   end
 
   after_transition(to: :accepted) do |evaluation, transition|
     evaluation.state = "accepted"
+    evaluation.completed_at = DateTime.now
     evaluation.save
   end
 
   after_transition(to: :rejected) do |evaluation, transition|
     evaluation.state = "rejected"
+    evaluation.completed_at = DateTime.now
     evaluation.save
   end
 end
