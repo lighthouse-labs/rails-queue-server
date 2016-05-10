@@ -9,6 +9,15 @@ class FetchRemoteActivityContent
     if file_path
       content = github_client.contents(repo_name, path: file_path, accept: 'application/vnd.github.V3.raw')
       attrs = extract_attributes(content)
+      if attrs["outcomes"]
+        attrs["outcomes"] = attrs["outcomes"].map {|uuid|
+          o = Outcome.find_by_uuid(uuid)
+          if not o
+            puts "could not find outcome #{uuid}"
+          end
+          o
+        }
+      end
       activity.update(attrs)
     end
 
