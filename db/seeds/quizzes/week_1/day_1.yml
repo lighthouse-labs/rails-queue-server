@@ -42,15 +42,16 @@ questions:
         explanation: "Incorrect, forking doesn't copy the repo to your local disk"
         correct: false
   - 
-    question: What will be logged to the console?
+    question: "What will be logged to the console?
 ```javascript
-var globalScope = "I'm all up in your codes!";
+var globalScope = 'I\'m all up in your codes!';
 
 if (true) {
-	let globalScope = "Not anymore, you're not!";
+	let globalScope = 'Not anymore, you\'re not!';
 }
 console.log(globalScope);
 ```
+"
     uuid: e6275ab0-6455-48f0-9b0f-2a17a75e235b
     options_attributes:
       - 
@@ -66,7 +67,7 @@ console.log(globalScope);
         explanation: "The `let` declaration is scoped to it's containing block. This definition is not accessible outside of that block."
         correct: false
   - 
-    question: "What will be logged to the console?"
+    question: "What will be logged to the console?
     
 ```javascript
 x = 12;
@@ -76,6 +77,7 @@ if(true) {
 }
 console.log(x);
 ```
+"
     uuid: 9f08b164-fd4d-40d5-826d-e646d1d53eb0
     options_attributes: 
       - 
@@ -91,13 +93,14 @@ console.log(x);
         explanation: "Correct! `x` is set as a global variable, and is not contained inside any function or block scope. It is overwritten inside the conditional statement, and retains it's new value when the block closes."
         correct: true
   - 
-    question: What will the following code output to the console?
+    question: "What will the following code output to the console?
 
 ```javascript
 console.log(friend);
-var friend = "E.T.";
+var friend = 'E.T.';
 console.log(friend);
 ```
+"
     uuid: 80c11e2c-5675-49b0-8e8a-4989dcc4b871
     options_attributes: 
       - 
@@ -115,7 +118,7 @@ undefined
 E.T.
 ```
 "
-        explanation: "`friend` is hoisted to the top but given no value, therefore the first `console.log` will say `undefined`. Then, the value `"E.T."` is set to `friend` before the second `console.log` which will output `"E.T."`. "
+        explanation: "`friend` is hoisted to the top but given no value, therefore the first `console.log` will say `undefined`. Then, the value `\"E.T.\"` is set to `friend` before the second `console.log` which will output `\"E.T.\"`. "
         correct: true
       - 
         answer: "
@@ -126,68 +129,3 @@ E.T.
 "
         explanation: "`friend` is a variable, and `console.log(friend)` will output the variable's value not the variable's name. When a variable is declared but not assigned a value, its value will be `undefined`."
         correct: false
-  -
-    question: ""
-    uuid: f318d0be-a525-429f-b0b7-08b727edd8f2
-    options_attributes: 
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
-        correct: true
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-  -
-    question: ""
-    uuid: e27878c3-b41e-4150-8963-521126618041
-    options_attributes: 
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
-        correct: true
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-  -
-    question: ""
-    uuid: bd12558e-90aa-4420-a11e-b2cb54b264d3
-    options_attributes: 
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
-        correct: true
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-  -
-    question: ""
-    uuid: 3e957c9e-7a9e-4193-8b9c-5c2c88ebfa61
-    options_attributes: 
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
-        correct: true
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      

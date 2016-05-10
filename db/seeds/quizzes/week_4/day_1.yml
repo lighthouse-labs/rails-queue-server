@@ -151,35 +151,3 @@ What tables would be used to model this?"
         answer: "`SELECT`, `FROM`, `WHERE`, `LIMIT`, `GROUP BY`"
         explanation: ""
         correct: false
-  -
-    question: ""
-    uuid: 20fad02d-66c1-45ff-aa55-97ce70c00a43
-    options_attributes: 
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
-        correct: true
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-  -
-    question: ""
-    uuid: 6e7befb5-c414-42a2-aaad-7704577f628c
-    options_attributes: 
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
-        correct: true
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
