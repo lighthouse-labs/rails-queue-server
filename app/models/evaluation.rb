@@ -9,6 +9,10 @@ class Evaluation < ActiveRecord::Base
 
   validates_presence_of :notes, :url
 
+  validates :github_url,
+    presence: :true,
+    format: { with: URI::regexp(%w(http https)), message: "must be a valid format" }
+
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
            :in_state?, to: :state_machine
 
