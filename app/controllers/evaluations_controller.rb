@@ -5,7 +5,11 @@ class EvaluationsController < ApplicationController
   before_action :find_evaluation, only: [:show, :edit, :update, :start_marking]
 
   def index
-    @evaluations = @project.evaluations
+    if session[:cohort_id]
+      @evaluations = @project.evaluations.joins(:student).where('users.cohort_id = ?', session[:cohort_id])
+    else
+      @evaluations = @project.evaluations
+    end
   end
 
   def show
@@ -21,6 +25,7 @@ class EvaluationsController < ApplicationController
     if @evaluation.save
       redirect_to day_path "today"
     else
+      flash[:error] = @evaluation.errors
       render :new
     end
   end

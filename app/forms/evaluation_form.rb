@@ -1,7 +1,7 @@
 class EvaluationForm
   include ActiveModel::Model
 
-  attr_accessor :evaluation, :outcomes
+  attr_accessor :evaluation, :outcomes, :notes
 
   def initialize(evaluation_model)
     @evaluation = evaluation_model

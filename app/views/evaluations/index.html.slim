@@ -4,6 +4,7 @@ table.table
   thead
     th Student Name
     th Status
+    th Marker
     th
   tbody
     - @evaluations.each do |evaluation|
@@ -11,5 +12,8 @@ table.table
         td = evaluation.student.full_name
         td = evaluation.status
         td
-          - if teacher? && evaluation.in_state?(:pending)
-            = link_to "Mark Project", project_evaluation_start_marking_path(@project, evaluation)
+          - if evaluation.teacher
+            = evaluation.teacher.full_name
+        td
+          - if evaluation.in_state?(:pending)
+            = link_to "Start Marking", project_evaluation_start_marking_path(@project, evaluation)

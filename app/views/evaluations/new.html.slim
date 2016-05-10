@@ -3,8 +3,8 @@
 
 = form_for [@project, @evaluation], html: {class: "col-md-8"} do |f|
   .form-group
-    = f.label :url, "Github url:"
-    = f.text_field :url, class: "form-control"
+    = f.label :github_url, "Github url:"
+    = f.text_field :github_url, class: "form-control"
   .form-group
     = f.label :notes
     = f.text_area :notes, rows: 10, class: "form-control"

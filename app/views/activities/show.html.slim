@@ -1,5 +1,6 @@
 - present @activity, get_activity_presenter_class(@activity.section) do |activity_presenter|
-  == activity_presenter.breadcrumb
+  - if activity_presenter.is_a? ProjectActivityPresenter
+    == activity_presenter.breadcrumb
   = activity_presenter.render_sidenav
 
   section.activity-details
