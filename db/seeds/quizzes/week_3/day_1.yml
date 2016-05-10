@@ -1,0 +1,183 @@
+name: "Client-Side Web Technology"
+uuid: 977672ee-b1ed-4f0f-b72e-36773422f77e
+questions:
+  - 
+    question: "What is the HTML <div> element?"
+    uuid: f2573a53-8528-46b8-83b9-d442bb5052f3
+    options_attributes: 
+      - 
+        answer: "A _dividing line_ spanning horizontally"
+        explanation: "Incorrect, a line like that could be `<hr/>`"
+        correct: false
+      - 
+        answer: "A generic _division element_ container for flow content"
+        explanation: ""
+        correct: true
+      - 
+        answer: "A _divisor_ demonstrating composite numbers"
+        explanation: "Incorrect, that sounds more like math class"
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  - 
+    question: "Which of the following tags creates a numbered list of elements?"
+    uuid: 9f214dee-aa01-4276-a285-8814f8d1c119
+    options_attributes: 
+      - 
+        answer: "`<li>`"
+        explanation: "Incorrect, a `<li>` is a list item"
+        correct: false
+      - 
+        answer: "`<ul>`"
+        explanation: "Incorrect, a `<ul>` is an unordered list"
+        correct: false
+      - 
+        answer: "`<ol>`"
+        explanation: "Correct, `<ol>`" stands for Ordered List"
+        correct: true
+      - 
+        answer: "`<ln>`"
+        explanation: "Incorrect, that's not a real element tag"
+        correct: false
+  - 
+    question: "Explain how CSS specificity works"
+    uuid: e7cd16f1-11e9-4cbe-9c98-d89f6768a2a7
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  - 
+    question: "Given the following CSS code, which selector would take priority?"
+    uuid: c6833cbf-baaf-4213-b253-548e881672db
+    options_attributes: 
+      - 
+        answer: "`li .nav-item { ... }`"
+        explanation: "Incorrect, an HTML element and a class have lower specificities than an Id"
+        correct: false
+      - 
+        answer: "`#page-header { ... }`"
+        explanation: "Correct, an Id would have the highest priority in CSS"
+        correct: true
+      - 
+        answer: "`div p { ... }`"
+        explanation: "Incorrect, two HTML selectors have a lower specificity than classes"
+        correct: false
+  - 
+    question: "Which would take priority, an id (`#my-id`) in a CSS file or inline styling (`style="..."`)?"
+    uuid: f128840d-841b-44c7-a0af-3545cc124435
+    options_attributes: 
+      - 
+        answer: "Depends on what style it's applying"
+        explanation: "Incorrect, the style does not affect the specificity"
+        correct: false
+      - 
+        answer: "The id, `#my-id` would take priority"
+        explanation: "Incorrect, however an Id does hold a high priority, but not the highest in this case"
+        correct: false
+      - 
+        answer: "The inline style"
+        explanation: "Correct, inline styles always overwrite any styles in external stylesheets"
+        correct: true
+  - 
+    question: "Explain what CSS `!important` means, and when would you use it?"
+    uuid: 7015bf62-7547-43a8-b80c-e0c8ba889c4c
+    options_attributes: 
+      - 
+        answer: "Overrides any other declarations, using it is considered bad practice"
+        explanation: "Correct, it should be avoided because it makes debugging more difficult by breaking the natural cascading in your stylesheets"
+        correct: true
+      - 
+        answer: "It stands for **not important** and gets set to a low priority"
+        explanation: "Incorrect, the `!` is not a logical negation"
+        correct: false
+      - 
+        answer: "Trump card! Use it when something is really important"
+        explanation: "Incorrect, although it trumps other selectors, it should be avoided unless necessary"
+        correct: false
+  - 
+    question: "What colour would render given the hex code #FF0000"
+    uuid: 554a00c8-98b1-42df-94af-6fe7cbbe7490
+    options_attributes: 
+      - 
+        answer: "Red"
+        explanation: "Correct, the hex code specifies R-G-B colour channels"
+        correct: true
+      - 
+        answer: "Blue"
+        explanation: "Incorrect, there is no blue in the given colour code"
+        correct: false
+      - 
+        answer: "Green"
+        explanation: "Incorrect, there is no green in the given colour code"
+        correct: false
+      - 
+        answer: "Yellow"
+        explanation: "Incorrect, yellow is a combination of Red and Green"
+        correct: false
+  - 
+    question: "What is the CSS box model? In what order do the following surround a page element?"
+    uuid: b9c209ee-2d59-4efc-aee2-2896ee7581fa
+    options_attributes: 
+      - 
+        answer: "First **Padding**, **Border**, then **Margin**"
+        explanation: "Correct, border is between padding (innermost) and margin (outermost)"
+        correct: true
+      - 
+        answer: "First **Padding**, **Margin**, then **Border**"
+        explanation: "Incorrect, border renders inside of the margin"
+        correct: false
+      - 
+        answer: "First **Border**, **Margin**, then **Padding**"
+        explanation: "Incorrect, Padding is the innermost spacing around an element"
+        correct: false
+  - 
+    question: "What is the `action` of a web form?"
+    uuid: fd6f3675-0168-4cef-aa0b-4bfcabe584d4
+    options_attributes:
+      - 
+        answer: "It specifies whether to use `GET` or `POST` requests when submitting to the server"
+        explanation: "Incorrect, that information is the form `method`"
+        correct: false
+      - 
+        answer: "It specifies the endpoint where the form makes a submission request"
+        explanation: "Correct, the server will receive the form data at the location specified by the form `action`"
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  - 
+    question: "Would a **login** form submission typically use `GET` or `POST` requests? What are possible advantages / disadvantages?"
+    uuid: 23990b76-9f4e-43d6-b828-79016c95fa1a
+    options_attributes: 
+      - 
+        answer: "Typically `GET`"
+        explanation: "Incorrect, it would expose the password field in the URL and (probably) in the server's log files"
+        correct: false
+      - 
+        answer: "Typically `POST`"
+        explanation: "Correct, however it is only marginally more secure than `GET` without Secure HTTP (SSL)"
+        correct: true
+      - 
+        answer: "Neither, it would be better to use a `PUT` request"
+        explanation: "Incorrect, `PUT` requests would be used to modify an existing resource"
+        correct: false

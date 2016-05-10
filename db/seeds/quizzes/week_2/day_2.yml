@@ -1,0 +1,183 @@
+name: "Deep Dive into REST"
+uuid: 71d7d5cd-da8b-4ff4-9696-419d7b402697
+questions:
+  -
+    question: "Which HTTP methods correspond to _Update_ and _Delete_ operations in RESTful services?"
+    uuid: 10da8c62-6272-4bed-aa87-add491f46621
+    options_attributes: 
+      - 
+        answer: "`POST` and `DELETE`"
+        explanation: ""
+        correct: false
+      - 
+        answer: "`GET` and `POST`"
+        explanation: ""
+        correct: false
+      - 
+        answer: "`PUT` and `DELETE`"
+        explanation: ""
+        correct: true
+      - 
+        answer: "`PUT` and `HEAD`"
+        explanation: ""
+        correct: false
+  -
+    question: "What is method used by web forms to submit data from the client to the server?"
+    uuid: a37a6f4d-d7bd-4f56-9b74-35a1c0eef0f1
+    options_attributes: 
+      - 
+        answer: "`GET`"
+        explanation: "Although forms _can_ be submitted using `GET`, they typically use another method"
+        correct: false
+      - 
+        answer: "`POST`"
+        explanation: "Correct, the form data is sent to the server using a `POST` request"
+        correct: true
+      - 
+        answer: "`PATCH`"
+        explanation: "Incorrect, the `PATCH` method is used to update a resource`"
+        correct: false
+      - 
+        answer: "`DELETE`"
+        explanation: "Incorrect, the `DELETE` method is used to delete a resource`"
+        correct: false
+  -
+    question: "In a `POST` request, where are the parameters typically sent?"
+    uuid: 3ef7d39f-82c9-4599-9de0-f0be9e190326
+    options_attributes: 
+      - 
+        answer: "In the request headers only"
+        explanation: ""
+        correct: false
+      - 
+        answer: "In the request body only"
+        explanation: ""
+        correct: false
+      - 
+        answer: "Mainly in the request headers, and sometimes the body"
+        explanation: ""
+        correct: false
+      - 
+        answer: "Mainly in the request body, and sometimes the headers"
+        explanation: ""
+        correct: true
+  -
+    question: "Which of the following would **not** be a usage of HTTP cookies?"
+    uuid: 7e75b9a8-03b0-4931-b4fd-8bad573bb365
+    options_attributes: 
+      - 
+        answer: "Session management"
+        explanation: "Incorrect, an identification cookie would be assigned to the client for session management"
+        correct: false
+      - 
+        answer: "Personalization"
+        explanation: "Incorrect, an identification cookie would be assigned to the client for personalization"
+        correct: false
+      - 
+        answer: "Tracking"
+        explanation: "Incorrect, an identification cookie would be assigned to the client for tracking"
+        correct: false
+      - 
+        answer: "Redirection"
+        explanation: "Correct, a redirection does not require the usage of cookies"
+        correct: true
+  -
+    question: "How would you use cURL to make a `POST` request to `http://example.com/api/endpoint`"
+    uuid: 5af874ca-d60a-4c11-ab1d-8dd9f235424b
+    options_attributes: 
+      - 
+        answer: "`curl -X POST http://example.com/api/endpoint`"
+        explanation: "Correct, the argument `-X` specifies the request method"
+        correct: true
+      - 
+        answer: "`curl -d "method=POST" http://example.com/api/endpoint`"
+        explanation: "Incorrect, the argumnet `-d` is used to send data"
+        correct: false
+      - 
+        answer: "`curl -b POST http://example.com/api/endpoint`"
+        explanation: "Incorrect, the argument `-b` specifies a cookie"
+        correct: false
+      - 
+        answer: "`curl -LI http://example.com/api/endpoint`"
+        explanation: "Incorrect, this would follow redirections and show response headers"
+        correct: false
+  -
+    question: ""
+    uuid: 1ba3d9c7-9b13-4a07-b5c7-65d33a8ee9a1
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: 58614213-2835-4a4a-a59d-0fd510af902b
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: d916b377-b349-4677-8434-a124fb54cca0
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: c83c1731-8618-4f98-9585-5891437fbb58
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: a14e3e64-c149-40ed-b223-501cbc4369f2
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false

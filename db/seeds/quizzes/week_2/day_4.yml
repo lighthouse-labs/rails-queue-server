@@ -1,0 +1,163 @@
+name: ""
+uuid: 1c95172f-e357-4abd-902c-2201959c7bb1
+questions:
+  -
+    question: "Which HTTP method corresponds to **R** (Read) of CRUD?"
+    uuid: d763aa73-70ac-4238-acc1-b2689a298f29
+    options_attributes: 
+      - 
+        answer: "`GET`"
+        explanation: "Correct, GET is used to Read an existing resource"
+        correct: true
+      - 
+        answer: "`POST`"
+        explanation: "Incorrect, POST is used to create new resources"
+        correct: false
+      - 
+        answer: "`SEE`"
+        explanation: "Incorrect, _SEE_ is not a valid HTTP method"
+        correct: false
+  -
+    question: "What is meant by a **resource** in REST?"
+    uuid: fdf78ff4-53be-44f2-89ca-6764dd49b782
+    options_attributes: 
+      - 
+        answer: "A URI/URL where specific data can be found"
+        explanation: "Incorrect, the URL representing a resource is not **the** resource"
+        correct: false
+      - 
+        answer: "An abstraction for a document or image, or a temporal service"
+        explanation: "Correct, a resource can be any entity (or collection of entities) referred to by its resource identifier"
+        correct: true
+      - 
+        answer: "A JSON representation of user-requested data"
+        explanation: "Incorrect, JSON is the representation of a resource"
+        correct: false
+  -
+    question: ""
+    uuid: 082d395d-c5eb-4351-982a-a024155ef89d
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: b80ebb84-855a-4aa4-8faa-5899d39f0440
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: 0861dd10-1b9a-4108-ae10-b689b8213443
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: abdeae0d-295b-40dd-abd2-d7a8776ed0d9
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: 049c7a5a-1f1f-4c4c-bc33-37cb198c051a
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: 5968a7d2-9c7b-4272-93ac-657baf4b40e1
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: ca15fc83-6b50-41ad-997f-192128ec535b
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: d074ed87-25d6-4a64-8dce-62caee1e8024
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false

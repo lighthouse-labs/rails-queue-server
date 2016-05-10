@@ -1,0 +1,163 @@
+name: "Unit Testing and Design Patterns"
+uuid: 2a279303-fa2a-4360-87a1-7329fa868110
+questions:
+  -
+    question: "What is the importance of Test Driven Development?"
+    uuid: 117bf9c5-3ee4-4e4f-b0f0-bf061ca5556a
+    options_attributes: 
+      - 
+        answer: "Writing tests first to serve as a specification for the application's code"
+        explanation: ""
+        correct: true
+      - 
+        answer: "Ensuring that a codebase has good test coverage"
+        explanation: "Incorrect, although good test coverage is important, it is not the distinguishing characteristic of TDD"
+        correct: false
+      - 
+        answer: "Having a system that runs unit tests in an automated fashion"
+        explanation: "Incorrect, test automation is important, but not the key feature of TDD"
+        correct: false
+  -
+    question: "Which of the following is **not** an assertion in a unit test?"
+    uuid: ad1e8815-a9b5-4c65-b36f-fe7a89fc8478
+    options_attributes: 
+      - 
+        answer: "`assert.equal(...)`"
+        explanation: "Incorrect, `.equal()` is a common test assertion"
+        correct: false
+      - 
+        answer: "`assert.throws(...)`"
+        explanation: "Incorrect, a test could assert that code `throws` an exception"
+        correct: false
+      - 
+        answer: "`assert.swap(...)`"
+        explanation: "Correct, `.swap()` would not qualify as a test assertion"
+        correct: true
+  -
+    question: "What purpose does an _assertion library_ serve with respect to unit testing?"
+    uuid: da188648-3ee9-4bc1-864d-f54a8b9fa3ec
+    options_attributes: 
+      - 
+        answer: "It is the framework that runs all the unit tests in the suite"
+        explanation: "Incorrect, that is typically the responsibility of a test runner"
+        correct: false
+      - 
+        answer: "It produces a report of how many tests are passing or failing in the test suite"
+        explanation: "Incorrect, this would not be the primary concern for an assertion library"
+        correct: false
+      - 
+        answer: "It provides a set of tools used to evaluate expectations in a test"
+        explanation: "Correct, an assertion library provides methods like `notEqual`, or `isNotNull`"
+        correct: true
+  -
+    question: "Which type of testing would be concerned with how parts of the system work together?"
+    uuid: 23181572-4500-445b-a5bc-e7742fa691bc
+    options_attributes: 
+      - 
+        answer: "Unit Testing"
+        explanation: "Incorrect, unit testing is concerned with small pieces of code, typically individual functions, in isolation"
+        correct: false
+      - 
+        answer: "Integration Testing"
+        explanation: "Correct, integration tests deal with how components operate (or integrate) together"
+        correct: true
+      - 
+        answer: "Functional Testing"
+        explanation: "Incorrect, functional testing (sometimes called E2E testing) look at an entire system as a whole"
+        correct: false
+  -
+    question: "Which of the following is **not** involved with mocking and stubbing? (unit testing)"
+    uuid: e45380f6-4272-4246-80cb-12ab1b934768
+    options_attributes: 
+      - 
+        answer: "Replacing function with a version that produces hard-coded responses"
+        explanation: "Incorrect, like stubbing, mocking involves replacing methods with fake versions, but it also means setting expectations that those methods must be called"
+        correct: false
+      - 
+        answer: "Removing dependencies on external resources such as database access or Internet connectivity"
+        explanation: "Incorrect, isolating the method or class being tested is an important part of unit testing"
+        correct: false
+      - 
+        answer: "Creating methods that raise an exception to test error-handling capabilities"
+        explanation: "Correct, despite being a cool idea, it's not considered stubbing, nor mocking"
+        correct: true
+  -
+    question: ""
+    uuid: a7b8ebef-5928-45ab-9fe5-d169d84fe0d3
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: 87018cb2-9a1b-4a66-a645-7e089ef78f08
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: 4968ad8e-5b2d-4238-a89b-28a4b90a86b1
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: 349e55aa-89df-4f84-b6e6-43918fef956d
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: ""
+    uuid: ac5f5ddb-41a0-45f5-98d9-2469bcb68109
+    options_attributes: 
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+      - 
+        answer: ""
+        explanation: ""
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
