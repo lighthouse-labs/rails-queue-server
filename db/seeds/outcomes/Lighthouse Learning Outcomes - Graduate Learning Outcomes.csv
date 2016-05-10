@@ -840,7 +840,7 @@ c787a043-c969-42c6-a032-ba8217287d62,,,,knows their way around their code editin
 ,,,,,history: undo/redo,,,,,,,,,,,,,,,,,
 fa94a960-7daa-4145-9057-aa0bad216581,,,,,knows of common keyboard shorcuts,,,,,knowledge,core,,1,1,0,,1,0,,0,1,
 eda031f5-1062-41d5-88bb-6f87e999ba75,,,,,can perform common keyboard shortcuts,,,,,skill,core,,,,,,,,,,,
-375ebaa4-c185-46df-916e-0a3b1774f4da,,,,,uses common keyboard shortcuts,,,,,habit,core,,0,0,0,,0,1,,1,0,
+375ebaa4-c185-46df-916e-0a3b1774f4da,,,,,"uses common keyboard shortcuts (text, delete, navigation, selection, files, history)",,,,,habit,core,,0,0,0,,0,1,,1,0,
 ,,,,,,,,,,,,,,,,,,,,,,
 2e97aef0-72ad-4362-abe2-809e09101175,,,,,sublime text,,,,,,,,0,0,0,,0,0,,0,0,
 4948d2ea-d853-4aa4-a734-455a49487245,,,,,"can explain what ""sublime text"" is and why it is used",,,,,knowledge,core,,,,,,,,,,,
