@@ -1,4 +1,5 @@
 ########
+#
 # PREP CONTENT SEEDING
 # This file uses the yml content in db/seeds/prep folder to
 # populate REAL curriculum content for the prep course
@@ -27,6 +28,8 @@ puts "Loading prep data"
 def generate_activities(section, activity_data)
   activities = []
 
+  return activities unless activity_data
+
   activity_data.each_with_index do |activity_attributes, i|
     attrs = @default_activity_attributes.merge(activity_attributes)
 
@@ -36,7 +39,7 @@ def generate_activities(section, activity_data)
 
     uuid = attrs['uuid']
     abort("\n\n---\nHALT! Activity UUID required") if uuid.blank?
-    abort("\n\n---\nHALT! Dupe Acitivty UUID found. Check your data, as this is potentially disasterous!") if @activity_uuids.include?(uuid)
+    abort("\n\n---\nHALT! Dupe Activity UUID found #{uuid}. Check your data, as this is potentially disasterous!") if @activity_uuids.include?(uuid)
 
     attrs[:start_time] = 900 + (i * 30)
     if outcome_uuids = attrs.delete('outcomes')
