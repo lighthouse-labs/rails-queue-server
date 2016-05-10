@@ -90,7 +90,7 @@ questions:
         explanation: "Correct, the argument `-X` specifies the request method"
         correct: true
       - 
-        answer: "`curl -d "method=POST" http://example.com/api/endpoint`"
+        answer: "`curl -d \"method=POST\" http://example.com/api/endpoint`"
         explanation: "Incorrect, the argumnet `-d` is used to send data"
         correct: false
       - 
@@ -100,84 +100,4 @@ questions:
       - 
         answer: "`curl -LI http://example.com/api/endpoint`"
         explanation: "Incorrect, this would follow redirections and show response headers"
-        correct: false
-  -
-    question: ""
-    uuid: 1ba3d9c7-9b13-4a07-b5c7-65d33a8ee9a1
-    options_attributes: 
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
-        correct: true
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-  -
-    question: ""
-    uuid: 58614213-2835-4a4a-a59d-0fd510af902b
-    options_attributes: 
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
-        correct: true
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-  -
-    question: ""
-    uuid: d916b377-b349-4677-8434-a124fb54cca0
-    options_attributes: 
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
-        correct: true
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-  -
-    question: ""
-    uuid: c83c1731-8618-4f98-9585-5891437fbb58
-    options_attributes: 
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
-        correct: true
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-  -
-    question: ""
-    uuid: a14e3e64-c149-40ed-b223-501cbc4369f2
-    options_attributes: 
-      - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
-        correct: true
-      - 
-        answer: ""
-        explanation: ""
         correct: false

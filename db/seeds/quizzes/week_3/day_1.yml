@@ -35,7 +35,7 @@ questions:
         correct: false
       - 
         answer: "`<ol>`"
-        explanation: "Correct, `<ol>`" stands for Ordered List"
+        explanation: "Correct, `<ol>` stands for Ordered List"
         correct: true
       - 
         answer: "`<ln>`"
@@ -78,7 +78,7 @@ questions:
         explanation: "Incorrect, two HTML selectors have a lower specificity than classes"
         correct: false
   - 
-    question: "Which would take priority, an id (`#my-id`) in a CSS file or inline styling (`style="..."`)?"
+    question: "Which would take priority, an id (`#my-id`) in a CSS file or inline styling (`style=\"...\"`)?"
     uuid: f128840d-841b-44c7-a0af-3545cc124435
     options_attributes: 
       - 

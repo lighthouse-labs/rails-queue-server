@@ -1,7 +1,7 @@
 name: "JavaScript Objects"
 uuid: 3eb7e490-0dd6-47be-8415-931ee8496628
 questions:
-  -
+  - 
     question: "Which of the following is **not** a primitive data type in JavaScript?"
     uuid: e7f22b27-20e4-4780-bdce-0f89ad5ef41a
     options_attributes:
@@ -21,131 +21,132 @@ questions:
         answer: "String"
         explanation: "Incorrect, _string_ is a primitive data type in JavaScript"
         correct: false
-    -
-      question: "Which of the following is a valid way to access an object value? (Multiple correct)"
-      uuid: 92af4053-4903-4be3-8b8b-f15450bff2f3
-      options_attributes:
-        - 
-          answer: "myObject['key']"
-          explanation: "Correct, you can access object values using square bracket notation"
-          correct: true
-        - 
-          answer: "myObject.key"
-          explanation: "Correct, you can access values using `.key` notation"
-          correct: true
-        - 
-          answer: "myObject.get('key')"
-          explanation: "Incorrect, JavaScript does not provide `get()` functions by default"
-          correct: false
-        - 
-          answer: "myObject(key)"
-          explanation: "Incorrect, the parentheses are for executing functions"
-          correct: false
-    -
-      question: "Can functions act as objects in JavaScript"
-      uuid: 0892f4cd-6dc8-41ca-b825-1bd79a415011
-      options_attributes: 
-        - 
-          answer: "Yes"
-          explanation: "Correct, functions are first-class objects because they can have properties and methods just like any other object"
-          correct: true
-        - 
-          answer: "No"
-          explanation: "Incorrect, function is an instance of the Object type in JavaScript"
-          correct: false
-    -
-      question: "What purpose does the `require()` method serve in JavaScript?"
-      uuid: 806cf5bb-8e4e-4137-bef7-101b1c914111
-      options_attributes:
-        - 
-          answer: "It establishes the dependency structure for the program"
-          explanation: "Incorrect, although the required modules are dependencies, the method is used for another purpose"
-          correct: false
-        - 
-          answer: "It imports functionality (or data) from another module"
-          explanation: "Correct, it allows us to import functions, variables, and objects that are exported by other modules"
-          correct: true
-        - 
-          answer: "It ensures that you have defined a certain class in the current module"
-          explanation: "Incorrect, the require method also involves other modules"
-          correct: false
-        - 
-          answer: "It asserts that the value of the argument is not null"
-          explanation: "Incorrect, you could use the `assert` method for that"
-          correct: false
-    -
-      question: "Are primitive data types the same across most programming languages?"
-      uuid: ec083568-fec2-4709-9822-395f53d85a17
-      options_attributes: 
-        - 
-          answer: "Yes, virtually all programming languages have the same basic primitive data types"
-          explanation: "Incorrect, primitive data types are not necessarily the same between programming languages"
-          correct: false
-        - 
-          answer: "No, primitives are a defining feature of a programming language"
-          explanation: "Correct, primitives are similar, but often unique to a given programming language"
-          correct: true
-        - 
-          answer: "Depending on how variables are defined in the program"
-          explanation: "Incorrect, primitive types are a constant characteristic of a programming language"
-          correct: false
-    -
-      question: "Is the following code a valid Object in JavaScript?
+
+  -
+    question: "Which of the following is a valid way to access an object value? (Multiple correct)"
+    uuid: 92af4053-4903-4be3-8b8b-f15450bff2f3
+    options_attributes:
+      - 
+        answer: "myObject['key']"
+        explanation: "Correct, you can access object values using square bracket notation"
+        correct: true
+      - 
+        answer: "myObject.key"
+        explanation: "Correct, you can access values using `.key` notation"
+        correct: true
+      - 
+        answer: "myObject.get('key')"
+        explanation: "Incorrect, JavaScript does not provide `get()` functions by default"
+        correct: false
+      - 
+        answer: "myObject(key)"
+        explanation: "Incorrect, the parentheses are for executing functions"
+        correct: false
+  -
+    question: "Can functions act as objects in JavaScript"
+    uuid: 0892f4cd-6dc8-41ca-b825-1bd79a415011
+    options_attributes: 
+      - 
+        answer: "Yes"
+        explanation: "Correct, functions are first-class objects because they can have properties and methods just like any other object"
+        correct: true
+      - 
+        answer: "No"
+        explanation: "Incorrect, function is an instance of the Object type in JavaScript"
+        correct: false
+  -
+    question: "What purpose does the `require()` method serve in JavaScript?"
+    uuid: 806cf5bb-8e4e-4137-bef7-101b1c914111
+    options_attributes:
+      - 
+        answer: "It establishes the dependency structure for the program"
+        explanation: "Incorrect, although the required modules are dependencies, the method is used for another purpose"
+        correct: false
+      - 
+        answer: "It imports functionality (or data) from another module"
+        explanation: "Correct, it allows us to import functions, variables, and objects that are exported by other modules"
+        correct: true
+      - 
+        answer: "It ensures that you have defined a certain class in the current module"
+        explanation: "Incorrect, the require method also involves other modules"
+        correct: false
+      - 
+        answer: "It asserts that the value of the argument is not null"
+        explanation: "Incorrect, you could use the `assert` method for that"
+        correct: false
+  -
+    question: "Are primitive data types the same across most programming languages?"
+    uuid: ec083568-fec2-4709-9822-395f53d85a17
+    options_attributes: 
+      - 
+        answer: "Yes, virtually all programming languages have the same basic primitive data types"
+        explanation: "Incorrect, primitive data types are not necessarily the same between programming languages"
+        correct: false
+      - 
+        answer: "No, primitives are a defining feature of a programming language"
+        explanation: "Correct, primitives are similar, but often unique to a given programming language"
+        correct: true
+      - 
+        answer: "Depending on how variables are defined in the program"
+        explanation: "Incorrect, primitive types are a constant characteristic of a programming language"
+        correct: false
+  -
+    question: "Is the following code a valid Object in JavaScript?
 ```javascript
 var myObjected = {
-  'key-1': 42,
-  keyB: 'value B',
-  'keyC': [1, 2, 3]
+'key-1': 42,
+keyB: 'value B',
+'keyC': [1, 2, 3]
 };
 ```
 "
-      uuid: 905bada6-4f90-4333-9a0c-8d78006dcbad
-      options_attributes: 
-        - 
-          answer: "No, `keyB` is missing quotes"
-          explanation: "Incorrect, keys don't _need_ quotes unless they're hypthenated or contain spaces"
-          correct: false
-        - 
-          answer: "Yes, although the keys could be defined more consistently"
-          explanation: "Correct, the object would work despite inconsistent key definitions"
-          correct: true
-        - 
-          answer: "No, values cannot be nested objectes such as arrays or other objects"
-          explanation: "Incorrect, JavaScript objects support nesting"
-          correct: false
-        - 
-          answer: "No, keys cannot contain hyphens or spaces"
-          explanation: "Incorrect, keys may contain special characters as long as they are surrounded by quotes"
-          correct: false
-    -
-      question: "What is JSON? What purpose does it serve?"
-      uuid: a88c5f7e-4658-4c9e-af8d-c1c56a9ffe7e
-      options_attributes: 
-        - 
-          answer: "JavaScript Object Notation - compresses objects in memory"
-          explanation: "Incorrect, the purpose of JSON is not compression"
-          correct: false
-        - 
-          answer: "JavaScript Object Notation - a serialized form of Objects"
-          explanation: "Correct, JSON is a subset of JavaScript that allows string-representation of objects"
-          correct: true
-        - 
-          answer: ""
-          explanation: ""
-          correct: false
-    -
-      question: "Can we create a string using `var word = new String("hello");` in JavaScript? If so, then would it be the same as `var word = "hello";`?"
-      uuid: 0086d6be-f226-4928-bfaf-ea2f1ead60a9
-      options_attributes: 
-        - 
-          answer: "Yes, a string can be created using `new String("hello")`, it is the same as `"hello"`."
-          explanation: "Incorrect, although it is possible the result has a type of `object` and not `string`"
-          correct: false
-        - 
-          answer: "Yes, a string can be created using `new String("hello")`, but **NOT** the same as `"hello"`."
-          explanation: "Correct, the two techniques produce results of different data types (object vs. string)"
-          correct: true
-        - 
-          answer: "No, it would burst into flames."
-          explanation: "Incorrect, `new String("hello")` _is_ valid JavaScript"
-          correct: false
+    uuid: 905bada6-4f90-4333-9a0c-8d78006dcbad
+    options_attributes: 
+      - 
+        answer: "No, `keyB` is missing quotes"
+        explanation: "Incorrect, keys don't _need_ quotes unless they're hypthenated or contain spaces"
+        correct: false
+      - 
+        answer: "Yes, although the keys could be defined more consistently"
+        explanation: "Correct, the object would work despite inconsistent key definitions"
+        correct: true
+      - 
+        answer: "No, values cannot be nested objectes such as arrays or other objects"
+        explanation: "Incorrect, JavaScript objects support nesting"
+        correct: false
+      - 
+        answer: "No, keys cannot contain hyphens or spaces"
+        explanation: "Incorrect, keys may contain special characters as long as they are surrounded by quotes"
+        correct: false
+  -
+    question: "What is JSON? What purpose does it serve?"
+    uuid: a88c5f7e-4658-4c9e-af8d-c1c56a9ffe7e
+    options_attributes: 
+      - 
+        answer: "JavaScript Object Notation - compresses objects in memory"
+        explanation: "Incorrect, the purpose of JSON is not compression"
+        correct: false
+      - 
+        answer: "JavaScript Object Notation - a serialized form of Objects"
+        explanation: "Correct, JSON is a subset of JavaScript that allows string-representation of objects"
+        correct: true
+      - 
+        answer: ""
+        explanation: ""
+        correct: false
+  -
+    question: "Can we create a string using `var word = new String('hello');` in JavaScript? If so, then would it be the same as `var word = 'hello';`?"
+    uuid: 0086d6be-f226-4928-bfaf-ea2f1ead60a9
+    options_attributes: 
+      - 
+        answer: "Yes, a string can be created using `new String('hello')`, it is the same as `'hello'`."
+        explanation: "Incorrect, although it is possible the result has a type of `object` and not `string`"
+        correct: false
+      - 
+        answer: "Yes, a string can be created using `new String('hello')`, but **NOT** the same as `'hello'`."
+        explanation: "Correct, the two techniques produce results of different data types (object vs. string)"
+        correct: true
+      - 
+        answer: "No, it would burst into flames."
+        explanation: "Incorrect, `new String('hello')` _is_ valid JavaScript"
+        correct: false
