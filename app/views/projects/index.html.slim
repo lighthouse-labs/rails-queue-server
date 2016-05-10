@@ -1,21 +1,16 @@
 - if admin?
   = link_to "New Project", new_admin_project_path, class: "btn btn-success pull-right"
-table.table
-  thead
-    th Name
-    th # of Activities
-    - if teacher? || admin?
-      th # of Evaluations
-    th
-  tbody
-    - @projects.each do |project|
-      tr
-        td = link_to project.name, project
-        td = project.activities.length
-        - if teacher? || admin?
-          td
-            = project.evaluations.count
-        - if admin?
-          td
-            = link_to "Edit", edit_admin_project_path(project), class: "btn btn-warning"
-            = button_to "Delete", [:admin, project], method: "delete", data: { confirm: "Are you sure? "}, class: "btn btn-danger"
+h3 Projects
+- @projects.each do |project|
+  .well.well-lg.project-well.clearfix
+    = link_to project do
+      h5.project-title = project.name
+    .col-md-4
+      h6 Description
+      p = project.description
+    .col-md-4
+      h6 Activities
+      p = project.activities.count
+    .col-md-4
+      h6 Last Evaluation
+      p = project.evaluations.last.status
