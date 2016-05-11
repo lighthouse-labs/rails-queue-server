@@ -2,12 +2,13 @@ class ActivitySubmission < ActiveRecord::Base
 
   # => For submissions on activities that have evaluates_code=true
   serialize :code_evaluation_results
-  
+
   belongs_to :user
   belongs_to :activity
-  
+
   has_one :code_review_request, dependent: :destroy
-  
+
+  before_create :set_finalized_for_project_activity_submissions
   before_create :set_finalized_for_code_evaluation
 
   #after_save :request_code_review
@@ -21,13 +22,13 @@ class ActivitySubmission < ActiveRecord::Base
   end
 
   # if there is code evaluation, allow multiple submissions
-  validates :user_id, uniqueness: { 
+  validates :user_id, uniqueness: {
     scope: :activity_id,
-    message: "only one submission per activity" 
+    message: "only one submission per activity"
   }, unless: Proc.new {|activity_submission| activity_submission.activity.evaluates_code? }
 
-  validates :github_url, 
-    presence: :true, 
+  validates :github_url,
+    presence: :true,
     format: { with: URI::regexp(%w(http https)), message: "must be a valid format" },
     if: :github_url_required?
 
@@ -40,7 +41,7 @@ class ActivitySubmission < ActiveRecord::Base
   scope :not_code_reviewed, -> {
     where(code_review_request: nil)
   }
-  
+
   def code_reviewed?
     self.try(:code_review_request).try(:assistance)
   end
@@ -54,6 +55,14 @@ class ActivitySubmission < ActiveRecord::Base
       self.finalized = results[:lint_results].zero? && results[:test_failures].zero?
     end
 
+    # => Return true so it saves!
+    true
+  end
+
+  def set_finalized_for_project_activity_submissions
+    # probably a good idea to refactor #set_finalized_for_code_evaluation to
+    # include this logic
+    self.finalized = activity.section && activity.section.is_a?(Project)
     # => Return true so it saves!
     true
   end
