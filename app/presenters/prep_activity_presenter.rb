@@ -7,7 +7,7 @@ class PrepActivityPresenter < ActivityPresenter
 
   private
   def edit_button_path
-    edit_day_activity_path(activity.day, activity)
+    edit_prep_activity_path(activity.section, activity)
   end
 end
 
