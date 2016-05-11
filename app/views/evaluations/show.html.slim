@@ -1,13 +1,12 @@
 - content_for :project_nav do
   = render('shared/menus/project_side_menu', project: @evaluation.project)
 
-/show page show student, cohort, requirements, notes etc
 ol.breadcrumb
   li = link_to @project.name, @project
   li = link_to "Evaluations", project_evaluations_path(@project)
   li = link_to @evaluation.id, [@project, @evaluation]
 
-
+h3 = "Status: #{@evaluation.status}"
 p
   b Student:
   = @evaluation.student.full_name
