@@ -4,10 +4,7 @@ class MarkEvaluation
   def call
     @evaluation_form = context.evaluation_form
     @evaluation = context.evaluation
-
-    # => Needs to be state-machined
-    # => @evaluation.score = 5
-    # => @evaluation.reject
+    @evaluation.teacher_notes = @evaluation_form[:teacher_notes]
     if @evaluation_form[:commit] == "Accept"
       @evaluation.transition_to :accepted
     else

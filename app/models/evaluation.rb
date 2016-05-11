@@ -7,7 +7,7 @@ class Evaluation < ActiveRecord::Base
 
   has_many :evaluation_transitions, autosave: false
 
-  validates_presence_of :notes, :github_url
+  validates_presence_of :github_url
 
   validates :github_url,
     format: { with: URI::regexp(%w(http https)), message: "must be a valid format" }

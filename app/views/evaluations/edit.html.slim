@@ -6,8 +6,8 @@
 .col-md-9
   = form_for @evaluation_form, url: project_evaluation_path, method: :put do |f|
     .clearfix
-      h2.pull-left = "#{@evaluation.project.name}" + " (#{@evaluation.state})"
-    a = @evaluation.url
+      h3.pull-left = "#{@evaluation.project.name}" + " (#{@evaluation.status})"
+    a = @evaluation.github_url
     = f.submit "Reject", class: "pull-right btn btn-danger"
     = f.submit "Accept", class: "pull-right btn btn-success"
 
@@ -22,10 +22,10 @@
             .col-md-6
               - (1..4).each do |i|
                 label.radio.radio-inline
-                  = radio_button_tag "outcomes[#{index}][mark]", i, false, data: {toggle: "radio"}
+                  = radio_button_tag "evaluation_form[outcomes][#{index}][mark]", i, false, data: {toggle: "radio"}
                   = i
-              = hidden_field_tag "outcomes[#{index}][id]", outcome[:id]
-              = hidden_field_tag "outcomes[#{index}][activity_id]", outcome[:activity_id]
+              = hidden_field_tag "evaluation_form[outcomes][#{index}][id]", outcome[:id]
+              = hidden_field_tag "evaluation_form[outcomes][#{index}][activity_id]", outcome[:activity_id]
             .col-md-6
               p = outcome[:text]
-    = f.text_area :notes
+    = f.text_area :teacher_notes, rows: 10, class: "form-control"

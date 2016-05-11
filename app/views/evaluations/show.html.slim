@@ -19,8 +19,14 @@ p
       - @evaluation.project.activities.each do |activity|
         - activity.outcomes.each do |outcome|
           li.list-group-item = outcome.text
-.well
-  p = @evaluation.notes
+.panel.panel-default
+  .panel-heading Student Notes
+  .panel-body
+    p = @evaluation.student_notes
+.panel.panel-default
+  .panel-heading Teacher Notes
+  .panel-body
+    p = @evaluation.teacher_notes
 
 
 

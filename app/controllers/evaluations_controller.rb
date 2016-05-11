@@ -35,7 +35,7 @@ class EvaluationsController < ApplicationController
   end
 
   def update
-    result = CompleteEvaluation.call(evaluation_form: params, evaluation: @evaluation)
+    result = CompleteEvaluation.call(evaluation_form: params[:evaluation_form], evaluation: @evaluation)
     if result.success?
       redirect_to [@project, @evaluation], notice: "Evaluation successfully marked."
     else
@@ -60,7 +60,7 @@ class EvaluationsController < ApplicationController
   end
 
   def evaluation_params
-    params.require(:evaluation).permit(:url, :notes)
+    params.require(:evaluation).permit(:github_url, :student_notes)
   end
 
   def teacher_required
