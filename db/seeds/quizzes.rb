@@ -7,8 +7,6 @@ if Rails.env.development?
 
   QuizActivity.destroy_all
   QuizSubmission.destroy_all
-  # Option.delete_all
-  # Question.delete_all
 end
 
 # for tracking and preventing accidental dupe uuids in the data

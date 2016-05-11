@@ -20,11 +20,11 @@ questions:
         explanation: "Yes, but you can tell me more!"
         correct: false
       -
-        answer: "All of the above"
+        answer: "All of these answers are correct"
         explanation: "Like a graphical user interface, the command line is one way that the operating system represents the computer's files, directories, and programs (which are also files) to the user. In fact, the command line is a text-based interface through which one can navigate, create, execute, and act on a computer's files and directories with precision."
         correct: true
       -
-        answer: "None of the above"
+        answer: "None of these answers are correct"
         explanation: "Unfortunately it is indeed one of the answers provided"
         correct: false
 
@@ -50,11 +50,11 @@ questions:
         explanation: ""
         correct: false
       -
-        answer: "All of the above"
+        answer: "All of these answers are correct"
         explanation: ""
         correct: true
       -
-        answer: "None of the above"
+        answer: "None of these answers are correct"
         explanation: ""
         correct: false
 
@@ -80,7 +80,7 @@ questions:
         explanation: "The pwd or present working directory is denoted with a dot (`.`). ie `cat ./hello.txt` will run `cat` on the file hello.txt in the current directory"
         correct: false
       -
-        answer: "None of the above"
+        answer: "None of these answers are correct"
         correct: false
 
   -
@@ -113,7 +113,7 @@ questions:
     question: |
       Based on the following commands executed subsequently, can we deduce where the system will look for `meow.txt`, and if so where?
 
-      ```
+      ```bash
       $ cd /cats/sounds
       $ cd ..
       $ cd sounds
@@ -150,7 +150,7 @@ questions:
     outcome: f4cf4d27-b4a8-46c0-b5db-391d7c9d79f4
     options_attributes:
       -
-        answer: "Puts the terminal into manual mode, disabling auto-completed and other helpful automation features like it"
+        answer: "Puts the terminal into manual mode, disabling auto-complete and other helpful automation features like it"
         explanation: "And what's that exactly? :|"
         correct: false
       -
@@ -171,7 +171,13 @@ questions:
         correct: true
 
   -
-    question: "How many arguments and how many flags are in the following command? `tar -cvzf ./archive.tgz ./*.txt`"
+    question: |
+      How many arguments and how many flags are in the following command?
+
+      ```bash
+      tar -cvzf ./archive.tgz ./*.txt
+      ```
+
     uuid: 6690ab1d-013f-4fd4-a350-f4ca05f35f03
     outcome: 51a01baf-8658-4892-9e92-d4f2c6551c4b
     options_attributes:
@@ -188,7 +194,7 @@ questions:
         explanation: "There are indeed three arguments, but the first argument consists of multiple flags"
         correct: true
       -
-        answer: "None of the above"
+        answer: "None of these answers are correct"
         explanation: "It's one of them alright"
         correct: false
 

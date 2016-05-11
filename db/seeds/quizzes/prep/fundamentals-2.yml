@@ -16,7 +16,7 @@ questions:
     options_attributes:
       -
         answer: |
-          ```javascript
+          ```bash
           john
           paul
           george
@@ -26,7 +26,7 @@ questions:
         correct: false
       -
         answer: |
-          ```javascript
+          ```bash
           john
           george
           ```
@@ -34,7 +34,7 @@ questions:
         correct: true
       -
         answer: |
-          ```javascript
+          ```bash
           paul
           ringo
           ```
@@ -46,7 +46,7 @@ questions:
         correct: false
       -
         answer: |
-          ```javascript
+          ```bash
           ringo
           paul
           ```

@@ -110,7 +110,7 @@ questions:
     question: |
       You've previously run `vagrant up` to create the VM, but now when you run `vagrant ssh` from Terminal the following error is reported:
 
-      ```
+      ```bash
       VM must be created before running this command. Run `vagrant up` first.
       ```
 

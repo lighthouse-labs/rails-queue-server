@@ -8,6 +8,8 @@ class Quiz < ActiveRecord::Base
 
   has_and_belongs_to_many :questions
 
+  has_many :outcomes, through: :questions
+
   def latest_submission_by(user)
     quiz_submissions.where(user_id: user.id).order(id: :desc).first
   end

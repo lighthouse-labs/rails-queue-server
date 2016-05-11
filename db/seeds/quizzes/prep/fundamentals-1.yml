@@ -62,6 +62,7 @@ questions:
   -
     question: |
       What will be logged to the console by the following code?
+
       ```javascript
       var a = 3;
       var b = 4;
@@ -128,7 +129,7 @@ questions:
     question: |
       Given the following code, what will it log to the console?
 
-      ```
+      ```javascript
       console.log("Bob" || " Marley")
       ```
     uuid: b51700f4-d51b-453b-a10f-3721f8fc44b3
@@ -159,7 +160,7 @@ questions:
     question: |
       What is the output from the following line of code?
 
-      ```
+      ```javascript
         console.log("Jeremy" > "Khurram")
       ```
 
@@ -191,31 +192,31 @@ questions:
     question: |
       What will the following line of code output?
 
-      ```
+      ```javascript
       console.log("Don\nBurks")
       ```
     uuid: c649bc32-1859-404e-9f19-db4492aab735
     outcome: dd01be53-69d0-4b1e-8228-08659f4a4e03
     options_attributes:
       -
-        answer: "`\"Don\"` and `\"Burks\"` on separate lines, since `\n` is a newline character."
-        explanation: "That's correct. Each `\n` is like hitting enter on the keyboard. Two together would create an empty line between the two words here."
+        answer: "`\"Don\"` and `\"Burks\"` on separate lines, since `\\n` is a newline character."
+        explanation: "That's correct. Each `\\n` is like hitting enter on the keyboard. Two together would create an empty line between the two words here."
         correct: true
       -
-        answer: "`\"Don\"` and `\"skruB\"`, since `\n` will reverse anything that follows."
-        explanation: "Incorrect. `\n` is indeed an escaped, special character. But it does not trigger a reversal."
+        answer: "`\"Don\"` and `\"skruB\"`, since `\\n` will reverse anything that follows."
+        explanation: "Incorrect. `\\n` is indeed an escaped, special character. But it does not trigger a reversal."
         correct: false
       -
-        answer: "Just `\"Don\"`, since `\n` terminates the rest of the string, ie ignoring what follows."
-        explanation: "Incorrect. `\n` is indeed an escaped, special character. But it does not terminate the string."
+        answer: "Just `\"Don\"`, since `\\n` terminates the rest of the string, ie ignoring what follows."
+        explanation: "Incorrect. `\\n` is indeed an escaped, special character. But it does not terminate the string."
         correct: false
       -
         answer: "`\"DonBurks\"` since any characters with `\\` before them are escaped and therefore ignored."
-        explanation: "Incorrect. `\n` is indeed an escaped, special character, but it does something and is _not_ ignored."
+        explanation: "Incorrect. `\\n` is indeed an escaped, special character, but it does something and is _not_ ignored."
         correct: false
       -
         answer: "\"Don\\nBurks\" just like we see it there"
-        explanation: ""
+        explanation: "Incorrect. The `\\n` is not a literal character but rather an escape character. It therefore does not literally print `\\n` to the screen."
         correct: false
 
   -

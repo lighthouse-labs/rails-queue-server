@@ -20,7 +20,7 @@ questions:
         explanation: "Incorrect. When pulling from a remote repo, the files will either be merged directly into your codebase, or staged for conflicts."
         correct: false
       -
-        answer: "None of the above"
+        answer: "None of these answers are correct"
         explanation: "Incorrect"
         correct: false
 
