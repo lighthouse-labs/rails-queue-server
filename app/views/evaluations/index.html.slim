@@ -8,7 +8,7 @@ table.table
     th
   tbody
     - @evaluations.each do |evaluation|
-      tr
+      tr.eval-row data-href=("/projects/#{@project.slug}/evaluations/#{evaluation.id}")
         td = evaluation.student.full_name
         td = evaluation.status
         td
