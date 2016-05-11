@@ -35,27 +35,27 @@ questions:
     options_attributes:
       -
         answer: "Usually denoted by `$` and everything before it"
-        explanation: ""
+        explanation: "Indeed, the `$` is a common character that indicates the prompt. However, what about the other answers?"
         correct: false
       -
         answer: "Awaits input from the user"
-        explanation: ""
+        explanation: "Indeed, but what about the other answers?"
         correct: false
       -
         answer: "Reads input from the user once they hit enter"
-        explanation: ""
+        explanation: "Indeed, but what about the other answers?"
         correct: false
       -
         answer: "Usually gives information about the system (the username, the hostname, the current directory, etc.)"
-        explanation: ""
+        explanation: "Yup, but what about the other answers?"
         correct: false
       -
         answer: "All of these answers are correct"
-        explanation: ""
+        explanation: "Nice! I'm glad you now know what a prompt is, because you'll be using it all the time :)"
         correct: true
       -
         answer: "None of these answers are correct"
-        explanation: ""
+        explanation: "On the contrary ... "
         correct: false
 
   -
@@ -65,7 +65,7 @@ questions:
     options_attributes:
       -
         answer: "Used prior to an integer/numeric value to indicate that it's an approximate value"
-        explanation: ""
+        explanation: "This is true in written text, but not the case in code."
         correct: true
       -
         answer: "The current user's home directory"
@@ -90,7 +90,7 @@ questions:
     options_attributes:
       -
         answer: "The latter is not a valid command. It will report an error."
-        explanation: ""
+        explanation: "Incorrect. It is a fair and popular `ls` command but with some valid options specified."
         correct: false
       -
         answer: "The former is not a valid command and will report an error. It needs some options passed in, as shown in the latter command."

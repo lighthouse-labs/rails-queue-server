@@ -164,6 +164,8 @@ questions:
       -
         answer: "Microsoft Team Foundation Server"
         explanation: "A popular choice in the Microsoft ecosystem, but very minimal if any adoption in the Linux/Unix ecosystem"
+      -
+        answer: "Git"
         explanation: "How'd you know? ;)"
         correct: true
       -
