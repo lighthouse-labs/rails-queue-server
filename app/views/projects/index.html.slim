@@ -12,5 +12,6 @@ h3 Projects
       h6 Activities
       p = project.activities.count
     .col-md-4
-      h6 Last Evaluation
-      p = project.evaluations.last.status
+      - if teacher?
+        h6 Last Evaluation
+        p = project.evaluations.last.status

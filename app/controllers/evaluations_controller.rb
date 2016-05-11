@@ -23,7 +23,7 @@ class EvaluationsController < ApplicationController
     @evaluation = @project.evaluations.new(evaluation_params)
     @evaluation.student = current_user
     if @evaluation.save
-      redirect_to day_path "today"
+      redirect_to projects_path
     else
       flash[:error] = @evaluation.errors
       render :new
