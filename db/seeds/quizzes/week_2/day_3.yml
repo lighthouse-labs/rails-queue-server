@@ -21,3 +21,116 @@ questions:
         answer: "Either server or client, but it's predominantly found _client-side_"
         explanation: "Incorrect, although possible to render client-side templates, it is not common practice"
         correct: false
+  -
+    question: |
+      Given the following JavaScript code, what will be the resulting value of `url`?
+      ```JavaScript
+      let PORT = 8080;
+      var url = `http://localhost:${PORT}/path`;
+      ```
+    uuid: c87c73eb-00f9-417d-a4c4-cf35831a7899
+    options_attributes: 
+      - 
+        answer: "`null`, due to invalid syntax"
+        explanation: "Incorrect"
+        correct: false
+      - 
+        answer: "`http://localhost:8080/path`"
+        explanation: "Correct, the port will be _interpolated_ into the template literal"
+        correct: true
+      - 
+        answer: "`http://localhost:/path`, since you cannot interpolate numeric values"
+        explanation: "Incorrect, you surely **can** interpolate numbers and strings together in JS!"
+        correct: false
+  -
+    question: "What is the purpose of **routing middleware** in a web server?"
+    uuid: b1e353d8-d825-40b2-88b2-2934d9cb495c
+    options_attributes: 
+      - 
+        answer: "It defines application endpoints (URIs)"
+        explanation: "Incorrect, the middleware usually does more than this"
+        correct: false
+      - 
+        answer: "Sends responses back to the client"
+        explanation: "Incorrect, the middleware usually does more than this"
+        correct: false
+      - 
+        answer: "Matches requested routes using pattern expressions (`'/ab*cd'`)"
+        explanation: "Incorrect, the middleware usually does more than this"
+        correct: false
+      - 
+        answer: "All of the above"
+        explanation: "Correct, a library like Express performs all of the above functions"
+        correct: true
+  -
+    question: |
+      Considering the following JavaScript code, what will the console output be and why?
+        ```javascript
+        function foo() {
+          var x = 1;
+          if (x === 1) {
+            let y = 2;
+          }
+          console.log('Value of y is ' + y);
+        }
+        foo();
+        ```
+    uuid: 41a0d97d-66da-40e3-a3f2-d7171f372f46
+    options_attributes: 
+      - 
+        answer: "`Value of y is 1`"
+        explanation: "Incorrect, consider the block-scoping of `let`"
+        correct: false
+      - 
+        answer: "Value of y is 2"
+        explanation: "Incorrect, consider the block-scoping of `let`"
+        correct: false
+      - 
+        answer: "`ReferenceError`"
+        explanation: "Correct, the block-scoping of `let y = 2` makes it available **only** within the `if` statement block"
+        correct: true
+  -
+    question: |
+      Consider the following JavaScript code, what would be the console output?
+      ```javascript
+        const names = [];
+        names.push('Graham')
+        names = [];
+        console.log(names)
+      ``` 
+    uuid: 5e6d701b-13b3-4fbe-8874-04e099827872
+    options_attributes: 
+      - 
+        answer: "Console would show `[]`"
+        explanation: "Incorrect, consider _how_ `names` is declared"
+        correct: false
+      - 
+        answer: "Console would show `['Graham']`"
+        explanation: "Incorrect, consider _how_ `names` is declared"
+        correct: false
+      - 
+        answer: "Console would show a `TypeError`"
+        explanation: "Correct, `Assignment to constant variable.` due to the declaration using `const`"
+        correct: true
+  -
+    question: |
+      Given the following JavaScript code, what would be the console output?
+      ```javascript
+      const names = [];
+      names.push('Jordan');
+      console.log( names );
+      ```
+    uuid: ce9f5ec6-0970-4864-b5d5-2f17901ee48a
+    options_attributes: 
+      - 
+        answer: "Console would show `[]`"
+        explanation: "Incorrect, `const` declaration refers to the constant _reference_, not constant _value_"
+        correct: false
+      - 
+        answer: "Console would show `['Jordan']`"
+        explanation: "Correct, it still allows us to change the value of the referenced variable"
+        correct: true
+      - 
+        answer: "Console would show a `TypeError`"
+        explanation: "Incorrect, `const` declaration refers to the constant _reference_, not constant _value_"
+        correct: false

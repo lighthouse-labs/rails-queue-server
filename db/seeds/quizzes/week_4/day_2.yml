@@ -6,30 +6,30 @@ questions:
     uuid: 40085d09-596b-42ba-a84b-f4756c1de435
     options_attributes: 
       - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
+        answer: "Object-Relational Mapping"
+        explanation: "Correct, it is used to convert tables/rows in a relational database to objects in a program"
         correct: true
       - 
-        answer: ""
-        explanation: ""
+        answer: "Object Role Modeling"
+        explanation: "Incorrect, this is not related to relational databases"
+        correct: false
+      - 
+        answer: "Operational Risk Management"
+        explanation: "Incorrect, this is not related to relational databases"
         correct: false
   -
     question: "What type of databases is an ORM used for?"
     uuid: 07dec9a1-353e-4dd1-ba04-33547e1575f3
     options_attributes: 
       - 
-        answer: ""
-        explanation: ""
-        correct: false
-      - 
-        answer: ""
-        explanation: ""
+        answer: "Relational"
+        explanation: "Correct, Relational is the **R** in ORM!"
         correct: true
       - 
-        answer: ""
-        explanation: ""
+        answer: "Document-Store"
+        explanation: "Incorrect, document-store databases are non-relational"
+        correct: false
+      - 
+        answer: "Key-Value"
+        explanation: "Incorrect, key-value databases are non-relational"
         correct: false
