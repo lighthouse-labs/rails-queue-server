@@ -1,6 +1,6 @@
 class EvaluationsController < ApplicationController
 
-  before_action :teacher_required, except: [:index, :show, :new, :create]
+  before_action :teacher_required, except: [:new, :create]
   before_action :find_project
   before_action :find_evaluation, only: [:show, :edit, :update, :start_marking]
 
