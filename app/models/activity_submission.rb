@@ -2,12 +2,12 @@ class ActivitySubmission < ActiveRecord::Base
 
   # => For submissions on activities that have evaluates_code=true
   serialize :code_evaluation_results
-  
+
   belongs_to :user
   belongs_to :activity
-  
+
   has_one :code_review_request, dependent: :destroy
-  
+
   before_create :set_finalized_for_code_evaluation
 
   #after_save :request_code_review
@@ -21,13 +21,13 @@ class ActivitySubmission < ActiveRecord::Base
   end
 
   # if there is code evaluation, allow multiple submissions
-  validates :user_id, uniqueness: { 
+  validates :user_id, uniqueness: {
     scope: :activity_id,
-    message: "only one submission per activity" 
+    message: "only one submission per activity"
   }, unless: Proc.new {|activity_submission| activity_submission.activity.evaluates_code? }
 
-  validates :github_url, 
-    presence: :true, 
+  validates :github_url,
+    presence: :true,
     format: { with: URI::regexp(%w(http https)), message: "must be a valid format" },
     if: :github_url_required?
 
@@ -40,7 +40,7 @@ class ActivitySubmission < ActiveRecord::Base
   scope :not_code_reviewed, -> {
     where(code_review_request: nil)
   }
-  
+
   def code_reviewed?
     self.try(:code_review_request).try(:assistance)
   end
@@ -104,7 +104,7 @@ class ActivitySubmission < ActiveRecord::Base
   def create_user_outcome_results
     self.activity.item_outcomes.each do |item_outcome|
       # TODO: change the way we calculate ratings
-      if self.activity.prep?
+      if self.activity.create_outcome_results?
         self.user.outcome_results.create(outcome: item_outcome.outcome, resultable: item_outcome, rating: Prep.evaluate_rating(formatted_code_evaluation_results))
       end
     end

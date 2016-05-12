@@ -29,7 +29,7 @@ class Activity < ActiveRecord::Base
   after_save :fetch_from_remote_file, if: :fetch_from_remote_file?
   after_update :add_revision_to_gist
 
-  # to avoid callback on .update via instruction download 
+  # to avoid callback on .update via instruction download
   attr_accessor :fetching_remote_content
 
   # Given the start_time and duration, return the end_time
@@ -76,6 +76,12 @@ class Activity < ActiveRecord::Base
     self.section
   end
 
+  # Also could be overwritten by sub classes
+  def create_outcome_results?
+    evaluates_code?
+  end
+
+
   protected
 
   def add_revision_to_gist
@@ -93,7 +99,7 @@ class Activity < ActiveRecord::Base
 
   def fetch_from_remote_file
     self.fetching_remote_content = true
-    FetchRemoteActivityContent.call(activity: self) 
+    FetchRemoteActivityContent.call(activity: self)
     true # FIXME: assumes success - KV
   end
 
