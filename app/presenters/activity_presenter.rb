@@ -47,6 +47,9 @@ class ActivityPresenter < BasePresenter
     render "outcomes", activity: activity if activity.outcomes.present? || admin?
   end
 
+  def breadcrumb
+  end
+
   protected
 
   def edit_button_path
