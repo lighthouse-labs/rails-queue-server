@@ -36,7 +36,7 @@ class ActivitySubmission < ActiveRecord::Base
     # NOTE when I transposed this relationship the :code_review_request was disassociated
     # It may make sense to keep the relationship so I have left it in place.
     # Really we have some bad normalization because of this, but I consider
-    # it transitional at this point. 
+    # it transitional at this point.
     CodeReviewRequest.where(activity_id: self.activity_id, requestor_id: self.user_id).first
   end
 
@@ -48,7 +48,7 @@ class ActivitySubmission < ActiveRecord::Base
 
   def request_code_review
     if self.activity.allow_submissions? && should_code_review? && self.code_review_request == nil
-      self.create_code_review_request(requestor_id: self.user.id, activity_id: self.activity.id)
+      self.create_code_review_request(requestor_id: self.user.id, activity: self.activity)
     end
   end
 
