@@ -6,9 +6,10 @@ class ProjectActivityPresenter < ActivityPresenter
   end
 
   def breadcrumb
-    result = "<ol class='breadcrumb'><li>#{link_to("Projects", projects_path)}</li>"
-    result += "<li>#{link_to activity.section.name, activity.section}</li>"
-    result += "<li>#{link_to activity.name, day_activity_path(activity.day, activity)}</li></ol>"
+    result = "<ol class='breadcrumb'><li>#{link_to("Projects", projects_path)}</li>" +
+      "<li>#{link_to activity.section.name, activity.section}</li>" +
+      "<li>#{link_to activity.name, day_activity_path(activity.day, activity)}</li></ol>"
+    result.html_safe
   end
 
   private
