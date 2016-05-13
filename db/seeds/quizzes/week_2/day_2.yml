@@ -7,19 +7,19 @@ questions:
     options_attributes: 
       - 
         answer: "`POST` and `DELETE`"
-        explanation: ""
+        explanation: "Incorrect, POST is typically used to create a new resource, not update an existing one"
         correct: false
       - 
         answer: "`GET` and `POST`"
-        explanation: ""
+        explanation: "Incorrect, GET and POST are used to read and create resources, respectively"
         correct: false
       - 
         answer: "`PUT` and `DELETE`"
-        explanation: ""
+        explanation: "Correct, PUT updates an existing resource, and DELETE deletes"
         correct: true
       - 
         answer: "`PUT` and `HEAD`"
-        explanation: ""
+        explanation: "Incorrect, HEAD is used to fetch request headers only"
         correct: false
   -
     question: "What is method used by web forms to submit data from the client to the server?"
@@ -101,3 +101,35 @@ questions:
         answer: "`curl -LI http://example.com/api/endpoint`"
         explanation: "Incorrect, this would follow redirections and show response headers"
         correct: false
+  -
+    question: "Given a RESTful API, how would you define a **Resource**?"
+    uuid: e780e83b-764b-40f9-9d0d-8ef26c20ee4c
+    options_attributes: 
+      - 
+        answer: "A data object in a database"
+        explanation: "Incorrect, a resource is more than just a piece of data"
+        correct: false
+      - 
+        answer: "An abstraction of a data object represented by a URL"
+        explanation: "Correct, in REST convention a resource represents a complex data abstraction"
+        correct: true
+      - 
+        answer: "An endpoint that generates data upon request"
+        explanation: "Incorrect, the _endpoint_ itself is not the resource"
+        correct: false
+  -
+    question: "How are Arrow Functions `() => {}` different than traditional function expressions?"
+    uuid: fcc3d47a-972e-496e-9bbc-b90f06c2a415
+    options_attributes: 
+      - 
+        answer: "Simpler syntax, otherwise same"
+        explanation: "Incorrect, although the syntax is simpler, it's not the only thing"
+        correct: false
+      - 
+        answer: "Arrow Functions create their own scope"
+        explanation: "Incorrect, they inherit parent scope"
+        correct: false
+      - 
+        answer: "Arrow Functions do not declare their own scope"
+        explanation: "Correct, arrow functions inherit parent scope"
+        correct: true
