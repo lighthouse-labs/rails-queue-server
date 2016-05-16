@@ -9,10 +9,10 @@ ol.breadcrumb
 h3 = "Status: #{@evaluation.status}"
 p
   b Student:
-  = @evaluation.student.full_name
+  = link_to @evaluation.student.full_name, @evaluation.student
 p
   b Cohort:
-  = @evaluation.student.cohort.name
+  = link_to @evaluation.student.cohort.name, cohort_students_path(@evaluation.student.cohort)
 .panel.panel-default
   .panel-heading Outcomes
   .panel-body.list-group
