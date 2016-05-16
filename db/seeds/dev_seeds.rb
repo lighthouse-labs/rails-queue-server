@@ -8,7 +8,7 @@ if Rails.env.development?
 
   cohort_van = Cohort.find_by(code: 'van')
   cohort_van ||= Cohort.create! name: "Current Cohort Van", location: @location_van, start_date: Date.today - 7.days, program: @program, code: "van"
-  
+
   cohort_tor = Cohort.find_by(code: 'toto')
   cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Date.today - 14.days, program: @program, code: "toto"
 
@@ -28,10 +28,11 @@ if Rails.env.development?
           instructions: Faker::Lorem.paragraphs.join("<br/><br/>")
         }
 
+        # don't create if already there
         if time == 900
-          Lecture.create!(params)
+          Lecture.create!(params) unless Lecture.where(day: day).any?
         else
-          Assignment.create!(params)
+          Assignment.create!(params) unless Assignment.where(day: day, start_time: time).any?
         end
 
       end
