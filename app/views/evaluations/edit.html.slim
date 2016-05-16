@@ -8,8 +8,8 @@
     .clearfix
       h3.pull-left = "#{@evaluation.project.name}" + " (#{@evaluation.status})"
     a = @evaluation.github_url
-    = f.submit "Reject", class: "pull-right btn btn-danger"
-    = f.submit "Accept", class: "pull-right btn btn-success"
+    = f.submit "Reject", class: "pull-right btn btn-danger btn-evaluation"
+    = f.submit "Accept", class: "pull-right btn btn-success btn-evaluation"
 
     h4 Outcomes
 
@@ -28,4 +28,6 @@
               = hidden_field_tag "evaluation_form[outcomes][#{index}][activity_id]", outcome[:activity_id]
             .col-md-6
               p = outcome[:text]
-    = f.text_area :teacher_notes, rows: 10, class: "form-control"
+    .form-group
+      = f.label :teacher_notes
+      = f.text_area :teacher_notes, rows: 10, class: "form-control"
