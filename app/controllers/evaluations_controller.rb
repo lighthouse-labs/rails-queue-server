@@ -23,9 +23,9 @@ class EvaluationsController < ApplicationController
     @evaluation = @project.evaluations.new(evaluation_params)
     @evaluation.student = current_user
     if @evaluation.save
-      redirect_to projects_path
+      redirect_to projects_path, notice: "Project successfully submitted."
     else
-      flash[:error] = @evaluation.errors
+      flash[:alert] = @evaluation.errors.full_messages
       render :new
     end
   end
