@@ -4,6 +4,6 @@ ol.breadcrumb
 - content_for :project_nav do
   = render 'shared/menus/project_side_menu', project: @project
 h2 = @project.name
-p = @project.description
+== markdown(@project.description)
 
 
