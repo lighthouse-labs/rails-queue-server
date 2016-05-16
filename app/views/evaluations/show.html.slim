@@ -7,6 +7,11 @@ ol.breadcrumb
   li = link_to @evaluation.id, [@project, @evaluation]
 
 h3 = "Status: #{@evaluation.status}"
+- if @evaluation.in_state?(:pending)
+  = link_to "Start Marking", project_evaluation_start_marking_path(@project, @evaluation), class: "pull-right btn btn-success"
+- elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
+  = link_to "Continue Marking", project_evaluation_start_marking_path(@project, @evaluation),
+  class: "pull-right btn btn-success"
 p
   b Student:
   = link_to @evaluation.student.full_name, @evaluation.student
