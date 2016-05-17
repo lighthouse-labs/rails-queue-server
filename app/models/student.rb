@@ -51,7 +51,7 @@ class Student < User
     end
   end
 
-  def last_evaluation_status(project)
-    project.evaluations.where(student: self).order(created_at: :desc).first.current_state.to_s.titleize
+  def last_evaluation(project)
+    project.evaluations.where(student: self).order(created_at: :desc).first
   end
 end

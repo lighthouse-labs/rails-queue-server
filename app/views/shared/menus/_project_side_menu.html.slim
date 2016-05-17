@@ -1,14 +1,18 @@
+- last_evaluation = current_user.last_evaluation(project) if current_user.is_a? Student
 .panel.panel-default.project-nav.text-center
   .panel-heading
     = link_to project.name, project
-    p = current_user.is_a?(Student) ? "(#{current_user.last_evaluation_status(project)})" : ""
+    p = last_evaluation.status
   ul.list-group.project-activities
     - project.activities.chronological.each do |activity|
       li class = (@activity ? "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}" : "list-group-item")
         = link_to activity.name, day_activity_path(activity.day, activity)
         = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)
-    - if student? && (current_user.last_evaluation_status(project) != "Pending" && current_user.last_evaluation_status(project) != "In Progress")
-      li.list-group-item = link_to "Submit", new_project_evaluation_path(project), class: "btn btn-primary center-block"
+    - if student?
+      - if last_evaluation &&(last_evaluation.status != "Pending" && last_evaluation.status != "In Progress")
+        li.list-group-item = link_to "Submit", new_project_evaluation_path(project), class: "btn btn-primary center-block"
+      - if last_evaluation &&(last_evaluation.status != "Accepted" && last_evaluation.status != "Rejected" && last_evaluation.status != "Cancelled")
+        li.list-group-item = link_to "Cancel Submission", project_evaluation_cancel_evaluation_path(project, last_evaluation), class: "btn btn-danger center-block"
     - if admin?
       li.list-group-item = link_to "Create Activity", [:new, project, :activity]
     - if teacher?
