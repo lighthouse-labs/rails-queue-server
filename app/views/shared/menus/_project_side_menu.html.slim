@@ -1,8 +1,8 @@
-- last_evaluation = current_user.last_evaluation(project) if current_user.is_a? Student
+- last_evaluation = project.last_evaluation(current_user) if current_user.is_a? Student
 .panel.panel-default.project-nav.text-center
   .panel-heading
     = link_to project.name, project
-    p = last_evaluation.status
+    p.status = last_evaluation.status
   ul.list-group.project-activities
     - project.activities.chronological.each do |activity|
       li class = (@activity ? "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}" : "list-group-item")

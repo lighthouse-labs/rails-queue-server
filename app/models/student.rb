@@ -50,8 +50,4 @@ class Student < User
       'No Mentor'
     end
   end
-
-  def last_evaluation(project)
-    project.evaluations.where(student: self).order(created_at: :desc).first
-  end
 end
