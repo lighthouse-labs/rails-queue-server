@@ -1,6 +1,8 @@
 .panel.panel-default.project-nav.text-center
-  .panel-heading = link_to project.name, project
-  ul.list-group
+  .panel-heading
+    = link_to project.name, project
+    p = "(#{current_user.last_evaluation_status(project)})"
+  ul.list-group.project-activities
     - project.activities.chronological.each do |activity|
       li class = (@activity ? "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}" : "list-group-item")
         = link_to activity.name, day_activity_path(activity.day, activity)
