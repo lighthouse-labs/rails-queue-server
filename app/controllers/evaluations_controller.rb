@@ -50,7 +50,6 @@ class EvaluationsController < ApplicationController
   end
 
   def cancel_evaluation
-    binding.pry
     @evaluation.transition_to :cancelled
     redirect_to @project
   end
