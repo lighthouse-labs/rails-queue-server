@@ -11,8 +11,4 @@ class ContentRepository < ActiveRecord::Base
     "#{github_username}/#{github_repo}"
   end
 
-  def compare_link_with_sha(sha)
-    "https://github.com/#{full_name}/compare/#{last_sha}...#{sha}"
-  end
-
 end

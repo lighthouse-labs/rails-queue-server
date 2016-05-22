@@ -19,8 +19,11 @@ class Content::Deploy
     deployment do
       repo_dir = download_and_extract_repo_archive
 
-      # This array gets appended to and eventually consumed by other services, below - KV
+      # The records array gets appended to and eventually consumed by other services, below
+      # It will contain AR instances (some loaded, others built, as needed)
+      # - KV
       records = []
+
       load_section_records(repo_dir, records)
       load_activity_records(repo_dir, records)
       results = persist_changes(records)
@@ -67,10 +70,11 @@ class Content::Deploy
 
   def create_summary_file(results)
     Content::CreateSummaryFile.call({
-      log:      @log,
-      updated:  results.updated,
-      created:  results.created,
-      archived: results.archived
+      log:        @log,
+      deployment: @deployment,
+      updated:    results.updated,
+      created:    results.created,
+      archived:   results.archived
     })
   end
 
