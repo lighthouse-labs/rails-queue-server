@@ -20,13 +20,12 @@ class Activity < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 56 }
   validates :duration, numericality: { only_integer: true }
   validates :start_time, numericality: { only_integer: true }, if: Proc.new{|activity| activity.section.blank?}
-  validates :day, presence: true, format: { with: DAY_REGEX, allow_blank: true }, if: Proc.new{|activity| activity.section.blank?}
+  validates :day, format: { with: DAY_REGEX, allow_blank: true }
 
   scope :chronological, -> { order("start_time, id") }
   scope :for_day, -> (day) { where(day: day.to_s) }
   scope :search, -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
 
-  after_save :fetch_from_remote_file, if: :fetch_from_remote_file?
   after_update :add_revision_to_gist
 
   # to avoid callback on .update via instruction download
@@ -95,16 +94,6 @@ class Activity < ActiveRecord::Base
 
   def gist_id
     self.gist_url.split('/').last
-  end
-
-  def fetch_from_remote_file
-    self.fetching_remote_content = true
-    FetchRemoteActivityContent.call(activity: self)
-    true # FIXME: assumes success - KV
-  end
-
-  def fetch_from_remote_file?
-    remote_content? && !fetching_remote_content && (content_file_path_changed? || content_repository_id_changed?)
   end
 
 end

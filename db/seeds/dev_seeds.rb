@@ -31,8 +31,8 @@ if Rails.env.development?
         # don't create if already there
         if time == 900
           Lecture.create!(params) unless Lecture.where(day: day).any?
-        else
-          Assignment.create!(params) unless Assignment.where(day: day, start_time: time).any?
+        # else
+          # Assignment.create!(params) unless Assignment.where(day: day, start_time: time).any?
         end
 
       end

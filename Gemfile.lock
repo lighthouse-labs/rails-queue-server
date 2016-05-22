@@ -67,6 +67,7 @@ GEM
     autoprefixer-rails (6.1.0.1)
       execjs
       json
+    awesome_print (1.6.1)
     aws-sdk-core (2.1.35)
       jmespath (~> 1.0)
     babel-source (5.8.33)
@@ -317,6 +318,10 @@ GEM
     listen (3.0.4)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
+    little-plugger (1.1.4)
+    logging (2.1.0)
+      little-plugger (~> 1.1)
+      multi_json (~> 1.10)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.9)
@@ -517,6 +522,7 @@ DEPENDENCIES
   ace-rails-ap
   actioncable!
   active_model_serializers
+  awesome_print
   aws-sdk-core
   bcrypt-ruby
   best_in_place!
@@ -544,6 +550,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   letter_opener_web
+  logging
   mini_magick
   octokit
   omniauth
@@ -576,3 +583,6 @@ DEPENDENCIES
   spring-commands-rspec
   teaspoon-mocha
   uglifier (>= 1.3.0)
+
+BUNDLED WITH
+   1.10.6

@@ -30,6 +30,9 @@ gem 'compass-rails'
 
 gem 'interactor-rails'
 
+gem 'awesome_print'
+gem 'logging'
+
 gem 'actioncable', github: "rails/actioncable"
 
 gem 'email_validator'
