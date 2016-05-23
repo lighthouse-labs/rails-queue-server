@@ -7,7 +7,7 @@ class AssistanceRequestSubmissionToActivity < ActiveRecord::Migration
       assistance_requests.each do |ar|
         ar.update!({
           activity_id: ar.activity_submission.activity_id,
-          original_activity_submission_id: ar.activity_submission.id,
+          original_activity_submission_id: ar.activity_submission_id,
           activity_submission_id: nil
         })
       end
