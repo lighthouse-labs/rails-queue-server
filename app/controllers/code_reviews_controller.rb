@@ -16,9 +16,14 @@ class CodeReviewsController < ApplicationController
 
   def new
     @student = @cohort.students.find params[:student_id]
-    @activity_submissions = @student.non_code_reviewed_activity_submissions
-    @activities = @student.activities_grouped(today)
     @assistance = Assistance.new(assistor: current_user, assistee: @student)
+
+    @activities = {
+      'Submitted'     => @student.submitted_but_not_reviewed_activities.pluck(:name, :id),
+      'Not Submitted' => @student.unsubmitted_activities_before(today).pluck(:name, :id),
+      'Reviewed'      => @student.code_reviewed_activities.pluck(:name, :id)
+    }
+
     render :new_modal, layout: false
   end
 

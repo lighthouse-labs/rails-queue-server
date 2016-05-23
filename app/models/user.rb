@@ -112,37 +112,25 @@ class User < ActiveRecord::Base
     Activity.where.not(id: self.activity_submissions.select(:activity_id)).where("day < ?", CurriculumDay.new(Date.today, cohort).to_s).order(:day).reverse
   end
 
-  def non_code_reviewed_activity_submissions
-    activities_struct = Struct.new(:id, :name)
-    activity_submissions = self.activity_submissions.order(created_at: :desc).with_github_url.select{ |activity_submission| !activity_submission.code_reviewed?}
-    .map do |activity_submission|
-      activities_struct.new(activity_submission.activity_id ,activity_submission.activity.name)
-    end
+
+  def completed_code_reviews
+    self.assistance_requests.where(type: 'CodeReviewRequest').joins(:assistance).references(:assistance).where.not(assistances: { end_at: nil }).order(created_at: :desc)
   end
 
-  def code_reviewed_activitiy_submissions
-    activities_struct = Struct.new(:id, :name)
-    @ctivity_submissions = self.activity_submissions.order(created_at: :desc).with_github_url.select{ |activity_submission| activity_submission.code_reviewed?}
-    .map do |activity_submission|
-      activities_struct.new(activity_submission.id ,activity_submission.activity.name)
-    end
+  # 1
+  def code_reviewed_activities
+    Activity.where(id: completed_code_reviews.select(:activity_id))
   end
 
-  def activities_grouped(day)
-    activities_struct = Struct.new(:id, :name)
-    activitiy_group = Struct.new(:name, :activities)
-    activity_groups = []
-    submitted = non_code_reviewed_activity_submissions
-    ids = submitted.map { |d| d.id }
-    reviewed = code_reviewed_activitiy_submissions
-    ids << reviewed.map { |d| d.id }
-    # HACK I feel like I could query this more directly, but life is short and AR joined queries are long
-    not_submitted = Activity.where.not(id: ids).where(allow_submissions: true).where("day <= ?", day.to_s).order(:day => :desc).select(:id, :name, :day).map { |d|
-      activities_struct.new(d.id, d.name)
-    }
-    activity_groups << activitiy_group.new("Submitted", submitted)
-    activity_groups << activitiy_group.new("Not Submitted", not_submitted)
-    activity_groups << activitiy_group.new("Reviewed", reviewed)
+  # 2
+  def submitted_but_not_reviewed_activities
+    unreviewed_submissions = self.activity_submissions.with_github_url.where.not(id: completed_code_reviews.select(:activity_submission_id))
+    Activity.where(id: unreviewed_submissions.select(:activity_id))
+  end
+
+  # 3
+  def unsubmitted_activities_before(day)
+    Activity.where(allow_submissions: true).where("day <= ?", day.to_s).order(day: :desc).where.not(id: self.activity_submissions.select(:activity_id))
   end
 
   class << self

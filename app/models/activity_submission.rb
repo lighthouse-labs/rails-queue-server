@@ -37,7 +37,7 @@ class ActivitySubmission < ActiveRecord::Base
     # It may make sense to keep the relationship so I have left it in place.
     # Really we have some bad normalization because of this, but I consider
     # it transitional at this point.
-    CodeReviewRequest.where(activity_id: self.activity_id, requestor_id: self.user_id).first
+    CodeReviewRequest.where(activity_id: self.activity_id, requestor_id: self.user_id).where.not(assistance_id: nil).joins(:assistance).references(:assistance).where.not(assistances: { end_at: nil }).any?
   end
 
   private
