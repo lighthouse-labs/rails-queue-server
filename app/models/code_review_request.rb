@@ -5,7 +5,7 @@ class CodeReviewRequest < AssistanceRequest
   private
 
   def set_activity_submission
-    self.activity_submission = self.requestor.activity_submissions.where(activity: self.activity).order(created_at: :desc).first
+    self.activity_submission ||= self.requestor.activity_submissions.where(activity: self.activity).order(created_at: :desc).first
   end
 
 end
