@@ -63,7 +63,7 @@ class Content::LoadActivities
   # returns an array containing:
   def extract_attributes(content)
     attrs = extract_frontmatter_attributes(content)
-    attrs['instructions'] = content.lstrip.sub(/^---(.*?)---/m, "")
+    attrs['markdown'] = content.lstrip.sub(/^---(.*?)---/m, "")
     attrs
   end
 

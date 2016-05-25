@@ -40,13 +40,28 @@ class Content::LoadActivity
       section:        section(d['section']),
       type:           type(d['type']),
       name:           d['name'],
-      instructions:   d['instructions'],
       duration:       d['duration'] || 20, # FIXME: should not default
       start_time:     d['start_time'] || 900,
       day:            d['day'],
       evaluates_code: d['evaluates_code'],
       media_filename: d['media_filename'],
       outcomes:       outcomes(d['outcomes'])
+    }
+    attrs.merge!(split_instructions_and_teacher_notes(d))
+    attrs
+  end
+
+  # We expect activities (esp lecture activities) to have Teacher Notes
+  #  as a heading. We split the instructions from the teacher notes based on that
+  def split_instructions_and_teacher_notes(d)
+    content = d['markdown']
+
+    separated = content.split(/^#+\s*Teacher Notes\s*$/)
+
+    # return hash with both attributes (latter may be nil)
+    {
+      instructions: separated[0],
+      teacher_notes: separated[1] ? separated[1].lstrip : nil
     }
   end
 
