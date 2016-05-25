@@ -1,4 +1,4 @@
-class StudentsController < ApplicationController
+class StudentsController < Teacher::BaseController
 
   before_action :disallow_unless_enrolled
   before_action :teacher_required, only: [:show, :new_code_review_modal]

@@ -1,0 +1,2 @@
+module Teacher::BaseHelper
+end
