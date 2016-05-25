@@ -31,7 +31,7 @@ class Content::LoadSections
       order: attributes['order']
     }
 
-    section = Section.find_by(uuid: uuid) || Section.new
+    section = Section.find_or_initialize_by(uuid: uuid)
     section.assign_attributes(attrs)
     section
   end
