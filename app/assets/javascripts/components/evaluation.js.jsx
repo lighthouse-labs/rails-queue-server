@@ -5,7 +5,7 @@ var Evaluation = React.createClass({
     if(!this.props.active){
       return (
         <p>
-          <a className="btn btn-primary btn-lg" onClick={this.startMarking} >Start Marking</a>
+          <a className="btn btn-primary btn-lg" href={`/projects/${evaluation.project.slug}/evaluations/${evaluation.id}/start_marking`} onClick={this.startMarking} >Start Marking</a>
         </p>
       )
     } else {
@@ -37,12 +37,6 @@ var Evaluation = React.createClass({
           </p>
         </div>
       )
-  },
-
-  startMarking: function(){
-    var evaluation = this.props.evaluation;
-    App.assistance.startMarking(evaluation.id);
-    window.location.href = `/projects/${evaluation.project.slug}/evaluations/${evaluation.id}/start_marking`;
   },
 
   render: function() {
