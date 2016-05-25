@@ -9,6 +9,7 @@ module ActivitiesHelper
   end
 
   def markdown(content)
+    return '' if content.nil?
     options = {
       autolink: true,
       space_after_headers: true,
