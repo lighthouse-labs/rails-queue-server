@@ -1,5 +1,13 @@
 LaserShark::Application.routes.draw do
 
+  namespace :teacher do
+  get 'students/index'
+  end
+
+  namespace :teacher do
+  get 'students/show'
+  end
+
   resources :questions
 
   resources :quiz_submissions, only: [:show]
@@ -100,6 +108,12 @@ LaserShark::Application.routes.draw do
       post :remove_mentorship
       post :add_mentorship
     end
+  end
+
+  # TEACHER
+  namespace :teacher do
+    root to: "students#index"
+    resources :students, only: [:index, :show]
   end
 
   # ADMIN
