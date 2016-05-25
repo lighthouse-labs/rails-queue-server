@@ -12,6 +12,18 @@ class Evaluation < ActiveRecord::Base
   validates :github_url,
     format: { with: URI::regexp(%w(http https)), message: "must be a valid format" }
 
+  scope :open_evaluations, -> { includes(:project).includes(:student).where(state: "pending") }
+
+  scope :in_progress_evaluations, -> { where(state: "in_progress").where.not(teacher_id: nil) }
+
+  scope :student_cohort_in_locations, -> (locations) {
+    if locations.is_a?(Array) && locations.length > 0
+      includes(student: {cohort: :location}).
+      where(locations: {name: locations}).
+      references(:student, :cohort, :location)
+    end
+  }
+
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
            :in_state?, to: :state_machine
 

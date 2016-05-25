@@ -1,3 +1,3 @@
 class ProjectSerializer < ActiveModel::Serializer
-  attributes :slug
+  attributes :slug, :name
 end
