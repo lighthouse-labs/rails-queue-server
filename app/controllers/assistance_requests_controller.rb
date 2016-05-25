@@ -18,8 +18,8 @@ class AssistanceRequestsController < ApplicationController
     my_active_assistances = Assistance.assisted_by(current_user).currently_active
     requests = AssistanceRequest.where(type: nil).open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
     code_reviews = CodeReviewRequest.open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
-    my_active_evaluations = Evaluation.where(teacher: current_user).where(state: "in_progress")
-    evaluations = Evaluation.open_evaluations.student_cohort_in_locations(params[:location])
+    my_active_evaluations = Evaluation.where(teacher: current_user).where(state: "in_progress").newest_active_evaluations_first
+    evaluations = Evaluation.open_evaluations.student_cohort_in_locations(params[:location]).newest_evaluations_first
     all_students = Student.in_active_cohort.active.order_by_last_assisted_at.cohort_in_locations([params[:location]])
 
     render json: RequestQueueSerializer.new(assistances: my_active_assistances,

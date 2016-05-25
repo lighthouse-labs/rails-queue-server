@@ -24,6 +24,9 @@ class Evaluation < ActiveRecord::Base
     end
   }
 
+  scope :newest_evaluations_first, -> { order(created_at: :desc) }
+  scope :newest_active_evaluations_first, -> { order(started_at: :desc) }
+
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
            :in_state?, to: :state_machine
 
