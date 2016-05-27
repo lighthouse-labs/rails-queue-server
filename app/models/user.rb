@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
   end
 
   def incomplete_activities
-    Activity.where.not(id: self.activity_submissions.select(:activity_id)).where("day < ?", CurriculumDay.new(Date.today, cohort).to_s).order(:day).reverse
+    Activity.where.not(id: self.activity_submissions.select(:activity_id)).where("day <= ?", CurriculumDay.new(Date.today, cohort).to_s).order(:day).reverse
   end
 
 
@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
 
   # 2
   def submitted_but_not_reviewed_activities
-    unreviewed_submissions = self.activity_submissions.with_github_url.where.not(id: completed_code_reviews.select(:activity_submission_id))
+    unreviewed_submissions = self.activity_submissions.with_github_url.where.not(id: completed_code_reviews.select(:activity_submission_id).where.not(activity_submission_id: nil))
     Activity.where(id: unreviewed_submissions.select(:activity_id))
   end
 
