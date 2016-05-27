@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
 
   # 2
   def submitted_but_not_reviewed_activities
-    unreviewed_submissions = self.activity_submissions.with_github_url.where.not(id: completed_code_reviews.select(:activity_submission_id).where.not(activity_submission_id: nil))
+    unreviewed_submissions = self.activity_submissions.with_github_url.where.not(activity_id: completed_code_reviews.select(:activity_id))
     Activity.where(id: unreviewed_submissions.select(:activity_id))
   end
 
