@@ -9,9 +9,18 @@
         br
         a Another Link
       .btn.btn-default Day
+      ul.nav.nav-tabs role="tablist"
+        li.active role="presentation"
+          a href="#prep" aria-controls="" role="tab" data-toggle="tab" Prep
+        li role="presentation"
+          a href="#bootcamp" aria-controls="" role="tab" data-toggle="tab" Bootcamp
       .stats-holder
-        = student_presenter.activity_stats
-        = student_presenter.quiz_stats
+        .tab-content
+            .tab-pane.active#prep role="tabpanel"
+
+            .tab-pane#bootcamp role="tabpanel"
+              = student_presenter.activity_stats
+              = student_presenter.quiz_stats
         .stats
           p Assistances
           p Data
