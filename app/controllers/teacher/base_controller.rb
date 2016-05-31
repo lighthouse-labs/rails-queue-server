@@ -3,7 +3,7 @@ class Teacher::BaseController < ApplicationController
 
   private
 
-  def admin_required
+  def teacher_required
     unless teacher?
       flash[:alert] = 'Access Not Allowed'
       redirect_to :root
