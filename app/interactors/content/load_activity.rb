@@ -17,6 +17,7 @@ class Content::LoadActivity
     # ACTIVITY
     activity = Activity.find_or_initialize_by(uuid: uuid)
     activity.assign_attributes(build_attributes(d))
+
     if quiz?
       activity = activity.becomes(QuizActivity)
       activity.quiz = quiz if quiz
@@ -74,8 +75,13 @@ class Content::LoadActivity
     end.compact
   end
 
-  def section(s)
-    Section.find_by(uuid: s) if s
+  def section(uuid)
+    uuid &&
+     (scan_for_record_by_uuid(uuid) || Section.find_by(uuid: uuid))
+  end
+
+  def scan_for_record_by_uuid(uuid)
+    @records.detect { |r| r.uuid == uuid }
   end
 
   def type(t)

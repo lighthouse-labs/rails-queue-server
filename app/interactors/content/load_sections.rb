@@ -16,6 +16,7 @@ class Content::LoadSections
     sections.each do |section_attributes|
       @records.push build_section(section_attributes)
     end
+
     nil
   end
 
