@@ -14,11 +14,10 @@ class UserMailer < ActionMailer::Base
 
   def new_code_review_message(code_review)
     @message = code_review.student_notes
-    @activity_name = nil
-    @submission_url = nil
+
     if assistance_request = code_review.assistance_request
       @activity_name = assistance_request.activity.name
-      @submission_url = assistance_request.activity_submission.github_url if assistance_request.activity_submission
+      @submission_url = assistance_request.activity_submission.try(:github_url)
     end
     student = code_review.assistee
     @reviewer = code_review.assistor
