@@ -11,6 +11,12 @@
   @extend .rounded-border;
   padding: 0;
   position: relative;
+  img {
+    width: 15%;
+    &[src=""] {
+      padding-top: 15%;
+    }
+  }
   .student-info-holder {
     display: inline-block;
     position: absolute;
