@@ -25,8 +25,10 @@
     top: 5px;
     right: 20px;
   }
+  .nav-tabs {
+    padding-top: 10px;
+  }
   .stats-holder {
-    padding-left: 10px;
     .stats {
       vertical-align: top;
       display: inline-block;
@@ -38,6 +40,9 @@
       .progress {
         margin-bottom: 15px;
       }
+    }
+    .tab-content {
+      border: 0;
     }
   }
   .notes {
@@ -64,11 +69,18 @@
   @extend .rounded-border;
   position: relative;
   min-height: 150px;
-  margin: 20px 0;
+  padding: 10px 0 5px 5px;
+  &:not(.contact) {
+    margin: 20px 0;
+  }
   .title {
     position: absolute;
-    top: -15px;
+    top: -16px;
     left: 20px;
     background-color: white;
+    padding: 0 5px;
+  }
+  p:not(.title) {
+    font-size: 95%;
   }
 }

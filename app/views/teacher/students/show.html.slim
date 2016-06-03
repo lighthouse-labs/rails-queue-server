@@ -5,29 +5,24 @@
       = student_presenter.avatar
       .student-info-holder
         = student_presenter.name
-        = student_presenter.cohort_name
+        = student_presenter.cohort_name_link
         br
-        a Another Link
-      .btn.btn-default Day
+        = student_presenter.cohort_date_link
+      = student_presenter.day_button
       ul.nav.nav-tabs role="tablist"
         li.active role="presentation"
-          a href="#prep" aria-controls="" role="tab" data-toggle="tab" Prep
+          a href="#prep_stats" aria-controls="" role="tab" data-toggle="tab" Prep
         li role="presentation"
-          a href="#bootcamp" aria-controls="" role="tab" data-toggle="tab" Bootcamp
+          a href="#bootcamp_stats" aria-controls="" role="tab" data-toggle="tab" Bootcamp
       .stats-holder
         .tab-content
-            .tab-pane.active#prep role="tabpanel"
-
-            .tab-pane#bootcamp role="tabpanel"
+            .tab-pane.active#prep_stats role="tabpanel"
+              = student_presenter.prep_activity_stats
+              = student_presenter.prep_quiz_stats
+            .tab-pane#bootcamp_stats role="tabpanel"
               = student_presenter.activity_stats
               = student_presenter.quiz_stats
-        .stats
-          p Assistances
-          p Data
-          .progress
-            .progress-bar role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"
-              span.sr-only 70% Complete
-          p How goes
+              = student_presenter.assistance_stats
     .btn-wrapper
       .btn-group.student-btn-group
         a.btn.btn-default +Assist
@@ -44,22 +39,23 @@
         li role="presentation"
           a href="#completion" aria-controls="" role="tab" data-toggle="tab" Completion
         li role="presentation"
-          a href="#submissions" aria-controls="" role="tab" data-toggle="tab" Submissions
+          a href="#bootcamp_submissions" aria-controls="" role="tab" data-toggle="tab" Submissions
         li role="presentation"
-          a href="#prep" aria-controls="" role="tab" data-toggle="tab" Prep
+          a href="#prep_submissions" aria-controls="" role="tab" data-toggle="tab" Prep
 
       .tab-content
         .tab-pane.active#outcomes role="tabpanel"
-          p this is some content outcomes
+          = student_presenter.outcomes_table
         .tab-pane#completion role="tabpanel"
           p this is some content completion
-        .tab-pane#submissions role="tabpanel"
-          p this is some content submissons
-        .tab-pane#prep role="tabpanel"
-          p this is some content prep
+        .tab-pane#bootcamp_submissions role="tabpanel"
+          p this is some content bootcamp_submissions
+        .tab-pane#prep_submissions role="tabpanel"
+          = student_presenter.prep_table
 
   .col-md-3
-    .titled-panel
+    .titled-panel.contact
       p.title Contact Info
+      = student_presenter.contact
     .titled-panel
       p.title Bio / About
