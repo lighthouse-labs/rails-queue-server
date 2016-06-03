@@ -13,7 +13,6 @@ class StudentPresenter < UserPresenter
   end
 
   def cohort_name_link
-    #result = "<a href='#'>#{student.cohort.name}</a>"
     result = link_to student.cohort.name, cohort_students_path(student.cohort)
     result.html_safe
   end
