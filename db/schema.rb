@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20160505170745) do
     t.datetime "updated_at"
     t.integer  "assistance_id"
     t.datetime "canceled_at"
-    t.string   "type",                            limit: 255
+    t.string   "type"
     t.integer  "activity_submission_id"
     t.text     "reason"
     t.integer  "activity_id"
