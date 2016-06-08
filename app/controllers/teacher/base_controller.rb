@@ -1,12 +1,11 @@
 class Teacher::BaseController < ApplicationController
+
   before_filter :teacher_required
 
   private
 
   def teacher_required
-    unless teacher?
-      flash[:alert] = 'Access Not Allowed'
-      redirect_to :root
-    end
+    redirect_to(:root, alert: 'Access Not Allowed') unless teacher?
   end
+
 end
