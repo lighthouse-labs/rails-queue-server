@@ -41,25 +41,11 @@ if Rails.env.development?
 
   User.where(last_name: 'The Fake').destroy_all
 
-  10.times do |i|
-    Student.create!(
-      first_name: Faker::Name.first_name,
-      last_name: "The Fake",
-      email: Faker::Internet.email,
-      cohort: cohort_van,
-      phone_number: '123-123-1234',
-      github_username: 'useruser',
-      location: @location_van,
-      uid: 1000 + i,
-      token: 2000 + i,
-      completed_registration: true
-    )
-  end
-
+  @teachers = []
   10.times do |x|
-    Teacher.create!(
+    @teachers << Teacher.create!(
       first_name: Faker::Name.first_name,
-      last_name:  "The Fake",
+      last_name: 'The Fake',
       email: Faker::Internet.email,
       uid: 1000 + x,
       token: 2000 + x,
@@ -68,25 +54,69 @@ if Rails.env.development?
       bio: Faker::Lorem.sentence,
       specialties: Faker::Lorem.sentence,
       quirky_fact: Faker::Lorem.sentence,
-      phone_number: '123-123-1234',
-      github_username: 'useruser',
-      location: @location_van,
+      phone_number: Faker::PhoneNumber.phone_number,
+      github_username: Faker::Internet.user_name,
+      location: locations.sample,
     )
   end
 
-  10.times do |i|
-    Student.create!(
-      first_name: Faker::Name.first_name,
-      last_name:  "The Fake",
-      email: Faker::Internet.email,
-      cohort: cohort_tor,
-      uid: 1011 + i,
-      token: 2011 + i,
-      completed_registration: true,
-      phone_number: '123-123-1234',
-      github_username: 'useruser',
-      location: @location_to,
-    )
+  Cohort.all.each do |cohort|
+    10.times do |i|
+      Student.create!(
+        first_name: Faker::Name.first_name,
+        last_name: "The Fake",
+        email: Faker::Internet.email,
+        cohort: cohort,
+        phone_number: Faker::PhoneNumber.phone_number,
+        github_username: Faker::Internet.user_name,
+        location: cohort.location,
+        uid: 1000 + i,
+        token: 2000 + i,
+        completed_registration: true
+      )
+
+      10.times do |y|
+          teacher = @teachers.sample
+          # create a sampled assistance request
+          ar = AssistanceRequest.create!(
+            requestor: student,
+            assistor_id: teacher.id,
+            start_at: Date.today - 10.minutes,
+            assistance_start_at: Date.today - 10.minutes,
+            assistance_end_at: Date.today - 8.minutes,
+            type: nil,
+            assistance: Assistance.create(
+              assistor_id: teacher.id,
+              assistee_id: student.id,
+              start_at: Date.today - 10.minutes,
+              end_at: Date.today - 8.minutes,
+              notes: Faker::Lorem.sentence,
+              rating: [1,2,3,4].sample
+            ),
+            reason: Faker::Lorem.sentence
+          )
+          # create a student feedback on this AssistanceRequest
+          Feedback.create!(
+            student_id: student.id,
+            teacher_id: teacher.id,
+            notes: Faker::Lorem.sentence,
+            rating: [1,2,3,4].sample,
+            feedbackable_id: ar.assistance.id,
+            feedbackable_type: 'Assistance'
+          )
+        end # 10 loop for assistance
+
+        # student submissions
+        # HACK does not prevent duplicate submissions
+        assignments.sample(10).each do |activity|
+          ActivitySubmission.create!(
+            user: student,
+            github_url: Faker::Internet.url('github.com'),
+            activity: activity
+          )
+        end
+      end # 10 loop for students
+    end # locations
   end
 
 end
