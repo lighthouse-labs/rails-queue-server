@@ -42,41 +42,43 @@ class StudentPresenter < UserPresenter
     completed_activities = student.activity_submissions.proper.joins(activity: [:section]).where(sections: { type: 'Prep' }).count
     total_activities = Activity.joins(:section).where(sections: { type: 'Prep' }).count
     activity_ratio = total_activities > 0 ? (completed_activities.to_f / total_activities.to_f) * 100 : 0
-    result = "<div class='stats'><p><strong>Activities</strong>"
-    result += "<p>#{completed_activities} of #{total_activities}</p><p>&nbsp</p>"
-    result += "<div class='progress'><div class='progress-bar' role='progressbar'"
-    result += "aria-valuenow='#{activity_ratio}' aria-valuemin='0' aria-valuemax='100' style='width:#{activity_ratio}%'>"
-    result += "<span class='sr-only'>#{activity_ratio}% Complete</span></div></div>"
-    result += "<p>Status</p></div>"
-    result.html_safe
+
+    render 'stats', {
+      title:    'Activities',
+      count:    completed_activities,
+      max:      total_activities,
+      avg:      nil,
+      progress: activity_ratio
+    }
   end
 
   def prep_quiz_stats
     quiz_ids = Quiz.joins(quiz_activities: [:section]).where(sections: { type: 'Prep' }).select(:id)
     quiz_submissions = student.quiz_submissions.where(quiz_id: quiz_ids).where(initial: true)
-    quiz_ratio = quiz_submissions.count > 0 ? (quiz_submissions.count.to_f / quiz_ids.count) * 100 : 0
+    quiz_ratio = quiz_submissions.any? ? (quiz_submissions.count.to_f / quiz_ids.count) * 100 : 0
     quiz_average = average_score_for_submissions(quiz_submissions)
-    result = "<div class='stats'><p><strong>Quizzes</strong></p>"
-    result += "<p>#{quiz_submissions.count} of #{quiz_ids.count}</p>"
-    result += "<p>Average: #{quiz_average.to_i}</p>" if quiz_average
-    result += "<div class='progress'><div class='progress-bar' role='progressbar'"
-    result += "aria-valuenow='#{quiz_ratio}' aria-valuemin='0' aria-valuemax='100' style='width:#{quiz_ratio}%'>"
-    result += "<span class='sr-only'>#{quiz_ratio}% Complete</span></div></div>"
-    result += "<p>Status</p></div>"
-    result.html_safe
+
+    render 'stats', {
+      title:    'Quizzes',
+      count:    quiz_submissions.count,
+      max:      quiz_ids.count,
+      avg:      quiz_average,
+      progress: quiz_ratio
+    }
   end
 
   def activity_stats
-    completed_activities = student.activity_submissions.proper.joins(:activity).where(activities: { section_id: nil }).count
-    total_activities = Activity.count
-    activity_ratio = completed_activities > 0 ? (completed_activities.to_f / total_activities) * 100 : 0
-    result = "<div class='stats'><p><strong>Activities</strong>"
-    result += "<p>#{completed_activities} of #{total_activities}</p>"
-    result += "<div class='progress'><div class='progress-bar' role='progressbar'"
-    result += "aria-valuenow='#{activity_ratio}' aria-valuemin='0' aria-valuemax='100' style='width:#{activity_ratio}%'>"
-    result += "<span class='sr-only'>#{activity_ratio}% Complete</span></div></div>"
-    result += "<p>Status</p></div>"
-    result.html_safe
+    completed_activities = student.activity_submissions.proper.joins(:activity).where(activities: { section_id: nil })
+    total_activities = Activity.all
+    activity_ratio = total_activities.any? ? (completed_activities.count.to_f / total_activities.count) * 100 : 0
+
+    render 'stats', {
+      title:    'Activities',
+      count:    completed_activities.count,
+      max:      total_activities.count,
+      avg:      nil,
+      progress: activity_ratio
+    }
   end
 
   def quiz_stats
@@ -84,25 +86,25 @@ class StudentPresenter < UserPresenter
     total_quizzes = Quiz.count
     quiz_ratio = quiz_submissions.any? ? (quiz_submissions.to_f / total_quizzes) * 100 : 0
     quiz_average = average_score_for_submissions(quiz_submissions)
-    result = "<div class='stats'><p><strong>Quizzes</strong></p>"
-    result += "<p>#{quiz_submissions.count} of #{total_quizzes}</p>"
-    result += "<p>Average: #{quiz_average.to_i}</p>" if quiz_average
-    result += "<div class='progress'><div class='progress-bar' role='progressbar'"
-    result += "aria-valuenow='#{quiz_ratio}' aria-valuemin='0' aria-valuemax='100' style='width:#{quiz_ratio}%'>"
-    result += "<span class='sr-only'>#{quiz_ratio}% Complete</span></div></div>"
-    result += "<p>Status</p></div>"
-    result.html_safe
+
+    render 'stats', {
+      title:    'Quizzes',
+      count:    quiz_submissions.count,
+      max:      total_quizzes,
+      avg:      quiz_average,
+      progress: quiz_ratio
+    }
   end
 
   def assistance_stats
-    #TO DO - this uses dummy data, replace it with real data.
-    result = "<div class='stats'><p><strong>Assistances</strong></p>"
-    result += "<p>? of ?</p>"
-    result += "<div class='progress'><div class='progress-bar' role='progressbar'"
-    result += "aria-valuenow='50' aria-valuemin='0' aria-valuemax='100' style='width:50%'>"
-    result += "<span class='sr-only'>50% Complete</span></div></div>"
-    result += "<p>Status</p></div>"
-    result.html_safe
+    # TODO - this uses dummy data, replace it with real data.
+    render 'stats', {
+      title:    'Assistances',
+      count:    '?',
+      max:      '?',
+      avg:      nil,
+      progress: 50
+    }
   end
 
   def outcomes_table
