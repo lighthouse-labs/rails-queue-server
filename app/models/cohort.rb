@@ -5,21 +5,24 @@ class Cohort < ActiveRecord::Base
 
   has_many :students
   has_many :recordings
-  
+
   validates :name, presence: true
   validates :start_date, presence: true
   validates :program, presence: true
   validates :location, presence: true
 
-  validates :code,  uniqueness: true, 
+  validates :code,  uniqueness: true,
                     presence: true,
-                    format: { with: /\A[-a-z]+\z/, allow_blank: true }, 
+                    format: { with: /\A[-a-z]+\z/, allow_blank: true },
                     length: { minimum: 3, allow_blank: true }
 
   scope :most_recent, -> { order(start_date: :desc) }
   scope :starts_between, -> (from, to) { where("cohorts.start_date >= ? AND cohorts.start_date <= ?", from, to) }
   scope :is_active, -> { starts_between(Date.current - 8.weeks, Date.current) }
-  
+
+  def upcoming?
+    start_date > Date.current
+  end
 
   def active?
     start_date >= (Date.current - 8.weeks) && start_date <= Date.current

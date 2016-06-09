@@ -41,6 +41,10 @@ class ActivitySubmission < ActiveRecord::Base
     where(code_review_request: nil)
   }
 
+  scope :proper, -> {
+    joins(:activity).references(:activity).where("activities.evaluates_code = false OR activities.evaluates_code IS NULL OR activity_submissions.finalized = true")
+  }
+
   def code_reviewed?
     # NOTE when I transposed this relationship the :code_review_request was disassociated
     # It may make sense to keep the relationship so I have left it in place.
