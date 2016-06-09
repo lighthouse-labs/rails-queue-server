@@ -20,10 +20,7 @@ class StudentPresenter < UserPresenter
   end
 
   def contact
-    result = "<p>Email: #{student.email}</p>"
-    result += "<p>Phone #: #{student.phone_number}</p>"
-    result += "<a href='http://www.github.com/#{student.github_username}'>GitHub Account</a>"
-    result.html_safe
+    render 'contact_info', student: student
   end
 
   def day_button
@@ -108,31 +105,21 @@ class StudentPresenter < UserPresenter
   end
 
   def outcomes_table
-    skills = student.outcome_results.group("skills.name").joins(outcome: [:skill]).average(:rating)
-    result = "<table class='table'><thead><th>Skill</th><th>Average Rating</th></thead><tbody>"
-    skills.each { |k,v| result += "<tr><td>#{k.titleize}</td><td>#{'X' * v}</td></tr>" }
-    result += "</tbody></table>"
-    result.html_safe
+    ratings = student.outcome_results.group("skills.name").joins(outcome: [:skill]).average(:rating)
+    render 'skills_ratings', ratings: ratings
   end
 
   def prep_table
-    result = "<table class='table'><thead><th>Module</th>"
-    result += "<th>Activities</th><th>Avg Quiz Score</th></thead><tbody>"
-    Prep.all.each do |p|
-      activity_submissions = p.activity_submissions.proper.where(user_id: student.id).count
-      total_activities = p.activities.count
-      quiz_average = average_quiz_score_for_section(p)
-      result += "<tr><td>#{p.name}</td>"
-      result += "<td>#{activity_submissions}/#{total_activities}</td>"
-      if quiz_average
-        result += "<td>#{quiz_average}%</td>"
-      else
-        result += "<td>N/A</td>"
-      end
-      result += "</tr>"
+    stats = Prep.all.map do |p|
+      {
+        name: p.name,
+        activity_submissions: p.activity_submissions.proper.where(user_id: student.id).count,
+        total_activities: p.activities.count,
+        quiz_average: average_quiz_score_for_section(p)
+      }
     end
-    result += "</tbody></table>"
-    result.html_safe
+
+    render 'prep_sections', section_stats: stats
   end
 
   private
