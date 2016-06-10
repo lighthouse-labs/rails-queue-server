@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def authenticate_user
     if !current_user
       session[:attempted_url] = request.url
-      redirect_to new_session_path, alert: 'Please login first!' 
+      redirect_to new_session_path, alert: 'Please login first!'
     elsif current_user.deactivated?
       session[:user_id] = nil
       redirect_to :root, alert: 'Your account has been deactivated. Please contact the admin if this is in error.'
@@ -86,7 +86,7 @@ class ApplicationController < ActionController::Base
     @cohorts ||= Cohort.most_recent
   end
   helper_method :cohorts
-  
+
   def dropdown_cohorts
     @dropdown_cohorts = cohorts.starts_between(3.months.ago.to_date, 2.weeks.from_now.to_date).group_by(&:location)
   end
