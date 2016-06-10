@@ -1,0 +1,3 @@
+class Breakout < Activity
+
+end

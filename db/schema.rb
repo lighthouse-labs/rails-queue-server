@@ -212,33 +212,6 @@ ActiveRecord::Schema.define(version: 20160522205958) do
 
   add_index "deployments", ["content_repository_id"], name: "index_deployments_on_content_repository_id", using: :btree
 
-  create_table "evaluation_transitions", force: :cascade do |t|
-    t.string   "to_state",                     null: false
-    t.text     "metadata",      default: "{}"
-    t.integer  "sort_key",                     null: false
-    t.integer  "evaluation_id",                null: false
-    t.boolean  "most_recent",                  null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-  end
-
-  add_index "evaluation_transitions", ["evaluation_id", "most_recent"], name: "index_evaluation_transitions_parent_most_recent", unique: true, where: "most_recent", using: :btree
-  add_index "evaluation_transitions", ["evaluation_id", "sort_key"], name: "index_evaluation_transitions_parent_sort", unique: true, using: :btree
-
-  create_table "evaluations", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "student_id"
-    t.integer  "teacher_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.string   "github_url"
-    t.text     "teacher_notes"
-    t.string   "state",         default: "pending"
-    t.datetime "started_at"
-    t.datetime "completed_at"
-    t.text     "student_notes"
-  end
-
   create_table "feedbacks", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "teacher_id"
@@ -382,12 +355,11 @@ ActiveRecord::Schema.define(version: 20160522205958) do
   create_table "sections", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "order"
     t.string   "type"
     t.string   "uuid"
-    t.text     "description"
   end
 
   add_index "sections", ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree

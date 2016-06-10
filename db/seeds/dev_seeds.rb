@@ -4,6 +4,8 @@
 
 if Rails.env.development?
 
+  locations = [@location_van, @location_to]
+
   puts "Legacy dev-only seed data coming at ya (development - only)!"
 
   cohort_van = Cohort.find_by(code: 'van')
@@ -62,7 +64,7 @@ if Rails.env.development?
 
   Cohort.all.each do |cohort|
     10.times do |i|
-      Student.create!(
+      student = Student.create!(
         first_name: Faker::Name.first_name,
         last_name: "The Fake",
         email: Faker::Internet.email,
@@ -76,47 +78,43 @@ if Rails.env.development?
       )
 
       10.times do |y|
-          teacher = @teachers.sample
-          # create a sampled assistance request
-          ar = AssistanceRequest.create!(
-            requestor: student,
-            assistor_id: teacher.id,
+        teacher = @teachers.sample
+        # create a sampled assistance request
+        ar = AssistanceRequest.create!(
+          requestor: student,
+          start_at: Date.today - 10.minutes,
+          assistance_start_at: Date.today - 10.minutes,
+          assistance_end_at: Date.today - 8.minutes,
+          type: nil,
+          assistance: Assistance.create(
+            assistor: teacher,
+            assistee: student,
             start_at: Date.today - 10.minutes,
-            assistance_start_at: Date.today - 10.minutes,
-            assistance_end_at: Date.today - 8.minutes,
-            type: nil,
-            assistance: Assistance.create(
-              assistor_id: teacher.id,
-              assistee_id: student.id,
-              start_at: Date.today - 10.minutes,
-              end_at: Date.today - 8.minutes,
-              notes: Faker::Lorem.sentence,
-              rating: [1,2,3,4].sample
-            ),
-            reason: Faker::Lorem.sentence
-          )
-          # create a student feedback on this AssistanceRequest
-          Feedback.create!(
-            student_id: student.id,
-            teacher_id: teacher.id,
+            end_at: Date.today - 8.minutes,
             notes: Faker::Lorem.sentence,
-            rating: [1,2,3,4].sample,
-            feedbackable_id: ar.assistance.id,
-            feedbackable_type: 'Assistance'
-          )
-        end # 10 loop for assistance
+            rating: [1,2,3,4].sample
+          ),
+          reason: Faker::Lorem.sentence
+        )
+        # create a student feedback on this AssistanceRequest
+        Feedback.create!(
+          student: student,
+          teacher: teacher,
+          notes: Faker::Lorem.sentence,
+          rating: [1,2,3,4].sample,
+          feedbackable: ar.assistance
+        )
+      end # 10 loop for assistance
 
-        # student submissions
-        # HACK does not prevent duplicate submissions
-        assignments.sample(10).each do |activity|
-          ActivitySubmission.create!(
-            user: student,
-            github_url: Faker::Internet.url('github.com'),
-            activity: activity
-          )
-        end
-      end # 10 loop for students
-    end # locations
-  end
-
+      # student submissions
+      # HACK does not prevent duplicate submissions
+      Activity.where(allow_submissions: true).where.not(evaluates_code: true).order('RANDOM()').limit(10).each do |activity|
+        ActivitySubmission.create!(
+          user: student,
+          github_url: Faker::Internet.url('github.com'),
+          activity: activity
+        )
+      end
+    end # 10 loop for students
+  end # locations
 end

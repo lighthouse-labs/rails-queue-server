@@ -116,8 +116,17 @@ class Content::LoadActivity
       'Reading'
     when 'practice'
       'Task'
+    when 'breakout'
+      'Lecture'
     else
-      t.strip
+      # make sure this is a valid Activity type, and if so, roll with it
+      t = t.strip.gsub(/\s+/, '_').classify
+      if Object.const_defined?(t) && t.constantize.superclass == Activity
+        t
+      else
+        # couldn't find a class with this name, so
+        nil
+      end
     end
   end
 
