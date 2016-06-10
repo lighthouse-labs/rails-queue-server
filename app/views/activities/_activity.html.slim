@@ -1,5 +1,5 @@
 = link_to day_activity_path(activity.day, activity)
-  div class=("#{activity.type.downcase} " + 'activity')
+  div class=("#{activity.type.to_s.downcase} " + 'activity')
     .icon.icon-type title=activity.type
       i class=(icon_for(activity))
     - if weekend? || activity.display_duration?

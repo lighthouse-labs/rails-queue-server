@@ -36,7 +36,7 @@ module ActivitiesHelper
   end
 
   def icon_for(activity)
-    case activity.type.downcase
+    case activity.type.to_s.downcase
     when "assignment"
       if activity.evaluates_code?
         'fa fa-gears'
