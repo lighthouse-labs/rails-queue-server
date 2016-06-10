@@ -1,0 +1,60 @@
+- provide :body_class, 'student-stats'
+
+- present(@student) do |student_presenter|
+
+  .col-md-9
+    .student-heading
+      = student_presenter.avatar
+      .student-info-holder
+        = student_presenter.name
+        = student_presenter.cohort_name_link
+        br
+        = student_presenter.cohort_date_link
+      = student_presenter.day_button
+      ul.nav.nav-tabs role="tablist"
+        li.active role="presentation"
+          a href="#prep_stats" aria-controls="" role="tab" data-toggle="tab" Prep
+        li role="presentation"
+          a href="#bootcamp_stats" aria-controls="" role="tab" data-toggle="tab" Bootcamp
+      .stats-holder
+        .tab-content
+            .tab-pane.active#prep_stats role="tabpanel"
+              = student_presenter.prep_activity_stats
+              = student_presenter.prep_quiz_stats
+            .tab-pane#bootcamp_stats role="tabpanel"
+              = student_presenter.activity_stats
+              = student_presenter.quiz_stats
+              = student_presenter.assistance_stats
+    .btn-wrapper
+      .btn-group.student-btn-group
+        a.btn.btn-default +Assist
+        a.btn.btn-default +Tech-Interview
+        a.btn.btn-default +Code-Review
+
+    .student-results
+      ul.nav.nav-tabs role="tablist"
+        li.active role="presentation"
+          a href="#outcomes" aria-controls="" role="tab" data-toggle="tab" Outcomes
+        li role="presentation"
+          a href="#completion" aria-controls="" role="tab" data-toggle="tab" Completion
+        li role="presentation"
+          a href="#bootcamp_submissions" aria-controls="" role="tab" data-toggle="tab" Submissions
+        li role="presentation"
+          a href="#prep_submissions" aria-controls="" role="tab" data-toggle="tab" Prep
+
+      .tab-content
+        .tab-pane.active#outcomes role="tabpanel"
+          = student_presenter.outcomes_table
+        .tab-pane#completion role="tabpanel"
+          p this is some content completion
+        .tab-pane#bootcamp_submissions role="tabpanel"
+          p this is some content bootcamp_submissions
+        .tab-pane#prep_submissions role="tabpanel"
+          = student_presenter.prep_table
+
+  .col-md-3
+    .titled-panel.contact
+      p.title Contact Info
+      = student_presenter.contact
+    .titled-panel
+      p.title Bio / About
