@@ -14,7 +14,7 @@ html
     == javascript_include_tag 'admin', 'data-turbolinks-track' => true
 
     == csrf_meta_tags
-  body*{class: yield(:body_class)}
+  body class=(yield :body_class)
     header
       == render 'layouts/navigation'
     main.container[role="main"]

@@ -102,6 +102,11 @@ LaserShark::Application.routes.draw do
     end
   end
 
+  # TEACHER
+  namespace :teacher do
+    resources :students, only: [:show]
+  end
+
   # ADMIN
   namespace :admin do
     root to: 'dashboard#show'

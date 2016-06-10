@@ -119,15 +119,28 @@ class User < ActiveRecord::Base
   end
 
   def incomplete_activities
-    Activity.where.not(id: self.activity_submissions.select(:activity_id)).where("day < ?", CurriculumDay.new(Date.today, cohort).to_s).order(:day).reverse
+    Activity.where.not(id: self.activity_submissions.select(:activity_id)).where("day <= ?", CurriculumDay.new(Date.today, cohort).to_s).order(:day).reverse
   end
 
-  def non_code_reviewed_activity_submissions
-    @activities_struct = Struct.new(:id, :name)
-    @activity_submissions = self.activity_submissions.order(created_at: :desc).with_github_url.select{ |activity_submission| !activity_submission.code_reviewed?}
-    .map do |activity_submission|
-      @activities_struct.new(activity_submission.id ,activity_submission.activity.name)
-    end
+
+  def completed_code_reviews
+    self.assistance_requests.where(type: 'CodeReviewRequest').joins(:assistance).references(:assistance).where.not(assistances: { end_at: nil }).order(created_at: :desc)
+  end
+
+  # 1
+  def code_reviewed_activities
+    Activity.where(id: completed_code_reviews.select(:activity_id))
+  end
+
+  # 2
+  def submitted_but_not_reviewed_activities
+    unreviewed_submissions = self.activity_submissions.with_github_url.where.not(activity_id: completed_code_reviews.select(:activity_id))
+    Activity.where(id: unreviewed_submissions.select(:activity_id))
+  end
+
+  # 3
+  def unsubmitted_activities_before(day)
+    Activity.where(allow_submissions: true).where("day <= ?", day.to_s).order(day: :desc).where.not(id: self.activity_submissions.select(:activity_id))
   end
 
   class << self

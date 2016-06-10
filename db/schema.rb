@@ -124,6 +124,8 @@ ActiveRecord::Schema.define(version: 20160522205958) do
     t.string   "type"
     t.integer  "activity_submission_id"
     t.text     "reason"
+    t.integer  "activity_id"
+    t.integer  "original_activity_submission_id"
   end
 
   add_index "assistance_requests", ["activity_submission_id"], name: "index_assistance_requests_on_activity_submission_id", using: :btree
