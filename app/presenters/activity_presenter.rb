@@ -3,11 +3,11 @@ class ActivityPresenter < BasePresenter
 
   def name
     result = ""
-    if activity.section
-      result += "<small>#{activity.section.name}</small><br>"
-    end
     result += content_tag(:i, nil, class: icon_for(activity))
     result += " #{activity.name}"
+    if activity.section
+      result += "<br><small>#{activity.section.name}</small>"
+    end
     result.html_safe
   end
 

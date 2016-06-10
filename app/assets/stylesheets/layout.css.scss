@@ -61,7 +61,7 @@ header > nav {
 
 main {
   $side-nav-width: 240px;
-  &.container { 
+  &.container {
     margin-left: 0px;
     // width: 1400px;
   }
@@ -77,19 +77,19 @@ main {
     }
     .panel {
       &.selected {
-        .panel-heading { 
+        .panel-heading {
           a, i {
-            color: $brand-primary;  
+            color: $brand-primary;
           }
         }
       }
       .list-group-item.selected {
         a, i {
-          color: $brand-primary;  
+          color: $brand-primary;
         }
-      }  
+      }
     }
-    
+
   }
   .content {
     // @media (min-width: $screen-sm-min) {
@@ -139,7 +139,7 @@ main {
     top: 75px;
 
     h4 {
-     display: none; 
+     display: none;
     }
 
     img {
