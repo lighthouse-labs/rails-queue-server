@@ -1,10 +1,10 @@
 # TODO:
 # X update last commit sha in repo table
 # X better logging
-# - handle "evaluates code activity (activity_test record)"
+# X handle "evaluates code activity (activity_test record)"
 # - create summary html file
 # - email notification of summary file
-# - include github compare link
+# X include github compare link
 
 class Content::Deploy
   include Interactor

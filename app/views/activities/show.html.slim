@@ -161,12 +161,12 @@
       h3
         i.fa.fa-gears
         | &nbsp; Test Content
-      - if @activity.activity_test.try(:test).blank?
+      - if @activity.test_code.blank?
         p There aren't any Mocha tests associated with this activity
       - else
         p The following code is run in the student's browser. They are not shown this code as part of the activity, mind you.
         pre.language-js
-          code = @activity.activity_test.test
+          code = @activity.test_code
 
     = render "code_evaluation", activity: @activity if !teacher? && @activity.evaluates_code?
 

@@ -46,7 +46,9 @@ class Content::LoadActivity
       day:            d['day'],
       evaluates_code: d['evaluates_code'],
       media_filename: d['media_filename'],
-      outcomes:       outcomes(d['outcomes'])
+      outcomes:       outcomes(d['outcomes']),
+      test_code:      d['test_code'],
+      initial_code:   d['initial_code']
     }
     attrs.merge!(split_instructions_and_teacher_notes(d))
     attrs

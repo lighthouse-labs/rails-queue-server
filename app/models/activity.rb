@@ -15,9 +15,6 @@ class Activity < ActiveRecord::Base
   has_many :item_outcomes, as: :item, dependent: :destroy
   has_many :outcomes, through: :item_outcomes
 
-  has_one :activity_test
-  accepts_nested_attributes_for :activity_test
-
   validates :name, presence: true, length: { maximum: 56 }
   validates :duration, numericality: { only_integer: true }
   validates :start_time, numericality: { only_integer: true }, if: Proc.new{|activity| activity.section.blank?}

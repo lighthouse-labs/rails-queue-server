@@ -8,8 +8,8 @@ hr
 
   - if @activity.evaluates_code?
     h3 Optional Test
-    pre#test_content style="display:none" = @activity_test.test
-    #test-editor.editor  
+    pre#test_content style="display:none" = @activity.test_code
+    #test-editor.editor
 
   .actions.well
     = f.submit 'Create', class: 'btn btn-primary', style: 'margin-right: 10px;'

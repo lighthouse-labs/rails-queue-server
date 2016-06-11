@@ -11,10 +11,10 @@ class ActivitySubmission < ActiveRecord::Base
   before_create :set_finalized_for_code_evaluation
 
   #after_save :request_code_review
-  after_create :create_feedback
+  # after_create :create_feedback
   after_create :create_user_outcome_results
   after_destroy :handle_submission_destroy
-  after_destroy :destroy_feedback
+  # after_destroy :destroy_feedback
 
   default_value_for :completed_at, allows_nil: false do
     Time.now
