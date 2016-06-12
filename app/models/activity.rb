@@ -18,9 +18,10 @@ class Activity < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 56 }
   validates :duration, numericality: { only_integer: true }
   validates :start_time, numericality: { only_integer: true }, if: Proc.new{|activity| activity.section.blank?}
+  validates :sequence, numericality: { only_integer: true }
   validates :day, format: { with: DAY_REGEX, allow_blank: true }
 
-  scope :chronological, -> { order("start_time, id") }
+  scope :chronological, -> { order("sequence ASC, id ASC") }
   scope :for_day, -> (day) { where(day: day.to_s) }
   scope :search, -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
 
@@ -46,19 +47,27 @@ class Activity < ActiveRecord::Base
   end
 
   def next
+    activities = Activity.chronological.where('activities.sequence > ?', self.sequence)
+
     if prep?
-      self.section.activities.where('activities.id > ?', self.id).first
-    else
-      Activity.where('start_time > ? AND day = ?', self.start_time, self.day).order(start_time: :asc).first
+      activities.where(section: self.section)
+    elsif day?
+      activities.where(day: self.day)
     end
+
+    activities.first
   end
 
   def previous
+    activities = Activity.chronological.where('activities.sequence < ?', self.sequence)
+
     if prep?
-      self.section.activities.where('activities.id < ?', self.id).last
-    else
-      Activity.where('start_time < ? AND day = ?', self.start_time, self.day).order(start_time: :desc).first
+      activities.where(section: self.section)
+    elsif day?
+      activities.where(day: self.day)
     end
+
+    activities.last
   end
 
   def display_duration?
@@ -70,7 +79,7 @@ class Activity < ActiveRecord::Base
   end
 
   def prep?
-    self.section
+    self.section && self.section.is_a?(Prep)
   end
 
   # Also could be overwritten by sub classes

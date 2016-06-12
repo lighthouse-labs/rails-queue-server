@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610194757) do
+ActiveRecord::Schema.define(version: 20160611204518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,10 +42,12 @@ ActiveRecord::Schema.define(version: 20160610194757) do
     t.string   "uuid"
     t.text     "initial_code"
     t.text     "test_code"
+    t.integer  "sequence"
   end
 
   add_index "activities", ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
   add_index "activities", ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
+  add_index "activities", ["sequence"], name: "index_activities_on_sequence", using: :btree
   add_index "activities", ["start_time"], name: "index_activities_on_start_time", using: :btree
   add_index "activities", ["uuid"], name: "index_activities_on_uuid", unique: true, using: :btree
 

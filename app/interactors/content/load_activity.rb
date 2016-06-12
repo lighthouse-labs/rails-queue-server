@@ -41,6 +41,7 @@ class Content::LoadActivity
       section:        section(d['section']),
       type:           type(d['type']),
       name:           d['name'],
+      sequence:       d['sequence'],
       duration:       d['duration'] || 20, # FIXME: should not default
       start_time:     d['start_time'] || 900,
       day:            d['day'],

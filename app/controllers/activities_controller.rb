@@ -85,6 +85,7 @@ class ActivitiesController < ApplicationController
       :type,
       :duration,
       :start_time,
+      :sequence,
       :instructions,
       :teacher_notes,
       :allow_submissions,
