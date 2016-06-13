@@ -16,14 +16,15 @@ class Activity < ActiveRecord::Base
   has_many :outcomes, through: :item_outcomes
 
   validates :name, presence: true, length: { maximum: 56 }
-  validates :duration, numericality: { only_integer: true }
-  validates :start_time, numericality: { only_integer: true }, if: Proc.new{|activity| activity.section.blank?}
+  validates :duration, numericality: { only_integer: true, allow_blank: true }
+  validates :start_time, numericality: { only_integer: true, allow_blank: true }
   validates :sequence, numericality: { only_integer: true }
   validates :day, format: { with: DAY_REGEX, allow_blank: true }
 
   scope :chronological, -> { order("sequence ASC, id ASC") }
   scope :for_day, -> (day) { where(day: day.to_s) }
   scope :search, -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
+  scope :active, -> { where(archived: [false, nil]) }
 
   after_update :add_revision_to_gist
 
@@ -47,27 +48,30 @@ class Activity < ActiveRecord::Base
   end
 
   def next
-    activities = Activity.chronological.where('activities.sequence > ?', self.sequence)
+    return @next if @next
+
+    activities = Activity.active.chronological.where('activities.sequence > ?', self.sequence)
 
     if prep?
-      activities.where(section: self.section)
+      activities = activities.where(section: self.section)
     elsif day?
-      activities.where(day: self.day)
+      activities = activities.where(day: self.day)
     end
 
-    activities.first
+    @next = activities.first
   end
 
   def previous
-    activities = Activity.chronological.where('activities.sequence < ?', self.sequence)
+    return @prev if @prev
+    activities = Activity.active.chronological.where('activities.sequence < ?', self.sequence)
 
     if prep?
-      activities.where(section: self.section)
+      activities = activities.where(section: self.section)
     elsif day?
-      activities.where(day: self.day)
+      activities = activities.where(day: self.day)
     end
 
-    activities.last
+    @prev = activities.last
   end
 
   def display_duration?

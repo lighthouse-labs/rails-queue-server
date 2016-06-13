@@ -1,5 +1,5 @@
 - if teacher? || activity.item_outcomes.any?
-  h4 Learning Objectives:
+  h4 Learning Outcomes:
 
   ul
     - activity.item_outcomes.each do |item_outcome|
@@ -16,3 +16,5 @@
 
 - if admin?
   = render 'add_outcome_modal', activity: activity
+
+hr

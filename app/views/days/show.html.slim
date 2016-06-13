@@ -16,24 +16,41 @@
       sub.ok title="OK this cohort"
         = @cohort_feedback[:ok]
       i class='sad fa fa-frown-o fa-2x' title="Sad feedback"
-      sup.sad title="Unhappy total" 
+      sup.sad title="Unhappy total"
         = @feedback[:sad]
       sub.sad title="Unhappy this cohort"
         = @cohort_feedback[:sad]
 
 = render "days/info", day: day if day.info
-- if !@outcomes.empty?
+- if !@outcomes.blank?
   .day-objectives-container
     .btn.btn-primary.btn-sm id="show-objectives-button"
-      | Show objectives
+      | Show all outcomes
     .btn.btn-warning.btn-sm id="hide-objectives-button"
-      | Hide objectives
+      | Hide all outcomes
     .day-objectives-holder
+      h4 All Learning Outcomes This Day
       ul
-        - @outcomes.each do |outcome| 
+        - @outcomes.each do |outcome|
           li = outcome.text
 
-= render partial: 'activities/activity', collection: @activities
+- lecture_activities, work_activities = @activities.partition { |a| a.is_a?(Lecture) || a.is_a?(Breakout) }
+- initial_notes = []
+- while work_activities.first.is_a?(PinnedNote) do
+  - initial_notes << work_activities.shift
+
+- if initial_notes.any?
+  = render partial: 'activities/activity', collection: initial_notes
+  hr
+
+- if lecture_activities.any?
+  h3 Lectures & Breakouts
+  = render partial: 'activities/activity', collection: lecture_activities
+  hr
+
+- if work_activities.any?
+  h3 Work Activities
+  = render partial: 'activities/activity', collection: work_activities
 
 - if teacher?
   = link_to new_day_activity_path(day)

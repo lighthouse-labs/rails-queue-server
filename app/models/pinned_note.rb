@@ -1,0 +1,3 @@
+class PinnedNote < Activity
+
+end

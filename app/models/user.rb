@@ -47,6 +47,10 @@ class User < ActiveRecord::Base
     true
   end
 
+  def initials
+    "#{first_name.first.upcase}#{last_name.first.upcase}"
+  end
+
   def prepping?
     false
   end

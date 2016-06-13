@@ -42,8 +42,10 @@ class Content::LoadActivity
       type:           type(d['type']),
       name:           d['name'],
       sequence:       d['sequence'],
-      duration:       d['duration'] || 20, # FIXME: should not default
-      start_time:     d['start_time'] || 900,
+      duration:       d['duration'],
+      stretch:        d['stretch'],
+      archived:       d['archived'],
+      start_time:     d['start_time'],
       day:            d['day'],
       evaluates_code: d['evaluates_code'],
       media_filename: d['media_filename'],
@@ -88,29 +90,19 @@ class Content::LoadActivity
   end
 
   def type(t)
-    case t.strip.downcase
+    t = case t.strip.downcase
     when 'quiz'
       'QuizActivity'
     when 'exercise'
       'Assignment'
     when 'problem'
       'Assignment'
-    when 'week outline'
-      'Reading'
-    when 'outline'
-      'Reading'
     # FIXME: below categories should be changed/removed - KV
     when 'project'
-      # FIXMe: projects should be moved into their own curriculum dir, perhaps
+    # FIXME: projects should be moved into their own curriculum dir, perhaps
       'Reading'
-    when 'folder description'
-      'Reading'
-    when 'module outline'
-      'Reading'
-    when 'day outline'
-      'Reading'
-    when 'weekend outline'
-      'Reading'
+    when 'note', 'week outline', 'outline', 'folder description', 'module outline', 'day outline', 'weekend outline'
+      'PinnedNote'
     # FIXME: below categories should be changed/removed - KV
     when 'reading and questions'
       'Reading'
@@ -123,13 +115,18 @@ class Content::LoadActivity
       'Lecture'
     else
       # make sure this is a valid Activity type, and if so, roll with it
-      t = t.strip.gsub(/\s+/, '_').classify
-      if Object.const_defined?(t) && t.constantize.superclass == Activity
-        t
-      else
-        # couldn't find a class with this name, so
-        nil
-      end
+      t.strip.gsub(/\s+/, '_').classify
+    end
+
+    # Note: assumes all models are eager loaded
+    # this is done in deploy.rb (main interactor) via:
+    #     Rails.application.eager_load!
+    # - KV
+    if Object.const_defined?(t) && t.constantize.superclass == Activity
+      t
+    else
+      # couldn't find a class with this name, so go with nil
+      nil
     end
   end
 

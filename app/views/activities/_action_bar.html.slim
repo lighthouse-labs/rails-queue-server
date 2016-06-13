@@ -1,0 +1,59 @@
+.actions
+  .form-group
+    .form-inline
+      .left-actions
+        - if teacher?
+          button.btn.btn-activity.btn-info data-toggle="collapse" data-target="#student-progress"
+            = activity_presenter.submissions_text
+
+          = activity_presenter.edit_button
+          = link_to '+ Video', new_activity_recording_path(@activity), class: 'btn btn-new-recording'
+          = link_to '+ Message', new_activity_message_path(@activity), class: 'btn btn-new-message'
+
+        - else
+          = activity_presenter.submission_form
+          | &nbsp;
+          = link_to '#feedback-form', class: 'btn btn-primary'
+            i.fa.fa-bullhorn
+            | &nbsp;Give Feedback
+
+      - if @activity.duration?
+        .input-group.duration
+          .input-group-addon
+            i.fa.fa-clock-o
+            | &nbsp;Duration
+          .form-control
+            - if weekend? || @activity.display_duration?
+              = duration(@activity)
+            - else
+              = integer_time_to_s(@activity.start_time)
+              | &nbsp;to&nbsp;
+              = integer_time_to_s(@activity.end_time)
+
+  = activity_presenter.next_button
+  = activity_presenter.previous_button
+
+- if @activity.gist_url?
+  .actions
+    .form-group
+      .input-group
+        = link_to @activity.gist_url, { target: "blank", class: "input-group-addon" }
+          i.fa.fa-github.fa-1
+        span.form-control
+          = @activity.gist_url
+
+- if teacher?
+  .collapse#student-progress
+    table.table
+      thead
+        th Student
+        - if @activity.allow_submissions?
+          th Github URL
+        th Completed
+      tbody
+        - cohort.students.sort_by{ |student| student.completed_activity?(@activity) ? 0 : 1 }.each do |student|
+          tr
+            td = "#{student.first_name} #{student.last_name}"
+            - if @activity.allow_submissions?
+              td = link_to student.github_url(@activity), student.github_url(@activity) if student.completed_activity?(@activity)
+            td = student.completed_activity?(@activity) ? "Yes" : "No"

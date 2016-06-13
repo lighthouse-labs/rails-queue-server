@@ -4,7 +4,8 @@ class ActivityPresenter < BasePresenter
   def name
     result = ""
     result += content_tag(:i, nil, class: icon_for(activity))
-    result += " #{activity.name}"
+    result += " #{activity.name} #{'(Stretch) ' if activity.stretch?}"
+    result += content_tag(:small, activity_type(activity)) if activity.type?
     if activity.section
       result += "<br><small>#{activity.section.name}</small>"
     end
@@ -27,13 +28,24 @@ class ActivityPresenter < BasePresenter
 
   def previous_button
     if activity.previous
-      link_to '&laquo; Previous'.html_safe, get_activity_path(activity.previous), class: 'btn btn-previous'
+      content_tag :div, class: 'previous-activity' do
+        (
+          content_tag(:label, 'Previous:') +
+          link_to(descriptive_activity_name(activity.previous), get_activity_path(activity.previous))
+        ).html_safe
+
+      end
     end
   end
 
   def next_button
     if activity.next
-      link_to 'Next &raquo;'.html_safe, get_activity_path(activity.next), class: 'btn btn-next'
+      content_tag :div, class: 'next-activity' do
+        (
+          content_tag(:label, 'Next:') +
+          link_to(descriptive_activity_name(activity.next), get_activity_path(activity.next))
+        ).html_safe
+      end
     end
   end
 

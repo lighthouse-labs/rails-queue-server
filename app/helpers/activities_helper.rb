@@ -24,14 +24,36 @@ module ActivitiesHelper
     number_with_precision (duration.to_f / 60), precision: 2, strip_insignificant_zeros: true
   end
 
+  def descriptive_activity_name(activity)
+    name = activity.name
+    name << ' (Stretch)' if activity.stretch?
+    name << ' [Archived]' if activity.archived?
+    name
+  end
+
   def duration activity
-    duration = activity.duration
-    if duration <= 60
+    duration = activity.duration.to_i
+    if duration > 0 && duration <= 60
       'Short'
     elsif duration >= 180
       'Long'
-    else
+    elsif duration > 60 && duration < 180
       'Medium'
+    else # 0 / nil
+      'Unknown'
+    end
+  end
+
+  def activity_type(activity)
+    return nil if activity.type.blank?
+
+    case activity.type.downcase
+    when 'pinnednote'
+      'Note'
+    when 'quizactivity'
+      'Quiz'
+    else
+      activity.type.titlecase
     end
   end
 
@@ -45,6 +67,8 @@ module ActivitiesHelper
       end
     when "task"
       'fa fa-flash'
+    when "pinnednote"
+      'fa fa-sticky-note'
     when "lecture"
       'fa fa-group'
     when "homework"

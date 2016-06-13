@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160611204518) do
+ActiveRecord::Schema.define(version: 20160612225108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20160611204518) do
     t.text     "initial_code"
     t.text     "test_code"
     t.integer  "sequence"
+    t.boolean  "stretch"
+    t.boolean  "archived"
   end
 
   add_index "activities", ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree

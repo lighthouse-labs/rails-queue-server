@@ -12,9 +12,12 @@ class Content::Deploy
   before do
     @repo = context.content_repository
     @sha  = context.sha
+
+    Rails.application.eager_load! # needed later
   end
 
   def call
+
     @log_path = setup_logger
     deployment do
       repo_dir = download_and_extract_repo_archive

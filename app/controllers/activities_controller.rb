@@ -15,6 +15,8 @@ class ActivitiesController < ApplicationController
       @activities = @activities.where.not(day: nil)
     end
 
+    @activities = @activities.active unless teacher? || admin?
+
     respond_to do |format|
       format.html
       format.js { render json: @activities, each_serializer: ActivitySerializer, root: false }

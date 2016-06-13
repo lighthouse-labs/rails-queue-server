@@ -104,6 +104,22 @@
     line-height: 0.75em;
     vertical-align: -15%;
   }
+
+  .actions {
+    .next-activity, .previous-activity {
+      label {
+        width: 105px;
+        font-weight: bold;
+        font-size: 1.12em;
+        line-height: 1.12em;
+        color: $gray;
+      }
+      a {
+        font-weight: bold;
+      }
+    }
+  }
+
 }
 
 .recording-item {
