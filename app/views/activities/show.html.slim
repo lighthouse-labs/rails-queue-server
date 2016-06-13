@@ -120,8 +120,4 @@
 
     = render "code_evaluation", activity: @activity if !teacher? && @activity.evaluates_code?
 
-  .modal.fade id="feedback_modal"
-    .modal-dialog
-      .modal-content
-
-  = render 'feedback'
+  = render 'feedback' if @activity.allow_feedback?

@@ -78,6 +78,10 @@ class Activity < ActiveRecord::Base
     type != 'Lecture' && type != 'Test'
   end
 
+  def allow_feedback?
+    true
+  end
+
   def repo_full_name
     content_repository.try :full_name
   end
