@@ -11,9 +11,9 @@
 
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
-    
+
     margin-right: 10px;
-    
+
     input {
 
       /* HIDE RADIO */
@@ -22,13 +22,13 @@
       }
 
       &#day_feedback_mood_happy:checked + i {
-        color: $brand-secondary;
+        color: $brand-success;
       }
-      
+
       &#day_feedback_mood_sad:checked + i {
         color: $brand-danger;
       }
-      
+
       &#day_feedback_mood_ok:checked + i {
         color: $brand-warning;
       }
@@ -54,11 +54,11 @@
 }
 .read-more-link {
   color: black;
-  text-decoration: underline; 
+  text-decoration: underline;
 }
 .read-more-link:hover {
   color: black;
-  text-decoration: underline;   
+  text-decoration: underline;
 }
 
 .percentage-feedback-happy {
