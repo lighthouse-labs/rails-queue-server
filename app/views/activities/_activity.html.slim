@@ -23,8 +23,7 @@
           br
           = duration activity
           br
-
-      - else
+      - elsif activity.start_time?
         .time
           = integer_time_to_s activity.start_time
           br

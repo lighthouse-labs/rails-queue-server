@@ -5,6 +5,3 @@
         i class=(icon_for(activity))
         = " #{activity.name}"
       = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)
-
-  - if teacher?
-    li.list-group-item = link_to "Create Activity", [:new, prep, :activity]

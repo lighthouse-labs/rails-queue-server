@@ -20,13 +20,13 @@ class Content::LoadActivities
   def load_all_activity_data
     activity_data = []
 
-    Dir.foreach(@repo_dir) do |data_dir|
+    Dir.entries(@repo_dir).sort.each do |data_dir|
       filepath = File.join(@repo_dir, data_dir)
       next if data_dir.starts_with?('.')
       next if data_dir.starts_with?('_')
       next unless File.directory?(filepath)
       seq = 1
-      Dir.foreach(filepath) do |content_file|
+      Dir.entries(filepath).sort.each do |content_file|
         next if content_file.starts_with?('.')
         next unless content_file.ends_with?('.md')
         activity_data.push extract_activity_file_data(@repo_dir, data_dir, content_file, seq)
