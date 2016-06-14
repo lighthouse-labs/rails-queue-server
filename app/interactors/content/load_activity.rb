@@ -3,6 +3,7 @@ class Content::LoadActivity
 
   before do
     @log      = context.log
+    @repo     = context.repo
     @records  = context.records
     @data     = context.data
   end
@@ -37,7 +38,9 @@ class Content::LoadActivity
   #   it would be problematic from a maintenance workflow standpoint - KV
   def build_attributes(d)
     attrs = {
-      remote_content: true,
+      remote_content:     true,
+      content_repository: @repo,
+      content_file_path:  d['file_path'],
       section:        section(d['section']),
       type:           type(d['type']),
       name:           d['name'],
@@ -131,7 +134,7 @@ class Content::LoadActivity
   end
 
   def load_quiz
-    Content::LoadQuiz.call(log: @log, data: @data, records: @records).quiz
+    Content::LoadQuiz.call(repo: @repo, log: @log, data: @data, records: @records).quiz
   end
 
 end

@@ -3,6 +3,7 @@ class Content::LoadQuiz
 
   before do
     @log     = context.log
+    @repo    = context.repo
     @data    = context.data
     @records = context.records
   end

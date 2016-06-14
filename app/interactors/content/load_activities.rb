@@ -3,6 +3,7 @@ class Content::LoadActivities
 
   before do
     @log      = context.log
+    @repo     = context.repo
     @repo_dir = context.repo_dir
     @records  = context.records
 
@@ -46,6 +47,7 @@ class Content::LoadActivities
     filename_parts = filename.split('__')
 
     attrs['sequence'] = sequence
+    attrs['file_path'] = File.join('data', data_dir, filename).to_s
     attrs['type'] = filename_parts.last.split('.').first.strip
     # We extract the W1D1 type day format used by Compass from the content file's parent folder (curriculum content naming convention)
     attrs['day']  = day_from_folder_name(data_dir) # eg: w1d3 or w4e
@@ -82,7 +84,7 @@ class Content::LoadActivities
 
   def build_records(items)
     items.each do |data|
-      Content::LoadActivity.call(log: @log, data: data, records: @records)
+      Content::LoadActivity.call(repo: @repo, log: @log, data: data, records: @records)
     end
     nil
   end

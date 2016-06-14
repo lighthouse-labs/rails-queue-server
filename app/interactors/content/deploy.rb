@@ -1,10 +1,6 @@
 # TODO:
-# X update last commit sha in repo table
-# X better logging
-# X handle "evaluates code activity (activity_test record)"
 # - create summary html file
 # - email notification of summary file
-# X include github compare link
 
 class Content::Deploy
   include Interactor
@@ -52,7 +48,7 @@ class Content::Deploy
   end
 
   def load_activity_records(repo_dir, records)
-    Content::LoadActivities.call(log: @log, repo_dir: repo_dir, records: records)
+    Content::LoadActivities.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
   end
 
   def download_and_extract_repo_archive
@@ -61,10 +57,6 @@ class Content::Deploy
     @sha ||= result.sha
     @deployment.update!(sha: @sha) unless @deployment.sha?
     result.repo_dir
-  end
-
-  def load_all_activity_data(repo_dir)
-    Content::LoadActivities.call(log: @log, repo_dir: repo_dir).activity_data
   end
 
   def persist_changes(records)
