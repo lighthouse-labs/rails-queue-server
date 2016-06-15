@@ -36,8 +36,8 @@ class StudentPresenter < UserPresenter
   end
 
   def prep_activity_stats
-    completed_activities = student.activity_submissions.proper.joins(activity: [:section]).where(sections: { type: 'Prep' }).count
-    total_activities = Activity.joins(:section).where(sections: { type: 'Prep' }).count
+    completed_activities = student.activity_submissions.proper.prep.count
+    total_activities = Activity.active.prep.count
     activity_ratio = total_activities > 0 ? (completed_activities.to_f / total_activities.to_f) * 100 : 0
 
     render 'stats', {
@@ -50,7 +50,7 @@ class StudentPresenter < UserPresenter
   end
 
   def prep_quiz_stats
-    quiz_ids = Quiz.joins(quiz_activities: [:section]).where(sections: { type: 'Prep' }).select(:id)
+    quiz_ids = Quiz.active.prep.select(:id)
     quiz_submissions = student.quiz_submissions.where(quiz_id: quiz_ids).where(initial: true)
     quiz_ratio = quiz_submissions.any? ? (quiz_submissions.count.to_f / quiz_ids.count) * 100 : 0
     quiz_average = average_score_for_submissions(quiz_submissions)
@@ -65,8 +65,8 @@ class StudentPresenter < UserPresenter
   end
 
   def activity_stats
-    completed_activities = student.activity_submissions.proper.joins(:activity).where(activities: { section_id: nil })
-    total_activities = Activity.all
+    completed_activities = student.activity_submissions.proper.bootcamp
+    total_activities = Activity.bootcamp.active.all
     activity_ratio = total_activities.any? ? (completed_activities.count.to_f / total_activities.count) * 100 : 0
 
     render 'stats', {
@@ -79,15 +79,15 @@ class StudentPresenter < UserPresenter
   end
 
   def quiz_stats
-    quiz_submissions = student.quiz_submissions.joins(quiz: [:quiz_activities]).where(initial: true).where(activities: { section_id: nil })
-    total_quizzes = Quiz.count
-    quiz_ratio = quiz_submissions.any? ? (quiz_submissions.to_f / total_quizzes) * 100 : 0
+    quiz_ids = Quiz.active.bootcamp.select(:id)
+    quiz_submissions = student.quiz_submissions.where(quiz_id: quiz_ids).where(initial: true)
+    quiz_ratio = quiz_submissions.any? ? (quiz_submissions.to_f / quiz_ids.count) * 100 : 0
     quiz_average = average_score_for_submissions(quiz_submissions)
 
     render 'stats', {
       title:    'Quizzes',
       count:    quiz_submissions.count,
-      max:      total_quizzes,
+      max:      quiz_ids.count,
       avg:      quiz_average,
       progress: quiz_ratio
     }

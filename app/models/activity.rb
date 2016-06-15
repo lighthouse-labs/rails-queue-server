@@ -22,9 +22,17 @@ class Activity < ActiveRecord::Base
   validates :day, format: { with: DAY_REGEX, allow_blank: true }
 
   scope :chronological, -> { order("sequence ASC, id ASC") }
-  scope :for_day, -> (day) { where(day: day.to_s) }
-  scope :search, -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
-  scope :active, -> { where(archived: [false, nil]) }
+  scope :for_day,  -> (day) { where(day: day.to_s) }
+  scope :search,   -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
+  scope :active,   -> { where(archived: [false, nil]) }
+
+  scope :prep,     -> {
+    joins(:section).where(sections: { type: 'Prep' })
+  }
+
+  scope :bootcamp, -> {
+    eager_load(:section).where("sections.id IS NULL OR sections.type <> 'Prep'")
+  }
 
   after_update :add_revision_to_gist
 

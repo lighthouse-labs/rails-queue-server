@@ -42,7 +42,18 @@ class ActivitySubmission < ActiveRecord::Base
   }
 
   scope :proper, -> {
-    joins(:activity).references(:activity).where("activities.evaluates_code = false OR activities.evaluates_code IS NULL OR activity_submissions.finalized = true")
+    joins(:activity).where("activities.evaluates_code = false OR activities.evaluates_code IS NULL OR activity_submissions.finalized = true")
+  }
+
+  scope :prep, -> {
+    where(activity_id: Activity.prep.select(:id))
+  }
+
+  scope :bootcamp, -> {
+    # Does 2 queries with an ugly id based array in the subquery, I know
+    # That's because for some reason this more natural subquery approach won't work... bug in AR?
+    #  `where(activity_id: Activity.bootcamp.select(:id))`
+    where(activity_id: Activity.bootcamp.pluck(:id))
   }
 
   def code_reviewed?
