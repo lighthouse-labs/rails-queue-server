@@ -14,7 +14,7 @@ class Content::LoadPrepSections
 
     Content::ValidateUuids.call(collection: sections)
     sections.each do |section_attributes|
-      @records.push build_section(section_attributes)
+      @records.push build_prep_section(section_attributes)
     end
 
     nil
@@ -22,11 +22,10 @@ class Content::LoadPrepSections
 
   private
 
-  def build_section(attributes)
+  def build_prep_section(attributes)
     uuid = attributes.delete 'uuid'
 
     attrs = {
-      type:  attributes['type'],
       name:  attributes['name'],
       slug:  attributes['slug'],
       order: attributes['order']
