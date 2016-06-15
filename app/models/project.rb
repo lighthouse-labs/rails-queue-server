@@ -15,6 +15,7 @@ class Project < Section
   def last_evaluation(student)
     evaluations.where(student: student).order(created_at: :desc).first
   end
+
   private
 
   def set_slug
