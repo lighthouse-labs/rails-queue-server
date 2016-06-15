@@ -204,6 +204,20 @@ ActiveRecord::Schema.define(version: 20160612225108) do
     t.datetime "updated_at"
   end
 
+  create_table "deployments", force: :cascade do |t|
+    t.integer  "content_repository_id"
+    t.string   "sha"
+    t.string   "status",                             default: "started"
+    t.string   "log_file"
+    t.string   "summary_file"
+    t.datetime "completed_at"
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.string   "error_message",         limit: 1000
+  end
+
+  add_index "deployments", ["content_repository_id"], name: "index_deployments_on_content_repository_id", using: :btree
+
   create_table "evaluation_transitions", force: :cascade do |t|
     t.string   "to_state",                     null: false
     t.text     "metadata",      default: "{}"
@@ -230,20 +244,6 @@ ActiveRecord::Schema.define(version: 20160612225108) do
     t.datetime "completed_at"
     t.text     "student_notes"
   end
-
-  create_table "deployments", force: :cascade do |t|
-    t.integer  "content_repository_id"
-    t.string   "sha"
-    t.string   "status",                             default: "started"
-    t.string   "log_file"
-    t.string   "summary_file"
-    t.datetime "completed_at"
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
-    t.string   "error_message",         limit: 1000
-  end
-
-  add_index "deployments", ["content_repository_id"], name: "index_deployments_on_content_repository_id", using: :btree
 
   create_table "feedbacks", force: :cascade do |t|
     t.integer  "student_id"
@@ -391,9 +391,9 @@ ActiveRecord::Schema.define(version: 20160612225108) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "order"
-    t.text     "description"
     t.string   "type"
     t.string   "uuid"
+    t.text     "description"
   end
 
   add_index "sections", ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
