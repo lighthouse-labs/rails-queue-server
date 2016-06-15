@@ -2,6 +2,7 @@ class Content::LoadPrepSections
   include Interactor
 
   before do
+    @repo     = context.repo
     @log      = context.log
     @repo_dir = context.repo_dir
     @records  = context.records # we append to this array
@@ -26,6 +27,7 @@ class Content::LoadPrepSections
     uuid = attributes.delete 'uuid'
 
     attrs = {
+      content_repository: @repo,
       name:  attributes['name'],
       slug:  attributes['slug'],
       order: attributes['order']

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160612225108) do
+ActiveRecord::Schema.define(version: 20160615045314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,6 +214,7 @@ ActiveRecord::Schema.define(version: 20160612225108) do
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.string   "error_message",         limit: 1000
+    t.string   "branch"
   end
 
   add_index "deployments", ["content_repository_id"], name: "index_deployments_on_content_repository_id", using: :btree
@@ -388,14 +389,18 @@ ActiveRecord::Schema.define(version: 20160612225108) do
   create_table "sections", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.integer  "order"
     t.string   "type"
     t.string   "uuid"
     t.text     "description"
+    t.string   "content_file_path"
+    t.integer  "content_repository_id"
+    t.string   "start_day"
   end
 
+  add_index "sections", ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
   add_index "sections", ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
 
   create_table "skills", force: :cascade do |t|
@@ -476,6 +481,7 @@ ActiveRecord::Schema.define(version: 20160612225108) do
   add_foreign_key "outcome_results", "users"
   add_foreign_key "questions", "outcomes"
   add_foreign_key "quiz_submissions", "quizzes"
+  add_foreign_key "sections", "content_repositories"
   add_foreign_key "user_activity_outcomes", "item_outcomes", column: "activity_outcome_id"
   add_foreign_key "user_activity_outcomes", "users"
 end

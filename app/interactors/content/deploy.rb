@@ -6,8 +6,9 @@ class Content::Deploy
   include Interactor
 
   before do
-    @repo = context.content_repository
-    @sha  = context.sha
+    @repo   = context.content_repository
+    @sha    = context.sha
+    @branch = context.branch || 'master'
 
     Rails.application.eager_load! # needed later
   end
@@ -24,6 +25,7 @@ class Content::Deploy
       records = []
 
       load_prep_records(repo_dir, records)
+      load_project_records(repo_dir, records)
       load_activity_records(repo_dir, records)
       results = persist_changes(records)
       create_summary_file(results)
@@ -44,7 +46,11 @@ class Content::Deploy
   end
 
   def load_prep_records(repo_dir, records)
-    Content::LoadPrepSections.call(log: @log, repo_dir: repo_dir, records: records)
+    Content::LoadPrepSections.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
+  end
+
+  def load_project_records(repo_dir, records)
+    Content::LoadProjects.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
   end
 
   def load_activity_records(repo_dir, records)
@@ -52,10 +58,10 @@ class Content::Deploy
   end
 
   def download_and_extract_repo_archive
-    result = Content::DownloadRepoArchive.call(log: @log, repo: @repo, sha: @sha)
+    result = Content::DownloadRepoArchive.call(log: @log, repo: @repo, sha: @sha, branch: @branch)
     # If triggered via rake command (non github hook, sha is fetched when downloading repo - KV
     @sha ||= result.sha
-    @deployment.update!(sha: @sha) unless @deployment.sha?
+    @deployment.update!(sha: @sha, branch: @branch) unless @deployment.sha?
     result.repo_dir
   end
 
@@ -74,7 +80,7 @@ class Content::Deploy
   end
 
   def deploy_started
-    @deployment = context.deployment = @repo.deployments.create!(sha: @sha, log_file: @log_path)
+    @deployment = context.deployment = @repo.deployments.create!(sha: @sha, log_file: @log_path, branch: @branch)
     @log.info "Commencing deployment (id: #{@deployment.id})"
   end
 
