@@ -23,7 +23,7 @@ class Content::Deploy
       # - KV
       records = []
 
-      load_section_records(repo_dir, records)
+      load_prep_records(repo_dir, records)
       load_activity_records(repo_dir, records)
       results = persist_changes(records)
       create_summary_file(results)
@@ -43,8 +43,8 @@ class Content::Deploy
     raise e
   end
 
-  def load_section_records(repo_dir, records)
-    Content::LoadSections.call(log: @log, repo_dir: repo_dir, records: records)
+  def load_prep_records(repo_dir, records)
+    Content::LoadPrepSections.call(log: @log, repo_dir: repo_dir, records: records)
   end
 
   def load_activity_records(repo_dir, records)
