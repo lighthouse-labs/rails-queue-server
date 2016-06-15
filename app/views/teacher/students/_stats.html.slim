@@ -1,0 +1,12 @@
+- avg ||= nil
+
+.stats
+  p
+    strong = title
+  p
+    = "#{count} of #{max}"
+    - if avg
+      = " (#{avg.to_i}% Avg)"
+    .progress
+      .progress-bar role='progressbar' aria-valuenow=progress.to_i aria-valuemin='0' aria-valuemax='100' style="width:#{progress.to_i}%"
+        span.sr-only = "#{progress.to_i}% Complete"

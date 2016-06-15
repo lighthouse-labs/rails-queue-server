@@ -1,27 +1,52 @@
-= link_to day_activity_path(activity.day, activity)
-  div class=("#{activity.type ? activity.type.downcase : ""} " + 'activity')
+- activity_class = "#{activity.type.to_s.downcase} #{'archived' if activity.archived?} " + ' activity'
+
+- if activity.is_a?(PinnedNote)
+  div class=activity_class
     .icon.icon-type title=activity.type
       i class=(icon_for(activity))
-    - if weekend? || activity.display_duration?
-      .time.time-duration
-        br
-        = duration activity
-        br
-    - else
-      .time
-        = integer_time_to_s activity.start_time
-        br
-        | to
-        br
-        = integer_time_to_s activity.end_time
-    .icon.icon-completion
-      -if student?
-        - if current_user.completed_activity?(activity)
-          i.fa.fa-check-square-o
-        - else
-          i.fa.fa-square-o
-      -if teacher?
-        .completed-activities
-          = completed_students(activity)
+    .time.time-duration
+      br
+      | Note
+      br
     .name
-      = activity.name
+      = descriptive_activity_name(activity)
+  .pinned-content
+    .instructions
+      == markdown activity.instructions
+
+- else
+  = link_to day_activity_path(activity.day, activity)
+    div class=activity_class
+      .icon.icon-type title=activity.type
+        i class=(icon_for(activity))
+
+      - if weekend? || activity.display_duration?
+        .time.time-duration
+          br
+          = duration activity
+          br
+      - elsif activity.start_time?
+        .time
+          = integer_time_to_s activity.start_time
+          br
+          | to
+          br
+          = integer_time_to_s activity.end_time
+
+      .icon.icon-completion
+        -if student?
+          - if current_user.completed_activity?(activity)
+            i.fa.fa-check-square-o
+          - else
+            i.fa.fa-square-o
+        -if teacher?
+          .completed-activities
+            = completed_students(activity)
+
+      .name
+        = activity.name
+        | &nbsp;
+        - if activity.stretch?
+          span.stretch = '(Stretch)'
+        - if activity.archived?
+          span.archived = ' [Archived]'

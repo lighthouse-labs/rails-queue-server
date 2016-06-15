@@ -1,0 +1,13 @@
+table.table
+  thead
+    tr
+      th Skill
+      th Average Rating
+  tbody
+    - ratings.each do |skill_name, avg_rating|
+      tr
+        td = skill_name.titleize
+        td
+          - if avg_rating.to_i > 0
+            = ('X ' * avg_rating.to_i)
+            = 'x' if (avg_rating.to_f - avg_rating.to_i) > 0.4

@@ -48,8 +48,8 @@ $gray-light:                $silver !default;
 $inverse:                   white !default;
 
 // Brand colors
-$brand-primary:             $wet-asphalt !default;
-$brand-secondary:           $turquoise !default;
+$brand-primary:             $peter-river !default;
+$brand-secondary:           $wet-asphalt !default;
 $brand-success:             $emerald !default;
 $brand-warning:             $sun-flower !default;
 $brand-danger:              $alizarin !default;
@@ -217,7 +217,7 @@ $input-line-height-small:   1.462 !default; // ~19px
 $input-line-height-large:   1.235 !default; // ~21px
 $input-line-height-huge:    1.318 !default; // ~29px
 
-$input-icon-font-size:      ceil($component-font-size-base * 1.333) !default;  // ~20px       
+$input-icon-font-size:      ceil($component-font-size-base * 1.333) !default;  // ~20px
 
 $input-bg:                  $inverse !default;
 $input-bg-disabled:         mix($gray, white, 10%) !default;

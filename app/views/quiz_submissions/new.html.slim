@@ -4,15 +4,22 @@
       .page-header
         h1.text-center
           i.fa.fa-compass
-          = ' Compass Quiz'
+          | &nbsp;
+          | Compass Quiz
+
+      h2 = @quiz.name
+
+      .well
+        = render 'quizzes/about'
+
       = form_for [@quiz, @quiz_submission], url: [@quiz, @quiz_submission, activity_id: params[:activity_id]] do |f|
         = f.hidden_field :quiz_id
         - @quiz.questions.each_with_index do |question, question_index|
           .submission-question
-            h2.text-primary = "Question ##{question_index + 1}"
+            h3.text-primary = "Question ##{question_index + 1}"
             p == markdown(question.question)
             .submission-answer
-              h3.text-muted = "Possible Answers"
+              h4.text-muted = "Possible Answers"
               .list-group
                 - question.options.each_with_index do |option, option_index|
                   .list-group-item

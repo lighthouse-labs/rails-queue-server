@@ -1,28 +1,30 @@
 .activity-details {
 
-  aside { 
-    background: #eee; 
-    font-size: .85em; 
-    margin: 2em 0; 
-    padding: .5em 1.5em; 
+  aside {
+    background: #eee;
+    font-size: .85em;
+    margin: 2em 0;
+    padding: .5em 1.5em;
   }
 
-  kbd { 
-    border: 1px solid gray; 
+  kbd {
+    border: 1px solid gray;
     color: darkgray;
-    border-radius: .25em; 
-    padding: .125em .25em;
+    border-radius: .25em;
+    padding: 0 .3em;
     background-color: rgba(0,0,0,0);
+    display: inline-block;
+    font-size: 0.7em;
   }
-  
+
   aside {
     kbd {
       color: black;
     }
   }
 
-  aside > h3:first-child { 
-    margin-top: 1em; 
+  aside > h3:first-child {
+    margin-top: 1em;
     font-size: 1.5em;
   }
 
@@ -34,10 +36,6 @@
     aside { margin-right: -14em; }
   }
 
-
-  h1:first-child {
-    margin-top: -12px;
-  }
 
   img {
     max-width: 100%;
@@ -106,6 +104,22 @@
     line-height: 0.75em;
     vertical-align: -15%;
   }
+
+  .actions {
+    .next-activity, .previous-activity {
+      label {
+        width: 105px;
+        font-weight: bold;
+        font-size: 1.12em;
+        line-height: 1.12em;
+        color: $gray;
+      }
+      a {
+        font-weight: bold;
+      }
+    }
+  }
+
 }
 
 .recording-item {
@@ -122,11 +136,11 @@
   display: inline;
 }
 
-pre { 
+pre {
   // http://stackoverflow.com/questions/10374171/how-to-make-twitter-bootstraps-pre-blocks-scroll-horizontally
   overflow-y: auto;
   word-wrap: normal;
-  
+
   code {
     overflow-wrap: normal;
     white-space: pre;
@@ -141,7 +155,7 @@ pre {
 .allow-select {
  -moz-user-select: text;
  -webkit-user-select: text;
- -ms-user-select: text; 
+ -ms-user-select: text;
 }
 
 #console {

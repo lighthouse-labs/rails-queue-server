@@ -1,8 +1,7 @@
 class DayFeedback < ActiveRecord::Base
-	
+
   belongs_to :student, foreign_key: :user_id
-  
-  validates :title, presence: true
+
   validates :text,  presence: true
   validates :day,   presence: true
   validates :mood,  presence: true
@@ -24,19 +23,19 @@ class DayFeedback < ActiveRecord::Base
   }
   scope :filter_by_mood, -> (mood) { where(mood: mood) }
   scope :filter_by_day, -> (day) { where("day LIKE ?", day.downcase+"%") }
-  scope :filter_by_location, -> (location_id) { 
+  scope :filter_by_location, -> (location_id) {
     includes(student: :location).
     references(:student, :location).
     where(locations: {id: location_id}) unless location_id.blank?
   }
-  scope :filter_by_start_date, -> (date_str, location_id) { 
-    Time.use_zone(Location.find(location_id).timezone) do 
-      where("day_feedbacks.created_at >= ?", Time.zone.parse(date_str).beginning_of_day.utc) 
+  scope :filter_by_start_date, -> (date_str, location_id) {
+    Time.use_zone(Location.find(location_id).timezone) do
+      where("day_feedbacks.created_at >= ?", Time.zone.parse(date_str).beginning_of_day.utc)
     end
   }
-  scope :filter_by_end_date, -> (date_str, location_id) { 
-    Time.use_zone(Location.find(location_id).timezone) do 
-      where("day_feedbacks.created_at <= ?", Time.zone.parse(date_str).end_of_day.utc) 
+  scope :filter_by_end_date, -> (date_str, location_id) {
+    Time.use_zone(Location.find(location_id).timezone) do
+      where("day_feedbacks.created_at <= ?", Time.zone.parse(date_str).end_of_day.utc)
     end
   }
 
@@ -58,8 +57,8 @@ class DayFeedback < ActiveRecord::Base
     CSV.generate do |csv|
       csv << ['Curriculum Day', 'Mood', 'Feedback Text', 'Created Date', 'Archived Date', 'Notes', 'Student First Name', 'Student Last Name', 'Location']
       all.each do |day_feedback|
-        csv << (day_feedback.attributes.values_at(*day_feedback_attributes) + 
-                day_feedback.student.attributes.values_at(*student_attributes) + 
+        csv << (day_feedback.attributes.values_at(*day_feedback_attributes) +
+                day_feedback.student.attributes.values_at(*student_attributes) +
                 day_feedback.student.cohort.location.attributes.values_at(*location_attributes))
       end
     end
@@ -95,7 +94,7 @@ class DayFeedback < ActiveRecord::Base
         result = result.send("filter_by_#{attribute}", v, location_id)
       else
         result = result.send("filter_by_#{attribute}", v)
-      end   
+      end
     end
   end
 

@@ -12,7 +12,7 @@ class CurriculumDay
     @cohort = cohort
 
     @date = @date.to_s if @date.is_a?(CurriculumDay)
-    
+
     if @date.is_a?(String) && @cohort && @date != 'setup'
       @date = calculate_date
     end
@@ -39,7 +39,7 @@ class CurriculumDay
   end
 
   def unlocked?
-    return true if @date == 'setup'
+    # return true if @date == 'setup'
     return true if unlock_weekend_on_friday
     return false unless @cohort
     return false if @cohort.start_date > Date.current
@@ -81,11 +81,11 @@ class CurriculumDay
   def determine_d
     return @date.wday if DAYS_PER_WEEK == 5
     # "d1" would normally be monday, right?
-    # Well now it could also be tuesday 
+    # Well now it could also be tuesday
     # Eg Given `WEEKDAYS = [2, 4]` (tuesdays and thursdays)
     # then d1 = tuesday, d2 = thursday
     wday = @date.wday # 1,2,3,4 or 5 (eg: 3 for 'wednesday')
-    # 1 (mon) - 1,3 => 1 
+    # 1 (mon) - 1,3 => 1
     # 2 (tue) - 1,3 => 1
     # 3 (wed) - 1,3 => 3
     # 4 (thu) - 1,3 => 3
@@ -101,7 +101,7 @@ class CurriculumDay
     # dow = day of week
     week, dow = date_parts[1].to_i, date_parts.last
     dow = dow == 'e' ? 6 : dow.to_i # weekend is day 6 (saturday)
-    
+
     # limitation: assume start date is always a monday
     # for monday dow = 1 so advance by 0 (no advance) if dow = 1. Hence the -1 offset on dow
     date = @cohort.start_date.monday.advance(weeks: week - 1)

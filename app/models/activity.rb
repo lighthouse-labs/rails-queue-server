@@ -5,28 +5,35 @@ class Activity < ActiveRecord::Base
   belongs_to :content_repository
 
   has_many :activity_submissions, -> { order(:user_id) }
+  has_many :assistances, -> { order(:user_id)}
   has_many :messages, -> { order(created_at: :desc) }, class_name: 'ActivityMessage'
   has_many :recordings, -> { order(created_at: :desc) }
   has_many :feedbacks, as: :feedbackable
-  has_many :activity_feedbacks # new, to replace the above
+  has_many :activity_feedbacks, dependent: :destroy # new, to replace the above
 
   has_many :item_outcomes, as: :item, dependent: :destroy
   has_many :outcomes, through: :item_outcomes
   has_many :outcome_results, as: :source
 
-  has_one :activity_test
-  accepts_nested_attributes_for :activity_test
-
   validates :name, presence: true, length: { maximum: 56 }
-  validates :duration, numericality: { only_integer: true }
-  validates :start_time, numericality: { only_integer: true }, if: Proc.new{|activity| activity.section.blank?}
-  validates :day, presence: true, format: { with: DAY_REGEX, allow_blank: true }, if: Proc.new{|activity| activity.section.blank?}
+  validates :duration, numericality: { only_integer: true, allow_blank: true }
+  validates :start_time, numericality: { only_integer: true, allow_blank: true }
+  validates :sequence, numericality: { only_integer: true }
+  validates :day, format: { with: DAY_REGEX, allow_blank: true }
 
-  scope :chronological, -> { order("start_time, id") }
-  scope :for_day, -> (day) { where(day: day.to_s) }
-  scope :search, -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
+  scope :chronological, -> { order("sequence ASC, id ASC") }
+  scope :for_day,  -> (day) { where(day: day.to_s) }
+  scope :search,   -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
+  scope :active,   -> { where(archived: [false, nil]) }
 
-  after_save :fetch_from_remote_file, if: :fetch_from_remote_file?
+  scope :prep,     -> {
+    joins(:section).where(sections: { type: 'Prep' })
+  }
+
+  scope :bootcamp, -> {
+    eager_load(:section).where("sections.id IS NULL OR sections.type <> 'Prep'")
+  }
+
   after_update :add_revision_to_gist
 
   # to avoid callback on .update via instruction download
@@ -49,23 +56,38 @@ class Activity < ActiveRecord::Base
   end
 
   def next
+    return @next if @next
+
+    activities = Activity.active.chronological.where('activities.sequence > ?', self.sequence)
+
     if prep?
-      self.section.activities.where('activities.id > ?', self.id).first
-    else
-      Activity.where('start_time > ? AND day = ?', self.start_time, self.day).order(start_time: :asc).first
+      activities = activities.where(section: self.section)
+    elsif day?
+      activities = activities.where(day: self.day)
     end
+
+    @next = activities.first
   end
 
   def previous
+    return @prev if @prev
+    activities = Activity.active.chronological.where('activities.sequence < ?', self.sequence)
+
     if prep?
-      self.section.activities.where('activities.id < ?', self.id).last
-    else
-      Activity.where('start_time < ? AND day = ?', self.start_time, self.day).order(start_time: :desc).first
+      activities = activities.where(section: self.section)
+    elsif day?
+      activities = activities.where(day: self.day)
     end
+
+    @prev = activities.last
   end
 
   def display_duration?
     type != 'Lecture' && type != 'Test'
+  end
+
+  def allow_feedback?
+    true
   end
 
   def repo_full_name
@@ -73,35 +95,32 @@ class Activity < ActiveRecord::Base
   end
 
   def prep?
-    self.section.is_a? Prep
+    self.section && self.section.is_a?(Prep)
   end
 
   def project?
-    self.section.is_a? Project
+    self.section && self.section.is_a?(Project)
   end
+
+  # Also could be overwritten by sub classes
+  def create_outcome_results?
+    evaluates_code?
+  end
+
 
   protected
 
   def add_revision_to_gist
     if self.changes.any?
-      puts "DOING REVISION GIST!"
-      g = ActivityRevision.new(self)
-      g.commit
+      # For now don't bother with this, content already mostly in repo - KV
+      # puts "DOING REVISION GIST!"
+      # g = ActivityRevision.new(self)
+      # g.commit
     end
   end
 
   def gist_id
     self.gist_url.split('/').last
-  end
-
-  def fetch_from_remote_file
-    self.fetching_remote_content = true
-    FetchRemoteActivityContent.call(activity: self)
-    true # FIXME: assumes success - KV
-  end
-
-  def fetch_from_remote_file?
-    remote_content? && !fetching_remote_content && (content_file_path_changed? || content_repository_id_changed?)
   end
 
 end

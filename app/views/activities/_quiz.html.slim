@@ -1,0 +1,31 @@
+h3 = @activity.quiz.name
+
+- if @activity.quiz.outcomes.any?
+  p This quiz will ask questions pertaining to the following learning outcomes:
+  ul
+    - @activity.quiz.outcomes.each do |outcome|
+      li = outcome.text
+
+hr
+
+- if submission = @activity.quiz.latest_submission_by(current_user)
+  = render 'quiz_submissions/submission_summary', submission: submission
+  p.text-center
+    = link_to 'View Details', quiz_submission_path(submission.id), class: 'btn btn-success btn-sm'
+  - btn_label = "I'm ready for another go at this!"
+- else
+  p.alert
+    | You have not yet taken this quiz. Once you do, your most recent result for this quiz will be displayed here.
+  - btn_label = "I'm ready, let's do this!"
+
+p.text-center
+  = link_to btn_label, new_quiz_quiz_submission_path(@activity.quiz, activity_id: @activity.id), class: 'btn btn-primary btn-lg'
+
+hr
+
+h4 About Quizzes
+= render 'quizzes/about'
+
+- if teacher?
+  | &nbsp;
+  = link_to 'Quiz Details', @activity.quiz, class: 'btn btn-primary'

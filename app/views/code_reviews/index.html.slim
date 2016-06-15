@@ -21,7 +21,7 @@ table.table.code-review-table
           td
             = completed_review_button(code_review)
         td
-          .btn.btn-default.btn-sm.new-code-review-button  data-toggle="modal" data-target="#new_code_review_modal" data-student-id="#{student.id}"
+          .btn.btn-default.btn-sm.new-code-review-button  data-toggle="modal" data-backdrop="static" data-target="#new_code_review_modal" data-student-id="#{student.id}"
             | + New
 
 .modal.fade id='view_code_review_modal'

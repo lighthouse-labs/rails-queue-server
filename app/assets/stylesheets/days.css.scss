@@ -19,23 +19,53 @@
   }
 }
 
+.pinnednote.activity + .pinned-content { // only for pinned activities
+  background-color: lighten($clouds, 3%);
+  padding: 10px 60px 10px 80px;
+  margin-bottom: 20px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+
+  > .instructions * {
+    // color: $brand-secondary;
+    font-size: 0.9em;
+  }
+}
+
 .activity {
-  background-color: #2c3e50;
+  background-color: $clouds;
   border-radius: 6px;
-  color: #798795;
+  color: $brand-primary;
   font-size: 24px;
   line-height: 24px;
   padding: 0 60px 0 140px;
   position: relative;
   margin-bottom: 20px;
 
-  &:hover {
-    box-shadow: 0 0 0 3px $gray;
-    .name {
-      color: $gray-light;
+  &.archived {
+    opacity: 0.5;
+  }
+
+  &.pinnednote {
+    margin-bottom: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  &:not(.pinnednote) {
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-secondary;
+      .name {
+        color: $brand-primary;
+      }
+      .icon {
+        opacity: 0.9;
+      }
     }
   }
+
   .icon {
+    opacity: 0.75;
     font-size: 36px;
     height: 100px;
     line-height: 100px;
@@ -68,9 +98,12 @@
     left: 0;
   }
   .name {
-    color: $green-sea;
+    color: $brand-secondary;
     overflow: hidden;
     padding: 28px 0;
+    .stretch {
+      color: $gray-light;
+    }
   }
   .calendar-event-location {
     color: $green-sea;
@@ -87,7 +120,7 @@
     padding: 20px 0;
   }
   .time {
-    color: white;
+    color: $brand-secondary;
     font-size: 14px;
     left: 70px;
     line-height: 20px;
