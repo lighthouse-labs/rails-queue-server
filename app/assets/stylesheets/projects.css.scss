@@ -3,6 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .project-nav {
   margin-top: 35px;
+  .status {
+    margin-bottom: 0;
+  }
 }
 
 .button_to {
@@ -22,6 +25,3 @@
   }
 }
 
-.status {
-  margin-bottom: 0;
-}
