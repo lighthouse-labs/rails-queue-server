@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615045314) do
+ActiveRecord::Schema.define(version: 20160615053043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -398,6 +398,7 @@ ActiveRecord::Schema.define(version: 20160615045314) do
     t.string   "content_file_path"
     t.integer  "content_repository_id"
     t.string   "start_day"
+    t.text     "blurb"
   end
 
   add_index "sections", ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
