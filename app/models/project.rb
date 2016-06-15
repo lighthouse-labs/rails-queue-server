@@ -9,9 +9,12 @@ class Project < Section
   before_validation :set_slug
 
   def complete?(user)
-    self.activities.all? { |activity| user.completed_activity?(acitivity) }
+    self.activities.all? { |activity| user.completed_activity?(activity) }
   end
 
+  def last_evaluation(student)
+    evaluations.where(student: student).order(created_at: :desc).first
+  end
   private
 
   def set_slug

@@ -1,8 +1,8 @@
 class EvaluationsController < ApplicationController
 
-  before_action :teacher_required, except: [:new, :create]
+  before_action :teacher_required, except: [:new, :create, :cancel_evaluation]
   before_action :find_project
-  before_action :find_evaluation, only: [:show, :edit, :update, :start_marking]
+  before_action :find_evaluation, only: [:show, :edit, :update, :start_marking, :cancel_evaluation]
 
   def index
     if session[:cohort_id]
@@ -47,6 +47,11 @@ class EvaluationsController < ApplicationController
     @evaluation.teacher = current_user
     @evaluation.transition_to(:in_progress)
     redirect_to edit_project_evaluation_path(@project, @evaluation)
+  end
+
+  def cancel_evaluation
+    @evaluation.transition_to :cancelled
+    redirect_to @project
   end
 
   private

@@ -1,9 +1,11 @@
+- last_evaluation = @project.last_evaluation(current_user) if student?
 ol.breadcrumb
   li = link_to "Projects", projects_path
   li = link_to @project.name, @project
 - content_for :project_nav do
   = render 'shared/menus/project_side_menu', project: @project
 h2 = @project.name
+h4 = last_evaluation ? "Status: #{last_evaluation.status}" : ""
 == markdown(@project.description)
 
 

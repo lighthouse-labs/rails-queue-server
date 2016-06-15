@@ -50,5 +50,4 @@ class Student < User
       'No Mentor'
     end
   end
-
 end
