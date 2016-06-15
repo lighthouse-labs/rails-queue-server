@@ -1,9 +1,9 @@
 - if f.object.errors.full_messages.any?
-    .alert.alert-error
-      strong Please correct the following errors:
-      - f.object.errors.full_messages.each do |msg|
-        li = msg
-    hr
+  .alert.alert-error
+    strong Please correct the following errors:
+    - f.object.errors.full_messages.each do |msg|
+      li = msg
+  hr
 
 = f.input :name
 = f.input :day if (day || @activity.project?)
@@ -48,6 +48,5 @@ pre#notes_content style="display:none" = @activity.teacher_notes
 
 - if @activity.evaluates_code?
   = f.hidden_field :section_id
-  = f.simple_fields_for :activity_test, @activity_test do |test|
-    = test.hidden_field :test
-    = test.hidden_field :initial_code
+  = f.hidden_field :test_code
+  = f.hidden_field :initial_code

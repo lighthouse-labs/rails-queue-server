@@ -14,10 +14,13 @@
   DAY: <%= link_to @feedback.day, day_url(@feedback.day, host: "http://#{ENV['HOST']}") %>
 </p>
 
-<p>
-  <strong><%= @feedback.title %></strong>
-</p>
+<% if @feedback.title? %>
+  <p>
+    <strong><%= @feedback.title %></strong>
+  </p>
+  <hr>
+<% end %>
 
-<hr>
+
 
 <%= simple_format @feedback.text %>

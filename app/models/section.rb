@@ -1,6 +1,8 @@
 class Section < ActiveRecord::Base
-  
+
   has_many :activities
+
+  has_many :activity_submissions, through: :activities
 
   default_scope { order(order: :asc) }
 

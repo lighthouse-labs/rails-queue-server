@@ -7,11 +7,11 @@ class GithubWebhookEventsController < ApplicationController
   before_filter :ensure_valid_signature
 
   def create
-    response = HandleGithubWebhookPayload.call(payload: @payload)
+    response = Content::HandleGithubWebhookPayload.call(payload: @payload)
     render text: "Thanks, Github", status: 200
   end
 
-  private 
+  private
 
   def ensure_valid_signature
     request.body.rewind

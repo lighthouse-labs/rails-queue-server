@@ -13,7 +13,7 @@
 
       instructionsEditor.setTheme("ace/theme/monokai");
       notesEditor.setTheme("ace/theme/monokai");
-      
+
 
       instructionsEditor.getSession().setMode("ace/mode/markdown");
       notesEditor.getSession().setMode("ace/mode/markdown");
@@ -21,7 +21,7 @@
       instructionsEditor.setValue($('#instructions_content').text())
       notesEditor.setValue($('#notes_content').text())
 
-      if ($('#activity-instructions').is(':disabled')) { 
+      if ($('#activity-instructions').is(':disabled')) {
         instructionsEditor.setReadOnly(true);
       }
 
@@ -42,17 +42,17 @@
 
       $('#activity-form').submit(function(evt) {
         evt.preventDefault();
-        
+
         $('#activity-instructions').val(instructionsEditor.getValue());
         $('#activity-notes').val(notesEditor.getValue());
-        
+
         if($('#test-editor').length > 0) {
-          $('#activity_activity_test_attributes_test').val(testEditor.getValue());
+          $('#activity_test_code').val(testEditor.getValue());
         }
         if($('#initial-code-editor').length > 0) {
-          $('#activity_activity_test_attributes_initial_code').val(initialCodeEditor.getValue());
+          $('#activity_initial_code').val(initialCodeEditor.getValue());
         }
-        
+
         this.submit();
       });
     }

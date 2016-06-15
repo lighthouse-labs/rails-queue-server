@@ -5,7 +5,6 @@ class ActivitiesController < ApplicationController
   before_action :require_activity, only: [:show, :edit, :update]
   before_action :teacher_required, only: [:new, :create, :edit, :update]
   before_action :check_if_day_unlocked, only: [:show]
-  before_action :load_activity_test, only: [:new, :edit]
   before_action :load_section, only: [:new, :edit, :update]
   before_action :load_form_url, only: [:new, :edit]
 
@@ -15,6 +14,8 @@ class ActivitiesController < ApplicationController
       @activities = @activities.search(params[:term])
       @activities = @activities.where.not(day: nil)
     end
+
+    @activities = @activities.active unless teacher? || admin?
 
     respond_to do |format|
       format.html
@@ -38,7 +39,6 @@ class ActivitiesController < ApplicationController
       handle_redirect("Activity Created!")
     else
       load_section
-      load_activity_test
       load_new_url
       render :new
     end
@@ -87,6 +87,7 @@ class ActivitiesController < ApplicationController
       :type,
       :duration,
       :start_time,
+      :sequence,
       :instructions,
       :teacher_notes,
       :allow_submissions,
@@ -96,7 +97,8 @@ class ActivitiesController < ApplicationController
       :gist_url,
       :media_filename,
       :code_review_percent,
-      activity_test_attributes: [:id, :initial_code, :test, :activity_id]
+      :test_code,
+      :initial_code
     )
   end
 
@@ -112,14 +114,6 @@ class ActivitiesController < ApplicationController
   def check_if_day_unlocked
     if student?
       redirect_to day_path('today'), alert: 'Not allowed' unless @activity.day == params[:day_number]
-    end
-  end
-
-  def load_activity_test
-    if params[:id] && require_activity.try(:activity_test)
-      @activity_test = require_activity.activity_test
-    else
-      @activity_test = ActivityTest.new
     end
   end
 

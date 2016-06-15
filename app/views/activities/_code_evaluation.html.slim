@@ -14,18 +14,18 @@
     #test_holder.hidden
       h3 Test Results
       #mocha
-  
 
-h3 
-  | Your Code 
+
+h3
+  | Your Code
   = "(Completed)" if @last_submission.try(:finalized)
 
-code#code_content.hidden = @last_submission ? @last_submission.code_evaluation_results["code"] : activity.activity_test.try(:initial_code)
+code#code_content.hidden = @last_submission ? @last_submission.code_evaluation_results["code"] : activity.initial_code
 #prep_test_editor.editor data-finalized="#{@last_submission.try(:finalized)}"
-= hidden_field_tag :test_content, activity.activity_test.try(:test)
+= hidden_field_tag :test_content, activity.test_code
 
 - if show_results
-  button.run-test.btn.btn-success.btn-block data-url=activity_activity_submission_path(@activity) Evaluate 
+  button.run-test.btn.btn-success.btn-block data-url=activity_activity_submission_path(@activity) Evaluate
 
 h3 Console Output
 

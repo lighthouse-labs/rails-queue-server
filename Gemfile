@@ -31,6 +31,8 @@ gem 'compass-rails'
 gem 'interactor-rails'
 
 gem 'statesman'
+gem 'awesome_print'
+gem 'logging'
 
 gem 'actioncable', github: "rails/actioncable"
 
