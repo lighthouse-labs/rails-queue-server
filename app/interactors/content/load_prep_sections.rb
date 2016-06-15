@@ -1,4 +1,4 @@
-class Content::LoadSections
+class Content::LoadPrepSections
   include Interactor
 
   before do
@@ -6,11 +6,11 @@ class Content::LoadSections
     @repo_dir = context.repo_dir
     @records  = context.records # we append to this array
 
-    @log.info "LOADING/BUILDING SECTION RECORDS"
+    @log.info "LOADING/BUILDING PREP SECTION RECORDS"
   end
 
   def call
-    sections = YAML.load_file(File.join(@repo_dir, 'sections.yml'))['modules']
+    sections = YAML.load_file(File.join(@repo_dir, 'prep.yml'))['sections']
 
     Content::ValidateUuids.call(collection: sections)
     sections.each do |section_attributes|
@@ -32,7 +32,7 @@ class Content::LoadSections
       order: attributes['order']
     }
 
-    section = Section.find_or_initialize_by(uuid: uuid)
+    section = Prep.find_or_initialize_by(uuid: uuid)
     section.assign_attributes(attrs)
     section
   end
