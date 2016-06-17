@@ -17,13 +17,6 @@ class ProjectActivityPresenter < ActivityPresenter
     end
   end
 
-  def breadcrumb
-    result = "<ol class='breadcrumb'><li>#{link_to("Projects", projects_path)}</li>" +
-      "<li>#{link_to activity.section.name, activity.section}</li>" +
-      "<li>#{link_to activity.name, day_activity_path(activity.day, activity)}</li></ol>"
-    result.html_safe
-  end
-
   private
 
   def edit_button_path

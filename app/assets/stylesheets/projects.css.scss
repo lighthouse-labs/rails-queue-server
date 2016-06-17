@@ -8,17 +8,6 @@
   }
 }
 
-.button_to {
-  display: inline-block;
-}
-
-.project-well {
-  h5 {
-    margin-top: 0;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
-  }
-}
-
 .project-activities {
   a {
     margin-right: 5px;
@@ -104,11 +93,6 @@
     margin-bottom: 20px;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-
-    > .blurb * {
-      // color: $brand-secondary;
-      // font-size: 0.8em;
-    }
   }
 }
 

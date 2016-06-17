@@ -56,11 +56,6 @@ class ActivityPresenter < BasePresenter
     render "outcomes", activity: activity if activity.outcomes.present? || admin?
   end
 
-  # placeholder so there's no need to check if the activity_presenter is a
-  # project_activity_presenter - PI
-  def breadcrumb
-  end
-
   protected
 
   def edit_button_path

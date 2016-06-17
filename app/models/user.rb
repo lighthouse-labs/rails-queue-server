@@ -101,9 +101,7 @@ class User < ActiveRecord::Base
   end
 
   def completed_activity?(activity)
-    if activity.section
-      !activity_submissions.where(finalized: true, activity: activity).empty?
-    elsif activity.evaluates_code?
+    if activity.evaluates_code? || (activity.section && activity.section.is_a?(Project))
       activity_submissions.where(finalized: true, activity: activity).any?
     elsif activity.is_a?(QuizActivity)
       activity.quiz.latest_submission_by(self).present?
