@@ -6,7 +6,7 @@
   hr
 
 = f.input :name
-= f.input :day if day
+= f.input :day if (day || @activity.project?)
 = f.input :start_time, as: :string
 = f.input :duration, as: :string
 = f.input :gist_url, as: :string
@@ -50,4 +50,3 @@ pre#notes_content style="display:none" = @activity.teacher_notes
   = f.hidden_field :section_id
   = f.hidden_field :test_code
   = f.hidden_field :initial_code
-

@@ -1,12 +1,15 @@
-- present(@activity, ActivityPresenter) do |activity_presenter|
+- present @activity, get_activity_presenter_class(@activity) do |activity_presenter|
+
   = activity_presenter.render_sidenav
 
   section.activity-details
     h1 = activity_presenter.name
-
     = render 'action_bar', activity_presenter: activity_presenter
-
     hr
+
+    - if @activity.section && @activity.section.is_a?(Project)
+      h4 This activity should help you progress with a project:
+      = render @activity.section
 
     = activity_presenter.display_outcomes
 
@@ -121,3 +124,4 @@
     = render "code_evaluation", activity: @activity if !teacher? && @activity.evaluates_code?
 
   = render 'feedback' if @activity.allow_feedback?
+

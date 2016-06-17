@@ -55,6 +55,7 @@
 //= require prep
 //= require profile
 //= require code_reviews
+//= require evaluations
 //= require quiz_submissions
 //= require questions
 //= require quizzes

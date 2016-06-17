@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :activity_feedbacks, dependent: :destroy
   has_many :submitted_activities, through: :activity_submissions, source: :activity
   has_many :outcome_results
-
+  has_many :evaluations
   has_many :quiz_submissions
 
   scope :order_by_last_assisted_at, -> {

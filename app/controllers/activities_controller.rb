@@ -120,6 +120,8 @@ class ActivitiesController < ApplicationController
   def load_section
     if slug = params[:prep_id]
       @section = Prep.find_by(slug: slug)
+    elsif slug = params[:project_id]
+      @section = Project.find_by(slug: slug)
     end
   end
 
@@ -151,7 +153,13 @@ class ActivitiesController < ApplicationController
 
   def handle_redirect(notice)
     if @activity.section
-      redirect_to prep_activity_path(@activity.section, @activity), notice: notice
+      # redirect_to polymorphic_url(@activity.section, @activity), notice: notice
+
+      if @activity.prep?
+        redirect_to prep_activity_path(@activity.section, @activity), notice: notice
+      elsif @activity.project?
+        redirect_to project_activity_path(@activity.section, @activity), notice: notice
+      end
     else
       redirect_to day_activity_path(@activity.day, @activity), notice: notice
     end

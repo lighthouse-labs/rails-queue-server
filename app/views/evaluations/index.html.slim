@@ -1,0 +1,22 @@
+h2 = "Evaluations for #{@project.name}"
+
+table.table.table-hover
+  thead
+    th Student Name
+    th Status
+    th Marker
+    th
+  tbody
+    - @evaluations.each do |evaluation|
+      tr.eval-row data-href=("/projects/#{@project.slug}/evaluations/#{evaluation.id}")
+        td = evaluation.student.full_name
+        td = evaluation.status
+        td
+          - if evaluation.teacher
+            = evaluation.teacher.full_name
+        td
+          - if evaluation.in_state?(:pending)
+            = link_to "Start Marking", project_evaluation_start_marking_path(@project, evaluation)
+          - elsif evaluation.in_state?(:in_progress) && evaluation.teacher == current_user
+            = link_to "Continue Marking", project_evaluation_start_marking_path(@project, evaluation)
+

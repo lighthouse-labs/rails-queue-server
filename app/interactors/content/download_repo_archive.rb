@@ -2,9 +2,10 @@ class Content::DownloadRepoArchive
   include Interactor
 
   before do
-    @log  = context.log
-    @repo = context.repo
-    @sha  = context.sha
+    @log    = context.log
+    @repo   = context.repo
+    @sha    = context.sha
+    @branch = context.branch
 
     @log.info "FETCHING (#{@repo.full_name})"
   end
@@ -48,8 +49,8 @@ class Content::DownloadRepoArchive
   private
 
   def determine_sha
-    @log.debug 'No sha provided, so finding out from GitHub... '
-    context.sha = @sha = github.ref(@repo.full_name, 'heads/master')[:object][:sha]
+    @log.debug "No sha provided, so finding out from GitHub (branch: #{@branch})... "
+    context.sha = @sha = github.ref(@repo.full_name, "heads/#{@branch}")[:object][:sha]
   end
 
   # Taken from: https://gist.github.com/sinisterchipmunk/1335041 - KV

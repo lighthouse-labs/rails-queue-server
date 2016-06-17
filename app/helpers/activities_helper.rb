@@ -69,7 +69,7 @@ module ActivitiesHelper
       'fa fa-flash'
     when "pinnednote"
       'fa fa-sticky-note'
-    when "lecture"
+    when "lecture", "breakout"
       'fa fa-group'
     when "homework"
       'fa fa-moon-o'
@@ -97,4 +97,9 @@ module ActivitiesHelper
     ]
   end
 
+  def get_activity_presenter_class(activity)
+    if activity.section
+      "#{activity.section.class}ActivityPresenter".constantize
+    end
+  end
 end

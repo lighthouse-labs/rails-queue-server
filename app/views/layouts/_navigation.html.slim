@@ -36,7 +36,13 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
             = link_to day_path('today'), title: 'Schedule'
               i.fa.fa-fw.fa-calendar
               span.non-tablet-label
-                | Bootcamp
+                | Schedule
+          li
+            = link_to projects_path, title: 'Projects'
+              i.fa.fa-fw.fa-pencil-square-o
+              span.non-tablet-label
+                | Projects
+
           - if teacher?
             li.dropdown
               = link_to '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown', title: 'Students'

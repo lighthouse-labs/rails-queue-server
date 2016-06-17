@@ -30,6 +30,7 @@ gem 'compass-rails'
 
 gem 'interactor-rails'
 
+gem 'statesman'
 gem 'awesome_print'
 gem 'logging'
 

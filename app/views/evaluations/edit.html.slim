@@ -1,0 +1,35 @@
+.col-md-3
+  = image_tag avatar_for(@evaluation.student), class: "evaluation-avatar"
+  p.text-center = @evaluation.student.full_name
+  p.text-center = @evaluation.student.cohort.code
+
+.col-md-9
+  = form_for @evaluation_form, url: project_evaluation_path, method: :put do |f|
+    .clearfix
+      h3.pull-left = "#{@evaluation.project.name}" + " (#{@evaluation.status})"
+    a = @evaluation.github_url
+    = f.submit "Reject", class: "pull-right btn btn-danger btn-evaluation"
+    = f.submit "Accept", class: "pull-right btn btn-success btn-evaluation"
+
+    == markdown(@project.description)
+
+    h4 Outcomes
+
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Code
+      .panel-body
+        - @evaluation_form.outcomes.each_with_index do |outcome, index|
+          .row
+            .col-md-6
+              - (1..4).each do |i|
+                label.radio.radio-inline
+                  = radio_button_tag "evaluation_form[outcomes][#{index}][mark]", i, false, data: {toggle: "radio"}
+                  = i
+              = hidden_field_tag "evaluation_form[outcomes][#{index}][id]", outcome[:id]
+              = hidden_field_tag "evaluation_form[outcomes][#{index}][activity_id]", outcome[:activity_id]
+            .col-md-6
+              p = outcome[:text]
+    .form-group
+      = f.label :teacher_notes
+      = f.text_area :teacher_notes, rows: 10, class: "form-control"

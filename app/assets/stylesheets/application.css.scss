@@ -22,6 +22,14 @@
 @import "admin/students";
 @import "search";
 
+@import "students";
+@import "prep";
+@import "ace_editors";
+
+@import "profile";
+@import "students";
+@import "code_reviews";
+
 @import "quiz_submissions";
 @import "quizzes";
 @import "teacher/students";
@@ -38,3 +46,7 @@
 @import "admin/breadcrumb-adjustments";
 @import "admin/autocomplete-modal-styling";
 @import "admin/outcomes";
+
+@import "projects";
+
+@import "evaluations";

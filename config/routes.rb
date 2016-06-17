@@ -1,5 +1,13 @@
 LaserShark::Application.routes.draw do
 
+  resources :projects, only: [:index, :show] do
+    resources :activities
+    resources :evaluations, only: [:index, :show, :new, :create, :edit, :update] do
+      get 'start_marking', to: 'evaluations#start_marking'
+      get 'cancel_evaluation', to: 'evaluations#cancel_evaluation'
+    end
+  end
+
   resources :questions
 
   resources :quiz_submissions, only: [:show]
@@ -7,7 +15,7 @@ LaserShark::Application.routes.draw do
   resources :quizzes, only: [:index, :show, :new, :create, :destroy] do
     resources :quiz_submissions, only: [:new, :create]
     get 'add_question', to: 'quizzes#add_question', as: 'add_question'
-    post 'link_question', to: 'quizzes#link_question', as: 'link_question'
+    get 'link_question', to: 'quizzes#link_question', as: 'link_question'
     delete 'remove_question/:question_id', to: 'quizzes#remove_question', as: 'remove_question'
   end
 
@@ -146,7 +154,8 @@ LaserShark::Application.routes.draw do
       end
     end
 
-
+    #Projects CRUD
+    resources :projects, only: [:new, :create, :edit, :update, :destroy]
   end
 
   # To test 500 error notifications on production

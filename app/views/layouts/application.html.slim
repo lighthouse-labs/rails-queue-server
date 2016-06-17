@@ -24,15 +24,10 @@ html
         = render "layouts/teachers_holder"
         = render "layouts/reconnect_holder"
 
-      - if content_for? :side_nav
-        aside.side-nav.col-md-3
+      - if content_for?(:side_nav)
+        nav.side-nav.col-md-3
           == yield :side_nav
         .content.col-md-9
-          == yield
-      - elsif content_for? :prep_nav
-        aside.side-nav.col-md-4
-          == yield :prep_nav
-        .content.col-md-8.prep-content
           == yield
       - else
         .content.col-md-12

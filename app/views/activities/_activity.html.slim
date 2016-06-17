@@ -1,5 +1,7 @@
+- activity_class = "#{activity.type.to_s.downcase} #{'archived' if activity.archived?} " + ' activity'
+
 - if activity.is_a?(PinnedNote)
-  div class=("#{activity.type.to_s.downcase} #{'archived' if activity.archived?} " + ' activity')
+  div class=activity_class
     .icon.icon-type title=activity.type
       i class=(icon_for(activity))
     .time.time-duration
@@ -14,7 +16,7 @@
 
 - else
   = link_to day_activity_path(activity.day, activity)
-    div class=("#{activity.type.to_s.downcase} #{'archived' if activity.archived?} " + ' activity')
+    div class=activity_class
       .icon.icon-type title=activity.type
         i class=(icon_for(activity))
 

@@ -1,8 +1,8 @@
 class Section < ActiveRecord::Base
 
   has_many :activities
-
   has_many :activity_submissions, through: :activities
+  belongs_to :content_repository # when remote content
 
   default_scope { order(order: :asc) }
 

@@ -16,7 +16,7 @@
       font-size: 30px;
     }
 
-    ul { 
+    ul {
 
       h2 {
         font-size: 15px;
@@ -24,7 +24,7 @@
 
       a {
         display: none;
-      }  
+      }
 
       .pass {
         color: $link-color;
@@ -46,11 +46,21 @@
     padding-right: 0px;
     border-left: none;
     border-right: none;
-    font-size: 0.9em;
+    font-size: 14px;
   }
 
   .fa {
-    margin-left: 10px;
+    // margin-left: 10px;
     color: $link-color;
   }
+
+  .panel-heading {
+    padding-left: 10px;
+    padding-right: 10px;
+
+    a {
+      font-size: 15px;
+    }
+  }
+
 }

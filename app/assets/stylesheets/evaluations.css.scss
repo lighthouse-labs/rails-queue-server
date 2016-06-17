@@ -1,0 +1,33 @@
+// Place all the styles related to the evaluation controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.evaluation-avatar {
+  width: 100%;
+}
+
+.table-borderless {
+  tbody {
+    border: none;
+
+    tr {
+      border: none;
+
+      td {
+        border: none;
+      }
+    }
+  }
+}
+
+.eval-row {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.btn-evaluation {
+  margin-right: 5px;
+}
+
+.new-evaluation-form {
+  margin-bottom: 20px;
+}

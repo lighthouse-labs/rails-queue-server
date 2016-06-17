@@ -7,6 +7,7 @@ class OutcomeResult < ActiveRecord::Base
 
   validates :user, presence: true
   validates :outcome, presence: true
+  # BTW rating is intentionally nullable (when student says they didn't see that) - KV
 
   protected
 

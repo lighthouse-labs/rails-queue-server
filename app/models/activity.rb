@@ -1,7 +1,6 @@
 class Activity < ActiveRecord::Base
 
   belongs_to :section
-
   # optional. Means content stored on server
   belongs_to :content_repository
 
@@ -14,6 +13,7 @@ class Activity < ActiveRecord::Base
 
   has_many :item_outcomes, as: :item, dependent: :destroy
   has_many :outcomes, through: :item_outcomes
+  has_many :outcome_results, as: :source
 
   validates :name, presence: true, length: { maximum: 56 }
   validates :duration, numericality: { only_integer: true, allow_blank: true }
@@ -96,6 +96,10 @@ class Activity < ActiveRecord::Base
 
   def prep?
     self.section && self.section.is_a?(Prep)
+  end
+
+  def project?
+    self.section && self.section.is_a?(Project)
   end
 
   # Also could be overwritten by sub classes

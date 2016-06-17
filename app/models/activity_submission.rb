@@ -8,6 +8,7 @@ class ActivitySubmission < ActiveRecord::Base
 
   has_one :code_review_request, dependent: :destroy
 
+  # before_create :set_finalized_for_project_activity_submissions
   before_create :set_finalized_for_code_evaluation
 
   #after_save :request_code_review
