@@ -8,7 +8,7 @@ class ActivitySubmission < ActiveRecord::Base
 
   has_one :code_review_request, dependent: :destroy
 
-  before_create :set_finalized_for_project_activity_submissions
+  # before_create :set_finalized_for_project_activity_submissions
   before_create :set_finalized_for_code_evaluation
 
   #after_save :request_code_review
@@ -74,14 +74,6 @@ class ActivitySubmission < ActiveRecord::Base
       self.finalized = results[:lint_results].zero? && results[:test_failures].zero?
     end
 
-    # => Return true so it saves!
-    true
-  end
-
-  def set_finalized_for_project_activity_submissions
-    # probably a good idea to refactor #set_finalized_for_code_evaluation to
-    # include this logic
-    self.finalized = activity.section && activity.section.is_a?(Project)
     # => Return true so it saves!
     true
   end
