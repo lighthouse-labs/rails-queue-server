@@ -21,10 +21,12 @@ class CurriculumDay
   def to_s
     return "setup" if @date == "setup"
     return @to_s if @to_s
-    days = (@date.to_date - @cohort.start_date).to_i
 
-    w = (days / 7) + 1
-    @to_s = if w > 8
+    w = (day_number / 7) + 1
+    @to_s = if day_number <= 0
+      # day_number may be negative if cohort hasn't yet started
+      "w1d1"
+    elsif w > 8
       "w8e"
     elsif @date.sunday? || @date.saturday?
       "w#{w}e"
@@ -58,6 +60,10 @@ class CurriculumDay
 
   def info
     DayInfo.where(day: self.to_s).first
+  end
+
+  def day_number
+    (@date.to_date - @cohort.start_date).to_i
   end
 
   private
