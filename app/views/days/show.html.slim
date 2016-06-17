@@ -48,6 +48,17 @@
   = render partial: 'activities/activity', collection: lecture_activities
   hr
 
+- if @project
+  - if @project.start_day == day.to_s
+    h3 You're starting a new #{'(single-day)' if @project.end_day == day.to_s} project today!
+  - elsif @project.end_day == day.to_s
+    h3 You are hopefully wrapping up with the following project!
+  - else
+    h3 You're continue to build out this project:
+  = render @project
+
+
+
 - if work_activities.any?
   h3 Work Activities
   = render partial: 'activities/activity', collection: work_activities

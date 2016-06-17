@@ -6,9 +6,6 @@ class ActivityPresenter < BasePresenter
     result += content_tag(:i, nil, class: icon_for(activity))
     result += " #{activity.name} #{'(Stretch) ' if activity.stretch?}"
     result += content_tag(:small, activity_type(activity)) if activity.type?
-    if activity.section
-      result += "<br><small>#{activity.section.name}</small>"
-    end
     result.html_safe
   end
 
