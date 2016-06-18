@@ -9,10 +9,10 @@ class DayFeedbacksController < ApplicationController
   		flash[:success] = "Your feedback was submitted successfully"
       redirect_to day_path(params[:day_number])
     else
-      @activities = Activity.chronological.for_day(day)
+      @activities = Activity.chronological.active.for_day(day)
       render 'days/show'
     end
-  
+
   end
 
   private
