@@ -53,7 +53,7 @@ class ActivityPresenter < BasePresenter
   end
 
   def display_outcomes
-    render "outcomes", activity: activity if activity.outcomes.present? || admin?
+    render "outcomes", activity: activity if activity.item_outcomes.any?
   end
 
   protected
