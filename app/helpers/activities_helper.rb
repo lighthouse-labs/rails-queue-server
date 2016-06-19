@@ -97,9 +97,4 @@ module ActivitiesHelper
     ]
   end
 
-  def get_activity_presenter_class(activity)
-    if activity.section
-      "#{activity.section.class}ActivityPresenter".constantize
-    end
-  end
 end

@@ -6,13 +6,32 @@ class ActivityPresenter < BasePresenter
     result += content_tag(:i, nil, class: icon_for(activity))
     result += " #{activity.name} #{'(Stretch) ' if activity.stretch?}"
     result += content_tag(:small, activity_type(activity)) if activity.type?
+
+    if project?
+      result += "<br><small>".html_safe
+      result += link_to("Project: #{activity.section.name}", activity.section).html_safe
+      result += "</small>".html_safe
+    elsif prep?
+      result += "<br><small>#{activity.section.name}</small>".html_safe
+    end
+
     result.html_safe
   end
 
   def render_sidenav
-    unless current_user.prepping? || current_user.prospect? || activity.prep?
+    if prep?
+      content_for :side_nav do
+        render('shared/menus/prep_side_menu')
+      end
+    elsif bootcamp?
       content_for :side_nav do
         render('layouts/side_nav')
+      end
+    end
+
+    if project?
+      content_for :side_nav do
+        render('shared/menus/project_side_menu', project: activity.section)
       end
     end
   end
@@ -56,10 +75,39 @@ class ActivityPresenter < BasePresenter
     render "outcomes", activity: activity if activity.item_outcomes.any?
   end
 
+  def before_instructions
+    # overwritten
+    if activity.evaluates_code?
+      render 'code_evaluation_info'
+    end
+  end
+
+  def after_instructions
+    # overwritten
+  end
+
   protected
 
+  def project?
+    activity.project?
+  end
+
+  def prep?
+    activity.prep?
+  end
+
+  def bootcamp?
+    activity.bootcamp?
+  end
+
   def edit_button_path
-    edit_day_activity_path(activity.day, activity)
+    if prep?
+      edit_prep_activity_path(activity.section, activity)
+    elsif project?
+      edit_project_activity_path(activity.day, activity)
+    else
+      edit_day_activity_path(activity.day, activity)
+    end
   end
 
   private

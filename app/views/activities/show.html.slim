@@ -1,4 +1,4 @@
-- present @activity, get_activity_presenter_class(@activity) do |activity_presenter|
+- present @activity do |activity_presenter|
 
   = activity_presenter.render_sidenav
 
@@ -13,11 +13,6 @@
 
     = activity_presenter.display_outcomes
 
-    - if @activity.is_a?(Video)
-      video class="video-js vjs-default-skin" controls="true" preload="auto" width="100%" height="300px"
-        source src="#{Video::HOST}#{@activity.media_filename}.mp4" type='video/mp4'
-      hr
-
     - if @activity.stretch?
       .alert.alert-info
         strong STRETCH ACTIVITY
@@ -28,12 +23,27 @@
         strong ARCHIVED ACTIVITY
         p This activity is archived and not presented in the curriculum list to students.
 
+    = activity_presenter.before_instructions
+
     - if @activity.instructions?
       .instructions
         == markdown @activity.instructions
 
-    - if @activity.is_a?(QuizActivity)
-      = render 'quiz'
+    = activity_presenter.after_instructions
+
+    - if @activity.evaluates_code? && teacher?
+      hr
+      h3
+        i.fa.fa-gears
+        | &nbsp; Test Content
+      - if @activity.test_code.blank?
+        p There aren't any Mocha tests associated with this activity
+      - else
+        p The following code is run in the student's browser. They are not shown this code as part of the activity, mind you.
+        pre.language-js
+          code = @activity.test_code
+
+    = render "code_evaluation", activity: @activity if !teacher? && @activity.evaluates_code?
 
     - if @activity.recordings.length > 0
       .recordings
@@ -108,20 +118,6 @@
                   i.fa.fa-edit
                 = link_to activity_message_path(@activity, msg), method: :delete, confirm: 'Sure ,lad?', class: 'delete'
                   i.fa.fa-times
-
-    - if @activity.evaluates_code? && teacher?
-      hr
-      h3
-        i.fa.fa-gears
-        | &nbsp; Test Content
-      - if @activity.test_code.blank?
-        p There aren't any Mocha tests associated with this activity
-      - else
-        p The following code is run in the student's browser. They are not shown this code as part of the activity, mind you.
-        pre.language-js
-          code = @activity.test_code
-
-    = render "code_evaluation", activity: @activity if !teacher? && @activity.evaluates_code?
 
   = render 'feedback' if @activity.allow_feedback?
 

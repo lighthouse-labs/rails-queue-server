@@ -102,6 +102,10 @@ class Activity < ActiveRecord::Base
     self.section && self.section.is_a?(Project)
   end
 
+  def bootcamp?
+    !prep? && day?
+  end
+
   # Also could be overwritten by sub classes
   def create_outcome_results?
     evaluates_code?
