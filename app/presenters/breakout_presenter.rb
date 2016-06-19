@@ -1,0 +1,3 @@
+class BreakoutPresenter < ActivityPresenter
+
+end

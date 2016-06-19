@@ -1,0 +1,3 @@
+class QuizActivityPresenter < ActivityPresenter
+
+end
