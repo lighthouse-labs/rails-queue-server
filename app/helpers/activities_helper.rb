@@ -33,14 +33,16 @@ module ActivitiesHelper
 
   def duration activity
     duration = activity.duration.to_i
-    if duration > 0 && duration <= 60
+    if duration > 0 && duration <= 30
+      'Tiny'
+    elsif duration > 30 && duration <= 60
       'Short'
-    elsif duration >= 180
-      'Long'
-    elsif duration > 60 && duration < 180
+    elsif duration > 60 && duration < 120
       'Medium'
+    elsif duration >= 120
+      'Long'
     else # 0 / nil
-      'Unknown'
+      ''
     end
   end
 
