@@ -127,7 +127,7 @@ class ApplicationController < ActionController::Base
   def make_teacher
     unless teacher?
       current_user.type = 'Teacher'
-      current_user.save!
+      current_user.save!(validate: false)
       AdminMailer.new_teacher_joined(current_user).deliver
       flash[:notice] = "Welcome, you have teacher access!"
     end
