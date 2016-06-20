@@ -64,6 +64,8 @@ module ActivitiesHelper
     when "assignment"
       if activity.evaluates_code?
         'fa fa-gears'
+      elsif activity.allow_submissions?
+        'fa fa-github'
       else
         'fa fa-code'
       end
