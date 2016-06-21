@@ -29,7 +29,12 @@ module CourseCalendar
     when 'yesterday'
       yesterday
     when nil
-      Activity.find_by(id: params[:activity_id]).try(:day) || today if params[:activity_id]
+      activity = if params[:uuid]
+        Activity.find_by(uuid: params[:uuid])
+      elsif params[:activity_id]
+        Activity.find_by(id: params[:activity_id])
+      end
+      activity.try(:day) || today
     else
       d
     end

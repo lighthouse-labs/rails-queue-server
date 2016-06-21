@@ -107,7 +107,12 @@ class ActivitiesController < ApplicationController
   end
 
   def require_activity
-    @activity = Activity.find(params[:id])
+    if params[:uuid].present?
+      @activity = Activity.find_by!(uuid: params[:uuid])
+    else
+      @activity = Activity.find(params[:id])
+    end
+    params[:day_number] ||= @activity.day
     # @activity = @activity.becomes(Activity)
   end
 
