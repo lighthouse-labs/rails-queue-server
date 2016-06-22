@@ -8,6 +8,13 @@ module ActivitiesHelper
     end
   end
 
+  def assistance_activities_grouped_by_day_for_select
+    grouped_options_for_select(
+      current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :id).group_by {|d| d[1] },
+      @activity.try(:id)
+    )
+  end
+
   def markdown(content)
     return '' if content.nil?
     options = {

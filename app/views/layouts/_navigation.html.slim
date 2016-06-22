@@ -192,11 +192,17 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
             span.sr-only
               | Close
           h4.modal-title
-            | Reason for Assistance
+            | Bring in the big guns
         = form_tag '/assistance_requests', method: 'post', remote: true, id: 'assistance-request-form'
           .modal-body
+            label
+              | Description
             .form-group
               = text_area_tag(:reason, nil, placeholder: 'What do you need assistance with?', class: 'form-control')
+            label
+              | Activity
+            .form-group
+              = select_tag(:activity_id, assistance_activities_grouped_by_day_for_select, prompt: 'Which activity?', class: 'form-control')
           .modal-footer
             button.btn.btn-default type='button' data-dismiss='modal'
               | Cancel

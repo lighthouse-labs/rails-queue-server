@@ -28,8 +28,8 @@ $ ->
       if $('.reconnect-holder').is(':visible')
         $('.reconnect-holder').hide()
 
-    requestAssistance: (reason) ->
-      @perform 'request_assistance', reason: reason
+    requestAssistance: (reason, activityId) ->
+      @perform 'request_assistance', reason: reason, activity_id: activityId
 
     cancelAssistanceRequest: ->
       @perform 'cancel_assistance'

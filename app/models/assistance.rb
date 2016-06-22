@@ -1,9 +1,11 @@
 class Assistance < ActiveRecord::Base
-  has_one :assistance_request, dependent: :nullify
+
   belongs_to :assistor, :class_name => User
   belongs_to :assistee, :class_name => User
+  belongs_to :activity
+
   has_one :feedback, as: :feedbackable, dependent: :destroy
-  
+  has_one :assistance_request, dependent: :nullify
 
   validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 4, allow_nil: true }
 
