@@ -9,35 +9,45 @@ var Assistance = React.createClass({
   renderReason: function() {
     var assistance = this.props.assistance;
 
-    if(assistance.assistance_request && assistance.assistance_request.reason)
+    if(assistance.assistance_request && assistance.assistance_request.reason) {
       return (
         <p>
           <b>Reason:</b> {assistance.assistance_request.reason}
         </p>
-      )
+      );
+    }
   },
 
-  renderSubmission: function() {
+  renderSubmission: function(activitySubmission) {
+    return(
+      <p>
+        <b>Submission URL:</b>
+        <a target="_blank" href={activitySubmission.github_url}>
+          {activitySubmission.github_url}
+        </a>
+      </p>
+    );
+  },
+
+  renderDetails: function() {
     var assistance = this.props.assistance;
     var assistanceRequest = assistance.assistance_request;
+    var activity = assistance.activity || assistanceRequest.activity;
+    var activitySubmission = assistanceRequest.activity_submission;
 
-    if(assistanceRequest.activity) {
-      var activityUrl = "/days/" + assistanceRequest.activity.day + "/activities/" + assistanceRequest.activity.id
+    if(activity) {
+      var activityUrl = "/days/" + activity.day + "/activities/" + activity.id;
 
       return (
         <div>
           <p>
-            <b>Activity:</b>
-            <a href={activityUrl}>
-              {assistanceRequest.activity.name}
+            <b>Activity: </b>
+            <a href={activityUrl} target="_blank">
+              {activity.name}
             </a>
           </p>
-          <p>
-            <b>Submission URL:</b>
-            <a target="_blank" href={assistanceRequest.activity_submission.github_url}>
-              {assistanceRequest.activity_submission.github_url}
-            </a>
-          </p>
+          { activitySubmission ? this.renderSubmission(activitySubmission) : '' }
+
         </div>
       )
     }
@@ -85,7 +95,7 @@ var Assistance = React.createClass({
         </p>
 
         { this.renderReason() }
-        { this.renderSubmission() }
+        { this.renderDetails() }
 
         <dl className="well">
           {

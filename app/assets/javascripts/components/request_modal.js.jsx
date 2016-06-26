@@ -38,8 +38,8 @@ var RequestModal = React.createClass({
   },
 
   endAssistance: function() {
-    var notes = this.refs.notes.value;
-    var rating = this.refs.rating.value;
+    var notes      = this.refs.notes.value;
+    var rating     = this.refs.rating.value;
 
     if(!this.formIsValid()){
       this.setNotesError();
@@ -60,12 +60,12 @@ var RequestModal = React.createClass({
     if(assistanceRequest.reason)
       return (
         <div className="form-group">
-          <b>Original reason:</b> 
+          <b>Original reason:</b>
           {assistanceRequest.reason}
         </div>
       )
   },
-  
+
   render: function() {
     var assistance = this.props.assistance;
 
@@ -81,16 +81,17 @@ var RequestModal = React.createClass({
                 <span aria-hidden="true">&times;</span>
                 <span className="sr-only">Close</span>
               </button>
-              <h4 className="modal-title">Notes</h4>
+              <h4 className="modal-title">Log Assistance</h4>
             </div>
             <div className="modal-body">
 
               { assistanceRequest ? this.renderReason(assistanceRequest) : null }
 
               <div className={this.state.notesValid ? "form-group" : "form-group has-error"}>
+                <label>Notes</label>
                 <textarea
                   onChange={this.setNotesError}
-                  className="form-control" 
+                  className="form-control"
                   placeholder="How did the assistance go?"
                   ref="notes">
                 </textarea>
@@ -100,7 +101,7 @@ var RequestModal = React.createClass({
                 <label>Rating</label>
                 <select
                   onChange={this.setRatingError}
-                  className="form-control" 
+                  className="form-control"
                   ref="rating"
                   required="true">
                     <option value=''>Please Select</option>

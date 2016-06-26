@@ -10,6 +10,7 @@ class Assistance < ActiveRecord::Base
   validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 4, allow_nil: true }
 
   before_create :set_start_at
+  before_create :set_activity
 
   scope :currently_active, -> {
     joins(:assistance_request).
@@ -56,6 +57,12 @@ class Assistance < ActiveRecord::Base
   end
 
   private
+
+  def set_activity
+    if assistance_request
+      self.activity ||= assistance_request.activity
+    end
+  end
 
   def set_start_at
     self.start_at = Time.now
