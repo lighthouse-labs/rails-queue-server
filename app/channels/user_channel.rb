@@ -7,7 +7,11 @@ class UserChannel < ApplicationCable::Channel
   end
 
   def request_assistance(data)
-    ar = AssistanceRequest.new(:requestor => current_user, reason: data["reason"])
+    ar = AssistanceRequest.new(
+      requestor:   current_user,
+      reason:      data["reason"],
+      activity_id: data["activity_id"]
+    )
     ar.save
 
     ActionCable.server.broadcast "assistance-#{current_user.cohort.location.name}", {
@@ -15,7 +19,10 @@ class UserChannel < ApplicationCable::Channel
       object: AssistanceRequestSerializer.new(ar, root: false).as_json
     }
 
-    UserChannel.broadcast_to current_user, {type: "AssistanceRequested", object: current_user.position_in_queue}
+    UserChannel.broadcast_to current_user, {
+      type: "AssistanceRequested",
+      object: current_user.position_in_queue
+    }
   end
 
   def cancel_assistance

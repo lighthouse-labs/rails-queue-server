@@ -26,6 +26,8 @@ class Activity < ActiveRecord::Base
   scope :search,   -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
   scope :active,   -> { where(archived: [false, nil]) }
 
+  scope :assistance_worthy, -> { where.not(type: ['Lecture', 'Breakout', 'PinnedNote']) }
+
   scope :prep,     -> {
     joins(:section).where(sections: { type: 'Prep' })
   }

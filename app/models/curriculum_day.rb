@@ -40,6 +40,15 @@ class CurriculumDay
     self.date <=> other.date
   end
 
+  def unlocked_until_day
+    if CURRICULUM_UNLOCKING == 'weekly'
+      date = Date.current.sunday
+      CurriculumDay.new(date, @cohort)
+    else
+      self
+    end
+  end
+
   def unlocked?
     # return true if @date == 'setup'
     return true if unlock_weekend_on_friday

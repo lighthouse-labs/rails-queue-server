@@ -144,7 +144,16 @@ class User < ActiveRecord::Base
 
   # 3
   def unsubmitted_activities_before(day)
-    Activity.where(allow_submissions: true).where("day <= ?", day.to_s).order(day: :desc).where.not(id: self.activity_submissions.select(:activity_id))
+    Activity.active.where(allow_submissions: true).where("day <= ?", day.to_s).order(day: :desc).where.not(id: self.activity_submissions.select(:activity_id))
+  end
+
+  def visible_bootcamp_activities
+    activities = Activity.bootcamp.active.order(day: :asc, sequence: :asc)
+    if cohort
+      day = CurriculumDay.new(Date.current, cohort).unlocked_until_day
+      activities = activities.where("day <= ?", day.to_s)
+    end
+    activities
   end
 
   class << self

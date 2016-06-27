@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616020547) do
+ActiveRecord::Schema.define(version: 20160621223211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20160616020547) do
     t.integer  "original_activity_submission_id"
   end
 
+  add_index "assistance_requests", ["activity_id"], name: "index_assistance_requests_on_activity_id", using: :btree
   add_index "assistance_requests", ["activity_submission_id"], name: "index_assistance_requests_on_activity_submission_id", using: :btree
 
   create_table "assistances", force: :cascade do |t|
@@ -147,7 +148,10 @@ ActiveRecord::Schema.define(version: 20160616020547) do
     t.integer  "rating"
     t.text     "student_notes"
     t.boolean  "imported",      default: false
+    t.integer  "activity_id"
   end
+
+  add_index "assistances", ["activity_id"], name: "index_assistances_on_activity_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"

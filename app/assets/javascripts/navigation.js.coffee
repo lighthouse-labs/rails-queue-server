@@ -3,7 +3,8 @@ $ ->
   $('.request-assistance-button').click (e) ->
     e.preventDefault()
     reason = $(@).closest('form').find('textarea').val()
-    window.App.userChannel.requestAssistance(reason)
+    activityId = $(@).closest('form').find('select').val()
+    window.App.userChannel.requestAssistance(reason, activityId)
 
   $('.cancel-request-assistance-button').click (e) ->
     e.preventDefault()

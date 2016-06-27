@@ -45,7 +45,11 @@ class AssistanceRequest < ActiveRecord::Base
 
   def start_assistance(assistor)
     return false if assistor.blank? || !self.assistance.blank?
-    self.assistance = Assistance.new(:assistor => assistor, :assistee => self.requestor)
+    self.assistance = Assistance.new(
+      assistor: assistor,
+      assistee: requestor,
+      activity: activity
+    )
     self.assistance.save!
   end
 
