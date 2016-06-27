@@ -31,7 +31,12 @@ class User < ActiveRecord::Base
     where(deactivated_at: nil, completed_registration: true)
   }
   scope :completed_activity, -> (activity) {
-    joins(:activity_submissions).where(activity_submissions: { activity: activity })
+    if activity.is_a?(QuizActivity)
+      # For quiz activities, we don't have activity submissions, and quiz_submissions are used to determine completion instead
+      joins(:quiz_submissions).where(quiz_submissions: { initial: true, quiz_id: activity.quiz_id })
+    else
+      joins(:activity_submissions).where(activity_submissions: { activity: activity })
+    end
   }
 
   validates :uid,             presence: true
