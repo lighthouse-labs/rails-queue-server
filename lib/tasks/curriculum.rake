@@ -7,4 +7,8 @@ namespace :curriculum do
       Content::Deploy.call(content_repository: r, branch: branch)
     end
   end
+
+  task update_outcomes: :environment do
+    require Rails.root.join('db/seeds/outcomes/sync').to_s
+  end
 end
