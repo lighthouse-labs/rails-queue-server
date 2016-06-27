@@ -23,7 +23,7 @@ LaserShark::Application.routes.draw do
 
   get '/i/:code', to: 'invitations#show' # student/teacher invitation handler
   # get 'prep'  => 'setup#show' # temporary
-  resources :prep, controller: 'preps', :only => [:index, :new, :create, :show, :edit, :update] do
+  resources :prep, controller: 'preps', :only => [:index, :show] do
     resources :activities
   end
 
@@ -85,6 +85,7 @@ LaserShark::Application.routes.draw do
 
   resources :activities, only: [:index] do
     resource :activity_submission, only: [:create, :destroy]
+    resource :submission_with_feedback, only: [:create], controller: 'activity_submission_with_feedback'
     resources :messages, controller: 'activity_messages'
     resources :recordings, only: [:new, :create]
     resources :activity_feedbacks, only: [:create]
@@ -107,6 +108,11 @@ LaserShark::Application.routes.draw do
       post :remove_mentorship
       post :add_mentorship
     end
+  end
+
+  # TEACHER
+  namespace :teacher do
+    resources :students, only: [:show]
   end
 
   # ADMIN
@@ -154,5 +160,7 @@ LaserShark::Application.routes.draw do
 
   # To test 500 error notifications on production
   get 'error-test' => 'test_errors#create'
+
+  get '/:uuid', to: 'activities#show', constraints: { uuid: /[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}/i }
 
 end

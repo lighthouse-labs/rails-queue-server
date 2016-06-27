@@ -17,11 +17,11 @@ module DaysHelper
   end
 
   def total_cohort_students
-    @total_cohort_students ||= cohort.students.count
+    @total_cohort_students ||= cohort.students.active.count
   end
 
   def completed_students(activity)
-    completed_students = cohort.students.completed_activity(activity).count
+    completed_students = cohort.students.active.completed_activity(activity).count
     "#{completed_students}/#{total_cohort_students}"
   end
 end

@@ -18,13 +18,13 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
           = link_to prep_index_path, title: 'Prep Work'
             i.fa.fa-fw.fa-paper-plane-o
             span.non-tablet-label
-              | Prep Work
-        - if student?
-          li
-            = link_to '#', title: 'Search Activities', :id => 'search-activities-button'
-              i.fa.fa-fw.fa-search
-              span.non-tablet-label
-                | Search
+              | Prep
+        / - if teacher? || active_student? || alumni?
+        /   li
+        /     = link_to '#', title: 'Search Activities', :id => 'search-activities-button'
+        /       i.fa.fa-fw.fa-search
+        /       span.non-tablet-label
+        /         | Search
         - if current_user && !current_user.completed_registration?
           li
             = link_to edit_profile_path, title: 'Complete Signup'
@@ -42,6 +42,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
               i.fa.fa-fw.fa-pencil-square-o
               span.non-tablet-label
                 | Projects
+
           - if teacher?
             li.dropdown
               = link_to '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown', title: 'Students'
@@ -108,7 +109,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
               li
                 = link_to 'Teacher Stats', admin_teacher_stats_path
               li
-                = link_to 'Learning Objectives', admin_categories_path
+                = link_to 'Learning Outcomes', admin_categories_path
 
       ul.nav.navbar-nav.navbar-right
         - if teacher? && !dropdown_cohorts.empty?
@@ -146,7 +147,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
 
           li.dropdown.current-user
             = link_to '#', class: 'dropdown-toggle', :'data-toggle' => 'dropdown' do
-              = current_user.first_name
+              = teacher? ? current_user.initials : current_user.first_name
               b.caret
             span.dropdown-arrow
             ul.dropdown-menu
@@ -191,11 +192,17 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
             span.sr-only
               | Close
           h4.modal-title
-            | Reason for Assistance
+            | Bring in the big guns
         = form_tag '/assistance_requests', method: 'post', remote: true, id: 'assistance-request-form'
           .modal-body
+            label
+              | Description
             .form-group
               = text_area_tag(:reason, nil, placeholder: 'What do you need assistance with?', class: 'form-control')
+            label
+              | Activity
+            .form-group
+              = select_tag(:activity_id, assistance_activities_grouped_by_day_for_select, prompt: 'Which activity?', class: 'form-control')
           .modal-footer
             button.btn.btn-default type='button' data-dismiss='modal'
               | Cancel

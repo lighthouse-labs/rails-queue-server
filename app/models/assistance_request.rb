@@ -1,6 +1,10 @@
 class AssistanceRequest < ActiveRecord::Base
   belongs_to :requestor, :class_name => User
   belongs_to :assistance, dependent: :delete
+  belongs_to :activity
+
+  # also leads to activity, but not as 'safe' (nullable)
+  # used for code review requests only (set in CodeReviewRequest class) - KV
   belongs_to :activity_submission
 
   validates :requestor, :presence => true
@@ -41,7 +45,11 @@ class AssistanceRequest < ActiveRecord::Base
 
   def start_assistance(assistor)
     return false if assistor.blank? || !self.assistance.blank?
-    self.assistance = Assistance.new(:assistor => assistor, :assistee => self.requestor)
+    self.assistance = Assistance.new(
+      assistor: assistor,
+      assistee: requestor,
+      activity: activity
+    )
     self.assistance.save!
   end
 

@@ -1,105 +1,49 @@
-- present @activity, get_activity_presenter_class(@activity.section) do |activity_presenter|
-  = activity_presenter.breadcrumb
+- present @activity do |activity_presenter|
+
   = activity_presenter.render_sidenav
 
   section.activity-details
     h1 = activity_presenter.name
+    = render 'action_bar', activity_presenter: activity_presenter
+    hr
 
-    .well
-      .actions
-        .form-group
-          .form-inline
-            .left-actions
-              = activity_presenter.previous_button
-              = activity_presenter.next_button
-
-            .input-group.duration
-              .input-group-addon
-                i.fa.fa-clock-o
-                | &nbsp;Time
-              .form-control
-                - if weekend? || @activity.display_duration?
-                  = duration(@activity)
-                - else
-                  = integer_time_to_s(@activity.start_time)
-                  | &nbsp;to&nbsp;
-                  = integer_time_to_s(@activity.end_time)
-
-      - if @activity.gist_url?
-        .actions
-          .form-group
-            .input-group
-              = link_to @activity.gist_url, { target: "blank", class: "input-group-addon" }
-                i.fa.fa-github.fa-1
-              span.form-control
-                = @activity.gist_url
-
-      div.clearfix
-        - if teacher?
-          button.btn.btn-activity.btn-info data-toggle="collapse" data-target="#student-progress"
-            = activity_presenter.submissions_text
-
-          = activity_presenter.edit_button
-          = link_to '+ Video', new_activity_recording_path(@activity), class: 'btn btn-new-recording'
-          = link_to '+ Message', new_activity_message_path(@activity), class: 'btn btn-new-message'
-
-          - if @activity.revisions_gistid?
-            = link_to "https://gist.github.com/#{@activity.revisions_gistid}/revisions", class: 'btn btn-revisions', target: '_blank'
-              span Revisions
-              | &nbsp;
-              i.fa.fa-external-link
-
-        - else
-          - if current_user.completed_activity?(@activity) && !@activity.prep?
-            - if @activity_submission.github_url?
-              input.form-control.pull-left#activity_view value="#{@activity_submission.github_url}"
-              | &nbsp;
-            = link_to activity_activity_submission_path(@activity), method: :delete, class:'btn btn-activity-incomplete-status'
-              i.fa.fa-times
-              | &nbsp;Cancel Submission
-            - if @feedback
-                | &nbsp;
-                button.btn.btn-activity-complete-status data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{@feedback.id}"
-                  | Feedback
-          - else
-            = activity_presenter.submission_form
-
-    - if teacher?
-      .collapse#student-progress
-        table.table
-          thead
-            th Student
-            - if @activity.allow_submissions?
-              th Github URL
-            th Completed
-          tbody
-            - cohort.students.sort_by{ |student| student.completed_activity?(@activity) ? 0 : 1 }.each do |student|
-              tr
-                td = "#{student.first_name} #{student.last_name}"
-                - if @activity.allow_submissions?
-                  td = link_to student.github_url(@activity), student.github_url(@activity) if student.completed_activity?(@activity)
-                td = student.completed_activity?(@activity) ? "Yes" : "No"
-
-    - if @activity.is_a?(Video)
-      video class="video-js vjs-default-skin" controls="true" preload="auto" width="100%" height="300px"
-        source src="#{Video::HOST}#{@activity.media_filename}.mp4" type='video/mp4'
-      hr
+    - if @activity.section && @activity.section.is_a?(Project)
+      h4 This activity should help you progress with a project:
+      = render @activity.section
 
     = activity_presenter.display_outcomes
+
+    - if @activity.stretch?
+      .alert.alert-info
+        strong STRETCH ACTIVITY
+        p This activity is marked as stretch. We strongly suggest you come back to it if/when you've completed all the core exercises for the day.
+
+    - if @activity.archived?
+      .alert.alert-warning
+        strong ARCHIVED ACTIVITY
+        p This activity is archived and not presented in the curriculum list to students.
+
+    = activity_presenter.before_instructions
 
     - if @activity.instructions?
       .instructions
         == markdown @activity.instructions
 
-    - if @activity.is_a?(QuizActivity)
-      - if submission = @activity.quiz.latest_submission_by(current_user)
-        = render 'quiz_submissions/submission_details', submission: submission
+    = activity_presenter.after_instructions
 
-      = link_to 'Take Quiz', new_quiz_quiz_submission_path(@activity.quiz, activity_id: @activity.id), class: 'btn btn-primary'
+    - if @activity.evaluates_code? && teacher?
+      hr
+      h3
+        i.fa.fa-gears
+        | &nbsp; Test Content
+      - if @activity.test_code.blank?
+        p There aren't any Mocha tests associated with this activity
+      - else
+        p The following code is run in the student's browser. They are not shown this code as part of the activity, mind you.
+        pre.language-js
+          code = @activity.test_code
 
-      - if teacher?
-        | &nbsp;
-        = link_to 'Quiz Details', @activity.quiz, class: 'btn btn-primary'
+    = render "code_evaluation", activity: @activity if !teacher? && @activity.evaluates_code?
 
     - if @activity.recordings.length > 0
       .recordings
@@ -175,37 +119,5 @@
                 = link_to activity_message_path(@activity, msg), method: :delete, confirm: 'Sure ,lad?', class: 'delete'
                   i.fa.fa-times
 
-    - if @activity.evaluates_code? && teacher?
-      hr
-      h3
-        i.fa.fa-gears
-        | &nbsp; Test Content
-      - if @activity.activity_test.try(:test).blank?
-        p There aren't any Mocha tests associated with this activity
-      - else
-        p The following code is run in the student's browser. They are not shown this code as part of the activity, mind you.
-        pre.language-js
-          code = @activity.activity_test.test
+  = render 'feedback' if @activity.allow_feedback?
 
-    = render "code_evaluation", activity: @activity if !teacher? && @activity.evaluates_code?
-
-  .modal.fade id="feedback_modal"
-    .modal-dialog
-      .modal-content
-
-  hr
-
-  h3 Feedback for this #{(@activity.type || 'Activity').titleize}
-
-  p
-    | Your feedback is critical for us to iterate and improve upon our curriculum. In fact, you can even give us feedback for this and other activities multiple times! It is <em>not anonymous</em> but it <em>is confidential</em> meaning only teachers and admins can view it, not other students.
-  p
-    strong NEED HELP?
-    | Do not use this mechansism to ask for help if you are stuck.
-    | &nbsp;
-    = link_to 'Our Private Discourse Forum', 'http://web-prep-help.lighthouselabs.ca/', target: '_blank'
-    | &nbsp;
-    | is a perfect place for you to get help from us and from your peers. That said, only registered bootcamp students have access to this private forum.
-
-  = render 'activity_feedbacks/form'
-  = render 'activity_feedbacks/list'

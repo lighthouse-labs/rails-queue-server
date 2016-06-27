@@ -1,0 +1,28 @@
+.modal-body
+
+  .alert.alert-error.remote-form-errors.hidden
+    strong Please correct the following errors:
+    br
+    .error-messages
+
+  / BTW allow_submissions really means "require github url" these days ;P - KV
+  - if @activity.allow_submissions?
+    = form.input :github_url, placeholder: "From the browser's address bar. Eg: https://github.com/lighthouse-labs/ios-prep-book"
+
+  = form.input :time_spent, as: :integer, label: 'Time spent in minutes', placeholder: 'How long did it take you? Your best approximation (in minutes) please!'
+  = form.input :note, as: :text, placeholder: 'A quick note that is visible only to you and to teachers'
+
+  h3
+    | Feedback
+    | &nbsp;
+    small optional
+
+  p Tell us how you found this #{(@activity.type || 'Activity').titleize}
+
+  = form.input :rating, collection: [['5 - Perfect', 5], ['4 - Great', 4], ['3 - Good', 3], ['2 - Problematic', 2], ['1 - Useless', 1]], allow_blank: true, label: 'Rate this activity overall (optional)'
+  = form.input :detail, as: :text, placeholder: 'The more you can give us the better!'
+
+.modal-footer
+  button.btn.btn-default type='button' data-dismiss='modal'
+    | Cancel
+  = submit_tag 'Submit', class: 'btn btn-primary'

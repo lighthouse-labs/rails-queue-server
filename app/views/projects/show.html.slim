@@ -1,11 +1,16 @@
-- last_evaluation = @project.last_evaluation(current_user) if current_user.is_a? Student
-ol.breadcrumb
-  li = link_to "Projects", projects_path
-  li = link_to @project.name, @project
-- content_for :project_nav do
+- last_evaluation = @project.last_evaluation(current_user) if student?
+
+- provide :body_class, 'project-detail'
+
+- content_for :side_nav do
   = render 'shared/menus/project_side_menu', project: @project
-h2 = @project.name
+
+.hero
+  = render @project
+
 h4 = last_evaluation ? "Status: #{last_evaluation.status}" : ""
-== markdown(@project.description)
+
+.description
+  == markdown(@project.description)
 
 

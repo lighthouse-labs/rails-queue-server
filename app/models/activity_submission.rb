@@ -8,14 +8,14 @@ class ActivitySubmission < ActiveRecord::Base
 
   has_one :code_review_request, dependent: :destroy
 
-  before_create :set_finalized_for_project_activity_submissions
+  # before_create :set_finalized_for_project_activity_submissions
   before_create :set_finalized_for_code_evaluation
 
   #after_save :request_code_review
-  after_create :create_feedback
+  # after_create :create_feedback
   after_create :create_user_outcome_results
   after_destroy :handle_submission_destroy
-  after_destroy :destroy_feedback
+  # after_destroy :destroy_feedback
 
   default_value_for :completed_at, allows_nil: false do
     Time.now
@@ -42,8 +42,27 @@ class ActivitySubmission < ActiveRecord::Base
     where(code_review_request: nil)
   }
 
+  scope :proper, -> {
+    joins(:activity).where("activities.evaluates_code = false OR activities.evaluates_code IS NULL OR activity_submissions.finalized = true")
+  }
+
+  scope :prep, -> {
+    where(activity_id: Activity.prep.select(:id))
+  }
+
+  scope :bootcamp, -> {
+    # Does 2 queries with an ugly id based array in the subquery, I know
+    # That's because for some reason this more natural subquery approach won't work... bug in AR?
+    #  `where(activity_id: Activity.bootcamp.select(:id))`
+    where(activity_id: Activity.bootcamp.pluck(:id))
+  }
+
   def code_reviewed?
-    self.try(:code_review_request).try(:assistance)
+    # NOTE when I transposed this relationship the :code_review_request was disassociated
+    # It may make sense to keep the relationship so I have left it in place.
+    # Really we have some bad normalization because of this, but I consider
+    # it transitional at this point.
+    CodeReviewRequest.where(activity_id: self.activity_id, requestor_id: self.user_id).where.not(assistance_id: nil).joins(:assistance).references(:assistance).where.not(assistances: { end_at: nil }).any?
   end
 
   private
@@ -55,14 +74,6 @@ class ActivitySubmission < ActiveRecord::Base
       self.finalized = results[:lint_results].zero? && results[:test_failures].zero?
     end
 
-    # => Return true so it saves!
-    true
-  end
-
-  def set_finalized_for_project_activity_submissions
-    # probably a good idea to refactor #set_finalized_for_code_evaluation to
-    # include this logic
-    self.finalized = activity.section && activity.section.is_a?(Project)
     # => Return true so it saves!
     true
   end
@@ -81,7 +92,7 @@ class ActivitySubmission < ActiveRecord::Base
 
   def request_code_review
     if self.activity.allow_submissions? && should_code_review? && self.code_review_request == nil
-      self.create_code_review_request(requestor_id: self.user.id)
+      self.create_code_review_request(requestor_id: self.user.id, activity: self.activity)
     end
   end
 
@@ -113,8 +124,12 @@ class ActivitySubmission < ActiveRecord::Base
   def create_user_outcome_results
     self.activity.item_outcomes.each do |item_outcome|
       # TODO: change the way we calculate ratings
-      if self.activity.prep?
-        self.user.outcome_results.create(outcome: item_outcome.outcome, resultable: item_outcome, rating: Prep.evaluate_rating(formatted_code_evaluation_results))
+      if self.activity.create_outcome_results?
+        self.user.outcome_results.create(
+          outcome: item_outcome.outcome,
+          source: item_outcome,
+          rating: Prep.evaluate_rating(formatted_code_evaluation_results)
+        )
       end
     end
   end

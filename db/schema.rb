@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511181745) do
+ActiveRecord::Schema.define(version: 20160621223211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,10 +40,16 @@ ActiveRecord::Schema.define(version: 20160511181745) do
     t.integer  "section_id"
     t.boolean  "evaluates_code"
     t.string   "uuid"
+    t.text     "initial_code"
+    t.text     "test_code"
+    t.integer  "sequence"
+    t.boolean  "stretch"
+    t.boolean  "archived"
   end
 
   add_index "activities", ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
   add_index "activities", ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
+  add_index "activities", ["sequence"], name: "index_activities_on_sequence", using: :btree
   add_index "activities", ["start_time"], name: "index_activities_on_start_time", using: :btree
   add_index "activities", ["uuid"], name: "index_activities_on_uuid", unique: true, using: :btree
 
@@ -88,6 +94,8 @@ ActiveRecord::Schema.define(version: 20160511181745) do
     t.datetime "updated_at"
     t.boolean  "finalized",               default: false
     t.text     "code_evaluation_results"
+    t.integer  "time_spent"
+    t.text     "note"
   end
 
   add_index "activity_submissions", ["activity_id"], name: "index_activity_submissions_on_activity_id", using: :btree
@@ -122,8 +130,11 @@ ActiveRecord::Schema.define(version: 20160511181745) do
     t.string   "type"
     t.integer  "activity_submission_id"
     t.text     "reason"
+    t.integer  "activity_id"
+    t.integer  "original_activity_submission_id"
   end
 
+  add_index "assistance_requests", ["activity_id"], name: "index_assistance_requests_on_activity_id", using: :btree
   add_index "assistance_requests", ["activity_submission_id"], name: "index_assistance_requests_on_activity_submission_id", using: :btree
 
   create_table "assistances", force: :cascade do |t|
@@ -137,7 +148,10 @@ ActiveRecord::Schema.define(version: 20160511181745) do
     t.integer  "rating"
     t.text     "student_notes"
     t.boolean  "imported",      default: false
+    t.integer  "activity_id"
   end
+
+  add_index "assistances", ["activity_id"], name: "index_assistances_on_activity_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -171,6 +185,7 @@ ActiveRecord::Schema.define(version: 20160511181745) do
     t.string   "github_repo"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "last_sha"
   end
 
   create_table "day_feedbacks", force: :cascade do |t|
@@ -192,6 +207,21 @@ ActiveRecord::Schema.define(version: 20160511181745) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "deployments", force: :cascade do |t|
+    t.integer  "content_repository_id"
+    t.string   "sha"
+    t.string   "status",                             default: "started"
+    t.string   "log_file"
+    t.string   "summary_file"
+    t.datetime "completed_at"
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.string   "error_message",         limit: 1000
+    t.string   "branch"
+  end
+
+  add_index "deployments", ["content_repository_id"], name: "index_deployments_on_content_repository_id", using: :btree
 
   create_table "evaluation_transitions", force: :cascade do |t|
     t.string   "to_state",                     null: false
@@ -363,14 +393,21 @@ ActiveRecord::Schema.define(version: 20160511181745) do
   create_table "sections", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.integer  "order"
-    t.text     "description"
     t.string   "type"
     t.string   "uuid"
+    t.text     "description"
+    t.string   "content_file_path"
+    t.integer  "content_repository_id"
+    t.string   "start_day"
+    t.text     "blurb"
+    t.string   "end_day"
+    t.string   "image"
   end
 
+  add_index "sections", ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
   add_index "sections", ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
 
   create_table "skills", force: :cascade do |t|
@@ -445,11 +482,13 @@ ActiveRecord::Schema.define(version: 20160511181745) do
   add_foreign_key "activity_feedbacks", "users"
   add_foreign_key "answers", "options"
   add_foreign_key "answers", "quiz_submissions"
+  add_foreign_key "deployments", "content_repositories"
   add_foreign_key "options", "questions"
   add_foreign_key "outcome_results", "outcomes"
   add_foreign_key "outcome_results", "users"
   add_foreign_key "questions", "outcomes"
   add_foreign_key "quiz_submissions", "quizzes"
+  add_foreign_key "sections", "content_repositories"
   add_foreign_key "user_activity_outcomes", "item_outcomes", column: "activity_outcome_id"
   add_foreign_key "user_activity_outcomes", "users"
 end

@@ -1,10 +1,7 @@
-.well
-  = simple_form_for [@activity.becomes(Activity), ActivityFeedback.new], remote: true do |f|
-    = f.input :rating, collection: [['5 - Perfect', 5], ['4 - Great', 4], ['3 - Good', 3], ['2 - Problematic', 2], ['1 - Useless', 1]], allow_blank: true, label: 'Rate this activity overall (optional)'
-    = f.input :sentiment, collection: [['Negative', -1], ['Neutral', 0], ['Positive', 1]], label: 'Positive or negative feedback? (optional)', allow_blank: true
-    = f.input :detail, label: 'Detail (the more the merrier :)'
-    = f.submit 'Submit Feedback', class: 'btn btn-tiny btn-primary'
-
+= form.input :rating, collection: [['5 - Perfect', 5], ['4 - Great', 4], ['3 - Good', 3], ['2 - Problematic', 2], ['1 - Useless', 1]], allow_blank: true, label: 'Rate this activity overall (optional)'
+= form.input :sentiment, collection: [['Negative', -1], ['Neutral', 0], ['Positive', 1]], label: 'Positive or negative feedback? (optional)', allow_blank: true
+= form.input :detail, placeholder: 'The more you can give us the better!'
+= form.submit 'Submit Feedback', class: 'btn btn-tiny btn-primary'
 
 coffee: 
   $(document).ready ->
@@ -19,4 +16,4 @@ coffee:
       $('.empty-message').hide()
       resetFeedbackForm()
     ).on 'ajax:error', (e, xhr, status, error) ->
-      alert(error)
+      alert(xhr.responseText)

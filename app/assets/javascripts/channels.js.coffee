@@ -5,7 +5,8 @@ host = window.location.hostname;
 if window.location.port isnt ""
   host += ":#{window.location.port}"
 
-App.cable = Cable.createConsumer('ws://' + host + '/websocket');
+proto = if window.location.protocol == 'https:' then 'wss://' else 'ws://'
+App.cable = Cable.createConsumer(proto + host + '/websocket');
 
 window.connectToTeachersSocket = ->
   App.teacherChannel = App.cable.subscriptions.create("TeacherChannel",
@@ -27,8 +28,8 @@ $ ->
       if $('.reconnect-holder').is(':visible')
         $('.reconnect-holder').hide()
 
-    requestAssistance: (reason) ->
-      @perform 'request_assistance', reason: reason
+    requestAssistance: (reason, activityId) ->
+      @perform 'request_assistance', reason: reason, activity_id: activityId
 
     cancelAssistanceRequest: ->
       @perform 'cancel_assistance'
