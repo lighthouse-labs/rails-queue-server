@@ -33,7 +33,7 @@ var Request = React.createClass({
         <p>
           <b>Reason:</b> {request.reason}
           <br/>
-          <b>Activity:</b> {request.activity.name}
+          <b>Activity:</b> {request.activity ? request.activity.name : 'N/A' }
         </p>
         <p>
           <a className="btn btn-primary btn-lg" onClick={this.startAssisting} disabled={this.state.disabled}>Start Assisting</a>
