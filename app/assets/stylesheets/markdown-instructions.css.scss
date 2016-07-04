@@ -1,0 +1,67 @@
+.activity-details, .project-detail {
+
+  .instructions {
+    aside {
+      background: #eee;
+      font-size: .85em;
+      margin: 2em 0;
+      padding: .5em 1.5em;
+    }
+
+    kbd {
+      border: 1px solid gray;
+      color: darkgray;
+      border-radius: .25em;
+      padding: 0 .3em;
+      background-color: rgba(0,0,0,0);
+      display: inline-block;
+      font-size: 0.7em;
+    }
+
+    aside {
+      kbd {
+        color: black;
+      }
+    }
+
+    aside > h3:first-child {
+      margin-top: 1em;
+      font-size: 1.5em;
+    }
+
+    @media (min-width: 46em) {
+      aside { float: right; margin: 0 0 1em 2em; width: 24em; }
+    }
+
+    @media (min-width: 88em) {
+      aside { margin-right: -14em; }
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    pre {
+      // http://stackoverflow.com/questions/10374171/how-to-make-twitter-bootstraps-pre-blocks-scroll-horizontally
+      overflow-y: auto;
+      word-wrap: normal;
+
+      code {
+        overflow-wrap: normal;
+        white-space: pre;
+        word-wrap: normal;
+
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+      }
+    }
+
+    .allow-select {
+     -moz-user-select: text;
+     -webkit-user-select: text;
+     -ms-user-select: text;
+    }
+
+  }
+}
