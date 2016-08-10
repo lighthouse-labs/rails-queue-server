@@ -1,0 +1,48 @@
+body.admin-cohorts-show {
+
+  .stats {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+
+    .stat {
+      margin: 0px 10px 0px 10px;
+      min-width: 140px;
+      text-align: center;
+      margin-bottom: 20px;
+
+      span {
+        font-variant: small-caps;
+      }
+    }
+
+  }
+
+  table.students {
+    tr {
+      opacity: 0.8;
+
+      &:hover {
+        opacity: 1.0;
+      }
+
+      td.details {
+        img {
+          width: 60px;
+          float: left;
+          margin-right: 8px;
+          border-radius: 5px;
+        }
+        .email {
+          font-size: 0.8em;
+        }
+      }
+
+      .progress {
+        margin-top: 8px;
+      }
+    }
+  }
+
+}

@@ -76,7 +76,9 @@ class ApplicationController < ActionController::Base
       @cohort ||= Cohort.find_by(id: session[:cohort_id]) if session[:cohort_id]
     end
     @cohort ||= current_user.try(:cohort) # Students have a cohort
-    @cohort ||= Cohort.most_recent.first # If any cohorts exist, use the latest
+    # Try to find the next one that's upcoming.
+    # Failing that use the latest
+    @cohort ||= (Cohort.upcoming.chronological.first || Cohort.most_recent.first)
     @program = @cohort.try(:program)
     @cohort
   end

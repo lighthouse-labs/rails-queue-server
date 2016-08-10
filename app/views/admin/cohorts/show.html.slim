@@ -1,0 +1,30 @@
+- provide :container,  'fluid'
+- provide :body_class, 'admin-cohorts-show'
+
+header.page-header
+  h1
+    | Cohort:&nbsp;
+    = @cohort.name
+    = " (#{cohort.location.name})"
+
+= render 'stats'
+
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Prep Stats
+
+      .table-responsive
+        table.table.students.sortable
+          thead
+            tr
+              th Info
+              th Joined
+              th Started
+              th Progress
+              th Time Logged
+              th Quiz Score
+          tbody
+            == render collection: @students, partial: 'student'
+

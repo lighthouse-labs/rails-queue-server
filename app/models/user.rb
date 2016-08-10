@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
     false
   end
 
+
   def active_student?
     false
   end

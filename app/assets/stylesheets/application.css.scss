@@ -17,40 +17,33 @@
 @import "incomplete_activities";
 @import "reconnect_holder";
 @import "search";
-
-@import "admin";
-@import "admin/students";
-@import "search";
-
 @import "students";
 @import "prep";
 @import "ace_editors";
-
 @import "profile";
 @import "students";
 @import "code_reviews";
-
 @import "quiz_submissions";
 @import "quizzes";
 @import "teacher/students";
-
 @import "students";
 @import "prep";
 @import "ace_editors";
-
 @import "profile";
 @import "students";
 @import "code_reviews";
+@import "projects";
+@import "markdown-instructions";
+@import "evaluations";
 
+// Admin
+
+@import "admin/students";
 @import "admin/learning_objectives";
 @import "admin/breadcrumb-adjustments";
 @import "admin/autocomplete-modal-styling";
 @import "admin/outcomes";
-
-@import "projects";
-
-@import "markdown-instructions";
-
-@import "evaluations";
+@import 'admin/teacher_stats';
+@import 'admin/cohorts';
 
 

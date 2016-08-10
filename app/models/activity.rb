@@ -28,6 +28,8 @@ class Activity < ActiveRecord::Base
 
   scope :assistance_worthy, -> { where.not(type: ['Lecture', 'Breakout', 'PinnedNote']) }
 
+  scope :countable_as_submission, -> { where.not(type: ['QuizActivity', 'PinnedNote', 'Lecture', 'Breakout', 'Test']) }
+
   scope :prep,     -> {
     joins(:section).where(sections: { type: 'Prep' })
   }

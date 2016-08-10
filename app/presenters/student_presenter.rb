@@ -36,31 +36,25 @@ class StudentPresenter < UserPresenter
   end
 
   def prep_activity_stats
-    completed_activities = student.activity_submissions.proper.prep.count
-    total_activities = Activity.active.prep.count
-    activity_ratio = total_activities > 0 ? (completed_activities.to_f / total_activities.to_f) * 100 : 0
-
+    stats = StudentStats.new(student).prep_activity_stats
     render 'stats', {
       title:    'Activities',
-      count:    completed_activities,
-      max:      total_activities,
+      count:    stats[:completed],
+      max:      stats[:total],
       avg:      nil,
-      progress: activity_ratio
+      progress: stats[:ratio]
     }
   end
 
   def prep_quiz_stats
-    quiz_ids = Quiz.active.prep.select(:id)
-    quiz_submissions = student.quiz_submissions.where(quiz_id: quiz_ids).where(initial: true)
-    quiz_ratio = quiz_submissions.any? ? (quiz_submissions.count.to_f / quiz_ids.count) * 100 : 0
-    quiz_average = average_score_for_submissions(quiz_submissions)
+    stats = StudentStats.new(student).prep_quiz_stats
 
     render 'stats', {
       title:    'Quizzes',
-      count:    quiz_submissions.count,
-      max:      quiz_ids.count,
-      avg:      quiz_average,
-      progress: quiz_ratio
+      count:    stats[:completed],
+      max:      stats[:total],
+      avg:      stats[:average],
+      progress: stats[:ratio]
     }
   end
 

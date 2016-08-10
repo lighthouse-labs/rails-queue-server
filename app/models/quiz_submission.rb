@@ -16,10 +16,10 @@ class QuizSubmission < ActiveRecord::Base
   }
 
   before_validation on: :create do
-    unless uuid
-      self.uuid = SecureRandom.uuid
-    end
+    self.uuid ||= SecureRandom.uuid
   end
+
+  after_create :set_counts
 
   def other_submissions_by_user
     user.quiz_submissions.where(quiz_id: quiz_id).where.not(id: self.id)
@@ -48,4 +48,16 @@ class QuizSubmission < ActiveRecord::Base
     correct_answer_sum = correct_answer_submissions.map(&:answers_count).reduce(0, &:+)
     correct_answer_sum.to_f / correct_submissions_count.to_f
   end
+
+  private
+
+  def set_counts
+    self.total     = quiz.questions.active.count
+    self.correct   = answers.correct.count
+    self.skipped   = total - answers.count
+    self.incorrect = total - skipped - correct
+    save
+  end
+
+
 end
