@@ -1,0 +1,121 @@
+- service = StudentStats.new(student)
+/ - activity_stats   = service.bootcamp_activity_stats
+/ - core_stats       = activity_stats[:core]
+/ - stretch_stats    = activity_stats[:stretch]
+- assistance_stats = service.bootcamp_assistance_stats
+- quiz_stats       = service.bootcamp_quiz_stats(cutoff)
+
+- to_date_activity_stats = service.bootcamp_activity_stats(cutoff)
+- to_date_core_stats     = to_date_activity_stats[:core]
+- to_date_stretch_stats  = to_date_activity_stats[:stretch]
+
+tr
+
+  td.details data-value=student.last_name
+    = link_to [:admin, student] do
+      = image_tag student.avatar_url, class: 'avatar'
+    = link_to [:teacher, student] do
+      = student.full_name
+
+    br
+    - if student.remote?
+      span.label.label-danger = student.location.name
+    - else
+      span.label.label-primary = @cohort.location.name
+
+  td data-value=assistance_stats[:requests]
+    = assistance_stats[:requests]
+    | &nbsp;&raquo;&nbsp;
+    = assistance_stats[:assistances]
+    br
+      small
+        | L:&nbsp;
+        = assistance_stats[:average_score].round(2)
+
+  / td data-value=core_stats[:completed]
+  /   = "#{core_stats[:completed]} / #{core_stats[:total]} (#{core_stats[:ratio].round(0)}%)"
+  /   br
+  /   small
+  /     | Stretch:&nbsp;
+  /     = "#{stretch_stats[:completed]} / #{stretch_stats[:total]} (#{stretch_stats[:ratio].round(0)}%)"
+  /   .progress
+  /     .progress-bar role='progressbar' aria-valuenow=core_stats[:ratio].round(0).to_i aria-valuemin='0' aria-valuemax='100' style="width:#{core_stats[:ratio].round(0).to_i}%"
+  /       span.sr-only = "#{core_stats[:ratio].round(0).to_i}% Complete"
+
+  td data-value=to_date_core_stats[:completed]
+    = "#{to_date_core_stats[:completed]} / #{to_date_core_stats[:total]} (#{to_date_core_stats[:ratio].round(0)}%)"
+    br
+    small
+      | Stretch:&nbsp;
+      = "#{to_date_stretch_stats[:completed]} / #{to_date_stretch_stats[:total]} (#{to_date_stretch_stats[:ratio].round(0)}%)"
+    .progress
+      .progress-bar role='progressbar' aria-valuenow=to_date_core_stats[:ratio].round(0).to_i aria-valuemin='0' aria-valuemax='100' style="width:#{to_date_core_stats[:ratio].round(0).to_i}%"
+        span.sr-only = "#{to_date_core_stats[:ratio].round(0).to_i}% Complete"
+
+  td data-value=(quiz_stats[:completed] > 0 ? quiz_stats[:average].round(0).to_i : 0)
+    - if quiz_stats[:completed] > 0
+      = quiz_stats[:average].round(0).to_i
+      | % Avg Initial
+    - else
+      | No Score
+    br
+    small = "#{quiz_stats[:completed]} / #{quiz_stats[:total]} completed"
+    br
+    small
+      = quiz_stats[:attempts]
+      | &nbsp;
+      | attempts
+
+  td
+    a.tech-interview href="#"
+      span.label.label-warning  W2
+
+    a.tech-interview href="#"
+      span.label.label-info     W3
+
+    a.tech-interview href="#"
+      span.label.label-danger   W5
+
+    a.tech-interview href="#"
+      span.label.label-primary  W8
+
+    br
+    small
+      | Avg Score: 2.25 (3 TIs)
+
+    br
+
+    span.label.label-danger Not Implemented (Demo)
+
+  td
+    a.code-review href="#"
+      span.label.label-warning   CR1
+
+    a.code-review href="#"
+      span.label.label-info      CR2
+
+    a.code-review href="#"
+      span.label.label-danger    CR3
+
+    a.code-review href="#"
+      span.label.label-success   CR4
+
+    a.code-review href="#"
+      span.label.label-success   CR5
+
+    a.code-review href="#"
+      span.label.label-success   CR6
+
+    br
+
+    small
+      | Avg Score: 2.5 (6 CRs)
+
+    br
+
+    span.label.label-danger Not Implemented (Demo)
+
+
+  td
+    span.label.label-primary data-toggle="tooltip" title="Will aggregate all signals (assistance score, progress, quiz score, tech interview score, code review score) into an overall weighted-avg-type score (aglo TBD)"
+      | Not Impelmented

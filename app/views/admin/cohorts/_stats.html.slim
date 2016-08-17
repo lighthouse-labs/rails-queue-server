@@ -51,7 +51,8 @@
         h3
           i.fa.fa-hourglass-end
           | &nbsp;
-          = distance_of_time_in_words(Date.current, @cohort.end_date)
+          / = distance_of_time_in_words(Date.current, @cohort.end_date).sub(/(about |almost |above )/, '~')
+          = "#{(@cohort.end_date - Date.current).to_i}d"
         span Ends In
   - else
     .stat.panel.panel-default

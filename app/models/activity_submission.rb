@@ -50,6 +50,17 @@ class ActivitySubmission < ActiveRecord::Base
     where(activity_id: Activity.prep.select(:id))
   }
 
+  scope :core, -> {
+    joins(:activity).where(activities: { stretch: [nil, false] })
+  }
+  scope :stretch, -> {
+    joins(:activity).where(activities: { stretch: true })
+  }
+
+  scope :until_day, -> (day) {
+    joins(:activity).where("activities.day <= ?", day.to_s)
+  }
+
   scope :bootcamp, -> {
     # Does 2 queries with an ugly id based array in the subquery, I know
     # That's because for some reason this more natural subquery approach won't work... bug in AR?

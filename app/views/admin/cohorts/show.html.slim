@@ -9,6 +9,32 @@ header.page-header
 
 = render 'stats'
 
+- unless @cohort.upcoming?
+  - cutoff = @cohort.start_date == Date.current ? Date.current : Date.current.yesterday
+  - cutoff = CurriculumDay.new(cutoff, @cohort)
+  .row
+    .col-sm-12
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title Bootcamp Stats
+
+        .table-responsive
+          table.table.students.sortable
+            thead
+              tr
+                th Info
+                th Assistances
+                th Progress To Date
+                th Quiz Score
+                th Tech Interviews
+                th Code Reviews
+                th Overall Score
+
+            tbody
+              - @students.each do |s|
+                == render 'student_bootcamp_stats', student: s, cutoff: cutoff
+
+
 .row
   .col-sm-12
     .panel.panel-default
@@ -26,5 +52,6 @@ header.page-header
               th Time Logged
               th Quiz Score
           tbody
-            == render collection: @students, partial: 'student'
+            - @students.each do |s|
+              == render 'student_prep_stats', student: s
 

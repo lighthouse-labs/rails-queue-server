@@ -22,13 +22,17 @@ class Activity < ActiveRecord::Base
   validates :day, format: { with: DAY_REGEX, allow_blank: true }
 
   scope :chronological, -> { order("sequence ASC, id ASC") }
-  scope :for_day,  -> (day) { where(day: day.to_s) }
-  scope :search,   -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
-  scope :active,   -> { where(archived: [false, nil]) }
+  scope :for_day,   -> (day) { where(day: day.to_s) }
+  scope :until_day, -> (day) { where("activities.day <= ?", day.to_s) }
+  scope :search,    -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
+  scope :active,    -> { where(archived: [false, nil]) }
 
   scope :assistance_worthy, -> { where.not(type: ['Lecture', 'Breakout', 'PinnedNote']) }
 
   scope :countable_as_submission, -> { where.not(type: ['QuizActivity', 'PinnedNote', 'Lecture', 'Breakout', 'Test']) }
+
+  scope :core,    -> { where(stretch: [nil, false]) }
+  scope :stretch, -> { where(stretch: true) }
 
   scope :prep,     -> {
     joins(:section).where(sections: { type: 'Prep' })

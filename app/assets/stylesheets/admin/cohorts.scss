@@ -41,6 +41,14 @@ body.admin-cohorts-show {
 
       .progress {
         margin-top: 8px;
+        margin-bottom: 8px;
+      }
+
+      a.tech-interview, a.code-review {
+        margin-right: 5px;
+        .label-primary {
+          opacity: 0.4;
+        }
       }
     }
   }
