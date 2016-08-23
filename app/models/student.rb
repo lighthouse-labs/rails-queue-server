@@ -25,6 +25,10 @@ class Student < User
     location && cohort && location != cohort.location
   end
 
+  def prep_student?
+    !prepping && cohort.upcoming?
+  end
+
   def active_student?
     !prepping? && cohort.active?
   end
