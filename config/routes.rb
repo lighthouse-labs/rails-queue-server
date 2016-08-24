@@ -58,6 +58,8 @@ LaserShark::Application.routes.draw do
     end
   end
 
+  resources :prep_assistance_requests, only: [:create]
+
   resources :students, only: [:index, :show] do
     resources :code_reviews, only: [:create]
     member do
@@ -154,6 +156,8 @@ LaserShark::Application.routes.draw do
       end
     end
 
+    resources :activities, only: [:index]
+
     #Projects CRUD
     resources :projects, only: [:new, :create, :edit, :update, :destroy]
   end
@@ -161,6 +165,6 @@ LaserShark::Application.routes.draw do
   # To test 500 error notifications on production
   get 'error-test' => 'test_errors#create'
 
-  get '/:uuid', to: 'activities#show', constraints: { uuid: /[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}/i }
+  get '/:uuid', to: 'activities#show', constraints: { uuid: /[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}/i }, as: :activity_by_uuid
 
 end

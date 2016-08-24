@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20160823235139) do
     t.integer  "sequence"
     t.boolean  "stretch"
     t.boolean  "archived"
+    t.float    "average_rating"
+    t.integer  "average_time_spent"
   end
 
   add_index "activities", ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree

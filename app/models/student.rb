@@ -25,16 +25,16 @@ class Student < User
     location && cohort && location != cohort.location
   end
 
-  def prep_student?
-    !prepping && cohort.upcoming?
+  def enrolled_and_prepping?
+    cohort && cohort.upcoming?
   end
 
   def active_student?
-    !prepping? && cohort.active?
+    cohort && cohort.active?
   end
 
   def alumni?
-    !prepping? && cohort.finished?
+    cohort && cohort.finished?
   end
 
   def completed_code_review_requests

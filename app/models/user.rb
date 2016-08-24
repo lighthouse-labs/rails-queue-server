@@ -60,6 +60,9 @@ class User < ActiveRecord::Base
     false
   end
 
+  def enrolled_and_prepping?
+    false
+  end
 
   def active_student?
     false
