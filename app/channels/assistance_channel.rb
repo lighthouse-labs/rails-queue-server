@@ -1,4 +1,4 @@
-class AssistanceChannel < ApplicationCable::Channel  
+class AssistanceChannel < ApplicationCable::Channel
 
   def subscribed
     stream_from "assistance-#{params[:location]}"
@@ -31,7 +31,7 @@ class AssistanceChannel < ApplicationCable::Channel
 
     UserChannel.broadcast_to assistance.assistance_request.requestor, {type: "AssistanceEnded"}
     teacher_available(current_user)
-          
+
   end
 
   def cancel_assistance_request(data)
@@ -55,7 +55,7 @@ class AssistanceChannel < ApplicationCable::Channel
         object: AssistanceSerializer.new(assistance).as_json
       }
 
-      teacher_available(current_user)     
+      teacher_available(current_user)
       update_students_in_queue(assistance.assistance_request.requestor.cohort.location.name)
     end
   end
@@ -67,7 +67,7 @@ class AssistanceChannel < ApplicationCable::Channel
       assistance_request.start_assistance(current_user)
       assistance = assistance_request.reload.assistance
       assistance.end(data["notes"], data["rating"])
-      
+
       ActionCable.server.broadcast "assistance-#{assistance_request.requestor.cohort.location.name}", {
         type: "OffineAssistanceCreated",
         object: UserSerializer.new(student).as_json

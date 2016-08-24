@@ -7,8 +7,8 @@ var RequestQueueItems = React.createClass({
         <div>
           <h3 className="section-heading">Currently Assisting</h3>
           <ul className="student-list">
-            { 
-              this.props.activeAssistances.map(function(assistance) { 
+            {
+              this.props.activeAssistances.map(function(assistance) {
                 return <Assistance assistance={assistance} key={assistance.id} location={that.props.location}/>
               })
             }
@@ -50,6 +50,47 @@ var RequestQueueItems = React.createClass({
       return <i>There aren&#39;t any code reviews</i>
   },
 
+  activeEvaluationHolder: function(){
+    if(this.props.activeEvaluations.length > 0){
+      return(
+        <div>
+          <h3 className="section-heading">Currently Marking:</h3>
+          <ul className="student-list">
+            { this.renderActiveEvaluations() }
+          </ul>
+        </div>
+      )
+    }
+  },
+
+  renderActiveEvaluations: function(){
+    var that = this;
+    return this.props.activeEvaluations.map(function(evaluation){
+      return <Evaluation evaluation={evaluation} key={evaluation.id} location={that.props.location} active={true}/>
+    });
+  },
+
+  evaluationHolder: function(){
+    return(
+      <div>
+        <h3 className="section-heading">Awaiting Evaluations</h3>
+        <ul className="student-list">
+          { this.renderEvaluations() }
+        </ul>
+      </div>
+    )
+  },
+
+  renderEvaluations: function(){
+    var that = this;
+    if(this.props.evaluations.length > 0)
+      return this.props.evaluations.map(function(evaluation){
+        return <Evaluation evaluation={ evaluation } key={ evaluation.id } location={that.props.location} active={false}/>
+      });
+    else
+      return <i>There aren&#39;t any evaluations</i>
+  },
+
   renderStudents: function() {
     var that = this;
     return this.props.students.map(function(student) {
@@ -60,15 +101,19 @@ var RequestQueueItems = React.createClass({
   render: function() {
     return (
       <div className="requests-list">
-        
+
         { this.renderAssisting() }
+
+        { this.activeEvaluationHolder() }
 
         <h3 className="section-heading">Awaiting Assistance</h3>
         <ul className="student-list">
           { this.renderRequests() }
         </ul>
-        
+
         { this.codeReviewHolder() }
+
+        { this.evaluationHolder() }
 
         <h3 className="section-heading">All Students</h3>
         <ul className="student-list">

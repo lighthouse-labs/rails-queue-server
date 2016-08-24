@@ -11,10 +11,9 @@ var RequestItem = React.createClass({
         </small>
       )
   },
-  
+
   render: function() {
     var student = this.props.student;
-
     return(
       <li>
         <div className="student-avatar">

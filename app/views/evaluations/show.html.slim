@@ -1,42 +1,37 @@
 - content_for :side_nav do
   = render('shared/menus/project_side_menu', project: @evaluation.project)
 
-ol.breadcrumb
-  li = link_to @project.name, @project
-  li = link_to "Evaluations", project_evaluations_path(@project)
-  li = link_to @evaluation.id, [@project, @evaluation]
+h3 = "#{@evaluation.student.full_name}'s #{@project.name} (Eval)"
 
-h3 = "Status: #{@evaluation.status}"
-- if @evaluation.in_state?(:pending)
-  = link_to "Start Marking", project_evaluation_start_marking_path(@project, @evaluation), class: "pull-right btn btn-success"
-- elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
-  = link_to "Continue Marking", project_evaluation_start_marking_path(@project, @evaluation),
-  class: "pull-right btn btn-success"
-p
-  b Student:
-  = link_to @evaluation.student.full_name, @evaluation.student
-p
-  b Cohort:
-  = link_to @evaluation.student.cohort.name, cohort_students_path(@evaluation.student.cohort)
+- if teacher?
+  .row
+    .col-sm-12
+      - if @evaluation.in_state?(:pending)
+        = link_to "Start Marking", start_marking_project_evaluation_path(@project, @evaluation), class: "pull-right btn btn-success", method: :put
+      - elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
+        = link_to "Continue Marking", edit_project_evaluation_path(@project, @evaluation), class: "pull-right btn btn-success"
+
+
+== render 'details'
+
+h3 Project Details
+
+== render @project
+
 .panel.panel-default
   .panel-heading Outcomes
   .panel-body.list-group
-      - @evaluation.project.activities.each do |activity|
+      - @evaluation.project.activities.active.chronological.each do |activity|
         - activity.outcomes.each do |outcome|
           li.list-group-item = outcome.text
+
 .panel.panel-default
   .panel-heading Student Notes
   .panel-body
-    p = @evaluation.student_notes
+    = simple_format @evaluation.student_notes
+
 .panel.panel-default
   .panel-heading Teacher Notes
   .panel-body
-    p = @evaluation.teacher_notes
-
-
-
-
-
-
-
+    = simple_format @evaluation.teacher_notes
 

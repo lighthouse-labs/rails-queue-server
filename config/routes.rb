@@ -3,8 +3,11 @@ LaserShark::Application.routes.draw do
   resources :projects, only: [:index, :show] do
     resources :activities
     resources :evaluations, only: [:index, :show, :new, :create, :edit, :update] do
-      get 'start_marking', to: 'evaluations#start_marking'
-      get 'cancel_evaluation', to: 'evaluations#cancel_evaluation'
+      member do
+        put :start_marking
+        put :cancel_marking
+        delete :cancel
+      end
     end
   end
 
