@@ -13,10 +13,6 @@ class Student < User
 
   scope :remote, -> { joins(:cohort).where('users.location_id IS NOT NULL AND cohorts.location_id <> users.location_id') }
 
-  def prepping?
-    self.cohort.nil?
-  end
-
   def prospect?
     false
   end
