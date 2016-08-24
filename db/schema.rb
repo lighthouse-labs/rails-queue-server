@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621223211) do
+ActiveRecord::Schema.define(version: 20160817205339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20160621223211) do
     t.integer  "sequence"
     t.boolean  "stretch"
     t.boolean  "archived"
+    t.float    "average_rating"
+    t.integer  "average_time_spent"
   end
 
   add_index "activities", ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
@@ -211,13 +213,13 @@ ActiveRecord::Schema.define(version: 20160621223211) do
   create_table "deployments", force: :cascade do |t|
     t.integer  "content_repository_id"
     t.string   "sha"
-    t.string   "status",                             default: "started"
+    t.string   "status",                default: "started"
     t.string   "log_file"
     t.string   "summary_file"
     t.datetime "completed_at"
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
-    t.string   "error_message",         limit: 1000
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.text     "error_message"
     t.string   "branch"
   end
 
@@ -364,6 +366,10 @@ ActiveRecord::Schema.define(version: 20160621223211) do
     t.integer  "quiz_id"
     t.integer  "user_id"
     t.boolean  "initial"
+    t.integer  "total"
+    t.integer  "correct"
+    t.integer  "incorrect"
+    t.integer  "skipped"
   end
 
   add_index "quiz_submissions", ["quiz_id"], name: "index_quiz_submissions_on_quiz_id", using: :btree

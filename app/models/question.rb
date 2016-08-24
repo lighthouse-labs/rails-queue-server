@@ -17,6 +17,8 @@ class Question < ActiveRecord::Base
 
   after_save :ensure_one_option
 
+  scope :active, -> { where(active: true) }
+
   scope :stats, -> (quiz) {
     question_stats = select('questions.*', 'options.correct AS options_correct', 'COUNT(answers.id) AS answers_count')
       .group('questions.id', 'options.correct')

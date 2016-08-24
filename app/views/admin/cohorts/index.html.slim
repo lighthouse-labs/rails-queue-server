@@ -1,5 +1,7 @@
-h1 Cohorts
-hr
+- provide :container, 'fluid'
+
+header.page-header
+  h1 All Cohorts
 
 .actions.well
   = link_to 'New Cohort', [:new, :admin, :cohort], class: 'btn btn-default'
@@ -11,11 +13,11 @@ table.table
       th Name
       th Start Date
       th Location
-      th 
+      th
         abbr title="Student Access Code" SAC
       th Students
       th Status
-      th 
+      th
 
   tbody
     = render @cohorts

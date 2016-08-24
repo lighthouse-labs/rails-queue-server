@@ -22,6 +22,8 @@
 //= require ace/mode-markdown
 //= require ace/mode-javascript
 //= require prism
+//= require moment.min
+//= require bootstrap-sortable
 //= require eslint
 
 //= require default

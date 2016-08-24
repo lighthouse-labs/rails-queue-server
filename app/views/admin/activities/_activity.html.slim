@@ -1,0 +1,72 @@
+tr
+  td data-value=activity.id
+    = activity.id
+    br
+    small
+      = link_to activity.uuid.split('-').last, activity_by_uuid_path(activity.uuid)
+
+  td data-value=(activity.prep? ? activity.section.name : activity.day.to_s)
+    - if activity.prep?
+      | Prep
+      br
+      small = activity.section.name
+    - else
+      = activity.day.try :upcase
+      - if activity.section
+        br
+        small
+          | Project:&nbsp;
+          = activity.section.name
+
+  td
+    small
+      strong = activity.name
+      br
+      i class=icon_for(activity)
+      | &nbsp;
+      = activity_type(activity)
+
+  td data-value=activity.average_rating
+    - if activity.average_rating?
+      = activity.average_rating.round(1)
+    - else
+      span.label.label-warning N/A
+
+    br
+    small
+      = activity.activity_feedbacks.where.not(rating: nil).count
+      | &nbsp;
+      | entries
+
+  td data-value=activity.average_time_spent
+    - if activity.average_time_spent?
+      - if activity.average_time_spent > 60
+        = "#{(activity.average_time_spent / 60.0).round(1)}h"
+      - else
+        = "#{activity.average_time_spent}m"
+    - else
+      span.label.label-warning N/A
+
+    br
+    small
+      = activity.activity_submissions.where.not(time_spent: nil).count
+      | &nbsp;
+      | entries
+
+  td data-value=activity.duration
+    - if activity.duration?
+      - if activity.duration > 60
+        = "#{(activity.duration / 60.0).round(1)}h"
+      - else
+        = "#{activity.duration}m"
+    - else
+      span.label.label-warning N/A
+
+  td data-value=activity.created_at.to_i
+    = activity.created_at.to_s(:friendly)
+
+  td
+    - if activity.archived?
+      span.label.label-danger title="Archived" A
+    - if activity.stretch?
+      span.label.label-warning title="Stretch" S

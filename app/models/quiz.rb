@@ -19,6 +19,10 @@ class Quiz < ActiveRecord::Base
     #  `where(activity_id: Activity.bootcamp.whatever.whatever.select(:id))` (select instead of pluck)
     where(id: Activity.bootcamp.active.where.not(quiz_id: nil).pluck(:quiz_id))
   }
+  # Ideally this scope should be able to use the one above cleanly, but given the hack mentioned above, it's not easy.
+  scope :until_day, -> (day) {
+    where(id: Activity.bootcamp.active.where.not(quiz_id: nil).until_day(day).pluck(:quiz_id))
+  }
 
   def latest_submission_by(user)
     quiz_submissions.where(user_id: user.id).order(id: :desc).first

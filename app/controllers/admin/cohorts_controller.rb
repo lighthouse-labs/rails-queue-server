@@ -1,6 +1,6 @@
 class Admin::CohortsController < Admin::BaseController
 
-  before_action :require_cohort, only: [:edit, :update]
+  before_action :require_cohort, only: [:edit, :update, :show]
 
   def index
     @cohorts = Cohort.most_recent.all
@@ -13,7 +13,7 @@ class Admin::CohortsController < Admin::BaseController
   def edit
   end
 
-  def create 
+  def create
     @cohort = Cohort.new(cohort_params)
     if @cohort.save
       redirect_to [:edit, :admin, @cohort], notice: 'Created!'
@@ -28,6 +28,10 @@ class Admin::CohortsController < Admin::BaseController
     else
       render :edit
     end
+  end
+
+  def show
+    @students = @cohort.students.active.order(id: :desc)
   end
 
   private

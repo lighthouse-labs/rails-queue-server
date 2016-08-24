@@ -43,11 +43,22 @@ class ActivitySubmission < ActiveRecord::Base
   }
 
   scope :proper, -> {
-    joins(:activity).where("activities.evaluates_code = false OR activities.evaluates_code IS NULL OR activity_submissions.finalized = true")
+    joins(:activity).where("activities.type NOT IN ('QuizActivity', 'PinnedNote', 'Lecture', 'Breakout', 'Test') AND (activities.evaluates_code = false OR activities.evaluates_code IS NULL OR activity_submissions.finalized = true)")
   }
 
   scope :prep, -> {
     where(activity_id: Activity.prep.select(:id))
+  }
+
+  scope :core, -> {
+    joins(:activity).where(activities: { stretch: [nil, false] })
+  }
+  scope :stretch, -> {
+    joins(:activity).where(activities: { stretch: true })
+  }
+
+  scope :until_day, -> (day) {
+    joins(:activity).where("activities.day <= ?", day.to_s)
   }
 
   scope :bootcamp, -> {
