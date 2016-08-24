@@ -49,7 +49,7 @@ tr
   td data-value=(quiz_stats[:completed] > 0 ? quiz_stats[:average].round(0).to_i : 0)
     - if quiz_stats[:completed] > 0
       = quiz_stats[:average].round(0).to_i
-      | % Avg Initial Score
+      | % Avg Initial
     - else
       | No Score
     br
