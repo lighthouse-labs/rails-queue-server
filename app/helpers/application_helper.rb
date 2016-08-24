@@ -46,4 +46,8 @@ module ApplicationHelper
     link_to(name, '#', class: "add_fields btn btn-primary btn-sm #{css_classes}", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
+  def shortened_github_url(url)
+    url.gsub(/https?\:\/\/(www\.)?github.com\//, '')
+  end
+
 end

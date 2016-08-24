@@ -6,7 +6,7 @@ class EvaluationForm
   def initialize(evaluation_model)
     @evaluation = evaluation_model
     @outcomes = []
-    @evaluation.project.activities.each do |activity|
+    @evaluation.project.activities.active.chronological.each do |activity|
       activity.outcomes.each do |outcome|
         @outcomes << { text: outcome.text, mark: 0, id: outcome.id, activity_id: activity.id }
       end
