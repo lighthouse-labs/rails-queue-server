@@ -1,35 +1,96 @@
+- provide :body_class, 'project-evals-edit'
+
 .col-md-3
   = image_tag avatar_for(@evaluation.student), class: "evaluation-avatar"
   p.text-center = @evaluation.student.full_name
   p.text-center = @evaluation.student.cohort.code
 
 .col-md-9
+
+  h3 = "#{@evaluation.student.full_name}'s #{@project.name} (Eval)"
+
+  == render 'details'
+
   = form_for @evaluation_form, url: project_evaluation_path, method: :put do |f|
-    .clearfix
-      h3.pull-left = "#{@evaluation.project.name}" + " (#{@evaluation.status})"
-    a = @evaluation.github_url
-    = f.submit "Reject", class: "pull-right btn btn-danger btn-evaluation"
-    = f.submit "Accept", class: "pull-right btn btn-success btn-evaluation"
+
+    - if @evaluation.markable?
+      - if @evaluation.markable_by?(current_user)
+        = f.submit "Reject", class: "btn btn-danger btn-evaluation", data: { confirm: "Sure? Student will be e-emailed details (and be sad)" }
+        = f.submit "Accept", class: "btn btn-success btn-evaluation", data: { confirm: "Sure? Student will be e-mailed details (and be pleased!)" }
+
+      - elsif @evaluation.grabbable_by?(current_user)
+        = link_to "Re-assign to me", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success btn-evaluation", method: :put
+
+      = link_to 'Re-queue', cancel_marking_project_evaluation_path(@project, @evaluation), class: 'btn btn-warning btn-evaluation', method: :put, data: { confirm: 'Sure? You will no longer be the evaluator. It will go back on the queue' }
+
 
     == markdown(@project.description)
 
     h4 Outcomes
 
+
+
     .panel.panel-default
       .panel-heading
         h3.panel-title Code
       .panel-body
-        - @evaluation_form.outcomes.each_with_index do |outcome, index|
-          .row
-            .col-md-6
-              - (1..4).each do |i|
-                label.radio.radio-inline
-                  = radio_button_tag "evaluation_form[outcomes][#{index}][mark]", i, false, data: {toggle: "radio"}
-                  = i
-              = hidden_field_tag "evaluation_form[outcomes][#{index}][id]", outcome[:id]
-              = hidden_field_tag "evaluation_form[outcomes][#{index}][activity_id]", outcome[:activity_id]
-            .col-md-6
-              p = outcome[:text]
+        table.table
+          thead
+            tr
+              th.text-center
+                a.select-all data-value="1" href="#"
+                  | 1
+                  br
+                  | Nope
+              th.text-center
+                a.select-all data-value="2" href="#"
+                  | 2
+                  br
+                  | Okay
+              th.text-center
+                a.select-all data-value="3" href="#"
+                  | 3
+                  br
+                  | Great
+              th.text-center
+                a.select-all data-value="4" href="#"
+                  | 4
+                  br
+                  | Superb
+
+              th Outcome
+            / tr
+            /   th
+            /     label.radio.radio-inline
+            /       = radio_button_tag "a", 1, false, data: {toggle: "radio"}
+            /   th
+            /     label.radio.radio-inline
+            /       = radio_button_tag "a", 2, false, data: {toggle: "radio"}
+            /   th
+            /     label.radio.radio-inline
+            /       = radio_button_tag "a", 3, false, data: {toggle: "radio"}
+            /   th
+            /     label.radio.radio-inline
+            /       = radio_button_tag "a", 4, false, data: {toggle: "radio"}
+            /   th
+          tbody
+            - @evaluation_form.outcomes.each_with_index do |outcome, index|
+              tr
+                - (1..4).each do |i|
+                  td.text-center
+                    label.radio.radio-inline
+                      = radio_button_tag "evaluation_form[outcomes][#{index}][mark]", i, false, data: {toggle: "radio"}
+                td
+                  = outcome[:text]
+                  = hidden_field_tag "evaluation_form[outcomes][#{index}][id]", outcome[:id]
+                  = hidden_field_tag "evaluation_form[outcomes][#{index}][activity_id]", outcome[:activity_id]
+
     .form-group
       = f.label :teacher_notes
       = f.text_area :teacher_notes, rows: 10, class: "form-control"
+
+    .form-actions
+      - if @evaluation.markable_by?(current_user)
+        = f.submit "Reject", class: "btn btn-danger btn-evaluation", data: { confirm: "Sure? Student will be e-emailed details (and be sad)" }
+        = f.submit "Accept", class: "btn btn-success btn-evaluation", data: { confirm: "Sure? Student will be e-mailed details (and be pleased!)" }
+

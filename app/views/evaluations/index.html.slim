@@ -16,7 +16,7 @@ table.table.table-hover
             = evaluation.teacher.full_name
         td
           - if evaluation.in_state?(:pending)
-            = link_to "Start Marking", project_evaluation_start_marking_path(@project, evaluation)
+            = link_to "Start Marking", start_marking_project_evaluation_path(@project, evaluation), method: :put
           - elsif evaluation.in_state?(:in_progress) && evaluation.teacher == current_user
-            = link_to "Continue Marking", project_evaluation_start_marking_path(@project, evaluation)
+            = link_to "Continue Marking", start_marking_project_evaluation_path(@project, evaluation), method: :put
 

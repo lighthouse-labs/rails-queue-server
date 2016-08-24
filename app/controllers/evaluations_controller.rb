@@ -1,8 +1,8 @@
 class EvaluationsController < ApplicationController
 
-  before_action :teacher_required, except: [:new, :create, :cancel_evaluation]
+  before_action :teacher_required, except: [:new, :create, :cancel, :show]
   before_action :find_project
-  before_action :find_evaluation, only: [:show, :edit, :update, :start_marking, :cancel_evaluation]
+  before_action :find_evaluation, only: [:show, :edit, :update, :start_marking, :cancel, :cancel_marking]
 
   def index
     if session[:cohort_id]
@@ -24,14 +24,16 @@ class EvaluationsController < ApplicationController
     @evaluation.student = current_user
     if @evaluation.save
       BroadcastEvaluationToTeachers.call(evaluation: @evaluation)
-      redirect_to @project, notice: "Project successfully submitted."
+      redirect_to [@project, @evaluation], notice: "Project successfully submitted for evaluation."
     else
-      flash[:alert] = @evaluation.errors.full_messages
+      flash.now[:alert] = @evaluation.errors.full_messages
       render :new
     end
   end
 
   def edit
+    redirect_to [@project, @evaluation], alert: 'Evaluation is not markable' unless @evaluation.markable?
+    redirect_to [@project, @evaluation], alert: 'You are not the evaluator' unless @evaluation.teacher == current_user
     @evaluation_form = EvaluationForm.new @evaluation
   end
 
@@ -46,13 +48,21 @@ class EvaluationsController < ApplicationController
 
   def start_marking
     @evaluation.teacher = current_user
-    @evaluation.transition_to(:in_progress)
+    @evaluation.transition_to!(:in_progress)
     BroadcastMarking.call(evaluation: @evaluation)
     redirect_to edit_project_evaluation_path(@project, @evaluation)
   end
 
-  def cancel_evaluation
-    @evaluation.transition_to :cancelled
+  # aka re-queue
+  def cancel_marking
+    @evaluation.teacher = nil
+    @evaluation.transition_to!(:pending)
+    BroadcastMarking.call(evaluation: @evaluation)
+    redirect_to project_evaluation_path(@project, @evaluation), notice: 'Evaluation is again up for grabs by mentors'
+  end
+
+  def cancel
+    @evaluation.transition_to! :cancelled
     redirect_to @project
   end
 
@@ -64,6 +74,11 @@ class EvaluationsController < ApplicationController
 
   def find_evaluation
     @evaluation = @project.evaluations.find(params[:id] ? params[:id] : params[:evaluation_id])
+
+    # security: students can only access their own evals
+    if student?
+      redirect_to :root, alert('Not Allowed') unless @evaluation.student == current_user
+    end
   end
 
   def evaluation_params

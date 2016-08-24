@@ -39,7 +39,27 @@ class Evaluation < ActiveRecord::Base
   end
 
   def status
-    state.gsub(/_/, " ").titleize
+    current_state.gsub(/_/, " ").titleize
+  end
+
+  def cancellable?
+    !in_state?(:accepted, :rejected, :cancelled)
+  end
+
+  def markable?
+    in_state?(:pending, :in_progress)
+  end
+
+  def markable_by?(user)
+    in_state?(:in_progress) && teacher == user
+  end
+
+  def grabbable_by?(user)
+    in_state?(:pending) || (in_state?(:in_progress) && user != teacher)
+  end
+
+  def can_requeue?
+    markable?
   end
 
   private_class_method :transition_class

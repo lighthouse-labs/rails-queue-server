@@ -5,7 +5,7 @@ var Evaluation = React.createClass({
     if(!this.props.active){
       return (
         <p>
-          <a className="btn btn-primary btn-lg" href={`/projects/${evaluation.project.slug}/evaluations/${evaluation.id}/start_marking`} onClick={this.startMarking} >Start Marking</a>
+          <a className="btn btn-primary btn-lg" href={`/projects/${evaluation.project.slug}/evaluations/${evaluation.id}/start_marking`} data-method="put">Start Marking</a>
         </p>
       )
     } else {

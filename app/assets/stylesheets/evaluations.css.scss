@@ -1,6 +1,14 @@
 // Place all the styles related to the evaluation controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.project-evals-edit {
+  label.radio span.icons {
+    top: -11px;
+    left: 11px;
+  }
+}
+
 .evaluation-avatar {
   width: 100%;
 }
