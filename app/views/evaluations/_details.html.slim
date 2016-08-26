@@ -16,7 +16,8 @@
               = shortened_github_url(@evaluation.github_url)
 
           dt STATUS
-          dd = @evaluation.status
+          dd
+            span.label.label-info.label-md = @evaluation.status
 
           dt Project
           dd = link_to @project.name, @project
