@@ -3,18 +3,35 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
   FILTER_BY_OPTIONS = [:program, :completed?, :student_id, :student_location_id, :cohort_id, :start_date, :end_date, :day].freeze
   DEFAULT_PER = 10
 
+  # def index
+  #   params[:student_location_id] = current_user.location.id.to_s if params[:student_location_id].nil?
+  #   params[:completed?] = 'true' if params[:completed].nil?
+
+  #   @feedbacks = Feedback.curriculum_feedbacks.filter_by(filter_by_params).order(order)
+  #   @rating = @feedbacks.average_rating
+  #   @paginated_feedbacks = @feedbacks.page(params[:page]).per(DEFAULT_PER)
+
+  #   respond_to do |format|
+  #     format.html
+  #     format.csv {render text: @feedbacks.to_csv}
+  #     format.xls do
+  #       headers['Content-Disposition'] = 'attachment; filename=curriculum_feedbacks.xls'
+  #     end
+  #   end
+  # end
+
   def index
     params[:student_location_id] = current_user.location.id.to_s if params[:student_location_id].nil?
     params[:completed?] = 'true' if params[:completed].nil?
-    
-    @feedbacks = Feedback.curriculum_feedbacks.filter_by(filter_by_params).order(order)
+
+    @feedbacks = ActivityFeedback.all
     @rating = @feedbacks.average_rating
     @paginated_feedbacks = @feedbacks.page(params[:page]).per(DEFAULT_PER)
 
     respond_to do |format|
       format.html
       format.csv {render text: @feedbacks.to_csv}
-      format.xls do 
+      format.xls do
         headers['Content-Disposition'] = 'attachment; filename=curriculum_feedbacks.xls'
       end
     end

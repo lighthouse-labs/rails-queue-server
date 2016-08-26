@@ -21,6 +21,10 @@ class ActivityFeedback < ActiveRecord::Base
     sentiment == 0
   end
 
+  def self.average_rating
+    average(:rating).to_f.round(2)
+  end
+
   private
 
   def at_least_some_feedback
