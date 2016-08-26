@@ -1,4 +1,4 @@
-class ActivityFeedback < ActiveRecord::Base
+class ActivityFeedback < ApplicationRecord
 
   belongs_to :activity
   belongs_to :user

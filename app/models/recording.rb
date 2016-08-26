@@ -1,4 +1,4 @@
-class Recording < ActiveRecord::Base
+class Recording < ApplicationRecord
 
   belongs_to :presenter, :class_name => User
   belongs_to :cohort

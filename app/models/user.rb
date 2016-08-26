@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   mount_uploader :custom_avatar, CustomAvatarUploader
 

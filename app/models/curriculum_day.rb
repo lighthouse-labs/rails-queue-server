@@ -37,6 +37,10 @@ class CurriculumDay
   end
 
   def <=>(other)
+    if !other.is_a?(CurriculumDay)
+      # assume it's a "w2d4" sort of thing
+      other = CurriculumDay.new(other, @cohort)
+    end
     self.date <=> other.date
   end
 

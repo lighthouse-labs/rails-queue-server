@@ -1,4 +1,4 @@
-class ActivityMessage < ActiveRecord::Base
+class ActivityMessage < ApplicationRecord
 
   KINDS = ['Lecture Notes']
 

@@ -1,4 +1,4 @@
-class Quiz < ActiveRecord::Base
+class Quiz < ApplicationRecord
 
   QUESTIONS_PER_QUIZ = 5
 

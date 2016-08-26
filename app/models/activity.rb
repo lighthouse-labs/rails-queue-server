@@ -1,4 +1,4 @@
-class Activity < ActiveRecord::Base
+class Activity < ApplicationRecord
 
   belongs_to :section
   # optional. Means content stored on server

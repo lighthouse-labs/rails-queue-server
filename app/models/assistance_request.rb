@@ -1,4 +1,5 @@
-class AssistanceRequest < ActiveRecord::Base
+class AssistanceRequest < ApplicationRecord
+
   belongs_to :requestor, :class_name => User
   belongs_to :assistance, dependent: :delete
   belongs_to :activity

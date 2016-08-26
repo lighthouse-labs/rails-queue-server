@@ -1,4 +1,4 @@
-class ActivitySubmission < ActiveRecord::Base
+class ActivitySubmission < ApplicationRecord
 
   # => For submissions on activities that have evaluates_code=true
   serialize :code_evaluation_results

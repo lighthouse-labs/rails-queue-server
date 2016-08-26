@@ -1,4 +1,4 @@
-class Cohort < ActiveRecord::Base
+class Cohort < ApplicationRecord
 
   belongs_to :program
   belongs_to :location
