@@ -61,6 +61,8 @@ LaserShark::Application.routes.draw do
     end
   end
 
+  resources :prep_assistance_requests, only: [:create]
+
   resources :students, only: [:index, :show] do
     resources :code_reviews, only: [:create]
     member do

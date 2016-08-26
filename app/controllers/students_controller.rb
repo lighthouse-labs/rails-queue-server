@@ -16,7 +16,7 @@ class StudentsController < Teacher::BaseController
   private
 
   def disallow_unless_enrolled
-    redirect_to(:root, alert: 'Not allowed') unless current_user && !current_user.prepping?
+    redirect_to(:root, alert: 'Not allowed') unless current_user && cohort
   end
 
   def teacher_required

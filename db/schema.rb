@@ -182,6 +182,18 @@ ActiveRecord::Schema.define(version: 20160824030909) do
 
   add_index "cohorts", ["program_id"], name: "index_cohorts_on_program_id", using: :btree
 
+  create_table "comments", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "commentable_id"
+    t.string   "commentable_type", limit: 255
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
   create_table "content_repositories", force: :cascade do |t|
     t.string   "github_username"
     t.string   "github_repo"
@@ -328,6 +340,16 @@ ActiveRecord::Schema.define(version: 20160824030909) do
 
   add_index "outcomes", ["skill_id"], name: "index_outcomes_on_skill_id", using: :btree
   add_index "outcomes", ["uuid"], name: "index_outcomes_on_uuid", unique: true, using: :btree
+
+  create_table "prep_assistance_requests", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "user_id"
+    t.integer  "activity_id"
+  end
+
+  add_index "prep_assistance_requests", ["activity_id"], name: "index_prep_assistance_requests_on_activity_id", using: :btree
+  add_index "prep_assistance_requests", ["user_id"], name: "index_prep_assistance_requests_on_user_id", using: :btree
 
   create_table "programs", force: :cascade do |t|
     t.string   "name"
@@ -493,6 +515,8 @@ ActiveRecord::Schema.define(version: 20160824030909) do
   add_foreign_key "options", "questions"
   add_foreign_key "outcome_results", "outcomes"
   add_foreign_key "outcome_results", "users"
+  add_foreign_key "prep_assistance_requests", "activities"
+  add_foreign_key "prep_assistance_requests", "users"
   add_foreign_key "questions", "outcomes"
   add_foreign_key "quiz_submissions", "quizzes"
   add_foreign_key "sections", "content_repositories"
