@@ -10,8 +10,7 @@ class AssistanceRequestsController < ApplicationController
       props: {
         locations: @all_locations,
         user: UserSerializer.new(current_user).as_json
-      },
-      layout: "assistance"
+      }
   end
 
   def queue

@@ -8,13 +8,13 @@ $ ->
    unarchiveDayFeedback = (id) ->
      $.ajax
        url: '/admin/day_feedbacks/' + id + '/archive'
-       type: 'DELETE'   
+       type: 'DELETE'
 
-  $('.archive-button').click (e) ->
+  $(document).on 'click', '.archive-button', (e) ->
     $(this).siblings('.archive-confirm-button').show()
     $(this).hide()
 
-  $('.archive-confirm-button').click (e) ->
+  $(document).on 'click', '.archive-confirm-button', (e) ->
     id = $(this).parents('td').data 'id'
     archived_filter_status = $('#archived_').val()
 
@@ -25,11 +25,8 @@ $ ->
       $(this).hide()
       $(this).siblings('.unarchive-button').show()
 
-  $('.unarchive-button').click (e) ->
+  $(document).on 'click', '.unarchive-button', (e) ->
     id = $(this).parents('td').data 'id'
     $(this).hide()
     unarchiveDayFeedback(id)
     $(this).siblings('.archive-button').show()
-
-  # Activating Best In Place Editor
-  $(".best_in_place").best_in_place();

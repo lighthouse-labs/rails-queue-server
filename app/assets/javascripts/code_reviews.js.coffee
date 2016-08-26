@@ -1,6 +1,6 @@
 $ ->
 
-  $('#view_code_review_modal').on 'show.bs.modal', (event) ->
+  $(document).on 'show.bs.modal', '#view_code_review_modal', (event) ->
     button = $(event.relatedTarget)
     codeReviewAssistanceId = button.data('code-review-assistance-id')
     modal = $(this)
@@ -9,7 +9,7 @@ $ ->
       method: 'GET').done (info) ->
         modal.find('.view-modal-content').html(info)
 
-  $('#new_code_review_modal').on 'show.bs.modal', (event) ->
+  $(document).on 'show.bs.modal', '#new_code_review_modal', (event) ->
     button = $(event.relatedTarget)
     studentID = button.data('student-id')
     modal = $(this)
@@ -25,13 +25,13 @@ $ ->
     window.studentNotesEditor.setTheme("ace/theme/monokai")
     window.studentNotesEditor.getSession().setMode("ace/mode/markdown")
 
-    $('#new_assistance').submit (e) ->
+    $(document).on 'submit', '#new_assistance', (e) ->
       e.preventDefault()
       $('#assistance_student_notes').val(window.studentNotesEditor.getValue())
       this.submit()
 
   validateForm = ->
-    $('#new-code-review-submit-button').on 'click', (e) ->
+    $(document).on 'click', '#new-code-review-submit-button', (e) ->
       errrorMessages = []
 
       activity = $('#activity_submission_id')

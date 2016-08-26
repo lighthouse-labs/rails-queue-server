@@ -9,10 +9,10 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-# gem 'turbolinks'
+gem 'turbolinks', '~> 5'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
-gem 'react-rails', '~> 1.4.1'
+gem 'react-rails'
 gem 'active_model_serializers'
 
 gem 'pg'

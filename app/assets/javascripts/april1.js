@@ -1,5 +1,5 @@
 $(function() {
-  $('#a1-retina-mode').click(function() {
+  $(document).on('click', '#a1-retina-mode', function() {
     body = $('body');
     if (!body.hasClass('april1-comic')) {
       body.addClass('april1-comic');
