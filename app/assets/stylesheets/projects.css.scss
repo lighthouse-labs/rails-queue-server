@@ -18,6 +18,15 @@
   .hero {
     margin-top: 35px;
   }
+
+  .evals table {
+    th.actions {
+      min-width: 160px;
+    }
+    td a.btn {
+      margin-right: 4px;
+    }
+  }
 }
 
 .project-bio {

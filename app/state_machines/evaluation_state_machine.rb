@@ -10,7 +10,7 @@ class EvaluationStateMachine
   state :cancelled
 
   transition from: :pending, to: [:in_progress, :cancelled]
-  transition from: :in_progress, to: [:accepted, :rejected, :cancelled]
+  transition from: :in_progress, to: [:pending, :accepted, :rejected, :cancelled]
 
   guard_transition(to: :in_progress) do |evaluation|
     evaluation.teacher.presence
@@ -18,24 +18,32 @@ class EvaluationStateMachine
 
   after_transition(to: :in_progress) do |evaluation, transition|
     evaluation.state = "in_progress"
-    evaluation.started_at = DateTime.now
+    evaluation.started_at = Time.now
     evaluation.save
   end
 
   after_transition(to: :accepted) do |evaluation, transition|
     evaluation.state = "accepted"
-    evaluation.completed_at = DateTime.now
+    evaluation.completed_at = Time.now
+    evaluation.save
+  end
+
+  after_transition(to: :pending) do |evaluation, transition|
+    evaluation.state = "pending"
+    evaluation.started_at = nil
+    evaluation.teacher = nil
     evaluation.save
   end
 
   after_transition(to: :rejected) do |evaluation, transition|
     evaluation.state = "rejected"
-    evaluation.completed_at = DateTime.now
+    evaluation.completed_at = Time.now
     evaluation.save
   end
 
   after_transition(to: :cancelled) do |evaluation, transition|
     evaluation.state = "cancelled"
+    evaluation.cancelled_at = Time.now
     evaluation.save
   end
 end

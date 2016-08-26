@@ -46,6 +46,8 @@ var RequestQueue = React.createClass({
       activeAssistances: [],
       requests: [],
       codeReviews: [],
+      activeEvaluations: [],
+      evaluations: [],
       students: [],
       hasNotification: ("Notification" in window),
       canNotify: false,
@@ -63,6 +65,8 @@ var RequestQueue = React.createClass({
       activeAssistances: response.active_assistances,
       requests: response.requests,
       codeReviews: response.code_reviews,
+      activeEvaluations: response.active_evaluations,
+      evaluations: response.evaluations,
       students: response.all_students
     });
   },
@@ -91,6 +95,7 @@ var RequestQueue = React.createClass({
       stopAssisting: function(assistance) {
         this.perform('stop_assisting', {assistance_id: assistance.id})
       },
+
       received: function(data) {
         switch(data.type) {
           case "AssistanceRequest":
@@ -120,6 +125,12 @@ var RequestQueue = React.createClass({
             else
               that.handleAssistanceRequest(assistanceRequest);
 
+            break;
+          case "EvaluationRequest":
+            that.handleEvaluationRequest(data.object)
+            break;
+          case "StartMarking":
+            that.removeFromQueue(data.object);
             break;
         }
       },
@@ -174,6 +185,7 @@ var RequestQueue = React.createClass({
     this.removeAssistanceFromRequests(assistanceRequest);
     this.removeFromAssisting(assistanceRequest);
     this.removeFromCodeReviews(assistanceRequest);
+    this.removeFromEvaluations(assistanceRequest);
   },
 
   handleAssistanceStarted: function(assistance) {
@@ -232,6 +244,19 @@ var RequestQueue = React.createClass({
     if(ind > -1) {
       codeReviews.splice(ind, 1);
       this.setState({codeReviews: codeReviews});
+    }
+  },
+
+  removeFromEvaluations: function(assistanceRequest){
+    var evaluations = this.state.evaluations;
+    var ids = evaluations.map(function(e){
+      return e.id;
+    });
+
+    var ind = ids.indexOf(assistanceRequest.id);
+    if(ind > -1){
+      evaluations.splice(ind, 1);
+      this.setState({evaluations: evaluations});
     }
   },
 
@@ -294,6 +319,12 @@ var RequestQueue = React.createClass({
       )
   },
 
+  handleEvaluationRequest: function(evaluation){
+    var evaluations = this.state.evaluations;
+    evaluations.push(evaluation)
+    this.setState({evaluations: evaluations})
+  },
+
   render: function() {
     return(
       <div>
@@ -302,6 +333,8 @@ var RequestQueue = React.createClass({
           activeAssistances={this.state.activeAssistances}
           requests={this.state.requests}
           codeReviews={this.state.codeReviews}
+          activeEvaluations={this.state.activeEvaluations}
+          evaluations={this.state.evaluations}
           students={this.state.students}
           location={this.state.location} />
       </div>

@@ -8,7 +8,10 @@
 .hero
   = render @project
 
-h4 = last_evaluation ? "Status: #{last_evaluation.status}" : ""
+- if student?
+  = render 'my_evals'
+
+hr
 
 .instructions
   == markdown(@project.description)

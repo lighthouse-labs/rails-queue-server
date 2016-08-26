@@ -15,7 +15,11 @@ class Project < Section
   end
 
   def last_evaluation(student)
-    evaluations.where(student: student).order(created_at: :desc).first
+    evaluations_for(student).first
+  end
+
+  def evaluations_for(student)
+    evaluations.where(student: student).order(created_at: :desc)
   end
 
   private
