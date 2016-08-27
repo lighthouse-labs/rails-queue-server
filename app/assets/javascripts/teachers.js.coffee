@@ -1,18 +1,5 @@
 $ ->
 
-  teachers_locations_checkboxes = $('#teachers-selected-locations').find('input[type=radio]')
-
-  show_teachers_in_location = ->
-    $('.teacher').hide()
-    selected_locations = teachers_locations_checkboxes.filter(':checked').map(-> $(this).val()).get()
-    selected_locations.forEach (location) ->
-      $('.teacher.' + location).show()
-
-  show_teachers_in_location()
-
-  teachers_locations_checkboxes.on 'change', ->  
-    show_teachers_in_location()    
-
   bind_readmore_to_feedbacks = (element) ->
     if element
       element.readmore
@@ -50,7 +37,7 @@ $ ->
     that = this
     $(this).attr('disabled', true)
     id = $(this).siblings('.teacher-mentor-status').data 'id'
-    removeMentorship(id, -> 
+    removeMentorship(id, ->
       $(that).css('display', 'none')
       $(that).attr('disabled', false)
       $(that).siblings('.make-mentor-button').css('display', 'inline-block')
@@ -60,7 +47,7 @@ $ ->
     that = this
     $(this).attr('disabled', true)
     id = $(this).siblings('.teacher-mentor-status').data 'id'
-    addMentorship(id, -> 
+    addMentorship(id, ->
       $(that).css('display', 'none')
       $(that).attr('disabled', false)
       $(that).siblings('.remove-mentor-button').css('display', 'inline-block'))

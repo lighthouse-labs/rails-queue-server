@@ -3,8 +3,16 @@ class TeachersController < ApplicationController
   before_action :load_teacher, except: [:index]
 
   def index
-    @teachers = Teacher.all
-    @locations = Location.all.order(:name).map(&:name)
+    @locations = Location.all.order(:name)
+    @teachers  = Teacher.all
+    if params[:location_id] && @location = Location.find_by(id: params[:location_id])
+      if @location.satellite? && @supporting_location = @location.supported_by_location
+        @teachers = @teachers.where(location_id: [@location.id, @supporting_location.id])
+      else
+        @teachers = @teachers.where(location_id: @location.id)
+      end
+    end
+
   end
 
   def feedback

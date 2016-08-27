@@ -4,55 +4,56 @@ class UserPresenter < BasePresenter
   delegate :full_name, :email, :phone_number, :quirky_fact, :bio, :specialties, :company_name, :company_url, :slack, :skype, :type, to: :user
 
   def image_for_index_page
-    h.image_tag(avatar_for, size: '100x100')
+    h.image_tag(avatar_for, style: 'float:left; width:60px; margin-right: 8px; border-radius: 5px; border: 2px solid black')
   end
 
   def image_for_show_page
     h.image_tag(avatar_for, size: '200x200')
   end
-  
+
   def github_info
-    if user.github_username.present?
-      if user.type == 'Teacher'
-        content_tag :li do
-          link_to "https://github.com/#{user.github_username}", target: "_blank" do
-            image_tag('github-icon.png') + " " + user.github_username
-          end
-        end
-      else
-        link_to "https://github.com/#{user.github_username}", target: "_blank" do
-          image_tag('github-icon.png') + " " + user.github_username
-        end
-      end
-    end
+    render(
+      'shared/social_icon',
+      handle: user.github_username,
+      company: 'github',
+      url: "https://github.com/#{user.github_username}"
+    ) if user.github_username?
   end
 
   def twitter_info
-    if user.twitter.present?
-      content_tag :li do
-        link_to "https://twitter.com/#{user.twitter}", target: "_blank" do
-          image_tag('twitter-icon.png') + " " + user.twitter
-        end
-      end
-    end
+    render(
+      'shared/social_icon',
+      handle: user.twitter,
+      company: 'twitter',
+      url: "https://twitter.com/#{user.twitter}"
+    ) if user.twitter?
   end
 
   def slack_info
-    if user.slack.present?
-      content_tag :li do
-        image_tag('slack-icon.png') + " " + user.slack  
-      end
-    end
+    render(
+      'shared/social_icon',
+      handle: user.slack,
+      company: 'slack'
+    ) if user.slack?
   end
 
   def skype_info
-    if user.skype.present?
-      content_tag :li do
-        image_tag('skype-icon.png') + " " + user.skype
-      end
-    end
+    render(
+      'shared/social_icon',
+      handle: user.skype,
+      company: 'skype'
+    ) if user.skype?
   end
-  
+
+  def email_info
+    render(
+      'shared/social_icon',
+      handle: user.email,
+      company: 'inbox',
+      url: "mailto:#{user.email}"
+    ) if user.email?
+  end
+
   private
 
   def avatar_for

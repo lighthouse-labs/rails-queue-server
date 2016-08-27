@@ -1,0 +1,6 @@
+- url ||= nil
+li
+  a href=(url || '#') target=(url ? '_blank' : '') data-toggle="tooltip" title=handle
+    span class="fa-stack fa-lg" style="font-size: 0.9em;"
+      i class="fa fa-square-o fa-stack-2x"
+      i class="fa fa-#{company} fa-stack-1x" style="top: -2px"
