@@ -21,6 +21,7 @@
           span.label.label-info Remote
 
     td
+      = simple_format teacher_presenter.bio
       - if teacher.quirky_fact?
         strong Quirky Fact:&nbsp;
         = simple_format teacher_presenter.quirky_fact

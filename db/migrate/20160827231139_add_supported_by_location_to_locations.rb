@@ -15,5 +15,6 @@ class AddSupportedByLocationToLocations < ActiveRecord::Migration[5.0]
 
   def down
     remove_column :locations, :supported_by_location_id
+    remove_column :locations, :satellite
   end
 end
