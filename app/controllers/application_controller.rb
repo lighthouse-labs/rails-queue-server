@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
-    cookies.signed[:user_id] = @current_user.id if cookies.signed[:user_id].blank?
+    cookies.signed[:user_id] = @current_user.id if @current_user && cookies.signed[:user_id].blank?
     @current_user
   end
   helper_method :current_user
