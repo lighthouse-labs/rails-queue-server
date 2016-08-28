@@ -19,28 +19,28 @@ $ ->
   changeMentor = (studentID, mentorID) ->
     $.ajax
       url: '/admin/students/' + studentID + '?mentor_id=' + cohortID
-      type: 'PUT'    
+      type: 'PUT'
 
-  $('.student-reactivate-button').click (e) ->
+  $(document).on 'click', '.student-reactivate-button', (e) ->
     id = $(this).parents('td').parents('tr').data 'id'
     reactivateStudent(id)
     $(this).hide()
     $(this).siblings('.student-deactivate-button').show()
-    
-  $('.student-deactivate-button').click (e) ->
+
+  $(document).on 'click', '.student-deactivate-button', (e) ->
     id = $(this).parents('td').parents('tr').data 'id'
     deactivateStudent(id)
     $(this).hide()
     $(this).siblings('.student-reactivate-button').show()
 
-  $('.admin-student-cohort-selector').change ->
+  $(document).on 'change', '.admin-student-cohort-selector', ->
     cohortID = $(this).val()
     newCohortName = $(this).find('option:selected').text()
     studentID = $(this).parents('td').parents('tr').data 'id'
     changeCohort(studentID, cohortID)
     $(this).parents('td').html('<div class="admin-student-cohort-changed"> Cohort changed to ' + newCohortName + '! </div>')
 
-  $('#student-actions-modal').on 'show.bs.modal', (event) ->
+  $(document).on 'show.bs.modal', '#student-actions-modal', (event) ->
     button = $(event.relatedTarget)
     studentID = button.data('student-id')
     modal = $(this)

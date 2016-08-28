@@ -20,7 +20,7 @@ h3
   | Your Code
   = "(Completed)" if @last_submission.try(:finalized)
 
-code#code_content.hidden = @last_submission ? @last_submission.code_evaluation_results["code"] : activity.initial_code
+code#code_content.hidden = @last_submission ? @last_submission.eval_results["code"] : activity.initial_code
 #prep_test_editor.editor data-finalized="#{@last_submission.try(:finalized)}"
 = hidden_field_tag :test_content, activity.test_code
 

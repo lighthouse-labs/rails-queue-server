@@ -1,5 +1,9 @@
 var hijackConsole = function(win) {
+
   var ncon = win.console;
+
+  // check if already applied (force idempotence)
+  if(typeof(ncon.direct) === 'function') return false;
 
   var con = win.console = {
     backlog: [],
@@ -44,7 +48,7 @@ var hijackConsole = function(win) {
   });
 };
 
-$(function() {
+$(document).on('turbolinks:load', function() {
   if ($('#console')[0]) {
     hijackConsole(window);
   }
