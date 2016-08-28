@@ -1,4 +1,4 @@
-$ ->
+$(document).on 'turbolinks:load', ->
 
   getEvents = (calendar, startDate, endDate, tag) ->
 

@@ -207,11 +207,11 @@ RULES = {
   "yoda": "off"
 }
 
-$ ->
+$(document).on 'turbolinks:load', ->
 
   firstRun = true
 
-  runTestSuite = (code) => 
+  runTestSuite = (code) =>
     mocha.ui('bdd')
     mocha.suite.suites = []
 
@@ -221,7 +221,7 @@ $ ->
     # Load the user code into a local variable
     console.clear()
     eval(code)
-    
+
     # Load the mocha tests
     test_content = $('#test_content').val()
     eval(test_content)
@@ -237,14 +237,14 @@ $ ->
     mocha.run()
 
   runLinter = (code) =>
-    results = eslint.verify(code, { 
+    results = eslint.verify(code, {
       rules: RULES,
       env: {browser: true}
     })
-    
+
     if results.length > 0
       $('#linter ul').html('')
-    
+
       for result in results
         $li = $('<li>')
         $span = $('<span>').text(result.message)
@@ -268,7 +268,7 @@ $ ->
         testPasses: @total - @failures,
         code: code
       }
-      
+
       $.ajax(
         url: $('button.run-test').attr('data-url')
         type: 'POST'
@@ -292,7 +292,7 @@ $ ->
       $('#mocha').text("Your code has produced an error: ")
       console.log err
       $('#test_holder').removeClass('hidden')
-    
+
   if($('#prep_test_editor').length > 0)
     testEditor = ace.edit("prep_test_editor")
     testEditor.setTheme("ace/theme/monokai")

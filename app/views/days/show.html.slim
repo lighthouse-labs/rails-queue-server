@@ -43,7 +43,7 @@
   h3 Work Activities
   = render partial: 'activities/activity', collection: work_activities
 
-- if current_user.location && ENV['GOOGLE_API_KEY']
+- if ENV['GOOGLE_API_KEY'] && current_user.location.try(:calendar?)
   hr
   h1 id="events-header"
     | Events

@@ -1,4 +1,4 @@
-$(function() {
+$(document).on('turbolinks:load', function() {
 
   if (!$('body').hasClass('teacher-stats')) return;
 
@@ -11,7 +11,7 @@ $(function() {
   // Feedback Charts
   var mentorFeedbackContainer  = $('#mentor-feedback-chart');
   var lectureFeedbackContainer = $('#lecture-feedback-chart');
-  
+
   $.getJSON($('#feedback-charts').data('url'), function (data) {
 
     $('#overall-mentor-feedback').text(data.mentor.average + ' (' + data.mentor.total + ' total)');
@@ -168,7 +168,7 @@ $(function() {
 
   });
 
-      
+
   // Assistances Chart
   var assistanceContainer = $('#assistances-chart');
   $.getJSON(assistanceContainer.data('url'), function (data) {

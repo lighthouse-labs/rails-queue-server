@@ -4,6 +4,8 @@ $(document).on 'turbolinks:load', ->
   # Activating Best In Place Editor
   $(".best_in_place").best_in_place();
 
+  $('.chosen-select').chosen();
+
   $(document).on 'click', 'table thead a.select-all', (e) ->
     $this = $(this)
     num = $this.data('value')

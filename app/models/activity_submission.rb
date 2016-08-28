@@ -1,7 +1,7 @@
 class ActivitySubmission < ApplicationRecord
 
   # => For submissions on activities that have evaluates_code=true
-  serialize :code_evaluation_results
+  # serialize :code_evaluation_results
 
   belongs_to :user
   belongs_to :activity
@@ -68,6 +68,12 @@ class ActivitySubmission < ApplicationRecord
     where(activity_id: Activity.bootcamp.pluck(:id))
   }
 
+  def eval_results
+    if self.code_evaluation_results?
+      YAML.load self.code_evaluation_results.sub('--- !ruby/hash:ActionController::Parameters', '---')
+    end
+  end
+
   def code_reviewed?
     # NOTE when I transposed this relationship the :code_review_request was disassociated
     # It may make sense to keep the relationship so I have left it in place.
@@ -91,9 +97,9 @@ class ActivitySubmission < ApplicationRecord
 
   def formatted_code_evaluation_results
     {
-      lint_results: self.code_evaluation_results["lintResults"],
-      test_failures: self.code_evaluation_results["testFailures"],
-      test_passes: self.code_evaluation_results["testPasses"]
+      lint_results: self.eval_results["lintResults"],
+      test_failures: self.eval_results["testFailures"],
+      test_passes: self.eval_results["testPasses"]
     }
   end
 

@@ -1,6 +1,5 @@
 $(function () {
-  $('#question_outcome_id').chosen();
-  $('#add-question-option').on('click', function (e) {
+  $(document).on('click', '#add-question-option', function (e) {
     e.preventDefault();
     var questionOptions = $('.question-option');
     var lastOptionCopy = questionOptions.last().clone();
