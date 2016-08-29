@@ -1,5 +1,6 @@
 
 window.connectToTeachersSocket = ->
+  return unless App.cable
   App.teacherChannel = App.cable.subscriptions.create("TeacherChannel",
     onDuty: ->
       @perform 'on_duty'
@@ -13,6 +14,7 @@ window.connectToTeachersSocket = ->
   )
 
 $ ->
+  return unless App.cable
   App.userChannel = App.cable.subscriptions.create("UserChannel",
 
     connected: ->

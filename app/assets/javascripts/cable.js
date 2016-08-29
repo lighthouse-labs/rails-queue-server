@@ -5,9 +5,11 @@
 //= require_self
 //= require_tree ./channels
 
-(function() {
-  this.App || (this.App = {});
+$(function() {
+  window.App || (window.App = {});
 
-  App.cable = ActionCable.createConsumer();
+  if (!$('body').hasClass('disable-cable')) {
+    App.cable = ActionCable.createConsumer();
+  }
 
-}).call(this);
+});

@@ -11,6 +11,15 @@ module ApplicationHelper
     Date.current.month == 4 && Date.current.day == 1
   end
 
+  def disable_cable?
+    current_user && current_user.cohort && current_user.cohort.limited?
+  end
+
+  # folks in limited (previous alumni) cohort dont need to take up action cable connections
+  def disable_cable_for_some
+    'disable-cable' if disable_cable?
+  end
+
   # Display an integer time as a string
   # Ex: integer_time_to_s(930) # => "9:30"
   def integer_time_to_s(int_time)
