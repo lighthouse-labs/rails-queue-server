@@ -12,7 +12,8 @@ module ApplicationHelper
   end
 
   def disable_cable?
-    current_user && current_user.cohort && current_user.cohort.limited?
+    current_user.nil? || !current_user.active? || current_user.prospect? ||
+      (current_user.cohort && current_user.cohort.limited?)
   end
 
   # folks in limited (previous alumni) cohort dont need to take up action cable connections

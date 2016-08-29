@@ -7,6 +7,6 @@ class InvitationsController < ApplicationController
     else
       session[:invitation_code] = params[:code]
     end
-    redirect_to :root
+    redirect_to new_session_path, notice: "Please authenticate via GitHub to gain access with code '#{params[:code]}'"
   end
 end

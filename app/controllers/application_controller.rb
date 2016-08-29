@@ -115,7 +115,7 @@ class ApplicationController < ActionController::Base
     current_user.cohort = cohort
     current_user.type = 'Student'
     current_user.save!
-    flash[:notice] = "Welcome, you have student access to #{cohort.name}!"
+    flash[:notice] = "Welcome, you have student access to the cohort: #{cohort.name}!"
   end
 
   def apply_invitation_code(code)

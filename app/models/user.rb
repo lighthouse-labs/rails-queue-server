@@ -73,12 +73,15 @@ class User < ApplicationRecord
     update! deactivated_at: Time.now
   end
 
+  def reactivate!
+    update! deactivated_at: nil
+  end
+
   def deactivated?
     self.deactivated_at?
   end
-
-  def reactivate!
-    update! deactivated_at: nil
+  def active?
+    !deactivated? && completed_registration?
   end
 
   def unlocked?(day)
