@@ -17,7 +17,7 @@ module ApplicationHelper
 
   # folks in limited (previous alumni) cohort dont need to take up action cable connections
   def disable_cable_for_some
-    'disable-cable' if disable_cable?
+    ' disable-cable' if disable_cable?
   end
 
   # Display an integer time as a string
