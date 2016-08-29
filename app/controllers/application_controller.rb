@@ -122,7 +122,13 @@ class ApplicationController < ActionController::Base
     if ENV['TEACHER_INVITE_CODE'] == code
       make_teacher
     elsif cohort = Cohort.find_by(code: code)
-      assign_as_student_to_cohort(cohort)
+      if admin?
+        flash[:alert] = "This code is valid to register as a student for #{cohort.name}. You are an Admin so no change made for you."
+      elsif teacher?
+        flash[:alert] = "This code is valid to register as a student for #{cohort.name}. You are a teacher already so no change made for you."
+      else
+        assign_as_student_to_cohort(cohort)
+      end
     else
       flash[:alert] = "Sorry, invalid code"
     end

@@ -5,8 +5,10 @@ class InvitationsController < ApplicationController
     if current_user
       apply_invitation_code(params[:code])
     else
+      flash[:notice] = "Please authenticate via GitHub to gain access with code '#{params[:code]}'"
       session[:invitation_code] = params[:code]
     end
-    redirect_to new_session_path, notice: "Please authenticate via GitHub to gain access with code '#{params[:code]}'"
+
+    redirect_to new_session_path
   end
 end
