@@ -64,9 +64,9 @@ module ApplicationHelper
     if percent >= 96
       'progress-bar-success'
     elsif percent > 70
-      'progress-bar-warning'
-    elsif percent > 50
       'progress-bar-info'
+    elsif percent > 50
+      'progress-bar-warning'
     else
       'progress-bar-danger'
     end
