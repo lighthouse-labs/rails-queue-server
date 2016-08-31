@@ -41,8 +41,8 @@ class StudentStats
     activity_stats = prep_activity_stats
     quiz_stats     = prep_quiz_stats
 
-    completed  = activity_stats[:completed] + quiz_stats[:completed]
-    total      = activity_stats[:total]     + quiz_stats[:total]
+    completed  = activity_stats[:core][:completed] + quiz_stats[:completed]
+    total      = activity_stats[:core][:total]     + quiz_stats[:total]
     ratio      = total > 0 ? (completed.to_f / total.to_f) * 100 : 0
 
     @prep_total_stats = {
@@ -55,13 +55,26 @@ class StudentStats
   def prep_activity_stats
     return @prep_activity_stats if @prep_activity_stats
 
-    total     = Activity.active.prep.countable_as_submission.count
-    completed = @student.activity_submissions.proper.prep.count
+    activities  = Activity.active.prep.countable_as_submission
+    completions = @student.activity_submissions.proper.prep
+
+    total_core     = activities.core.count
+    completed_core = completions.core.count
+
+    total_stretch     = activities.stretch.count
+    completed_stretch = completions.stretch.count
 
     @prep_activity_stats = {
-      completed: completed,
-      total:     total,
-      ratio:     total > 0 ? (completed.to_f / total.to_f) * 100 : 0
+      core: {
+        completed: completed_core,
+        total:     total_core,
+        ratio:     total_core > 0 ? (completed_core.to_f / total_core.to_f) * 100 : 0
+      },
+      stretch: {
+        completed: completed_stretch,
+        total:     total_stretch,
+        ratio:     total_stretch > 0 ? (completed_stretch.to_f / total_stretch.to_f) * 100 : 0
+      }
     }
   end
 
@@ -108,7 +121,6 @@ class StudentStats
         total:     total_stretch,
         ratio:     total_stretch > 0 ? (completed_stretch.to_f / total_stretch.to_f) * 100 : 0
       }
-
     }
   end
 

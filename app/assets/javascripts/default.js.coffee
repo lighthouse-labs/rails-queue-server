@@ -6,6 +6,8 @@ $(document).on 'turbolinks:load', ->
 
   $('.chosen-select').chosen();
 
+  $.bootstrapSortable(false);
+
   $(document).on 'click', 'table thead a.select-all', (e) ->
     $this = $(this)
     num = $this.data('value')

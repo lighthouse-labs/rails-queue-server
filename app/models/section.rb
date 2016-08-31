@@ -12,8 +12,13 @@ class Section < ApplicationRecord
     self.slug
   end
 
-  def duration_in_hours
+  def core_duration_in_hours
     # add 10% for buffer
-    (activities.sum(:duration) / 60.0) * 1.1
+    @core_duration_in_hours ||= (activities.active.core.sum(:duration) / 60.0) * 1.1
+  end
+
+  def total_duration_in_hours
+    # add 10% for buffer
+    @total_duration_in_hours ||= (activities.active.sum(:duration) / 60.0) * 1.1
   end
 end

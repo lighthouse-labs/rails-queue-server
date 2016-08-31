@@ -1,5 +1,6 @@
 - service = StudentStats.new(student)
-- activity_stats = service.prep_total_stats
+- activity_stats = service.prep_activity_stats
+- total_stats    = service.prep_total_stats
 - quiz_stats     = service.prep_quiz_stats
 
 tr
@@ -37,11 +38,17 @@ tr
     - else
       span.label.label-warning Not Started
 
-  td data-value=activity_stats[:completed]
-    = "#{activity_stats[:completed]} / #{activity_stats[:total]} (#{activity_stats[:ratio].round(0)}%)"
+  td data-value=total_stats[:completed]
+    = "#{total_stats[:completed]} / #{total_stats[:total]} (#{total_stats[:ratio].round(0)}%)"
+    br
+    small
+      | Stretch:&nbsp;
+      = "#{activity_stats[:stretch][:completed]} / #{activity_stats[:stretch][:total]} (#{activity_stats[:stretch][:ratio].round(0)}%)"
+
     .progress
-      .progress-bar role='progressbar' aria-valuenow=activity_stats[:ratio].round(0).to_i aria-valuemin='0' aria-valuemax='100' style="width:#{activity_stats[:ratio].round(0).to_i}%"
-        span.sr-only = "#{activity_stats[:ratio].round(0).to_i}% Complete"
+      - ratio = total_stats[:ratio].round(0).to_i
+      .progress-bar class=progress_bar_class(ratio) role='progressbar' aria-valuenow=ratio aria-valuemin='0' aria-valuemax='100' style="width:#{ratio}%"
+        span.sr-only = "#{ratio}\% Complete"
 
   td data-value=service.prep_time_spent
     = prep_time_spent(service.prep_time_spent)

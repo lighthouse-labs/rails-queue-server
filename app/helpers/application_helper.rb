@@ -60,4 +60,16 @@ module ApplicationHelper
     url.gsub(/https?\:\/\/(www\.)?github.com\//, '')
   end
 
+  def progress_bar_class(percent)
+    if percent >= 96
+      'progress-bar-success'
+    elsif percent > 70
+      'progress-bar-warning'
+    elsif percent > 50
+      'progress-bar-info'
+    else
+      'progress-bar-danger'
+    end
+  end
+
 end
