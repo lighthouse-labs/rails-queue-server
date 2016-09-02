@@ -55,7 +55,7 @@ class CurriculumDay
 
   def unlocked?
     # return true if @date == 'setup'
-    return true if unlock_weekend_on_friday
+    # return true if unlock_weekend_on_friday
     return false unless @cohort
     return false if @cohort.start_date > Date.current
     if CURRICULUM_UNLOCKING == 'weekly'
