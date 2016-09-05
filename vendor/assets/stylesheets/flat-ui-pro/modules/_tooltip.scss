@@ -4,15 +4,15 @@
 .tooltip {
   font-size: ceil($component-font-size-base * 0.933); // ~14px
   line-height: 1.286; // 18px
-  
+
   &.in {
     opacity: 1;
   }
   &.top {
     padding-bottom: 9px;
-    
+
     .tooltip-arrow {
-      border-top-color: $brand-primary;
+      border-top-color: $brand-secondary;
       border-width: 9px 9px 0;
       bottom: 0;
       margin-left: -9px;
@@ -20,7 +20,7 @@
   }
   &.right {
     .tooltip-arrow {
-      border-right-color: $brand-primary;
+      border-right-color: $brand-secondary;
       border-width: 9px 9px 9px 0;
       margin-top: -9px;
       left: -3px;
@@ -28,9 +28,9 @@
   }
   &.bottom {
     padding-top: 8px;
-    
+
     .tooltip-arrow {
-      border-bottom-color: $brand-primary;
+      border-bottom-color: $brand-secondary;
       border-width: 0 9px 9px;
       margin-left: -9px;
       top: -1px;
@@ -38,7 +38,7 @@
   }
   &.left {
     .tooltip-arrow {
-      border-left-color: $brand-primary;
+      border-left-color: $brand-secondary;
       border-width: 9px 0 9px 9px;
       margin-top: -9px;
       right: -3px;
@@ -47,7 +47,7 @@
 }
 
 .tooltip-inner {
-  background-color: $brand-primary;
+  background-color: $brand-secondary;
   line-height: 1.286; // 18px
   padding: 12px 12px;
   text-align: center;
