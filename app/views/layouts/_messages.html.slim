@@ -4,3 +4,11 @@
     div class="alert alert-#{name.to_s == 'notice' ? 'success' : 'danger'}"
       button.close[type="button" data-dismiss="alert" aria-hidden="true"] ×
       = content_tag :div, msg, :id => "flash_#{name}"
+
+- if current_user && teacher?
+div class="alert alert-success"
+  button.close[type="button" data-dismiss="alert" aria-hidden="true"] ×
+  div
+    | For this week we have both the new and the old curriculum running together. Please log into the other compass as well! Unfortunately that does mean that for this week you will need to monitor both request queues.
+
+
