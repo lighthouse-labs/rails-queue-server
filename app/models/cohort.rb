@@ -5,6 +5,7 @@ class Cohort < ApplicationRecord
 
   has_many :students
   has_many :recordings
+  has_many :tech_interviews
 
   validates :name, presence: true
   validates :start_date, presence: true
@@ -37,6 +38,10 @@ class Cohort < ApplicationRecord
 
   def finished?
     start_date < (Date.current - 8.weeks)
+  end
+
+  def week
+    CurriculumDay.new(Date.current, self).week
   end
 
 end

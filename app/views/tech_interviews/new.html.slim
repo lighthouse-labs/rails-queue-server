@@ -1,0 +1,21 @@
+- provide :container,  'fluid'
+
+header.page-header
+  h1 #{@interviewee.full_name}'s Week #{@interview_template.week} Tech Interview
+
+p You are about to begin a tech interview with #{@interviewee.full_name}. Please review the questions below and find a room or quiet place to conduct it one-on-one.
+
+blockquote
+  == markdown(@interview_template.description.to_s)
+
+.alert.alert-info
+  == markdown(@interview_template.teacher_notes.to_s)
+
+.well.actions
+  = link_to 'START', tech_interview_template_interviews_path(@interview_template, interviewee_id: @interviewee.id), method: :post, class: 'btn btn-success btn-xl'
+  br
+  = link_to 'Nevermind', :back, class: 'btn btn-danger btn-xl'
+
+h3 Questions
+
+== render 'tech_interview_templates/questions'

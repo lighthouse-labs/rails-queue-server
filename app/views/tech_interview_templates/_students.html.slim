@@ -1,0 +1,86 @@
+
+table.table.students
+  thead
+    tr
+      th Student Info
+      th Status
+      th Interviewer
+      th Stats
+      th
+
+  tbody
+    - cohort.students.active.each do |student|
+
+      - interview = @interview_template.interview_for(student)
+
+      tr
+        td.details data-value=student.last_name
+          = link_to [:teacher, student] do
+            = image_tag student.avatar_url, class: 'avatar'
+          = link_to student.full_name, [:teacher, student]
+          br
+          = mail_to student.email, student.email, class: 'email'
+          br
+          - if student.remote?
+            span.label.label-danger = student.location.name
+          - else
+            span.label.label-primary = cohort.location.name
+
+        td
+          - if interview && interview.completed?
+            = link_to "Completed (#{interview.day})", tech_interview_path(interview), class: 'btn btn-success btn-xs'
+            br
+            small
+              = time_ago_in_words(interview.completed_at)
+              | &nbsp;ago
+          - elsif interview && interview.in_progress?
+            .label.label-info In Progress
+            br
+            small
+              = time_ago_in_words(interview.started_at)
+              | &nbsp;ago
+          - elsif interview && interview.queued?
+            .label.label-warning In Queue
+            br
+            small
+              = time_ago_in_words(interview.created_at)
+              | &nbsp;ago
+          - else
+            .label.label-default Not Yet Queued
+
+        td.details
+          - if interview
+            = link_to teacher_path(interview.interviewer) do
+              = image_tag interview.interviewer.avatar_url, class: 'avatar'
+            = link_to interview.interviewer.full_name, teacher_path(interview.interviewer)
+            br
+            = mail_to interview.interviewer.email, interview.interviewer.email, class: 'email'
+            br
+              span.label.label-primary = interview.interviewer.location.name
+          - else
+            = link_to 'Start!', new_tech_interview_template_interview_path(@interview_template, interviewee_id: student.id), class: 'btn btn-primary btn-sm'
+        td
+          - if interview && interview.completed?
+
+            span.label title="Questions" data-toggle="tooltip" class=l_score_label_class(interview.average_score)
+              strong = interview.average_score || '?'
+            = " + "
+            span.label title="Articulation" data-toggle="tooltip" class=l_score_label_class(interview.articulation_score)
+              = interview.articulation_score
+            = " + "
+            span.label title="Knowledge" data-toggle="tooltip" class=l_score_label_class(interview.knowledge_score)
+              = interview.knowledge_score
+
+            br
+            = "#{interview.duration / 60}m long"
+            br
+
+          - if interview
+            = "#{interview.time_in_queue / 60}m in queue"
+
+        td
+          - if interview && interview.in_progress? && interview.interviewer == current_user
+              = link_to 'Resume', edit_tech_interview_path(interview), class: 'btn btn-xs btn-primary'
+          - elsif interview && interview.completed?
+            = link_to 'Results', interview, class: 'btn btn-xs btn-info'
+

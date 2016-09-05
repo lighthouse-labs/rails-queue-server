@@ -72,4 +72,36 @@ module ApplicationHelper
     end
   end
 
+  def l_score_label_class(val)
+    return 'label-default' if val.nil?
+    val = val.to_f
+
+    if val < 2.1
+      'label-danger'
+    elsif val < 2.4
+      'label-warning'
+    elsif val < 2.8
+      'label-info'
+    elsif val <= 4.0
+      'label-success'
+    else
+      'label-default'
+    end
+  end
+
+  def integer_l_score_label_class(val)
+    return 'label-default' if val.nil?
+
+    if val < 2
+      'label-danger'
+    elsif val < 3
+      'label-warning'
+    elsif val < 4
+      'label-info'
+    elsif val == 4
+      'label-success'
+    end
+  end
+
+
 end

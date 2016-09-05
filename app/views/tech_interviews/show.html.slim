@@ -1,0 +1,59 @@
+- provide :container, 'fluid'
+- provide :body_class, 'tech-interview-show'
+
+header.page-header
+  h1 #{@tech_interview.interviewee.full_name}'s Week #{@interview_template.week} Tech Interview
+
+dl.dl-horizontal
+  dt Queued
+  dd = @tech_interview.created_at.to_s(:date_and_time)
+
+  dt Cohort
+  dd = @tech_interview.cohort.name
+
+  - if teacher = @tech_interview.interviewer
+    dt Interviewer
+    dd = link_to(teacher.full_name, teacher)
+
+  - if @tech_interview.started?
+    dt Started
+    dd
+      = @tech_interview.started_at.to_s(:date_and_time)
+      small
+        = " (#{@tech_interview.day})"
+
+  - if @tech_interview.completed?
+
+    dt Completed
+    dd = @tech_interview.completed_at.to_s(:date_and_time)
+
+    hr
+
+    dt Questions
+    dd
+      span.label class=l_score_label_class(@tech_interview.average_score)
+        = @tech_interview.average_score.round(1)
+
+    dt Knowledge
+    dd
+      span.label class=l_score_label_class(@tech_interview.knowledge_score)
+        = @tech_interview.knowledge_score
+
+    dt Articulation
+    dd
+      span.label class=l_score_label_class(@tech_interview.articulation_score)
+        = @tech_interview.articulation_score
+
+    hr
+
+h3 Feedback
+== markdown(@tech_interview.feedback.to_s)
+
+h3 Internal Notes
+== markdown(@tech_interview.internal_notes.to_s)
+
+
+h3 Results
+
+== render 'results'
+

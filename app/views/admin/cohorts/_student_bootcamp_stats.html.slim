@@ -28,9 +28,8 @@ tr
     | &nbsp;&raquo;&nbsp;
     = assistance_stats[:assistances]
     br
-      small
-        | L:&nbsp;
-        = assistance_stats[:average_score].round(2)
+    - avg = assistance_stats[:average_score].round(2)
+    span.label class=l_score_label_class(avg) = "L: #{avg}"
 
   / td data-value=core_stats[:completed]
   /   = "#{core_stats[:completed]} / #{core_stats[:total]} (#{core_stats[:ratio].round(0)}%)"
@@ -68,44 +67,43 @@ tr
       | attempts
 
   td
-    a.tech-interview href="#"
-      span.label.label-warning  W2
+    - total_score, count = 0, 0
+    - interview_templates.each do |interview_template|
+      - if interview = interview_template.completed_interview_for(student)
+        - total_score += interview.average_score
+        - count += 1
+        = link_to interview do
+          span.tech-interview.label class=l_score_label_class(interview.average_score) title=interview.average_score data-toggle="tooltip"
+            = "W#{interview_template.week}"
+      - else
+        span.tech-interview.label.label-default title="Not Completed" data-toggle="tooltip"
+          = "W#{interview_template.week}"
 
-    a.tech-interview href="#"
-      span.label.label-info     W3
+    - if count > 0
+      - avg = (total_score.to_f / count).round(2)
+      br
+      br
+      span.label class=l_score_label_class(avg) = "L: #{avg}"
 
-    a.tech-interview href="#"
-      span.label.label-danger   W5
-
-    a.tech-interview href="#"
-      span.label.label-primary  W8
-
-    br
-    small
-      | Avg Score: 2.25 (3 TIs)
-
-    br
-
-    span.label.label-danger Not Implemented (Demo)
 
   td
-    a.code-review href="#"
-      span.label.label-warning   CR1
+    a href="#"
+      span.code-review.label.label-warning   CR1
+
+    a href="#"
+      span.code-review.label.label-info      CR2
+
+    a href="#"
+      span.code-review.label.label-danger    CR3
+
+    a href="#"
+      span.code-review.label.label-success   CR4
 
     a.code-review href="#"
-      span.label.label-info      CR2
+      span.code-review.label.label-success   CR5
 
-    a.code-review href="#"
-      span.label.label-danger    CR3
-
-    a.code-review href="#"
-      span.label.label-success   CR4
-
-    a.code-review href="#"
-      span.label.label-success   CR5
-
-    a.code-review href="#"
-      span.label.label-success   CR6
+    a href="#"
+      span.code-review.label.label-success   CR6
 
     br
 

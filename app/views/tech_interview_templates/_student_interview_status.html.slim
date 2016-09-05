@@ -1,0 +1,16 @@
+- interview = interview_template.interview_for(student)
+
+- if interview && interview.completed?
+  span.label.label-success Completed
+- elsif interview && interview.in_progress?
+  span.label.label-warning In Progress
+- elsif interview && interview.queued?
+  span.label.label-warning Up Next
+- elsif cohort.week > interview_template.week
+  span.label.label-danger Overdue
+- elsif cohort.week == interview_template.week
+  span.label.label-warning This Week
+- elsif cohort.week + 1 == interview_template.week
+  span.label.label-info Next Week
+- else
+    span.label.label-info Pending

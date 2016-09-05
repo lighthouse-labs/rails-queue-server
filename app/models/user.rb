@@ -17,6 +17,9 @@ class User < ApplicationRecord
   has_many :evaluations
   has_many :quiz_submissions
 
+  has_many :tech_interviews, foreign_key: 'interviewee_id'
+  has_many :performed_tech_interviews, foreign_key: 'interviewer_id', class_name: 'TechInterviewResult'
+
   scope :order_by_last_assisted_at, -> {
     order("last_assisted_at ASC NULLS FIRST")
   }

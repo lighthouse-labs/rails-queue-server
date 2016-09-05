@@ -16,7 +16,8 @@ html
     header
       == render 'layouts/navigation'
 
-    main.container[role="main"]
+    - fluid = (yield(:container) == 'fluid')
+    main role="main" class=(fluid ? 'container-fluid' : 'container')
       == render 'layouts/messages'
       == render 'layouts/search'
 

@@ -1,0 +1,16 @@
+- provide :container, 'fluid'
+
+header.page-header
+  h1 #{@tech_interview.interviewee.full_name}'s Week #{@interview_template.week} Tech Interview
+
+= form_for @tech_interview do |form|
+
+  .form-field
+    = form.label :feedback
+    = form.text_area :feedback, placeholder: 'Summary feedback for student (eg: how it went, takeaways, areas for improvement, etc).'
+
+  = form.fields_for :results do |result_form|
+    = render 'result_form', form: result_form
+
+  h5 Note: There is one more step after this
+  = form.submit 'Submit Results', class: 'btn btn-primary'

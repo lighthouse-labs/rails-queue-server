@@ -32,7 +32,7 @@ header.page-header
 
             tbody
               - @students.each do |s|
-                == render 'student_bootcamp_stats', student: s, cutoff: cutoff
+                == render 'student_bootcamp_stats', student: s, cutoff: cutoff, interview_templates: @interview_templates
 
 
 .row

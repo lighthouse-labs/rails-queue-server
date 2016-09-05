@@ -1,0 +1,13 @@
+- question = form.object.tech_interview_question
+
+= form.hidden_field :id
+
+.panel.panel-default
+  .panel-heading
+    h3.panel-title Question #{question.sequence}
+
+  .panel-body
+    == markdown(question.question.to_s)
+
+    = form.text_area :notes, placeholder: 'Notes for Student'
+    = form.text_field :score

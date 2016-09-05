@@ -1,0 +1,29 @@
+- provide :container, 'fluid'
+
+header.page-header
+  h1 Confirm Tech Interview
+
+= form_for @tech_interview, url: complete_tech_interview_path(@tech_interview) do |form|
+
+  .form-field
+    = form.label :articulation_score
+    = form.text_field :articulation_score
+
+  .form-field
+    = form.label :knowledge_score
+    = form.text_field :knowledge_score
+
+  .form-field
+    = form.label :feedback
+    = form.text_area :feedback, placeholder: 'Summary feedback for student (eg: how it went, takeaways, areas for improvement, etc).'
+
+  .form-field
+    = form.label :internal_notes
+    = form.text_area :internal_notes, placeholder: 'Not sent to student! For admins and teachers only.'
+
+  = form.fields_for :results do |result_form|
+    = render 'result_form', form: result_form
+
+  h5 Final Step. Ready to finalize?
+  = form.submit 'Submit Results', class: 'btn btn-primary'
+

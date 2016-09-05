@@ -19,39 +19,4 @@ body.admin-cohorts-show {
 
   }
 
-  table.students {
-    tr {
-      opacity: 0.8;
-
-      &:hover {
-        opacity: 1.0;
-      }
-
-      td.details {
-        img {
-          width: 60px;
-          float: left;
-          margin-right: 8px;
-          border-radius: 5px;
-        }
-        .email {
-          font-size: 0.8em;
-        }
-      }
-
-      .progress {
-        margin-top: 8px;
-        margin-bottom: 8px;
-        border: 1px solid black;
-      }
-
-      a.tech-interview, a.code-review {
-        margin-right: 5px;
-        .label-primary {
-          opacity: 0.4;
-        }
-      }
-    }
-  }
-
 }

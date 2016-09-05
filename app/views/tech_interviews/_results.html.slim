@@ -1,0 +1,28 @@
+- @tech_interview.results.each do |result|
+  - question = result.tech_interview_question
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        | Question #{result.sequence}
+        - if result.skipped?
+          span.label.label-default Skipped
+        - else
+          span.label class=integer_l_score_label_class(result.score)
+            = "#{result.score} / 4"
+
+    .panel-body
+      == markdown(result.question)
+
+      - if result.notes?
+        .well
+          h5 Result
+          == markdown(result.notes.to_s)
+
+
+      h5 Expected Answer
+
+      == markdown(question.answer.to_s)
+
+      - if question.notes?
+        h5 Notes
+        == markdown(question.answer)

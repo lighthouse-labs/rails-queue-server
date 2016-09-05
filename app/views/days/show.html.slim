@@ -34,7 +34,7 @@
   - if @project.start_day == day.to_s
     h3 You're starting a new #{'(single-day)' if @project.end_day == day.to_s} project today!
   - elsif @project.end_day == day.to_s
-    h3 You are hopefully wrapping up with the following project!
+    h3 You should be wrapping up with this project:
   - else
     h3 You're continue to build out this project:
   = render @project
