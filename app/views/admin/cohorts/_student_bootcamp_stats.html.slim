@@ -13,7 +13,7 @@ tr
 
   td.details data-value=student.last_name
     = link_to [:admin, student] do
-      = image_tag student.avatar_url, class: 'avatar'
+      = image_tag avatar_for(student), class: 'avatar'
     = link_to [:teacher, student] do
       = student.full_name
 
