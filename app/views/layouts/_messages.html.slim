@@ -1,4 +1,12 @@
 / Rails flash messages styled for Bootstrap 3.0
+
+- if current_user && teacher? && !(current_user.bio? && current_user.specialties? && current_user.quirky_fact?) && !@on_profile_edit
+  .alert.alert-warning
+    strong Profile Update Required
+    p
+      | Please update your bio, quirky fact and specialty on your&nbsp;
+      = link_to 'Profile page', edit_profile_path
+
 - flash.each do |name, msg|
   - if msg.is_a?(String)
     div class="alert alert-#{name.to_s == 'notice' ? 'success' : 'danger'}"
