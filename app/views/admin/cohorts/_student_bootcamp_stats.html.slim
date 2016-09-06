@@ -1,13 +1,14 @@
 - service = StudentStats.new(student)
-/ - activity_stats   = service.bootcamp_activity_stats
-/ - core_stats       = activity_stats[:core]
-/ - stretch_stats    = activity_stats[:stretch]
 - assistance_stats = service.bootcamp_assistance_stats
-- quiz_stats       = service.bootcamp_quiz_stats(cutoff)
+- quiz_stats       = service.bootcamp_quiz_stats(cutoff_day: today)
 
-- to_date_activity_stats = service.bootcamp_activity_stats(cutoff)
+- to_date_activity_stats = service.bootcamp_activity_stats(cutoff_day: today)
 - to_date_core_stats     = to_date_activity_stats[:core]
 - to_date_stretch_stats  = to_date_activity_stats[:stretch]
+
+- today_activity_stats = service.bootcamp_activity_stats(for_day: today)
+- today_core_stats     = today_activity_stats[:core]
+- today_stretch_stats  = today_activity_stats[:stretch]
 
 tr
 
@@ -24,9 +25,9 @@ tr
       span.label.label-primary = @cohort.location.name
 
   td data-value=assistance_stats[:requests]
-    = assistance_stats[:requests]
+    span title="Requests" data-toggle="tooltip" = assistance_stats[:requests]
     | &nbsp;&raquo;&nbsp;
-    = assistance_stats[:assistances]
+    span title="Assistances" data-toggle="tooltip" = assistance_stats[:assistances]
     br
       small
         | L:&nbsp;
@@ -53,14 +54,27 @@ tr
       .progress-bar class=progress_bar_class(ratio) role='progressbar' aria-valuenow=ratio aria-valuemin='0' aria-valuemax='100' style="width:#{ratio}%"
         span.sr-only = "#{ratio}% Complete"
 
+  - if @cohort.active?
+    td data-value=today_core_stats[:completed]
+      - ratio = today_core_stats[:ratio].round(0).to_i
+      = "#{today_core_stats[:completed]} / #{today_core_stats[:total]} (#{ratio}%)"
+      br
+      small
+        | Stretch:&nbsp;
+        = "#{today_stretch_stats[:completed]} / #{today_stretch_stats[:total]} (#{today_stretch_stats[:ratio].round(0)}%)"
+      .progress
+        .progress-bar class=progress_bar_class(ratio) role='progressbar' aria-valuenow=ratio aria-valuemin='0' aria-valuemax='100' style="width:#{ratio}%"
+          span.sr-only = "#{ratio}% Complete"
+
+
   td data-value=(quiz_stats[:completed] > 0 ? quiz_stats[:average].round(0).to_i : 0)
     - if quiz_stats[:completed] > 0
       = quiz_stats[:average].round(0).to_i
-      | % Avg Initial
+      | % Initial
     - else
       | No Score
     br
-    small = "#{quiz_stats[:completed]} / #{quiz_stats[:total]} completed"
+    small = "#{quiz_stats[:completed]} / #{quiz_stats[:total]} done"
     br
     small
       = quiz_stats[:attempts]
@@ -90,22 +104,19 @@ tr
 
   td
     a.code-review href="#"
-      span.label.label-warning   CR1
+      span.label.label-warning   P1
 
     a.code-review href="#"
-      span.label.label-info      CR2
+      span.label.label-info      P2
 
     a.code-review href="#"
-      span.label.label-danger    CR3
+      span.label.label-default   P3
 
     a.code-review href="#"
-      span.label.label-success   CR4
+      span.label.label-default   P4
 
     a.code-review href="#"
-      span.label.label-success   CR5
-
-    a.code-review href="#"
-      span.label.label-success   CR6
+      span.label.label-default   P5
 
     br
 
@@ -116,7 +127,3 @@ tr
 
     span.label.label-danger Not Implemented (Demo)
 
-
-  td
-    span.label.label-primary data-toggle="tooltip" title="Will aggregate all signals (assistance score, progress, quiz score, tech interview score, code review score) into an overall weighted-avg-type score (aglo TBD)"
-      | Not Impelmented

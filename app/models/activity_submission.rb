@@ -57,6 +57,9 @@ class ActivitySubmission < ApplicationRecord
     joins(:activity).where(activities: { stretch: true })
   }
 
+  scope :for_day, -> (day) {
+    joins(:activity).where("activities.day = ?", day.to_s)
+  }
   scope :until_day, -> (day) {
     joins(:activity).where("activities.day <= ?", day.to_s)
   }
