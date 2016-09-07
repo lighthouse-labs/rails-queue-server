@@ -39,4 +39,9 @@ class Cohort < ApplicationRecord
     start_date < (Date.current - 8.weeks)
   end
 
+  def curriculum_day(date=nil)
+    date ||= Date.current
+    CurriculumDay.new(date, self)
+  end
+
 end

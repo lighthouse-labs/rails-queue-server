@@ -1,5 +1,16 @@
 module CodeReviewHelper
 
+  def grouped_activities_for_code_review_select(grouped_activities)
+
+    grouped_activities.each do |group_name, activities|
+      grouped_activities[group_name] = activities.map do |a|
+        [" #{a.name} #{'(Stretch)' if a.stretch?} [#{a.day.to_s.upcase}]", a.id]
+      end
+    end
+
+    grouped_options_for_select(grouped_activities)
+  end
+
   def completed_review_button(code_review)
 
     classes = "btn btn-sm view-code-review-button"

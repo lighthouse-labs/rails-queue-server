@@ -13,3 +13,16 @@
 .select-action-dropdown {
   width: 140px;
 }
+
+.student-info {
+  img.avatar {
+    width: 60px;
+    float: left;
+    margin-right: 8px;
+    border-radius: 5px;
+    border: 2px solid $brand-secondary;
+  }
+  .email {
+    font-size: 0.8em;
+  }
+}
