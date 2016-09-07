@@ -38,7 +38,9 @@ class User < ApplicationRecord
       # For quiz activities, we don't have activity submissions, and quiz_submissions are used to determine completion instead
       joins(:quiz_submissions).where(quiz_submissions: { initial: true, quiz_id: activity.quiz_id })
     else
-      joins(:activity_submissions).where(activity_submissions: { activity: activity })
+      q = joins(:activity_submissions).where(activity_submissions: { activity: activity })
+      q = q.where(activity_submissions: { finalized: true }) if activity.evaluates_code?
+      q
     end
   }
 

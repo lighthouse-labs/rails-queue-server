@@ -94,14 +94,20 @@ class StudentStats
   end
 
   # don't memo-ize since using it multiple times for diff data (nullable arg) - KV
-  def bootcamp_activity_stats(cutoff=nil)
+  def bootcamp_activity_stats(options = {})
+
+    cutoff_day   = options.delete :cutoff_day
+    for_day      = options.delete :for_day
 
     activities  = Activity.active.bootcamp.countable_as_submission
     completions = @student.activity_submissions.proper.bootcamp
 
-    if cutoff
-      activities  = activities.until_day(cutoff)
-      completions = completions.until_day(cutoff)
+    if cutoff_day
+      activities  = activities.until_day(cutoff_day)
+      completions = completions.until_day(cutoff_day)
+    elsif for_day
+      activities  = activities.for_day(for_day)
+      completions = completions.for_day(for_day)
     end
 
     total_core     = activities.core.count
@@ -125,10 +131,12 @@ class StudentStats
   end
 
   # not memoizing it since using it multiple times for diff data (nullable arg) - KV
-  def bootcamp_quiz_stats(cutoff=nil)
+  def bootcamp_quiz_stats(options={})
+    cutoff_day = options.delete :cutoff_day
+
     quizzes = Quiz.active
-    if cutoff
-      quizzes = quizzes.until_day(cutoff) # specific ones
+    if cutoff_day
+      quizzes = quizzes.until_day(cutoff_day) # specific ones
     else
       quizzes = quizzes.bootcamp # all
     end

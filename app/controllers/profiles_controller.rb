@@ -2,6 +2,10 @@ class ProfilesController < ApplicationController
 
   before_action :load_user, only: [:edit, :update]
 
+  def edit
+    @on_profile_edit = true
+  end
+
   def update
     if !@user.completed_registration && @user.update(profile_params)
       @user.update(completed_registration: true)

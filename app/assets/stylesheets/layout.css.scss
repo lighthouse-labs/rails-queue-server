@@ -18,14 +18,40 @@ body {
   }
 }
 header > nav {
-  i,
+  i {
+    margin: 0px 4px 0px 0px;
+  }
   img {
     margin: 0 4px;
-  }
-  img {
     height: 1em;
     width: 1em;
+    &.avatar {
+      height: 22px;
+      width:  22px;
+      border-radius: 4px;
+    }
   }
+
+  .navbar-nav {
+    .dropdown-toggle .caret {
+      margin-left: 6px;
+      border-width: 7px 5px 0;
+    }
+
+    > li > a {
+      @media (min-width: $screen-xs-max) {
+        padding: 15px 7px;
+        font-size: 0.85em;
+
+        &.logo {
+          font-size: 1.4em;
+          margin-left: 10px;
+        }
+      }
+
+    }
+  }
+
   .navbar-btn {
     &.btn-warning {
       background-color: $brand-warning;

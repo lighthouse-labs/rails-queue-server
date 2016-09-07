@@ -10,7 +10,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
     .collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-left
         li
-          = link_to :welcome, title: 'Compass Home'
+          = link_to :welcome, title: 'Compass Home', class: 'logo'
             i.fa.fa-fw.fa-compass
             span.visible-xs-inline
               | Home
@@ -72,7 +72,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                     | Classmates
           li
             = link_to teachers_path(location_id: current_user.location_id), title: 'Teachers'
-              i.fa.fa-fw.fa-group
+              i.fa.fa-fw.fa-life-ring
               span.non-tablet-label
                 | Teachers
         - if teacher?
@@ -153,6 +153,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
 
           li.dropdown.current-user
             = link_to '#', class: 'dropdown-toggle', :'data-toggle' => 'dropdown' do
+              = image_tag avatar_for(current_user), class: 'avatar'
               = teacher? ? current_user.initials : current_user.first_name
               b.caret
             span.dropdown-arrow
@@ -162,10 +163,14 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
               li
                 = link_to 'Sign Out', session_path, :method => :delete, class: "sign-out-link"
           -if teacher?
+            li.new-issue
+              span
+                = link_to '+ Issue', 'https://github.com/lighthouse-labs/2016-web-curriculum-activities/issues', target: '_blank', class: 'navbar-btn btn btn-warning', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Report curriculum issue or suggestion (Teachers only)'
             li.teacher-duty
               span
-                = link_to "Go on duty", '#', class: "on-duty-link navbar-btn btn btn-success #{'hidden' if current_user.on_duty?}"
-                = link_to "Go off duty", '#', class: "off-duty-link navbar-btn btn btn-danger #{'hidden' unless current_user.on_duty?}"
+                - attrs = { data: { toggle: 'tooltip', placement: 'bottom' }, title: "Your Location: #{current_user.location.try(:name) || 'N/A'}" }
+                = link_to "Go on duty", '#', { class: "on-duty-link navbar-btn btn btn-success #{'hidden' if current_user.on_duty?}" }.merge(attrs)
+                = link_to "Go off duty", '#', { class: "off-duty-link navbar-btn btn btn-danger #{'hidden' unless current_user.on_duty?}" }.merge(attrs)
 
           - if current_user.active_student?
             li#assistance-request-module
