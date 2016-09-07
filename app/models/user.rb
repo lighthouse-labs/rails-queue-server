@@ -150,7 +150,7 @@ class User < ApplicationRecord
 
   # 3
   def unsubmitted_activities_before(day)
-    Activity.active.where(allow_submissions: true).where("day <= ?", day.to_s).order(day: :desc).where.not(id: self.activity_submissions.select(:activity_id))
+    Activity.active.countable_as_submission.where("day <= ?", day.to_s).order(day: :desc).where.not(id: self.activity_submissions.select(:activity_id))
   end
 
   def visible_bootcamp_activities
