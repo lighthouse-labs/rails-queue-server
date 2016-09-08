@@ -14,7 +14,7 @@ class Feedback < ActiveRecord::Base
   scope :reverse_chronological_order, -> { order("feedbacks.updated_at DESC") }
   scope :filter_by_student, -> (student_id) { where("student_id = ?", student_id) }
   scope :filter_by_teacher, -> (teacher_id) { where("teacher_id = ?", teacher_id) }
-  scope :filter_by_day, -> (day) { 
+  scope :filter_by_day, -> (day) {
     includes(:activity).
     where("day LIKE ?", day.downcase+"%").
     references(:activity)
@@ -29,12 +29,12 @@ class Feedback < ActiveRecord::Base
     references(:student, :cohort, :program)
   }
 
-  scope :filter_by_student_location, -> (location_id) { 
+  scope :filter_by_student_location, -> (location_id) {
     includes(student: :location).
     where(locations: {id: location_id}).
     references(:student, :location)
   }
-  scope :filter_by_teacher_location, -> (location_id) { 
+  scope :filter_by_teacher_location, -> (location_id) {
     includes(teacher: :location).
     where(locations: {id: location_id}).
     references(:teacher, :location)
@@ -45,18 +45,18 @@ class Feedback < ActiveRecord::Base
     references(:student, :cohort)
   }
 
-  scope :filter_by_start_date, -> (date_str, location_id) { 
-    Time.use_zone(Location.find(location_id).timezone) do 
-      where("feedbacks.updated_at >= ?", Time.zone.parse(date_str).beginning_of_day.utc) 
+  scope :filter_by_start_date, -> (date_str, location_id) {
+    Time.use_zone(Location.find(location_id).timezone) do
+      where("feedbacks.updated_at >= ?", Time.zone.parse(date_str).beginning_of_day.utc)
     end
   }
-  scope :filter_by_end_date, -> (date_str, location_id) { 
-    Time.use_zone(Location.find(location_id).timezone) do 
-      where("feedbacks.updated_at <= ?", Time.zone.parse(date_str).end_of_day.utc) 
+  scope :filter_by_end_date, -> (date_str, location_id) {
+    Time.use_zone(Location.find(location_id).timezone) do
+      where("feedbacks.updated_at <= ?", Time.zone.parse(date_str).end_of_day.utc)
     end
   }
 
-  validates :rating, presence: true, on: :update 
+  validates :rating, presence: true, on: :update
 
   def self.filter_by(options)
     location_id = options[:teacher_location_id] || options[:student_location_id]
@@ -68,7 +68,7 @@ class Feedback < ActiveRecord::Base
         result.send("filter_by_#{attribute}", v, location_id)
       else
         result.send("filter_by_#{attribute}", v)
-      end    
+      end
     end
   end
 
@@ -79,7 +79,7 @@ class Feedback < ActiveRecord::Base
       result.expired.pending
     else
       result.pending
-    end  
+    end
   end
 
   def self.average_rating
@@ -94,9 +94,9 @@ class Feedback < ActiveRecord::Base
     CSV.generate do |csv|
       csv << ['Student First Name', 'Student Last Name', 'Activity Name', 'Activity Day', 'Activity Type', 'Rating', 'Created Date', 'Location']
       all.each do |feedback|
-        csv << (feedback.student.attributes.values_at(*student_attributes) + 
+        csv << (feedback.student.attributes.values_at(*student_attributes) +
                 feedback.feedbackable.attributes.values_at(*feedbackable_attributes) +
-                feedback.attributes.values_at(*feedback_attributes) + 
+                feedback.attributes.values_at(*feedback_attributes) +
                 feedback.student.cohort.location.attributes.values_at(*location_attributes))
       end
     end

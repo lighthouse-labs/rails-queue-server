@@ -12,11 +12,11 @@ table.table.table-feedbacks
       th.admin-curriculum-feedback-date-column = sortable "updated_at", "Updated"
 
   tbody
-    - @paginated_feedbacks.each do |feedback|
-      - present feedback do |feedback_presenter|
+    - @paginated_feedbacks.each do |activity_feedback|
+      - present activity_feedback do |activity_feedback_presenter|
         tr
           td = feedback_presenter.upcased_day
-          td = feedback_presenter.feedbackable_name
+          td = feedback_presenter.activity_name
           td = feedback_presenter.feedbackable_type
           td
             .raty-viewer data-score="#{feedback.rating}"

@@ -1,6 +1,6 @@
 class Admin::CurriculumFeedbacksController < Admin::BaseController
 
-  FILTER_BY_OPTIONS = [:program, :completed?, :student_id, :student_location_id, :cohort_id, :start_date, :end_date, :day].freeze
+  FILTER_BY_OPTIONS = [:program, :user_id, :user_location_id, :cohort_id, :start_date, :end_date, :day].freeze
   DEFAULT_PER = 10
 
   # def index
@@ -24,7 +24,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
     params[:student_location_id] = current_user.location.id.to_s if params[:student_location_id].nil?
     params[:completed?] = 'true' if params[:completed].nil?
 
-    @feedbacks = ActivityFeedback.all
+    @feedbacks = ActivityFeedback.filter_by(filter_by_params).order(order)
     @rating = @feedbacks.average_rating
     @paginated_feedbacks = @feedbacks.page(params[:page]).per(DEFAULT_PER)
 
@@ -40,7 +40,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
   private
 
   def sort_column
-    ["rating" "updated_at"].include?(params[:sort]) ? params[:sort] : "feedbacks.updated_at"
+    ["rating" "created_at"].include?(params[:sort]) ? params[:sort] : "activity_feedbacks.created_at"
   end
 
   def sort_direction
