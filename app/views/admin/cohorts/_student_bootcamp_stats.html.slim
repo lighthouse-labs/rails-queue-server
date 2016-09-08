@@ -13,16 +13,17 @@
 tr
 
   td.details data-value=student.last_name
-    = link_to [:admin, student] do
-      = image_tag avatar_for(student), class: 'avatar'
-    = link_to [:teacher, student] do
-      = student.full_name
+    .student-info
+      = link_to [:admin, student] do
+        = image_tag avatar_for(student), class: 'avatar'
+      = link_to [:teacher, student] do
+        = student.full_name
 
-    br
-    - if student.remote?
-      span.label.label-danger = student.location.name
-    - else
-      span.label.label-primary = @cohort.location.name
+      br
+      - if student.remote?
+        span.label.label-danger = student.location.name
+      - else
+        span.label.label-primary = @cohort.location.name
 
   td data-value=assistance_stats[:requests]
     span title="Requests" data-toggle="tooltip" = assistance_stats[:requests]

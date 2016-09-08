@@ -22,6 +22,7 @@ class Activity < ApplicationRecord
   validates :day, format: { with: DAY_REGEX, allow_blank: true }
 
   scope :chronological, -> { order("activities.sequence ASC, activities.id ASC") }
+  scope :rerverse_chronological_for_day, -> { order("activities.day DESC, activities.sequence DESC") }
   scope :chronological_for_project, -> { includes(:section).references(:section).order("sections.order ASC, activities.day ASC, activities.sequence ASC, activities.id ASC") }
   scope :for_day,   -> (day) { where(day: day.to_s) }
   scope :until_day, -> (day) { where("activities.day <= ?", day.to_s) }
@@ -40,7 +41,7 @@ class Activity < ApplicationRecord
   }
 
   scope :bootcamp, -> {
-    eager_load(:section).where("sections.id IS NULL OR sections.type <> 'Prep'")
+    where.not(day: nil)
   }
 
   after_update :add_revision_to_gist

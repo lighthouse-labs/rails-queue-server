@@ -41,7 +41,12 @@ class Cohort < ApplicationRecord
   end
 
   def week
-    CurriculumDay.new(Date.current, self).week
+    curriculum_day.week
+  end
+
+  def curriculum_day(date=nil)
+    date ||= Date.current
+    CurriculumDay.new(date, self)
   end
 
 end

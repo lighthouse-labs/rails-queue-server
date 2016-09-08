@@ -14,25 +14,12 @@
   width: 140px;
 }
 
-
 table.students {
   tr {
     opacity: 0.8;
 
     &:hover {
       opacity: 1.0;
-    }
-
-    td.details {
-      img {
-        width: 60px;
-        float: left;
-        margin-right: 8px;
-        border-radius: 5px;
-      }
-      .email {
-        font-size: 0.8em;
-      }
     }
 
     .progress {
@@ -49,3 +36,17 @@ table.students {
     }
   }
 }
+
+.student-info {
+  img.avatar {
+    width: 60px;
+    float: left;
+    margin-right: 8px;
+    border-radius: 5px;
+    border: 2px solid $brand-secondary;
+  }
+  .email {
+    font-size: 0.8em;
+  }
+}
+

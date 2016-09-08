@@ -13,7 +13,6 @@ pre#notes_content style="display:none" = @message.teacher_notes
 = form.input :teacher_notes, as: :hidden
 
 = form.input :cohort_id, collection: ([@cohort] + Cohort.most_recent.all).uniq, prompt: 'Select a cohort'
-= form.input :for_students, label: false, inline_label: true
 
 - content_for :end_of_body do
   css:
@@ -35,7 +34,7 @@ pre#notes_content style="display:none" = @message.teacher_notes
 
       $('form').submit(function(evt) {
         evt.preventDefault();
-        
+
         $('#activity_message_body').val(bodyEditor.getValue());
         $('#activity_message_teacher_notes').val(notesEditor.getValue());
         this.submit();

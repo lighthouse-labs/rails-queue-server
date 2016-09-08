@@ -142,18 +142,19 @@ class User < ApplicationRecord
 
   # 1
   def code_reviewed_activities
+    # intentionally including archived ones (for past students)
     Activity.where(id: completed_code_reviews.select(:activity_id))
   end
 
   # 2
   def submitted_but_not_reviewed_activities
-    unreviewed_submissions = self.activity_submissions.with_github_url.where.not(activity_id: completed_code_reviews.select(:activity_id))
-    Activity.where(id: unreviewed_submissions.select(:activity_id))
+    unreviewed_submissions = self.activity_submissions.proper.where.not(activity_id: completed_code_reviews.select(:activity_id))
+    Activity.bootcamp.rerverse_chronological_for_day.where(id: unreviewed_submissions.select(:activity_id))
   end
 
   # 3
   def unsubmitted_activities_before(day)
-    Activity.active.where(allow_submissions: true).where("day <= ?", day.to_s).order(day: :desc).where.not(id: self.activity_submissions.select(:activity_id))
+    Activity.active.countable_as_submission.where("day <= ?", day.to_s).rerverse_chronological_for_day.where.not(id: self.activity_submissions.proper.select(:activity_id))
   end
 
   def visible_bootcamp_activities
