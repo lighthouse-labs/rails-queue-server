@@ -1,0 +1,23 @@
+
+- if @tech_interview.in_progress?
+  .alert.alert-info
+    strong Tech Interview In Progress
+    p
+      strong Interviewer:
+      | &nbsp;
+      = @tech_interview.interviewer.full_name
+
+/ .actions-container is to avoid body jumping due to affix plugin
+/ http://stackoverflow.com/questions/20652581/bootstrap-affix-nav-causes-div-below-to-jump-up
+
+.actions-container
+  .well.actions
+    = render 'actions', interview: @tech_interview, skip_resume: true
+    | &nbsp;
+    - if next_step
+      = form.submit 'Continue', class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'There is one more step after this where you can update this information'
+      | &nbsp;
+    - else
+      = form.submit 'Finished', class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom', confirm: "Totally done?" }, title: 'This will submit and complete the tech interview. Student will be e-mailed the Overall Feedback only.'
+      | &nbsp;
+    a.btn.btn-info.ask-question data-default-text="Show To Student" data-active-text="Restore Details" Show To Student

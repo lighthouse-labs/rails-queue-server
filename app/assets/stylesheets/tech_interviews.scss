@@ -10,5 +10,31 @@ body.tech-interview-show {
     }
   }
 
+}
 
+body.tech-interview-on {
+  .hide-for-student {
+    transition: all 0.3s ease-in-out;
+    &.active {
+      opacity: 0.04;
+    }
+  }
+
+  .well.actions.affix {
+    top: 65px;
+    z-index: 100;
+    right: 10px;
+  }
+
+  .actions-container {
+    min-height: 81px;
+  }
+}
+
+#tech_interview_feedback {
+  height: 300px;
+}
+
+#tech_interview_internal_notes {
+  height: 300px;
 }

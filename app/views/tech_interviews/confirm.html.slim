@@ -1,11 +1,14 @@
 - provide :container, 'fluid'
+- provide :body_class, 'tech-interview-on'
 
 header.page-header
   h1 Confirm Tech Interview
 
 = form_for @tech_interview, url: complete_tech_interview_path(@tech_interview) do |form|
 
-  .form-group
+  = render 'form_actions', form: form, next_step: false
+
+  .form-group.hide-for-student
     = form.label :articulation_score, "Articulation Score (Internal)"
     = form.select :articulation_score, [ \
         ['Please select', ''], \
@@ -15,7 +18,7 @@ header.page-header
         ["4: Answers are very well explained; not too long or too short.", 4] \
       ], {}, {class: 'form-control'}
 
-  .form-group
+  .form-group.hide-for-student
     = form.label :knowledge_score, "Knowledge Score (Internal)"
     = form.select :knowledge_score, [ \
         ['Please select', ''], \
@@ -29,13 +32,12 @@ header.page-header
     = form.label :feedback, 'Overall Feedback (E-mailed to Student)'
     = form.text_area :feedback, placeholder: 'Summary feedback for student (eg: how it went, takeaways, areas for improvement, etc).', class: 'form-control'
 
-  .form-group
+  .form-group.hide-for-student
     = form.label :internal_notes, "Intenal Notes (Not sent to students)"
     = form.text_area :internal_notes, placeholder: 'Not sent to student! For admins and teachers only.', class: 'form-control'
 
   = form.fields_for :results do |result_form|
     = render 'result_form', form: result_form
 
-  h5 Final Step. Ready to finalize?
-  = form.submit 'Submit Results', class: 'btn btn-primary'
+
 

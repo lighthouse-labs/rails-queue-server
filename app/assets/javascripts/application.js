@@ -57,6 +57,7 @@
 //= require reconnect_holder
 //= require prep
 //= require profile
+//= require tech_interviews
 //= require code_reviews
 //= require evaluations
 //= require quiz_submissions

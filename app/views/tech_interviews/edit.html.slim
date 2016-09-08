@@ -1,20 +1,12 @@
 - provide :container, 'fluid'
+- provide :body_class, 'tech-interview-on'
 
 header.page-header
   h1 #{@tech_interview.interviewee.full_name}'s Week #{@interview_template.week} Tech Interview
 
-- if @tech_interview.in_progress?
-  .alert.alert-info
-    strong Tech Interview In Progress
-    p
-      strong Interviewer:
-      | &nbsp;
-      = @tech_interview.interviewer.full_name
-
-.well
-  = render 'actions', interview: @tech_interview, skip_resume: true
-
 = form_for @tech_interview do |form|
+
+  = render 'form_actions', form: form, next_step: true
 
   .form-group
     h3 Overall Feedback
@@ -22,6 +14,3 @@ header.page-header
 
   = form.fields_for :results do |result_form|
     = render 'result_form', form: result_form
-
-  h5 Note: There is one more step after this
-  = form.submit 'Submit Results', class: 'btn btn-primary'
