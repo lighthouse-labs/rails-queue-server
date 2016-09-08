@@ -8,6 +8,7 @@ class MarkTechInterview
 
     @tech_interview.assign_attributes(@attributes) if @attributes
     complete(@tech_interview, @interviewer)
+    send_email_to_student(@tech_interview)
 
     context.fail! unless @tech_interview.save
   end
@@ -18,6 +19,10 @@ class MarkTechInterview
     interview.interviewer = interviewer
     interview.completed_at = Time.current
     calculate_average_score(interview)
+  end
+
+  def send_email_to_student(interview)
+    UserMailer.new_tech_interview_message(interview).deliver
   end
 
   def calculate_average_score(interview)

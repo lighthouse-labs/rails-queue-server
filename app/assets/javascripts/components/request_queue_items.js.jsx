@@ -40,6 +40,7 @@ var RequestQueueItems = React.createClass({
       )
   },
 
+
   renderCodeReviews: function() {
     var that = this;
     if(this.props.codeReviews.length > 0)
@@ -63,6 +64,26 @@ var RequestQueueItems = React.createClass({
     }
   },
 
+  activeTechInterviewHolder: function(){
+    if(this.props.activeTechInterviews.length > 0){
+      return(
+        <div>
+          <h3 className="section-heading">Currently Tech Interviewing:</h3>
+          <ul className="student-list">
+            { this.renderActiveTechInterviews() }
+          </ul>
+        </div>
+      )
+    }
+  },
+
+  renderActiveTechInterviews: function(){
+    var that = this;
+    return this.props.activeTechInterviews.map(function(techInterview){
+      return <TechInterview interview={techInterview} key={techInterview.id} location={that.props.location} active={true}/>
+    });
+  },
+
   renderActiveEvaluations: function(){
     var that = this;
     return this.props.activeEvaluations.map(function(evaluation){
@@ -81,6 +102,17 @@ var RequestQueueItems = React.createClass({
     )
   },
 
+  techInterviewHolder: function(){
+    return(
+      <div>
+        <h3 className="section-heading">Awaiting Tech Interviews</h3>
+        <ul className="student-list">
+          { this.renderTechInterviews() }
+        </ul>
+      </div>
+    )
+  },
+
   renderEvaluations: function(){
     var that = this;
     if(this.props.evaluations.length > 0)
@@ -89,6 +121,16 @@ var RequestQueueItems = React.createClass({
       });
     else
       return <i>There aren&#39;t any evaluations</i>
+  },
+
+  renderTechInterviews: function(){
+    var that = this;
+    if(this.props.techInterviews.length > 0)
+      return this.props.techInterviews.map(function(interview){
+        return <TechInterview interview={ interview } key={ interview.id } location={that.props.location} active={false}/>
+      });
+    else
+      return <i>There aren&#39;t any tech interviews.</i>
   },
 
   renderStudents: function() {
@@ -103,13 +145,15 @@ var RequestQueueItems = React.createClass({
       <div className="requests-list">
 
         { this.renderAssisting() }
-
         { this.activeEvaluationHolder() }
+        { this.activeTechInterviewHolder() }
 
         <h3 className="section-heading">Awaiting Assistance</h3>
         <ul className="student-list">
           { this.renderRequests() }
         </ul>
+
+        { this.techInterviewHolder() }
 
         { this.codeReviewHolder() }
 

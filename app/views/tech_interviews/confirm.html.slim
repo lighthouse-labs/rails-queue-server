@@ -5,21 +5,33 @@ header.page-header
 
 = form_for @tech_interview, url: complete_tech_interview_path(@tech_interview) do |form|
 
-  .form-field
-    = form.label :articulation_score
-    = form.text_field :articulation_score
+  .form-group
+    = form.label :articulation_score, "Articulation Score (Internal)"
+    = form.select :articulation_score, [ \
+        ['Please select', ''], \
+        ["1: Struggled to explain and/or very low confidence.",1], \
+        ["2: Needs more confidence or practice but manageable.", 2], \
+        ["3: Able to explain and communicate well.", 3], \
+        ["4: Answers are very well explained; not too long or too short.", 4] \
+      ], {}, {class: 'form-control'}
 
-  .form-field
-    = form.label :knowledge_score
-    = form.text_field :knowledge_score
+  .form-group
+    = form.label :knowledge_score, "Knowledge Score (Internal)"
+    = form.select :knowledge_score, [ \
+        ['Please select', ''], \
+        ["1: Struggled to display adequate knowledge.",1], \
+        ["2: Able to display knowledge in most cases.", 2], \
+        ["3: Able to display knowledge well.", 3], \
+        ["4: Underwhelming / too easy for them.", 4] \
+      ], {}, {class: 'form-control'}
 
-  .form-field
-    = form.label :feedback
-    = form.text_area :feedback, placeholder: 'Summary feedback for student (eg: how it went, takeaways, areas for improvement, etc).'
+  .form-group
+    = form.label :feedback, 'Overall Feedback (E-mailed to Student)'
+    = form.text_area :feedback, placeholder: 'Summary feedback for student (eg: how it went, takeaways, areas for improvement, etc).', class: 'form-control'
 
-  .form-field
-    = form.label :internal_notes
-    = form.text_area :internal_notes, placeholder: 'Not sent to student! For admins and teachers only.'
+  .form-group
+    = form.label :internal_notes, "Intenal Notes (Not sent to students)"
+    = form.text_area :internal_notes, placeholder: 'Not sent to student! For admins and teachers only.', class: 'form-control'
 
   = form.fields_for :results do |result_form|
     = render 'result_form', form: result_form

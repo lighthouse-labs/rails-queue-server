@@ -1,17 +1,16 @@
 class TechInterviewsController < ApplicationController
 
+  before_filter :not_for_students
+
   before_filter :require_template, only: [:new, :create]
   before_filter :require_interviewee, only: [:new, :create]
 
-  before_filter :require_interview, only: [:edit, :update, :confirm, :complete, :show]
+  before_filter :require_interview, only: [:edit, :update, :confirm, :complete, :show, :start, :stop]
   before_filter :only_incomplete, only: [:edit, :update, :confirm, :complete]
-
-  # Show page not allowed for students, only teachers/admins
-  # students view tech_interview_templates#show for their interview status/results
-  before_filter :not_for_students, only: [:show]
+  before_filter :only_queued, only: [:start]
+  before_filter :only_in_progress, only: [:stop, :edit, :update]
 
   def show
-
   end
 
   def new
@@ -20,9 +19,9 @@ class TechInterviewsController < ApplicationController
 
   def create
     @tech_interview = @interview_template.pending_interview_for(@interviewee) ||
-      @interview_template.tech_interviews.new(interviewee: @interviewee)
+      @interview_template.tech_interviews.new(interviewee: @interviewee, cohort: @interviewee.cohort)
 
-    result = StartTechInterview(
+    result = StartTechInterview.call(
       tech_interview: @tech_interview,
       interviewer:    current_user
     )
@@ -33,8 +32,33 @@ class TechInterviewsController < ApplicationController
     else
       raise result.error
     end
+  end
 
+  def start
+    result = StartTechInterview.call(
+      tech_interview: @tech_interview,
+      interviewer:    current_user
+    )
 
+    if result.success?
+      redirect_to edit_tech_interview_path(@tech_interview), notice: "Interview Started. Grab #{@tech_interview.interviewee.first_name}, find a quiet spot and go through the questions. Remember to keep it to 30 - 40 minutes tops."
+    else
+      redirect_to :back, alert: result.error
+    end
+  end
+
+  # interviewer decided to undo the start (return to queue)
+  def stop
+    result = StopTechInterview.call(
+      tech_interview: @tech_interview,
+      user:           current_user
+    )
+
+    if result.success?
+      redirect_to :back, notice: 'Interview stopped and pushed back into the queue'
+    else
+      redirect_to :back, alert: result.error
+    end
   end
 
   def edit
@@ -88,6 +112,18 @@ class TechInterviewsController < ApplicationController
   def only_incomplete
     if @tech_interview.completed?
       redirect_to @tech_interview, alert: 'Already Completed!'
+    end
+  end
+
+  def only_queued
+    if !@tech_interview.queued?
+      redirect_to :back, alert: 'No longer in the queue!'
+    end
+  end
+
+  def only_in_progress
+    if !@tech_interview.in_progress?
+      redirect_to @tech_interview
     end
   end
 

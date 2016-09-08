@@ -3,11 +3,22 @@
 header.page-header
   h1 #{@tech_interview.interviewee.full_name}'s Week #{@interview_template.week} Tech Interview
 
+- if @tech_interview.in_progress?
+  .alert.alert-info
+    strong Tech Interview In Progress
+    p
+      strong Interviewer:
+      | &nbsp;
+      = @tech_interview.interviewer.full_name
+
+.well
+  = render 'actions', interview: @tech_interview, skip_resume: true
+
 = form_for @tech_interview do |form|
 
-  .form-field
-    = form.label :feedback
-    = form.text_area :feedback, placeholder: 'Summary feedback for student (eg: how it went, takeaways, areas for improvement, etc).'
+  .form-group
+    h3 Overall Feedback
+    = form.text_area :feedback, placeholder: 'Summary feedback for student (eg: how it went, takeaways, areas for improvement, etc).', class: 'form-control'
 
   = form.fields_for :results do |result_form|
     = render 'result_form', form: result_form

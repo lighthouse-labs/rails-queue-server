@@ -10,6 +10,8 @@ class RequestQueueSerializer < ActiveModel::Serializer
       attrs[:code_reviews] = code_reviews
       attrs[:active_evaluations] = active_evaluations
       attrs[:evaluations] = evaluations
+      attrs[:active_tech_interviews] = active_tech_interviews
+      attrs[:tech_interviews] = tech_interviews
       attrs[:all_students] = students
     end
   end
@@ -43,6 +45,18 @@ class RequestQueueSerializer < ActiveModel::Serializer
   def evaluations
     object[:evaluations].collect do |evaluation|
       EvaluationSerializer.new(evaluation).as_json
+    end
+  end
+
+  def active_tech_interviews
+    object[:active_tech_interviews].collect do |interview|
+      TechInterviewSerializer.new(interview).as_json
+    end
+  end
+
+  def tech_interviews
+    object[:tech_interviews].collect do |interview|
+      TechInterviewSerializer.new(interview).as_json
     end
   end
 

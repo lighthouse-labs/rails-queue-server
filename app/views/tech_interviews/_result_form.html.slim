@@ -9,5 +9,25 @@
   .panel-body
     == markdown(question.question.to_s)
 
-    = form.text_area :notes, placeholder: 'Notes for Student'
-    = form.text_field :score
+    .well
+
+      .form-group
+        = form.label :notes
+        = form.text_area :notes, placeholder: 'Notes / Feedback for Student (Optional)', class: 'form-control'
+
+      .form-group
+        = form.label :score do
+          | Outcome
+          sup *
+        = form.select :score, [ \
+            ['Skipped', ''], \
+            ["1: Didn't get it.",1], \
+            ["2: Got it with some help, or close.", 2], \
+            ["3: Got it well.", 3], \
+            ["4: Underwhelming / too easy for them", 4] \
+          ], {}, {class: 'form-control'}
+
+      small
+        em
+          sup *
+          | If you don't provide a score, it will consider the question skipped.

@@ -18,6 +18,8 @@ LaserShark::Application.routes.draw do
     member do
       get :confirm
       patch :complete
+      patch :start
+      patch :stop
     end
   end
 

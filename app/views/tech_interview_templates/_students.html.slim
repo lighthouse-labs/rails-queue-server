@@ -27,26 +27,7 @@ table.table.students
             span.label.label-primary = cohort.location.name
 
         td
-          - if interview && interview.completed?
-            = link_to "Completed (#{interview.day})", tech_interview_path(interview), class: 'btn btn-success btn-xs'
-            br
-            small
-              = time_ago_in_words(interview.completed_at)
-              | &nbsp;ago
-          - elsif interview && interview.in_progress?
-            .label.label-info In Progress
-            br
-            small
-              = time_ago_in_words(interview.started_at)
-              | &nbsp;ago
-          - elsif interview && interview.queued?
-            .label.label-warning In Queue
-            br
-            small
-              = time_ago_in_words(interview.created_at)
-              | &nbsp;ago
-          - else
-            .label.label-default Not Yet Queued
+          = render 'tech_interview_templates/student_interview_status', interview: interview, interview_template: @interview_template, student: student
 
         td.details
           - if interview
@@ -79,8 +60,5 @@ table.table.students
             = "#{interview.time_in_queue / 60}m in queue"
 
         td
-          - if interview && interview.in_progress? && interview.interviewer == current_user
-              = link_to 'Resume', edit_tech_interview_path(interview), class: 'btn btn-xs btn-primary'
-          - elsif interview && interview.completed?
-            = link_to 'Results', interview, class: 'btn btn-xs btn-info'
-
+          - if interview
+            = render 'tech_interviews/actions', interview: interview, btn_size: 'btn-xs'

@@ -4,7 +4,13 @@
 header.page-header
   h1 #{@tech_interview.interviewee.full_name}'s Week #{@interview_template.week} Tech Interview
 
+.well
+  = render 'actions', interview: @tech_interview
+
 dl.dl-horizontal
+  dt Status
+  dd = render 'tech_interview_templates/student_interview_status', interview: @tech_interview
+
   dt Queued
   dd = @tech_interview.created_at.to_s(:date_and_time)
 
@@ -29,17 +35,17 @@ dl.dl-horizontal
 
     hr
 
-    dt Questions
+    dt Question Score
     dd
       span.label class=l_score_label_class(@tech_interview.average_score)
         = @tech_interview.average_score.round(1)
 
-    dt Knowledge
+    dt Knowledge Score
     dd
       span.label class=l_score_label_class(@tech_interview.knowledge_score)
         = @tech_interview.knowledge_score
 
-    dt Articulation
+    dt Articulation Score
     dd
       span.label class=l_score_label_class(@tech_interview.articulation_score)
         = @tech_interview.articulation_score

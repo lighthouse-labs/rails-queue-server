@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160904181438) do
+ActiveRecord::Schema.define(version: 20160905180439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -273,6 +273,7 @@ ActiveRecord::Schema.define(version: 20160904181438) do
     t.boolean  "has_code_reviews",         default: true
     t.boolean  "satellite"
     t.integer  "supported_by_location_id"
+    t.string   "feedback_email"
     t.index ["supported_by_location_id"], name: "index_locations_on_supported_by_location_id", using: :btree
   end
 
