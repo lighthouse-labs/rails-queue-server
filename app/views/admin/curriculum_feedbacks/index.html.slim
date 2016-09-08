@@ -28,10 +28,10 @@ table.table.table-feedbacks
             td
             td colspan="5"
               small
-                em 
+                em
                   article.read-more = feedback_presenter.notes
 
             td
 = paginate @paginated_feedbacks, :window => 2
-= link_to "Download CSV", admin_curriculum_feedbacks_path(params.merge(format: "csv")), :class => "btn btn-success download-csv-button", :method => :get
-= link_to "Download XLS", admin_curriculum_feedbacks_path(params.merge(format: "xls")), :class => "btn btn-success download-xls-button", :method => :get
+= link_to "Download CSV", admin_curriculum_feedbacks_path(params.merge(format: "csv").permit), :class => "btn btn-success download-csv-button", :method => :get
+= link_to "Download XLS", admin_curriculum_feedbacks_path(params.merge(format: "xls").permit), :class => "btn btn-success download-xls-button", :method => :get
