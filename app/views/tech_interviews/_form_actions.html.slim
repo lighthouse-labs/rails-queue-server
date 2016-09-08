@@ -12,10 +12,12 @@
 
 .actions-container
   .well.actions
+    - if !next_step
+      = link_to '&raquo; Back'.html_safe, [:edit, @tech_interview], class: "btn btn-warning", data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back to Questions form'
     = render 'actions', interview: @tech_interview, skip_resume: true
     | &nbsp;
     - if next_step
-      = form.submit 'Continue', class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'There is one more step after this where you can update this information'
+      = form.submit 'Next Step', class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: "Click this once you've gone through the questions and filled out the form in full. There's one more step after this where you can update this information again and also provide some final analysis and internal notes"
       | &nbsp;
     - else
       = form.submit 'Finished', class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom', confirm: "Totally done?" }, title: 'This will submit and complete the tech interview. Student will be e-mailed the Overall Feedback only.'
