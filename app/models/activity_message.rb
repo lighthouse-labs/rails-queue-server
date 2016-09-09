@@ -20,8 +20,8 @@ class ActivityMessage < ApplicationRecord
   validates :kind, presence: true
   validates :body, presence: true
 
-  after_create :notify_cohort_students, if: :for_students?
-  after_create :create_empty_feedbacks, if: :for_students?
+  after_create :notify_cohort_students
+  after_create :create_empty_feedbacks
 
   private
 
