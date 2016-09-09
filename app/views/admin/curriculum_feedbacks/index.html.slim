@@ -33,5 +33,5 @@ table.table.table-feedbacks
 
             td
 = paginate @paginated_feedbacks, :window => 2
-= link_to "Download CSV", admin_curriculum_feedbacks_path(params.merge(format: "csv").permit), :class => "btn btn-success download-csv-button", :method => :get
-= link_to "Download XLS", admin_curriculum_feedbacks_path(params.merge(format: "xls").permit), :class => "btn btn-success download-xls-button", :method => :get
+= link_to "Download CSV", admin_curriculum_feedbacks_path(params.merge(format: "csv").permit(@filter_by_options)), :class => "btn btn-success download-csv-button", :method => :get
+= link_to "Download XLS", admin_curriculum_feedbacks_path(params.merge(format: "xls").permit(@filter_by_options)), :class => "btn btn-success download-xls-button", :method => :get
