@@ -1,3 +1,6 @@
+.interview-details.clearfix style="margin-bottom: 10px;"
+  .student-info.pull-left
+    = render 'shared/student_info', student: @tech_interview.interviewee
 
 - if @tech_interview.in_progress?
   .alert.alert-info

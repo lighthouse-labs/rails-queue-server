@@ -17,20 +17,7 @@ h2
         tr
           td
             .student-info
-              = link_to [:teacher, student] do
-                = image_tag avatar_for(student), class: 'avatar'
-              = link_to [:teacher, student] do
-                = student.full_name
-
-              br
-              = mail_to(student.email, student.email, target: '_blank', class: 'email')
-
-              br
-              - if student.remote?
-                span.label.label-danger = student.location.name
-              - else
-                span.label.label-primary = @cohort.location.name
-
+              = render 'shared/student_info', student: student
               br
               span.score.label.label-info
                 = "#{student.code_reviews_l_score}"
