@@ -16,16 +16,7 @@ table.table.students
       tr
         td.details data-value=student.last_name
           .student-info
-            = link_to [:teacher, student] do
-              = image_tag student.avatar_url, class: 'avatar'
-            = link_to student.full_name, [:teacher, student]
-            br
-            = mail_to student.email, student.email, class: 'email'
-            br
-            - if student.remote?
-              span.label.label-danger = student.location.name
-            - else
-              span.label.label-primary = cohort.location.name
+            = render 'shared/student_info', student: student
 
         td
           = render 'tech_interview_templates/student_interview_status', interview: interview, interview_template: @interview_template, student: student
