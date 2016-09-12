@@ -6,6 +6,8 @@ class TechInterview < ApplicationRecord
   # since we dont have an enrollment record, this handles rollover (multi-cohort) students
   belongs_to :cohort
 
+  has_one :student_feedback, as: :feedbackable, dependent: :destroy, class_name: 'Feedback'
+
   has_many :results, { class_name: 'TechInterviewResult', dependent: :destroy }
 
   accepts_nested_attributes_for :results, allow_destroy: false
