@@ -4,6 +4,12 @@
 header.page-header
   h1 #{@tech_interview.interviewee.full_name}'s Week #{@interview_template.week} Tech Interview
 
+blockquote
+  == markdown(@interview_template.description.to_s)
+
+.alert.alert-info
+  == markdown(@interview_template.teacher_notes.to_s)
+
 = form_for @tech_interview do |form|
 
   = render 'form_actions', form: form, next_step: true

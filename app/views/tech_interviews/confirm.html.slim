@@ -9,7 +9,7 @@ header.page-header
   = render 'form_actions', form: form, next_step: false
 
   .form-group.hide-for-student
-    = form.label :articulation_score, "Articulation Score (Internal)"
+    = form.label :articulation_score, "Articulation Score (Internal, Required)"
     = form.select :articulation_score, [ \
         ['Please select', ''], \
         ["1: Struggled to explain and/or very low confidence.",1], \
@@ -19,7 +19,7 @@ header.page-header
       ], {}, { class: 'form-control', required: true  }
 
   .form-group.hide-for-student
-    = form.label :knowledge_score, "Knowledge Score (Internal)"
+    = form.label :knowledge_score, "Knowledge Score (Internal, Required)"
     = form.select :knowledge_score, [ \
         ['Please select', ''], \
         ["1: Struggled to display adequate knowledge.",1], \
