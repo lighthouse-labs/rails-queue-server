@@ -18,9 +18,9 @@ class AssistanceRequestsController < ApplicationController
     requests = AssistanceRequest.where(type: nil).open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
     code_reviews = CodeReviewRequest.open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
     my_active_evaluations = Evaluation.where(teacher: current_user).where(state: "in_progress").newest_active_evaluations_first
-    evaluations = Evaluation.open_evaluations.student_cohort_in_locations(params[:location]).newest_evaluations_first
+    evaluations = Evaluation.open_evaluations.student_cohort_in_locations([params[:location]]).newest_evaluations_first
     my_active_interviews = TechInterview.in_progress.interviewed_by(current_user)
-    interviews = TechInterview.queued.for_location(params[:location])
+    interviews = TechInterview.queued.for_locations([params[:location]])
     all_students = Student.in_active_cohort.active.order_by_last_assisted_at.cohort_in_locations([params[:location]])
 
 

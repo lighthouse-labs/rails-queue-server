@@ -39,10 +39,10 @@ class UserMailer < ActionMailer::Base
     feedback_email  = @interviewee.cohort.location.feedback_email
 
 
-    mail  subject: "Lighthouse Labs Week #{@tech_interview.week} Tech Interview: #{student.full_name}",
+    mail  subject: "LHL Week #{@tech_interview.week} Interview: #{@interviewee.full_name}",
           to: @interviewee.email,
           reply_to: @interviewer.email,
-          cc: @reviewer.email,
+          cc: @interviewer.email,
           bcc: feedback_email
 
   end

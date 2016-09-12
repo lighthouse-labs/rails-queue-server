@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905180439) do
+ActiveRecord::Schema.define(version: 20160912024722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -274,6 +274,8 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.boolean  "satellite"
     t.integer  "supported_by_location_id"
     t.string   "feedback_email"
+    t.string   "slack_channel"
+    t.string   "slack_username"
     t.index ["supported_by_location_id"], name: "index_locations_on_supported_by_location_id", using: :btree
   end
 
@@ -479,6 +481,7 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.integer  "articulation_score"
     t.integer  "knowledge_score"
     t.integer  "cohort_id"
+    t.datetime "last_alerted_at"
     t.index ["cohort_id"], name: "index_tech_interviews_on_cohort_id", using: :btree
     t.index ["interviewee_id"], name: "index_tech_interviews_on_interviewee_id", using: :btree
     t.index ["interviewer_id"], name: "index_tech_interviews_on_interviewer_id", using: :btree
@@ -528,6 +531,7 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.boolean  "on_duty",                default: false
     t.integer  "mentor_id"
     t.boolean  "mentor",                 default: false
+    t.boolean  "can_tech_interview"
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
   end
 

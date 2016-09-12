@@ -16,7 +16,7 @@ header.page-header
         ["2: Needs more confidence or practice but manageable.", 2], \
         ["3: Able to explain and communicate well.", 3], \
         ["4: Answers are very well explained; not too long or too short.", 4] \
-      ], {}, {class: 'form-control'}
+      ], {}, { class: 'form-control', required: true  }
 
   .form-group.hide-for-student
     = form.label :knowledge_score, "Knowledge Score (Internal)"
@@ -26,7 +26,7 @@ header.page-header
         ["2: Able to display knowledge in most cases.", 2], \
         ["3: Able to display knowledge well.", 3], \
         ["4: Underwhelming / too easy for them.", 4] \
-      ], {}, {class: 'form-control'}
+      ], {}, { class: 'form-control', required: true }
 
   .form-group
     = form.label :feedback, 'Overall Feedback (E-mailed to Student)'

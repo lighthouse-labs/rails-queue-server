@@ -1,5 +1,7 @@
 class TechInterviewResult < ApplicationRecord
 
+  default_scope -> { order(sequence: :asc) }
+
   belongs_to :tech_interview
   belongs_to :tech_interview_question
 
