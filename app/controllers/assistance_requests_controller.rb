@@ -20,7 +20,7 @@ class AssistanceRequestsController < ApplicationController
     my_active_evaluations = Evaluation.where(teacher: current_user).where(state: "in_progress").newest_active_evaluations_first
     evaluations = Evaluation.open_evaluations.student_cohort_in_locations([params[:location]]).newest_evaluations_first
     my_active_interviews = TechInterview.in_progress.interviewed_by(current_user)
-    interviews = current_user.can_tech_interview? ? TechInterview.queued.for_locations([params[:location]]) : []
+    interviews = can_tech_interview? ? TechInterview.queued.for_locations([params[:location]]) : []
     all_students = Student.in_active_cohort.active.order_by_last_assisted_at.cohort_in_locations([params[:location]])
 
 
