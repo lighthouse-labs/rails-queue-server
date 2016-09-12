@@ -2,6 +2,7 @@ class TechInterviewCreator
 
   def run
     # no tech interviews on weekends
+    puts "Running..."
     return false unless weekday?
     Cohort.is_active.each do |cohort|
       tz = cohort.location.timezone
