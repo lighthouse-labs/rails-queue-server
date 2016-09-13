@@ -11,6 +11,16 @@ module ApplicationHelper
     Date.current.month == 4 && Date.current.day == 1
   end
 
+  def disable_cable?
+    current_user.nil? || !current_user.active? || current_user.prospect? ||
+      (current_user.cohort && current_user.cohort.limited?)
+  end
+
+  # folks in limited (previous alumni) cohort dont need to take up action cable connections
+  def disable_cable_for_some
+    ' disable-cable' if disable_cable?
+  end
+
   # Display an integer time as a string
   # Ex: integer_time_to_s(930) # => "9:30"
   def integer_time_to_s(int_time)
@@ -49,5 +59,49 @@ module ApplicationHelper
   def shortened_github_url(url)
     url.gsub(/https?\:\/\/(www\.)?github.com\//, '')
   end
+
+  def progress_bar_class(percent)
+    if percent >= 96
+      'progress-bar-success'
+    elsif percent > 70
+      'progress-bar-info'
+    elsif percent > 50
+      'progress-bar-warning'
+    else
+      'progress-bar-danger'
+    end
+  end
+
+  def l_score_label_class(val)
+    return 'label-default' if val.nil?
+    val = val.to_f
+
+    if val < 2.1
+      'label-danger'
+    elsif val < 2.4
+      'label-warning'
+    elsif val < 2.8
+      'label-info'
+    elsif val <= 4.0
+      'label-success'
+    else
+      'label-default'
+    end
+  end
+
+  def integer_l_score_label_class(val)
+    return 'label-default' if val.nil?
+
+    if val < 2
+      'label-danger'
+    elsif val < 3
+      'label-warning'
+    elsif val < 4
+      'label-info'
+    elsif val == 4
+      'label-success'
+    end
+  end
+
 
 end

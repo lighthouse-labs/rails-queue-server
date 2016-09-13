@@ -1,21 +1,17 @@
-class Question < ActiveRecord::Base
+class Question < ApplicationRecord
 
   belongs_to :outcome
 
   has_many :options, dependent: :destroy
   has_many :answers, through: :options
 
-  accepts_nested_attributes_for :options, allow_destroy: true
+  has_many :outcome_results, as: :source
 
   has_and_belongs_to_many :quizzes
 
-  has_many :outcome_results, as: :source
+  accepts_nested_attributes_for :options, allow_destroy: true
 
   validates :question, presence: true
-
-  # validates :activity, presence: true
-
-  after_save :ensure_one_option
 
   scope :active, -> { where(active: true) }
 
@@ -31,9 +27,4 @@ class Question < ActiveRecord::Base
     question_stats
   }
 
-  private
-
-  def ensure_one_option
-    options.create(correct: true) if options.count == 0
-  end
 end

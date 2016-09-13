@@ -1,0 +1,12 @@
+h3
+  | Status:&nbsp;
+  - if @result && @result.in_progress?
+    .label.label-info In Progress
+  - elsif @result && @result.completed?
+    .label.label-success Completed
+  - else
+    .label.label-warning Pending
+
+- unless @result
+  .alert.alert-info
+    p Your interview results will be shown here.

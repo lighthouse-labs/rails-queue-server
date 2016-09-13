@@ -29,6 +29,9 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
+    cookies.signed[:user_id] = @current_user.id if @current_user && cookies.signed[:user_id].blank?
+
+    @current_user
   end
   helper_method :current_user
 
@@ -71,6 +74,7 @@ class ApplicationController < ActionController::Base
   helper_method :teachers_on_duty
 
   def cohort
+    return @cohort if @cohort
     # Teachers can switch to any cohort
     if teacher?
       @cohort ||= Cohort.find_by(id: session[:cohort_id]) if session[:cohort_id]
@@ -113,14 +117,20 @@ class ApplicationController < ActionController::Base
     current_user.cohort = cohort
     current_user.type = 'Student'
     current_user.save!
-    flash[:notice] = "Welcome, you have student access to #{cohort.name}!"
+    flash[:notice] = "Welcome, you have student access to the cohort: #{cohort.name}!"
   end
 
   def apply_invitation_code(code)
     if ENV['TEACHER_INVITE_CODE'] == code
       make_teacher
     elsif cohort = Cohort.find_by(code: code)
-      assign_as_student_to_cohort(cohort)
+      if admin?
+        flash[:alert] = "This code is valid to register as a student for #{cohort.name}. You are an Admin so no change made for you."
+      elsif teacher?
+        flash[:alert] = "This code is valid to register as a student for #{cohort.name}. You are a teacher already so no change made for you."
+      else
+        assign_as_student_to_cohort(cohort)
+      end
     else
       flash[:alert] = "Sorry, invalid code"
     end

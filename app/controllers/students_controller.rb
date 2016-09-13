@@ -4,12 +4,10 @@ class StudentsController < Teacher::BaseController
   before_action :teacher_required, only: [:show, :new_code_review_modal]
   before_action :load_student, only: [:show, :new_code_review_modal]
 
+  before_action :load_cohort
+  before_action :restrict_for_limited_cohort
+
   def index
-    if teacher?
-      @cohort = Cohort.find(params[:cohort_id])
-    else
-      @cohort = current_user.cohort
-    end
     @students = @cohort.students.active
   end
 
@@ -25,6 +23,22 @@ class StudentsController < Teacher::BaseController
 
   def load_student
     @student = Student.find(params[:id])
+  end
+
+  # "limited" cohorts is a pretty special case for giving curriculum access to previous alumni
+  # since it will contain ALL previous alumni from that location/branch, then this list will be too large
+  # disallow teachres and studenst alike to view this list.
+  #  - KV Aug 29, 2016
+  def restrict_for_limited_cohort
+    redirect_to(:root, alert: 'Not allowed') if @cohort && @cohort.limited?
+  end
+
+  def load_cohort
+    if teacher?
+      @cohort = Cohort.find(params[:cohort_id])
+    else
+      @cohort = current_user.cohort
+    end
   end
 
 end

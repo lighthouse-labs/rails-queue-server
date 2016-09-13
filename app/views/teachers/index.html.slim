@@ -1,38 +1,48 @@
-h1
-  | Teachers
+- provide :container,  'fluid'
 
-- if !current_user.location
-  | Looks like your profile does not have a location!&nbsp;
-  = link_to 'Edit Profile', edit_profile_path
-  div id="teachers-selected-locations"
-    - @locations.each do |location|
-      label
-        = radio_button_tag "location_radio", location, location == 'Vancouver'
-        = location
+header.page-header
+  h1 Teachers
 
-- else
-  div id="teachers-selected-locations"
-    - @locations.each do |location|
-      label
-        = radio_button_tag "location_radio", location, location == current_user.location.name
-        = location
- 
-table.table
-  thead
-    tr
-      th
-      th Name
-      th Quirky Fact
-      th Specialties
-      
-  tbody
-    - @teachers.each do |teacher|
-      - present teacher, UserPresenter do |teacher_presenter|
-        - if teacher.location
-          tr class="teacher #{teacher.location.name}"
-            td = link_to teacher_presenter.image_for_index_page, teacher_path(teacher)
-            td = link_to teacher_presenter.full_name, teacher_path(teacher)
-            td = teacher_presenter.quirky_fact
-            td = teacher_presenter.specialties
+.row
+  .col-sm-12
 
-         
+    - unless current_user.location
+      .alert.alert-warning
+        | Looks like your profile does not have a location!&nbsp;
+        = link_to 'Edit Profile', edit_profile_path
+
+    ul.nav.nav-pills
+      li role="presentation" class=(params[:location_id].blank? ? 'active' : '')
+        = link_to 'All Locations', teachers_path
+      - @locations.each do |location|
+        li role="presentation" class=(location.id.to_s == params[:location_id] ? 'active' : '')
+          = link_to location.name, params.permit(:location_id).merge(location_id: location.id)
+
+    hr
+
+    - if @location && @location.satellite? && @supporting_location
+      .alert.alert-info
+        strong Satellite Location
+        p Since this is a satellite location, teachers from #{@supporting_location.name} provide support. They are also listed below.
+
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title
+          = @teachers.size
+          | &nbsp;Teachers&nbsp;
+          - if @location
+            = "Supporting #{@location.name} Students"
+          - else
+            | Across All Locations
+
+      .table-responsive
+        table.table.sortable.teachers
+          thead
+            tr
+              th style="min-width: 265px" Name
+              th Location
+              th Details
+
+          tbody
+            = render @teachers
+

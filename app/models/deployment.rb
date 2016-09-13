@@ -1,4 +1,4 @@
-class Deployment < ActiveRecord::Base
+class Deployment < ApplicationRecord
 
   belongs_to :content_repository
 

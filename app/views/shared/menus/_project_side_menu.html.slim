@@ -3,10 +3,10 @@
 .panel.panel-default.project-nav.text-center
   .panel-heading
     = link_to project.name, project
-    - if student? && last_evaluation
-      p.status = last_evaluation.status
+    / - if student? && last_evaluation
+    /   p.status = last_evaluation.status
   ul.list-group.project-activities
-    - project.activities.chronological.active.each do |activity|
+    - project.activities.chronological_for_project.active.each do |activity|
       li class = (@activity ? "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}" : "list-group-item")
         = link_to activity.name, day_activity_path(activity.day, activity)
         = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)

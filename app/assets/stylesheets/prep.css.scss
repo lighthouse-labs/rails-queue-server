@@ -42,16 +42,28 @@
 
 .prep-menu {
   .list-group-item {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 18px;
+    padding-right: 18px;
     border-left: none;
     border-right: none;
     font-size: 14px;
-  }
+    position: relative;
 
-  .fa {
-    // margin-left: 10px;
-    color: $link-color;
+    .fa {
+      color: $link-color;
+    }
+
+    > .fa {
+      position: absolute;
+      left: 0px;
+      top: 15px;
+
+      // Position the "completed" check to the right so it aligns for every one.
+      &.fa-check {
+        left: initial;
+        right: 0px;
+      }
+    }
   }
 
   .panel-heading {

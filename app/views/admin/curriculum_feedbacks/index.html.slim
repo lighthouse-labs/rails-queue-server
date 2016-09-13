@@ -15,23 +15,23 @@ table.table.table-feedbacks
     - @paginated_feedbacks.each do |activity_feedback|
       - present activity_feedback do |activity_feedback_presenter|
         tr
-          td = feedback_presenter.upcased_day
-          td = feedback_presenter.activity_name
-          td = feedback_presenter.feedbackable_type
+          td = activity_feedback_presenter.upcased_day
+          td = activity_feedback_presenter.feedbackable_name
+          td = activity_feedback_presenter.feedbackable_type
           td
-            .raty-viewer data-score="#{feedback.rating}"
-          td = feedback_presenter.student_full_name
-          td = feedback.updated_at.to_date
+            .raty-viewer data-score="#{activity_feedback.rating}"
+          td = activity_feedback_presenter.user_full_name
+          td = activity_feedback.updated_at.to_date
 
-        - if feedback.notes.present?
+        - if activity_feedback.detail.present?
           tr
             td
             td colspan="5"
               small
                 em
-                  article.read-more = feedback_presenter.notes
+                  article.read-more = activity_feedback_presenter.detail
 
             td
 = paginate @paginated_feedbacks, :window => 2
-= link_to "Download CSV", admin_curriculum_feedbacks_path(params.merge(format: "csv")), :class => "btn btn-success download-csv-button", :method => :get
-= link_to "Download XLS", admin_curriculum_feedbacks_path(params.merge(format: "xls")), :class => "btn btn-success download-xls-button", :method => :get
+= link_to "Download CSV", admin_curriculum_feedbacks_path(params.merge(format: "csv").permit), :class => "btn btn-success download-csv-button", :method => :get
+= link_to "Download XLS", admin_curriculum_feedbacks_path(params.merge(format: "xls").permit), :class => "btn btn-success download-xls-button", :method => :get

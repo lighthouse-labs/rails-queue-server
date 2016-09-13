@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   mount_uploader :custom_avatar, CustomAvatarUploader
 
@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
   has_many :outcome_results
   has_many :evaluations
   has_many :quiz_submissions
+
+  has_many :tech_interviews, foreign_key: 'interviewee_id'
+  has_many :performed_tech_interviews, foreign_key: 'interviewer_id', class_name: 'TechInterviewResult'
 
   scope :order_by_last_assisted_at, -> {
     order("last_assisted_at ASC NULLS FIRST")
@@ -35,7 +38,9 @@ class User < ActiveRecord::Base
       # For quiz activities, we don't have activity submissions, and quiz_submissions are used to determine completion instead
       joins(:quiz_submissions).where(quiz_submissions: { initial: true, quiz_id: activity.quiz_id })
     else
-      joins(:activity_submissions).where(activity_submissions: { activity: activity })
+      q = joins(:activity_submissions).where(activity_submissions: { activity: activity })
+      q = q.where(activity_submissions: { finalized: true }) if activity.evaluates_code?
+      q
     end
   }
 
@@ -72,12 +77,15 @@ class User < ActiveRecord::Base
     update! deactivated_at: Time.now
   end
 
+  def reactivate!
+    update! deactivated_at: nil
+  end
+
   def deactivated?
     self.deactivated_at?
   end
-
-  def reactivate!
-    update! deactivated_at: nil
+  def active?
+    !deactivated? && completed_registration?
   end
 
   def unlocked?(day)
@@ -133,18 +141,19 @@ class User < ActiveRecord::Base
 
   # 1
   def code_reviewed_activities
+    # intentionally including archived ones (for past students)
     Activity.where(id: completed_code_reviews.select(:activity_id))
   end
 
   # 2
   def submitted_but_not_reviewed_activities
-    unreviewed_submissions = self.activity_submissions.with_github_url.where.not(activity_id: completed_code_reviews.select(:activity_id))
-    Activity.where(id: unreviewed_submissions.select(:activity_id))
+    unreviewed_submissions = self.activity_submissions.proper.where.not(activity_id: completed_code_reviews.select(:activity_id))
+    Activity.bootcamp.rerverse_chronological_for_day.where(id: unreviewed_submissions.select(:activity_id))
   end
 
   # 3
   def unsubmitted_activities_before(day)
-    Activity.active.where(allow_submissions: true).where("day <= ?", day.to_s).order(day: :desc).where.not(id: self.activity_submissions.select(:activity_id))
+    Activity.active.countable_as_submission.where("day <= ?", day.to_s).rerverse_chronological_for_day.where.not(id: self.activity_submissions.proper.select(:activity_id))
   end
 
   def visible_bootcamp_activities

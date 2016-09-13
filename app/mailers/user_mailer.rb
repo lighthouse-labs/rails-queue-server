@@ -21,9 +21,30 @@ class UserMailer < ActionMailer::Base
     end
     student = code_review.assistee
     @reviewer = code_review.assistor
-    mail  subject: "Notes from your code review with #{@reviewer.full_name} on #{code_review.created_at.to_date} ",
+
+    feedback_email  = student.cohort.location.feedback_email
+
+    mail  subject: "Lighthouse Labs Code Review: #{student.full_name}",
           to: student.email,
-          cc: @reviewer.email
+          reply_to: @reviewer.email,
+          cc: @reviewer.email,
+          bcc: feedback_email
+  end
+
+  def new_tech_interview_message(tech_interview)
+    @tech_interview = tech_interview
+    @interviewer    = tech_interview.interviewer
+    @interviewee    = tech_interview.interviewee
+
+    feedback_email  = @interviewee.cohort.location.feedback_email
+
+
+    mail  subject: "Lighthouse Labs Week #{@tech_interview.week} Tech Interview: #{student.full_name}",
+          to: @interviewee.email,
+          reply_to: @interviewer.email,
+          cc: @reviewer.email,
+          bcc: feedback_email
+
   end
 
 end

@@ -1,4 +1,4 @@
-class Assistance < ActiveRecord::Base
+class Assistance < ApplicationRecord
 
   belongs_to :assistor, :class_name => User
   belongs_to :assistee, :class_name => User

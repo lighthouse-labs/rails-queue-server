@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824030909) do
+ActiveRecord::Schema.define(version: 20160905180439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,13 +46,12 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.boolean  "archived"
     t.float    "average_rating"
     t.integer  "average_time_spent"
+    t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
+    t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
+    t.index ["sequence"], name: "index_activities_on_sequence", using: :btree
+    t.index ["start_time"], name: "index_activities_on_start_time", using: :btree
+    t.index ["uuid"], name: "index_activities_on_uuid", unique: true, using: :btree
   end
-
-  add_index "activities", ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
-  add_index "activities", ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
-  add_index "activities", ["sequence"], name: "index_activities_on_sequence", using: :btree
-  add_index "activities", ["start_time"], name: "index_activities_on_start_time", using: :btree
-  add_index "activities", ["uuid"], name: "index_activities_on_uuid", unique: true, using: :btree
 
   create_table "activity_feedbacks", force: :cascade do |t|
     t.integer  "activity_id"
@@ -63,10 +61,9 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.text     "detail"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["activity_id"], name: "index_activity_feedbacks_on_activity_id", using: :btree
+    t.index ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
   end
-
-  add_index "activity_feedbacks", ["activity_id"], name: "index_activity_feedbacks_on_activity_id", using: :btree
-  add_index "activity_feedbacks", ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
 
   create_table "activity_messages", force: :cascade do |t|
     t.integer  "user_id"
@@ -80,12 +77,11 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.boolean  "for_students"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["activity_id"], name: "index_activity_messages_on_activity_id", using: :btree
+    t.index ["cohort_id"], name: "index_activity_messages_on_cohort_id", using: :btree
+    t.index ["day"], name: "index_activity_messages_on_day", using: :btree
+    t.index ["user_id"], name: "index_activity_messages_on_user_id", using: :btree
   end
-
-  add_index "activity_messages", ["activity_id"], name: "index_activity_messages_on_activity_id", using: :btree
-  add_index "activity_messages", ["cohort_id"], name: "index_activity_messages_on_cohort_id", using: :btree
-  add_index "activity_messages", ["day"], name: "index_activity_messages_on_day", using: :btree
-  add_index "activity_messages", ["user_id"], name: "index_activity_messages_on_user_id", using: :btree
 
   create_table "activity_submissions", force: :cascade do |t|
     t.integer  "user_id"
@@ -98,10 +94,9 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.text     "code_evaluation_results"
     t.integer  "time_spent"
     t.text     "note"
+    t.index ["activity_id"], name: "index_activity_submissions_on_activity_id", using: :btree
+    t.index ["user_id"], name: "index_activity_submissions_on_user_id", using: :btree
   end
-
-  add_index "activity_submissions", ["activity_id"], name: "index_activity_submissions_on_activity_id", using: :btree
-  add_index "activity_submissions", ["user_id"], name: "index_activity_submissions_on_user_id", using: :btree
 
   create_table "activity_tests", force: :cascade do |t|
     t.text    "test"
@@ -114,10 +109,9 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.datetime "updated_at",         null: false
     t.integer  "option_id"
     t.integer  "quiz_submission_id"
+    t.index ["option_id"], name: "index_answers_on_option_id", using: :btree
+    t.index ["quiz_submission_id"], name: "index_answers_on_quiz_submission_id", using: :btree
   end
-
-  add_index "answers", ["option_id"], name: "index_answers_on_option_id", using: :btree
-  add_index "answers", ["quiz_submission_id"], name: "index_answers_on_quiz_submission_id", using: :btree
 
   create_table "assistance_requests", force: :cascade do |t|
     t.integer  "requestor_id"
@@ -134,10 +128,9 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.text     "reason"
     t.integer  "activity_id"
     t.integer  "original_activity_submission_id"
+    t.index ["activity_id"], name: "index_assistance_requests_on_activity_id", using: :btree
+    t.index ["activity_submission_id"], name: "index_assistance_requests_on_activity_submission_id", using: :btree
   end
-
-  add_index "assistance_requests", ["activity_id"], name: "index_assistance_requests_on_activity_id", using: :btree
-  add_index "assistance_requests", ["activity_submission_id"], name: "index_assistance_requests_on_activity_submission_id", using: :btree
 
   create_table "assistances", force: :cascade do |t|
     t.integer  "assistor_id"
@@ -151,18 +144,16 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.text     "student_notes"
     t.boolean  "imported",      default: false
     t.integer  "activity_id"
+    t.index ["activity_id"], name: "index_assistances_on_activity_id", using: :btree
   end
-
-  add_index "assistances", ["activity_id"], name: "index_assistances_on_activity_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "uuid"
+    t.index ["uuid"], name: "index_categories_on_uuid", unique: true, using: :btree
   end
-
-  add_index "categories", ["uuid"], name: "index_categories_on_uuid", unique: true, using: :btree
 
   create_table "code_reviews", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -178,21 +169,9 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.string   "teacher_email_group"
     t.integer  "program_id"
     t.integer  "location_id"
+    t.boolean  "limited"
+    t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
   end
-
-  add_index "cohorts", ["program_id"], name: "index_cohorts_on_program_id", using: :btree
-
-  create_table "comments", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "commentable_id"
-    t.string   "commentable_type", limit: 255
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "content_repositories", force: :cascade do |t|
     t.string   "github_username"
@@ -233,9 +212,8 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.datetime "updated_at",                                null: false
     t.text     "error_message"
     t.string   "branch"
+    t.index ["content_repository_id"], name: "index_deployments_on_content_repository_id", using: :btree
   end
-
-  add_index "deployments", ["content_repository_id"], name: "index_deployments_on_content_repository_id", using: :btree
 
   create_table "evaluation_transitions", force: :cascade do |t|
     t.string   "to_state",                     null: false
@@ -245,10 +223,9 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.boolean  "most_recent",                  null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.index ["evaluation_id", "most_recent"], name: "index_evaluation_transitions_parent_most_recent", unique: true, where: "most_recent", using: :btree
+    t.index ["evaluation_id", "sort_key"], name: "index_evaluation_transitions_parent_sort", unique: true, using: :btree
   end
-
-  add_index "evaluation_transitions", ["evaluation_id", "most_recent"], name: "index_evaluation_transitions_parent_most_recent", unique: true, where: "most_recent", using: :btree
-  add_index "evaluation_transitions", ["evaluation_id", "sort_key"], name: "index_evaluation_transitions_parent_sort", unique: true, using: :btree
 
   create_table "evaluations", force: :cascade do |t|
     t.integer  "project_id"
@@ -284,9 +261,8 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.integer  "outcome_id"
     t.string   "item_type"
     t.integer  "item_id"
+    t.index ["item_id"], name: "index_item_outcomes_on_item_id", using: :btree
   end
-
-  add_index "item_outcomes", ["item_id"], name: "index_item_outcomes_on_item_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
@@ -294,7 +270,11 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.datetime "updated_at"
     t.string   "calendar"
     t.string   "timezone"
-    t.boolean  "has_code_reviews", default: true
+    t.boolean  "has_code_reviews",         default: true
+    t.boolean  "satellite"
+    t.integer  "supported_by_location_id"
+    t.string   "feedback_email"
+    t.index ["supported_by_location_id"], name: "index_locations_on_supported_by_location_id", using: :btree
   end
 
   create_table "options", force: :cascade do |t|
@@ -304,9 +284,8 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "question_id"
+    t.index ["question_id"], name: "index_options_on_question_id", using: :btree
   end
-
-  add_index "options", ["question_id"], name: "index_options_on_question_id", using: :btree
 
   create_table "outcome_results", force: :cascade do |t|
     t.integer  "user_id"
@@ -317,11 +296,10 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.float    "rating"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["outcome_id"], name: "index_outcome_results_on_outcome_id", using: :btree
+    t.index ["source_type", "source_id"], name: "index_outcome_results_on_source_type_and_source_id", using: :btree
+    t.index ["user_id"], name: "index_outcome_results_on_user_id", using: :btree
   end
-
-  add_index "outcome_results", ["outcome_id"], name: "index_outcome_results_on_outcome_id", using: :btree
-  add_index "outcome_results", ["source_type", "source_id"], name: "index_outcome_results_on_source_type_and_source_id", using: :btree
-  add_index "outcome_results", ["user_id"], name: "index_outcome_results_on_user_id", using: :btree
 
   create_table "outcome_skills", force: :cascade do |t|
     t.integer "outcome_id"
@@ -336,20 +314,18 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.string   "uuid"
     t.string   "taxonomy"
     t.string   "importance"
+    t.index ["skill_id"], name: "index_outcomes_on_skill_id", using: :btree
+    t.index ["uuid"], name: "index_outcomes_on_uuid", unique: true, using: :btree
   end
-
-  add_index "outcomes", ["skill_id"], name: "index_outcomes_on_skill_id", using: :btree
-  add_index "outcomes", ["uuid"], name: "index_outcomes_on_uuid", unique: true, using: :btree
 
   create_table "prep_assistance_requests", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "user_id"
     t.integer  "activity_id"
+    t.index ["activity_id"], name: "index_prep_assistance_requests_on_activity_id", using: :btree
+    t.index ["user_id"], name: "index_prep_assistance_requests_on_user_id", using: :btree
   end
-
-  add_index "prep_assistance_requests", ["activity_id"], name: "index_prep_assistance_requests_on_activity_id", using: :btree
-  add_index "prep_assistance_requests", ["user_id"], name: "index_prep_assistance_requests_on_user_id", using: :btree
 
   create_table "programs", force: :cascade do |t|
     t.string   "name"
@@ -369,18 +345,16 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.datetime "updated_at",         null: false
     t.integer  "outcome_id"
     t.string   "uuid"
+    t.index ["outcome_id"], name: "index_questions_on_outcome_id", using: :btree
+    t.index ["uuid"], name: "index_questions_on_uuid", unique: true, using: :btree
   end
-
-  add_index "questions", ["outcome_id"], name: "index_questions_on_outcome_id", using: :btree
-  add_index "questions", ["uuid"], name: "index_questions_on_uuid", unique: true, using: :btree
 
   create_table "questions_quizzes", id: false, force: :cascade do |t|
     t.integer "question_id"
     t.integer "quiz_id"
+    t.index ["question_id"], name: "index_questions_quizzes_on_question_id", using: :btree
+    t.index ["quiz_id"], name: "index_questions_quizzes_on_quiz_id", using: :btree
   end
-
-  add_index "questions_quizzes", ["question_id"], name: "index_questions_quizzes_on_question_id", using: :btree
-  add_index "questions_quizzes", ["quiz_id"], name: "index_questions_quizzes_on_quiz_id", using: :btree
 
   create_table "quiz_submissions", force: :cascade do |t|
     t.string   "uuid"
@@ -393,10 +367,9 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.integer  "correct"
     t.integer  "incorrect"
     t.integer  "skipped"
+    t.index ["quiz_id"], name: "index_quiz_submissions_on_quiz_id", using: :btree
+    t.index ["user_id"], name: "index_quiz_submissions_on_user_id", using: :btree
   end
-
-  add_index "quiz_submissions", ["quiz_id"], name: "index_quiz_submissions_on_quiz_id", using: :btree
-  add_index "quiz_submissions", ["user_id"], name: "index_quiz_submissions_on_user_id", using: :btree
 
   create_table "quizzes", force: :cascade do |t|
     t.string   "day"
@@ -434,10 +407,9 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.text     "blurb"
     t.string   "end_day"
     t.string   "image"
+    t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
+    t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end
-
-  add_index "sections", ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
-  add_index "sections", ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
 
   create_table "skills", force: :cascade do |t|
     t.string   "name"
@@ -445,10 +417,9 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.datetime "updated_at",  null: false
     t.integer  "category_id"
     t.string   "uuid"
+    t.index ["category_id"], name: "index_skills_on_category_id", using: :btree
+    t.index ["uuid"], name: "index_skills_on_uuid", unique: true, using: :btree
   end
-
-  add_index "skills", ["category_id"], name: "index_skills_on_category_id", using: :btree
-  add_index "skills", ["uuid"], name: "index_skills_on_uuid", unique: true, using: :btree
 
   create_table "streams", force: :cascade do |t|
     t.string   "title"
@@ -458,16 +429,80 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.datetime "updated_at"
   end
 
+  create_table "tech_interview_questions", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "tech_interview_template_id"
+    t.integer  "outcome_id"
+    t.integer  "sequence"
+    t.text     "question"
+    t.text     "answer"
+    t.text     "notes"
+    t.integer  "duration"
+    t.boolean  "stretch"
+    t.boolean  "archived"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["outcome_id"], name: "index_tech_interview_questions_on_outcome_id", using: :btree
+    t.index ["tech_interview_template_id"], name: "index_tech_interview_questions_on_tech_interview_template_id", using: :btree
+  end
+
+  create_table "tech_interview_results", force: :cascade do |t|
+    t.integer  "tech_interview_id"
+    t.integer  "tech_interview_question_id"
+    t.text     "question"
+    t.text     "notes"
+    t.integer  "score"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "sequence"
+    t.index ["tech_interview_id"], name: "index_tech_interview_results_on_tech_interview_id", using: :btree
+    t.index ["tech_interview_question_id"], name: "index_tech_interview_results_on_tech_interview_question_id", using: :btree
+  end
+
+  create_table "tech_interview_templates", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "week"
+    t.string   "content_file_path"
+    t.integer  "content_repository_id"
+    t.text     "description"
+    t.text     "teacher_notes"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["content_repository_id"], name: "index_tech_interview_templates_on_content_repository_id", using: :btree
+  end
+
+  create_table "tech_interviews", force: :cascade do |t|
+    t.integer  "tech_interview_template_id"
+    t.integer  "interviewee_id"
+    t.integer  "interviewer_id"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.integer  "total_answered"
+    t.integer  "total_asked"
+    t.float    "average_score"
+    t.text     "feedback"
+    t.text     "internal_notes"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "day"
+    t.integer  "articulation_score"
+    t.integer  "knowledge_score"
+    t.integer  "cohort_id"
+    t.index ["cohort_id"], name: "index_tech_interviews_on_cohort_id", using: :btree
+    t.index ["interviewee_id"], name: "index_tech_interviews_on_interviewee_id", using: :btree
+    t.index ["interviewer_id"], name: "index_tech_interviews_on_interviewer_id", using: :btree
+    t.index ["tech_interview_template_id"], name: "index_tech_interviews_on_tech_interview_template_id", using: :btree
+  end
+
   create_table "user_activity_outcomes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "activity_outcome_id"
     t.float    "rating"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.index ["activity_outcome_id"], name: "index_user_activity_outcomes_on_activity_outcome_id", using: :btree
+    t.index ["user_id"], name: "index_user_activity_outcomes_on_user_id", using: :btree
   end
-
-  add_index "user_activity_outcomes", ["activity_outcome_id"], name: "index_user_activity_outcomes_on_activity_outcome_id", using: :btree
-  add_index "user_activity_outcomes", ["user_id"], name: "index_user_activity_outcomes_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
@@ -502,9 +537,8 @@ ActiveRecord::Schema.define(version: 20160824030909) do
     t.boolean  "on_duty",                default: false
     t.integer  "mentor_id"
     t.boolean  "mentor",                 default: false
+    t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
   end
-
-  add_index "users", ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
 
   add_foreign_key "activities", "quizzes"
   add_foreign_key "activity_feedbacks", "activities"
@@ -520,6 +554,12 @@ ActiveRecord::Schema.define(version: 20160824030909) do
   add_foreign_key "questions", "outcomes"
   add_foreign_key "quiz_submissions", "quizzes"
   add_foreign_key "sections", "content_repositories"
+  add_foreign_key "tech_interview_questions", "outcomes"
+  add_foreign_key "tech_interview_questions", "tech_interview_templates"
+  add_foreign_key "tech_interview_results", "tech_interview_questions"
+  add_foreign_key "tech_interview_results", "tech_interviews"
+  add_foreign_key "tech_interviews", "cohorts"
+  add_foreign_key "tech_interviews", "tech_interview_templates"
   add_foreign_key "user_activity_outcomes", "item_outcomes", column: "activity_outcome_id"
   add_foreign_key "user_activity_outcomes", "users"
 end

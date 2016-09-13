@@ -8,14 +8,14 @@ class ActivityMessagesController < ApplicationController
 
   def new
     @message = @activity.messages.new(
-      cohort: @cohort, 
+      cohort: @cohort,
       kind: ActivityMessage::KINDS.first,
       for_students: true
     )
   end
 
   def edit
-    
+
   end
 
   def create
@@ -25,8 +25,7 @@ class ActivityMessagesController < ApplicationController
     }))
     @message.body << "\n" + day_activity_url(@activity.day, @activity)
     if @message.save
-      notice = "Message Created."
-      notice << " Students notified" if @message.for_students?
+      notice = "Message Created. Students notified via e-mail."
       redirect_to day_activity_path(@activity.day, @activity), notice: notice
     else
       @message.body.gsub!("\n#{day_activity_url(@activity.day, @activity)}", "")
@@ -35,10 +34,9 @@ class ActivityMessagesController < ApplicationController
   end
 
   def update
-    
+
     if @message.update(message_params)
-      notice = 'Message Updated.' 
-      notice << ' E-mails do not get resent!' if @message.for_students? 
+      notice = 'Message Updated. Note: Student e-mails are not resent.'
       redirect_to day_activity_path(@activity.day, @activity), notice: notice
     else
       render :new
@@ -57,9 +55,9 @@ class ActivityMessagesController < ApplicationController
 
   def message_params
     params.require(:activity_message).permit(
-      :subject, 
-      :kind, 
-      :cohort_id, 
+      :subject,
+      :kind,
+      :cohort_id,
       :subject,
       :body,
       :teacher_notes,

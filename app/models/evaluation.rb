@@ -1,4 +1,5 @@
-class Evaluation < ActiveRecord::Base
+class Evaluation < ApplicationRecord
+
   include Statesman::Adapters::ActiveRecordQueries
 
   belongs_to :project

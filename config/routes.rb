@@ -11,6 +11,18 @@ LaserShark::Application.routes.draw do
     end
   end
 
+  resources :tech_interview_templates, only: [:index, :show] do
+    resources :interviews, controller: 'tech_interviews', only: [:new, :create]
+  end
+  resources :tech_interviews, only: [:show, :edit, :update] do
+    member do
+      get :confirm
+      patch :complete
+      patch :start
+      patch :stop
+    end
+  end
+
   resources :questions
 
   resources :quiz_submissions, only: [:show]
@@ -21,8 +33,6 @@ LaserShark::Application.routes.draw do
     get 'link_question', to: 'quizzes#link_question', as: 'link_question'
     delete 'remove_question/:question_id', to: 'quizzes#remove_question', as: 'remove_question'
   end
-
-  match "/websocket", :to => ActionCable.server, via: [:get, :post]
 
   get '/i/:code', to: 'invitations#show' # student/teacher invitation handler
   # get 'prep'  => 'setup#show' # temporary
@@ -98,10 +108,10 @@ LaserShark::Application.routes.draw do
 
   resources :cohorts, only: [] do
     resources :students, only: [:index]    # cohort_students_path(@cohort)
-    resources :code_reviews
-
     put :switch_to, on: :member
   end
+
+  resources :code_reviews, only: [:index, :show, :new, :create]
 
   resources :recordings
 

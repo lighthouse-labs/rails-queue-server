@@ -1,0 +1,40 @@
+// Place all the styles related to the tech_interviews controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.tech-interview-show {
+
+  .panel-heading {
+    .label {
+      float: right;
+    }
+  }
+
+}
+
+body.tech-interview-on {
+  .hide-for-student {
+    transition: all 0.3s ease-in-out;
+    &.active {
+      opacity: 0.04;
+    }
+  }
+
+  .well.actions.affix {
+    top: 65px;
+    z-index: 100;
+    right: 10px;
+  }
+
+  .actions-container {
+    min-height: 81px;
+  }
+}
+
+#tech_interview_feedback {
+  height: 300px;
+}
+
+#tech_interview_internal_notes {
+  height: 300px;
+}

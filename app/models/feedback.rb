@@ -1,4 +1,4 @@
-class Feedback < ActiveRecord::Base
+class Feedback < ApplicationRecord
 
   belongs_to :feedbackable, polymorphic: true
   belongs_to :activity, -> { where(feedbacks: {feedbackable_type: 'Activity'}) }, foreign_key: 'feedbackable_id'

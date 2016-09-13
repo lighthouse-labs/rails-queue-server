@@ -1,0 +1,22 @@
+h3 Teacher Notes
+
+== markdown(@interview_template.teacher_notes.to_s)
+
+
+ul.nav.nav-tabs role="tablist"
+  li role="presentation" class="active"
+    a href="#questions" aria-controls="questions" role="tab" data-toggle="tab"
+      | Questions
+  li role="presentation"
+    a href="#students"  aria-controls="students" role="tab" data-toggle="tab"
+      | Students
+
+.tab-content
+
+  #questions.tab-pane role="tabpanel" class="active"
+    h3 Questions
+    == render 'questions'
+
+  #students.tab-pane role="tabpanel"
+    h3 Students
+    == render 'students'

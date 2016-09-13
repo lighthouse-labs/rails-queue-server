@@ -27,21 +27,10 @@ body.admin-cohorts-show {
         opacity: 1.0;
       }
 
-      td.details {
-        img {
-          width: 60px;
-          float: left;
-          margin-right: 8px;
-          border-radius: 5px;
-        }
-        .email {
-          font-size: 0.8em;
-        }
-      }
-
       .progress {
         margin-top: 8px;
         margin-bottom: 8px;
+        border: 1px solid black;
       }
 
       a.tech-interview, a.code-review {

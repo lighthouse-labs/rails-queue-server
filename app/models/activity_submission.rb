@@ -1,7 +1,7 @@
-class ActivitySubmission < ActiveRecord::Base
+class ActivitySubmission < ApplicationRecord
 
   # => For submissions on activities that have evaluates_code=true
-  serialize :code_evaluation_results
+  # serialize :code_evaluation_results
 
   belongs_to :user
   belongs_to :activity
@@ -57,6 +57,9 @@ class ActivitySubmission < ActiveRecord::Base
     joins(:activity).where(activities: { stretch: true })
   }
 
+  scope :for_day, -> (day) {
+    joins(:activity).where("activities.day = ?", day.to_s)
+  }
   scope :until_day, -> (day) {
     joins(:activity).where("activities.day <= ?", day.to_s)
   }
@@ -67,6 +70,12 @@ class ActivitySubmission < ActiveRecord::Base
     #  `where(activity_id: Activity.bootcamp.select(:id))`
     where(activity_id: Activity.bootcamp.pluck(:id))
   }
+
+  def eval_results
+    if self.code_evaluation_results?
+      YAML.load self.code_evaluation_results.sub('--- !ruby/hash:ActionController::Parameters', '---')
+    end
+  end
 
   def code_reviewed?
     # NOTE when I transposed this relationship the :code_review_request was disassociated
@@ -91,9 +100,9 @@ class ActivitySubmission < ActiveRecord::Base
 
   def formatted_code_evaluation_results
     {
-      lint_results: self.code_evaluation_results["lintResults"],
-      test_failures: self.code_evaluation_results["testFailures"],
-      test_passes: self.code_evaluation_results["testPasses"]
+      lint_results: self.eval_results["lintResults"],
+      test_failures: self.eval_results["testFailures"],
+      test_passes: self.eval_results["testPasses"]
     }
   end
 

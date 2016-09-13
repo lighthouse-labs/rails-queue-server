@@ -1,7 +1,11 @@
  ul.list-group
   - prep.activities.chronological.active.each do |activity|
-    li class="list-group-item #{@activity && @activity.eql?(activity) ? 'selected' : ''}"
+    li class="list-group-item #{@activity && @activity.eql?(activity) ? 'selected' : ''} #{'stretch' if activity.stretch?}"
+      i class=(icon_for(activity)) title=activity_type(activity)
       = link_to prep_activity_path(prep, activity) do
-        i class=(icon_for(activity))
         = " #{activity.name}"
-      = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)
+        - if activity.stretch?
+          i.fa.fa-rocket data-toggle='tooltip' title='Stretch'
+
+      - if current_user.completed_activity?(activity)
+        i.fa.fa-check data-toggle='tooltip' title='Completed :)'

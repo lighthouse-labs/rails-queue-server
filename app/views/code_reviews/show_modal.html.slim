@@ -10,7 +10,7 @@
 .modal-body
   .row
     .container-teacher.col-md-2
-      img src="#{@code_review.assistor.avatar_url}" class='teacher-avatar'
+      img src="#{avatar_for(@code_review.assistor)}" class='teacher-avatar'
 
     .col-md-10.activity-holder
       - if @code_review.try(:assistance_request) && @code_review.try(:assistance_request).try(:activity_submission)

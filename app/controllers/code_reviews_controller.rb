@@ -2,11 +2,10 @@ class CodeReviewsController < ApplicationController
   include CourseCalendar
 
   before_filter :teacher_required
-  before_action :load_cohort
+  before_action :load_cohorts
   # before_filter :load_student
 
   def index
-    @students = @cohort.students
   end
 
   def show
@@ -15,13 +14,13 @@ class CodeReviewsController < ApplicationController
   end
 
   def new
-    @student = @cohort.students.find params[:student_id]
+    @student = Student.active.find params[:student_id]
     @assistance = Assistance.new(assistor: current_user, assistee: @student)
 
     @activities = {
-      'Submitted'     => @student.submitted_but_not_reviewed_activities.pluck(:name, :id),
-      'Not Submitted' => @student.unsubmitted_activities_before(today).pluck(:name, :id),
-      'Reviewed'      => @student.code_reviewed_activities.pluck(:name, :id)
+      'Submitted'     => @student.submitted_but_not_reviewed_activities,
+      'Not Submitted' => @student.unsubmitted_activities_before(today),
+      'Reviewed'      => @student.code_reviewed_activities
     }
 
     render :new_modal, layout: false
@@ -47,8 +46,21 @@ class CodeReviewsController < ApplicationController
     redirect_to(:root, alert: 'Not allowed') unless teacher?
   end
 
-  def load_cohort
-    @cohort = Cohort.find params[:cohort_id]
+  def load_cohorts
+    # branch mentors see their respective satellite locations' CRs too!
+    # for satellite mentors, use their parent (branch) location
+    location = current_user.location
+    if branch_location = current_user.location.supported_by_location
+      location = branch_location
+    end
+
+    @cohorts = Cohort.is_active.chronological.where(location: location)
+    if params[:cohort_id].present?
+      cohort = Cohort.find params[:cohort_id]
+      @cohorts.push cohort
+    end
+    @cohorts = @cohorts.uniq
+    @cohorts
   end
 
   def load_student

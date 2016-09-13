@@ -48,6 +48,8 @@ var RequestQueue = React.createClass({
       codeReviews: [],
       activeEvaluations: [],
       evaluations: [],
+      activeTechInterviews: [],
+      techInterviews: [],
       students: [],
       hasNotification: ("Notification" in window),
       canNotify: false,
@@ -67,6 +69,8 @@ var RequestQueue = React.createClass({
       codeReviews: response.code_reviews,
       activeEvaluations: response.active_evaluations,
       evaluations: response.evaluations,
+      activeTechInterviews: response.active_tech_interviews,
+      techInterviews: response.tech_interviews,
       students: response.all_students
     });
   },
@@ -128,6 +132,16 @@ var RequestQueue = React.createClass({
             break;
           case "EvaluationRequest":
             that.handleEvaluationRequest(data.object)
+            break;
+          case "NewTechInterview":
+            that.handleTechInterviewRequest(data.object)
+            break;
+          case "TechInterviewStopped":
+            that.handleTechInterviewRequest(data.object)
+            that.removeFromActiveTechInterviews(data.object)
+            break;
+          case "TechInterviewStarted":
+            that.removeFromTechInterviews(data.object)
             break;
           case "StartMarking":
             that.removeFromQueue(data.object);
@@ -260,6 +274,32 @@ var RequestQueue = React.createClass({
     }
   },
 
+  removeFromTechInterviews: function(interview){
+    var interviews = this.state.techInterviews;
+    var ids = interviews.map(function(e){
+      return e.id;
+    });
+
+    var ind = ids.indexOf(interview.id);
+    if(ind > -1){
+      interviews.splice(ind, 1);
+      this.setState({techInterviews: interviews});
+    }
+  },
+
+  removeFromActiveTechInterviews: function(interview){
+    var interviews = this.state.activeTechInterviews;
+    var ids = interviews.map(function(e){
+      return e.id;
+    });
+
+    var ind = ids.indexOf(interview.id);
+    if(ind > -1) {
+      interviews.splice(ind, 1);
+      this.setState({activeTechInterviews: interviews});
+    }
+  },
+
   inLocation: function(assistanceRequest) {
     return assistanceRequest.requestor.cohort.location.id === this.state.location.id;
   },
@@ -325,6 +365,12 @@ var RequestQueue = React.createClass({
     this.setState({evaluations: evaluations})
   },
 
+  handleTechInterviewRequest: function(interview){
+    var techInterviews = this.state.techInterviews;
+    techInterviews.push(interview)
+    this.setState({techInterviews: techInterviews})
+  },
+
   render: function() {
     return(
       <div>
@@ -335,6 +381,8 @@ var RequestQueue = React.createClass({
           codeReviews={this.state.codeReviews}
           activeEvaluations={this.state.activeEvaluations}
           evaluations={this.state.evaluations}
+          activeTechInterviews={this.state.activeTechInterviews}
+          techInterviews={this.state.techInterviews}
           students={this.state.students}
           location={this.state.location} />
       </div>

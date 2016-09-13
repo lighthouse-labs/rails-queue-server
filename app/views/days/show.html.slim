@@ -34,7 +34,7 @@
   - if @project.start_day == day.to_s
     h3 You're starting a new #{'(single-day)' if @project.end_day == day.to_s} project today!
   - elsif @project.end_day == day.to_s
-    h3 You are hopefully wrapping up with the following project!
+    h3 You should be wrapping up with this project:
   - else
     h3 You're continue to build out this project:
   = render @project
@@ -43,7 +43,7 @@
   h3 Work Activities
   = render partial: 'activities/activity', collection: work_activities
 
-- if current_user.location && ENV['GOOGLE_API_KEY']
+- if ENV['GOOGLE_API_KEY'] && current_user.location.try(:calendar?)
   hr
   h1 id="events-header"
     | Events

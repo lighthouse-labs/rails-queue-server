@@ -1,30 +1,30 @@
 # Set the location for the images used in Raty Star plugin
 
+window.bindRatyElements = =>
+  # Make viewer raty divs
+  $('div.raty-viewer').raty
+    readOnly: true,
+    hints: ['Terrible', 'Bad', 'OK', 'Good', 'Awesome'],
+    starOn: "<%= asset_path('duck-on-small.png') %>",
+    starOff: "<%= asset_path('duck-off-small.png') %>",
+    starHalf: "<%= asset_path('duck-half-small.png') %>",
+    half        : true,
+    halfShow    : true,
+    score: ->
+      $(@).data('score')
+
 $ ->
 
   bindValidation = ->
-    $('#feedback-modal-submit-button').on 'click', (event) ->
+    $(document).on 'click', '#feedback-modal-submit-button', (event) ->
       rating = $('#modal-average-rating').val()
-      
+
       unless rating
-        event.preventDefault()        
-      
+        event.preventDefault()
+
         error_message = $('<strong id="error_message">**Please provide a rating**</strong><br>')
         error_message.css('color', 'tomato')
         error_message.prependTo '.modal-body'
-
-  bindRatyElements = =>
-    # Make viewer raty divs
-    $('div.raty-viewer').raty
-      readOnly: true,
-      hints: ['Terrible', 'Bad', 'OK', 'Good', 'Awesome'],
-      starOn: "<%= asset_path('duck-on-small.png') %>",
-      starOff: "<%= asset_path('duck-off-small.png') %>",
-      starHalf: "<%= asset_path('duck-half-small.png') %>",
-      half        : true,
-      halfShow    : true,
-      score: ->
-        $(@).data('score')
 
     # Make editable raty divs
     $('div.raty-editor').raty
@@ -38,8 +38,8 @@ $ ->
         $(@).data('score')
       click: (score, evt) ->
         $(this).find('input').attr('value', score)
-      
-  $('#feedback_modal').on 'show.bs.modal', (event) ->
+
+  $(document).on 'show.bs.modal', '#feedback_modal', (event) ->
     button = $(event.relatedTarget)
     feedback_id = button.data('feedback-id')
     modal = $(this)
@@ -51,7 +51,7 @@ $ ->
         bindRatyElements()
         bindValidation()
 
-  $('#teacher_feedback_modal').on 'show.bs.modal', (event) ->
+  $(document).on 'show.bs.modal', '#teacher_feedback_modal', (event) ->
     button = $(event.relatedTarget)
     teacher_id = button.data('teacher-id')
     modal = $(this)
@@ -64,13 +64,9 @@ $ ->
         bindValidation()
 
 
-  $('#feedback_modal').on 'hidden.bs.modal', (event) ->
+  $(document).on 'hidden.bs.modal', '#feedback_modal', (event) ->
     $(this).find('form')[0].reset()
 
+$(document).on 'turbolinks:load', ->
   # Draw all Raty stars on the page when it loads
   bindRatyElements()
-
-  
-
-
-  

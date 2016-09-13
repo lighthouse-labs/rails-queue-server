@@ -1,4 +1,4 @@
-class DayFeedback < ActiveRecord::Base
+class DayFeedback < ApplicationRecord
 
   belongs_to :student, foreign_key: :user_id
 
