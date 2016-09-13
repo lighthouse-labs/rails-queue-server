@@ -38,7 +38,11 @@ class EvaluationsController < ApplicationController
   end
 
   def update
-    result = CompleteEvaluation.call(evaluation_form: params[:evaluation_form], evaluation: @evaluation)
+    result = CompleteEvaluation.call(
+      evaluation_form: params[:evaluation_form],
+      evaluation: @evaluation,
+      decision: params[:commit]
+    )
     if result.success?
       redirect_to [@project, @evaluation], notice: "Evaluation successfully marked."
     else

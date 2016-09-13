@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160912024722) do
+ActiveRecord::Schema.define(version: 20160913225317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -240,6 +240,8 @@ ActiveRecord::Schema.define(version: 20160912024722) do
     t.datetime "completed_at"
     t.text     "student_notes"
     t.datetime "cancelled_at"
+    t.integer  "cohort_id"
+    t.index ["cohort_id"], name: "index_evaluations_on_cohort_id", using: :btree
   end
 
   create_table "feedbacks", force: :cascade do |t|

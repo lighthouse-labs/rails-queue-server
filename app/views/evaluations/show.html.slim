@@ -20,12 +20,7 @@ h3 Project Details
 
 == render @project
 
-.panel.panel-default
-  .panel-heading Outcomes
-  .panel-body.list-group
-      - @evaluation.project.activities.active.chronological.each do |activity|
-        - activity.outcomes.each do |outcome|
-          li.list-group-item = outcome.text
+== render 'projects/outcomes', project: @evaluation.project
 
 .panel.panel-default
   .panel-heading Student Notes

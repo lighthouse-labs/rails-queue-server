@@ -5,6 +5,7 @@ class Evaluation < ApplicationRecord
   belongs_to :project
   belongs_to :student
   belongs_to :teacher
+  belongs_to :cohort # multiple cohorts per student sometimes
 
   has_many :evaluation_transitions, autosave: false
 

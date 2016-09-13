@@ -8,26 +8,33 @@
       .panel-body
         dl.dl-horizontal
 
-          dt CODE
+          dt Student
+          dd
+            .student-info
+              = render 'shared/student_info', student: @evaluation.student
+
+          dt Code
           dd
             = link_to @evaluation.github_url, target: '_blank' do
               i.fa.fa-github
               | &nbsp;
               = shortened_github_url(@evaluation.github_url)
 
-          dt STATUS
+          dt Status
           dd
-            span.label.label-info.label-md = @evaluation.status
+            - if @evaluation.in_state?(:rejected)
+              span.label.label-danger.label-md = @evaluation.status
+            - else
+              span.label.label-info.label-md = @evaluation.status
 
           dt Project
           dd = link_to @project.name, @project
 
-          dt Student
-          dd = link_to @evaluation.student.full_name, @evaluation.student
 
           - if @evaluation.teacher
             dt Evaluator
-            dd = @evaluation.teacher.full_name
+            dd
+              = link_to @evaluation.teacher.full_name, @evaluation.teacher
 
           dt Cohort
           dd = link_to @evaluation.student.cohort.name, cohort_students_path(@evaluation.student.cohort)
@@ -37,6 +44,12 @@
             = @evaluation.created_at.to_s(:short_friendly)
             = " (#{time_ago_in_words(@evaluation.created_at)} ago)"
 
-          dt Student Notes
-          dd
-            = simple_format @evaluation.student_notes
+.row
+  .col-sm-12
+
+    .panel.panel-default.evals
+      .panel-heading
+        h3.panel-title Student Notes
+
+      .panel-body
+        = simple_format @evaluation.student_notes
