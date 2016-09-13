@@ -16,7 +16,7 @@ class UserMailer < ActionMailer::Base
     @message = code_review.student_notes
 
     if assistance_request = code_review.assistance_request
-      @activity_name = assistance_request.activity.name
+      @activity_name = assistance_request.activity.try :name
       @submission_url = assistance_request.activity_submission.try(:github_url)
     end
     student = code_review.assistee
