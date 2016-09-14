@@ -11,6 +11,8 @@ class EvaluationStateMachine
 
   transition from: :pending, to: [:in_progress, :cancelled]
   transition from: :in_progress, to: [:pending, :accepted, :rejected, :cancelled]
+  transition from: :accepted, to: [:rejected]
+  transition from: :rejected, to: [:accepted]
 
   guard_transition(to: :in_progress) do |evaluation|
     evaluation.teacher.presence
