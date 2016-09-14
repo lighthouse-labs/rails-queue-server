@@ -13,17 +13,19 @@
 
   = form_for @evaluation_form, url: project_evaluation_path, method: :put do |f|
 
-    - if @evaluation.markable?
-      - if @evaluation.markable_by?(current_user)
-        = f.submit "Reject", class: "btn btn-danger btn-evaluation", data: { confirm: "Sure? Student will be e-mailed details (and be sad)", toggle: 'tooltip' }, title: "This evaluation did not meet the conditions. Student will need to fix the issues you've identified and re-submit a new evaluation. Student will be e-mailed the notes that you've filled out in the text-area below."
-        = f.submit "Accept", class: "btn btn-success btn-evaluation", data: { confirm: "Sure? Student will be e-mailed details (and be pleased!)", toggle: 'tooltip' }, title: "This evaluation totally met the expectations (code style and functionality) and requires no further evaluation. Student will be e-mailed the notes that you've filled out."
+    .actions-container
+      .well.actions
+        - if @evaluation.markable?
+          - if @evaluation.markable_by?(current_user)
+            = f.submit "Reject", class: "btn btn-danger btn-evaluation", data: { confirm: "Reject this submission? Student will be e-mailed details (and be sad)", toggle: 'tooltip', placement: 'bottom' }, title: "This evaluation did not meet the conditions. Student will need to fix the issues you've identified and re-submit a new evaluation. Student will be e-mailed the notes that you've filled out in the text-area below."
+            = f.submit "Accept", class: "btn btn-success btn-evaluation", data: { confirm: "Accept this submission? Student will be e-mailed details (and be pleased!)", toggle: 'tooltip', placement: 'bottom' }, title: "This evaluation totally met the expectations (code style and functionality) and requires no further evaluation. Student will be e-mailed the notes that you've filled out."
 
-      - elsif @evaluation.grabbable_by?(current_user)
-        = link_to "Re-assign to me", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success btn-evaluation", method: :put, data: { toggle: 'tooltip' }, title: 'Take over this evaluation and make me the evaluator.'
+          - elsif @evaluation.grabbable_by?(current_user)
+            = link_to "Re-assign to me", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success btn-evaluation", method: :put, data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Take over this evaluation and make me the evaluator.'
 
-      = link_to 'Re-queue', cancel_marking_project_evaluation_path(@project, @evaluation), class: 'btn btn-warning btn-evaluation', method: :put, data: { confirm: 'Sure? You will no longer be the evaluator. It will go back on the queue', toggle: 'tooltip' }, title: 'Un-assign myself as the evaluator and put it back into the queue. My bad.'
+          = link_to 'Re-queue', cancel_marking_project_evaluation_path(@project, @evaluation), class: 'btn btn-warning btn-evaluation', method: :put, data: { confirm: 'Sure? You will no longer be the evaluator. It will go back on the queue', toggle: 'tooltip', placement: 'bottom' }, title: 'Un-assign myself as the evaluator and put it back into the queue. My bad.'
 
-    == markdown(@project.description)
+    .well == markdown(@project.description)
 
     h4 Outcomes
 
@@ -80,9 +82,3 @@
     .form-group
       = f.label :teacher_notes
       = f.text_area :teacher_notes, rows: 10, class: "form-control"
-
-    .form-actions
-      - if @evaluation.markable_by?(current_user)
-        = f.submit "Reject", class: "btn btn-danger btn-evaluation", data: { confirm: "Sure? Student will be e-emailed details (and be sad)" }
-        = f.submit "Accept", class: "btn btn-success btn-evaluation", data: { confirm: "Sure? Student will be e-mailed details (and be pleased!)" }
-

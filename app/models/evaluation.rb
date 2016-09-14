@@ -32,6 +32,8 @@ class Evaluation < ApplicationRecord
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
            :in_state?, to: :state_machine
 
+  before_create :set_cohort
+
   def state_machine
     @state_machine ||= EvaluationStateMachine.new(self, transition_class: EvaluationTransition)
   end
@@ -71,5 +73,11 @@ class Evaluation < ApplicationRecord
   end
 
   private_class_method :initial_state
+
+  private
+
+  def set_cohort
+    self.cohort = self.student.cohort
+  end
 
 end

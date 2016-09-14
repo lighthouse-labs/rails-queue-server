@@ -47,4 +47,34 @@ class UserMailer < ActionMailer::Base
 
   end
 
+  def evaluation_accepted(evaluation)
+    @evaluation = evaluation
+    @student    = evaluation.student
+    @teacher    = evaluation.teacher
+    @project    = evaluation.project
+
+    feedback_email  = @evaluation.cohort.location.feedback_email
+
+    mail  subject: "LHL Project Accepted: #{@student.full_name}!",
+          to:      @student.email,
+          from:    @teacher.email,
+          cc:      @teacher.email,
+          bcc:     feedback_email
+  end
+
+  def evaluation_rejected(evaluation)
+    @evaluation = evaluation
+    @student    = evaluation.student
+    @teacher    = evaluation.teacher
+    @project    = evaluation.project
+
+    feedback_email  = @evaluation.cohort.location.feedback_email
+
+    mail  subject: "LHL Project Rejected: #{@student.full_name}!",
+          to:      @student.email,
+          from:    @teacher.email,
+          cc:      @teacher.email,
+          bcc:     feedback_email
+  end
+
 end

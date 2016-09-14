@@ -7,6 +7,15 @@ body.project-evals-edit {
     top: -11px;
     left: 11px;
   }
+  .well.actions.affix {
+    top: 65px;
+    z-index: 100;
+    right: 10px;
+  }
+
+  .actions-container {
+    min-height: 81px;
+  }
 }
 
 body.project-evals-edit, body.project-evals-show {

@@ -22,6 +22,7 @@ class EvaluationsController < ApplicationController
   def create
     @evaluation = @project.evaluations.new(evaluation_params)
     @evaluation.student = current_user
+
     if @evaluation.save
       BroadcastEvaluationToTeachers.call(evaluation: @evaluation)
       redirect_to [@project, @evaluation], notice: "Project successfully submitted for evaluation."

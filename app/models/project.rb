@@ -40,6 +40,10 @@ class Project < Section
     evaluations.where(student: student, cohort: student.cohort).order(created_at: :desc)
   end
 
+  def to_param
+    slug
+  end
+
   private
 
   def set_slug
