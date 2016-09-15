@@ -36,16 +36,27 @@ class TechInterviewCreator
   def handle_existing_interview(cohort, interview)
     puts "Existing W#{interview.week } interview found for #{cohort.location.name}: #{interview.id}"
 
-    mins = (Time.current - interview.created_at).to_i / 60
-    if mins >= 20 && interview.queued?
-      slack_alert interview, "There's a stale tech interview in #{cohort.location.name} Queue: #{interview.interviewee.full_name} [#{mins}min]."
+    if should_slack?(interview)
+      slack_alert interview, generate_slack_message(cohort, interview)
     end
   end
 
-  def slack_alert(interview, msg)
-    return unless ENV['SLACK_WEBHOOK_QUEUE_ALERTS'].present?
-    return if interview.last_alerted_at? && (Time.current - interview.last_alerted_at) < (20*60)
+  def should_slack?(interview)
+    intervals = 30
+    ENV['SLACK_WEBHOOK_QUEUE_ALERTS'].present? &&
+      interview.queued? &&
+      interview.num_alerts < 3 &&
+      (Time.current - (interview.last_alerted_at || interview.created_at) >= (intervals * 60))
+  end
 
+  def generate_slack_message(cohort, interview)
+    stale_for = (Time.current - interview.created_at).to_i / 60
+    stale_for = (stale_for > 60) ? "#{stale_for / 60} hrs" : "#{stale_for} mins"
+    "There's a stale tech interview in #{cohort.location.name} Queue: #{interview.interviewee.full_name} [#{stale_for}]."
+  end
+
+  def slack_alert(interview, msg)
+    puts "SLACKING team about stale interview #{interview.id}"
     cohort     = interview.cohort
     receiver   = cohort.location.slack_username
     channel    = cohort.location.slack_channel
@@ -58,8 +69,10 @@ class TechInterviewCreator
     poster = Slack::Poster.new(ENV['SLACK_WEBHOOK_QUEUE_ALERTS'], options)
     poster.send_message("#{receiver}, #{msg}")
     interview.touch(:last_alerted_at)
-  rescue Exception => e
-    ignore
+    TechInterview.increment_counter(:num_alerts, interview.id)
+  rescue StandardError => e
+    # report but remain unaffected by any errors
+    Raven.capture_exception(e)
   end
 
   def create_interview(cohort, template)

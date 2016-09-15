@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913225317) do
+ActiveRecord::Schema.define(version: 20160915142440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -477,13 +477,14 @@ ActiveRecord::Schema.define(version: 20160913225317) do
     t.float    "average_score"
     t.text     "feedback"
     t.text     "internal_notes"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "day"
     t.integer  "articulation_score"
     t.integer  "knowledge_score"
     t.integer  "cohort_id"
     t.datetime "last_alerted_at"
+    t.integer  "num_alerts",                 default: 0
     t.index ["cohort_id"], name: "index_tech_interviews_on_cohort_id", using: :btree
     t.index ["interviewee_id"], name: "index_tech_interviews_on_interviewee_id", using: :btree
     t.index ["interviewer_id"], name: "index_tech_interviews_on_interviewer_id", using: :btree
