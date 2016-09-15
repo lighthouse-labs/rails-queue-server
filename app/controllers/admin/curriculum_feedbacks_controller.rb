@@ -21,7 +21,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
   # end
 
   def index
-    params[:student_location_id] = current_user.location.id.to_s if params[:student_location_id].nil?
+    params[:user_location_id] = current_user.location.id.to_s if params[:student_location_id].nil?
     params[:completed?] = 'true' if params[:completed].nil?
 
     @feedbacks = ActivityFeedback.filter_by(filter_by_params).order(order)

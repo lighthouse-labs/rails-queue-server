@@ -1,6 +1,5 @@
 class ActivityFeedback < ApplicationRecord
 
-  belongs_to :feedbackable
   belongs_to :activity
   belongs_to :user
 
@@ -8,10 +7,10 @@ class ActivityFeedback < ApplicationRecord
   validates :activity, presence: true
   validate :at_least_some_feedback
 
-  # scope :activity_feedbacks, -> { where(sentiment: nil) }
-  # scope :expired, -> { where("activity_feedbacks.created_at < ?", Date.today-1) }
-  # scope :not_expired, -> {where("activity_feedbacks.created_at >= ?", Date.today-1)}
-  # # scope :completed, -> { where(rating: nil) }
+  scope :activity_feedbacks, -> { where(sentiment: nil) }
+  scope :expired, -> { where("activity_feedbacks.created_at < ?", Date.today-1) }
+  scope :not_expired, -> {where("activity_feedbacks.created_at >= ?", Date.today-1)}
+  # scope :completed, -> { where(rating: nil) }
   # scope :pending, -> { where(rating: nil) }
   scope :reverse_chronological_order, -> { order("activity_feedbacks.updated_at DESC")}
   scope :filter_by_user, -> (user_id) { where("user_id = ?", user_id) }
@@ -46,6 +45,8 @@ class ActivityFeedback < ApplicationRecord
     end
   }
 
+  validates :rating, presence: true, on: :update
+
   default_scope -> { order(created_at: :desc) }
 
   def positive?
@@ -72,6 +73,36 @@ class ActivityFeedback < ApplicationRecord
         result.send("filter_by_#{attribute}", v, location_id)
       else
         result.send("filter_by_#{attribute}", v)
+      end
+    end
+  end
+
+  def self.filter_by_completed(value, result)
+    if value == 'true'
+      result.completed
+    elsif value == 'expired'
+      result.expired.pending
+    else
+      result.pending
+    end
+  end
+
+  def self.average_rating
+    average(:rating).to_f.round(2)
+  end
+
+  def self.to_csv
+    user_attributes = ['first_name', 'last_name']
+    feedbackable_attributes = ['name', 'day', 'type']
+    activity_feedback_attributes = ['rating','created_at']
+    location_attributes = ['name']
+    CSV.generate do |csv|
+      csv << ['Student First Name', 'Student Last Name', 'Activity Name', 'Activity Day', 'Activity Type', 'Rating', 'Created Date', 'Location']
+      all.each do |activity_feedback|
+        csv << (activity_feedback.user.attributes.values_at(*user_attributes) +
+                activity_feedback.feedbackable.attributes.values_at(*feedbackable_attributes) +
+                activity_feedback.attributes.values_at(*feedback_attributes) +
+                activity_feedback.user.cohort.location.attributes.values_at(*location_attributes))
       end
     end
   end

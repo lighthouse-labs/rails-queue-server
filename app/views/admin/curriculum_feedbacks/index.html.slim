@@ -16,8 +16,8 @@ table.table.table-feedbacks
       - present activity_feedback do |activity_feedback_presenter|
         tr
           td = activity_feedback_presenter.upcased_day
-          td = activity_feedback_presenter.feedbackable_name
-          td = activity_feedback_presenter.feedbackable_type
+          td = activity_feedback_presenter.activity_name
+          td = 'Direct activity_Feedback'
           td
             .raty-viewer data-score="#{activity_feedback.rating}"
           td = activity_feedback_presenter.user_full_name

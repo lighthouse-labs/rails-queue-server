@@ -1,8 +1,6 @@
 class ActivityFeedbackPresenter < BasePresenter
   presents :activity_feedback
 
-  # delegate :feedbackable, to: :activity_feedback
-
   delegate :detail, to: :activity_feedback
 
   def truncated_detail
@@ -22,31 +20,17 @@ class ActivityFeedbackPresenter < BasePresenter
     end
   end
 
-  def feedbackable_name
-    if activity_feedback.try(:feedbackable) && activity_feedback.feedbackable.try(:name)
-      activity_feedback.feedbackable.name
-    elsif activity_feedback.try(:feedbackable)
-      'N/A'
-    else
-      ''
-    end
+  def activity_name
+    activity_feedback.activity.name
   end
 
-  def feedbackable_type
+  def activity_feedback_type
     if activity_feedback.try(:feedbackable) && activity_feedback.feedbackable.try(:type)
       activity_feedback.feedbackable.type
     elsif activity_feedback.try(:feedbackable)
       activity_feedback.feedbackable.class.name
     else
       'Direct activity_Feedback'
-    end
-  end
-
-  def teacher_full_name
-    if activity_feedback.teacher.present?
-      activity_feedback.teacher.first_name + " " + activity_feedback.teacher.last_name
-    else
-      'N/A'
     end
   end
 
