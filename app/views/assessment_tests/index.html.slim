@@ -3,6 +3,13 @@ header.page-header
 
 h2 = cohort.name
 
+h3 Github usernames
+
+ul
+  - cohort.students.active.each do |student|
+    li
+      em = student.github_username
+
 h3 Mock Test
 
 p = link_to 'Proctologist', url_for_proctologist('web-01', cohort)
