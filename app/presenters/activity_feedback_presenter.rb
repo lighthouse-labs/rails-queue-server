@@ -10,9 +10,7 @@ class ActivityFeedbackPresenter < BasePresenter
   end
 
   def upcased_day
-    if activity_feedback.try(:feedbackable)
-      activity_feedback.feedbackable.day.upcase
-    elsif activity_feedback.user.present?
+    if activity_feedback.user.present?
       CurriculumDay.new(activity_feedback.created_at.to_date, activity_feedback.user.cohort).to_s.upcase
     else
       # If the student is no longer registered for some reason, display just the date
@@ -22,16 +20,6 @@ class ActivityFeedbackPresenter < BasePresenter
 
   def activity_name
     activity_feedback.activity.name
-  end
-
-  def activity_feedback_type
-    if activity_feedback.try(:feedbackable) && activity_feedback.feedbackable.try(:type)
-      activity_feedback.feedbackable.type
-    elsif activity_feedback.try(:feedbackable)
-      activity_feedback.feedbackable.class.name
-    else
-      'Direct activity_Feedback'
-    end
   end
 
   def user_full_name
