@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915142440) do
+ActiveRecord::Schema.define(version: 20160915160614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -402,6 +402,7 @@ ActiveRecord::Schema.define(version: 20160915142440) do
     t.text     "blurb"
     t.string   "end_day"
     t.string   "image"
+    t.boolean  "evaluated"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end
