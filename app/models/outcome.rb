@@ -12,5 +12,5 @@ class Outcome < ApplicationRecord
   validates :text, uniqueness: {case_sensitive: false}
 
   scope :search, -> (query) { where("lower(text) LIKE :query", query: "%#{query.downcase}%") }
-
+  scope :excluding_knowledge, -> { where.not(taxonomy: 'knowledge') }
 end
