@@ -32,6 +32,8 @@ class Admin::CohortsController < Admin::BaseController
 
   def show
     @students = @cohort.students.active.order(id: :desc)
+    @interview_templates = TechInterviewTemplate.all
+    @projects = Project.evaluated.all
   end
 
   private

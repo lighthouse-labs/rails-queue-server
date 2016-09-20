@@ -240,6 +240,8 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.datetime "completed_at"
     t.text     "student_notes"
     t.datetime "cancelled_at"
+    t.integer  "cohort_id"
+    t.index ["cohort_id"], name: "index_evaluations_on_cohort_id", using: :btree
   end
 
   create_table "feedbacks", force: :cascade do |t|
@@ -274,6 +276,8 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.boolean  "satellite"
     t.integer  "supported_by_location_id"
     t.string   "feedback_email"
+    t.string   "slack_channel"
+    t.string   "slack_username"
     t.index ["supported_by_location_id"], name: "index_locations_on_supported_by_location_id", using: :btree
   end
 
@@ -407,6 +411,7 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.text     "blurb"
     t.string   "end_day"
     t.string   "image"
+    t.boolean  "evaluated"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end
@@ -427,6 +432,73 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.string   "wowza_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "tech_interview_questions", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "tech_interview_template_id"
+    t.integer  "outcome_id"
+    t.integer  "sequence"
+    t.text     "question"
+    t.text     "answer"
+    t.text     "notes"
+    t.integer  "duration"
+    t.boolean  "stretch"
+    t.boolean  "archived"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["outcome_id"], name: "index_tech_interview_questions_on_outcome_id", using: :btree
+    t.index ["tech_interview_template_id"], name: "index_tech_interview_questions_on_tech_interview_template_id", using: :btree
+  end
+
+  create_table "tech_interview_results", force: :cascade do |t|
+    t.integer  "tech_interview_id"
+    t.integer  "tech_interview_question_id"
+    t.text     "question"
+    t.text     "notes"
+    t.integer  "score"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "sequence"
+    t.index ["tech_interview_id"], name: "index_tech_interview_results_on_tech_interview_id", using: :btree
+    t.index ["tech_interview_question_id"], name: "index_tech_interview_results_on_tech_interview_question_id", using: :btree
+  end
+
+  create_table "tech_interview_templates", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "week"
+    t.string   "content_file_path"
+    t.integer  "content_repository_id"
+    t.text     "description"
+    t.text     "teacher_notes"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["content_repository_id"], name: "index_tech_interview_templates_on_content_repository_id", using: :btree
+  end
+
+  create_table "tech_interviews", force: :cascade do |t|
+    t.integer  "tech_interview_template_id"
+    t.integer  "interviewee_id"
+    t.integer  "interviewer_id"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.integer  "total_answered"
+    t.integer  "total_asked"
+    t.float    "average_score"
+    t.text     "feedback"
+    t.text     "internal_notes"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "day"
+    t.integer  "articulation_score"
+    t.integer  "knowledge_score"
+    t.integer  "cohort_id"
+    t.datetime "last_alerted_at"
+    t.integer  "num_alerts",                 default: 0
+    t.index ["cohort_id"], name: "index_tech_interviews_on_cohort_id", using: :btree
+    t.index ["interviewee_id"], name: "index_tech_interviews_on_interviewee_id", using: :btree
+    t.index ["interviewer_id"], name: "index_tech_interviews_on_interviewer_id", using: :btree
+    t.index ["tech_interview_template_id"], name: "index_tech_interviews_on_tech_interview_template_id", using: :btree
   end
 
   create_table "user_activity_outcomes", force: :cascade do |t|
@@ -472,6 +544,7 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.boolean  "on_duty",                default: false
     t.integer  "mentor_id"
     t.boolean  "mentor",                 default: false
+    t.boolean  "can_tech_interview"
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
   end
 
@@ -489,6 +562,12 @@ ActiveRecord::Schema.define(version: 20160905180439) do
   add_foreign_key "questions", "outcomes"
   add_foreign_key "quiz_submissions", "quizzes"
   add_foreign_key "sections", "content_repositories"
+  add_foreign_key "tech_interview_questions", "outcomes"
+  add_foreign_key "tech_interview_questions", "tech_interview_templates"
+  add_foreign_key "tech_interview_results", "tech_interview_questions"
+  add_foreign_key "tech_interview_results", "tech_interviews"
+  add_foreign_key "tech_interviews", "cohorts"
+  add_foreign_key "tech_interviews", "tech_interview_templates"
   add_foreign_key "user_activity_outcomes", "item_outcomes", column: "activity_outcome_id"
   add_foreign_key "user_activity_outcomes", "users"
 end

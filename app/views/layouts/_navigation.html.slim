@@ -42,6 +42,11 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
               i.fa.fa-fw.fa-pencil-square-o
               span.non-tablet-label
                 | Projects
+          li
+            = link_to tech_interview_templates_path, title: 'Tech Interviews'
+              i.fa.fa-fw.fa-comments
+              span.non-tablet-label
+                | Interviews
 
           - if teacher?
             li.dropdown

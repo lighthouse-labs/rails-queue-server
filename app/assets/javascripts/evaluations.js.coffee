@@ -7,3 +7,9 @@ ready = ->
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
+
+$(document).on 'turbolinks:load', ->
+  $('body.project-evals-edit .actions').affix(
+    offset:
+      top: 800
+  )

@@ -1,0 +1,16 @@
+- btn_size ||= ""
+- skip_resume ||= false
+
+- if interview && interview.in_progress?
+  - unless skip_resume
+    - if interview.interviewer == current_user
+      = link_to 'Resume', edit_tech_interview_path(interview), class: "btn #{btn_size} btn-primary"
+    - elsif interview.interviewer != current_user
+      = link_to 'Take Over', edit_tech_interview_path(interview), class: "btn  btn-primary #{btn_size}"
+  | &nbsp;
+  = link_to 'Stop', [:stop, interview], method: 'patch', class: "btn btn-danger #{btn_size}", data: { confirm: 'Are you sure? This interview will no longer be assigned an interviewer and will return to the queue.', toggle: 'tooltip', placement: 'bottom' }, title: 'No longer doing it? You can stop it and put it back into the queue.'
+
+- elsif interview && interview.completed?
+  = link_to 'Results', interview, class: "btn #{btn_size} btn-info"
+- elsif interview && interview.queued?
+  = link_to 'Start', [:start, interview], method: 'patch', class: "btn #{btn_size} btn-success"

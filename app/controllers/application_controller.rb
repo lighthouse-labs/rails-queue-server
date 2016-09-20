@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
     cookies.signed[:user_id] = @current_user.id if @current_user && cookies.signed[:user_id].blank?
+
     @current_user
   end
   helper_method :current_user
@@ -59,6 +60,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :admin?
 
+  def can_tech_interview?
+    admin? || current_user.try(:can_tech_interview?)
+  end
+  helper_method :can_tech_interview?
+
   def teachers_on_duty
     return [] if current_user && !current_user.is_a?(Teacher) && !current_user.is_a?(Student)
 
@@ -73,6 +79,7 @@ class ApplicationController < ActionController::Base
   helper_method :teachers_on_duty
 
   def cohort
+    return @cohort if @cohort
     # Teachers can switch to any cohort
     if teacher?
       @cohort ||= Cohort.find_by(id: session[:cohort_id]) if session[:cohort_id]
@@ -144,15 +151,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_timezone
-    if cohort
-      case cohort.location.name
-      when 'Vancouver'
-        Time.zone = 'Pacific Time (US & Canada)'
-      when 'Toronto'
-        Time.zone = 'Eastern Time (US & Canada)'
-      when 'Calgary'
-        Time.zone = 'Mountain Time (US & Canada)'
-      end
+    if cohort && cohort.location
+      # all locations are assumed to have timezone
+      Time.zone = cohort.location.timezone
     end
   end
 

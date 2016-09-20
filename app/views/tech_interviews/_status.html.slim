@@ -1,0 +1,11 @@
+- if interview && interview.completed?
+  = link_to "Completed (#{interview.day})", tech_interview_path(interview), class: 'btn btn-success btn-xs'
+
+- elsif interview && interview.in_progress?
+  .label.label-info In Progress
+
+- elsif interview && interview.queued?
+  .label.label-warning In Queue
+
+- else
+  .label.label-default Pending

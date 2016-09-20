@@ -78,6 +78,7 @@ class Content::LoadProjects
       end_day:   attributes['end_day'],
       image:     attributes['image'],
       blurb:     attributes['blurb'],
+      evaluated: attributes['evaluated'],
       description: attributes['markdown'],
       content_file_path: attributes['file_path'],
       content_repository: @repo,

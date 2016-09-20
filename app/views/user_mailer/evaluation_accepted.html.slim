@@ -1,0 +1,15 @@
+p Hi #{@student.first_name},
+
+p Congratulations! This e-mail marks the successful completion of your #{@project.name}'s evaluation, performed by #{@teacher.full_name}.
+
+h3 Feedback / Notes from Teacher
+= raw markdown(@evaluation.teacher_notes)
+
+p
+  em
+    | You can view more detail about this evaluation&nbsp;
+    = link_to 'here', project_evaluation_url(@project, @evaluation)
+
+hr
+
+p = @teacher.full_name

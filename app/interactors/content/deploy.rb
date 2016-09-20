@@ -27,6 +27,8 @@ class Content::Deploy
       load_prep_records(repo_dir, records)
       load_project_records(repo_dir, records)
       load_activity_records(repo_dir, records)
+      load_interview_records(repo_dir, records)
+
       results = persist_changes(records)
       create_summary_file(results)
     end
@@ -51,6 +53,10 @@ class Content::Deploy
 
   def load_project_records(repo_dir, records)
     Content::LoadProjects.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
+  end
+
+  def load_interview_records(repo_dir, records)
+    Content::LoadInterviews.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
   end
 
   def load_activity_records(repo_dir, records)

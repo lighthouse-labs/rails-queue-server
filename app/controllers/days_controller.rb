@@ -6,6 +6,7 @@ class DaysController < ApplicationController
     @activities = Activity.chronological.active.for_day(day)
 
     @project = Project.where("? between start_day AND end_day", day.to_s).first
+    @interview_template = TechInterviewTemplate.where(week: week).first
 
     @outcomes = @activities.flat_map { |activity| activity.outcomes }.uniq
 

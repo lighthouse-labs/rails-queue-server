@@ -22,6 +22,7 @@ class EvaluationsController < ApplicationController
   def create
     @evaluation = @project.evaluations.new(evaluation_params)
     @evaluation.student = current_user
+
     if @evaluation.save
       BroadcastEvaluationToTeachers.call(evaluation: @evaluation)
       redirect_to [@project, @evaluation], notice: "Project successfully submitted for evaluation."
@@ -38,7 +39,11 @@ class EvaluationsController < ApplicationController
   end
 
   def update
-    result = CompleteEvaluation.call(evaluation_form: params[:evaluation_form], evaluation: @evaluation)
+    result = CompleteEvaluation.call(
+      evaluation_form: params[:evaluation_form],
+      evaluation: @evaluation,
+      decision: params[:commit]
+    )
     if result.success?
       redirect_to [@project, @evaluation], notice: "Evaluation successfully marked."
     else

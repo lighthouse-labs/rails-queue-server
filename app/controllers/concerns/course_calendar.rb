@@ -20,6 +20,10 @@ module CourseCalendar
     !!(today.to_s =~ /[w][1-8][d][5]/)
   end
 
+  def week
+    day.to_s.match(/^w(\d+)/)[1].to_i
+  end
+
   def day
     return @day if @day
     d = params[:number] || params[:day_number]

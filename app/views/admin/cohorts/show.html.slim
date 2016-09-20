@@ -34,7 +34,7 @@ header.page-header
 
             tbody
               - @students.each do |s|
-                == render 'student_bootcamp_stats', student: s, today: today
+                == render 'student_bootcamp_stats', student: s, today: today, interview_templates: @interview_templates
 
 
 .row

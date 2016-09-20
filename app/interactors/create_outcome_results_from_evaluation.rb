@@ -10,7 +10,7 @@ class CreateOutcomeResultsFromEvaluation
                              source_id: outcome[:activity_id],
                              source_type: "Activity",
                              user: context.evaluation.student
-                             )
+                             ) if outcome[:mark].present?
       end
     end
     rescue ActiveRecord::RecordInvalid => exception

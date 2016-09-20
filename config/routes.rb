@@ -11,6 +11,18 @@ LaserShark::Application.routes.draw do
     end
   end
 
+  resources :tech_interview_templates, only: [:index, :show] do
+    resources :interviews, controller: 'tech_interviews', only: [:new, :create]
+  end
+  resources :tech_interviews, only: [:show, :edit, :update] do
+    member do
+      get :confirm
+      patch :complete
+      patch :start
+      patch :stop
+    end
+  end
+
   resources :questions
 
   resources :quiz_submissions, only: [:show]
@@ -110,6 +122,8 @@ LaserShark::Application.routes.draw do
       post :add_mentorship
     end
   end
+
+  resources :assessment_tests, only: [:index]
 
   # TEACHER
   namespace :teacher do

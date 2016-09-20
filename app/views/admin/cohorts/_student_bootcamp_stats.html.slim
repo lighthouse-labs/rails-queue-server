@@ -14,35 +14,15 @@ tr
 
   td.details data-value=student.last_name
     .student-info
-      = link_to [:admin, student] do
-        = image_tag avatar_for(student), class: 'avatar'
-      = link_to [:teacher, student] do
-        = student.full_name
-
-      br
-      - if student.remote?
-        span.label.label-danger = student.location.name
-      - else
-        span.label.label-primary = @cohort.location.name
+      = render 'shared/student_info', student: student
 
   td data-value=assistance_stats[:requests]
     span title="Requests" data-toggle="tooltip" = assistance_stats[:requests]
     | &nbsp;&raquo;&nbsp;
     span title="Assistances" data-toggle="tooltip" = assistance_stats[:assistances]
     br
-      small
-        | L:&nbsp;
-        = assistance_stats[:average_score].round(2)
-
-  / td data-value=core_stats[:completed]
-  /   = "#{core_stats[:completed]} / #{core_stats[:total]} (#{core_stats[:ratio].round(0)}%)"
-  /   br
-  /   small
-  /     | Stretch:&nbsp;
-  /     = "#{stretch_stats[:completed]} / #{stretch_stats[:total]} (#{stretch_stats[:ratio].round(0)}%)"
-  /   .progress
-  /     .progress-bar role='progressbar' aria-valuenow=core_stats[:ratio].round(0).to_i aria-valuemin='0' aria-valuemax='100' style="width:#{core_stats[:ratio].round(0).to_i}%"
-  /       span.sr-only = "#{core_stats[:ratio].round(0).to_i}% Complete"
+    - avg = assistance_stats[:average_score].round(2)
+    span.label class=l_score_label_class(avg) = "L: #{avg}"
 
   td data-value=to_date_core_stats[:completed]
     - ratio = to_date_core_stats[:ratio].round(0).to_i
@@ -83,48 +63,31 @@ tr
       | attempts
 
   td
-    a.tech-interview href="#"
-      span.label.label-warning  W2
+    - total_score, count = 0, 0
+    - interview_templates.each do |interview_template|
+      - if interview = interview_template.completed_interview_for(student)
+        - if interview.average_score
+          - total_score += interview.average_score
+          - count += 1
+        = link_to interview do
+          span.tech-interview.label class=l_score_label_class(interview.average_score) title=(interview.average_score || "??") data-toggle="tooltip"
+            = "W#{interview_template.week}"
+      - else
+        span.tech-interview.label.label-default title="Not Completed" data-toggle="tooltip"
+          = "W#{interview_template.week}"
 
-    a.tech-interview href="#"
-      span.label.label-info     W3
-
-    a.tech-interview href="#"
-      span.label.label-danger   W5
-
-    a.tech-interview href="#"
-      span.label.label-primary  W8
-
-    br
-    small
-      | Avg Score: 2.25 (3 TIs)
-
-    br
-
-    span.label.label-danger Not Implemented (Demo)
+    - if count > 0
+      - avg = (total_score.to_f / count).round(2)
+      br
+      br
+      span.label class=l_score_label_class(avg) = "L: #{avg}"
 
   td
-    a.code-review href="#"
-      span.label.label-warning   P1
-
-    a.code-review href="#"
-      span.label.label-info      P2
-
-    a.code-review href="#"
-      span.label.label-default   P3
-
-    a.code-review href="#"
-      span.label.label-default   P4
-
-    a.code-review href="#"
-      span.label.label-default   P5
-
-    br
-
-    small
-      | Avg Score: 2.5 (6 CRs)
-
-    br
-
-    span.label.label-danger Not Implemented (Demo)
-
+    - @projects.each_with_index do |project, i|
+      - if eval = project.last_evaluation(student)
+        = link_to [project, eval] do
+          span.code-review.label class=project_eval_status_label_class(eval) title="#{project.name}: #{eval.status}" data-toggle='tooltip'
+            | P#{i+1}
+      - else
+          span.code-review.label.label-default title=project.name data-toggle='tooltip'
+            | P#{i+1}
