@@ -1,36 +1,36 @@
 $ ->
 
-  $('.request-assistance-button').click (e) ->
+  $(document).on 'click', '.request-assistance-button', (e) ->
     e.preventDefault()
     reason = $(@).closest('form').find('textarea').val()
     activityId = $(@).closest('form').find('select').val()
     window.App.userChannel.requestAssistance(reason, activityId)
 
-  $('.cancel-request-assistance-button').click (e) ->
+  $(document).on 'click', '.cancel-request-assistance-button', (e) ->
     e.preventDefault()
     e.stopPropagation()
 
     if confirm("Are you sure you want to withdraw this assistance request?")
       window.App.userChannel.cancelAssistanceRequest()
 
-  $('.on-duty-link').click (e) ->
+  $(document).on 'click', '.on-duty-link', (e) ->
     e.preventDefault()
     window.App.teacherChannel.onDuty()
 
     $('.on-duty-link').addClass('hidden')
     $('.off-duty-link').removeClass('hidden')
 
-  $('.off-duty-link').click (e) ->
+  $(document).on 'click', '.off-duty-link', (e) ->
     e.preventDefault()
     window.App.teacherChannel.offDuty()
 
     $('.off-duty-link').addClass('hidden')
     $('.on-duty-link').removeClass('hidden')
 
-  $('.sign-out-link').click (e) ->
+  $(document).on 'click', '.sign-out-link', (e) ->
     window.App.teacherChannel.offDuty()
 
-  $('#search-activities-button').click (e) ->
+  $(document).on 'click', '#search-activities-button', (e) ->
     $('#search-form').slideToggle(250, 'swing', focusOnSearchField)
 
   focusOnSearchField = ->

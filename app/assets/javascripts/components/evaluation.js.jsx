@@ -24,13 +24,13 @@ var Evaluation = React.createClass({
       return (
         <div>
           <p>
-            <b>Project:</b>
+            <b>Project:&nbsp;</b>
             <a href={"projects/" + evaluation.project.slug}>
               {evaluation.project.name}
             </a>
           </p>
           <p>
-            <b>Submission URL:</b>
+            <b>Submission URL:&nbsp;</b>
             <a target="_blank" href={evaluation.github_url}>
               {evaluation.github_url}
             </a>

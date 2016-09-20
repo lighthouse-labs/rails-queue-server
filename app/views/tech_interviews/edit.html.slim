@@ -1,0 +1,22 @@
+- provide :container, 'fluid'
+- provide :body_class, 'tech-interview-on'
+
+header.page-header
+  h1 #{@tech_interview.interviewee.full_name}'s Week #{@interview_template.week} Tech Interview
+
+blockquote
+  == markdown(@interview_template.description.to_s)
+
+.alert.alert-info
+  == markdown(@interview_template.teacher_notes.to_s)
+
+= form_for @tech_interview do |form|
+
+  = render 'form_actions', form: form, next_step: true
+
+  .form-group
+    h3 Overall Feedback
+    = form.text_area :feedback, placeholder: 'Summary feedback for student (eg: how it went, takeaways, areas for improvement, etc).', class: 'form-control'
+
+  = form.fields_for :results do |result_form|
+    = render 'result_form', form: result_form

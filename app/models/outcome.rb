@@ -1,4 +1,4 @@
-class Outcome < ActiveRecord::Base
+class Outcome < ApplicationRecord
 
   belongs_to :skill
 

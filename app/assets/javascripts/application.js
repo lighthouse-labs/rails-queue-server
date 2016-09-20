@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require turbolinks
 //= require jquery-ui/autocomplete
 //= require bootstrap-sprockets
 //= require flat-ui-pro
@@ -56,6 +57,7 @@
 //= require reconnect_holder
 //= require prep
 //= require profile
+//= require tech_interviews
 //= require code_reviews
 //= require evaluations
 //= require quiz_submissions

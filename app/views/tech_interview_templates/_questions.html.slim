@@ -1,0 +1,16 @@
+- @interview_template.questions.active.each do |question|
+
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title Question #{question.sequence}
+
+    .panel-body
+      == markdown(question.question.to_s)
+
+      h5 Expected Answer
+
+      == markdown(question.answer.to_s)
+
+      - if question.notes?
+        h5 Notes
+        == markdown(question.answer)

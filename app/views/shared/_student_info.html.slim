@@ -1,0 +1,15 @@
+- show_email ||= false
+
+= link_to [:teacher, student] do
+  = image_tag avatar_for(student), class: 'avatar'
+= link_to student.full_name, [:teacher, student]
+- if show_email
+  br
+  = mail_to(student.email, student.email, target: '_blank', class: 'email')
+br
+- if student.remote?
+  span.label.label-danger = student.location.name
+- else
+  span.label.label-primary = @cohort.location.name
+
+

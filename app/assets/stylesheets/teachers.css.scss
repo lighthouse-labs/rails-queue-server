@@ -15,27 +15,26 @@
   }
 
   dd {
-    margin-bottom: 25px;
+    margin-bottom: 4px;
   }
 }
 
-.list-inline {
-  li {
-    padding-right: 40px;
-  }
-}
+table.teachers {
 
-#teachers-selected-locations {
-  label {
-    margin-right: 20px;
+  ul.social-icons {
+    margin: 5px 0px 5px 0px;
+    position: relative;
+    left: -2px;
+    top: -2px;
 
-    input {
-      margin-right: 4px;
-      position: relative;
-      top: -1px;
+    li {
+      padding-right: 0px;
+      padding-left: 0px;
     }
   }
+
 }
+
 
 #teacher_feedback_button {
   margin-left: 52px;

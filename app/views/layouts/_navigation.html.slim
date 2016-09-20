@@ -1,5 +1,5 @@
 / navigation styled for Bootstrap 3.0
-nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
+nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-permanent="true"
   .container-fluid
     .navbar-header
       button.navbar-toggle data-target=".navbar-collapse" data-toggle="collapse" type="button"
@@ -10,7 +10,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
     .collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-left
         li
-          = link_to :welcome, title: 'Compass Home'
+          = link_to :welcome, title: 'Compass Home', class: 'logo'
             i.fa.fa-fw.fa-compass
             span.visible-xs-inline
               | Home
@@ -42,6 +42,11 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
               i.fa.fa-fw.fa-pencil-square-o
               span.non-tablet-label
                 | Projects
+          li
+            = link_to tech_interview_templates_path, title: 'Tech Interviews'
+              i.fa.fa-fw.fa-comments
+              span.non-tablet-label
+                | Interviews
 
           - if teacher?
             li.dropdown
@@ -59,36 +64,28 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
                     li class=(c == cohort ? 'active' : '')
                       = link_to cohort_link(c), cohort_students_path(c)
           - else
-            li.dropdown
-              = link_to students_path,title: 'Classmates'
-                i.fa.fa-fw.fa-group
-                span.non-tablet-label
-                  | Classmates
+            - unless cohort && cohort.limited?
+              li.dropdown
+                = link_to students_path,title: 'Classmates'
+                  i.fa.fa-fw.fa-group
+                  span.non-tablet-label
+                    | Classmates
           li
-            = link_to teachers_path,title: 'Teachers'
-              i.fa.fa-fw.fa-group
+            = link_to teachers_path(location_id: current_user.location_id), title: 'Teachers'
+              i.fa.fa-fw.fa-life-ring
               span.non-tablet-label
                 | Teachers
         - if teacher?
           li
-            = link_to :assistance_requests, data: { 'no-turbolink' => true }, title: 'Request Queue'
+            = link_to :assistance_requests, title: 'Request Queue'
               i.fa.fa-fw.fa-list-ol
               span.non-tablet-label
                 | Queue
-          li.dropdown
-            = link_to '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown', title: 'Students'
-              i.fa.fa-fw.fa-list
-              span.non-tablet-label
-                | Code Reviews
-              b.caret
-            span.dropdown-arrow
-            ul.dropdown-menu
-              - dropdown_cohorts.each do |location, cohorts|
-                li.divider-title = location.name
-                li.divider[role="separator"]
-                - cohorts.each do |c|
-                  li class=(c == cohort ? 'active' : '')
-                    = link_to cohort_link(c), cohort_code_reviews_path(c)
+          li
+            = link_to :code_reviews, title: 'Code Reviews'
+              i.fa.fa-fw.fa-eye
+              span.non-tablet-label Code Reviews
+
         - if admin?
           li.dropdown
             = link_to '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown', title: 'Admin'
@@ -147,6 +144,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
 
           li.dropdown.current-user
             = link_to '#', class: 'dropdown-toggle', :'data-toggle' => 'dropdown' do
+              = image_tag avatar_for(current_user), class: 'avatar'
               = teacher? ? current_user.initials : current_user.first_name
               b.caret
             span.dropdown-arrow
@@ -156,10 +154,14 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
               li
                 = link_to 'Sign Out', session_path, :method => :delete, class: "sign-out-link"
           -if teacher?
+            li.new-issue
+              span
+                = link_to '+ Issue', 'https://github.com/lighthouse-labs/2016-web-curriculum-activities/issues', target: '_blank', class: 'navbar-btn btn btn-warning', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Report curriculum issue or suggestion (Teachers only)'
             li.teacher-duty
               span
-                = link_to "Go on duty", '#', class: "on-duty-link navbar-btn btn btn-success #{'hidden' if current_user.on_duty?}"
-                = link_to "Go off duty", '#', class: "off-duty-link navbar-btn btn btn-danger #{'hidden' unless current_user.on_duty?}"
+                - attrs = { data: { toggle: 'tooltip', placement: 'bottom' }, title: "Your Location: #{current_user.location.try(:name) || 'N/A'}" }
+                = link_to "Go on duty", '#', { class: "on-duty-link navbar-btn btn btn-success #{'hidden' if current_user.on_duty?}" }.merge(attrs)
+                = link_to "Go off duty", '#', { class: "off-duty-link navbar-btn btn btn-danger #{'hidden' unless current_user.on_duty?}" }.merge(attrs)
           - if current_user && current_user.enrolled_and_prepping?
             li#assistance-request-module
               span#create-assistance-request
@@ -167,7 +169,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
           - if current_user.active_student?
             li#assistance-request-module
               span#cancel-assistance-request class="#{'hidden' unless current_user.waiting_for_assistance? || current_user.being_assisted?}"
-                = link_to cancel_assistance_requests_path, method: :delete, remote: true, class: 'navbar-btn btn btn-warning cancel-request-assistance-button', :'data-toggle' => 'tooltip', :'data-placement' => 'bottom', title: 'Cancel this Assistance Request' do
+                = link_to '#', class: 'navbar-btn btn btn-warning cancel-request-assistance-button', :'data-toggle' => 'tooltip', :'data-placement' => 'bottom', title: 'Cancel this Assistance Request' do
                   - if current_user.being_assisted?
                     = "#{current_user.current_assistor.try(:full_name) || 'TA'} assisting"
                   - elsif current_user.waiting_for_assistance?

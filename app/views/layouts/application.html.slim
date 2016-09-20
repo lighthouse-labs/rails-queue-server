@@ -4,7 +4,7 @@ html
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
     title
       = content_for?(:title) ? yield(:title) : 'Compass'
-    meta name="description" content="#{content_for?(:description) ? yield(:description) : 'LaserShark'}"
+    meta name="description" content="#{content_for?(:description) ? yield(:description) : 'By Lighthouse Labs'}"
     == stylesheet_link_tag 'application', :media => 'all'
     link href="//vjs.zencdn.net/4.11/video-js.css" rel="stylesheet"
     script src="//vjs.zencdn.net/4.11/video.js"
@@ -12,16 +12,18 @@ html
     == csrf_meta_tags
     == favicon_link_tag 'compass_favicon.ico'
     == yield :head
-  body class=(yield :body_class)
+  body class=(yield(:body_class).to_s + disable_cable_for_some.to_s)
     header
       == render 'layouts/navigation'
 
-    main.container[role="main"]
+    - fluid = (yield(:container) == 'fluid')
+    main role="main" class=(fluid ? 'container-fluid' : 'container')
       == render 'layouts/messages'
       == render 'layouts/search'
 
-      - if current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student))
-        = render "layouts/teachers_holder"
+      - unless disable_cable?
+        - if current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student))
+          = render "layouts/teachers_holder"
         = render "layouts/reconnect_holder"
 
       - if content_for?(:side_nav)

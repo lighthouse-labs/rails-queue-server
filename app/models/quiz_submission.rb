@@ -1,4 +1,4 @@
-class QuizSubmission < ActiveRecord::Base
+class QuizSubmission < ApplicationRecord
 
   belongs_to :user
   belongs_to :quiz

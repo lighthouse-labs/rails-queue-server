@@ -9,6 +9,8 @@
   .col-sm-offset-3.col-sm-9
     div.alert.alert-error.invalid-image-selection
       | Invalid image file selected.
+    div.alert.alert-info.valid-image-selection
+      strong Click the Update button below to actually upload and change your picture.
     div.avatar-format
       = image_tag avatar_for(@user) if avatar_for(@user)
     div.col-sm-4.upload-button

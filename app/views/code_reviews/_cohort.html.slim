@@ -1,0 +1,29 @@
+h2
+  = cohort.name
+  = " (#{cohort.location.name})"
+  | &nbsp;
+  small
+    = cohort.curriculum_day.to_s.upcase
+
+.table-responsive
+  table.table.code-review-table
+    thead
+      tr
+        th style="width:300px;" Student
+        th Code Reviews
+
+    tbody
+      - cohort.students.active.each do |student|
+        tr
+          td
+            .student-info
+              = render 'shared/student_info', student: student
+              br
+              span.score.label.label-info
+                = "#{student.code_reviews_l_score}"
+          td
+            - student.completed_code_review_requests.order("created_at ASC").each do |code_review|
+
+              = completed_review_button(code_review)
+
+            .btn.btn-default.btn-sm.new-code-review-button  data-toggle="modal" data-backdrop="static" data-target="#new_code_review_modal" data-student-id="#{student.id}" + New

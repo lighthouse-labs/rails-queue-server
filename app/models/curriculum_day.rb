@@ -19,10 +19,9 @@ class CurriculumDay
   end
 
   def to_s
-    return "setup" if @date == "setup"
     return @to_s if @to_s
 
-    w = (day_number / 7) + 1
+    w = determine_w
     @to_s = if day_number <= 0
       # day_number may be negative if cohort hasn't yet started
       "w1d1"
@@ -36,7 +35,15 @@ class CurriculumDay
     end
   end
 
+  def week
+    determine_w
+  end
+
   def <=>(other)
+    if !other.is_a?(CurriculumDay)
+      # assume it's a "w2d4" sort of thing
+      other = CurriculumDay.new(other, @cohort)
+    end
     self.date <=> other.date
   end
 
@@ -51,7 +58,7 @@ class CurriculumDay
 
   def unlocked?
     # return true if @date == 'setup'
-    return true if unlock_weekend_on_friday
+    # return true if unlock_weekend_on_friday
     return false unless @cohort
     return false if @cohort.start_date > Date.current
     if CURRICULUM_UNLOCKING == 'weekly'
@@ -91,6 +98,16 @@ class CurriculumDay
 
   def unlock_weekend_on_friday
     (friday? && weekend?) && (self.to_s[1] == today.to_s[1])
+  end
+
+  def determine_w
+    d = day_number
+    if day_number <= 0
+      1
+    else
+      w = (day_number / 7) + 1
+      w > 8 ? 8 : w
+    end
   end
 
   def determine_d

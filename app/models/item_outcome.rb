@@ -1,4 +1,5 @@
-class ItemOutcome < ActiveRecord::Base
+class ItemOutcome < ApplicationRecord
+
   belongs_to :item, polymorphic: true
   belongs_to :outcome
 

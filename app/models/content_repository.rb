@@ -1,4 +1,4 @@
-class ContentRepository < ActiveRecord::Base
+class ContentRepository < ApplicationRecord
 
   has_many :activities
   has_many :deployments

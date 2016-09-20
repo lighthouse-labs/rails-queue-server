@@ -1,9 +1,11 @@
-class Evaluation < ActiveRecord::Base
+class Evaluation < ApplicationRecord
+
   include Statesman::Adapters::ActiveRecordQueries
 
   belongs_to :project
   belongs_to :student
   belongs_to :teacher
+  belongs_to :cohort # multiple cohorts per student sometimes
 
   has_many :evaluation_transitions, autosave: false
 
@@ -29,6 +31,8 @@ class Evaluation < ActiveRecord::Base
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
            :in_state?, to: :state_machine
+
+  before_create :set_cohort
 
   def state_machine
     @state_machine ||= EvaluationStateMachine.new(self, transition_class: EvaluationTransition)
@@ -69,5 +73,11 @@ class Evaluation < ActiveRecord::Base
   end
 
   private_class_method :initial_state
+
+  private
+
+  def set_cohort
+    self.cohort = self.student.cohort
+  end
 
 end

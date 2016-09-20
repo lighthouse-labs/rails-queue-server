@@ -1,6 +1,6 @@
 $ ->
-  $('.reconnect-holder .reconnect').click ->
+  $(document).on 'click', '.reconnect-holder .reconnect', ->
     window.location.reload()
 
-  $('.reconnect-holder .dismiss').click ->
+  $(document).on 'click', '.reconnect-holder .dismiss', ->
     $('.reconnect-holder').hide()

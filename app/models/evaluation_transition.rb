@@ -1,6 +1,6 @@
-class EvaluationTransition < ActiveRecord::Base
-  include Statesman::Adapters::ActiveRecordTransition
+class EvaluationTransition < ApplicationRecord
 
+  include Statesman::Adapters::ActiveRecordTransition
 
   belongs_to :evaluation, inverse_of: :evaluation_transitions
 

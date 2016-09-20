@@ -6,7 +6,8 @@ class ActivitySubmissionsController < ApplicationController
 
   def create
     activity_params = activity_submission_params.dup
-    activity_params["code_evaluation_results"] = JSON.parse(activity_params["code_evaluation_results"]) unless activity_params["code_evaluation_results"].blank?
+    activity_params["code_evaluation_results"] = JSON.parse(activity_params["code_evaluation_results"]).to_yaml unless activity_params["code_evaluation_results"].blank?
+
     @activity_submission = @activity.activity_submissions.new(activity_params)
     @activity_submission.user = current_user
 

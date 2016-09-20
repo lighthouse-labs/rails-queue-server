@@ -1,4 +1,4 @@
-window.setupActivityAutoComplete = (input) -> 
+window.setupActivityAutoComplete = (input) ->
   new AutoComplete(
     selector: input
     url: '/activities'
@@ -13,7 +13,7 @@ window.setupActivityAutoComplete = (input) ->
         markup = ['<span class="activity-display activity-display-name">' + item.text + '</span>']
 
       markup.join('')
-    
+
     select: (e, ui) ->
       $(@).val(ui.item.name)
       $(@).siblings('.hidden-item-type-field').first().val("Activity")
@@ -21,7 +21,7 @@ window.setupActivityAutoComplete = (input) ->
       false
   )
 
-$ ->
+$(document).on 'turbolinks:load', ->
   window.setupActivityAutoComplete('.activity-outcomes-autocomplete-field')
 
   new AutoComplete(

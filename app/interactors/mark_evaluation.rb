@@ -5,10 +5,12 @@ class MarkEvaluation
     @evaluation_form = context.evaluation_form
     @evaluation = context.evaluation
     @evaluation.teacher_notes = @evaluation_form[:teacher_notes]
-    if @evaluation_form[:commit] == "Accept"
+    if context.decision == "Accept"
       @evaluation.transition_to :accepted
+      UserMailer.evaluation_accepted(@evaluation).deliver
     else
       @evaluation.transition_to :rejected
+      UserMailer.evaluation_rejected(@evaluation).deliver
     end
 
     context.fail! unless @evaluation.save

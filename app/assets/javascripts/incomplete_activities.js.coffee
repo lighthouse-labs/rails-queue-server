@@ -1,5 +1,5 @@
 $ ->
-  $('.incomplete-activity-submit-button').click (e) ->
+  $(document).on 'click', '.incomplete-activity-submit-button', (e) ->
     that = $(e.target)
     activityId = that.data 'activity-id'
     activityType = that.data 'activity-type'
@@ -14,7 +14,7 @@ $ ->
       url: '/activities/' + activityId + '/activity_submission'
       type: 'POST'
       success: (result) ->
-        that.closest('.incomplete-activity-details-row').hide(500) 
+        that.closest('.incomplete-activity-details-row').hide(500)
         # Update total count of incomplete activities on index page
         incompleteActivitiesTitle.text('Incomplete Activities (' + (numberOfIncompleteActivities-1).toString() + ')')
         # Update total number of feedbacks in nav menu if activity is not a lecture.

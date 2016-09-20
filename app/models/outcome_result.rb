@@ -1,4 +1,5 @@
-class OutcomeResult < ActiveRecord::Base
+class OutcomeResult < ApplicationRecord
+
   belongs_to :user
   belongs_to :outcome
   belongs_to :source, polymorphic: true

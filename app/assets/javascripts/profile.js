@@ -21,13 +21,15 @@
    * @param  {jQuery}  $img
    * @param  {jQuery}  $msg
    */
-  function provideErrorFeedback(isValid, $img, $msg) {
+  function provideErrorFeedback(isValid, $img, $msgValid, $msgInvalid) {
     if (isValid) {
       $img.removeClass('invalid-image');
-      $msg.fadeOut();
+      $msgInvalid.hide();
+      $msgValid.show();
     } else {
       $img.addClass('invalid-image');
-      $msg.fadeIn();
+      $msgInvalid.show();
+      $msgValid.hide();
     }
   }
 
@@ -52,15 +54,16 @@
   }
 
   function manageAvatarLoading() {
-    var $img = $('.avatar-format img');
-    var $fileField = $('[name="user[custom_avatar]"]');
-    var $msg = $('.alert.alert-error.invalid-image-selection');
+    var $img         = $('.avatar-format img');
+    var $fileField   = $('[name="user[custom_avatar]"]');
+    var $msgInvalid  = $('.alert.invalid-image-selection');
+    var $msgValid    = $('.alert.valid-image-selection');
     var original_img = $img[0].src;
 
     var reader = new FileReader();
     reader.onloadend = function (evt) {
       var isImage = displayNewAvatar($img, reader.result, original_img);
-      provideErrorFeedback(isImage, $img, $msg);
+      provideErrorFeedback(isImage, $img, $msgValid, $msgInvalid);
     }
 
     var params = { reader: reader };
