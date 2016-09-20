@@ -66,10 +66,11 @@ tr
     - total_score, count = 0, 0
     - interview_templates.each do |interview_template|
       - if interview = interview_template.completed_interview_for(student)
-        - total_score += interview.average_score
-        - count += 1
+        - if interview.average_score
+          - total_score += interview.average_score
+          - count += 1
         = link_to interview do
-          span.tech-interview.label class=l_score_label_class(interview.average_score) title=interview.average_score data-toggle="tooltip"
+          span.tech-interview.label class=l_score_label_class(interview.average_score) title=(interview.average_score || "??") data-toggle="tooltip"
             = "W#{interview_template.week}"
       - else
         span.tech-interview.label.label-default title="Not Completed" data-toggle="tooltip"
@@ -80,7 +81,6 @@ tr
       br
       br
       span.label class=l_score_label_class(avg) = "L: #{avg}"
-
 
   td
     - @projects.each_with_index do |project, i|
