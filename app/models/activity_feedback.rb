@@ -11,9 +11,12 @@ class ActivityFeedback < ApplicationRecord
   scope :reverse_chronological_order, -> { order("activity_feedbacks.updated_at DESC")}
   scope :filter_by_user, -> (user_id) { where("user_id = ?", user_id) }
   scope :filter_by_day, -> (day) {
-    includes(:activity).
-    where("day LIKE ?", day.downcase+"%").
-    references(:activity)
+    # ActivityFeedback.joins(:activity).where("day LIKE ?", day.downcase+"%")
+    includes(:activity).where("activities.day LIKE ?", day.downcase+"%").references(:activity)
+    # ActivityFeedback.joins(:activity).where(day: "w3d4")
+    # includes(:activity).
+    # where("day LIKE ?", day.downcase+"%").
+    # references(:activity)
   }
   scope :filter_by_program, -> (program_id) {
     includes(user: {cohort: :program}).
@@ -61,6 +64,33 @@ class ActivityFeedback < ApplicationRecord
     average(:rating).to_f.round(2)
   end
 
+#refactor this
+  # def self.filter_by(options)
+  #   location_id = options[:user_location_id]
+  #   results = self
+  #   binding.pry
+  #   options.each do |key, value|
+  #     if key.include?('user') && key.include?('location')
+  #       results.send("filter_by_user_location", value)
+  #     elsif key.include?('cohort')
+  #       results.send("filter_by_cohort", value)
+  #     elsif key.include?('program')
+  #       results.send("filter_by_program", value)
+  #     elsif key.include?('day')
+  #       results.send("filter_by_day", value)
+  #     elsif key.include?('user')
+  #       results.send("filter_by_user", value)
+  #     elsif key.include?('start_date')
+  #       results.send("filter_by_start_date", value, location_id)
+  #     else key.include?('end_date')
+  #       results.send("filter_by_end_date", value, location_id)
+  #     end
+  #   end
+  # end
+
+  #     results = results.filter_by_user ()
+
+  # at the end "results"
   def self.filter_by(options)
     location_id = options[:user_location_id]
     options.inject(all) do |result, (k, v)|
