@@ -66,7 +66,7 @@ tr
     - total_score, count = 0, 0
     - interview_templates.each do |interview_template|
       - if interview = interview_template.completed_interview_for(student)
-        - if interview.average_score
+        - if interview.average_score?
           - total_score += interview.average_score
           - count += 1
         = link_to interview do
