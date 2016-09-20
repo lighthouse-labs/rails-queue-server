@@ -18,6 +18,8 @@ class Evaluation < ApplicationRecord
 
   scope :in_progress_evaluations, -> { where(state: "in_progress").where.not(teacher_id: nil) }
 
+  scope :completed, -> { where.not(completed_at: nil) }
+
   scope :student_cohort_in_locations, -> (locations) {
     if locations.is_a?(Array) && locations.length > 0
       includes(student: {cohort: :location}).
