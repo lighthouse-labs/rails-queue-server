@@ -4,9 +4,10 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
   DEFAULT_PER = 10
 
   def index
+    @filter_by_options = FILTER_BY_OPTIONS
     params[:student_location_id] = current_user.location.id.to_s if params[:student_location_id].nil?
     params[:completed?] = 'true' if params[:completed].nil?
-    
+
     @feedbacks = Feedback.curriculum_feedbacks.filter_by(filter_by_params).order(order)
     @rating = @feedbacks.average_rating
     @paginated_feedbacks = @feedbacks.page(params[:page]).per(DEFAULT_PER)
@@ -14,7 +15,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
     respond_to do |format|
       format.html
       format.csv {render text: @feedbacks.to_csv}
-      format.xls do 
+      format.xls do
         headers['Content-Disposition'] = 'attachment; filename=curriculum_feedbacks.xls'
       end
     end
@@ -23,7 +24,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
   private
 
   def sort_column
-    ["rating" "updated_at"].include?(params[:sort]) ? params[:sort] : "feedbacks.updated_at"
+    ["rating", "updated_at"].include?(params[:sort]) ? params[:sort] : "feedbacks.updated_at"
   end
 
   def sort_direction
