@@ -11,12 +11,9 @@ class ActivityFeedback < ApplicationRecord
   scope :reverse_chronological_order, -> { order("activity_feedbacks.updated_at DESC")}
   scope :filter_by_user, -> (user_id) { where("user_id = ?", user_id) }
   scope :filter_by_day, -> (day) {
-    # ActivityFeedback.joins(:activity).where("day LIKE ?", day.downcase+"%")
-    includes(:activity).where("activities.day LIKE ?", day.downcase+"%").references(:activity)
-    # ActivityFeedback.joins(:activity).where(day: "w3d4")
-    # includes(:activity).
-    # where("day LIKE ?", day.downcase+"%").
-    # references(:activity)
+    includes(:activity).
+    where("activities.day LIKE ?", day.downcase+"%").
+    references(:activity)
   }
   scope :filter_by_program, -> (program_id) {
     includes(user: {cohort: :program}).
