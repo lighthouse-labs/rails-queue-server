@@ -10,12 +10,7 @@ class ActivityFeedbackPresenter < BasePresenter
   end
 
   def upcased_day
-    if activity_feedback.user.present?
-      CurriculumDay.new(activity_feedback.created_at.to_date, activity_feedback.user.cohort).to_s.upcase
-    else
-      # If the student is no longer registered for some reason, display just the date
-      activity_feedback.created_at.to_date.to_s
-    end
+    activity_feedback.activity.day.upcase
   end
 
   def activity_name

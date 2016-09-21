@@ -61,40 +61,15 @@ class ActivityFeedback < ApplicationRecord
     average(:rating).to_f.round(2)
   end
 
-#refactor this
-  # def self.filter_by(options)
-  #   location_id = options[:user_location_id]
-  #   results = self
-  #   binding.pry
-  #   options.each do |key, value|
-  #     if key.include?('user') && key.include?('location')
-  #       results.send("filter_by_user_location", value)
-  #     elsif key.include?('cohort')
-  #       results.send("filter_by_cohort", value)
-  #     elsif key.include?('program')
-  #       results.send("filter_by_program", value)
-  #     elsif key.include?('day')
-  #       results.send("filter_by_day", value)
-  #     elsif key.include?('user')
-  #       results.send("filter_by_user", value)
-  #     elsif key.include?('start_date')
-  #       results.send("filter_by_start_date", value, location_id)
-  #     else key.include?('end_date')
-  #       results.send("filter_by_end_date", value, location_id)
-  #     end
-  #   end
-  # end
-
-  #     results = results.filter_by_user ()
-
-  # at the end "results"
+ #example options: {user_id: 1, user_location_id: 12}
   def self.filter_by(options)
     location_id = options[:user_location_id]
     options.inject(all) do |result, (k, v)|
-      attribute = k.gsub("_id", "")
+      attribute = k.gsub("_id", "") #change user_id to user
       if attribute.include?('date')
         result.send("filter_by_#{attribute}", v, location_id)
       else
+        #example ActivityFeedback.all.filter_by_attribute(1).filter_by_user_location(12)
         result.send("filter_by_#{attribute}", v)
       end
     end
