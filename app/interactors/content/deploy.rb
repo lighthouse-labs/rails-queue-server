@@ -1,7 +1,3 @@
-# TODO:
-# - create summary html file
-# - email notification of summary file
-
 class Content::Deploy
   include Interactor
 
@@ -30,7 +26,7 @@ class Content::Deploy
       load_interview_records(repo_dir, records)
 
       results = persist_changes(records)
-      create_summary_file(results)
+      publish_deploy_summary(results)
     end
   end
 
@@ -75,8 +71,8 @@ class Content::Deploy
     Content::Commit.call(log: @log, records: records, repo: @repo)
   end
 
-  def create_summary_file(results)
-    Content::CreateSummaryFile.call({
+  def publish_deploy_summary(results)
+    Content::PublishDeploySummary.call({
       log:        @log,
       deployment: @deployment,
       updated:    results.updated,

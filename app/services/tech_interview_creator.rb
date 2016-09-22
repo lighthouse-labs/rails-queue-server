@@ -42,11 +42,15 @@ class TechInterviewCreator
   end
 
   def should_slack?(interview)
-    intervals = 30
+    mins = 30
     ENV['SLACK_WEBHOOK_QUEUE_ALERTS'].present? &&
       interview.queued? &&
       interview.num_alerts < 3 &&
-      (Time.current - (interview.last_alerted_at || interview.created_at) >= (intervals * 60))
+      interview_stale_for(interview, mins)
+  end
+
+  def interview_stale_for(interview, mins)
+    (Time.current - (interview.last_alerted_at || interview.created_at) >= (mins * 60))
   end
 
   def generate_slack_message(cohort, interview)
@@ -57,22 +61,16 @@ class TechInterviewCreator
 
   def slack_alert(interview, msg)
     puts "SLACKING team about stale interview #{interview.id}"
-    cohort     = interview.cohort
-    receiver   = cohort.location.slack_username
-    channel    = cohort.location.slack_channel
 
-    options    = {
-      username: 'Compass',
-      icon_url: 'https://cdn3.iconfinder.com/data/icons/browsers-1/512/Browser_JJ-512.png',
-      channel: channel
-    }
-    poster = Slack::Poster.new(ENV['SLACK_WEBHOOK_QUEUE_ALERTS'], options)
-    poster.send_message("#{receiver}, #{msg}")
-    interview.touch(:last_alerted_at)
-    TechInterview.increment_counter(:num_alerts, interview.id)
-  rescue StandardError => e
-    # report but remain unaffected by any errors
-    Raven.capture_exception(e)
+    result = NotifySlackChannel.call(
+      webhook: ENV['SLACK_WEBHOOK_QUEUE_ALERTS'],
+      message: msg
+    )
+
+    if result.success?
+      interview.touch(:last_alerted_at)
+      TechInterview.increment_counter(:num_alerts, interview.id)
+    end
   end
 
   def create_interview(cohort, template)

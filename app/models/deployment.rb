@@ -8,7 +8,7 @@ class Deployment < ApplicationRecord
 
   def github_compare_link_against(deployment)
     base_sha = deployment.try(:sha) || 'master'
-    "https://github.com/#{content_repository.full_name}/compare/#{base_sha}...#{sha}"
+    "https://github.com/#{content_repository.full_name}/compare/#{base_sha}...#{sha}\#files_bucket"
   end
 
 
