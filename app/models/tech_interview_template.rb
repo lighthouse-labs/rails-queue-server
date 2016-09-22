@@ -4,7 +4,7 @@ class TechInterviewTemplate < ApplicationRecord
 
   belongs_to :content_repository
 
-  has_many :questions, { class_name: 'TechInterviewQuestion'}, -> { order(sequence: :asc) }
+  has_many :questions, { class_name: 'TechInterviewQuestion' }, -> { order(sequence: :asc) }
   has_many :tech_interviews
 
   validates :week, presence: true

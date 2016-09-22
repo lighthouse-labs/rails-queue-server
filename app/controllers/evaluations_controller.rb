@@ -13,6 +13,7 @@ class EvaluationsController < ApplicationController
   end
 
   def show
+    load_all_completed_evals
   end
 
   def new
@@ -22,6 +23,7 @@ class EvaluationsController < ApplicationController
   def create
     @evaluation = @project.evaluations.new(evaluation_params)
     @evaluation.student = current_user
+
     if @evaluation.save
       BroadcastEvaluationToTeachers.call(evaluation: @evaluation)
       redirect_to [@project, @evaluation], notice: "Project successfully submitted for evaluation."
@@ -35,10 +37,15 @@ class EvaluationsController < ApplicationController
     redirect_to [@project, @evaluation], alert: 'Evaluation is not markable' unless @evaluation.markable?
     redirect_to [@project, @evaluation], alert: 'You are not the evaluator' unless @evaluation.teacher == current_user
     @evaluation_form = EvaluationForm.new @evaluation
+    load_all_completed_evals
   end
 
   def update
-    result = CompleteEvaluation.call(evaluation_form: params[:evaluation_form], evaluation: @evaluation)
+    result = CompleteEvaluation.call(
+      evaluation_form: params[:evaluation_form],
+      evaluation: @evaluation,
+      decision: params[:commit]
+    )
     if result.success?
       redirect_to [@project, @evaluation], notice: "Evaluation successfully marked."
     else
@@ -88,4 +95,10 @@ class EvaluationsController < ApplicationController
   def teacher_required
     redirect_to day_path('today'), alert: 'Not allowed' unless teacher?
   end
+
+  def load_all_completed_evals
+    @all_completed_evaluations = @project.evaluations_for(@evaluation.student).completed.where.not(id: @evaluation.id)
+  end
+
+
 end

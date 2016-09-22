@@ -94,7 +94,7 @@ var RequestQueueItems = React.createClass({
   evaluationHolder: function(){
     return(
       <div>
-        <h3 className="section-heading">Awaiting Evaluations</h3>
+        <h3 className="section-heading">Awaiting Project Evaluations</h3>
         <ul className="student-list">
           { this.renderEvaluations() }
         </ul>

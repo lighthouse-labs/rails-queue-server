@@ -14,7 +14,7 @@
         | &nbsp;Tech Interview
       .status
         - if student?
-          = render 'student_interview_status', student: current_user, interview_template: interview_template
+          = render 'tech_interview_templates/student_interview_status', student: current_user, interview_template: interview_template
         - elsif teacher? || admin?
           - completed = cohort.tech_interviews.completed.where(tech_interview_template: interview_template).count
           - total = cohort.students.active.count

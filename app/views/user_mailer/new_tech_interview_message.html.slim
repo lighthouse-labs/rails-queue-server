@@ -1,13 +1,18 @@
+p Hi #{@interviewee.first_name},
 
-p This e-mail marks the completion of your Week #{@tech_interview.week} tech interview.
+p This e-mail marks the completion of your Week #{@tech_interview.week} tech interview, performed by #{@interviewer.full_name}.
 
 h3 Feedback
 = raw markdown(@tech_interview.feedback)
 
 p
   em
-    | You can view this and other tech interviews&nbsp;
-    = link_to 'here', tech_interview_templates_path
+    | You can view more detail about this and other tech interviews&nbsp;
+    = link_to 'here', tech_interview_templates_url
+
+p
+  strong
+    | Reminder: Do not share any details about this interview with your classmates.
 
 hr
 

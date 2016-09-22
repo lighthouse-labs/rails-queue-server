@@ -1,7 +1,6 @@
-h3 Teacher Notes
-
-== markdown(@interview_template.teacher_notes.to_s)
-
+- if @interview_template.teacher_notes?
+  h3 Teacher Notes
+  == markdown(@interview_template.teacher_notes.to_s)
 
 ul.nav.nav-tabs role="tablist"
   li role="presentation" class="active"

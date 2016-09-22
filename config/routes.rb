@@ -125,6 +125,8 @@ LaserShark::Application.routes.draw do
     end
   end
 
+  resources :assessment_tests, only: [:index]
+
   # TEACHER
   namespace :teacher do
     resources :students, only: [:show]

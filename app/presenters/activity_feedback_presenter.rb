@@ -10,7 +10,11 @@ class ActivityFeedbackPresenter < BasePresenter
   end
 
   def upcased_day
-    activity_feedback.activity.day.upcase
+    if activity_feedback.activity.day
+      activity_feedback.activity.day.upcase
+    else
+      "Prep Course"
+    end
   end
 
   def activity_name

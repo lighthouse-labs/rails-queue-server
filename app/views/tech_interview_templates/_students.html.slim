@@ -22,7 +22,7 @@ table.table.students
           = render 'tech_interview_templates/student_interview_status', interview: interview, interview_template: @interview_template, student: student
 
         td.details
-          - if interview
+          - if interview && interview.interviewer
             .teacher-info
               = link_to teacher_path(interview.interviewer) do
                 = image_tag interview.interviewer.avatar_url, class: 'avatar'
@@ -31,7 +31,7 @@ table.table.students
               = mail_to interview.interviewer.email, interview.interviewer.email, class: 'email'
               br
                 span.label.label-primary = interview.interviewer.location.name
-          - else
+          - elsif !interview
             = link_to 'Start!', new_tech_interview_template_interview_path(@interview_template, interviewee_id: student.id), class: 'btn btn-primary btn-sm'
         td
           - if interview && interview.completed?

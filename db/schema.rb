@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905180439) do
+ActiveRecord::Schema.define(version: 20160915160614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -240,6 +240,8 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.datetime "completed_at"
     t.text     "student_notes"
     t.datetime "cancelled_at"
+    t.integer  "cohort_id"
+    t.index ["cohort_id"], name: "index_evaluations_on_cohort_id", using: :btree
   end
 
   create_table "feedbacks", force: :cascade do |t|
@@ -274,6 +276,8 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.boolean  "satellite"
     t.integer  "supported_by_location_id"
     t.string   "feedback_email"
+    t.string   "slack_channel"
+    t.string   "slack_username"
     t.index ["supported_by_location_id"], name: "index_locations_on_supported_by_location_id", using: :btree
   end
 
@@ -407,6 +411,7 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.text     "blurb"
     t.string   "end_day"
     t.string   "image"
+    t.boolean  "evaluated"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end
@@ -482,12 +487,14 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.float    "average_score"
     t.text     "feedback"
     t.text     "internal_notes"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "day"
     t.integer  "articulation_score"
     t.integer  "knowledge_score"
     t.integer  "cohort_id"
+    t.datetime "last_alerted_at"
+    t.integer  "num_alerts",                 default: 0
     t.index ["cohort_id"], name: "index_tech_interviews_on_cohort_id", using: :btree
     t.index ["interviewee_id"], name: "index_tech_interviews_on_interviewee_id", using: :btree
     t.index ["interviewer_id"], name: "index_tech_interviews_on_interviewer_id", using: :btree
@@ -537,6 +544,7 @@ ActiveRecord::Schema.define(version: 20160905180439) do
     t.boolean  "on_duty",                default: false
     t.integer  "mentor_id"
     t.boolean  "mentor",                 default: false
+    t.boolean  "can_tech_interview"
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
   end
 

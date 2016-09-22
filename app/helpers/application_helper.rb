@@ -103,5 +103,17 @@ module ApplicationHelper
     end
   end
 
+  def project_eval_status_label_class(eval)
+    if eval.in_state?(:pending)
+      'label-warning'
+    elsif eval.in_state?(:in_progress)
+      'label-info'
+    elsif eval.in_state?(:rejected)
+      'label-danger'
+    elsif eval.in_state?(:accepted)
+      'label-success'
+    end
+  end
+
 
 end

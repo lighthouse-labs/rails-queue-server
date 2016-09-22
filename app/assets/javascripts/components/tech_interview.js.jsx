@@ -29,7 +29,7 @@ var TechInterview = React.createClass({
       return (
         <div>
           <p>
-            <b>Interview:</b>
+            <b>Interview:&nbsp;</b>
             <a href={"tech_interview_templates/" + interviewTemplate.id}>
               Week {interviewTemplate.week}
             </a>

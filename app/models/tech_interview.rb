@@ -6,16 +6,20 @@ class TechInterview < ApplicationRecord
   # since we dont have an enrollment record, this handles rollover (multi-cohort) students
   belongs_to :cohort
 
-  has_many :results, class_name: 'TechInterviewResult', dependent: :destroy
+  has_one :student_feedback, as: :feedbackable, dependent: :destroy, class_name: 'Feedback'
+
+  has_many :results, { class_name: 'TechInterviewResult', dependent: :destroy }
 
   accepts_nested_attributes_for :results, allow_destroy: false
 
   scope :interviewed_by, -> (interviewer) { where(interviewer: interviewer) }
-  scope :interviewing, -> (interviewee) { where(interviewee: interviewee, cohort: interviewee.cohort) }
-  scope :completed,    -> { where.not(completed_at: nil) }
-  scope :queued,       -> { where(started_at: nil) }
-  scope :in_progress,  -> { where.not(started_at: nil).where(completed_at: nil) }
-  scope :for_location, -> (locations) {
+  scope :interviewing,   -> (interviewee) { where(interviewee: interviewee, cohort: interviewee.cohort) }
+  scope :completed,      -> { where.not(completed_at: nil) }
+  scope :queued,         -> { where(started_at: nil) }
+  scope :active,         -> { where(completed_at: nil) }
+  scope :in_progress,    -> { where.not(started_at: nil).where(completed_at: nil) }
+  scope :for_cohort,     -> (cohort) { where(cohort: cohort) }
+  scope :for_locations,  -> (locations) {
     if locations.is_a?(Array) && locations.length > 0
       includes(cohort: :location).
       where(locations: { name: locations }).

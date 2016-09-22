@@ -8,9 +8,13 @@ class MarkTechInterview
 
     @tech_interview.assign_attributes(@attributes) if @attributes
     complete(@tech_interview, @interviewer)
-    send_email_to_student(@tech_interview)
 
-    context.fail! unless @tech_interview.save
+    if @tech_interview.save
+      create_feedback(@tech_interview)
+      send_email_to_student(@tech_interview)
+    else
+      context.fail! error: @tech_interview.errors.full_messages.first
+    end
   end
 
   private
@@ -40,5 +44,10 @@ class MarkTechInterview
       )
     end
   end
+
+  def create_feedback(tech_interview)
+    tech_interview.create_student_feedback(student: tech_interview.interviewee, teacher: tech_interview.interviewer)
+  end
+
 
 end
