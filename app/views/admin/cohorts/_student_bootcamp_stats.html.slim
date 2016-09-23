@@ -66,10 +66,11 @@ tr
     - total_score, count = 0, 0
     - interview_templates.each do |interview_template|
       - if interview = interview_template.completed_interview_for(student)
-        - total_score += interview.average_score
-        - count += 1
+        - if interview.average_score?
+          - total_score += interview.average_score
+          - count += 1
         = link_to interview do
-          span.tech-interview.label class=l_score_label_class(interview.average_score) title=interview.average_score data-toggle="tooltip"
+          span.tech-interview.label class=l_score_label_class(interview.average_score) title=(interview.average_score || "??") data-toggle="tooltip"
             = "W#{interview_template.week}"
       - else
         span.tech-interview.label.label-default title="Not Completed" data-toggle="tooltip"
@@ -81,29 +82,12 @@ tr
       br
       span.label class=l_score_label_class(avg) = "L: #{avg}"
 
-
   td
-    a.code-review href="#"
-      span.label.label-warning   P1
-
-    a.code-review href="#"
-      span.label.label-info      P2
-
-    a.code-review href="#"
-      span.label.label-default   P3
-
-    a.code-review href="#"
-      span.label.label-default   P4
-
-    a.code-review href="#"
-      span.label.label-default   P5
-
-    br
-
-    small
-      | Avg Score: 2.5 (6 CRs)
-
-    br
-
-    span.label.label-danger Not Implemented (Demo)
-
+    - @projects.each_with_index do |project, i|
+      - if eval = project.last_evaluation(student)
+        = link_to [project, eval] do
+          span.code-review.label class=project_eval_status_label_class(eval) title="#{project.name}: #{eval.status}" data-toggle='tooltip'
+            | P#{i+1}
+      - else
+          span.code-review.label.label-default title=project.name data-toggle='tooltip'
+            | P#{i+1}

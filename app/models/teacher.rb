@@ -15,9 +15,9 @@ class Teacher < User
     where(id: teacher_id)
   }
 
-  validates :bio,             presence: true, length: { maximum: 1000 }
-  validates :quirky_fact,     presence: true
-  validates :specialties,     presence: true
+  validates :bio,             length: { maximum: 1000 }
+  validates :quirky_fact,     length: { maximum: 255 }
+  validates :specialties,     length: { maximum: 255 }
 
   def self.filter_by(options)
     options.inject(all) do |result, (k, v)|

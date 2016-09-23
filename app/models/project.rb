@@ -8,6 +8,8 @@ class Project < Section
 
   validates :name, :description, presence: true
 
+  scope :evaluated, -> { where(evaluated: true) }
+
   before_validation :set_slug
 
   def complete?(user)

@@ -5,7 +5,7 @@ header.page-header
 
 == markdown(@interview_template.description.to_s)
 
-- if (teacher? || admin?) && @interview_template.teacher_notes?
+- if (teacher? || admin?)
   = render 'info_for_teachers'
 - else
   = render 'info_for_students'

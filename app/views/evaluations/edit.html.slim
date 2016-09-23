@@ -65,7 +65,7 @@
               th Outcome
 
           tbody
-            - @evaluation_form.outcomes.each_with_index do |outcome, index|
+            - @evaluation_form.outcomes.each_with_index do |(outcome_id, outcome), index|
               tr
                 td.text-center
                   label.radio.radio-inline

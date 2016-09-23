@@ -1,0 +1,34 @@
+The quick-fix dashboard on Compass is available here:
+
+https://web-compass.lighthouselabs.ca/assessment_tests/
+
+You can click the link here to access to procotologist dashboard to see student progress. This is useful for mock as well as the real test.
+
+You can also view all the github usernames for students here which will make it easier to add them to the github team today.
+
+This is the github team you need to add all the github usernames to:
+
+https://github.com/orgs/lighthouse-labs/teams/web-assessment-test-students
+
+For this run, the EMs are going to add the github usernames before 11AM local time, but next time it can be the proctor.
+
+The students should then be sent the following message:
+
+---
+
+Hello Labbers
+
+Please accept our GitHub invite via email or from here: <https://github.com/lighthouse-labs/>. You will then able to access the assessment test repo here: <https://github.com/lighthouse-labs/assessment-exam-student>.
+
+While you are only allocated 1.5h this Friday for the Mock test, we strongly suggest that you spend more time as needed to achieve 100% over the weekend. The goal of this mock test is to help you revisit and become more comfortable with automated tests while also becoming comfortable with how our assessment test workflow works.
+
+Once you clone the private repo (no need to fork it!), go through the instructions in the README. It's very important to follow them carefully. The exam-id is `web-01`.
+
+That said, please do not compromise your TinyApp project progress as it is important to get your project submitted for evaluation by EOD today.
+
+Best of luck!
+
+---
+
+
+

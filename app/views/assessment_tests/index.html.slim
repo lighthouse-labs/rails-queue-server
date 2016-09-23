@@ -1,0 +1,31 @@
+header.page-header
+  h1 Assessment Tests
+
+h2 = cohort.name
+
+.panel.panel-default
+  .panel-heading
+    h3.panel-title
+      | Github usernames
+
+  .table-responsive
+    table.table.sortable
+      thead
+        tr
+          th Student
+          th GitHub Username
+      tbody
+        - cohort.students.active.each do |student|
+          tr
+            td
+              .student-info
+                == render 'shared/student_info', student: student
+            td = student.github_username
+
+h3 Mock Test
+
+p = link_to 'Proctologist', url_for_proctologist('web-01', cohort)
+
+h3 Real Test
+
+p = link_to 'Proctologist', url_for_proctologist('web-main', cohort)
