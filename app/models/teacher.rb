@@ -35,10 +35,6 @@ class Teacher < User
     true
   end
 
-  def prepping?
-    false
-  end
-
   def prospect?
     false
   end

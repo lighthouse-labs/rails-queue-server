@@ -84,8 +84,6 @@ end
 
 group :development, :test do
   gem 'dotenv-rails'
-
-  gem 'byebug', platform: :mri
   gem 'spring-commands-rspec'
   gem 'factory_girl_rails'
   # gem 'rspec-rails', '2.14.2'

@@ -61,10 +61,9 @@ class User < ApplicationRecord
     "#{first_name.first.upcase}#{last_name.first.upcase}"
   end
 
-  def prepping?
+  def enrolled_and_prepping?
     false
   end
-
 
   def active_student?
     false
