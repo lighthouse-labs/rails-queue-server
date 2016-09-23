@@ -28,6 +28,10 @@ class Content::Commit
         @log.info rec.changes.awesome_inspect
         rec.save!
         updated << rec
+      elsif rec.changed_for_autosave?
+        @log.info "Updating #{rec.class} #{rec.uuid}, child changes"
+        rec.save!
+        updated << rec
       else
         @log.info "Ignoring #{rec.class} #{rec.uuid}"
       end
