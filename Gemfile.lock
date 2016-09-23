@@ -492,7 +492,6 @@ DEPENDENCIES
   launchy
   letter_opener
   letter_opener_web
-  listen (~> 3.1.5)
   logging
   mini_magick
   octokit
