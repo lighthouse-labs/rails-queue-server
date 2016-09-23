@@ -82,7 +82,6 @@ GEM
     cliver (0.3.2)
     codeclimate-test-reporter (0.4.8)
       simplecov (>= 0.7.1, < 1.0.0)
-    coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -282,9 +281,10 @@ GEM
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
-    listen (3.0.8)
+    listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
     little-plugger (1.1.4)
     logging (2.1.0)
       little-plugger (~> 1.1)
@@ -335,10 +335,6 @@ GEM
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
-    pry (0.10.4)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
     puma (3.6.0)
     rack (2.0.1)
     rack-test (0.6.3)
@@ -389,6 +385,7 @@ GEM
       tilt
     redcarpet (3.3.3)
     redis (3.3.1)
+    ruby_dep (1.4.0)
     rubyzip (1.1.7)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -422,7 +419,6 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (~> 3.0)
-    slop (3.6.0)
     spring (1.4.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -496,7 +492,7 @@ DEPENDENCIES
   launchy
   letter_opener
   letter_opener_web
-  listen (~> 3.0.5)
+  listen (~> 3.1.5)
   logging
   mini_magick
   octokit
@@ -505,7 +501,6 @@ DEPENDENCIES
   pg
   phantomjs
   poltergeist
-  pry
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   rails_12factor
@@ -537,4 +532,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.12.5
+   1.13.1
