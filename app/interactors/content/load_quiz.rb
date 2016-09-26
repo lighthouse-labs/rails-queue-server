@@ -41,12 +41,8 @@ class Content::LoadQuiz
       attrs[:outcome] = Outcome.find_by(uuid: d['outcome']) if d['outcome']
 
       if question = Question.find_by(uuid: uuid)
-        if question.answers.any?
-          update_options(question, attrs)
-          attrs.delete :options_attributes
-        else
-          question.options.each { |o| o.mark_for_destruction }
-        end
+        update_options(question, attrs)
+        attrs.delete :options_attributes
         question.assign_attributes attrs
       else
         question = Question.new(attrs)
@@ -72,18 +68,17 @@ class Content::LoadQuiz
 
     question.options.each_with_index do |option, i|
       option.assign_attributes data[:options_attributes][i]
-      # question.question_will_change! if option.changed?
     end
 
     # grab the last x (new_count) items from the array in the data
     #  since we need to create those new question options
     new_count = data[:options_attributes].size - question.options.size
     if new_count > 0
-      # question.question_will_change!
       data[:options_attributes][-new_count..-1].each do |new_option_data|
         question.options.new new_option_data
       end
     end
+
   end
 
 end
