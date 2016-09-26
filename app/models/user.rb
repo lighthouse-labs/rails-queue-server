@@ -119,18 +119,18 @@ class User < ActiveRecord::Base
 
   # 1
   def code_reviewed_activities
-    Activity.where(id: completed_code_reviews.select(:activity_id))
+    Activity.bootcamp.where(id: completed_code_reviews.select(:activity_id))
   end
 
   # 2
   def submitted_but_not_reviewed_activities
-    unreviewed_submissions = self.activity_submissions.with_github_url.where.not(activity_id: completed_code_reviews.select(:activity_id))
-    Activity.where(id: unreviewed_submissions.select(:activity_id))
+    unreviewed_submissions = self.activity_submissions.where.not(activity_id: completed_code_reviews.select(:activity_id))
+    Activity.bootcamp.order(day: :desc).where(id: unreviewed_submissions.select(:activity_id))
   end
 
   # 3
   def unsubmitted_activities_before(day)
-    Activity.where(allow_submissions: true).where("day <= ?", day.to_s).order(day: :desc).where.not(id: self.activity_submissions.select(:activity_id))
+    Activity.reviewable.bootcamp.where("day <= ?", day.to_s).order(day: :desc).where.not(id: self.activity_submissions.select(:activity_id))
   end
 
   class << self

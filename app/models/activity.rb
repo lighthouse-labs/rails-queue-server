@@ -9,6 +9,9 @@ class Activity < ActiveRecord::Base
   scope :for_day, -> (day) { where(day: day.to_s) }
   scope :search, -> (query) { where("lower(name) LIKE ?", "%"+query.downcase+"%") }
 
+  scope :reviewable, -> { where.not(type: ['Lecture', 'Test', 'Homework']) }
+  scope :bootcamp, -> { where.not(day: 'setup') }
+
   # Below hook should really be after_save (create and update)
   # However, when seeding/mass-creating activties, github API will return error
   after_update :add_revision_to_gist

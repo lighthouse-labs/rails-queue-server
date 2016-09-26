@@ -9,7 +9,7 @@
   .modal-body
     label
       | Activity
-    .form-group = select_tag :activity_id, grouped_options_for_select(@activities), class: 'form-control', :prompt => "Please choose an activity"
+    .form-group = select_tag :activity_id, grouped_activities_for_code_review_select(@activities), class: 'form-control', :prompt => "Please choose an activity"
     label =@student.first_name + ' ' + @student.last_name
 
     p
