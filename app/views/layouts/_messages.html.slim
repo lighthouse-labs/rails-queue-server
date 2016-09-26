@@ -5,15 +5,15 @@
       button.close[type="button" data-dismiss="alert" aria-hidden="true"] ×
       = content_tag :div, msg, :id => "flash_#{name}"
 
-- if current_user && teacher?
-  div class="alert alert-success"
+- if ENV['NEW_COMPASS_TEACHER_CODE'].present? && current_user && teacher?
+  div class="alert alert-danger"
     button.close[type="button" data-dismiss="alert" aria-hidden="true"] ×
     div
       strong Important Announcement:
       br
-      | For this week we have both the new and the old curriculum running together. Please log into the
+      | This instance of Compass is no longer active. Please log into the
       | &nbsp;
       a href="https://web-compass.lighthouselabs.ca/i/#{ENV['NEW_COMPASS_TEACHER_CODE']}" target="_blank" Other (Newer) Compass
-      | &nbsp;as well! Unfortunately that does mean that for this week you will need to monitor both request queues.
+      | &nbsp;instead and close up this one. Thanks!
 
 
