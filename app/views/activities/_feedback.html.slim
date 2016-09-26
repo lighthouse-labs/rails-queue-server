@@ -9,7 +9,8 @@ p
 - if @activity.prep?
   p
     strong NEED HELP?
-    | Do not use this mechansism to ask for help if you are stuck.
+    | &nbsp;
+    | Do not use this mechanism to ask for help if you are stuck.
     | &nbsp;
     = link_to 'Our Private Discourse Forum', 'http://web-prep-help.lighthouselabs.ca/', target: '_blank'
     | &nbsp;
@@ -20,4 +21,3 @@ p
     = render 'activity_feedbacks/form', form: f
 
 = render 'activity_feedbacks/list'
-
