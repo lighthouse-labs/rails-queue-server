@@ -5,7 +5,7 @@ class CohortsController < ApplicationController
   def switch_to
     @cohort = Cohort.find params[:id]
     session[:cohort_id] = @cohort.id
-    redirect_to day_path('today'), notice: "Switched to #{@cohort.name} cohort!"
+    redirect_to :back, notice: "Switched to #{@cohort.name} cohort!"
   end
 
   def code_reviews

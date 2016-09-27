@@ -41,15 +41,9 @@ class Content::LoadQuiz
       attrs[:outcome] = Outcome.find_by(uuid: d['outcome']) if d['outcome']
 
       if question = Question.find_by(uuid: uuid)
-        if question.answers.any?
-          # TODO: need to handle this better before going live
-          #  Should be able to update questions that already have answers (the reality of once this is live)
-          #  - KV
-          @log.warn "Skipping Question #{question.id} as it has answers"
-        else
-          question.options.each { |o| o.mark_for_destruction }
-          question.assign_attributes attrs
-        end
+        update_options(question, attrs)
+        attrs.delete :options_attributes
+        question.assign_attributes attrs
       else
         question = Question.new(attrs)
       end
@@ -58,6 +52,33 @@ class Content::LoadQuiz
       @records.push question
     end
     questions # created or found questions are returned
+  end
+
+  private
+
+  def update_options(question, data)
+    if question.options.size > data[:options_attributes].size
+      @log.warn "Skipping Question #{question.id} as it has fewer options and I don't know how to handle that :("
+      return
+    end
+
+    # mark the question as dirty (this is a hack) so our log is at least
+    # showing that the Q was updated, even though it wont show the details correctly
+    #  - KV
+
+    question.options.each_with_index do |option, i|
+      option.assign_attributes data[:options_attributes][i]
+    end
+
+    # grab the last x (new_count) items from the array in the data
+    #  since we need to create those new question options
+    new_count = data[:options_attributes].size - question.options.size
+    if new_count > 0
+      data[:options_attributes][-new_count..-1].each do |new_option_data|
+        question.options.new new_option_data
+      end
+    end
+
   end
 
 end

@@ -2,7 +2,8 @@ class Question < ApplicationRecord
 
   belongs_to :outcome
 
-  has_many :options, dependent: :destroy
+  # enable autosave b/c of how the curriculum deploy (load_quiz) scripts work - KV
+  has_many :options, dependent: :destroy, autosave: true
   has_many :answers, through: :options
 
   has_many :outcome_results, as: :source
