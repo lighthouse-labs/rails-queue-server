@@ -42,6 +42,7 @@ db/*.sqlite3
 rerun.txt
 pickle-email-*.html
 .zeus.sock
+dump.rdb
 
 config/cable.yml
 

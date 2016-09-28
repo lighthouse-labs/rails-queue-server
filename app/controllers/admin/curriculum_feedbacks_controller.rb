@@ -4,7 +4,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
   DEFAULT_PER = 10
 
   def index
-    @feedbacks = ActivityFeedback.filter_by(filter_by_params).order(order)
+    @feedbacks = ActivityFeedback.filter_by(filter_by_params).reorder(order)
     @rating = @feedbacks.average_rating
     @paginated_feedbacks = @feedbacks.page(params[:page]).per(DEFAULT_PER)
 
@@ -20,7 +20,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
   private
 
   def sort_column
-    ["rating" "created_at"].include?(params[:sort]) ? params[:sort] : "activity_feedbacks.created_at"
+    ["rating", "created_at"].include?(params[:sort]) ? params[:sort] : "activity_feedbacks.created_at"
   end
 
   def sort_direction
