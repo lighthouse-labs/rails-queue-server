@@ -12,6 +12,7 @@ class TechInterview < ApplicationRecord
 
   accepts_nested_attributes_for :results, allow_destroy: false
 
+  scope :oldest_first, -> { order(created_at: :asc) }
   scope :interviewed_by, -> (interviewer) { where(interviewer: interviewer) }
   scope :interviewing,   -> (interviewee) { where(interviewee: interviewee, cohort: interviewee.cohort) }
   scope :completed,      -> { where.not(completed_at: nil) }
