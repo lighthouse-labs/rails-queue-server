@@ -7,7 +7,6 @@ class ActivityFeedback < ApplicationRecord
   validates :activity, presence: true
   validate :at_least_some_feedback
 
-  scope :activity_feedbacks, -> { where(sentiment: nil) }
   scope :reverse_chronological_order, -> { order("activity_feedbacks.updated_at DESC")}
   scope :filter_by_user, -> (user_id) { where("user_id = ?", user_id) }
   scope :filter_by_day, -> (day) {
@@ -40,8 +39,6 @@ class ActivityFeedback < ApplicationRecord
       where("activity_feedbacks.created_at <= ?", Time.zone.parse(date_str).end_of_day.utc)
     end
   }
-
-  validates :rating, presence: true, on: :update
 
   default_scope -> { order(created_at: :desc) }
 

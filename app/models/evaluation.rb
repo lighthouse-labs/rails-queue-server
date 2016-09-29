@@ -14,6 +14,8 @@ class Evaluation < ApplicationRecord
   validates :github_url,
     format: { with: URI::regexp(%w(http https)), message: "must be a valid format" }
 
+  scope :oldest_first, -> { order(created_at: :asc) }
+
   scope :open_evaluations, -> { includes(:project).includes(:student).where(state: "pending") }
 
   scope :in_progress_evaluations, -> { where(state: "in_progress").where.not(teacher_id: nil) }
@@ -28,7 +30,6 @@ class Evaluation < ApplicationRecord
     end
   }
 
-  scope :newest_evaluations_first, -> { order(created_at: :desc) }
   scope :newest_active_evaluations_first, -> { order(started_at: :desc) }
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
