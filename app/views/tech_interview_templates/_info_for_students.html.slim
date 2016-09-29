@@ -1,21 +1,41 @@
-h3
-  | Status:&nbsp;
-  - if @result && @result.in_progress?
-    .label.label-info In Progress
-  - elsif @result && @result.completed?
-    .label.label-success Completed
+| Status:&nbsp;
+- if @result && @result.in_progress?
+  .label.label-info In Progress
+- elsif @result && @result.completed?
+  .label.label-success Completed
+  br
+  .alert.alert-warning Please do not share your results with your peers who may not have done their tech interview yet.
+  .panel.panel-default.question-result
+    .panel-heading
+      h3.panel-title Overall Feedback
+    .panel-body
+      == markdown (@result.feedback.to_s)
+  .panel.panel-default.question-result.scoring
+    .panel-heading
+      h3.panel-title Scoring
+    .panel-body
+      ol
+       li Didn't get it.
+       li Got it with some help, or close.
+       li Got it well.
+       li Underwhelming/too easy.
+  - @result.results.each.with_index do |result, index|
     br
-    br
-    .alert.alert-warning Please do not share your results with your peers who may not have done their tech interview yet
-    td Feedback: #{@result.feedback}
-    - @result.results.each.with_index do |result, index|
-      br
-      br
-      td Question #{index + 1}: #{result.question}
-      br
-  - else
-    .label.label-warning Pending
-
+    .panel.panel-default.question-result
+      .panel-heading
+        h3.panel-title Question #{index + 1}
+      .panel-body
+        strong The Question
+        br
+        == markdown(result.question.to_s)
+        strong Your Score
+        br
+        == markdown(result.score.to_s)
+        strong Mentor Notes
+        br
+        == markdown(result.notes.to_s)
+- else
+  .label.label-warning Pending
 - unless @result
   .alert.alert-info
     p Your interview results will be shown here.
