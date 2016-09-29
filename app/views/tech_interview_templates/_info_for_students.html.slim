@@ -4,6 +4,15 @@ h3
     .label.label-info In Progress
   - elsif @result && @result.completed?
     .label.label-success Completed
+    br
+    br
+    .alert.alert-warning Please do not share your results with your peers who may not have done their tech interview yet
+    td Feedback: #{@result.feedback}
+    - @result.results.each.with_index do |result, index|
+      br
+      br
+      td Question #{index + 1}: #{result.question}
+      br
   - else
     .label.label-warning Pending
 
