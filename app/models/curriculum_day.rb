@@ -3,6 +3,8 @@
 class CurriculumDay
   attr_reader :date
   attr_reader :raw_date
+  attr_reader :cohort
+  attr_reader :program
 
   include Comparable
 
@@ -10,9 +12,10 @@ class CurriculumDay
     @raw_date = date
     @date = date
     @cohort = cohort
+    @program = cohort.try :program
 
     @date = @date.to_s if @date.is_a?(CurriculumDay)
-    
+
     if @date.is_a?(String) && @cohort && @date != 'setup'
       @date = calculate_date
     end
@@ -79,21 +82,30 @@ class CurriculumDay
   end
 
   def determine_d
-    return @date.wday if DAYS_PER_WEEK == 5
+    return @date.wday if days_per_week == 5
     # "d1" would normally be monday, right?
-    # Well now it could also be tuesday 
-    # Eg Given `WEEKDAYS = [2, 4]` (tuesdays and thursdays)
+    # Well now it could also be tuesday
+    # Eg Given `weekdays = [2, 4]` (tuesdays and thursdays)
     # then d1 = tuesday, d2 = thursday
     wday = @date.wday # 1,2,3,4 or 5 (eg: 3 for 'wednesday')
-    # 1 (mon) - 1,3 => 1 
+    # 1 (mon) - 1,3 => 1
     # 2 (tue) - 1,3 => 1
     # 3 (wed) - 1,3 => 3
     # 4 (thu) - 1,3 => 3
     # 5 (fri) - 1,3 => 3
     # 6 (sat) - 1,3 => 3
     # 7 (sun) - 1,3 => 3
-    wday = (WEEKDAYS.reverse.detect {|d| d.to_i <= wday } || WEEKDAYS.first)
-    WEEKDAYS.index(wday) + 1
+    wday = (weekdays.reverse.detect {|d| d.to_i <= wday } || weekdays.first)
+    weekdays.index(wday) + 1
+  end
+
+  def days_per_week
+    program.try(:days_per_week) || 5
+  end
+
+  # Array format of active wday values: 1,2,3,4,5 (represents: M,T,W,TH,F)
+  def weekdays
+    cohort.weekdays.to_s.split(',')
   end
 
   def calculate_date
@@ -101,17 +113,17 @@ class CurriculumDay
     # dow = day of week
     week, dow = date_parts[1].to_i, date_parts.last
     dow = dow == 'e' ? 6 : dow.to_i # weekend is day 6 (saturday)
-    
+
     # limitation: assume start date is always a monday
     # for monday dow = 1 so advance by 0 (no advance) if dow = 1. Hence the -1 offset on dow
     date = @cohort.start_date.monday.advance(weeks: week - 1)
-    if DAYS_PER_WEEK == 5
+    if days_per_week == 5
       date = date.advance(days: dow - 1)
     else
       # dow of 2 (d2) may be Tuesday ... but could also be Thursday if we don't have 5 day weeks
-      # This would happen if WEEKDAYS = [2, 4]
+      # This would happen if weekdays = [2, 4]
       # In the example above, d1 = Tuesday, d2 = Thursday
-      d = WEEKDAYS[dow - 1].to_i
+      d = weekdays[dow - 1].to_i
       date = date.advance(days: d - 1)
     end
     date

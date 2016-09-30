@@ -11,3 +11,5 @@
 = form.association :program
 = form.input :start_date
 = form.input :teacher_email_group
+- if form.object.program.days_per_week != 5
+  = form.input :weekdays

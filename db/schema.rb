@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160505170745) do
+ActiveRecord::Schema.define(version: 20160930004016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 20160505170745) do
     t.string   "teacher_email_group", limit: 255
     t.integer  "program_id"
     t.integer  "location_id"
+    t.string   "weekdays"
   end
 
   add_index "cohorts", ["program_id"], name: "index_cohorts_on_program_id", using: :btree
@@ -165,6 +166,7 @@ ActiveRecord::Schema.define(version: 20160505170745) do
     t.string   "recordings_folder", limit: 255
     t.string   "recordings_bucket", limit: 255
     t.string   "tag",               limit: 255
+    t.integer  "days_per_week"
   end
 
   create_table "recordings", force: :cascade do |t|

@@ -13,7 +13,7 @@ class Admin::CohortsController < Admin::BaseController
   def edit
   end
 
-  def create 
+  def create
     @cohort = Cohort.new(cohort_params)
     if @cohort.save
       redirect_to [:edit, :admin, @cohort], notice: 'Created!'
@@ -43,7 +43,8 @@ class Admin::CohortsController < Admin::BaseController
       :code,
       :program_id,
       :location_id,
-      :teacher_email_group
+      :teacher_email_group,
+      :weekdays
     )
   end
 
