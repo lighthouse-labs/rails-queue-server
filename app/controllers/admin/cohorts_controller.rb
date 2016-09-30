@@ -49,7 +49,8 @@ class Admin::CohortsController < Admin::BaseController
       :code,
       :program_id,
       :location_id,
-      :teacher_email_group
+      :teacher_email_group,
+      :weekdays
     )
   end
 

@@ -67,7 +67,7 @@
         h2 Daily Feedback
         - if feedback_submitted?(day)
           p Thank you for your feedback
-        - elsif previous_day? || it_is_6pm_already?
+        - elsif previous_day? || it_is_6pm_already? || ENV['SIMPLE_DAY_FEEDBACK'].present?
           = render partial: 'day_feedbacks/form'
         - elsif today?
           p Feedback opens later tonight (at 6pm). Please remember to come back and give it at some point thereafter.

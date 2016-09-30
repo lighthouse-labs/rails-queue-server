@@ -6,7 +6,7 @@
           a href="#"
             | W
             = w
-        - (1..DAYS_PER_WEEK).each do |d|
+        - (1..@program.days_per_week).each do |d|
           li.day-number class=day_status_css("w#{w}d#{d}") = link_to(d, day_path("w#{w}d#{d}"))
         - if WEEKENDS
           li.day-number class=day_status_css("w#{w}e") = link_to('e', day_path("w#{w}e"))
