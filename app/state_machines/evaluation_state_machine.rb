@@ -8,8 +8,10 @@ class EvaluationStateMachine
   state :accepted
   state :rejected
   state :cancelled
+  state :auto_accepted
 
-  transition from: :pending, to: [:in_progress, :cancelled]
+  transition from: :pending, to: [:in_progress, :cancelled, :auto_accepted]
+  transition from: :auto_accepted, to: [:cancelled]
   transition from: :in_progress, to: [:pending, :accepted, :rejected, :cancelled]
   transition from: :accepted, to: [:rejected]
   transition from: :rejected, to: [:accepted]
@@ -26,6 +28,12 @@ class EvaluationStateMachine
 
   after_transition(to: :accepted) do |evaluation, transition|
     evaluation.state = "accepted"
+    evaluation.completed_at = Time.now
+    evaluation.save
+  end
+
+  after_transition(to: :auto_accepted) do |evaluation, transition|
+    evaluation.state = "auto_accepted"
     evaluation.completed_at = Time.now
     evaluation.save
   end
