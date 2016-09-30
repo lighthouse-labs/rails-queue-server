@@ -181,6 +181,8 @@ ActiveRecord::Schema.define(version: 20160915160614) do
     t.string   "last_sha"
   end
 
+  add_index "cohorts", ["program_id"], name: "index_cohorts_on_program_id", using: :btree
+
   create_table "day_feedbacks", force: :cascade do |t|
     t.string   "mood"
     t.string   "title"
