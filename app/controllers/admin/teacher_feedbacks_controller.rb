@@ -4,7 +4,7 @@ class Admin::TeacherFeedbacksController < Admin::BaseController
 
   def index
     if params[:teacher_location_id].nil?
-      params[:teacher_location_id] = current_user.location.id.to_s  
+      params[:teacher_location_id] = current_user.location.id.to_s
     end
 
     if params[:start_date].nil?
@@ -17,6 +17,7 @@ class Admin::TeacherFeedbacksController < Admin::BaseController
 
     @feedbacks = Feedback.teacher_feedbacks.filter_by(filter_by_params)
     @completed_feedbacks = Feedback.teacher_feedbacks.completed.filter_by(filter_by_params).group_by(&:teacher)
+    @completed_feedbacks_default = Feedback.teacher_feedbacks.completed.filter_by({"teacher_location" => "1", "start_date" => "2016-09-01", "end_date" => "2016-09-30"}).group_by(&:teacher)
   end
 
   private
