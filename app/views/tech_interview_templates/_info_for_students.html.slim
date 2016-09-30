@@ -12,7 +12,7 @@
     .panel-heading
       h3.panel-title Overall Feedback
     .panel-body
-     == markdown (@result.feedback.to_s)
+       == markdown (@result.feedback.to_s)
   .panel.panel-default.question-result.scoring
     .panel-heading
       h3.panel-title Scoring
@@ -26,7 +26,7 @@
     br
     .panel.panel-default.question-result
       .panel-heading
-        h3.panel-title
+        h3.panel-title.tech.score
           | Question #{index + 1}
           - if result.skipped?
             span.label.label-default Skipped
