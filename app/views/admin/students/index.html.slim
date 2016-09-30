@@ -4,42 +4,41 @@
 table.table
   thead
     tr
-      th
       th Name
-      th Email
-      th Registered?
       th Cohort
-      th Mentor
-      th 
-      th 
+      th Change
   tbody
     - @students.each do |student|
       tr data-id='#{student.id}'
-        td = image_tag(avatar_for(student), {size:'100x100'})
-        td = student.full_name
-        td = student.email
-        td = completed_registration?(student)
+        td 
+          .student-info
+            = render 'shared/student_info', student: student, show_email: true
         td
-          - if student.try(:cohort)
-            = student.cohort.name
+          - if student.cohort
+            = link_to student.cohort.name, [:admin, student.cohort]
           - else
             = 'N/A'
-        td = student.mentor
+            br
+            = cohort_status(student.cohort)
+          
         td
-          .btn.btn-primary.btn-xs.admin-student-edit-button data-toggle="modal" data-target="#student-actions-modal" data-student-id="#{student.id}"
-            | Edit Mentor/Cohort
-        td 
-          - if student.deactivated?
-            .btn.btn-primary.btn-xs.student-reactivate-button
-              | Reactivate
-            .btn.btn-danger.btn-xs.student-deactivate-button.hidden-button
-              | Deactivate
-          - else
-            .btn.btn-danger.btn-xs.student-deactivate-button
-              | Deactivate
-            .btn.btn-primary.btn-xs.student-reactivate-button.hidden-button
-              | Reactivate
-        td = link_to 'Edit', [:edit, :admin, student]
+          .btn-collection
+            - if student.deactivated?
+              .btn.btn-primary.btn-xs.student-reactivate-button
+                | Reactivate
+              .btn.btn-danger.btn-xs.student-deactivate-button.hidden-button
+                | Deactivate
+            - else
+              .btn.btn-danger.btn-xs.student-deactivate-button
+                | Deactivate
+              .btn.btn-primary.btn-xs.student-reactivate-button.hidden-button
+                | Reactivate 
+            
+            = link_to 'Edit', [:edit, :admin, student], class: 'btn btn-xs btn-primary'
+            
+            a.btn.btn-xs.btn-info.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-actions-modal" data-student-id="#{student.id}"
+              i.fa.fa-edit
+              | &nbsp;Change Cohort
 
 .modal.fade id="student-actions-modal"
   .modal-dialog

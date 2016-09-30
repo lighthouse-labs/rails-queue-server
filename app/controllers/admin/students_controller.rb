@@ -1,5 +1,5 @@
 class Admin::StudentsController < Admin::BaseController
-  
+
   before_action :load_student, only: [:reactivate, :deactivate, :update, :edit, :modal_content]
   before_action :prep_form, only: [:index, :edit]
 
@@ -17,7 +17,7 @@ class Admin::StudentsController < Admin::BaseController
 
   def reactivate
     @student.reactivate!
-    render nothing: true 
+    render nothing: true
   end
 
   def deactivate
@@ -36,8 +36,8 @@ class Admin::StudentsController < Admin::BaseController
   end
 
   def modal_content
-    @cohorts = Cohort.is_active
-    @mentors = Teacher.mentors(@student.cohort.location)
+    @cohorts = Cohort.active_or_upcoming
+    # @mentors = Teacher.mentors(@student.cohort.location)
     render layout: false
   end
 
