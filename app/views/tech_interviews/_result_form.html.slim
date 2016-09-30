@@ -17,7 +17,7 @@
 
       .form-group
         = form.label :notes
-        = form.text_area :notes, placeholder: 'Notes / Feedback for Student (Optional)', class: 'form-control'
+        = form.text_area :notes, placeholder: 'Notes / Feedback for Student (Will be sent to student!)', class: 'form-control'
 
       .form-group
         = form.label :score do
@@ -27,8 +27,8 @@
             ['Skipped', ''], \
             ["1: Didn't get it.",1], \
             ["2: Got it with some help, or close.", 2], \
-            ["3: Got it well.", 3], \
-            ["4: Underwhelming / too easy for them", 4] \
+            ["3: Answered ideal answer without help or prompting.", 3], \
+            ["4: Answered ideal answer and took it a step further (bonus).", 4] \
           ], {}, {class: 'form-control'}
 
       small
