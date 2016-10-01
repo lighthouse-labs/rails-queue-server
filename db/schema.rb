@@ -170,6 +170,7 @@ ActiveRecord::Schema.define(version: 20160930004016) do
     t.integer  "program_id"
     t.integer  "location_id"
     t.boolean  "limited"
+    t.string   "weekdays"
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
   end
 
@@ -179,10 +180,7 @@ ActiveRecord::Schema.define(version: 20160930004016) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "last_sha"
-    t.string   "weekdays"
   end
-
-  add_index "cohorts", ["program_id"], name: "index_cohorts_on_program_id", using: :btree
 
   create_table "day_feedbacks", force: :cascade do |t|
     t.string   "mood"
