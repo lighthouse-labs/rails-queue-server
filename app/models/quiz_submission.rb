@@ -2,6 +2,8 @@ class QuizSubmission < ApplicationRecord
 
   belongs_to :user
   belongs_to :quiz
+  belongs_to :cohort # unless prep quiz
+
   has_many :answers, dependent: :destroy
 
   accepts_nested_attributes_for :answers
@@ -19,6 +21,7 @@ class QuizSubmission < ApplicationRecord
     self.uuid ||= SecureRandom.uuid
   end
 
+  before_create :set_cohort
   after_create :set_counts
 
   def other_submissions_by_user
@@ -57,6 +60,12 @@ class QuizSubmission < ApplicationRecord
     self.skipped   = total - answers.count
     self.incorrect = total - skipped - correct
     save
+  end
+
+  def set_cohort
+    if user.try(:cohort_id) && quiz.try(:bootcamp?)
+      self.cohort_id = user.cohort_id
+    end
   end
 
 

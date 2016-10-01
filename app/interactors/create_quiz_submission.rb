@@ -19,7 +19,9 @@ class CreateQuizSubmission
   private
 
   def previous_submissions?
-    @quiz.quiz_submissions.where(user_id: context.user.id).any?
+    chain = @quiz.quiz_submissions.where(user_id: context.user.id)
+    chain = chain.where(cohort_id: context.user.cohort_id) if @quiz.bootcamp? && context.user.cohort_id?
+    chain.any?
   end
 
 end

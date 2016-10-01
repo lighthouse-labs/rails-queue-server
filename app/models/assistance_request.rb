@@ -3,6 +3,7 @@ class AssistanceRequest < ApplicationRecord
   belongs_to :requestor, :class_name => User
   belongs_to :assistance, dependent: :delete
   belongs_to :activity
+  belongs_to :cohort # substitute for lack of enrollment record - KV
 
   # also leads to activity, but not as 'safe' (nullable)
   # used for code review requests only (set in CodeReviewRequest class) - KV
@@ -10,9 +11,14 @@ class AssistanceRequest < ApplicationRecord
 
   validates :requestor, :presence => true
 
+  before_create :set_cohort
   before_create :limit_one_per_user
   before_create :set_start_at
 
+
+  # bc codereviews and direct assistances create requests (?!)
+  # this is the least intrusive solution for now, until we get rid of that logic (if ever) - KV
+  scope :genuine, -> { where.not(reason: "Offline assistance requested").where(type: nil) }
   scope :open_requests, -> { where(:canceled_at => nil).where(:assistance_id => nil) }
   scope :in_progress_requests, -> {
     includes(:assistance).
@@ -77,6 +83,10 @@ class AssistanceRequest < ApplicationRecord
   end
 
   private
+
+  def set_cohort
+    self.cohort_id = requestor.try :cohort_id
+  end
 
   def set_start_at
     self.start_at = Time.now

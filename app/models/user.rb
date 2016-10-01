@@ -115,9 +115,13 @@ class User < ApplicationRecord
 
   def completed_activity?(activity)
     if activity.evaluates_code?
-      activity_submissions.where(finalized: true, activity: activity).any?
+      chain = activity_submissions.where(finalized: true, activity: activity)
+      chain = chain.where(cohort_id: self.cohort_id) if activity.bootcamp? && self.cohort_id?
+      chain.any?
     elsif activity.is_a?(QuizActivity)
       activity.quiz.latest_submission_by(self).present?
+    elsif activity.bootcamp? && self.cohort_id?
+      activity_submissions.where(cohort_id: self.cohort_id).where(activity_id: activity.id).any?
     else
       submitted_activities.include?(activity)
     end
@@ -136,7 +140,7 @@ class User < ApplicationRecord
   end
 
   def completed_code_reviews
-    self.assistance_requests.where(type: 'CodeReviewRequest').joins(:assistance).references(:assistance).where.not(assistances: { end_at: nil }).order(created_at: :desc)
+    self.assistance_requests.where(type: 'CodeReviewRequest').joins(:assistance).references(:assistance).where.not(assistances: { end_at: nil }).order(created_at: :desc).where(cohort_id: cohort_id)
   end
 
   # 1
@@ -147,13 +151,13 @@ class User < ApplicationRecord
 
   # 2
   def submitted_but_not_reviewed_activities
-    unreviewed_submissions = self.activity_submissions.proper.where.not(activity_id: completed_code_reviews.select(:activity_id))
+    unreviewed_submissions = self.activity_submissions.where(cohort_id: cohort_id).proper.where.not(activity_id: completed_code_reviews.select(:activity_id))
     Activity.bootcamp.reverse_chronological_for_day.where(id: unreviewed_submissions.select(:activity_id))
   end
 
   # 3
   def unsubmitted_activities_before(day)
-    Activity.active.countable_as_submission.where("day <= ?", day.to_s).reverse_chronological_for_day.where.not(id: self.activity_submissions.proper.select(:activity_id))
+    Activity.active.countable_as_submission.where("day <= ?", day.to_s).reverse_chronological_for_day.where.not(id: self.activity_submissions.where(cohort_id: cohort_id).proper.select(:activity_id))
   end
 
   def visible_bootcamp_activities
