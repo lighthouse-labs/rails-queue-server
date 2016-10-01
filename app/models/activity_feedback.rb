@@ -39,6 +39,13 @@ class ActivityFeedback < ApplicationRecord
       where("activity_feedbacks.created_at <= ?", Time.zone.parse(date_str).end_of_day.utc)
     end
   }
+  scope :filter_by_type, -> (type) {
+    if type == 'Bootcamp'
+      includes(:activity).where.not(activities: { day: [nil, ''] }).references(:activity)
+    elsif type == 'Prep'
+      includes(:activity).where(activities: { day: [nil, ''] }).references(:activity)
+    end
+  }
 
   default_scope -> { order(created_at: :desc) }
 

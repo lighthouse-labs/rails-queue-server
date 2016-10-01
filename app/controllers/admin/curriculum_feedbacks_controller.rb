@@ -1,6 +1,6 @@
 class Admin::CurriculumFeedbacksController < Admin::BaseController
 
-  FILTER_BY_OPTIONS = [:program, :user_id, :user_location_id, :cohort_id, :start_date, :end_date, :day].freeze
+  FILTER_BY_OPTIONS = [:program, :user_id, :user_location_id, :cohort_id, :start_date, :end_date, :day, :type].freeze
   DEFAULT_PER = 10
 
   def index
@@ -20,7 +20,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
   private
 
   def sort_column
-    ["rating", "created_at"].include?(params[:sort]) ? params[:sort] : "activity_feedbacks.created_at"
+    ["rating", "activity_feedbacks.created_at"].include?(params[:sort]) ? params[:sort] : "activity_feedbacks.created_at"
   end
 
   def sort_direction

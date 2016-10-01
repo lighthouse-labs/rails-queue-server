@@ -11,18 +11,21 @@
         |End:
       input type='date' class='form-control admin-feedback-date-select' name='end_date' id='end_date' value=params[:end_date]
 
+    .form-group
+      = select_tag :type, options_for_select(['Prep', 'Bootcamp'], params[:type]), prompt: 'Any Content Type', class: "form-control admin-feedback-dropdown"
+
   .form-row
     .form-group
-      = select_tag :program_id, options_from_collection_for_select(Program.all.order('name'), "id", "name", params[:program_id]), :prompt => 'All Programs', class: "form-control admin-feedback-dropdown"
+      = select_tag :program_id, options_from_collection_for_select(Program.all.order('name'), "id", "name", params[:program_id]), prompt: 'All Programs', class: "form-control admin-feedback-dropdown"
 
     .form-group
-      = select_tag :user_location_id, options_from_collection_for_select(Location.all.order('name'), "id", "name", params[:user_location_id] || current_user.location.id), class: "form-control admin-feedback-dropdown"
+      = select_tag(:user_location_id, options_from_collection_for_select(Location.all.order('name'), "id", "name", params[:user_location_id]), class: "form-control admin-feedback-dropdown", prompt: 'All Locations')
 
     .form-group
-      = select_tag :cohort_id, options_from_collection_for_select(Cohort.all.order('created_at').reverse, "id", "name", params[:cohort_id]), :prompt => 'All Cohorts', class: "form-control admin-feedback-dropdown"
+      = select_tag :cohort_id, options_from_collection_for_select(Cohort.all.order('created_at').reverse, "id", "name", params[:cohort_id]), prompt: 'All Cohorts', class: "form-control admin-feedback-dropdown"
 
     .form-group
-      = select_tag :user_id, options_from_collection_for_select(User.where(type: :Student).order('first_name'), "id", "full_name", params[:user_id]), :prompt => 'All Students', class: "form-control admin-feedback-dropdown"
+      = select_tag :user_id, options_from_collection_for_select(User.order(:first_name), :id, :full_name, params[:user_id]), prompt: 'All Users', class: "form-control admin-feedback-dropdown"
 
     .form-group
       = text_field_tag 'day', params[:day], placeholder: 'Day e.g. w1d2 or w1', class: "form-control admin-feedback-text-box"
