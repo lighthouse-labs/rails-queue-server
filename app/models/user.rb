@@ -3,6 +3,7 @@ class User < ApplicationRecord
   mount_uploader :custom_avatar, CustomAvatarUploader
 
   belongs_to :cohort
+  belongs_to :initial_cohort, class_name: 'Cohort' # rollover student have this set
   belongs_to :location
 
   has_many :recordings, foreign_key: :presenter_id

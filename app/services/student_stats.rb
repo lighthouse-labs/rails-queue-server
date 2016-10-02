@@ -1,7 +1,8 @@
 class StudentStats
 
-  def initialize(student)
+  def initialize(student, cohort=nil)
     @student = student
+    @cohort  = cohort || student.cohort
   end
 
   ## PREP STATS
@@ -26,12 +27,12 @@ class StudentStats
   end
 
   def days_registered_before_start
-    (@student.cohort.start_date - @student.created_at.to_date).to_i
+    (@cohort.start_date - @student.created_at.to_date).to_i
   end
 
   def days_prepping_before_start
     if prep_started?
-      (@student.cohort.start_date - prep_started_at.to_date).to_i
+      (@cohort.start_date - prep_started_at.to_date).to_i
     end
   end
 
@@ -86,7 +87,7 @@ class StudentStats
   ## BOOTCAMP STATS
 
   def bootcamp_assistance_stats
-    cohort_id = @student.cohort_id
+    cohort_id = @cohort.id
     @bootcamp_assistance_stats = {
       requests:      @student.assistance_requests.genuine.where(cohort_id: cohort_id).count,
       assistances:   @student.assistances.completed.where(cohort_id: cohort_id).count,
@@ -101,7 +102,7 @@ class StudentStats
     for_day      = options.delete :for_day
 
     activities  = Activity.active.bootcamp.countable_as_submission
-    completions = @student.activity_submissions.proper.bootcamp.where(cohort_id: @student.cohort_id)
+    completions = @student.activity_submissions.proper.bootcamp.where(cohort_id: @cohort.id)
 
     if cutoff_day
       activities  = activities.until_day(cutoff_day)
@@ -141,7 +142,7 @@ class StudentStats
     else
       quizzes = quizzes.bootcamp # all
     end
-    quiz_stats(quizzes, @student.cohort_id)
+    quiz_stats(quizzes, @cohort.id)
   end
 
   private

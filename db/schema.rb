@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161001020709) do
+ActiveRecord::Schema.define(version: 20161001195944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -555,7 +555,9 @@ ActiveRecord::Schema.define(version: 20161001020709) do
     t.integer  "mentor_id"
     t.boolean  "mentor",                 default: false
     t.boolean  "can_tech_interview"
+    t.integer  "initial_cohort_id"
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
+    t.index ["initial_cohort_id"], name: "index_users_on_initial_cohort_id", using: :btree
   end
 
   add_foreign_key "activities", "quizzes"

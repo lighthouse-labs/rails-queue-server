@@ -1,6 +1,5 @@
 class Student < User
 
-  belongs_to :cohort
   has_many :day_feedbacks, foreign_key: :user_id
   has_many :feedbacks
 
@@ -15,6 +14,14 @@ class Student < User
 
   def prospect?
     false
+  end
+
+  def rolled_in?(cohort)
+    self.cohort == cohort && initial_cohort
+  end
+
+  def rolled_out?(cohort)
+    cohort == initial_cohort
   end
 
   def remote?

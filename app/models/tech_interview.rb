@@ -14,7 +14,10 @@ class TechInterview < ApplicationRecord
 
   scope :oldest_first, -> { order(created_at: :asc) }
   scope :interviewed_by, -> (interviewer) { where(interviewer: interviewer) }
-  scope :interviewing,   -> (interviewee) { where(interviewee: interviewee, cohort: interviewee.cohort) }
+  scope :interviewing,   -> (interviewee, cohort=nil) {
+    cohort ||= interviewee.cohort
+    where(interviewee: interviewee, cohort: cohort) 
+  }
   scope :completed,      -> { where.not(completed_at: nil) }
   scope :queued,         -> { where(started_at: nil) }
   scope :active,         -> { where(completed_at: nil) }

@@ -4,6 +4,7 @@ class Cohort < ApplicationRecord
   belongs_to :location
 
   has_many :students
+  has_many :rolled_out_students, foreign_key: 'initial_cohort_id', class_name: 'Student'
   has_many :recordings
   has_many :tech_interviews
 

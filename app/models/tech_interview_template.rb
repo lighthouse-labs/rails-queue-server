@@ -18,8 +18,8 @@ class TechInterviewTemplate < ApplicationRecord
     self.tech_interviews.interviewing(student).order(updated_at: :desc).first
   end
 
-  def completed_interview_for(student)
-    self.tech_interviews.interviewing(student).order(updated_at: :desc).completed.first
+  def completed_interview_for(student, cohort=nil)
+    self.tech_interviews.interviewing(student, cohort).order(updated_at: :desc).completed.first
   end
 
 end

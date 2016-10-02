@@ -1,4 +1,4 @@
-- service = StudentStats.new(student)
+- service = StudentStats.new(student, @cohort)
 - assistance_stats = service.bootcamp_assistance_stats
 - quiz_stats       = service.bootcamp_quiz_stats(cutoff_day: today)
 
@@ -10,11 +10,22 @@
 - today_core_stats     = today_activity_stats[:core]
 - today_stretch_stats  = today_activity_stats[:stretch]
 
-tr
+- if student.rolled_out?(@cohort)
+  - css_class = 'rolled-out'
+- elsif student.rolled_in?(@cohort)
+  - css_class = 'rolled-in'
+
+tr.student-row class=css_class
 
   td.details data-value=student.last_name
     .student-info
       = render 'shared/student_info', student: student
+      - if student.rolled_in?(@cohort)
+        br
+        .label.label-warning Rolled-in
+      - elsif student.rolled_out?(@cohort)
+        br
+        .label.label-danger Rolled-over
 
   td data-value=assistance_stats[:requests]
     span title="Requests" data-toggle="tooltip" = assistance_stats[:requests]
@@ -65,7 +76,7 @@ tr
   td
     - total_score, count = 0, 0
     - interview_templates.each do |interview_template|
-      - if interview = interview_template.completed_interview_for(student)
+      - if interview = interview_template.completed_interview_for(student, @cohort)
         - if interview.average_score?
           - total_score += interview.average_score
           - count += 1
@@ -84,7 +95,7 @@ tr
 
   td
     - @projects.each_with_index do |project, i|
-      - if eval = project.last_evaluation(student)
+      - if eval = project.last_evaluation(student, @cohort)
         = link_to [project, eval] do
           span.code-review.label class=project_eval_status_label_class(eval) title="#{project.name}: #{eval.status}" data-toggle='tooltip'
             | P#{i+1}
