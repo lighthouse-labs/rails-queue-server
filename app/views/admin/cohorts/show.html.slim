@@ -35,6 +35,8 @@ header.page-header
             tbody
               - @students.each do |s|
                 == render 'student_bootcamp_stats', student: s, today: today, interview_templates: @interview_templates
+              - @rolled_out_students.each do |s|
+                == render 'student_bootcamp_stats', student: s, today: today, interview_templates: @interview_templates
 
 
 .row
@@ -56,4 +58,3 @@ header.page-header
           tbody
             - @students.each do |s|
               == render 'student_prep_stats', student: s
-

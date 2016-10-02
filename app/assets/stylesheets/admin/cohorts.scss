@@ -21,6 +21,14 @@ body.admin-cohorts-show {
 
   table.students {
     tr {
+
+      &.rolled-out {
+        background-color: rgba(150, 0, 0, 0.1);
+      }
+      &.rolled-in {
+        background-color: rgba(255, 250, 225, 0.6);
+      }
+
       opacity: 0.8;
 
       &:hover {

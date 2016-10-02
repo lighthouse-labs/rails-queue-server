@@ -18,7 +18,7 @@
 
 h3
   | Your Code
-  = "(Completed)" if @last_submission.try(:finalized)
+  = " (Completed)" if @last_submission.try(:finalized)
 
 code#code_content.hidden = @last_submission ? @last_submission.eval_results["code"] : activity.initial_code
 #prep_test_editor.editor data-finalized="#{@last_submission.try(:finalized)}"
@@ -30,6 +30,3 @@ code#code_content.hidden = @last_submission ? @last_submission.eval_results["cod
 h3 Console Output
 
 #console
-
-
-

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930004016) do
+ActiveRecord::Schema.define(version: 20161001195944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +94,9 @@ ActiveRecord::Schema.define(version: 20160930004016) do
     t.text     "code_evaluation_results"
     t.integer  "time_spent"
     t.text     "note"
+    t.integer  "cohort_id"
     t.index ["activity_id"], name: "index_activity_submissions_on_activity_id", using: :btree
+    t.index ["cohort_id"], name: "index_activity_submissions_on_cohort_id", using: :btree
     t.index ["user_id"], name: "index_activity_submissions_on_user_id", using: :btree
   end
 
@@ -128,8 +130,10 @@ ActiveRecord::Schema.define(version: 20160930004016) do
     t.text     "reason"
     t.integer  "activity_id"
     t.integer  "original_activity_submission_id"
+    t.integer  "cohort_id"
     t.index ["activity_id"], name: "index_assistance_requests_on_activity_id", using: :btree
     t.index ["activity_submission_id"], name: "index_assistance_requests_on_activity_submission_id", using: :btree
+    t.index ["cohort_id"], name: "index_assistance_requests_on_cohort_id", using: :btree
   end
 
   create_table "assistances", force: :cascade do |t|
@@ -144,7 +148,9 @@ ActiveRecord::Schema.define(version: 20160930004016) do
     t.text     "student_notes"
     t.boolean  "imported",      default: false
     t.integer  "activity_id"
+    t.integer  "cohort_id"
     t.index ["activity_id"], name: "index_assistances_on_activity_id", using: :btree
+    t.index ["cohort_id"], name: "index_assistances_on_cohort_id", using: :btree
   end
 
   create_table "categories", force: :cascade do |t|
@@ -373,6 +379,8 @@ ActiveRecord::Schema.define(version: 20160930004016) do
     t.integer  "correct"
     t.integer  "incorrect"
     t.integer  "skipped"
+    t.integer  "cohort_id"
+    t.index ["cohort_id"], name: "index_quiz_submissions_on_cohort_id", using: :btree
     t.index ["quiz_id"], name: "index_quiz_submissions_on_quiz_id", using: :btree
     t.index ["user_id"], name: "index_quiz_submissions_on_user_id", using: :btree
   end
@@ -547,7 +555,9 @@ ActiveRecord::Schema.define(version: 20160930004016) do
     t.integer  "mentor_id"
     t.boolean  "mentor",                 default: false
     t.boolean  "can_tech_interview"
+    t.integer  "initial_cohort_id"
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
+    t.index ["initial_cohort_id"], name: "index_users_on_initial_cohort_id", using: :btree
   end
 
   add_foreign_key "activities", "quizzes"

@@ -34,12 +34,13 @@ class Project < Section
     false
   end
 
-  def last_evaluation(student)
-    evaluations_for(student).first
+  def last_evaluation(student, cohort=nil)
+    evaluations_for(student, cohort).first
   end
 
-  def evaluations_for(student)
-    evaluations.where(student: student, cohort: student.cohort).order(created_at: :desc)
+  def evaluations_for(student, cohort=nil)
+    cohort ||= student.cohort
+    evaluations.where(student: student, cohort: cohort).order(created_at: :desc)
   end
 
   def to_param

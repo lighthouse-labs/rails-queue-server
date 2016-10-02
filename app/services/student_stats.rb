@@ -1,7 +1,8 @@
 class StudentStats
 
-  def initialize(student)
+  def initialize(student, cohort=nil)
     @student = student
+    @cohort  = cohort || student.cohort
   end
 
   ## PREP STATS
@@ -26,12 +27,12 @@ class StudentStats
   end
 
   def days_registered_before_start
-    (@student.cohort.start_date - @student.created_at.to_date).to_i
+    (@cohort.start_date - @student.created_at.to_date).to_i
   end
 
   def days_prepping_before_start
     if prep_started?
-      (@student.cohort.start_date - prep_started_at.to_date).to_i
+      (@cohort.start_date - prep_started_at.to_date).to_i
     end
   end
 
@@ -80,16 +81,17 @@ class StudentStats
 
   def prep_quiz_stats
     return @prep_quiz_stats if @prep_quiz_stats
-    @prep_quiz_stats = quiz_stats(Quiz.active.prep)
+    @prep_quiz_stats = quiz_stats(Quiz.active.prep, nil)
   end
 
   ## BOOTCAMP STATS
 
   def bootcamp_assistance_stats
+    cohort_id = @cohort.id
     @bootcamp_assistance_stats = {
-      requests:      @student.assistance_requests.count,
-      assistances:   @student.assistances.completed.count,
-      average_score: @student.assistances.completed.where.not(rating: nil).average(:rating).to_f
+      requests:      @student.assistance_requests.genuine.where(cohort_id: cohort_id).count,
+      assistances:   @student.assistances.completed.where(cohort_id: cohort_id).count,
+      average_score: @student.assistances.completed.where(cohort_id: cohort_id).where.not(rating: nil).average(:rating).to_f
     }
   end
 
@@ -100,7 +102,7 @@ class StudentStats
     for_day      = options.delete :for_day
 
     activities  = Activity.active.bootcamp.countable_as_submission
-    completions = @student.activity_submissions.proper.bootcamp
+    completions = @student.activity_submissions.proper.bootcamp.where(cohort_id: @cohort.id)
 
     if cutoff_day
       activities  = activities.until_day(cutoff_day)
@@ -140,14 +142,15 @@ class StudentStats
     else
       quizzes = quizzes.bootcamp # all
     end
-    quiz_stats(quizzes)
+    quiz_stats(quizzes, @cohort.id)
   end
 
   private
 
-  def quiz_stats(quizzes)
+  def quiz_stats(quizzes, cohort_id=nil)
     quiz_ids = quizzes.select(:id)
     all_submissions = @student.quiz_submissions.where(quiz_id: quiz_ids)
+    all_submissions = all_submissions.where(cohort_id: cohort_id) if cohort_id
     quiz_submissions = all_submissions.where(initial: true)
     quiz_ratio = quiz_submissions.any? ? (quiz_submissions.count.to_f / quiz_ids.count) * 100 : 0
     quiz_average = average_score_for_submissions(quiz_submissions)

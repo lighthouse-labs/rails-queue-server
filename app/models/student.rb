@@ -1,6 +1,5 @@
 class Student < User
 
-  belongs_to :cohort
   has_many :day_feedbacks, foreign_key: :user_id
   has_many :feedbacks
 
@@ -15,6 +14,14 @@ class Student < User
 
   def prospect?
     false
+  end
+
+  def rolled_in?(cohort)
+    self.cohort == cohort && initial_cohort
+  end
+
+  def rolled_out?(cohort)
+    cohort == initial_cohort
   end
 
   def remote?
@@ -34,7 +41,7 @@ class Student < User
   end
 
   def completed_code_review_requests
-    assistance_requests.where(type: 'CodeReviewRequest').where.not(assistance_requests: {assistance_id: nil}).includes(:assistance)
+    assistance_requests.where(type: 'CodeReviewRequest').where.not(assistance_requests: {assistance_id: nil}).where(cohort_id: self.cohort_id).includes(:assistance)
   end
 
   def code_reviews_l_score

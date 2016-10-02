@@ -3,12 +3,14 @@ class Assistance < ApplicationRecord
   belongs_to :assistor, :class_name => User
   belongs_to :assistee, :class_name => User
   belongs_to :activity
+  belongs_to :cohort # substitute for lack of enrollment record - KV
 
   has_one :feedback, as: :feedbackable, dependent: :destroy
   has_one :assistance_request, dependent: :nullify
 
   validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 4, allow_nil: true }
 
+  before_create :set_cohort
   before_create :set_start_at
   before_create :set_activity
 
@@ -57,6 +59,10 @@ class Assistance < ApplicationRecord
   end
 
   private
+
+  def set_cohort
+    self.cohort_id = assistee.try :cohort_id
+  end
 
   def set_activity
     if assistance_request
