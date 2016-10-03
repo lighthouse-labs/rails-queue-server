@@ -18,6 +18,8 @@ class Content::LoadActivity
     # ACTIVITY
     activity = Activity.find_or_initialize_by(uuid: uuid)
     activity.assign_attributes(build_attributes(d))
+    # sequence is a required field and in some cases may not be present (if activity is created and archived in the same step, it will never be given a sequence. default to 99 in that case) - KV
+    activity.sequence ||= 99
 
     if quiz?
       activity = activity.becomes(QuizActivity)
@@ -44,7 +46,6 @@ class Content::LoadActivity
       section:            section(d['section']),
       type:               type(d['type']),
       name:               d['name'],
-      sequence:           d['sequence'],
       duration:           d['duration'],
       stretch:            d['stretch'],
       archived:           d['archived'],
@@ -57,6 +58,8 @@ class Content::LoadActivity
       test_code:          d['test_code'],
       initial_code:       d['initial_code']
     }
+    # if sequence is not specified, do not change the existing one
+    attrs[:sequence] = d['sequence'] if d['sequence']
     attrs.merge!(split_instructions_and_teacher_notes(d))
     attrs
   end

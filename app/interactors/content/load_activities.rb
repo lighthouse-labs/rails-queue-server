@@ -29,9 +29,20 @@ class Content::LoadActivities
       seq = 1
       Dir.entries(filepath).sort.each do |content_file|
         next if content_file.starts_with?('.')
+        if content_file == '_Archived'
+          Dir.entries(File.join(filepath, content_file)).sort.each do |archived_content_file|
+            next if archived_content_file.starts_with?('.')
+            next unless archived_content_file.ends_with?('.md')
+            activity_data.push extract_activity_file_data(@repo_dir, "#{data_dir}/_Archived", archived_content_file)
+          end
+        end
+
+        # no other non .md files allowed (only the `_Archived` folder)
         next unless content_file.ends_with?('.md')
+
         activity_data.push extract_activity_file_data(@repo_dir, data_dir, content_file, seq)
         seq += 1
+
       end
     end
 
@@ -41,16 +52,16 @@ class Content::LoadActivities
     activity_data
   end
 
-  def extract_activity_file_data(repo_dir, data_dir, filename, sequence)
+  def extract_activity_file_data(repo_dir, data_dir, filename, sequence=nil)
     content = File.open(File.join(repo_dir, data_dir, filename)).read
     attrs = extract_attributes(content)
     filename_parts = filename.split('__')
 
-    attrs['sequence'] = sequence
+    attrs['sequence'] = sequence if sequence
     attrs['file_path'] = File.join('data', data_dir, filename).to_s
     attrs['type'] = filename_parts.last.split('.').first.strip
     # We extract the W1D1 type day format used by Compass from the content file's parent folder (curriculum content naming convention)
-    attrs['day']  = day_from_folder_name(data_dir) # eg: w1d3 or w4e
+    attrs['day']  ||= day_from_folder_name(data_dir) # eg: w1d3 or w4e
     # We use the relevant part of the md file name if name attribute is not set in yaml front matter
     attrs['name'] ||= URI.unescape(filename_parts[-2].strip)
     attrs
