@@ -12,7 +12,7 @@ class EvaluationStateMachine
 
   transition from: :pending, to: [:in_progress, :cancelled, :auto_accepted]
   transition from: :auto_accepted, to: [:cancelled]
-  transition from: :in_progress, to: [:pending, :in_progress, :accepted, :rejected, :cancelled]
+  transition from: :in_progress, to: [:pending, :accepted, :rejected, :cancelled]
   transition from: :accepted, to: [:rejected]
   transition from: :rejected, to: [:accepted]
 
