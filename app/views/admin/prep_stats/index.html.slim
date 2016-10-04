@@ -1,0 +1,39 @@
+- provide :container,  'fluid'
+
+header.page-header
+  h1 User Prep Stats
+
+.row
+  .col-sm-12
+    .well
+      = form_tag admin_prep_stats_path, class: 'form-inline', method: 'get' do
+        .form-group
+          label for="user_id"
+            | Select User
+          = select_tag :user_id, options_from_collection_for_select(User.order(:first_name), :id, :full_name, params[:user_id]), prompt: 'All Users', class: "form-control"
+        = submit_tag 'Search', class: 'btn btn-success'
+      
+
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Prep Stats
+
+      .table-responsive
+        table.table.students.sortable
+          thead
+            tr
+              th Info
+              th Joined
+              th Started
+              th Progress
+              th Time Logged
+              th Quiz Score
+          tbody
+            - @users.each do |user|
+              == render 'student_prep_stats', student: user
+          tfoot
+            tr
+              th colspan="6"
+                = paginate @users, window: 2

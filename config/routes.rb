@@ -160,6 +160,8 @@ LaserShark::Application.routes.draw do
       end
     end
 
+    resources :prep_stats, only: [:index]
+
     #Outcomes CRUD
     resources :outcomes
     resources :item_outcomes, only: [:create, :destroy]

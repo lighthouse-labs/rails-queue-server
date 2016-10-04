@@ -13,8 +13,12 @@ tr
     = student.created_at.to_s(:friendly)
     br
     small
-      = pluralize(service.days_registered_before_start, 'day')
-      | &nbsp;prior to start
+      - if student.cohort
+        = pluralize(service.days_registered_before_start, 'day')
+        | &nbsp;prior to start
+      - else 
+        = pluralize((Time.current.to_date - student.created_at.to_date).to_i, 'day')
+        | &nbsp;ago
 
   td data-value=(service.prep_started? ? service.prep_started_at.to_i : 0)
     - if service.prep_started?
@@ -25,8 +29,12 @@ tr
         | &nbsp;after signup
       br
       small
-        = pluralize(service.days_prepping_before_start, 'day')
-        | &nbsp;prior to start
+        - if student.cohort
+          = pluralize(service.days_prepping_before_start, 'day')
+          | &nbsp;prior to start
+        - else
+          = pluralize((Time.current.to_date - service.prep_started_at.to_date).to_i, 'day')
+          | &nbsp;ago
     - else
       span.label.label-warning Not Started
 

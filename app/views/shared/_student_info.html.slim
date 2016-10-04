@@ -1,8 +1,9 @@
 - show_email ||= false
+- link = student.is_a?(Student) ? [:teacher, student] : '#'
 
-= link_to [:teacher, student] do
+= link_to link do
   = image_tag avatar_for(student), class: 'avatar'
-= link_to student.full_name, [:teacher, student]
+= link_to student.full_name, link
 - if show_email
   br
   = mail_to(student.email, student.email, target: '_blank', class: 'email')
@@ -11,5 +12,3 @@ br
   span.label.label-danger = student.location.name
 - else
   span.label.label-primary = @cohort.location.name
-
-
