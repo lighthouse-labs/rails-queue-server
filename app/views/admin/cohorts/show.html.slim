@@ -57,4 +57,4 @@ header.page-header
               th Quiz Score
           tbody
             - @students.each do |s|
-              == render 'student_prep_stats', student: s
+              == render 'admin/prep_stats/student_prep_stats', student: s
