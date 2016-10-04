@@ -25,7 +25,11 @@ class EvaluationsController < ApplicationController
     @evaluation.student = current_user
 
     if @evaluation.save
-      BroadcastEvaluationToTeachers.call(evaluation: @evaluation)
+      if @project.evaluated?
+        BroadcastEvaluationToTeachers.call(evaluation: @evaluation)
+      else
+        @evaluation.transition_to!(:auto_accepted)
+      end
       redirect_to [@project, @evaluation], notice: "Project successfully submitted for evaluation."
     else
       flash.now[:alert] = @evaluation.errors.full_messages

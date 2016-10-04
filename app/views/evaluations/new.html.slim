@@ -4,7 +4,10 @@
 .hero
   = render @project
 
-h3 Submit Project For Evaluation
+- if @project.evaluated
+    h3 Submit Project For Evaluation
+- else
+    h3 Submit Project (Will Not Be Evaluated)
 
 = form_for [@project, @evaluation], html: {class: "form"} do |f|
   .form-group
