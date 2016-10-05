@@ -28,8 +28,8 @@ class CurriculumDay
     @to_s = if day_number <= 0
       # day_number may be negative if cohort hasn't yet started
       "w1d1"
-    elsif w > 8
-      "w8e"
+    elsif w > program.weeks
+      "w#{program.weeks}e"
     elsif @date.sunday? || @date.saturday?
       "w#{w}e"
     else
@@ -51,7 +51,7 @@ class CurriculumDay
   end
 
   def unlocked_until_day
-    if CURRICULUM_UNLOCKING == 'weekly'
+    if program.curriculum_unlocking == 'weekly'
       date = Date.current.sunday
       CurriculumDay.new(date, @cohort)
     else
@@ -64,7 +64,7 @@ class CurriculumDay
     # return true if unlock_weekend_on_friday
     return false unless @cohort
     return false if @cohort.start_date > Date.current
-    if CURRICULUM_UNLOCKING == 'weekly'
+    if program.curriculum_unlocking == 'weekly'
       self.date.cweek <= today.date.cweek || self.date.year < today.date.year
       # 53rd week can roll over into the new year, preventing access from remaining days of that week.
       # if Jan 1st is a thursday, it will prevent access until the week ends.
@@ -92,11 +92,11 @@ class CurriculumDay
   end
 
   def friday?
-    !!(today.to_s =~ /[w][1-8][d][5]/)
+    self.to_s.ends_with?('5')
   end
 
   def weekend?
-    !!(self.to_s =~ /(?<=w\d)e$/)
+    self.to_s.ends_with?('e')
   end
 
   def unlock_weekend_on_friday
@@ -109,7 +109,7 @@ class CurriculumDay
       1
     else
       w = (day_number / 7) + 1
-      w > 8 ? 8 : w
+      w > program.weeks ? program.weeks : w
     end
   end
 

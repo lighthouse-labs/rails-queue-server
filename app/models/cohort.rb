@@ -27,7 +27,7 @@ class Cohort < ApplicationRecord
 
   # assumes monday start date =/ - KV
   def end_date
-    start_date.advance(weeks: WEEKS, days: 4)
+    start_date.advance(weeks: program.weeks, days: 4)
   end
 
   def upcoming?

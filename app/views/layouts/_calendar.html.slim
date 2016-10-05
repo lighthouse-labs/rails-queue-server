@@ -1,5 +1,5 @@
 .nav-calendar
-  - (1..WEEKS).each do |w|
+  - (1..@program.weeks).each do |w|
     .nav-week
       ul
         li.previous.week-number
@@ -8,7 +8,7 @@
             = w
         - (1..@program.days_per_week).each do |d|
           li.day-number class=day_status_css("w#{w}d#{d}") = link_to(d, day_path("w#{w}d#{d}"))
-        - if WEEKENDS
+        - if @program.weekends?
           li.day-number class=day_status_css("w#{w}e") = link_to('e', day_path("w#{w}e"))
   .day-nav-links
     - unless today == 'w1d1'
