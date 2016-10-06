@@ -6,6 +6,15 @@ class Admin::TeacherFeedbacksController < Admin::BaseController
     if params[:teacher_location_id].nil?
       params[:teacher_location_id] = current_user.location.id.to_s  
     end
+
+    if params[:start_date].nil?
+      params[:start_date] = Date.today.beginning_of_month.to_s
+    end
+
+    if params[:end_date].nil?
+      params[:end_date] = Date.today.end_of_month.to_s
+    end
+
     @feedbacks = Feedback.teacher_feedbacks.filter_by(filter_by_params)
     @completed_feedbacks = Feedback.teacher_feedbacks.completed.filter_by(filter_by_params).group_by(&:teacher)
   end
