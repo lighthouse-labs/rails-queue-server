@@ -11,6 +11,7 @@
       - if activity_feedback.rating?
         small = " (#{activity_feedback.rating}/5)"
       = " #{activity_feedback.user.try :full_name}: "
+      small = " (#{time_ago_in_words(activity_feedback.created_at)} ago) "
 
-    .content 
+    .content
       == simple_format(activity_feedback.detail.to_s)
