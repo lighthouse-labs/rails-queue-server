@@ -14,7 +14,7 @@
     - if student?
       - if !last_evaluation || (last_evaluation.status == "Cancelled" || last_evaluation.status == "Rejected")
         li.list-group-item = link_to "Submit", new_project_evaluation_path(project), class: "btn btn-primary center-block"
-      - if last_evaluation && (last_evaluation.status != "Accepted" && last_evaluation.status != "Rejected" && last_evaluation.status != "cancelled")
+      - if last_evaluation && (last_evaluation.status != "Accepted" && last_evaluation.status != "Rejected" && last_evaluation.status != "Cancelled")
         li.list-group-item = link_to "Cancel Submission", cancel_project_evaluation_path(project, last_evaluation), class: "btn btn-danger center-block", method: :delete
 
     - if teacher?
