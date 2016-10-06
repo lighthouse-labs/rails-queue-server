@@ -10,7 +10,8 @@ code = 'okanagan-college-oct'
     curriculum_unlocking: 'weekly',
     has_interviews: false,
     has_projects: false,
-    has_code_reviews: false
+    has_code_reviews: false,
+    display_exact_activity_duration: true
   )
 
 @location = Location.find_or_create_by!(name: "Kelowna")

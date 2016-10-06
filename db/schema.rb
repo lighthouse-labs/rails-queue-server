@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005195925) do
+ActiveRecord::Schema.define(version: 20161005221945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -350,9 +350,10 @@ ActiveRecord::Schema.define(version: 20161005195925) do
     t.integer  "weeks"
     t.boolean  "weekends"
     t.string   "curriculum_unlocking"
-    t.boolean  "has_interviews",       default: true
-    t.boolean  "has_projects",         default: true
-    t.boolean  "has_code_reviews",     default: true
+    t.boolean  "has_interviews",                  default: true
+    t.boolean  "has_projects",                    default: true
+    t.boolean  "has_code_reviews",                default: true
+    t.boolean  "display_exact_activity_duration"
   end
 
   create_table "questions", force: :cascade do |t|
