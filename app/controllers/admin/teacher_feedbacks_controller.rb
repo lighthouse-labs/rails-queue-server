@@ -3,17 +3,9 @@ class Admin::TeacherFeedbacksController < Admin::BaseController
   FILTER_BY_OPTIONS = [:teacher_id, :teacher_location_id, :start_date, :end_date].freeze
 
   def index
-    if params[:teacher_location_id].nil?
-      params[:teacher_location_id] = current_user.location.id.to_s
-    end
-
-    if params[:start_date].nil?
-      params[:start_date] = Date.today.beginning_of_month.to_s
-    end
-
-    if params[:end_date].nil?
-      params[:end_date] = Date.today.end_of_month.to_s
-    end
+    params[:teacher_location_id] ||= current_user.location.id.to_s
+    params[:start_date] ||= Date.current.beginning_of_month.to_s
+    params[:end_date] ||= Date.current.end_of_month.to_s
 
     @feedbacks = Feedback.teacher_feedbacks.filter_by(filter_by_params)
     @completed_feedbacks = Feedback.teacher_feedbacks.completed.filter_by(filter_by_params).group_by(&:teacher)
