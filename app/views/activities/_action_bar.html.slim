@@ -41,6 +41,9 @@
         - if @activity.allow_submissions?
           th Github URL
         th Completed
+        - if @activity.allow_submissions?
+          th Github URL
+        th Submission Time
       tbody
         - cohort.students.sort_by{ |student| student.completed_activity?(@activity) ? 0 : 1 }.each do |student|
           tr
@@ -48,3 +51,5 @@
             - if @activity.allow_submissions?
               td = link_to student.github_url(@activity), student.github_url(@activity) if student.completed_activity?(@activity)
             td = student.completed_activity?(@activity) ? "Yes" : "No"
+            td = "Completed #{time_ago_in_words(student.completed_at(@activity))} ago" if student.completed_activity?(@activity)
+

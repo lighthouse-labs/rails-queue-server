@@ -132,6 +132,10 @@ class User < ApplicationRecord
     activity_submissions.where(activity: activity).first.try(:github_url) if completed_activity?(activity)
   end
 
+  def completed_at(activity)
+    activity_submissions.where(activity: activity).first.try(:completed_at) if completed_activity?(activity)
+  end
+
   def full_name
     "#{self.first_name} #{self.last_name}"
   end
