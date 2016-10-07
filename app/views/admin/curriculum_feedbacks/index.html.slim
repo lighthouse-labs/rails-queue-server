@@ -1,6 +1,6 @@
 = render 'search_form'
 
-h4 
+h4
   | Curriculum Feedback
   = " (#{@paginated_feedbacks.total_count})"
 table.table.table-feedbacks
@@ -11,6 +11,7 @@ table.table.table-feedbacks
       th.feedback-rating-column = sortable "rating", "Rating (Avg: #{@rating})"
       th.admin-curriculum-feedback-student-column User
       th.admin-curriculum-feedback-date-column = sortable "activity_feedbacks.created_at", "Created"
+      th Detail
 
   tbody
     - @paginated_feedbacks.each do |activity_feedback|
@@ -22,16 +23,8 @@ table.table.table-feedbacks
             .raty-viewer data-score="#{activity_feedback.rating}"
           td = activity_feedback_presenter.user_full_name
           td = activity_feedback.updated_at.to_date
+          td = activity_feedback_presenter.detail if activity_feedback.detail.present?
 
-        - if activity_feedback.detail.present?
-          tr
-            td
-            td colspan="3"
-              small
-                em
-                  article.read-more = activity_feedback_presenter.detail
-
-            td
 = paginate @paginated_feedbacks, :window => 2
 = link_to "Download CSV", admin_curriculum_feedbacks_path(safe_params.merge(format: "csv")), :class => "btn btn-success download-csv-button", :method => :get
 = link_to "Download XLS", admin_curriculum_feedbacks_path(safe_params.merge(format: "xls")), :class => "btn btn-success download-xls-button", :method => :get
