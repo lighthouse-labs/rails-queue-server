@@ -154,8 +154,9 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                   span class="caret"
                 
                 ul class="dropdown-menu"
-                  li
-                    a href="https://github.com/lighthouse-labs/2016-web-curriculum-activities/issues" target="_blank" + Curriculum Issue
+                  - if repo = ContentRepository.first
+                    li
+                      a href="https://github.com/#{repo.full_name}/issues" target="_blank" + Curriculum Issue
                   li 
                     a href="https://github.com/lighthouse-labs/compass/issues" target="_blank" + Compass Issue
             li.teacher-duty

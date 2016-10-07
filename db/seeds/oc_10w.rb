@@ -15,6 +15,7 @@ code = 'okanagan-college-oct'
   )
 
 @location = Location.find_or_create_by!(name: "Kelowna")
+@location2 = Location.find_or_create_by!(name: "Vernon")
 
 @repo = ContentRepository.find_or_create_by!(
   github_username: "lighthouse-labs",
