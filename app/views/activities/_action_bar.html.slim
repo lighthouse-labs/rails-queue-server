@@ -41,8 +41,6 @@
         - if @activity.allow_submissions?
           th Github URL
         th Completed
-        - if @activity.allow_submissions?
-          th Github URL
         th Submission Time
       tbody
         - cohort.students.sort_by{ |student| student.completed_activity?(@activity) ? 0 : 1 }.each do |student|
