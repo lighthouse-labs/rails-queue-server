@@ -16,7 +16,7 @@ class CurriculumDay
 
     @date = @date.to_s if @date.is_a?(CurriculumDay)
 
-    if @date.is_a?(String) && @cohort && @date != 'setup'
+    if @date.is_a?(String) && @cohort
       @date = calculate_date
     end
   end
@@ -25,8 +25,10 @@ class CurriculumDay
     return @to_s if @to_s
 
     w = determine_w
+
     # prefix with 0 if needs to be double digit and isn't
-    week = "0#{w}" if double_digit_week? && w < 10
+    week = double_digit_week? && w < 10 ? "0#{w}" : w
+
     @to_s = if day_number <= 0
       # day_number may be negative if cohort hasn't yet started
       "w#{'0' if double_digit_week?}1d1"
