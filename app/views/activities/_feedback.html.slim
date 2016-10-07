@@ -6,7 +6,7 @@ h3
 
 p
   | Your feedback is critical for us to iterate and improve upon our curriculum. In fact, you can even give us feedback for this and other activities multiple times! It is <em>not anonymous</em> but it <em>is confidential</em> meaning only teachers and admins can view it, not other students.
-- if @activity.prep?
+- if @activity.prep? && @program.prep_assistance?
   p
     strong NEED HELP?
     | &nbsp;

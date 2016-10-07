@@ -164,11 +164,11 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                 - attrs = { data: { toggle: 'tooltip', placement: 'bottom' }, title: "Your Location: #{current_user.location.try(:name) || 'N/A'}" }
                 = link_to "Go on duty", '#', { class: "on-duty-link navbar-btn btn btn-success #{'hidden' if current_user.on_duty?}" }.merge(attrs)
                 = link_to "Go off duty", '#', { class: "off-duty-link navbar-btn btn btn-danger #{'hidden' unless current_user.on_duty?}" }.merge(attrs)
-          - if current_user && current_user.enrolled_and_prepping?
+          - if @program.prep_assistance? && current_user.try(:enrolled_and_prepping?)
             li#assistance-request-module
               span#create-assistance-request
                 = link_to 'Request Assistance', prep_assistance_requests_path(activity_id: @activity), method: :post, class: "btn navbar-btn btn-primary"
-          - if current_user.active_student?
+          - elsif current_user.try(:active_student?)
             li#assistance-request-module
               span#cancel-assistance-request class="#{'hidden' unless current_user.waiting_for_assistance? || current_user.being_assisted?}"
                 = link_to '#', class: 'navbar-btn btn btn-warning cancel-request-assistance-button', :'data-toggle' => 'tooltip', :'data-placement' => 'bottom', title: 'Cancel this Assistance Request' do
