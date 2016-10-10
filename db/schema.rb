@@ -32,11 +32,11 @@ ActiveRecord::Schema.define(version: 20161007215704) do
     t.string   "revisions_gistid"
     t.integer  "code_review_percent",   default: 60
     t.boolean  "allow_feedback",        default: true
-    t.integer  "section_id"
     t.integer  "quiz_id"
     t.integer  "content_repository_id"
     t.string   "content_file_path"
     t.boolean  "remote_content"
+    t.integer  "section_id"
     t.boolean  "evaluates_code"
     t.string   "uuid"
     t.text     "initial_code"
@@ -303,8 +303,8 @@ ActiveRecord::Schema.define(version: 20161007215704) do
     t.integer  "user_id"
     t.integer  "outcome_id"
     t.string   "source_name"
-    t.string   "source_type"
     t.integer  "source_id"
+    t.string   "source_type"
     t.float    "rating"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -422,8 +422,8 @@ ActiveRecord::Schema.define(version: 20161007215704) do
     t.datetime "updated_at",            null: false
     t.integer  "order"
     t.string   "type"
-    t.text     "description"
     t.string   "uuid"
+    t.text     "description"
     t.string   "content_file_path"
     t.integer  "content_repository_id"
     t.string   "start_day"

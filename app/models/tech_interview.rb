@@ -16,7 +16,7 @@ class TechInterview < ApplicationRecord
   scope :interviewed_by, -> (interviewer) { where(interviewer: interviewer) }
   scope :interviewing,   -> (interviewee, cohort=nil) {
     cohort ||= interviewee.cohort
-    where(interviewee: interviewee, cohort: cohort) 
+    where(interviewee: interviewee, cohort: cohort)
   }
   scope :completed,      -> { where.not(completed_at: nil) }
   scope :queued,         -> { where(started_at: nil) }
@@ -29,6 +29,9 @@ class TechInterview < ApplicationRecord
       where(locations: { name: locations }).
       references(:cohort, :location)
     end
+  }
+  scope :interviewee_location, -> (location) {
+    includes(:interviewee).references(:interviewee).where(users: { location_id: location.id })
   }
 
   validates :tech_interview_template, presence: true
