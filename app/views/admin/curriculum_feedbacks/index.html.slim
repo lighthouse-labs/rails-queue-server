@@ -1,30 +1,37 @@
+header.page-header
+  h1 Curriculum Feedback
+
 = render 'search_form'
-hr
-h4
-  | Curriculum Feedback
-  = " (#{@paginated_feedbacks.total_count})"
+br
 
-table.table.table-feedbacks
-  thead
-    tr
-      th Day
-      th Name
-      th.feedback-rating-column = sortable "rating", "Rating (Avg: #{@rating})"
-      th.admin-curriculum-feedback-student-column User
-      th.admin-curriculum-feedback-date-column = sortable "activity_feedbacks.created_at", "Created"
-      th Detail
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title List of Curriculum Feedback (#{@paginated_feedbacks.total_count})
 
-  tbody
-    - @paginated_feedbacks.each do |activity_feedback|
-      - present activity_feedback do |activity_feedback_presenter|
-        tr
-          td = activity_feedback_presenter.upcased_day
-          td = activity_feedback_presenter.activity_name
-          td
-            .raty-viewer data-score="#{activity_feedback.rating}"
-          td = activity_feedback_presenter.user_full_name
-          td = activity_feedback.updated_at.to_date
-          td = activity_feedback_presenter.detail if activity_feedback.detail.present?
+      .table-responsive
+        table.table.table-feedbacks
+          thead
+            tr
+              th Day
+              th Name
+              th.feedback-rating-column = sortable "rating", "Rating (Avg: #{@rating})"
+              th.admin-curriculum-feedback-student-column User
+              th.admin-curriculum-feedback-date-column = sortable "activity_feedbacks.created_at", "Created"
+              th Detail
+
+          tbody
+            - @paginated_feedbacks.each do |activity_feedback|
+              - present activity_feedback do |activity_feedback_presenter|
+                tr
+                  td = activity_feedback_presenter.upcased_day
+                  td = activity_feedback_presenter.activity_name
+                  td
+                    .raty-viewer data-score="#{activity_feedback.rating}"
+                  td = activity_feedback_presenter.user_full_name
+                  td = activity_feedback.updated_at.to_date
+                  td = activity_feedback_presenter.detail if activity_feedback.detail.present?
 
 = paginate @paginated_feedbacks, :window => 2
 = link_to "Download CSV", admin_curriculum_feedbacks_path(safe_params.merge(format: "csv")), :class => "btn btn-success download-csv-button", :method => :get
