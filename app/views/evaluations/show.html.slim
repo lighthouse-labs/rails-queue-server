@@ -6,12 +6,12 @@
 h3 = "#{@evaluation.student.full_name}'s #{@project.name} (Eval)"
 
 - if teacher?
-  .row
-    .col-sm-12
+  .actions-container
+    .well.actions
       - if @evaluation.in_state?(:pending)
-        = link_to "Start Marking", start_marking_project_evaluation_path(@project, @evaluation), class: "pull-right btn btn-success", method: :put
+        = link_to "Start Marking", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success", method: :put
       - elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
-        = link_to "Continue Marking", edit_project_evaluation_path(@project, @evaluation), class: "pull-right btn btn-success"
+        = link_to "Continue Marking", edit_project_evaluation_path(@project, @evaluation), class: "btn btn-success"
 
 
 == render 'details'
@@ -31,4 +31,3 @@ h3 Project Details
   .panel-heading Teacher Notes
   .panel-body
     = simple_format @evaluation.teacher_notes
-
