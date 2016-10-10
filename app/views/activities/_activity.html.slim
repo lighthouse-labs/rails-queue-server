@@ -50,3 +50,7 @@
           span.stretch = '(Stretch)'
         - if activity.archived?
           span.archived = ' [Archived]'
+
+      - if activity.homework?
+        .homework-indicator
+          i.fa.fa-moon-o title='Homework' data-toggle='tooltip'

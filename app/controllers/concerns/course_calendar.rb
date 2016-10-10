@@ -42,7 +42,7 @@ module CourseCalendar
     else
       d
     end
-    @day = CurriculumDay.new(@day, cohort) if (@day.is_a?(String) && !@day.include?('prep'))
+    @day = CurriculumDay.new(@day, cohort) if @day.is_a?(String)
     @day
   end
 
