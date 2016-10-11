@@ -13,38 +13,52 @@
         = project.name
       .status
         - if student?
-          = "hi"
           - project.evaluations ||= nil
+          - project_evaluation = Evaluation.where(project: Section.find(project)).where(student: current_user).first
+
           / - interview_template ||= nil
           / - interview ||= interview_template.interview_for(student) if interview_template
           / - interview_template ||= interview.tech_interview_template if interview
 
-          - if project.evaluated && project.accepted?(current_user)
-            span.label.label-success Completed
-            / br
-            / small
-            /   = time_ago_in_words(last_evaluation(current_user)).created_at
-            /   | &nbsp;ago
-          - elsif project.evaluated && project.evaluations.where(state: "in_progress")
-            span.label.label-warning In Progress
-            / br
-            / small
-            /   = time_ago_in_words(last_evaluation(current_user)).created_at
-            /   | &nbsp;ago
-          - elsif evaluation && project.evaluation.queued?
-            span.label.label-warning In Queue
-            br
-            small
-              = time_ago_in_words(interview.created_at)
-              | &nbsp;ago
-          - elsif cohort.week > interview_template.week
-            span.label.label-danger Overdue
-          - elsif cohort.week == interview_template.week
-            span.label.label-info This Week
-          - elsif cohort.week + 1 == interview_template.week
-            span.label.label-info Next Week
-          - else
-              span.label.label-info Pending
+          - if project_evaluation
+            - if project_evaluation.status == "Accepted"
+              span.label.label-success Accepted
+              br
+              small
+                = time_ago_in_words(project_evaluation.completed_at)
+                | &nbsp;ago
+            - elsif project_evaluation.status == "Auto Accepted"
+              span.label.label-success Auto-Accepted
+              br
+              small
+                = time_ago_in_words(project_evaluation.completed_at)
+                | &nbsp;ago
+            - elsif project_evaluation.status == "In Progress"
+              span.label.label-warning In Progress
+              br
+              small
+                = time_ago_in_words(project_evaluation.created_at)
+                | &nbsp;ago
+            - elsif project_evaluation.status == "Pending"
+              span.label.label-warning In Queue
+              br
+              small
+                = time_ago_in_words(project_evaluation.created_at)
+                | &nbsp;ago
+            - elsif project_evaluation.status == "Cancelled"
+              span.label.label-warning Cancelled
+              br
+              small
+                = time_ago_in_words(project_evaluation.cancelled_at)
+                | &nbsp;ago
+            - elsif project_evaluation.status == "Rejected"
+              span.label.label-danger Rejected
+              br
+              small
+                = time_ago_in_words(project_evaluation.completed_at)
+                | &nbsp;ago
+          -else
+            span.label.label-warning Not Submitted
         /   = render 'tech_interview_templates/student_interview_status', student: current_user, interview_template: interview_template
         - elsif teacher? || admin?
           - completed = Evaluation.where(project: project).where(state: "accepted").count
