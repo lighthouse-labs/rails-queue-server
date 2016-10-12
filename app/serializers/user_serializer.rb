@@ -5,7 +5,7 @@ class UserSerializer < ActiveModel::Serializer
   attributes :id,
     :type,
     :email,
-    :first_name, 
+    :first_name,
     :last_name,
     :full_name,
     :github_username,
@@ -30,7 +30,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def remote
-    !teacher? && (object.cohort.location != object.location) 
+    !teacher? && (object.cohort.try(:location) != object.location) 
   end
 
   def teacher?

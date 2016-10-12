@@ -3,6 +3,8 @@
 class CurriculumDay
   attr_reader :date
   attr_reader :raw_date
+  attr_reader :cohort
+  attr_reader :program
 
   include Comparable
 
@@ -10,10 +12,11 @@ class CurriculumDay
     @raw_date = date
     @date = date
     @cohort = cohort
+    @program = cohort.try :program
 
     @date = @date.to_s if @date.is_a?(CurriculumDay)
 
-    if @date.is_a?(String) && @cohort && @date != 'setup'
+    if @date.is_a?(String) && @cohort
       @date = calculate_date
     end
   end
@@ -22,17 +25,25 @@ class CurriculumDay
     return @to_s if @to_s
 
     w = determine_w
+
+    # prefix with 0 if needs to be double digit and isn't
+    week = double_digit_week? && w < 10 ? "0#{w}" : w
+
     @to_s = if day_number <= 0
       # day_number may be negative if cohort hasn't yet started
-      "w1d1"
-    elsif w > 8
-      "w8e"
+      "w#{'0' if double_digit_week?}1d1"
+    elsif w > program.weeks
+      "w#{program.weeks}e"
     elsif @date.sunday? || @date.saturday?
-      "w#{w}e"
+      "w#{week}e"
     else
       d = determine_d
-      "w#{w}d#{d}"
+      "w#{week}d#{d}"
     end
+  end
+
+  def double_digit_week?
+    program.weeks >= 10
   end
 
   def week
@@ -48,7 +59,7 @@ class CurriculumDay
   end
 
   def unlocked_until_day
-    if CURRICULUM_UNLOCKING == 'weekly'
+    if program.curriculum_unlocking == 'weekly'
       date = Date.current.sunday
       CurriculumDay.new(date, @cohort)
     else
@@ -61,7 +72,7 @@ class CurriculumDay
     # return true if unlock_weekend_on_friday
     return false unless @cohort
     return false if @cohort.start_date > Date.current
-    if CURRICULUM_UNLOCKING == 'weekly'
+    if program.curriculum_unlocking == 'weekly'
       self.date.cweek <= today.date.cweek || self.date.year < today.date.year
       # 53rd week can roll over into the new year, preventing access from remaining days of that week.
       # if Jan 1st is a thursday, it will prevent access until the week ends.
@@ -89,11 +100,11 @@ class CurriculumDay
   end
 
   def friday?
-    !!(today.to_s =~ /[w][1-8][d][5]/)
+    self.to_s.ends_with?('5')
   end
 
   def weekend?
-    !!(self.to_s =~ /(?<=w\d)e$/)
+    self.to_s.ends_with?('e')
   end
 
   def unlock_weekend_on_friday
@@ -106,15 +117,15 @@ class CurriculumDay
       1
     else
       w = (day_number / 7) + 1
-      w > 8 ? 8 : w
+      w > program.weeks ? program.weeks : w
     end
   end
 
   def determine_d
-    return @date.wday if DAYS_PER_WEEK == 5
+    return @date.wday if days_per_week == 5
     # "d1" would normally be monday, right?
     # Well now it could also be tuesday
-    # Eg Given `WEEKDAYS = [2, 4]` (tuesdays and thursdays)
+    # Eg Given `weekdays = [2, 4]` (tuesdays and thursdays)
     # then d1 = tuesday, d2 = thursday
     wday = @date.wday # 1,2,3,4 or 5 (eg: 3 for 'wednesday')
     # 1 (mon) - 1,3 => 1
@@ -124,8 +135,17 @@ class CurriculumDay
     # 5 (fri) - 1,3 => 3
     # 6 (sat) - 1,3 => 3
     # 7 (sun) - 1,3 => 3
-    wday = (WEEKDAYS.reverse.detect {|d| d.to_i <= wday } || WEEKDAYS.first)
-    WEEKDAYS.index(wday) + 1
+    wday = (weekdays.reverse.detect {|d| d.to_i <= wday } || weekdays.first)
+    weekdays.index(wday) + 1
+  end
+
+  def days_per_week
+    program.try(:days_per_week) || 5
+  end
+
+  # Array format of active wday values: 1,2,3,4,5 (represents: M,T,W,TH,F)
+  def weekdays
+    cohort.weekdays.to_s.split(',')
   end
 
   def calculate_date
@@ -137,13 +157,13 @@ class CurriculumDay
     # limitation: assume start date is always a monday
     # for monday dow = 1 so advance by 0 (no advance) if dow = 1. Hence the -1 offset on dow
     date = @cohort.start_date.monday.advance(weeks: week - 1)
-    if DAYS_PER_WEEK == 5
+    if days_per_week == 5
       date = date.advance(days: dow - 1)
     else
       # dow of 2 (d2) may be Tuesday ... but could also be Thursday if we don't have 5 day weeks
-      # This would happen if WEEKDAYS = [2, 4]
+      # This would happen if weekdays = [2, 4]
       # In the example above, d1 = Tuesday, d2 = Thursday
-      d = WEEKDAYS[dow - 1].to_i
+      d = weekdays[dow - 1].to_i
       date = date.advance(days: d - 1)
     end
     date

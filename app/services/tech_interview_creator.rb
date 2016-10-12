@@ -17,24 +17,30 @@ class TechInterviewCreator
   private
 
   def handle_cohort(cohort)
+    # raise cohort.student_locations.inspect if cohort.student_locations.size > 1
+    cohort.student_locations.each do |location|
+      handle_cohort_location(cohort, location)
+    end
+  end
+
+  def handle_cohort_location(cohort, location)
     puts "Handling cohort #{cohort.name}"
 
     # if there are any active interviews in this location, then no go
-    if interview = TechInterview.for_locations([cohort.location.name]).active.first
-      return handle_existing_interview(cohort, interview)
+    if interview = TechInterview.interviewee_location(location).active.first
+      return handle_existing_interview(cohort, location, interview)
     end
 
     interview_templates.each do |template|
+      # return b/c we want to stop on the first one that gets created
       if template.week <= cohort.week
-        if interview = create_interview(cohort, template)
-          return interview
-        end
+        return create_interview(cohort, location, template)
       end
     end
   end
 
-  def handle_existing_interview(cohort, interview)
-    puts "Existing W#{interview.week } interview found for #{cohort.location.name}: #{interview.id}"
+  def handle_existing_interview(cohort, location, interview)
+    puts "Existing W#{interview.week } interview found for #{location.name}: #{interview.id}"
 
     if should_slack?(interview)
       slack_alert interview, generate_slack_message(cohort, interview)
@@ -73,10 +79,10 @@ class TechInterviewCreator
     end
   end
 
-  def create_interview(cohort, template)
-    puts "Creating W#{template.week} interview for #{cohort.name}"
+  def create_interview(cohort, location, template)
+    puts "Creating W#{template.week} interview for #{cohort.name} in #{location.name}"
 
-    if student = fetch_student(cohort, template)
+    if student = fetch_student(cohort, location, template)
       result = CreateTechInterview.call(
         interviewee: student,
         interview_template: template
@@ -84,9 +90,9 @@ class TechInterviewCreator
     end
   end
 
-  def fetch_student(cohort, template)
+  def fetch_student(cohort, location, template)
     interviewed_student_ids = template.tech_interviews.for_cohort(cohort).select(:interviewee_id)
-    cohort.students.active.where.not(id: interviewed_student_ids).order('random()').first
+    cohort.students.active.where.not(id: interviewed_student_ids).where(location_id: location.id).order('random()').first
   end
 
   def within_mentor_hours?

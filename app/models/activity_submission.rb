@@ -5,11 +5,13 @@ class ActivitySubmission < ApplicationRecord
 
   belongs_to :user
   belongs_to :activity
+  belongs_to :cohort # substitute for lack of enrollment record - KV
 
   has_one :code_review_request, dependent: :destroy
 
   # before_create :set_finalized_for_project_activity_submissions
   before_create :set_finalized_for_code_evaluation
+  before_create :set_cohort
 
   #after_save :request_code_review
   # after_create :create_feedback
@@ -23,8 +25,8 @@ class ActivitySubmission < ApplicationRecord
 
   # if there is code evaluation, allow multiple submissions
   validates :user_id, uniqueness: {
-    scope: :activity_id,
-    message: "only one submission per activity"
+    scope: [:activity_id, :cohort_id],
+    message: "only one submission per activity per cohort"
   }, unless: Proc.new {|activity_submission| activity_submission.activity.evaluates_code? }
 
   validates :github_url,
@@ -96,6 +98,12 @@ class ActivitySubmission < ApplicationRecord
 
     # => Return true so it saves!
     true
+  end
+
+  def set_cohort
+    if activity.try(:bootcamp?) && user.try(:cohort_id)
+      self.cohort_id = user.cohort_id
+    end
   end
 
   def formatted_code_evaluation_results

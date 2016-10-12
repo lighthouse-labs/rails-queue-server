@@ -48,7 +48,9 @@ class ActivitiesController < ApplicationController
     # => If it evaluates code, we take multiple submissions (always a new submission)
     if @activity.evaluates_code?
       @activity_submission = ActivitySubmission.new
-      @last_submission = current_user.activity_submissions.where(activity: @activity).last
+      @last_submission = current_user.activity_submissions.where(activity: @activity)
+      @last_submission = @last_submission.where(cohort_id: current_user.cohort_id) if current_user.cohort_id? && @activity.bootcamp?
+      @last_submission = @last_submission.last
     else
       @activity_submission = current_user.activity_submissions.where(activity: @activity).first || ActivitySubmission.new
     end
@@ -170,4 +172,3 @@ class ActivitiesController < ApplicationController
     end
   end
 end
-

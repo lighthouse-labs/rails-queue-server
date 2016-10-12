@@ -37,16 +37,18 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
               i.fa.fa-fw.fa-calendar
               span.non-tablet-label
                 | Schedule
-          li
-            = link_to projects_path, title: 'Projects'
-              i.fa.fa-fw.fa-pencil-square-o
-              span.non-tablet-label
-                | Projects
-          li
-            = link_to tech_interview_templates_path, title: 'Tech Interviews'
-              i.fa.fa-fw.fa-comments
-              span.non-tablet-label
-                | Interviews
+          - if @program.try :has_projects?
+            li
+              = link_to projects_path, title: 'Projects'
+                i.fa.fa-fw.fa-pencil-square-o
+                span.non-tablet-label
+                  | Projects
+          - if @program.try :has_interviews?
+            li
+              = link_to tech_interview_templates_path, title: 'Tech Interviews'
+                i.fa.fa-fw.fa-comments
+                span.non-tablet-label
+                  | Interviews
 
           - if teacher?
             li.dropdown
@@ -81,10 +83,11 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
               i.fa.fa-fw.fa-list-ol
               span.non-tablet-label
                 | Queue
-          li
-            = link_to :code_reviews, title: 'Code Reviews'
-              i.fa.fa-fw.fa-eye
-              span.non-tablet-label Code Reviews
+          - if @program.try :has_code_reviews?
+            li
+              = link_to :code_reviews, title: 'Code Reviews'
+                i.fa.fa-fw.fa-eye
+                span.non-tablet-label Code Reviews
 
         - if admin?
           li.dropdown
@@ -107,6 +110,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                 = link_to 'Teacher Stats', admin_teacher_stats_path
               li
                 = link_to 'Learning Outcomes', admin_categories_path
+              li
+                = link_to 'Prep Stats', admin_prep_stats_path
 
       ul.nav.navbar-nav.navbar-right
         - if teacher? && !dropdown_cohorts.empty?
@@ -129,18 +134,6 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                 i.fa.fa-fw.fa-comment
                 span.non-tablet-label id='feedback-link'
                   | Feedback (#{pending_feedbacks.count})
-          - if current_user.active_student? && current_user.remote?
-            li.dropdown
-              = link_to '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown', title: 'Streams' do
-                i.fa.fa-fw.fa-video-camera
-                span.non-tablet-label
-                  | Streams
-                b.caret
-              span.dropdown-arrow
-              ul.dropdown-menu
-                - streams.each do |stream|
-                  li
-                    = link_to stream.title, stream_path(stream)
 
           li.dropdown.current-user
             = link_to '#', class: 'dropdown-toggle', :'data-toggle' => 'dropdown' do
@@ -154,29 +147,28 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
               li
                 = link_to 'Sign Out', session_path, :method => :delete, class: "sign-out-link"
           -if teacher?
-            li.new-issue data-toggle="tooltip" title=""
+            li.new-issue
               div class="btn-group" data-toggle="tooltip" data-placement="left" title="Report curriculum or compass issues (thanks!)"
                 button type="button" class="navbar-btn btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                   | + Issue&nbsp;
                   span class="caret"
                 
                 ul class="dropdown-menu"
-                  li
-                    a href="https://github.com/lighthouse-labs/2016-web-curriculum-activities/issues" target="_blank" + Curriculum Issue
+                  - if repo = ContentRepository.first
+                    li
+                      a href="https://github.com/#{repo.full_name}/issues" target="_blank" + Curriculum Issue
                   li 
                     a href="https://github.com/lighthouse-labs/compass/issues" target="_blank" + Compass Issue
-              / span
-                / = link_to '+ Issue', 'https://github.com/lighthouse-labs/2016-web-curriculum-activities/issues', target: '_blank', class: 'navbar-btn btn btn-warning', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Report curriculum issue or suggestion (Teachers only)'
             li.teacher-duty
               span
                 - attrs = { data: { toggle: 'tooltip', placement: 'bottom' }, title: "Your Location: #{current_user.location.try(:name) || 'N/A'}" }
                 = link_to "Go on duty", '#', { class: "on-duty-link navbar-btn btn btn-success #{'hidden' if current_user.on_duty?}" }.merge(attrs)
                 = link_to "Go off duty", '#', { class: "off-duty-link navbar-btn btn btn-danger #{'hidden' unless current_user.on_duty?}" }.merge(attrs)
-          - if current_user && current_user.enrolled_and_prepping?
+          - if @program.prep_assistance? && current_user.try(:enrolled_and_prepping?)
             li#assistance-request-module
               span#create-assistance-request
                 = link_to 'Request Assistance', prep_assistance_requests_path(activity_id: @activity), method: :post, class: "btn navbar-btn btn-primary"
-          - if current_user.active_student?
+          - elsif current_user.try(:active_student?)
             li#assistance-request-module
               span#cancel-assistance-request class="#{'hidden' unless current_user.waiting_for_assistance? || current_user.being_assisted?}"
                 = link_to '#', class: 'navbar-btn btn btn-warning cancel-request-assistance-button', :'data-toggle' => 'tooltip', :'data-placement' => 'bottom', title: 'Cancel this Assistance Request' do

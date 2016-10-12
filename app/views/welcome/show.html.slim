@@ -1,7 +1,7 @@
 .jumbotron
   h1 Welcome to Compass
 
-  p This Rails app was (recently) developed by Lighthouse Labs students (and staff) for Lighthouse Labs students. You will use it on a constant basis to interact with the course curriculum.
+  p Compass was developed by alumni and staff of Lighthouse Labs. You will use it on a constant basis to interact with our course curriculum.
 
   - if current_user
     - if current_user.type.blank?
@@ -12,10 +12,9 @@
         span Get to Work! &raquo;
 
   - else
-    p In order to use Compass, login via Github...
+    p In order to get started with Compass, please login via GitHub...
 
     = link_to new_session_path, class: 'btn btn-hg btn-primary'
       span Let's Get Started &raquo;
 
   hr
-

@@ -29,6 +29,9 @@ class Evaluation < ApplicationRecord
       references(:student, :cohort, :location)
     end
   }
+  scope :student_location, -> (location) {
+    includes(:student).references(:student).where(users: { location_id: location.id })
+  }
 
   scope :newest_active_evaluations_first, -> { order(started_at: :desc) }
 

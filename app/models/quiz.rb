@@ -11,13 +11,10 @@ class Quiz < ApplicationRecord
     where(id: Activity.active.where.not(quiz_id: nil).select(:quiz_id))
   }
   scope :prep,     -> {
-    where(id: Activity.prep.active.where.not(quiz_id: nil).select(:quiz_id))
+    where(day: nil)
   }
   scope :bootcamp, -> {
-    # Does 2 queries with an ugly id based array in the subquery, I know
-    # That's because for some reason this more natural subquery approach won't work... bug in AR?
-    #  `where(activity_id: Activity.bootcamp.whatever.whatever.select(:id))` (select instead of pluck)
-    where(id: Activity.bootcamp.active.where.not(quiz_id: nil).pluck(:quiz_id))
+    where.not(day: nil)
   }
   # Ideally this scope should be able to use the one above cleanly, but given the hack mentioned above, it's not easy.
   scope :until_day, -> (day) {
@@ -25,7 +22,17 @@ class Quiz < ApplicationRecord
   }
 
   def latest_submission_by(user)
-    quiz_submissions.where(user_id: user.id).order(id: :desc).first
+    chain = quiz_submissions.where(user_id: user.id).order(id: :desc)
+    chain = chain.where(cohort_id: user.cohort_id) if user.cohort_id? && self.bootcamp?
+    chain.first
+  end
+
+  def prep?
+    !bootcamp?
+  end
+
+  def bootcamp?
+    day?
   end
 
   # validates :cohort, presence: true

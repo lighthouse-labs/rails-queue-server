@@ -21,7 +21,8 @@
                 td
                   = eval.completed_at.to_s(:short_friendly)
                 td
-                  = eval.teacher.full_name
+                  - if eval.teacher
+                    = eval.teacher.full_name
                 td
                   = eval.status
                 td

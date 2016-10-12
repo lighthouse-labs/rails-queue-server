@@ -16,7 +16,7 @@
         - @outcomes.each do |outcome|
           li = outcome.text
 
-- lecture_activities, work_activities = @activities.partition { |a| a.is_a?(Lecture) || a.is_a?(Breakout) }
+- lecture_activities, work_activities = @activities.partition { |a| a.is_a?(Lecture) || a.is_a?(Breakout) || a.is_a?(Test) }
 - initial_notes = []
 - while work_activities.first.is_a?(PinnedNote) do
   - initial_notes << work_activities.shift
@@ -67,7 +67,7 @@
         h2 Daily Feedback
         - if feedback_submitted?(day)
           p Thank you for your feedback
-        - elsif previous_day? || it_is_6pm_already?
+        - elsif previous_day? || it_is_6pm_already? || ENV['SIMPLE_DAY_FEEDBACK'].present?
           = render partial: 'day_feedbacks/form'
         - elsif today?
           p Feedback opens later tonight (at 6pm). Please remember to come back and give it at some point thereafter.
