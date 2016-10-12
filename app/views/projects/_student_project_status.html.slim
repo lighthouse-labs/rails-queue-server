@@ -1,0 +1,39 @@
+- if project_evaluation
+  - if project_evaluation.status == "Accepted"
+    span.label.label-success Accepted
+    br
+    small
+      = time_ago_in_words(project_evaluation.completed_at)
+      | &nbsp;ago
+  - elsif project_evaluation.status == "Auto Accepted"
+    span.label.label-success Auto-Accepted
+    br
+    small
+      = time_ago_in_words(project_evaluation.completed_at)
+      | &nbsp;ago
+  - elsif project_evaluation.status == "In Progress"
+    span.label.label-warning In Progress
+    br
+    small
+      = time_ago_in_words(project_evaluation.created_at)
+      | &nbsp;ago
+  - elsif project_evaluation.status == "Pending"
+    span.label.label-warning In Queue
+    br
+    small
+      = time_ago_in_words(project_evaluation.created_at)
+      | &nbsp;ago
+  - elsif project_evaluation.status == "Cancelled"
+    span.label.label-warning Cancelled
+    br
+    small
+      = time_ago_in_words(project_evaluation.cancelled_at)
+      | &nbsp;ago
+  - elsif project_evaluation.status == "Rejected"
+    span.label.label-danger Rejected
+    br
+    small
+      = time_ago_in_words(project_evaluation.completed_at)
+      | &nbsp;ago
+-else
+  span.label.label-warning Not Submitted
