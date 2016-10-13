@@ -133,7 +133,12 @@ class User < ApplicationRecord
   end
 
   def completed_at(activity)
-    activity_submissions.where(activity: activity).first.try(:completed_at) if completed_activity?(activity)
+    if activity.is_a?(QuizActivity)
+      # For quiz activities, we don't have activity submissions, and quiz_submissions are used to determine completion instead
+      quiz_submissions.where(quiz_submissions: { quiz_id: activity.quiz_id }).last.try(:updated_at)
+    else
+      activity_submissions.where(activity: activity).last.try(:completed_at)
+    end
   end
 
   def full_name
