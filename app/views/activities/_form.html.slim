@@ -5,7 +5,7 @@
       li = msg
   hr
 
-= f.input :name
+= f.input :name, disabled: true
 = f.input :day if (day || @activity.project?)
 = f.input :start_time, as: :string
 = f.input :duration, as: :string

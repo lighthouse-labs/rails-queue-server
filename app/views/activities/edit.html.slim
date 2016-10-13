@@ -1,24 +1,80 @@
 h1 = "#{day.to_s.upcase}: #{@activity.name}"
 hr
 
+table.table.table-feedbacks
+  thead
+    tr
+      th Name
+      th Day
+
+      th Start Time
+      th Duration
+      th Gist URL
+      th Media Filename
+      th Allow Submissions
+      th Allow Feedback
+      th Probability to trigger code review
+      th Evaluates Code
+      th Remote Content
+      th Content Repository
+      th Content File Path
+  tbody
+    tr
+      td #{@activity.name}
+      - if (day || @activity.project?)
+        td #{@activity.day}
+      td #{@activity.start_time}
+      td #{@activity.duration}
+      td #{@activity.gist_url}
+      td #{@activity.media_filename}
+      td #{@activity.allow_submissions}
+      td #{@activity.allow_feedback}
+      td #{@activity.code_review_percent}%
+      td #{@activity.evaluates_code}
+      td #{@activity.remote_content}
+      td #{@activity.content_repository}
+      td #{@activity.content_file_path}
+
+
+  h6 Name: #{@activity.name}
+  - if (day || @activity.project?)
+    h6 Day: #{@activity.day}
+  h6 Start Time: #{@activity.start_time || "N/A"}
+  h6 Duration: #{@activity.duration}
+  h6 Gist URL: #{@activity.gist_url}
+  h6 Media Filename: #{@activity.media_filename}
+  h6 Allow Submissions: #{@activity.allow_submissions}
+  h6 Allow Feedback: #{@activity.allow_feedback}
+  h6 Probability to trigger code review: #{@activity.code_review_percent}%
+  h6 Evaluates Code: #{@activity.evaluates_code}
+  h6 Remote Content: #{@activity.remote_content}
+  h6 Content Repository: #{@activity.content_repository}
+  h6 Content File Path: #{@activity.content_file_path}
+
 = simple_form_for @activity, as: :activity, url: @form_url,
   html: { id: 'activity-form', class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
 
   = render "form", f: f
+hr
 
-  - if @activity.evaluates_code?
-    h3 Automated Test Cases
-    pre#test_content style="display:none" = @activity.test_code
-    #test-editor.editor
+h3 Instructions
 
-    h3 Initial Code (Optional)
-    pre#initial_code_content style="display:none" = @activity.initial_code
-    #initial-code-editor.editor
+- if @activity.remote_content?
+  .alert.alert-warning
+    | This content is remotely managed. You cannot edit it here. Change the "remote content" setting above if you want to change this.
+    br
+    = link_to 'Edit Contents', "https://github.com/#{@activity.repo_full_name}/edit/master/#{@activity.content_file_path}"
+    br
+    = link_to 'Repository (Master)', "https://github.com/#{@activity.repo_full_name}"
 
+- if @activity.evaluates_code?
+  h3 Automated Test Cases
+  pre#test_content style="display:none" = @activity.test_code
+  #test-editor.editor
 
-  .actions.well
-    = f.submit 'Update', class: 'btn btn-primary', style: 'margin-right: 10px;'
-    = link_to '&laquo; Cancel'.html_safe, :back
+  h3 Initial Code (Optional)
+  pre#initial_code_content style="display:none" = @activity.initial_code
+  #initial-code-editor.editor
 
   = render 'editor'
 
