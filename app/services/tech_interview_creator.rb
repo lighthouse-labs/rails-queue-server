@@ -43,7 +43,7 @@ class TechInterviewCreator
     puts "Existing W#{interview.week } interview found for #{location.name}: #{interview.id}"
 
     if should_slack?(interview)
-      slack_alert interview, generate_slack_message(cohort, interview)
+      slack_alert interview, generate_slack_message(cohort, location, interview)
     end
   end
 
@@ -59,10 +59,10 @@ class TechInterviewCreator
     (Time.current - (interview.last_alerted_at || interview.created_at) >= (mins * 60))
   end
 
-  def generate_slack_message(cohort, interview)
+  def generate_slack_message(cohort, location, interview)
     stale_for = (Time.current - interview.created_at).to_i / 60
     stale_for = (stale_for > 60) ? "#{stale_for / 60} hrs" : "#{stale_for} mins"
-    "There's a stale tech interview in #{cohort.location.name} Queue: #{interview.interviewee.full_name} [#{stale_for}]."
+    "There's a stale tech interview in #{location.name} Queue: #{interview.interviewee.full_name} [#{stale_for}]."
   end
 
   def slack_alert(interview, msg)
