@@ -11,6 +11,11 @@ p
     = link_to 'here', tech_interview_templates_url
 
 p
+  em
+    | To go directly to your results from this tech interview (including how well you scored on each question, with question specific comments), click&nbsp;
+    = link_to 'here', tech_interview_template_url(@tech_interview.tech_interview_template)
+
+p
   strong
     | Reminder: Do not share any details about this interview with your classmates.
 
