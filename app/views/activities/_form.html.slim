@@ -1,26 +1,26 @@
-- if f.object.errors.full_messages.any?
-  .alert.alert-error
-    strong Please correct the following errors:
-    - f.object.errors.full_messages.each do |msg|
-      li = msg
-  hr
+/ - if f.object.errors.full_messages.any?
+/   .alert.alert-error
+/     strong Please correct the following errors:
+/     - f.object.errors.full_messages.each do |msg|
+/       li = msg
+/   hr
 
-= f.input :name, disabled: true
-= f.input :day if (day || @activity.project?)
-= f.input :start_time, as: :string
-= f.input :duration, as: :string
-= f.input :gist_url, as: :string
-= f.input :type, collection: activity_type_options
-= f.input :media_filename, as: :string
-= f.input :allow_submissions
-= f.input :allow_feedback
-= f.input :code_review_percent, as: :string, label: 'Probability (percent) to trigger code review'
-= f.input :evaluates_code
-= f.input :remote_content
+/ = f.input :name
+/ = f.input :day if (day || @activity.project?)
+/ = f.input :start_time, as: :string
+/ = f.input :duration, as: :string
+/ = f.input :gist_url, as: :string
+/ = f.input :type, collection: activity_type_options
+/ = f.input :media_filename, as: :string
+/ = f.input :allow_submissions
+/ = f.input :allow_feedback
+/ = f.input :code_review_percent, as: :string, label: 'Probability (percent) to trigger code review'
+/ = f.input :evaluates_code
+/ = f.input :remote_content
 
-.remote-content-settings
-  = f.association :content_repository
-  = f.input :content_file_path
+/ .remote-content-settings
+/   = f.association :content_repository
+/   = f.input :content_file_path
 
 hr
 
@@ -36,7 +36,7 @@ h3 Instructions
 
 = f.hidden_field :instructions, id: 'activity-instructions', disabled: f.object.remote_content?
 
-= f.hidden_field :teacher_notes, id: 'activity-notes'
+= f.hidden_field :teacher_notes, id: 'activity-notes', disabled: f.object.remote_content?
 
 pre#instructions_content style="display:none" = @activity.instructions
 #instructions-editor.editor
@@ -47,6 +47,6 @@ pre#notes_content style="display:none" = @activity.teacher_notes
 #notes-editor.editor
 
 - if @activity.evaluates_code?
-  = f.hidden_field :section_id
-  = f.hidden_field :test_code
-  = f.hidden_field :initial_code
+  = f.hidden_field :section_id, disabled: true
+  = f.hidden_field :test_code, disabled: true
+  = f.hidden_field :initial_code, disabled: true

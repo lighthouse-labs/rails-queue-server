@@ -68,7 +68,7 @@ class ActivityPresenter < BasePresenter
   end
 
   def edit_button
-    link_to 'Edit', edit_button_path, class: 'btn btn-edit'
+    link_to 'View', edit_button_path, class: 'btn btn-edit'
   end
 
   def display_outcomes

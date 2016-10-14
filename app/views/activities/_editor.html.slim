@@ -25,6 +25,10 @@
         instructionsEditor.setReadOnly(true);
       }
 
+      if ($('#activity-notes').is(':disabled')) {
+        instructionsEditor.setReadOnly(true);
+      }
+
       // evaluates code
       if($('#test-editor').length > 0) {
         var testEditor = ace.edit("test-editor");
