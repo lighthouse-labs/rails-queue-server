@@ -8,6 +8,10 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @quiz_submissions = []
+    @question.quizzes.each do |quiz|
+      @quiz_submissions += QuizSubmission.where(quiz: quiz).where(initial: true)
+    end
   end
 
   def new
