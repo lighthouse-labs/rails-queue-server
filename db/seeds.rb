@@ -4,7 +4,7 @@ puts "SEEDING"
 @program = Program.find_or_create_by(name: "Web Immersive") do |p|
   p.weeks = 8
   p.days_per_week = 5
-  p.weekends? = true
+  p.weekends = true
 end
 @location_van = Location.find_or_create_by!(name: "Vancouver")
 @location_to = Location.find_or_create_by!(name: "Toronto")
