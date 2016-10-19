@@ -1,12 +1,47 @@
-h3
-  | Status:&nbsp;
-  - if @result && @result.in_progress?
-    .label.label-info In Progress
-  - elsif @result && @result.completed?
-    .label.label-success Completed
-  - else
-    .label.label-warning Pending
-
+| Status:&nbsp;
+- if @result && @result.in_progress?
+  .label.label-info In Progress
+- elsif @result && @result.completed?
+  .label.label-success Completed
+  .alert.alert-warning Please do not share your results with your peers who may not have done their tech interview yet.
+  p
+    strong Interviewer:
+    | &nbsp;
+    = link_to(@result.interviewer.full_name, @result.interviewer)
+  .panel.panel-default.question-result
+    .panel-heading
+      h3.panel-title Overall Feedback
+    .panel-body
+       == markdown (@result.feedback.to_s)
+  .panel.panel-default.question-result.scoring
+    .panel-heading
+      h3.panel-title Scoring
+    .panel-body
+      ol
+       li Didn't get it.
+       li Got it with some help, or close.
+       li Answered ideal answer without help or prompting.
+       li Answered ideal answer and took it a step further (bonus).
+  - @result.results.each.with_index do |result, index|
+    br
+    .panel.panel-default.question-result
+      .panel-heading
+        h3.panel-title.tech.score
+          | Question #{index + 1}
+          - if result.skipped?
+            span.label.label-default Skipped
+          - else
+            span.label class=integer_l_score_label_class(result.score)
+              = "#{result.score} / 4"
+      .panel-body
+        strong The Question
+        br
+        == markdown(result.question.to_s)
+        strong Mentor Notes
+        br
+        == markdown(result.notes.to_s)
+- else
+  .label.label-warning Pending
 - unless @result
   .alert.alert-info
     p Your interview results will be shown here.
