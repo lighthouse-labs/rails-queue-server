@@ -1,7 +1,9 @@
 puts "SEEDING"
 
 # Real shit
-@program = Program.find_or_create_by!(name: "Web Immersive")
+@program = Program.find_or_create_by(name: "Web Immersive") do |p|
+  p.weeks = 8
+end
 @location_van = Location.find_or_create_by!(name: "Vancouver")
 @location_to = Location.find_or_create_by!(name: "Toronto")
 
