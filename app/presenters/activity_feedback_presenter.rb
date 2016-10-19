@@ -17,8 +17,12 @@ class ActivityFeedbackPresenter < BasePresenter
     end
   end
 
+  def rating
+    activity_feedback.rating
+  end
+
   def activity_name
-    activity_feedback.activity.name
+    link_to activity_feedback.activity.name, activity_by_uuid_path(activity_feedback.activity.uuid)
   end
 
   def user_full_name
