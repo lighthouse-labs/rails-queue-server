@@ -114,32 +114,76 @@ class User < ApplicationRecord
     self.assistance_requests.where(type: nil).open_requests.exists?
   end
 
-  def completed_activity?(activity)
+  # def completed_activity?(activity)
+  #   if activity.evaluates_code?
+  #     chain = activity_submissions.where(finalized: true, activity: activity)
+  #     chain = chain.where(cohort_id: self.cohort_id) if activity.bootcamp? && self.cohort_id?
+  #     chain.any?
+  #   elsif activity.is_a?(QuizActivity)
+  #     activity.quiz.latest_submission_by(self).present?
+  #   elsif activity.bootcamp? && self.cohort_id?
+  #     activity_submissions.where(cohort_id: self.cohort_id).where(activity_id: activity.id).any?
+  #   else
+  #     submitted_activities.include?(activity)
+  #   end
+  # end
+
+  ###EXPERIMENTATION TIME
+
+  def completed?(activity)
     if activity.evaluates_code?
       chain = activity_submissions.where(finalized: true, activity: activity)
       chain = chain.where(cohort_id: self.cohort_id) if activity.bootcamp? && self.cohort_id?
-      chain.any?
+      chain
+      #empty array
     elsif activity.is_a?(QuizActivity)
-      activity.quiz.latest_submission_by(self).present?
+      activity.quiz.latest_submission_by(self)
+      #nil
     elsif activity.bootcamp? && self.cohort_id?
-      activity_submissions.where(cohort_id: self.cohort_id).where(activity_id: activity.id).any?
+      activity_submissions.where(cohort_id: self.cohort_id).where(activity_id: activity.id)
+      #empty array
     else
-      submitted_activities.include?(activity)
+      activity_submissions.where(activity_id: activity.id)
+      #Active Record Association
     end
   end
+
+  def completed_activity?(activity)
+    ##for a normal activity, why does this one go to the else AND...
+    if completed?(activity)
+      true
+    else
+      false
+    end
+  end
+
+  def completed_at(activity)
+    ## ...THIS one goes to the elsif for activity.bootcamp?
+    if completed?(activity)
+      if activity.is_a?(QuizActivity)
+        completed?(activity).try(:updated_at)
+      elsif activity.evaluates_code?
+        completed?(activity).try(:completed_at)
+      else
+        completed?(activity).try(:completed_at)
+      end
+    end
+  end
+
+  ###END OF EXPERIMENTATION TIME
 
   def github_url(activity)
     activity_submissions.where(activity: activity).first.try(:github_url) if completed_activity?(activity)
   end
 
-  def completed_at(activity)
-    if activity.is_a?(QuizActivity)
-      # For quiz activities, we don't have activity submissions, and quiz_submissions are used to determine completion instead
-      quiz_submissions.where(quiz_submissions: { quiz_id: activity.quiz_id }).last.try(:updated_at)
-    else
-      activity_submissions.where(activity: activity).last.try(:completed_at)
-    end
-  end
+  # def completed_at(activity)
+  #   if activity.is_a?(QuizActivity)
+  #     # For quiz activities, we don't have activity submissions, and quiz_submissions are used to determine completion instead
+  #     quiz_submissions.where(quiz_submissions: { quiz_id: activity.quiz_id }).last.try(:updated_at)
+  #   else
+  #     activity_submissions.where(activity: activity).last.try(:completed_at)
+  #   end
+  # end
 
   def full_name
     "#{self.first_name} #{self.last_name}"
