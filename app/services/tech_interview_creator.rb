@@ -32,9 +32,12 @@ class TechInterviewCreator
     end
 
     interview_templates.each do |template|
-      # return b/c we want to stop on the first one that gets created
       if template.week <= cohort.week
-        return create_interview(cohort, location, template)
+        if create_interview(cohort, location, template)
+          # return if interview created, b/c we are done for that cohort+location combo
+          # if create_interview doesnt create one, it returns nil
+          return
+        end
       end
     end
   end
@@ -80,14 +83,14 @@ class TechInterviewCreator
   end
 
   def create_interview(cohort, location, template)
-    puts "Creating W#{template.week} interview for #{cohort.name} in #{location.name}"
-
     if student = fetch_student(cohort, location, template)
-      result = CreateTechInterview.call(
+      puts "Creating W#{template.week} interview for #{cohort.name} in #{location.name}: #{student.full_name}"
+      return CreateTechInterview.call(
         interviewee: student,
         interview_template: template
       )
     end
+    nil
   end
 
   def fetch_student(cohort, location, template)
