@@ -79,6 +79,20 @@
       }
     }
 
+    .status {
+      position: absolute;
+      right: 10px;
+      top: 30%;
+      .progress {
+        width: 100px;
+        margin-top: 10px;
+        background-color: lighten($brand-secondary, 30%);
+      }
+      small {
+        font-size: 48%;
+      }
+    }
+
     .time {
       color: $brand-secondary;
       font-size: 14px;
