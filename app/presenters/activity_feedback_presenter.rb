@@ -27,7 +27,7 @@ class ActivityFeedbackPresenter < BasePresenter
 
   def user_full_name
     if activity_feedback.user.present?
-      activity_feedback.user.first_name + " " + activity_feedback.user.last_name
+      activity_feedback.user.full_name
     else
       'N/A'
     end
