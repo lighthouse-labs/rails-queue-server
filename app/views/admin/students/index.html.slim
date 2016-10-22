@@ -49,9 +49,10 @@ table.table
               i.fa.fa-edit
               | &nbsp;Change Cohort
 
-            a.btn.btn-xs.btn-danger.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-rollover-modal" data-content-url="#{new_admin_student_rollover_path(student)}"
-              i.fa.fa-life-saver
-              | &nbsp;Rollover
+            - if student.cohort
+              a.btn.btn-xs.btn-danger.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-rollover-modal" data-content-url="#{new_admin_student_rollover_path(student)}"
+                i.fa.fa-life-saver
+                | &nbsp;Rollover
 
 .modal.fade id="student-actions-modal"
   .modal-dialog
