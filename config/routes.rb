@@ -141,6 +141,7 @@ LaserShark::Application.routes.draw do
         post :deactivate
         get :modal_content
       end
+      resource :rollover, only: [:new, :create]
     end
     resources :teacher_stats, only: [:index, :show] do
       member do
