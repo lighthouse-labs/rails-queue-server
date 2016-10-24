@@ -23,62 +23,62 @@
 
           = link_to 'Re-queue', cancel_marking_project_evaluation_path(@project, @evaluation), class: 'btn btn-warning btn-evaluation', method: :put, data: { confirm: 'Sure? You will no longer be the evaluator. It will go back on the queue', toggle: 'tooltip', placement: 'bottom' }, title: 'Un-assign myself as the evaluator and put it back into the queue. My bad.'
 
-  == render 'details'
+    == render 'details'
 
-  .well == markdown(@project.description)
+    .well == markdown(@project.description)
 
-  h4 Outcomes
+    h4 Outcomes
 
-  .panel.panel-default
-    .panel-heading
-      h3.panel-title Code
-    .panel-body
-      table.table
-        thead
-          tr
-            th.text-center
-              a.select-all data-value="1" href="#"
-                | --
-                br
-                | N/A
-            th.text-center
-              a.select-all data-value="1" href="#"
-                | 1
-                br
-                | Nope
-            th.text-center
-              a.select-all data-value="2" href="#"
-                | 2
-                br
-                | Okay
-            th.text-center
-              a.select-all data-value="3" href="#"
-                | 3
-                br
-                | Great
-            th.text-center
-              a.select-all data-value="4" href="#"
-                | 4
-                br
-                | Superb
-
-            th Outcome
-
-        tbody
-          - @evaluation_form.outcomes.each_with_index do |(outcome_id, outcome), index|
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Code
+      .panel-body
+        table.table
+          thead
             tr
-              td.text-center
-                label.radio.radio-inline
-                  = radio_button_tag "evaluation_form[outcomes][#{index}][mark]", "", false, data: {toggle: "radio"}
-              - (1..4).each do |i|
+              th.text-center
+                a.select-all data-value="1" href="#"
+                  | --
+                  br
+                  | N/A
+              th.text-center
+                a.select-all data-value="1" href="#"
+                  | 1
+                  br
+                  | Nope
+              th.text-center
+                a.select-all data-value="2" href="#"
+                  | 2
+                  br
+                  | Okay
+              th.text-center
+                a.select-all data-value="3" href="#"
+                  | 3
+                  br
+                  | Great
+              th.text-center
+                a.select-all data-value="4" href="#"
+                  | 4
+                  br
+                  | Superb
+
+              th Outcome
+
+          tbody
+            - @evaluation_form.outcomes.each_with_index do |(outcome_id, outcome), index|
+              tr
                 td.text-center
                   label.radio.radio-inline
-                    = radio_button_tag "evaluation_form[outcomes][#{index}][mark]", i, false, data: {toggle: "radio"}
-              td
-                = outcome[:text]
-                = hidden_field_tag "evaluation_form[outcomes][#{index}][id]", outcome[:id]
-                = hidden_field_tag "evaluation_form[outcomes][#{index}][activity_id]", outcome[:activity_id]
+                    = radio_button_tag "evaluation_form[outcomes][#{index}][mark]", "", false, data: {toggle: "radio"}
+                - (1..4).each do |i|
+                  td.text-center
+                    label.radio.radio-inline
+                      = radio_button_tag "evaluation_form[outcomes][#{index}][mark]", i, false, data: {toggle: "radio"}
+                td
+                  = outcome[:text]
+                  = hidden_field_tag "evaluation_form[outcomes][#{index}][id]", outcome[:id]
+                  = hidden_field_tag "evaluation_form[outcomes][#{index}][activity_id]", outcome[:activity_id]
 
-  .form-group
-    = f.label :teacher_notes
-    = f.text_area :teacher_notes, rows: 10, class: "form-control"
+    .form-group
+      = f.label :teacher_notes
+      = f.text_area :teacher_notes, rows: 10, class: "form-control"
