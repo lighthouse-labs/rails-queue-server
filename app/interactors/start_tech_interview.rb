@@ -42,7 +42,7 @@ class StartTechInterview
   end
 
   def create_results
-    @tech_interview.tech_interview_template.questions.each do |question|
+    @tech_interview.tech_interview_template.questions.active.each do |question|
       @tech_interview.results.create! tech_interview_question: question, question: question.question, sequence: question.sequence
     end unless @tech_interview.results.any?
   end
