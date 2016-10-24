@@ -130,44 +130,66 @@ class User < ApplicationRecord
 
   ###EXPERIMENTATION TIME
 
-  def completed?(activity)
+  ##Look up what memoization is
+
+  # def completed?(activity)
+  #   ##completion_records_for NO question mark
+  #   if activity.evaluates_code?
+  #     chain = activity_submissions.where(finalized: true, activity: activity)
+  #     chain = chain.where(cohort_id: self.cohort_id) if activity.bootcamp? && self.cohort_id?
+  #     chain
+  #     #empty array
+  #   elsif activity.is_a?(QuizActivity)
+  #     activity.quiz.latest_submission_by(self)
+  #     #nil
+  #   elsif activity.bootcamp? && self.cohort_id?
+  #     activity_submissions.where(cohort_id: self.cohort_id).where(activity_id: activity.id)
+  #     #empty array
+  #   else
+  #     submitted_activities.where(id: activity.id)
+  #     #Active Record Association
+  #   end
+  # end
+
+  # def completed_activity?(activity)
+  #   ##for a normal activity, why does this one go to the else AND...
+  #   completed?(activity).present?
+  # end
+
+  # def completed_at(activity)
+  #   ## ...THIS one goes to the elsif for activity.bootcamp?
+  #   if completed?(activity).present?
+  #     if activity.is_a?(QuizActivity)
+  #       completed?(activity).try(:updated_at)
+  #     elsif activity.evaluates_code?
+  #       completed?(activity).try(:completed_at)
+  #     else
+  #       completed?(activity).try(:completed_at)
+  #     end
+  #   end
+  # end
+
+  def completion_records_for(activity)
     if activity.evaluates_code?
       chain = activity_submissions.where(finalized: true, activity: activity)
       chain = chain.where(cohort_id: self.cohort_id) if activity.bootcamp? && self.cohort_id?
       chain
-      #empty array
     elsif activity.is_a?(QuizActivity)
       activity.quiz.latest_submission_by(self)
-      #nil
     elsif activity.bootcamp? && self.cohort_id?
       activity_submissions.where(cohort_id: self.cohort_id).where(activity_id: activity.id)
-      #empty array
     else
       activity_submissions.where(activity_id: activity.id)
-      #Active Record Association
+      # submitted_activities.where(id: activity.id)
     end
   end
 
   def completed_activity?(activity)
-    ##for a normal activity, why does this one go to the else AND...
-    if completed?(activity)
-      true
-    else
-      false
-    end
+    completion_records_for(activity).present?
   end
 
   def completed_at(activity)
-    ## ...THIS one goes to the elsif for activity.bootcamp?
-    if completed?(activity)
-      if activity.is_a?(QuizActivity)
-        completed?(activity).try(:updated_at)
-      elsif activity.evaluates_code?
-        completed?(activity).try(:completed_at)
-      else
-        completed?(activity).try(:completed_at)
-      end
-    end
+    completion_records_for(activity).try :completed_at
   end
 
   ###END OF EXPERIMENTATION TIME
