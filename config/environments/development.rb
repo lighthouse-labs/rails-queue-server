@@ -32,7 +32,9 @@ Rails.application.configure do
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  # KV disabling this due to too many fsevent_watch process issue.
+  # See https://github.com/phusion/passenger/issues/1879
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { :host => ENV['HOST'] }
   config.action_mailer.delivery_method = :letter_opener
