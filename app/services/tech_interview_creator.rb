@@ -4,7 +4,8 @@ class TechInterviewCreator
     # no tech interviews on weekends
     puts "Running..."
     return false unless weekday?
-    Cohort.is_active.each do |cohort|
+    # sort by most_recent so that junior cohorts take priority in terms of tech interviews. - KV
+    Cohort.is_active.most_recent.each do |cohort|
       tz = cohort.location.timezone
       Time.use_zone(tz) do
         if within_mentor_hours?
