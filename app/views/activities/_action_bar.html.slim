@@ -49,5 +49,5 @@
             - if @activity.allow_submissions?
               td = link_to student.github_url(@activity), student.github_url(@activity) if student.completed_activity?(@activity)
             td = student.completed_activity?(@activity) ? "Yes" : "No"
-            td = "Completed #{time_ago_in_words(student.completed_at(@activity))} ago" if student.completed_activity?(@activity)
+            td = "Completed #{time_ago_in_words(student.completed_at(@activity)[0])} ago" if student.completed_activity?(@activity)
 
