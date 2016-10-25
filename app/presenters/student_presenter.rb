@@ -75,7 +75,7 @@ class StudentPresenter < UserPresenter
   def quiz_stats
     quiz_ids = Quiz.active.bootcamp.select(:id)
     quiz_submissions = student.quiz_submissions.where(quiz_id: quiz_ids).where(initial: true)
-    quiz_ratio = quiz_submissions.any? ? (quiz_submissions.to_f / quiz_ids.count) * 100 : 0
+    quiz_ratio = quiz_submissions.any? ? (quiz_submissions.count / quiz_ids.count) * 100 : 0
     quiz_average = average_score_for_submissions(quiz_submissions)
 
     render 'stats', {
