@@ -24,14 +24,16 @@ $ ->
   $(document).on 'click', '.student-reactivate-button', (e) ->
     id = $(this).parents('td').parents('tr').data 'id'
     reactivateStudent(id)
-    $(this).hide()
-    $(this).siblings('.student-deactivate-button').show()
+    $(this).addClass('hidden-button')
+    $(this).siblings('.student-deactivate-button').removeClass('hidden-button')
+    $(this).closest('tr').find('.label-deactivated').addClass('hide')
 
   $(document).on 'click', '.student-deactivate-button', (e) ->
     id = $(this).parents('td').parents('tr').data 'id'
     deactivateStudent(id)
-    $(this).hide()
-    $(this).siblings('.student-reactivate-button').show()
+    $(this).addClass('hidden-button')
+    $(this).siblings('.student-reactivate-button').removeClass('hidden-button')
+    $(this).closest('tr').find('.label-deactivated').removeClass('hide')
 
   $(document).on 'change', '.admin-student-cohort-selector', ->
     cohortID = $(this).val()
@@ -44,7 +46,18 @@ $ ->
     button = $(event.relatedTarget)
     studentID = button.data('student-id')
     modal = $(this)
+    modal.find('.modal-content').html('')
     $.ajax(
       url: '/admin/students/'+studentID+'/modal_content'
+      method: 'GET').done (info) ->
+        modal.find('.modal-content').html(info)
+
+  $(document).on 'show.bs.modal', '#student-rollover-modal', (event) ->
+    button = $(event.relatedTarget)
+    contentURL = button.data('content-url')
+    modal = $(this)
+    modal.find('.modal-content').html('')
+    $.ajax(
+      url: contentURL
       method: 'GET').done (info) ->
         modal.find('.modal-content').html(info)
