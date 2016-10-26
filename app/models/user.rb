@@ -124,9 +124,6 @@ class User < ApplicationRecord
     elsif activity.bootcamp? && self.cohort_id?
       activity_submissions.where(cohort_id: self.cohort_id).where(activity_id: activity.id)
     else
-      ##if we have activities here, it means that someone has done a submission on that activity. BUT
-      ## you are trying to call completed_at on an activity, which doesn't have one
-      # submitted_activities.where(id: activity.id)
       activity_submissions.where(activity_id: activity.id)
 
     end
