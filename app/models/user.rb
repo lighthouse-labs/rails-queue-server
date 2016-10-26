@@ -123,12 +123,11 @@ class User < ApplicationRecord
       chain = chain.where(cohort_id: self.cohort_id) if activity.bootcamp? && self.cohort_id?
       chain
     elsif activity.is_a?(QuizActivity)
-      activity.quiz.latest_submission_by(self)
+      activity.quiz.submissions_by(self)
     elsif activity.bootcamp? && self.cohort_id?
       activity_submissions.where(cohort_id: self.cohort_id).where(activity_id: activity.id)
     else
       activity_submissions.where(activity_id: activity.id)
-
     end
   end
 
@@ -137,15 +136,11 @@ class User < ApplicationRecord
   end
 
   def completed_at(activity)
-    if activity.is_a?(QuizActivity)
-      completion_records_for(activity).try :completed_at
-    else
-      completion_records_for(activity).pluck :completed_at
-    end
+    completion_records_for(activity).first.try :completed_at
   end
 
   def github_url(activity)
-    activity_submissions.where(activity: activity).first.try(:github_url) if completed_activity?(activity)
+    completion_records_for(activity).first.try(:github_url) if completed_activity?(activity)
   end
 
   def full_name

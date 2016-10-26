@@ -57,7 +57,7 @@ module ApplicationHelper
   end
 
   def shortened_github_url(url)
-    url.gsub(/https?\:\/\/(www\.)?github.com\//, '')
+    url.to_s.strip.gsub(/https?\:\/\/.*github\.com\//, '')
   end
 
   def progress_bar_class(percent)
