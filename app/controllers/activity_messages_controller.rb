@@ -59,8 +59,7 @@ class ActivityMessagesController < ApplicationController
       :cohort_id,
       :subject,
       :body,
-      :teacher_notes,
-      :for_students
+      :teacher_notes
     )
   end
 
