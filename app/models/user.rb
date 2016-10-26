@@ -34,6 +34,9 @@ class User < ApplicationRecord
   scope :active, -> {
     where(deactivated_at: nil, completed_registration: true)
   }
+  scope :deactivated, -> {
+    where.not(deactivated_at: nil)
+  }
   scope :completed_activity, -> (activity) {
     if activity.is_a?(QuizActivity)
       # For quiz activities, we don't have activity submissions, and quiz_submissions are used to determine completion instead
