@@ -78,7 +78,7 @@ tr.student-row class=css_class
     - interview_templates.each do |interview_template|
       - if interview = interview_template.completed_interview_for(student, @cohort)
         - if interview.average_score?
-          - total_score += interview.average_score
+          - total_score += interview.average_score.round(1)
           - count += 1
         = link_to interview do
           span.tech-interview.label class=l_score_label_class(interview.average_score) title=(interview.average_score || "??") data-toggle="tooltip"

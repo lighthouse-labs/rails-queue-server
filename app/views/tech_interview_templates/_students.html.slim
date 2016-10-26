@@ -37,7 +37,7 @@ table.table.students
           - if interview && interview.completed?
 
             span.label title="Questions" data-toggle="tooltip" class=l_score_label_class(interview.average_score)
-              strong = interview.average_score || '?'
+              strong = interview.average_score.round(1) || '?'
             = " + "
             span.label title="Articulation" data-toggle="tooltip" class=l_score_label_class(interview.articulation_score)
               = interview.articulation_score
