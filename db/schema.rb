@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018190146) do
+ActiveRecord::Schema.define(version: 20161026194027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(version: 20161018190146) do
     t.string   "subject",       limit: 1000
     t.text     "body"
     t.text     "teacher_notes"
-    t.boolean  "for_students"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["activity_id"], name: "index_activity_messages_on_activity_id", using: :btree
