@@ -38,7 +38,7 @@ dl.dl-horizontal
     dt Question Score
     dd
       span.label class=l_score_label_class(@tech_interview.average_score)
-        = @tech_interview.average_score.round(1)
+        = @tech_interview.average_score? ? @tech_interview.average_score.round(1) : '?'
 
     dt Knowledge Score
     dd
