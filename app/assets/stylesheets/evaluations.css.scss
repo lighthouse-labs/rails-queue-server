@@ -12,7 +12,6 @@ body.project-evals-edit {
     z-index: 100;
     right: 10px;
   }
-
   .actions-container {
     min-height: 81px;
   }
@@ -55,4 +54,18 @@ body.project-evals-edit, body.project-evals-show {
 
 .new-evaluation-form {
   margin-bottom: 20px;
+}
+
+body.project-evals-show {
+  .well.actions.affix {
+    top: 65px;
+    z-index: 100;
+    right: 10px;
+  }
+  .actions-container {
+    min-height: 81px;
+  }
+  .affix-top {
+    width: 100%;
+  }
 }

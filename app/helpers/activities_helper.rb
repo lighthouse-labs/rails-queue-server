@@ -40,7 +40,9 @@ module ActivitiesHelper
 
   def duration activity
     duration = activity.duration.to_i
-    if duration > 0 && duration <= 30
+    if @program.display_exact_activity_duration?
+      "#{duration}m"
+    elsif duration > 0 && duration <= 30
       'Tiny'
     elsif duration > 30 && duration <= 60
       'Short'

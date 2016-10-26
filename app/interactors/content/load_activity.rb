@@ -48,6 +48,7 @@ class Content::LoadActivity
       name:               d['name'],
       duration:           d['duration'],
       stretch:            d['stretch'],
+      homework:           d['homework'],
       archived:           d['archived'],
       start_time:         d['start_time'],
       day:                d['day'],

@@ -1,7 +1,7 @@
 class AssistanceRequestsController < ApplicationController
 
   #before_action :selected_cohort_locations, only: [:index, :queue]
-  before_filter :teacher_required, only: [:index, :destroy, :start_assistance, :end_assistance, :queue]
+  before_action :teacher_required, only: [:index, :destroy, :start_assistance, :end_assistance, :queue]
 
   def index
     @all_locations = Location.where("id IN (?)", Cohort.all.map(&:location_id).uniq).map{|l| LocationSerializer.new(l, root: false).as_json}
@@ -18,9 +18,9 @@ class AssistanceRequestsController < ApplicationController
     requests = AssistanceRequest.where(type: nil).open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
     code_reviews = CodeReviewRequest.open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
     my_active_evaluations = Evaluation.where(teacher: current_user).where(state: "in_progress").newest_active_evaluations_first
-    evaluations = Evaluation.open_evaluations.oldest_first.student_cohort_in_locations([params[:location]])
+    evaluations = Evaluation.open_evaluations.oldest_first.student_location(current_user.location)
     my_active_interviews = TechInterview.in_progress.interviewed_by(current_user)
-    interviews = can_tech_interview? ? TechInterview.oldest_first.queued.for_locations([params[:location]]) : []
+    interviews = can_tech_interview? ? TechInterview.oldest_first.queued.interviewee_location(current_user.location) : []
     all_students = Student.in_active_cohort.active.order_by_last_assisted_at.cohort_in_locations([params[:location]])
 
 

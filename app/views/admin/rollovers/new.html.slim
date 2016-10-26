@@ -1,0 +1,21 @@
+= form_for [:admin, @student], url: admin_student_rollover_path(@student), html: { method: :post } do |f|
+
+  .modal-header
+    button type="button" class="close" data-dismiss="modal" aria-label="Close"
+      span aria-hidden="true"
+        | &times;
+    h4.modal-title Roll Over #{@student.full_name}
+
+  .modal-body
+
+    h4 Current Cohort
+    p = @student.cohort.name
+
+    | Rollover Into Cohort:
+    br
+    = select_tag 'cohort_id', options_from_collection_for_select(@cohorts, :id, :name_with_location, nil), class: 'form-control', prompt: 'Select One', required: 'required'
+    br
+
+  .modal-footer
+    button.btn.btn-default type="button" data-dismiss="modal" Close
+    = f.submit "Save", class: "btn btn-success"

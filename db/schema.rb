@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161001195944) do
+ActiveRecord::Schema.define(version: 20161018190146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20161001195944) do
     t.boolean  "archived"
     t.float    "average_rating"
     t.integer  "average_time_spent"
+    t.boolean  "homework"
     t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
     t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
     t.index ["sequence"], name: "index_activities_on_sequence", using: :btree
@@ -347,6 +348,14 @@ ActiveRecord::Schema.define(version: 20161001195944) do
     t.string   "recordings_bucket"
     t.string   "tag"
     t.integer  "days_per_week"
+    t.integer  "weeks"
+    t.boolean  "weekends"
+    t.string   "curriculum_unlocking"
+    t.boolean  "has_interviews",                  default: true
+    t.boolean  "has_projects",                    default: true
+    t.boolean  "has_code_reviews",                default: true
+    t.boolean  "display_exact_activity_duration"
+    t.boolean  "prep_assistance"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -556,6 +565,8 @@ ActiveRecord::Schema.define(version: 20161001195944) do
     t.boolean  "mentor",                 default: false
     t.boolean  "can_tech_interview"
     t.integer  "initial_cohort_id"
+    t.string   "auth_token",             default: "",    null: false
+    t.index ["auth_token"], name: "index_users_on_auth_token", using: :btree
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
     t.index ["initial_cohort_id"], name: "index_users_on_initial_cohort_id", using: :btree
   end

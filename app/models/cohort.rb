@@ -27,7 +27,7 @@ class Cohort < ApplicationRecord
 
   # assumes monday start date =/ - KV
   def end_date
-    start_date.advance(weeks: WEEKS, days: 4)
+    start_date.advance(weeks: program.weeks, days: 4)
   end
 
   def upcoming?
@@ -53,6 +53,10 @@ class Cohort < ApplicationRecord
   def curriculum_day(date=nil)
     date ||= Date.current
     CurriculumDay.new(date, self)
+  end
+
+  def student_locations
+    Location.where(id: self.students.active.pluck('distinct location_id'))
   end
 
 end

@@ -7,8 +7,8 @@ Compass - by Lighthouse Labs
 ## Ruby / Rails
 
 This project is built with :
-* ruby 2.1.7 (mentioned in the Gemfile)
-* rails 4.2.4
+* ruby 2.3.0 (mentioned in the Gemfile)
+* rails 5.0.0.1
 * slim instead of erb/haml
 * postgres 9.x
 * bootstrap 3.something with FlatUI
@@ -29,9 +29,10 @@ Follow these steps in order please:
   * From your terminal, type in `sudo nano /etc/hosts` (Mac/Linux Only)
   * Note: if you are using a VM (Vagrant, etc), this should be done on your host (main) machine, not your virtual machine
   * Add the following entry as a new line at the end of the `/etc/hosts` file: `127.0.0.1 compass.dev`.
+  * Make sure the HOST env var is set correctly in `.env` (`HOST=compass.dev:3000`)
   * Now you can go to the URL `http://compass.dev:3000/` instead of `http://localhost:3000/` for when you are working on this app.
 6. Create a [Developer level Oauth Application on Github](https://github.com/settings/developers)
-  * http://d.pr/i/182yT/1rXSKzEe
+  * Screenshot: http://d.pr/i/182yT/1rXSKzEe
   * Set the two client keys as GITHUB_KEY and GITHUB_SECRET in the env file
   * More details below, if you need them.
 7. Generate a [GitHub personal access token](https://github.com/settings/tokens/new) for compass on localhost
@@ -39,7 +40,9 @@ Follow these steps in order please:
   * It's needed b/c the curriculum repo with all the content is private and compass needs to use the GH API to access it when seeding/creating activities
   * Set the key as the `GITHUB_ADMIN_OAUTH_TOKEN` in your env file
 8. `bin/rake db:setup`
-9. Start the server, using the `bundle exec guard` or the `bin/rails s` command
+  * This will create, schema load, and seed the db
+  * The seed script will download the (private) curriculum repo in order to ingest the content. This means your github auth should be set appropriately, otherwise it will have access issues and fail.
+9. Start the server, using `bin/rails s -b 0.0.0.0`
 10. Create an admin+teacher account for yourself. First sign up as a teacher using this URL:
   * <http://compass.dev:3000/i/ggg> (teacher invite code URL)
   * Once you've authenticated successfully, `rails c` in and update the user to `admin=true` status
@@ -57,21 +60,33 @@ User (student/teacher) Authentication can only happen through Github. Much like 
 
 ## Server
 
-Optional: Use [guard](https://github.com/guard/guard) to start the server and run the tests: `bundle exec guard`
+Start the server using the command `bin/rails s -b 0.0.0.0`.
 
-Or you could just start the server using the typical `bin/rails s`.
+## Curriculum Development
 
+Use the rake command `rake curriculum:deploy`. It is suggested that you test your markdown from the curriculum repo before you push that content. This rake command can be given an arg to bypass the process of downloading the curriculum content form github and instead use a local copy.
+
+Example (from the compass dir):
+
+```terminal
+bin/rake curriculum:deploy REPO_DIR=/Users/kvirani/github/lighthouse/..../data
+```
+
+Alternatively, you can use the GitHub version of the curriculum but a different branch than the master branch:
+
+```terminal
+bin/rake curriculum:deploy BRANCH=my-cool-branch-name
+```
 
 ## CSS UI Framwork
 
 <https://github.com/wingrunr21/flat-ui-sass> was used to convert FlatUI Pro from LESS to SASS (located in `vendor/assets` )
 
-
 ## Custom markdown
 
 **To make code selectable in the browser use:**
 
-  
+
 \`\`\`ruby-selectable
 Some selectable text
 Some selectable text
@@ -94,7 +109,7 @@ Some ruby code herecode
 ???
 ```
 
-or 
+or
 
 ```
 ???ruby-selectable

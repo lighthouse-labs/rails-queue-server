@@ -1,14 +1,16 @@
 .nav-calendar
-  - (1..WEEKS).each do |w|
+  - (1..@program.weeks).each do |week_number|
+    / quick hack: prefix with 0 if program is 10 weeks or more (double digit) - KV
+    - w = @program.weeks >= 10 && week_number < 10 ? "0#{week_number}" : week_number
     .nav-week
       ul
-        li.previous.week-number
+        li.previous.week-number title="Week #{week_number}" data-toggle="tooltip"
           a href="#"
             | W
             = w
         - (1..@program.days_per_week).each do |d|
           li.day-number class=day_status_css("w#{w}d#{d}") = link_to(d, day_path("w#{w}d#{d}"))
-        - if WEEKENDS
+        - if @program.weekends?
           li.day-number class=day_status_css("w#{w}e") = link_to('e', day_path("w#{w}e"))
   .day-nav-links
     - unless today == 'w1d1'

@@ -17,13 +17,17 @@ class ActivityFeedbackPresenter < BasePresenter
     end
   end
 
+  def rating
+    activity_feedback.rating
+  end
+
   def activity_name
-    activity_feedback.activity.name
+    link_to activity_feedback.activity.name, activity_by_uuid_path(activity_feedback.activity.uuid)
   end
 
   def user_full_name
     if activity_feedback.user.present?
-      activity_feedback.user.first_name + " " + activity_feedback.user.last_name
+      activity_feedback.user.full_name
     else
       'N/A'
     end

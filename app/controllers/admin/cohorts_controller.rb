@@ -7,7 +7,7 @@ class Admin::CohortsController < Admin::BaseController
   end
 
   def new
-    @cohort = Cohort.new
+    @cohort = Cohort.new(program: Program.first)
   end
 
   def edit

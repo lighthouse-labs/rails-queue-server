@@ -6,11 +6,12 @@ table.table
     tr
       th Name
       th Cohort
+      th Status
       th Change
   tbody
     - @students.each do |student|
       tr data-id='#{student.id}'
-        td 
+        td
           .student-info
             = render 'shared/student_info', student: student, show_email: true
         td
@@ -18,9 +19,17 @@ table.table
             = link_to student.cohort.name, [:admin, student.cohort]
           - else
             = 'N/A'
+          - if student.initial_cohort
             br
-            = cohort_status(student.cohort)
-          
+            = link_to student.initial_cohort.name, [:admin, student.initial_cohort]
+            | &nbsp;
+            small = "(Initially)"
+        td
+          - if student.cohort && student.rolled_in?(student.cohort)
+            div
+              .label.label-warning Rolled In
+          div
+            .label.label-danger.label-deactivated class=(student.deactivated? ? '' : 'hide') Dropped
         td
           .btn-collection
             - if student.deactivated?
@@ -32,14 +41,24 @@ table.table
               .btn.btn-danger.btn-xs.student-deactivate-button
                 | Deactivate
               .btn.btn-primary.btn-xs.student-reactivate-button.hidden-button
-                | Reactivate 
-            
+                | Reactivate
+
             = link_to 'Edit', [:edit, :admin, student], class: 'btn btn-xs btn-primary'
-            
+
             a.btn.btn-xs.btn-info.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-actions-modal" data-student-id="#{student.id}"
               i.fa.fa-edit
               | &nbsp;Change Cohort
 
+            - if student.cohort
+              a.btn.btn-xs.btn-danger.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-rollover-modal" data-content-url="#{new_admin_student_rollover_path(student)}"
+                i.fa.fa-life-saver
+                | &nbsp;Rollover
+
 .modal.fade id="student-actions-modal"
   .modal-dialog
     .modal-content
+
+.modal.fade id="student-rollover-modal"
+  .modal-dialog
+    .modal-content
+

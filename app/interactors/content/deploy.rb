@@ -6,6 +6,10 @@ class Content::Deploy
     @sha    = context.sha
     @branch = context.branch || 'master'
 
+    # @repo_dir is usually nil, but can be set and in that case it wont download it from github
+    # useful for local curriculum change testing (before pushing changes)
+    @repo_dir = context.repo_dir
+
     Rails.application.eager_load! # needed later
   end
 
@@ -13,7 +17,8 @@ class Content::Deploy
 
     @log_path = setup_logger
     deployment do
-      repo_dir = download_and_extract_repo_archive
+      repo_dir = @repo_dir || download_and_extract_repo_archive
+
 
       # The records array gets appended to and eventually consumed by other services, below
       # It will contain AR instances (some loaded, others built, as needed)
@@ -48,11 +53,19 @@ class Content::Deploy
   end
 
   def load_project_records(repo_dir, records)
-    Content::LoadProjects.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
+    if Dir.exists?(File.join(repo_dir, '_Projects').to_s)
+      Content::LoadProjects.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
+    else
+      puts 'Projects not found. Skipping.'
+    end
   end
 
   def load_interview_records(repo_dir, records)
-    Content::LoadInterviews.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
+    if Dir.exists?(File.join(repo_dir, '_Interviews').to_s)
+      Content::LoadInterviews.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
+    else
+      puts 'Interview templates not found. Skipping.'
+    end
   end
 
   def load_activity_records(repo_dir, records)
