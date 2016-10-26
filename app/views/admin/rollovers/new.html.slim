@@ -8,10 +8,21 @@
 
   .modal-body
 
-    h4 Current Cohort
-    p = @student.cohort.name
+    p
+      strong Current Cohort:&nbsp;
+      = @student.cohort.name
 
-    | Rollover Into Cohort:
+    .alert.alert-warning
+      p
+        strong IMPORTANT:
+      p
+        | 1. There is no undo for this
+        br
+        | 2. Once a student is rolled over, it will be as though they are a new student in that cohort: They will not be able to access the later weeks they had access to before. Their activity/project submissions, tech interviews, etc will be "reset" for them. That said, for admins, this progress data will still be available.
+        br
+        | 3. As such, it is strongly suggested that you do this rollover on day one (Monday) of their new, rollover cohort and not before then.
+
+    | Select Rollover Cohort:
     br
     = select_tag 'cohort_id', options_from_collection_for_select(@cohorts, :id, :name_with_location, nil), class: 'form-control', prompt: 'Select One', required: 'required'
     br

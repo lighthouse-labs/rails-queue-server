@@ -34,7 +34,7 @@ LaserShark::Application.routes.draw do
     delete 'remove_question/:question_id', to: 'quizzes#remove_question', as: 'remove_question'
   end
 
-  get '/i/:code', to: 'invitations#show' # student/teacher invitation handler
+  get '/i/:code', to: 'invitations#show', as: 'invitation' # student/teacher invitation handler
   # get 'prep'  => 'setup#show' # temporary
   resources :prep, controller: 'preps', :only => [:index, :show] do
     resources :activities

@@ -1,4 +1,4 @@
-body.admin-cohorts-show {
+body.admin-cohorts-show, body.admin-cohorts-index, body.admin-students-index {
 
   .stats {
     display: flex;
@@ -10,10 +10,17 @@ body.admin-cohorts-show {
       margin: 0px 10px 0px 10px;
       min-width: 140px;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+
+      h3 {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-size: 24px
+      }
 
       span {
         font-variant: small-caps;
+        font-size: 0.8em;
       }
     }
 
@@ -21,11 +28,10 @@ body.admin-cohorts-show {
 
   table.students {
     tr {
-
-      &.rolled-out {
+      &.dropped {
         background-color: rgba(150, 0, 0, 0.1);
       }
-      &.rolled-in {
+      &.rolled-in, &.rolled-out {
         background-color: rgba(255, 250, 225, 0.6);
       }
 

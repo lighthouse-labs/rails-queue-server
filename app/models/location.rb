@@ -6,4 +6,8 @@ class Location < ApplicationRecord
 
   belongs_to :supported_by_location, class_name: 'Location' # nullable
 
+  def satellite?
+    !!supported_by_location
+  end
+
 end

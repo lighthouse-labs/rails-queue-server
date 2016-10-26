@@ -23,7 +23,7 @@
 
           = link_to 'Re-queue', cancel_marking_project_evaluation_path(@project, @evaluation), class: 'btn btn-warning btn-evaluation', method: :put, data: { confirm: 'Sure? You will no longer be the evaluator. It will go back on the queue', toggle: 'tooltip', placement: 'bottom' }, title: 'Un-assign myself as the evaluator and put it back into the queue. My bad.'
 
-  == render 'details'
+    == render 'details'
 
     .well == markdown(@project.description)
 

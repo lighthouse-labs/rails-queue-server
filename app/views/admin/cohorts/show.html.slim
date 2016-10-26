@@ -7,36 +7,20 @@ header.page-header
     = @cohort.name
     = " (#{cohort.location.name})"
 
-= render 'stats'
+.well
+  = link_to 'Manage Students', admin_students_path(cohort_id: @cohort), class: 'btn btn-primary'
+  | &nbsp;
+  = link_to [:admin, :cohorts], class: 'btn btn-info pull-right' do
+    | &laquo; Cohort List
+
+= render 'stats', cohort: @cohort
 
 - unless @cohort.upcoming?
   - today = CurriculumDay.new(Date.current, @cohort)
 
-  .row
-    .col-sm-12
-      .panel.panel-default
-        .panel-heading
-          h3.panel-title Bootcamp Stats
+  = render 'bootcamp_stats_table', students: @active_students, today: today, title: "Bootcamp Stats: #{@active_students.size} Active Students"
 
-        .table-responsive
-          table.table.students.sortable
-            thead
-              tr
-                th Info
-                th Help
-                th Progress To Date
-                - if @cohort.active?
-                  th Progress Today
-                th Quiz To Date
-                th Tech Interviews
-                th Projects & CRs
-
-
-            tbody
-              - @students.each do |s|
-                == render 'student_bootcamp_stats', student: s, today: today, interview_templates: @interview_templates
-              - @rolled_out_students.each do |s|
-                == render 'student_bootcamp_stats', student: s, today: today, interview_templates: @interview_templates
+  = render 'bootcamp_stats_table', students: @other_students, today: today, title: "Bootcamp Stats: #{@other_students.size} Exited Students"
 
 
 .row
@@ -44,17 +28,17 @@ header.page-header
     .panel.panel-default
       .panel-heading
         h3.panel-title Prep Stats
-
-      .table-responsive
-        table.table.students.sortable
-          thead
-            tr
-              th Info
-              th Joined
-              th Started
-              th Progress
-              th Time Logged
-              th Quiz Score
-          tbody
-            - @students.each do |s|
-              == render 'admin/prep_stats/student_prep_stats', student: s
+      .panel-body
+        .table-responsive
+          table.table.students.sortable
+            thead
+              tr
+                th Info
+                th Joined
+                th Started
+                th Progress
+                th Time Logged
+                th Quiz Score
+            tbody
+              - (@active_students.to_a + @other_students).each do |s|
+                == render 'admin/prep_stats/student_prep_stats', student: s
