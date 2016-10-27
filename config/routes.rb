@@ -149,7 +149,13 @@ LaserShark::Application.routes.draw do
         get :feedback
       end
     end
-
+    resources :users, only: [:index] do
+      member do
+        post :reactivate
+        post :deactivate
+        get :modal_content
+      end
+    end
     resources :cohorts, except: [:destroy]
     resources :feedbacks, except: [:edit, :update, :destroy]
     resources :teacher_feedbacks, only: [:index]

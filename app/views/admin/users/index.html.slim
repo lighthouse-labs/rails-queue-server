@@ -1,0 +1,55 @@
+- provide :container,  'fluid'
+- provide :body_class, 'admin-users-index'
+
+header.page-header
+  h1
+      | Manage Users
+
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title = "#{@users.size} Users"
+
+      .panel-body
+        table.table
+          thead
+            tr
+              th Name
+              th Type
+              th Status
+              th Change
+          tbody
+            - @users.each do |user|
+              tr data-id='#{user.id}'
+                td
+                  .user-info
+                    - if avatar_for(user)
+                      = image_tag avatar_for(user), class: 'avatar'
+                    = user.full_name
+                    - if user.email
+                      br
+                      = mail_to(user.email, user.email, target: '_blank', class: 'email')
+                    br
+                    span.label.label-primary = user.location.name
+                td
+                  = user.type
+                td
+                  div
+                    .label.label-danger.label-deactivated class=(user.deactivated? ? '' : 'hide') Dropped
+                td
+                  .btn-collection
+                    - if user.deactivated?
+                      .btn.btn-primary.btn-xs.user-reactivate-button
+                        | Reactivate
+                      .btn.btn-danger.btn-xs.user-deactivate-button.hidden-button
+                        | Deactivate
+                    - else
+                      .btn.btn-danger.btn-xs.user-deactivate-button
+                        | Deactivate
+                      .btn.btn-primary.btn-xs.user-reactivate-button.hidden-button
+                        | Reactivate
+
+.modal.fade id="user-actions-modal"
+  .modal-dialog
+    .modal-content
