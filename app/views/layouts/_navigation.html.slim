@@ -112,6 +112,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                 = link_to 'Learning Outcomes', admin_categories_path
               li
                 = link_to 'Prep Stats', admin_prep_stats_path
+              li
+                = link_to 'Users', admin_users_path
 
       ul.nav.navbar-nav.navbar-right
         - if teacher? && !dropdown_cohorts.empty?
@@ -152,12 +154,12 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                 button type="button" class="navbar-btn btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                   | + Issue&nbsp;
                   span class="caret"
-                
+
                 ul class="dropdown-menu"
                   - if repo = ContentRepository.first
                     li
                       a href="https://github.com/#{repo.full_name}/issues" target="_blank" + Curriculum Issue
-                  li 
+                  li
                     a href="https://github.com/lighthouse-labs/compass/issues" target="_blank" + Compass Issue
             li.teacher-duty
               span
