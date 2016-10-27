@@ -25,7 +25,7 @@ header.page-header
                 td
                   .user-info
                     - if avatar_for(user)
-                      = image_tag avatar_for(user), class: 'avatar'
+                      = image_tag avatar_for(user), class: 'user-avatar'
                     = user.full_name
                     - if user.email
                       br
@@ -33,7 +33,10 @@ header.page-header
                     br
                     span.label.label-primary = user.location.name
                 td
-                  = user.type
+                  - if user.type
+                    = user.type
+                  - else
+                    = "User"
                 td
                   div
                     .label.label-danger.label-deactivated class=(user.deactivated? ? '' : 'hide') Dropped
@@ -49,7 +52,3 @@ header.page-header
                         | Deactivate
                       .btn.btn-primary.btn-xs.user-reactivate-button.hidden-button
                         | Reactivate
-
-.modal.fade id="user-actions-modal"
-  .modal-dialog
-    .modal-content

@@ -1,5 +1,7 @@
 class Admin::UsersController < Admin::BaseController
 
+  before_action :load_user, only: [:reactivate, :deactivate]
+
   def index
     @users = User.all
   end
@@ -12,6 +14,10 @@ class Admin::UsersController < Admin::BaseController
   def deactivate
     @user.deactivate!
     render nothing: true
+  end
+
+  def load_student
+    @user = User.find(params[:id])
   end
 
 end
