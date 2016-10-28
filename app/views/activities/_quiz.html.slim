@@ -3,9 +3,11 @@ h3 = @activity.quiz.name
 - if @activity.quiz.outcomes.any?
   p This quiz will ask questions pertaining to the following learning outcomes:
   ul
+    - unique_outcomes = []
     - @activity.quiz.outcomes.each do |outcome|
-      li = outcome.text
-
+      - if !unique_outcomes.index(outcome.id)
+        - unique_outcomes.push(outcome.id)
+        li = outcome.text
 hr
 
 - if submission = @activity.quiz.latest_submission_by(current_user)
