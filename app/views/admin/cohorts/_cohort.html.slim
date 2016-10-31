@@ -2,10 +2,13 @@ tr
   td = link_to cohort.name, [:admin, cohort]
   td = cohort.start_date
   td = cohort.location.name
-  td = cohort.code
   td
-    = link_to cohort.students.active.count, admin_students_path(:cohort_id => cohort.id)
+    = link_to cohort.code, invitation_path(code: cohort.code), target: '_blank'
+  td
+    = link_to cohort.students.active.count, admin_students_path(cohort_id: cohort)
 
   td = cohort_status(cohort)
   td
-    = link_to 'Edit', [:edit, :admin, cohort]
+    = link_to 'Dashboard', [:edit, :admin, cohort], class: 'btn btn-xs btn-primary'
+    | &nbsp;
+    = link_to 'Manage Students', admin_students_path(cohort_id: cohort), class: 'btn btn-xs btn-info'

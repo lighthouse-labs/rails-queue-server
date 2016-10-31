@@ -1,7 +1,7 @@
 class AssistanceRequestsController < ApplicationController
 
   #before_action :selected_cohort_locations, only: [:index, :queue]
-  before_filter :teacher_required, only: [:index, :destroy, :start_assistance, :end_assistance, :queue]
+  before_action :teacher_required, only: [:index, :destroy, :start_assistance, :end_assistance, :queue]
 
   def index
     @all_locations = Location.where("id IN (?)", Cohort.all.map(&:location_id).uniq).map{|l| LocationSerializer.new(l, root: false).as_json}
@@ -21,9 +21,14 @@ class AssistanceRequestsController < ApplicationController
     evaluations = Evaluation.open_evaluations.oldest_first.student_location(current_user.location)
     my_active_interviews = TechInterview.in_progress.interviewed_by(current_user)
     interviews = can_tech_interview? ? TechInterview.oldest_first.queued.interviewee_location(current_user.location) : []
-    all_students = Student.in_active_cohort.active.order_by_last_assisted_at.cohort_in_locations([params[:location]])
+    all_students = Student.in_active_cohort.active.order_by_last_assisted_at
 
-
+    # For satellite mentors, show them their local students under All Students
+    if current_user.location.try(:satellite?)
+      all_students = all_students.where(location_id: current_user.location_id)
+    else
+      all_students = all_students.cohort_in_locations([params[:location]])
+    end
 
     render json: RequestQueueSerializer.new(assistances: my_active_assistances,
                                             requests: requests,

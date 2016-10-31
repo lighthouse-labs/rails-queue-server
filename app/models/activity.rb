@@ -28,6 +28,7 @@ class Activity < ApplicationRecord
   scope :until_day, -> (day) { where("activities.day <= ?", day.to_s) }
   scope :search,    -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
   scope :active,    -> { where(archived: [false, nil]) }
+  scope :archived,  -> { where(archived: true) }
 
   scope :assistance_worthy, -> { where.not(type: ['Lecture', 'Breakout', 'PinnedNote']) }
 

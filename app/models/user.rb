@@ -34,6 +34,9 @@ class User < ApplicationRecord
   scope :active, -> {
     where(deactivated_at: nil, completed_registration: true)
   }
+  scope :deactivated, -> {
+    where.not(deactivated_at: nil)
+  }
   scope :completed_activity, -> (activity) {
     if activity.is_a?(QuizActivity)
       # For quiz activities, we don't have activity submissions, and quiz_submissions are used to determine completion instead
@@ -114,22 +117,30 @@ class User < ApplicationRecord
     self.assistance_requests.where(type: nil).open_requests.exists?
   end
 
-  def completed_activity?(activity)
+  def completion_records_for(activity)
     if activity.evaluates_code?
       chain = activity_submissions.where(finalized: true, activity: activity)
       chain = chain.where(cohort_id: self.cohort_id) if activity.bootcamp? && self.cohort_id?
-      chain.any?
+      chain
     elsif activity.is_a?(QuizActivity)
-      activity.quiz.latest_submission_by(self).present?
+      activity.quiz.submissions_by(self)
     elsif activity.bootcamp? && self.cohort_id?
-      activity_submissions.where(cohort_id: self.cohort_id).where(activity_id: activity.id).any?
+      activity_submissions.where(cohort_id: self.cohort_id).where(activity_id: activity.id)
     else
-      submitted_activities.include?(activity)
+      activity_submissions.where(activity: activity)
     end
   end
 
+  def completed_activity?(activity)
+    completion_records_for(activity).present?
+  end
+
+  def completed_at(activity)
+    completion_records_for(activity).first.try :completed_at
+  end
+
   def github_url(activity)
-    activity_submissions.where(activity: activity).first.try(:github_url) if completed_activity?(activity)
+    completion_records_for(activity).first.try(:github_url) if completed_activity?(activity)
   end
 
   def full_name

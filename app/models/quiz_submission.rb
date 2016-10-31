@@ -52,6 +52,10 @@ class QuizSubmission < ApplicationRecord
     correct_answer_sum.to_f / correct_submissions_count.to_f
   end
 
+  def completed_at
+    updated_at
+  end
+
   private
 
   def set_counts

@@ -1,0 +1,32 @@
+= form_for [:admin, @student], url: admin_student_rollover_path(@student), html: { method: :post } do |f|
+
+  .modal-header
+    button type="button" class="close" data-dismiss="modal" aria-label="Close"
+      span aria-hidden="true"
+        | &times;
+    h4.modal-title Roll Over #{@student.full_name}
+
+  .modal-body
+
+    p
+      strong Current Cohort:&nbsp;
+      = @student.cohort.name
+
+    .alert.alert-warning
+      p
+        strong IMPORTANT:
+      p
+        | 1. There is no undo for this
+        br
+        | 2. Once a student is rolled over, it will be as though they are a new student in that cohort: They will not be able to access the later weeks they had access to before. Their activity/project submissions, tech interviews, etc will be "reset" for them. That said, for admins, this progress data will still be available.
+        br
+        | 3. As such, it is strongly suggested that you do this rollover on day one (Monday) of their new, rollover cohort and not before then.
+
+    | Select Rollover Cohort:
+    br
+    = select_tag 'cohort_id', options_from_collection_for_select(@cohorts, :id, :name_with_location, nil), class: 'form-control', prompt: 'Select One', required: 'required'
+    br
+
+  .modal-footer
+    button.btn.btn-default type="button" data-dismiss="modal" Close
+    = f.submit "Save", class: "btn btn-success"
