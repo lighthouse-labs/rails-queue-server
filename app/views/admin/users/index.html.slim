@@ -40,8 +40,15 @@ header.page-header
                   - else
                     = "User"
                 td
-                  - if user.active_student?
-                    = user.cohort.name
+                  - if user.cohort
+                    = link_to user.cohort.name, [:admin, user.cohort]
+                  - else
+                    = 'N/A'
+                  - if user.initial_cohort
+                    br
+                    = link_to user.initial_cohort.name, [:admin, user.initial_cohort]
+                    | &nbsp;
+                    small = "(Initially)"
                 td
                   = "#{time_ago_in_words(user.created_at)} ago"
                 td
