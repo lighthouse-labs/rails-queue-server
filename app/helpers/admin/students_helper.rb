@@ -8,7 +8,7 @@ module Admin::StudentsHelper
     if minutes <= 60
       "#{minutes} mins"
     else
-      "#{(minutes / 60.0).round(2)} hours"
+      "#{(minutes / 60.0).round(1)} hours"
     end
   end
 
