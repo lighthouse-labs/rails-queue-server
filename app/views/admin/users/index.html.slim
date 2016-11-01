@@ -17,6 +17,8 @@ header.page-header
             tr
               th Name
               th Type
+              th Cohort
+              th Created
               th Status
               th Change
           tbody
@@ -37,6 +39,11 @@ header.page-header
                     = user.type
                   - else
                     = "User"
+                td
+                  - if user.active_student?
+                    = user.cohort.name
+                td
+                  = "#{time_ago_in_words(user.created_at)} ago"
                 td
                   div
                     .label.label-danger.label-deactivated class=(user.deactivated? ? '' : 'hide') Dropped

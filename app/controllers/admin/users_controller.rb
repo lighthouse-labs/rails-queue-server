@@ -16,6 +16,8 @@ class Admin::UsersController < Admin::BaseController
     render nothing: true
   end
 
+  private
+
   def load_student
     @user = User.find(params[:id])
   end
