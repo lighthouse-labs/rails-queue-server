@@ -1,0 +1,32 @@
+.summary-stats
+  .stat.panel.panel-default
+    .panel-body
+      h3
+        i.fa.fa-star
+        | &nbsp;
+        = @activities.where.not(average_rating: nil).average(:average_rating).to_f.round(1)
+      span Average Rating
+
+  .stat.panel.panel-default
+    .panel-body
+      h3
+        i.fa.fa-folder-open
+        | &nbsp;
+        = @activities.core.size
+      span Core Activities
+
+  .stat.panel.panel-default
+    .panel-body
+      h3
+        i.fa.fa-fire
+        | &nbsp;
+        = @activities.stretch.size
+      span Stretch Activities
+
+  .stat.panel.panel-default
+    .panel-body
+      h3
+        i.fa.fa-clock-o
+        | &nbsp;
+        = prep_time_spent @activities.sum(:average_time_spent)
+      span Total Time Spent

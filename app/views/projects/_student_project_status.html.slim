@@ -17,5 +17,5 @@
   - elsif project_evaluation.status == "Rejected"
     span.label.label-danger title="#{time_ago_in_words(project_evaluation.completed_at)} ago" data-toggle="tooltip"
       ="Rejected"
--else
+- else
   span.label.label-warning Not Submitted
