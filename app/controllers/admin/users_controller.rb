@@ -18,7 +18,7 @@ class Admin::UsersController < Admin::BaseController
 
   private
 
-  def load_student
+  def load_user
     @user = User.find(params[:id])
   end
 

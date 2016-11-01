@@ -2,12 +2,12 @@ $ ->
 
   reactivateStudent = (id) ->
     $.ajax
-      url: '/admin/students/' + id + '/reactivate'
+      url: '/admin/users/' + id + '/reactivate'
       type: 'POST'
 
   deactivateStudent = (id) ->
     $.ajax
-      url: '/admin/students/' + id + '/deactivate'
+      url: '/admin/users/' + id + '/deactivate'
       type: 'POST'
 
   changeCohort = (studentID, cohortID) ->
