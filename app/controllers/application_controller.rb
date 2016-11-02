@@ -100,7 +100,9 @@ class ApplicationController < ActionController::Base
   helper_method :cohorts
 
   def dropdown_cohorts
-    @dropdown_cohorts = cohorts.starts_between(3.months.ago.to_date, 2.weeks.from_now.to_date).group_by(&:location)
+    @dropdown_cohorts = cohorts.starts_between(3.months.ago.to_date, 2.weeks.from_now.to_date)
+      .includes(location: [ :supported_by_location ])
+      .group_by(&:location)
   end
   helper_method :dropdown_cohorts
 
