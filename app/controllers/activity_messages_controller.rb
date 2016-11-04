@@ -10,7 +10,6 @@ class ActivityMessagesController < ApplicationController
     @message = @activity.messages.new(
       cohort: @cohort,
       kind: ActivityMessage::KINDS.first,
-      for_students: true
     )
   end
 
@@ -21,7 +20,7 @@ class ActivityMessagesController < ApplicationController
   def create
     @message = @activity.messages.new(message_params.merge({
       user: current_user,
-      day: @activity.day
+      day: @activity.day,
     }))
     @message.body << "\n" + day_activity_url(@activity.day, @activity)
     if @message.save
@@ -60,8 +59,7 @@ class ActivityMessagesController < ApplicationController
       :cohort_id,
       :subject,
       :body,
-      :teacher_notes,
-      :for_students
+      :teacher_notes
     )
   end
 

@@ -10,14 +10,19 @@
 - today_core_stats     = today_activity_stats[:core]
 - today_stretch_stats  = today_activity_stats[:stretch]
 
+- css_class = ''
+
 - if student.rolled_out?(@cohort)
-  - css_class = 'rolled-out'
+  - css_class += 'rolled-out'
 - elsif student.rolled_in?(@cohort)
-  - css_class = 'rolled-in'
+  - css_class += 'rolled-in'
+
+- if student.deactivated?
+  - css_class += ' dropped'
 
 tr.student-row class=css_class
 
-  td.details data-value=student.last_name
+  td.details data-value=student.location.name
     .student-info
       = render 'shared/student_info', student: student
       - if student.rolled_in?(@cohort)
@@ -25,7 +30,11 @@ tr.student-row class=css_class
         .label.label-warning Rolled-in
       - elsif student.rolled_out?(@cohort)
         br
-        .label.label-danger Rolled-over
+        .label.label-warning Rolled-out
+
+      - if student.deactivated?
+        br
+        .label.label-danger Dropped
 
   td data-value=assistance_stats[:requests]
     span title="Requests" data-toggle="tooltip" = assistance_stats[:requests]
@@ -78,7 +87,7 @@ tr.student-row class=css_class
     - interview_templates.each do |interview_template|
       - if interview = interview_template.completed_interview_for(student, @cohort)
         - if interview.average_score?
-          - total_score += interview.average_score
+          - total_score += interview.average_score.round(1)
           - count += 1
         = link_to interview do
           span.tech-interview.label class=l_score_label_class(interview.average_score) title=(interview.average_score || "??") data-toggle="tooltip"

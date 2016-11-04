@@ -1,4 +1,5 @@
 - provide :container, 'fluid'
+- provide :body_class, 'admin-cohorts-index'
 
 header.page-header
   h1 All Cohorts
@@ -6,18 +7,41 @@ header.page-header
 .actions.well
   = link_to 'New Cohort', [:new, :admin, :cohort], class: 'btn btn-default'
 
+h3
+  | Your Active Cohorts
+  small
+    = " (In #{@cohort_location.name})"
+- @active_cohorts.each do |cohort|
+  .row
+    .col-sm-12
+      .panel.panel-default
+        .panel-heading
+          = link_to [:admin, cohort] do
+            h3.panel-title = cohort.name
+        .panel-body
+          = render 'stats', cohort: cohort
+          div
+            = link_to 'Dashboard', [:admin, cohort], class: 'btn btn-sm btn-primary'
+            | &nbsp;
+            = link_to 'Manage Students', admin_students_path(cohort_id: cohort), class: 'btn btn-sm btn-info'
 
-table.table
-  thead
-    tr
-      th Name
-      th Start Date
-      th Location
-      th
-        abbr title="Student Access Code" SAC
-      th Students
-      th Status
-      th
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Other Cohorts
+      .panel-body
+        table.table
+          thead
+            tr
+              th Name
+              th Start Date
+              th Location
+              th
+                abbr title="Student Access Code" SAC
+              th Students
+              th Status
+              th
 
-  tbody
-    = render @cohorts
+          tbody
+            = render @cohorts

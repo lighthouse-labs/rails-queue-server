@@ -11,9 +11,18 @@
         = project.end_day
       .name
         = project.name
-
+      .status
+        - if student?
+          - project_evaluation = project.last_evaluation(current_user)
+          = render 'projects/student_project_status', student: current_user, project_evaluation: project_evaluation
+        - elsif teacher? || admin?
+          - completed = project.evaluations.where(state: ["accepted", "auto_accepted"]).where(cohort: cohort).count
+          - total = cohort.students.active.count
+          - ratio = total > 0 ? (completed.to_f / total.to_f) * 100 : 0
+          .progress title="#{completed} / #{total} (#{ratio.round}%) Complete" data-toggle="tooltip"
+            .progress-bar class=progress_bar_class(ratio) role='progressbar' aria-valuenow=ratio aria-valuemin='0' aria-valuemax='100' style="width:#{ratio}%"
+              span.sr-only = "#{ratio}% Complete"
     .details
       .blurb.clearfix
         = image_tag project.image, style: 'float:left; max-width: 200px; margin-right: 10px'
         p = project.blurb
-

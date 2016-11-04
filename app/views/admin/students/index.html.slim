@@ -1,45 +1,88 @@
-- if !@current_cohort.nil?
-    h3 = @current_cohort.name
+- provide :container,  'fluid'
+- provide :body_class, 'admin-students-index'
 
-table.table
-  thead
-    tr
-      th Name
-      th Cohort
-      th Change
-  tbody
-    - @students.each do |student|
-      tr data-id='#{student.id}'
-        td 
-          .student-info
-            = render 'shared/student_info', student: student, show_email: true
-        td
-          - if student.cohort
-            = link_to student.cohort.name, [:admin, student.cohort]
-          - else
-            = 'N/A'
-            br
-            = cohort_status(student.cohort)
-          
-        td
-          .btn-collection
-            - if student.deactivated?
-              .btn.btn-primary.btn-xs.student-reactivate-button
-                | Reactivate
-              .btn.btn-danger.btn-xs.student-deactivate-button.hidden-button
-                | Deactivate
-            - else
-              .btn.btn-danger.btn-xs.student-deactivate-button
-                | Deactivate
-              .btn.btn-primary.btn-xs.student-reactivate-button.hidden-button
-                | Reactivate 
-            
-            = link_to 'Edit', [:edit, :admin, student], class: 'btn btn-xs btn-primary'
-            
-            a.btn.btn-xs.btn-info.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-actions-modal" data-student-id="#{student.id}"
-              i.fa.fa-edit
-              | &nbsp;Change Cohort
+header.page-header
+  h1
+    - if @current_cohort
+      | Manage Students For:&nbsp;
+      = @current_cohort.name
+    - else
+      | Manage Students
+
+- if @current_cohort
+  .well
+    = link_to 'Dashboard', [:admin, @current_cohort], class: 'btn btn-primary'
+    | &nbsp;
+    = link_to [:admin, :cohorts], class: 'btn btn-info pull-right' do
+      | &laquo; Cohort List
+
+  = render 'admin/cohorts/stats', cohort: @current_cohort
+
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title = "#{@students.size} Students"
+
+      .panel-body
+        table.table
+          thead
+            tr
+              th Name
+              th Cohort
+              th Status
+              th Change
+          tbody
+            - @students.each do |student|
+              tr data-id='#{student.id}'
+                td
+                  .student-info
+                    = render 'shared/student_info', student: student, show_email: true
+                td
+                  - if student.cohort
+                    = link_to student.cohort.name, [:admin, student.cohort]
+                  - else
+                    = 'N/A'
+                  - if student.initial_cohort
+                    br
+                    = link_to student.initial_cohort.name, [:admin, student.initial_cohort]
+                    | &nbsp;
+                    small = "(Initially)"
+                td
+                  - if student.cohort && student.rolled_in?(student.cohort)
+                    div
+                      .label.label-warning Rolled In
+                  div
+                    .label.label-danger.label-deactivated class=(student.deactivated? ? '' : 'hide') Dropped
+                td
+                  .btn-collection
+                    - if student.deactivated?
+                      .btn.btn-primary.btn-xs.student-reactivate-button
+                        | Reactivate
+                      .btn.btn-danger.btn-xs.student-deactivate-button.hidden-button
+                        | Deactivate
+                    - else
+                      .btn.btn-danger.btn-xs.student-deactivate-button
+                        | Deactivate
+                      .btn.btn-primary.btn-xs.student-reactivate-button.hidden-button
+                        | Reactivate
+
+                    = link_to 'Edit', [:edit, :admin, student], class: 'btn btn-xs btn-primary'
+
+                    a.btn.btn-xs.btn-info.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-actions-modal" data-student-id="#{student.id}"
+                      i.fa.fa-edit
+                      | &nbsp;Change Cohort
+
+                    - if student.cohort
+                      a.btn.btn-xs.btn-danger.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-rollover-modal" data-content-url="#{new_admin_student_rollover_path(student)}"
+                        i.fa.fa-life-saver
+                        | &nbsp;Rollover
 
 .modal.fade id="student-actions-modal"
   .modal-dialog
     .modal-content
+
+.modal.fade id="student-rollover-modal"
+  .modal-dialog
+    .modal-content
+

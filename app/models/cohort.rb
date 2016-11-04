@@ -59,4 +59,11 @@ class Cohort < ApplicationRecord
     Location.where(id: self.students.active.pluck('distinct location_id'))
   end
 
+  def num_students_started
+    students.count + rolled_out_students.count
+  end
+  def num_remote_students_started
+    students.remote.count + rolled_out_students.count
+  end
+
 end

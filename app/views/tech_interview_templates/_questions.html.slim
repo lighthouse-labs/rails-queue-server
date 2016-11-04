@@ -13,4 +13,4 @@
 
       - if question.notes?
         h5 Notes
-        == markdown(question.answer)
+        == markdown(question.notes.to_s)

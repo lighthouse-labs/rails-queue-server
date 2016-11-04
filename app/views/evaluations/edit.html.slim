@@ -9,8 +9,6 @@
 
   h3 = "#{@evaluation.student.full_name}'s #{@project.name} (Eval)"
 
-  == render 'details'
-
   = form_for @evaluation_form, url: project_evaluation_path, method: :put do |f|
 
     .actions-container
@@ -24,6 +22,8 @@
             = link_to "Re-assign to me", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success btn-evaluation", method: :put, data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Take over this evaluation and make me the evaluator.'
 
           = link_to 'Re-queue', cancel_marking_project_evaluation_path(@project, @evaluation), class: 'btn btn-warning btn-evaluation', method: :put, data: { confirm: 'Sure? You will no longer be the evaluator. It will go back on the queue', toggle: 'tooltip', placement: 'bottom' }, title: 'Un-assign myself as the evaluator and put it back into the queue. My bad.'
+
+    == render 'details'
 
     .well == markdown(@project.description)
 

@@ -12,3 +12,10 @@ $ ->
   $(document).on 'click', '.btn-eval-feedback', ->
     $this = $(this)
     $this.closest('tr').next('tr.details').toggleClass('hide')
+
+$(document).on 'turbolinks:load', ->
+  $('body.project-evals-show .actions').affix(
+    offset:
+      top: 300
+      bottom: 200
+  )

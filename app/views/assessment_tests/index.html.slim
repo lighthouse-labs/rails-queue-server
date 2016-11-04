@@ -22,10 +22,10 @@ h2 = cohort.name
                 == render 'shared/student_info', student: student
             td = student.github_username
 
-h3 Mock Test
+h3 Proctologist Dashboards
 
-p = link_to 'Proctologist', url_for_proctologist('web-01', cohort)
+p = link_to 'Mock Test', url_for_proctologist('web-01', cohort)
 
-h3 Real Test
+p = link_to 'Real Test', url_for_proctologist('web-main', cohort)
 
-p = link_to 'Proctologist', url_for_proctologist('web-main', cohort)
+p = link_to 'Rest Test (Rollovers)', url_for_proctologist('web-02b', cohort)

@@ -21,10 +21,14 @@ class Quiz < ApplicationRecord
     where(id: Activity.bootcamp.active.where.not(quiz_id: nil).until_day(day).pluck(:quiz_id))
   }
 
-  def latest_submission_by(user)
+  def submissions_by(user)
     chain = quiz_submissions.where(user_id: user.id).order(id: :desc)
     chain = chain.where(cohort_id: user.cohort_id) if user.cohort_id? && self.bootcamp?
-    chain.first
+    chain
+  end
+
+  def latest_submission_by(user)
+    submissions_by(user).first
   end
 
   def prep?

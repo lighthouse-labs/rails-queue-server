@@ -64,7 +64,7 @@ class ActivitiesController < ApplicationController
     if teacher?
       @messages = @activity.messages
     elsif cohort # no messages if student or just User and no cohort is assigned
-      @messages = @activity.messages.for_cohort(cohort).where(for_students: true)
+      @messages = @activity.messages.for_cohort(cohort)
     end
   end
 
