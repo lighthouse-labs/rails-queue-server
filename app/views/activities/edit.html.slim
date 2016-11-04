@@ -1,59 +1,46 @@
 h1 = "#{day.to_s.upcase}: #{@activity.name}"
 hr
 
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Name
-    div class="panel-body" #{@activity.name || "N/A"}
-  - if (day || @activity.project?)
-    div class="panel panel-default" class="panel panel-info"
-      div  class="panel-heading"
-        h3 class="panel-title" Day
-      div class="panel-body" #{@activity.day || "N/A"}
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Start Time
-    div class="panel-body" #{@activity.start_time || "N/A"}
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Duration
-    div class="panel-body" #{@activity.duration || "N/A"}
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Gist URL
-    div class="panel-body" #{@activity.gist_url || "N/A"}
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Media Filename
-    div class="panel-body" #{@activity.media_filename || "N/A"}
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Allow Submissions
-    div class="panel-body" #{@activity.allow_submissions || "N/A"}
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Allow Feedback
-    div class="panel-body" #{@activity.allow_feedback || "N/A"}
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Probability to trigger code review
-    div class="panel-body" #{@activity.code_review_percent || "N/A"}%
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Evaluates Code
-    div class="panel-body" #{@activity.evaluates_code || "N/A"}
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Remote Content
-    div class="panel-body" #{@activity.remote_content || "N/A"}
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Content Repository
-    div class="panel-body" #{@activity.content_repository || "N/A"}
-  div class="panel panel-default" class="panel panel-info"
-    div  class="panel-heading"
-      h3 class="panel-title" Content File Path
-    div class="panel-body" #{@activity.content_file_path || "N/A"}
+  dl class="row"
+    dt class="col-sm-3" Name
+    dd class="col-sm-9" #{@activity.name || "N/A"}
+
+    - if (day || @activity.project?)
+      dt class="col-sm-3" Day
+      dd class="col-sm-9" #{@activity.day || "N/A"}
+
+    dt class="col-sm-3" Start Time
+    dd class="col-sm-9" #{@activity.start_time || "N/A"}
+
+    dt class="col-sm-3" Duration
+    dd class="col-sm-9" #{@activity.duration || "N/A"}
+
+    dt class="col-sm-3" Gist URL
+    dd class="col-sm-9" #{@activity.gist_url || "N/A"}
+
+    dt class="col-sm-3" Media Filename
+    dd class="col-sm-9" #{@activity.media_filename || "N/A"}
+
+    dt class="col-sm-3" Allow Submissions
+    dd class="col-sm-9" #{@activity.allow_submissions || "N/A"}
+
+    dt class="col-sm-3" Allow Feedback
+    dd class="col-sm-9" #{@activity.allow_feedback || "N/A"}
+
+    dt class="col-sm-3" Probability of code review
+    dd class="col-sm-9" #{@activity.code_review_percent || "N/A"}%
+
+    dt class="col-sm-3" Evaluates Code
+    dd class="col-sm-9" #{@activity.evaluates_code || "N/A"}
+
+    dt class="col-sm-3" Remote Content
+    dd class="col-sm-9" #{@activity.remote_content || "N/A"}
+
+    dt class="col-sm-3" Content Repository
+    dd class="col-sm-9" #{@activity.content_repository || "N/A"}
+
+    dt class="col-sm-3" Content File Path
+    dd class="col-sm-9" #{@activity.content_file_path || "N/A"}
 
 = simple_form_for @activity, as: :activity, url: @form_url,
   html: { id: 'activity-form', class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
