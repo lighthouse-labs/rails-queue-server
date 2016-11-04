@@ -67,8 +67,8 @@ class ActivityPresenter < BasePresenter
     render "activity_submission_form" if allow_completion?
   end
 
-  def edit_button
-    link_to 'View', edit_button_path, class: 'btn btn-edit'
+  def details_button
+    link_to 'Details', details_button_path, class: 'btn btn-edit'
   end
 
   def display_outcomes
@@ -100,7 +100,7 @@ class ActivityPresenter < BasePresenter
     activity.bootcamp?
   end
 
-  def edit_button_path
+  def details_button_path
     if prep?
       edit_prep_activity_path(activity.section, activity)
     elsif project?

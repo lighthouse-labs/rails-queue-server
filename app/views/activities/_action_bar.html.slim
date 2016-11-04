@@ -6,7 +6,7 @@
           button.btn.btn-activity.btn-info data-toggle="collapse" data-target="#student-progress"
             = activity_presenter.submissions_text
 
-          = activity_presenter.edit_button
+          = activity_presenter.details_button
           = link_to '+ Video', new_activity_recording_path(@activity), class: 'btn btn-new-recording'
           = link_to '+ Message', new_activity_message_path(@activity), class: 'btn btn-new-message'
 
