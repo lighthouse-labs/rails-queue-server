@@ -1,6 +1,6 @@
 class Admin::StudentsController < Admin::BaseController
 
-  before_action :load_student, only: [:reactivate, :deactivate, :update, :edit, :modal_content]
+  before_action :load_student, only: [:update, :edit, :modal_content]
   before_action :prep_form, only: [:index, :edit]
 
   def index
@@ -13,16 +13,6 @@ class Admin::StudentsController < Admin::BaseController
   end
 
   def edit
-  end
-
-  def reactivate
-    @student.reactivate!
-    render nothing: true
-  end
-
-  def deactivate
-    @student.deactivate!
-    render nothing: true
   end
 
   def update

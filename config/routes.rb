@@ -137,8 +137,6 @@ LaserShark::Application.routes.draw do
     root to: 'dashboard#show'
     resources :students, only: [:index, :update, :edit] do
       member do
-        post :reactivate
-        post :deactivate
         get :modal_content
       end
       resource :rollover, only: [:new, :create]
@@ -149,7 +147,12 @@ LaserShark::Application.routes.draw do
         get :feedback
       end
     end
-
+    resources :users, only: [:index] do
+      member do
+        post :reactivate
+        post :deactivate
+      end
+    end
     resources :cohorts, except: [:destroy]
     resources :feedbacks, except: [:edit, :update, :destroy]
     resources :teacher_feedbacks, only: [:index]

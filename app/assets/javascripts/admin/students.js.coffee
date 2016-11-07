@@ -1,15 +1,4 @@
 $ ->
-
-  reactivateStudent = (id) ->
-    $.ajax
-      url: '/admin/students/' + id + '/reactivate'
-      type: 'POST'
-
-  deactivateStudent = (id) ->
-    $.ajax
-      url: '/admin/students/' + id + '/deactivate'
-      type: 'POST'
-
   changeCohort = (studentID, cohortID) ->
     $.ajax
       url: '/admin/students/' + studentID
@@ -20,20 +9,6 @@ $ ->
     $.ajax
       url: '/admin/students/' + studentID + '?mentor_id=' + cohortID
       type: 'PUT'
-
-  $(document).on 'click', '.student-reactivate-button', (e) ->
-    id = $(this).parents('td').parents('tr').data 'id'
-    reactivateStudent(id)
-    $(this).addClass('hidden-button')
-    $(this).siblings('.student-deactivate-button').removeClass('hidden-button')
-    $(this).closest('tr').find('.label-deactivated').addClass('hide')
-
-  $(document).on 'click', '.student-deactivate-button', (e) ->
-    id = $(this).parents('td').parents('tr').data 'id'
-    deactivateStudent(id)
-    $(this).addClass('hidden-button')
-    $(this).siblings('.student-reactivate-button').removeClass('hidden-button')
-    $(this).closest('tr').find('.label-deactivated').removeClass('hide')
 
   $(document).on 'change', '.admin-student-cohort-selector', ->
     cohortID = $(this).val()
