@@ -151,7 +151,6 @@ LaserShark::Application.routes.draw do
       member do
         post :reactivate
         post :deactivate
-        get :modal_content
       end
     end
     resources :cohorts, except: [:destroy]
