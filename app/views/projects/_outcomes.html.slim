@@ -1,9 +1,9 @@
 .panel.panel-default
   .panel-heading Outcomes
   .panel-body.list-group
-    - unique_outcomes = []
+    - all_outcomes = []
     - project.activities.active.chronological.each do |activity|
       - activity.outcomes.each do |outcome|
-        - if !unique_outcomes.index(outcome.skill_id)
-          - unique_outcomes.push(outcome.skill_id)
-          li.list-group-item = outcome.text
+        - all_outcomes.push(outcome)
+    - all_outcomes.uniq.each do |outcome|
+      li.list-group-item = outcome.text
