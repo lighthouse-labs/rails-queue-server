@@ -1,8 +1,11 @@
 # Change Log
 
-## [Unreleased](https://github.com/lighthouse-labs/compass/tree/HEAD)
+## [v2.0.2](https://github.com/lighthouse-labs/compass/tree/v2.0.2) (2016-11-07)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.1...v2.0.2)
 
-[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.1...HEAD)
+**Implemented enhancements:**
+
+- Admin: List of ALL Users and ability to deactivate them [\#125](https://github.com/lighthouse-labs/compass/pull/125) ([sjhogan2](https://github.com/sjhogan2))
 
 **Fixed bugs:**
 
@@ -11,6 +14,7 @@
 **Closed issues:**
 
 - Projects page incorrectly shows projects with progress that have not been started yet [\#116](https://github.com/lighthouse-labs/compass/issues/116)
+- Admin: List of ALL Users and ability to deactivate them [\#41](https://github.com/lighthouse-labs/compass/issues/41)
 
 ## [v2.0.1](https://github.com/lighthouse-labs/compass/tree/v2.0.1) (2016-10-31)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.0...v2.0.1)
