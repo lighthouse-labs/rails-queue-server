@@ -12,7 +12,7 @@
   = form.input :time_spent, as: :integer, label: 'Time spent in minutes', placeholder: 'How long did it take you? Your best approximation (in minutes) please!'
   = form.input :note, as: :text, placeholder: 'A quick note that is visible only to you and to teachers'
 
-  - if @activity.type != 'Lecture' && @activity.type != 'Breakout'
+  - if @activity.allow_feedback?
     h3
       | Feedback
       | &nbsp;
