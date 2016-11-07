@@ -3,7 +3,7 @@ class DaysController < ApplicationController
   include CourseCalendar # concern
 
   def show
-    @activities = Activity.chronological.active.for_day(day).includes(:outcomes, :activity_submissions)
+    @activities = Activity.chronological.active.for_day(day)
 
     @project = Project.where("? between start_day AND end_day", day.to_s).first
     @interview_template = TechInterviewTemplate.where(week: week).first
