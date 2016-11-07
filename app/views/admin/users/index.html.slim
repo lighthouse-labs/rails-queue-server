@@ -33,7 +33,7 @@ header.page-header
                       br
                       = mail_to(user.email, user.email, target: '_blank', class: 'email')
                     br
-                    span.label.label-primary = user.location.name
+                    span.label.label-primary = user.location.try(:name)
                 td
                   - if user.type
                     = user.type
