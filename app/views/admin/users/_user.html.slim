@@ -13,6 +13,10 @@ tr data-id='#{user.id}'
       = user.type
     - else
       = "User"
+
+    - if user.admin?
+      br
+      span.label.label-warning Admin
   td
     - if user.cohort
       = link_to user.cohort.name, [:admin, user.cohort]
@@ -24,10 +28,18 @@ tr data-id='#{user.id}'
       | &nbsp;
       small = "(Initially)"
   td
+    - present user, UserPresenter do |presenter|
+      ul.list-inline.social-icons
+        = presenter.email_info
+        = presenter.github_info
+        = presenter.twitter_info
+        = presenter.slack_info
+        = presenter.skype_info
+  td
     = "#{time_ago_in_words(user.created_at)} ago"
   td
     div
-      .label.label-danger.label-deactivated class=(user.deactivated? ? '' : 'hide') Dropped
+      .label.label-danger.label-deactivated class=(user.deactivated? ? '' : 'hide') Deactivated
   td
     .btn-collection
       - if user.deactivated?
