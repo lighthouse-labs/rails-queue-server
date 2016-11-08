@@ -182,7 +182,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                     = 'Waiting for Assistance'
               span#create-assistance-request class="#{'hidden' if current_user.waiting_for_assistance? || current_user.being_assisted?}"
                 button.btn.navbar-btn.btn-primary data-toggle="modal" data-target="#assistance-request-reason-modal"
-                  - if current_user.location.satellite?
+                  -if current_user.location.try(:satellite?)
                     | Request Remote Assistance
                   - else
                     | Request Assistance
