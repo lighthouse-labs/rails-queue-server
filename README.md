@@ -100,11 +100,13 @@ bin/rake curriculum:deploy BRANCH=my-cool-branch-name
 
 All PRs must contain:
 
-- One or more commit that states `fixes #issuenum` or `resolves #issuenum`
-- A description with a link to the issue,
-- Time estimated
-- Time spent
-- Screenshots before vs after where applicable
+- One or more commit(s) that states `fixes #issuenum` or `resolves #issuenum` in the commit message
+  - This way the issue is auto-closed upon merge into master (the default GitHub branch)
+- A description with:
+  - A link to the issue
+  - Time estimated
+  - Time spent
+  - Screenshots before vs after where applicable
 - Labeled accordingly.
   - The corresponding issue should also be labeled
 - Zenhub Pipeline of `Review/QA`, which PRs are automatically added to.
