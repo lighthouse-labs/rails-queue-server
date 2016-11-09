@@ -4,7 +4,7 @@ class FeedbackPresenter < BasePresenter
   delegate :notes, :rating, :updated_at, :feedbackable, :technical_rating, :style_rating, :student, :teacher, to: :feedback
 
   def truncated_notes
-    if feedback.notes.present? 
+    if feedback.notes.present?
       truncate feedback.notes, length: 200
     end
   end
@@ -51,6 +51,25 @@ class FeedbackPresenter < BasePresenter
   def student_full_name
     if feedback.student.present?
       feedback.student.first_name + " " + feedback.student.last_name
+    else
+      'N/A'
+    end
+  end
+
+  def teacher
+    if feedback.teacher.present?
+      feedback.teacher
+    else
+      'N/A'
+    end
+  end
+
+  def assistance_request_reason
+    if feedback.feedbackable_type == "Assistance"
+      assistance_request = AssistanceRequest.find_by(id: feedback.feedbackable_id)
+      if assistance_request
+        assistance_request.reason
+      end
     else
       'N/A'
     end
