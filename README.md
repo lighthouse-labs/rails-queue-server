@@ -80,7 +80,9 @@ bin/rake curriculum:deploy BRANCH=my-cool-branch-name
 
 ## PM Process
 
-1. Install Zenhub chrome extension
+**Setup**:
+
+1. Install [Zenhub](https://chrome.google.com/webstore/detail/zenhub-for-github/ogcgkffhplmphkaahpmffcafajaocjbd) chrome extension
 2. Auth with Zenhub
 3. Use the [board](https://github.com/lighthouse-labs/compass/pulls#boards) to see where things are at
   * Keep in mind that it contains both issues as well as PRs to address some of those issues
@@ -113,7 +115,10 @@ All PRs must contain:
 
 ## Deployment
 
-**Setup**: Please install [github_changelog_generator](https://github.com/skywinder/github-changelog-generator) which is used to generate and update the [CHANGELOG.md](https://github.com/lighthouse-labs/compass/blob/master/CHANGELOG.md)
+**Setup**:
+
+- Please install [github_changelog_generator](https://github.com/skywinder/github-changelog-generator) which is used to generate and update the [CHANGELOG.md](https://github.com/lighthouse-labs/compass/blob/master/CHANGELOG.md)
+- Please create a new [personal access token](https://github.com/settings/tokens) for use with this (see below).
 
 1. Create a tag (eg: [v2.0.2](https://github.com/lighthouse-labs/compass/tree/v2.0.2)): `git tag v2.x.x`
 2. Push the tag: `git push --tags`
