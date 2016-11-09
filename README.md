@@ -78,6 +78,48 @@ Alternatively, you can use the GitHub version of the curriculum but a different 
 bin/rake curriculum:deploy BRANCH=my-cool-branch-name
 ```
 
+## PM Process
+
+1. Install Zenhub chrome extension
+2. Auth with Zenhub
+3. Use the [board](https://github.com/lighthouse-labs/compass/pulls#boards) to see where things are at
+  * Keep in mind that it contains both issues as well as PRs to address some of those issues
+
+### Rules / Process:
+
+**For lead dev:**
+
+- Review the PRs in Review/QA pipeline
+- Use "Review changes" (new) feature to submit a request for changes, or merge+delete the branch+PR
+- If the PR had feedback with request for changes, change its pipeline to Backlog as well
+  - Add any missing labels while you are at it
+  - BTW The labels are used by [github_changelog_generator](https://github.com/skywinder/github-changelog-generator) to group changes in the CHANGELOG
+
+
+**For junior/intern dev:**
+
+All PRs must contain:
+
+- One or more commit that states `fixes #issuenum` or `resolves #issuenum`
+- A description with a link to the issue,
+- Time estimated
+- Time spent
+- Screenshots before vs after where applicable
+- Labeled accordingly.
+  - The corresponding issue should also be labeled
+- Zenhub Pipeline of `Review/QA`, which PRs are automatically added to.
+
+## Deployment
+
+**Setup**: Please install [github_changelog_generator](https://github.com/skywinder/github-changelog-generator) which is used to generate and update the [CHANGELOG.md](https://github.com/lighthouse-labs/compass/blob/master/CHANGELOG.md)
+
+1. Create a tag (eg: [v2.0.2](https://github.com/lighthouse-labs/compass/tree/v2.0.2)): `git tag v2.x.x`
+2. Push the tag: `git push --tags`
+3. Run the `github_changelog_generator` with the `-t` parameter: `github_changelog_generator -t <your github token>` from the root of the project.
+4. Push the change to the `CHANGELOG.md` to GitHub (master branch)
+5. On GitHub, create a [new release](https://github.com/lighthouse-labs/compass/releases/new) using the same name as the tag
+  * Paste the relevant contents from the CHANGELOG.md file for the release notes. ([Example](https://github.com/lighthouse-labs/compass/releases/tag/v2.0.2))
+
 ## CSS UI Framwork
 
 <https://github.com/wingrunr21/flat-ui-sass> was used to convert FlatUI Pro from LESS to SASS (located in `vendor/assets` )
