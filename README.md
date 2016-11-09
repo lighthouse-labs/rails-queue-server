@@ -119,6 +119,10 @@ All PRs must contain:
 4. Push the change to the `CHANGELOG.md` to GitHub (master branch)
 5. On GitHub, create a [new release](https://github.com/lighthouse-labs/compass/releases/new) using the same name as the tag
   * Paste the relevant contents from the CHANGELOG.md file for the release notes. ([Example](https://github.com/lighthouse-labs/compass/releases/tag/v2.0.2))
+6. Push your local master to production: `git push compass2 master`
+  * which points to remote: `dokku@compass.lighthouselabs.ca:compass2`
+7. If there are migrations: SSH into VM and run migrations: `dokku run compass2 bundle exec rake db:migrate; dokku ps:restart compass2`
+8. Let Ed Ops folks know about the deployment (`web-ed-ops-vancouver@lighthouselabs.ca` and `web-ed-ops-toronto@lighthouselabs.ca`)
 
 ## CSS UI Framwork
 
