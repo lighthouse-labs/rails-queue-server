@@ -130,6 +130,7 @@ All PRs must contain:
   * which points to remote: `dokku@compass.lighthouselabs.ca:compass2`
 7. If there are migrations: SSH into VM and run migrations: `dokku run compass2 bundle exec rake db:migrate; dokku ps:restart compass2`
 8. Let Ed Ops folks know about the deployment (`web-ed-ops-vancouver@lighthouselabs.ca` and `web-ed-ops-toronto@lighthouselabs.ca`)
+9. Let all (web bootcamp) teachers know about the deployment by pasting the link to the release on GitHub on #web-curriculum in Slack
 
 ## CSS UI Framwork
 
