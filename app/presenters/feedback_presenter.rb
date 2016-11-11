@@ -56,6 +56,15 @@ class FeedbackPresenter < BasePresenter
     end
   end
 
+  def github_info(teacher)
+    render(
+      'shared/social_icon',
+      handle: teacher.github_username,
+      company: 'github',
+      url: "https://github.com/#{teacher.github_username}"
+    ) if teacher.github_username?
+  end
+
   def teacher
     if feedback.teacher.present?
       feedback.teacher

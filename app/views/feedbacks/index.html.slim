@@ -6,7 +6,6 @@ table.table.feedbacks-table
       th Name
       th Type
       th Teacher
-      th Avatar
       th Question
       th
 
@@ -18,8 +17,11 @@ table.table.feedbacks-table
             td = feedback_presenter.upcased_day
             td = feedback_presenter.feedbackable_name
             td = feedback_presenter.feedbackable_type
-            td = feedback_presenter.teacher_full_name
-            td = image_tag avatar_for(feedback_presenter.teacher), class: 'feedbacks-avatar'
+            td.teacher = link_to teacher_path(feedback_presenter.teacher) do
+               strong.feedbacks = feedback_presenter.teacher_full_name
+               = image_tag avatar_for(feedback_presenter.teacher), class: 'feedbacks-avatar'
+               ul.list-inline.social-icons
+                = feedback_presenter.github_info(feedback_presenter.teacher)
             td.feedbacks-reason = feedback_presenter.assistance_request_reason
             td
               button.btn.btn-xs.btn-primary data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{feedback.id}"
