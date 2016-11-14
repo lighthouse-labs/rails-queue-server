@@ -12,7 +12,6 @@ article.page-content
   /   b Student quiz URL:
   /   br
   /   = link_to new_quiz_submission_url(@quiz), new_quiz_submission_url(@quiz)
-  hr
   .row
     .col-md-6
       h2 Submissions
@@ -44,8 +43,6 @@ article.page-content
                         = username_submissions_pairs[0]
                     td = link_to render(partial: 'quiz_submissions/stats_score', locals: {submissions: submissions}), quiz_submission_path(submissions.first.id), class: 'text-inherit'
                     td.text-nowrap = link_to submissions.first.created_at, submissions.first, class: 'text-inherit'
-                    td.text-right = link_to submissions.first, method: :delete, class: 'text-muted', data: {confirm: 'Are you sure you want to delete this submission?'} do
-                      i.fa.fa-trash title="Delete"
     .col-md-6
       h2 Questions
       - @quiz.questions.each_with_index do |question, question_index|
@@ -53,7 +50,3 @@ article.page-content
         p = render partial: 'questions/stats_score', locals: { questions: @question_stats.select { |qs| qs.id == question.id } }
         = question.question
         br
-        = link_to quiz_remove_question_path(@quiz, question), method: :delete,  class: 'text-muted', data: {confirm: 'Are you sure you want to remove this question?'} do
-            i.fa.fa-trash title="Delete"
-        end
-      h4= link_to "Add New Question", quiz_add_question_path(@quiz)
