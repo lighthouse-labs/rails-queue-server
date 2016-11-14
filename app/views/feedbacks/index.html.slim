@@ -22,6 +22,7 @@ table.table.feedbacks-table
                = image_tag avatar_for(feedback_presenter.teacher), class: 'feedbacks-avatar'
                ul.list-inline.social-icons
                 = feedback_presenter.github_info(feedback_presenter.teacher)
+                = feedback_presenter.slack_info(feedback_presenter.teacher)
             td.feedbacks-reason = feedback_presenter.assistance_request_reason
             td
               button.btn.btn-xs.btn-primary data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{feedback.id}"

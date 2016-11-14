@@ -65,6 +65,14 @@ class FeedbackPresenter < BasePresenter
     ) if teacher.github_username?
   end
 
+  def slack_info(teacher)
+    render(
+      'shared/social_icon',
+      handle: teacher.slack,
+      company: 'slack'
+    ) if teacher.slack?
+  end
+
   def teacher
     if feedback.teacher.present?
       feedback.teacher
