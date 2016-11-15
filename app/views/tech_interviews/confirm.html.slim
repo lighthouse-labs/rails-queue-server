@@ -1,5 +1,6 @@
 - provide :container, 'fluid'
 - provide :body_class, 'tech-interview-on'
+- title "Confirm #{@tech_interview.interviewee.full_name} Tech Interview"
 
 header.page-header
   h1 Confirm Tech Interview
@@ -38,6 +39,3 @@ header.page-header
 
   = form.fields_for :results do |result_form|
     = render 'result_form', form: result_form
-
-
-

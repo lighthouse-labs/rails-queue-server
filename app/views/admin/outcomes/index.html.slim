@@ -1,10 +1,12 @@
-= form_tag admin_outcomes_path, class: 'form-inline', method: 'get' do 
+- title "Admin Outcomes"
+
+= form_tag admin_outcomes_path, class: 'form-inline', method: 'get' do
 
   .form-group
     label for="outcome_text"
       |Search:
     input type='text' class='form-control' name='outcome_text' id='outcome_text' value=params[:outcome_text] placeholder='Enter search term'
-  
+
   = submit_tag 'Filter', class: 'btn btn-primary'
 
 h1 All Outcomes
