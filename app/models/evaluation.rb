@@ -72,6 +72,16 @@ class Evaluation < ApplicationRecord
     markable?
   end
 
+   # in minutes
+  def duration
+    (completed_at - started_at).to_i
+  end
+
+  # in minutes
+  def time_in_queue
+    ((started_at || Time.current) - created_at).to_i
+  end
+
   private_class_method :transition_class
 
   def self.initial_state

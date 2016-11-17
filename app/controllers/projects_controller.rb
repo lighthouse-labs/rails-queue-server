@@ -6,6 +6,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @projects = find_project
   end
 
   private
