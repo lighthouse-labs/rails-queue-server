@@ -2,18 +2,28 @@ h2 = "Evaluations for #{@project.name}"
 
 table.table.table-hover
   thead
-    th Student Name
+    th Student Info
     th Status
     th Marker
     th
   tbody
     - @evaluations.each do |evaluation|
       tr
-        td = evaluation.student.full_name
-        td = evaluation.status
+        td.details data-value=evaluation.student.last_name
+          .student-info
+            = render 'shared/student_info', student: evaluation.student
         td
-          - if evaluation.teacher
-            = evaluation.teacher.full_name
+          = render 'projects/student_project_status', project_evaluation: evaluation
+        td.details
+          - if evaluation && evaluation.teacher
+            .teacher-info
+              = link_to teacher_path(evaluation.teacher) do
+                = image_tag evaluation.teacher.avatar_url, class: 'avatar'
+              = link_to evaluation.teacher.full_name, teacher_path(evaluation.teacher)
+              br
+              = mail_to evaluation.teacher.email, evaluation.teacher.email, class: 'email'
+              br
+                span.label.label-primary = evaluation.teacher.location.name
         td
           = link_to 'View', project_evaluation_path(@project, evaluation), class: 'btn btn-info btn-xs'
           | &nbsp;
