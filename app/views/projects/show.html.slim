@@ -1,5 +1,3 @@
-- last_evaluation = @project.last_evaluation(current_user) if student?
-
 - provide :body_class, 'project-detail'
 
 - content_for :side_nav do
@@ -20,7 +18,7 @@ ul.nav.nav-tabs role="tablist"
   - if teacher?
     li role="presentation"
       a href="#students"  aria-controls="students" role="tab" data-toggle="tab"
-        | Student Status
+        | Students
 
 .tab-content
 
@@ -31,21 +29,27 @@ ul.nav.nav-tabs role="tablist"
       == render 'outcomes', project: @project
 
   #students.tab-pane role="tabpanel"
-    h3 Student Status
+    h3 Students
+    = form_tag projects_path(@project), class: 'form-inline', method: 'get' do
+
+    .form-row
+      .form-group
+        = select_tag :evals, options_for_select(['Most Recent', 'All Evals'], params[:evals]), class: "form-control project-feedback-dropdown"
+
+    = submit_tag 'Filter', class: 'btn btn-success project-evals-button'
+
     table.table.students
       thead
         tr
           th Student Info
           th Status
-          th Other Evals
+          th Marker
           th Stats
           th
 
       tbody
         - cohort.students.active.each do |student|
-
           - evaluation = @projects.last_evaluation(student, cohort)
-
           tr
             td.details data-value=student.last_name
               .student-info
@@ -54,22 +58,27 @@ ul.nav.nav-tabs role="tablist"
             td
               = render 'projects/student_project_status', project_evaluation: evaluation
 
-            td
-              button.btn.btn-info.btn-xs.append-evals Append Evals
+            td.details
+              - if evaluation && evaluation.teacher
+                .teacher-info
+                  = link_to teacher_path(evaluation.teacher) do
+                    = image_tag evaluation.teacher.avatar_url, class: 'avatar'
+                  = link_to evaluation.teacher.full_name, teacher_path(evaluation.teacher)
+                  br
+                    span.label.label-primary = evaluation.teacher.location.name
 
             td
-              br
-              = "#{evaluation.time_in_queue / 60}m in queue"
-              - if evaluation.completed_at
-                br
-                = "#{evaluation.duration / 60}m long"
-
+              - if evaluation
+                = "#{evaluation.time_in_queue / 60}m in queue"
+                - if evaluation.completed_at
+                  br
+                  = "#{evaluation.duration / 60}m long"
 
             td
-              = link_to 'View', project_evaluation_path(@project, evaluation), class: 'btn btn-info btn-xs'
-              | &nbsp;
-              - if evaluation.in_state?(:pending)
-                = link_to "Start Marking", start_marking_project_evaluation_path(@project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
-              - elsif evaluation.in_state?(:in_progress) && evaluation.teacher == current_user
-                = link_to "Continue Marking", start_marking_project_evaluation_path(@project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
-
+              - if evaluation
+                = link_to 'View', project_evaluation_path(@project, evaluation), class: 'btn btn-info btn-xs'
+                | &nbsp;
+                - if evaluation.in_state?(:pending)
+                  = link_to "Start Marking", start_marking_project_evaluation_path(@project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
+                - elsif evaluation.in_state?(:in_progress) && evaluation.teacher == current_user
+                  = link_to "Continue Marking", start_marking_project_evaluation_path(@project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
