@@ -33,7 +33,7 @@
         li role="presentation"
           a href="#completion" aria-controls="" role="tab" data-toggle="tab" Completion
         li role="presentation"
-          a href="#bootcamp_submissions" aria-controls="" role="tab" data-toggle="tab" Submissions
+          a href="#bootcamp_submissions" aria-controls="" role="tab" data-toggle="tab" Tech Interviews
         li role="presentation"
           a href="#prep_submissions" aria-controls="" role="tab" data-toggle="tab" Prep
 
@@ -43,7 +43,7 @@
         .tab-pane#completion role="tabpanel"
           p this is some content completion
         .tab-pane#bootcamp_submissions role="tabpanel"
-          p this is some content bootcamp_submissions
+          = student_presenter.tech_interview_table
         .tab-pane#prep_submissions role="tabpanel"
           = student_presenter.prep_table
 
