@@ -40,6 +40,49 @@ class Evaluation < ApplicationRecord
 
   before_create :set_cohort
 
+  # def self.filter_by(options)
+  #     location_id = options[:teacher_location_id] || options[:student_location_id]
+  #     options.inject(all) do |result, (k, v)|
+  #       attribute = k.gsub("_id", "")
+  #       if attribute == 'completed?'
+  #         self.filter_by_completed(v, result)
+  #       elsif attribute.include?('date')
+  #         result.send("filter_by_#{attribute}", v, location_id)
+  #       else
+  #         result.send("filter_by_#{attribute}", v)
+  #       end
+  #     end
+  #   end
+
+  def self.filter_by(params, cohort)
+    if params["evals"]
+      if params["evals"].include?("All Evals")
+        filter_by_all_evals(cohort)
+      else
+        filter_by_most_recent
+      end
+    else
+      filter_by_most_recent
+    end
+    # if true
+    #   Evaluation.where(student_id: student.id).order(created_at: :desc).take(1)
+    #   #add cohort id
+    # else
+    #   Evaluation.where(student_id: student.id)
+    # end
+  end
+
+  def self.filter_by_all_evals(cohort)
+    #cohort.students.joins("JOIN evaluations ON evaluations.student_id = users.id").order(created_at: :desc)
+    #Evaluation.where(cohort_id: 5).order(created_at: :desc)
+    Evaluation.find_by_sql("SELECT * FROM evaluations JOIN users ON users.id = evaluations.student_id WHERE users.type = 'Student' AND users.cohort_id = 5")
+    #Evaluation.find_by_sql("SELECT evaluations.id from evaluations JOIN users ON users.id = evaluations.student_id WHERE users.type = 'Student' AND users.cohort_id = 5")
+  end
+
+  def self.filter_by_most_recent
+    Evaluation.find_by_sql("SELECT e1.* FROM evaluations e1 JOIN users ON users.id = e1.student_id LEFT JOIN evaluations e2 ON (e1.student_id = e2.student_id AND e1.created_at < e2.created_at) WHERE e2.created_at IS NULL AND users.id = e1.student_id AND users.type = 'Student' AND users.cohort_id = 5")
+  end
+
   def state_machine
     @state_machine ||= EvaluationStateMachine.new(self, transition_class: EvaluationTransition)
   end
