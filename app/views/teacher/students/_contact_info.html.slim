@@ -1,8 +1,7 @@
-p
-  | Email:
-  = student.email
-p
-  | Phone:
-  = student.phone_number
-p
-  = link_to 'Github', "http://www.github.com/#{student.github_username}"
+- present(user) do |user_presenter|
+  ul.list-inline.social-icons
+    = user_presenter.email_info
+    = user_presenter.github_info
+    = user_presenter.twitter_info
+    = user_presenter.slack_info
+    = user_presenter.skype_info

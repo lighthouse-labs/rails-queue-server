@@ -91,7 +91,7 @@ class StudentStats
     @bootcamp_assistance_stats = {
       requests:      @student.assistance_requests.genuine.where(cohort_id: cohort_id).count,
       assistances:   @student.assistances.completed.where(cohort_id: cohort_id).count,
-      average_score: @student.assistances.completed.where(cohort_id: cohort_id).where.not(rating: nil).average(:rating).to_f
+      average_score: @student.assistances.completed.where(cohort_id: cohort_id).where.not(rating: nil).average(:rating).to_f * 2 * 10
     }
   end
 
