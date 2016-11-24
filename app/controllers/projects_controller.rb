@@ -7,12 +7,8 @@ class ProjectsController < ApplicationController
 
   def show
     @project = find_project
-    @evaluations = Evaluation.filter_by(params, cohort, @project)
-    # @ids.each do |id|
-    #   @evaluations.push(Evaluation.where(id: id))
-    # end
-
-    ##make the class method return the IDs, then do a regular where query on the controller using the IDs
+    @evaluation_ids = Evaluation.filter_by(params, cohort, @project)
+    @evaluations = Evaluation.where(id: @evaluation_ids)
   end
 
   private

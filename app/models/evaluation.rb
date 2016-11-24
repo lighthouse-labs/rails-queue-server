@@ -40,20 +40,6 @@ class Evaluation < ApplicationRecord
 
   before_create :set_cohort
 
-  # def self.filter_by(options)
-  #     location_id = options[:teacher_location_id] || options[:student_location_id]
-  #     options.inject(all) do |result, (k, v)|
-  #       attribute = k.gsub("_id", "")
-  #       if attribute == 'completed?'
-  #         self.filter_by_completed(v, result)
-  #       elsif attribute.include?('date')
-  #         result.send("filter_by_#{attribute}", v, location_id)
-  #       else
-  #         result.send("filter_by_#{attribute}", v)
-  #       end
-  #     end
-  #   end
-
   def self.filter_by(params, cohort, project)
     if params["evals"]
       if params["evals"].include?("All Evals")
@@ -67,12 +53,11 @@ class Evaluation < ApplicationRecord
   end
 
   def self.filter_by_all_evals(cohort, project)
-    Evaluation.joins("JOIN users ON users.id = evaluations.student_id").where(users: {type: 'Student'}).where(users: {cohort_id: 5}).where(project_id: project.id)
+    Evaluation.select("evaluations.id").from("evaluations").joins("JOIN users ON users.id = evaluations.student_id").where(users: {type: 'Student'}).where(users: {cohort_id: cohort}).where(project_id: project.id)
   end
 
   def self.filter_by_most_recent(cohort, project)
-    Evaluation.find_by_sql("SELECT e1.* FROM evaluations e1 JOIN users ON users.id = e1.student_id LEFT JOIN evaluations e2 ON (e1.student_id = e2.student_id AND e1.created_at < e2.created_at) WHERE e2.created_at IS NULL AND users.id = e1.student_id AND users.type = 'Student' AND users.cohort_id = 5")
-    ##need to also filter by project id
+    Evaluation.select("e1.id").from("evaluations e1").joins("JOIN users ON users.id = e1.student_id").joins("LEFT JOIN evaluations e2 ON (e1.student_id = e2.student_id AND e1.created_at < e2.created_at)").where("e2.created_at IS NULL").where("users.id = e1.student_id").where("users.type = 'Student'").where("users.cohort_id = #{cohort.id}").where("e1.project_id = #{project.id}")
   end
 
   def state_machine

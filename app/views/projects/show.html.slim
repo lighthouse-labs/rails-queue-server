@@ -27,58 +27,6 @@ ul.nav.nav-tabs role="tablist" id="studentTab"
       == markdown(@project.description)
       == render 'outcomes', project: @project
 
-
   #students.tab-pane role="tabpanel"
     h3 Students
-    = form_tag project_path(@project), class: 'form-inline', method: 'get' do
-
-      .form-row
-        .form-group
-          = select_tag :evals, options_for_select(['Most Recent', 'All Evals'], value=params[:evals]), id: "project-feedback-dropdown"
-
-      = submit_tag 'Filter', class: 'btn btn-success project-evals-button'
-
-    table.table.students
-      thead
-        tr
-          th Student Info
-          th Status
-          th Marker
-          th Stats
-          th
-
-      tbody
-        - @evaluations.each do |evaluation|
-          - if evaluation.student
-            tr
-              td.details data-value=evaluation.student.last_name
-                .student-info
-                  = render 'shared/student_info', student: evaluation.student
-
-              td
-                = render 'projects/student_project_status', project_evaluation: evaluation
-
-              td.details
-                - if evaluation && evaluation.teacher
-                  .teacher-info
-                    = link_to teacher_path(evaluation.teacher) do
-                      = image_tag evaluation.teacher.avatar_url, class: 'avatar'
-                    = link_to evaluation.teacher.full_name, teacher_path(evaluation.teacher)
-                    br
-                      span.label.label-primary = evaluation.teacher.location.name
-
-              td
-                - if evaluation && (evaluation.state == "Rejected" || evaluation.state == "Accepted")
-                  = "#{evaluation.time_in_queue / 60}m in queue"
-                  - if evaluation.completed_at
-                    br
-                    = "#{evaluation.duration / 60}m long"
-
-              td
-                - if evaluation
-                  = link_to 'View', project_evaluation_path(@project, evaluation), class: 'btn btn-info btn-xs'
-                  | &nbsp;
-                  - if evaluation.in_state?(:pending)
-                    = link_to "Start Marking", start_marking_project_evaluation_path(@project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
-                  - elsif evaluation.in_state?(:in_progress) && evaluation.teacher == current_user
-                    = link_to "Continue Marking", start_marking_project_evaluation_path(@project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
+    == render 'students', project: @project
