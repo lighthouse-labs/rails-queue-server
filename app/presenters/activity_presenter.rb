@@ -41,6 +41,7 @@ class ActivityPresenter < BasePresenter
       content_tag :div, class: 'previous-activity' do
         (
           content_tag(:label, 'Previous:') +
+          content_tag(:i, nil, class: icon_for(activity.previous)) + ' ' +
           link_to(descriptive_activity_name(activity.previous), get_activity_path(activity.previous))
         ).html_safe
 
@@ -53,6 +54,7 @@ class ActivityPresenter < BasePresenter
       content_tag :div, class: 'next-activity' do
         (
           content_tag(:label, 'Next:') +
+          content_tag(:i, nil, class: icon_for(activity.next)) + ' ' +
           link_to(descriptive_activity_name(activity.next), get_activity_path(activity.next))
         ).html_safe
       end
