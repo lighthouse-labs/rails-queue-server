@@ -6,10 +6,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @projects = find_project
-    #@feedbacks = ActivityFeedback.filter_by(:evals).reorder(order)
-    #@evaluations = cohort.students.joins("JOIN evaluations ON evaluations.student_id = users.id").order(created_at: :desc).take(1)
-    @evaluations = Evaluation.filter_by(params, cohort)
+    @project = find_project
+    @evaluations = Evaluation.filter_by(params, cohort, @project)
     # @ids.each do |id|
     #   @evaluations.push(Evaluation.where(id: id))
     # end

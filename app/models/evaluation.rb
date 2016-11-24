@@ -54,33 +54,25 @@ class Evaluation < ApplicationRecord
   #     end
   #   end
 
-  def self.filter_by(params, cohort)
+  def self.filter_by(params, cohort, project)
     if params["evals"]
       if params["evals"].include?("All Evals")
-        filter_by_all_evals(cohort)
+        filter_by_all_evals(cohort, project)
       else
-        filter_by_most_recent
+        filter_by_most_recent(cohort, project)
       end
     else
-      filter_by_most_recent
+      filter_by_most_recent(cohort, project)
     end
-    # if true
-    #   Evaluation.where(student_id: student.id).order(created_at: :desc).take(1)
-    #   #add cohort id
-    # else
-    #   Evaluation.where(student_id: student.id)
-    # end
   end
 
-  def self.filter_by_all_evals(cohort)
-    #cohort.students.joins("JOIN evaluations ON evaluations.student_id = users.id").order(created_at: :desc)
-    #Evaluation.where(cohort_id: 5).order(created_at: :desc)
-    Evaluation.find_by_sql("SELECT * FROM evaluations JOIN users ON users.id = evaluations.student_id WHERE users.type = 'Student' AND users.cohort_id = 5")
-    #Evaluation.find_by_sql("SELECT evaluations.id from evaluations JOIN users ON users.id = evaluations.student_id WHERE users.type = 'Student' AND users.cohort_id = 5")
+  def self.filter_by_all_evals(cohort, project)
+    Evaluation.joins("JOIN users ON users.id = evaluations.student_id").where(users: {type: 'Student'}).where(users: {cohort_id: 5}).where(project_id: project.id)
   end
 
-  def self.filter_by_most_recent
+  def self.filter_by_most_recent(cohort, project)
     Evaluation.find_by_sql("SELECT e1.* FROM evaluations e1 JOIN users ON users.id = e1.student_id LEFT JOIN evaluations e2 ON (e1.student_id = e2.student_id AND e1.created_at < e2.created_at) WHERE e2.created_at IS NULL AND users.id = e1.student_id AND users.type = 'Student' AND users.cohort_id = 5")
+    ##need to also filter by project id
   end
 
   def state_machine

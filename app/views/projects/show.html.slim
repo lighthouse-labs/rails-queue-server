@@ -11,19 +11,17 @@
 
 hr
 
-ul.nav.nav-tabs role="tablist"
+ul.nav.nav-tabs role="tablist" id="studentTab"
   li role="presentation" class="active"
-    a href="#questions" aria-controls="questions" role="tab" data-toggle="tab"
+    a href="#project" aria-controls="project" role="tab" data-toggle="tab"
       | Project Description
   - if teacher?
     li role="presentation"
       a href="#students"  aria-controls="students" role="tab" data-toggle="tab"
         | Students
-// move evaluations into the model
-// depending on the selector, do that or another thing
 .tab-content
 
-  #questions.tab-pane role="tabpanel" class="active"
+  #project.tab-pane role="tabpanel" class="active"
     h3 Project Description
     .instructions
       == markdown(@project.description)
