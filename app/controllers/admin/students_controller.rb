@@ -1,6 +1,6 @@
 class Admin::StudentsController < Admin::BaseController
 
-  before_action :load_student, only: [:update, :edit, :modal_content]
+  before_action :load_student, only: [:update, :edit, :destroy, :modal_content]
   before_action :prep_form, only: [:index, :edit]
 
   def index
@@ -23,6 +23,11 @@ class Admin::StudentsController < Admin::BaseController
       prep_form
       render :edit
     end
+  end
+
+  def destroy
+    @student.revert_to_prep
+    redirect_to admin_students_path
   end
 
   def modal_content
