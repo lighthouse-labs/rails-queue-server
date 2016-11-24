@@ -41,12 +41,8 @@ class Evaluation < ApplicationRecord
   before_create :set_cohort
 
   def self.filter_by(params, cohort, project)
-    if params["evals"]
-      if params["evals"].include?("All Evals")
-        filter_by_all_evals(cohort, project)
-      else
-        filter_by_most_recent(cohort, project)
-      end
+    if params["evals"] && params["evals"].include?("All Evals")
+      filter_by_all_evals(cohort, project)
     else
       filter_by_most_recent(cohort, project)
     end
