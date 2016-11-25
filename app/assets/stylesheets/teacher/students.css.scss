@@ -77,6 +77,12 @@
     }
   }
 
+  button.btn.btn-danger.btn-xs.rollover {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+  }
+
   .titled-panel {
     @extend .rounded-border;
     position: relative;

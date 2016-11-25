@@ -19,6 +19,10 @@ class StudentPresenter < UserPresenter
     link_to date, cohort_students_path(student.cohort)
   end
 
+  def rollover_button?
+    student.rolled_in?(student.cohort) || student.rolled_out?(student.cohort)
+  end
+
   def contact
     render 'contact_info', user: student
   end
@@ -90,10 +94,11 @@ class StudentPresenter < UserPresenter
   def assistance_stats
     stats = StudentStats.new(student).bootcamp_assistance_stats
 
-    render 'stats', {
+    render 'assistance_stats', {
       title:    'Assistances',
-      count:    stats[:assistances],
-      max:      stats[:requests],
+      assistances:    stats[:assistances],
+      assistance_requests:      stats[:requests],
+      avg_assistance_length: stats[:assistances_length],
       avg:      stats[:average_score],
       progress: (stats[:assistances].to_f/stats[:requests].to_f) * 100
     }

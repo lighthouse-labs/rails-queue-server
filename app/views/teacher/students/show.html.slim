@@ -10,12 +10,15 @@
         = student_presenter.cohort_name_link
         br
         = student_presenter.cohort_date_link
+      - if student_presenter.rollover_button?
+        button.btn.btn-danger.btn-xs.rollover Rollover
       = student_presenter.day_button
       ul.nav.nav-tabs role="tablist"
         li.active role="presentation"
           a href="#prep_stats" aria-controls="" role="tab" data-toggle="tab" Prep
         li role="presentation"
           a href="#bootcamp_stats" aria-controls="" role="tab" data-toggle="tab" Bootcamp
+          a href="#assistance_stats" aria-controls="" role="tab" data-toggle="tab" Assistances
       .stats-holder
         .tab-content
             .tab-pane.active#prep_stats role="tabpanel"
