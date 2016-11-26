@@ -4,7 +4,7 @@
 
   .col-md-9
     .student-heading
-      = student_presenter.avatar
+      = image_tag avatar_for(@student), class: 'avatar'
       .student-info-holder
         = student_presenter.name
         = student_presenter.cohort_name_link

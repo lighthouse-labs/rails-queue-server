@@ -2,10 +2,6 @@ class StudentPresenter < UserPresenter
 
   presents :student
 
-  def avatar
-    image_tag student.avatar_url, width: '15%'
-  end
-
   def name
     content_tag :h3, student.full_name, class: 'student-details-name'
   end
