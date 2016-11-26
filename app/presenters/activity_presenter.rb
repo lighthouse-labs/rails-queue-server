@@ -41,6 +41,7 @@ class ActivityPresenter < BasePresenter
       content_tag :div, class: 'previous-activity' do
         (
           content_tag(:label, 'Previous:') +
+          content_tag(:i, nil, class: icon_for(activity.previous)) + ' ' +
           link_to(descriptive_activity_name(activity.previous), get_activity_path(activity.previous))
         ).html_safe
 
@@ -53,6 +54,7 @@ class ActivityPresenter < BasePresenter
       content_tag :div, class: 'next-activity' do
         (
           content_tag(:label, 'Next:') +
+          content_tag(:i, nil, class: icon_for(activity.next)) + ' ' +
           link_to(descriptive_activity_name(activity.next), get_activity_path(activity.next))
         ).html_safe
       end
@@ -67,8 +69,8 @@ class ActivityPresenter < BasePresenter
     render "activity_submission_form" if allow_completion?
   end
 
-  def edit_button
-    link_to 'Edit', edit_button_path, class: 'btn btn-edit'
+  def details_button
+    link_to 'Details', details_button_path, class: 'btn btn-edit'
   end
 
   def display_outcomes
@@ -100,7 +102,7 @@ class ActivityPresenter < BasePresenter
     activity.bootcamp?
   end
 
-  def edit_button_path
+  def details_button_path
     if prep?
       edit_prep_activity_path(activity.section, activity)
     elsif project?

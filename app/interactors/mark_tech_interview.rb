@@ -6,7 +6,7 @@ class MarkTechInterview
     @interviewer    = context.interviewer
     @attributes     = sanitized_params(context.params)
 
-    @tech_interview.assign_attributes(@attributes) if @attributes
+    @tech_interview.update(@attributes) if @attributes
     complete(@tech_interview, @interviewer)
 
     if @tech_interview.save

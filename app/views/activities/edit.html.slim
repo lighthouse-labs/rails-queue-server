@@ -1,24 +1,61 @@
 h1 = "#{day.to_s.upcase}: #{@activity.name}"
 hr
 
+  dl class="row"
+    dt class="col-sm-3" Name
+    dd class="col-sm-9" #{@activity.name || "N/A"}
+
+    - if (day || @activity.project?)
+      dt class="col-sm-3" Day
+      dd class="col-sm-9" #{@activity.day || "N/A"}
+
+    dt class="col-sm-3" Start Time
+    dd class="col-sm-9" #{@activity.start_time || "N/A"}
+
+    dt class="col-sm-3" Duration
+    dd class="col-sm-9" #{@activity.duration || "N/A"}
+
+    dt class="col-sm-3" Gist URL
+    dd class="col-sm-9" #{@activity.gist_url || "N/A"}
+
+    dt class="col-sm-3" Media Filename
+    dd class="col-sm-9" #{@activity.media_filename || "N/A"}
+
+    dt class="col-sm-3" Allow Submissions
+    dd class="col-sm-9" #{@activity.allow_submissions || "N/A"}
+
+    dt class="col-sm-3" Allow Feedback
+    dd class="col-sm-9" #{@activity.allow_feedback? || "N/A"}
+
+    dt class="col-sm-3" Probability of code review
+    dd class="col-sm-9" #{@activity.code_review_percent || "N/A"}%
+
+    dt class="col-sm-3" Evaluates Code
+    dd class="col-sm-9" #{@activity.evaluates_code || "N/A"}
+
+    dt class="col-sm-3" Remote Content
+    dd class="col-sm-9" #{@activity.remote_content || "N/A"}
+
+    dt class="col-sm-3" Content Repository
+    dd class="col-sm-9" #{@activity.content_repository || "N/A"}
+
+    dt class="col-sm-3" Content File Path
+    dd class="col-sm-9" #{@activity.content_file_path || "N/A"}
+
 = simple_form_for @activity, as: :activity, url: @form_url,
   html: { id: 'activity-form', class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
 
   = render "form", f: f
 
-  - if @activity.evaluates_code?
-    h3 Automated Test Cases
-    pre#test_content style="display:none" = @activity.test_code
-    #test-editor.editor
+hr
 
-    h3 Initial Code (Optional)
-    pre#initial_code_content style="display:none" = @activity.initial_code
-    #initial-code-editor.editor
+- if @activity.evaluates_code?
+  h3 Automated Test Cases
+  pre#test_content style="display:none" = @activity.test_code
+  #test-editor.editor
 
-
-  .actions.well
-    = f.submit 'Update', class: 'btn btn-primary', style: 'margin-right: 10px;'
-    = link_to '&laquo; Cancel'.html_safe, :back
+  h3 Initial Code (Optional)
+  pre#initial_code_content style="display:none" = @activity.initial_code
+  #initial-code-editor.editor
 
   = render 'editor'
-
