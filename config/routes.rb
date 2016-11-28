@@ -135,7 +135,7 @@ LaserShark::Application.routes.draw do
   # ADMIN
   namespace :admin do
     root to: 'dashboard#show'
-    resources :students, only: [:index, :update, :edit] do
+    resources :students, only: [:index, :update, :edit, :destroy] do
       member do
         get :modal_content
       end

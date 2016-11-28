@@ -1,5 +1,50 @@
 # Change Log
 
+## [v2.0.3](https://github.com/lighthouse-labs/compass/tree/v2.0.3) (2016-11-24)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.2...v2.0.3)
+
+**Implemented enhancements:**
+
+- Admin: Ability to move students to "prep only" status [\#157](https://github.com/lighthouse-labs/compass/issues/157)
+- Help students identify mentors when giving feedback [\#141](https://github.com/lighthouse-labs/compass/issues/141)
+- Performance Improvements for Nav Bar  [\#140](https://github.com/lighthouse-labs/compass/issues/140)
+- Project Eval Summary Page should show students who have not submitted yet [\#130](https://github.com/lighthouse-labs/compass/issues/130)
+- Satellite students should see "Request Remote Assistance" [\#126](https://github.com/lighthouse-labs/compass/issues/126)
+- Admin: Allow removing student from cohort [\#100](https://github.com/lighthouse-labs/compass/issues/100)
+- Suggestion: In queue, in the "requests" list, Activity should be linked to activity page [\#72](https://github.com/lighthouse-labs/compass/issues/72)
+- Add icon to next and previous buttons for more clarity [\#165](https://github.com/lighthouse-labs/compass/pull/165) ([sjhogan2](https://github.com/sjhogan2))
+- Add functionality to revert student to prep only access [\#164](https://github.com/lighthouse-labs/compass/pull/164) ([sjhogan2](https://github.com/sjhogan2))
+- Add conditions to busy method to include evaluations and tech interviews [\#154](https://github.com/lighthouse-labs/compass/pull/154) ([sjhogan2](https://github.com/sjhogan2))
+- Change activity name to link to the activity\#show page [\#153](https://github.com/lighthouse-labs/compass/pull/153) ([sjhogan2](https://github.com/sjhogan2))
+- Feature/141 identify mentors [\#146](https://github.com/lighthouse-labs/compass/pull/146) ([sjhogan2](https://github.com/sjhogan2))
+- Refactor days/today view with performance enhancements [\#142](https://github.com/lighthouse-labs/compass/pull/142) ([sjhogan2](https://github.com/sjhogan2))
+- Feature/126 request remote assistance [\#133](https://github.com/lighthouse-labs/compass/pull/133) ([sjhogan2](https://github.com/sjhogan2))
+- Feature/40 no remote activity editing [\#85](https://github.com/lighthouse-labs/compass/pull/85) ([sjhogan2](https://github.com/sjhogan2))
+
+**Fixed bugs:**
+
+- Tech Interview does not update properly from final step [\#161](https://github.com/lighthouse-labs/compass/issues/161)
+- 500 error on projects\#show with invalid slug [\#147](https://github.com/lighthouse-labs/compass/issues/147)
+- Project Submission Error \(When cancelling rejected projects\)  [\#124](https://github.com/lighthouse-labs/compass/issues/124)
+- For lectures, dont allow activity\_feedback [\#47](https://github.com/lighthouse-labs/compass/issues/47)
+- View Student Profile Page Error [\#21](https://github.com/lighthouse-labs/compass/issues/21)
+- Vancouver student is displayed as Toronto student on project evaluation page [\#20](https://github.com/lighthouse-labs/compass/issues/20)
+- Fix bug so that correct student location appears regardless of mentor's cohort [\#166](https://github.com/lighthouse-labs/compass/pull/166) ([sjhogan2](https://github.com/sjhogan2))
+- Fix bug- assign attributes does not save the attributes [\#163](https://github.com/lighthouse-labs/compass/pull/163) ([sjhogan2](https://github.com/sjhogan2))
+- Add error handling for transition from rejected to cancelled [\#159](https://github.com/lighthouse-labs/compass/pull/159) ([sjhogan2](https://github.com/sjhogan2))
+- Add if statement to prevent feedback for lectures and breakouts [\#138](https://github.com/lighthouse-labs/compass/pull/138) ([sjhogan2](https://github.com/sjhogan2))
+
+**Closed issues:**
+
+- Evaluation is 'NaN Years from now' [\#137](https://github.com/lighthouse-labs/compass/issues/137)
+- Student profile page image seems to be sourced badly [\#134](https://github.com/lighthouse-labs/compass/issues/134)
+- Feature Request: Add Student To Feedback [\#132](https://github.com/lighthouse-labs/compass/issues/132)
+- Update visualization for project evaluations [\#87](https://github.com/lighthouse-labs/compass/issues/87)
+- No advanced lecture activity \(no way to upload advanced lecture videos\) [\#75](https://github.com/lighthouse-labs/compass/issues/75)
+- Starting Project Evaluation does not mark me as busy [\#54](https://github.com/lighthouse-labs/compass/issues/54)
+- \[Midterm\] Multiple Projects Evals [\#49](https://github.com/lighthouse-labs/compass/issues/49)
+- Activities that are remote should not be editable by teachers/admins. [\#40](https://github.com/lighthouse-labs/compass/issues/40)
+
 ## [v2.0.2](https://github.com/lighthouse-labs/compass/tree/v2.0.2) (2016-11-07)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.1...v2.0.2)
 

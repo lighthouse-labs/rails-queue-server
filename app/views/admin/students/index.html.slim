@@ -79,6 +79,9 @@ header.page-header
                         i.fa.fa-life-saver
                         | &nbsp;Rollover
 
+                    - if student.cohort.active? || student.cohort.upcoming?
+                      = link_to 'Revert to Prep', admin_student_path(student), class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' }
+
 .modal.fade id="student-actions-modal"
   .modal-dialog
     .modal-content
