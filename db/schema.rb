@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026194027) do
+ActiveRecord::Schema.define(version: 20161114184749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20161026194027) do
     t.string   "media_filename"
     t.string   "revisions_gistid"
     t.integer  "code_review_percent",   default: 60
-    t.boolean  "allow_feedback",        default: true
     t.integer  "quiz_id"
     t.integer  "content_repository_id"
     t.string   "content_file_path"

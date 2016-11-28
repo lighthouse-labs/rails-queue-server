@@ -39,10 +39,10 @@ class StudentPresenter < UserPresenter
     stats = StudentStats.new(student).prep_activity_stats
     render 'stats', {
       title:    'Activities',
-      count:    stats[:completed],
-      max:      stats[:total],
+      count:    stats[:core][:completed] + stats[:stretch][:completed],
+      max:      stats[:core][:total] + stats[:stretch][:total],
       avg:      nil,
-      progress: stats[:ratio]
+      progress: stats[:core][:ratio]
     }
   end
 
@@ -96,6 +96,10 @@ class StudentPresenter < UserPresenter
       avg:      nil,
       progress: 50
     }
+  end
+
+  def tech_interview_table
+    render 'tech_interview', student: student
   end
 
   def outcomes_table

@@ -1,6 +1,8 @@
+- title "Admin Teacher Feedback"
+
 h4 Teacher Feedback
 = render 'form'
-br 
+br
 
 .alert.alert-info.col-md-7
   table.table
@@ -15,7 +17,7 @@ br
       td.admin-teacher-stat = @feedbacks.completed.count
       td.admin-teacher-stat = @feedbacks.pending.not_expired.count
       td.admin-teacher-stat = @feedbacks.pending.expired.count
-      td.admin-teacher-stat 
+      td.admin-teacher-stat
         = ((@feedbacks.completed.inject(0){|sum,feedback| sum + feedback.rating}.to_f)/@feedbacks.completed.length).round(2)
         | /5
 br
@@ -38,7 +40,7 @@ br
               th Student Name
               th Feedback Type
               th Rating
-              th 
+              th
           tbody
             - feedbacks.each do |teacher_feedback|
               - present teacher_feedback do |teacher_feedback_presenter|
@@ -53,7 +55,7 @@ br
                     td
                     td colspan="5"
                       small
-                        em 
+                        em
                           article.read-more = teacher_feedback_presenter.notes
                     td
 

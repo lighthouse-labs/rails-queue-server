@@ -1,3 +1,5 @@
+- title "Evaluations for #{@project.name}"
+
 h2 = "Evaluations for #{@project.name}"
 
 table.table.table-hover
@@ -26,4 +28,4 @@ table.table.table-hover
           - if evaluation.in_state?(:pending)
             = link_to "Start Marking", start_marking_project_evaluation_path(@project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
           - elsif evaluation.in_state?(:in_progress) && evaluation.teacher == current_user
-            = link_to "Continue Marking", start_marking_project_evaluation_path(@project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
+            = link_to "Continue Marking", edit_project_evaluation_path(@project, evaluation), class: 'btn btn-primary btn-xs'

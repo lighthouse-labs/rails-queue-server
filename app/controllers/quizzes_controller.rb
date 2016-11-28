@@ -11,8 +11,7 @@ class QuizzesController < ApplicationController
   end
   def show
     @submission_stats = @quiz.quiz_submissions.stats
-    @question_stats = @quiz.questions.stats(@quiz)
-
+    @question_stats = @quiz.questions.initial_stats(@quiz)
   end
   def destroy
     @quiz.destroy
