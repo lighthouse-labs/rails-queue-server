@@ -98,6 +98,10 @@ class StudentPresenter < UserPresenter
     }
   end
 
+  def tech_interview_table
+    render 'tech_interview', student: student
+  end
+
   def outcomes_table
     ratings = student.outcome_results.group("skills.name").joins(outcome: [:skill]).average(:rating)
     render 'skills_ratings', ratings: ratings
