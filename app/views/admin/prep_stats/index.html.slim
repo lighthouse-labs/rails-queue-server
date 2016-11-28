@@ -1,4 +1,5 @@
 - provide :container,  'fluid'
+- title "Admin Prep Stats"
 
 header.page-header
   h1 User Prep Stats
@@ -12,7 +13,7 @@ header.page-header
             | Select User
           = select_tag :user_id, options_from_collection_for_select(User.order(:first_name), :id, :full_name, params[:user_id]), prompt: 'All Users', class: "form-control"
         = submit_tag 'Search', class: 'btn btn-success'
-      
+
 
 .row
   .col-sm-12

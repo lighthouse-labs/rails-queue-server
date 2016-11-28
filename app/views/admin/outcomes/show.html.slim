@@ -1,3 +1,5 @@
+- title "Admin Outcome"
+
 ul.breadcrumb
   li = link_to 'Categories',
                [:admin, :categories],
@@ -16,10 +18,10 @@ ul.breadcrumb
   li Activities
 
 h5 = @outcome.text
-ul.list-inline.skill-ul 
+ul.list-inline.skill-ul
   | Skills:
   - @outcome.skills.each do |skill|
-    li.skill-list 
+    li.skill-list
       = skill.text
       | &nbsp;
 hr
