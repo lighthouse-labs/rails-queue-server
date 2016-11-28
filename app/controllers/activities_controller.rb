@@ -93,7 +93,6 @@ class ActivitiesController < ApplicationController
       :instructions,
       :teacher_notes,
       :allow_submissions,
-      :allow_feedback,
       :day,
       :section_id,
       :gist_url,
