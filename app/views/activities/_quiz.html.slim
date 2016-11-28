@@ -3,9 +3,8 @@ h3 = @activity.quiz.name
 - if @activity.quiz.outcomes.any?
   p This quiz will ask questions pertaining to the following learning outcomes:
   ul
-    - @activity.quiz.outcomes.each do |outcome|
-      li = outcome.text
-
+  - @activity.quiz.outcomes.uniq.each do |outcome|
+    li = outcome.text
 hr
 
 - if submission = @activity.quiz.latest_submission_by(current_user)

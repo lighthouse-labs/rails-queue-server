@@ -19,6 +19,7 @@ var RequestQueue = React.createClass({
   componentDidMount: function() {
     this.loadQueue();
     this.requestNotificationPermission();
+    document.title = "Compass | Queue";
   },
 
   componentDidUpdate: function(prevProps, prevState) {

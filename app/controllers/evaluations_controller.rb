@@ -73,7 +73,9 @@ class EvaluationsController < ApplicationController
   end
 
   def cancel
-    @evaluation.transition_to! :cancelled
+    unless @evaluation.transition_to :cancelled
+      flash[:alert] = "Could not cancel evaluation. Maybe it has already been evaluated?"
+    end
     redirect_to @project
   end
 

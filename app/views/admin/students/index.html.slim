@@ -1,5 +1,6 @@
 - provide :container,  'fluid'
 - provide :body_class, 'admin-students-index'
+- title "Admin Students"
 
 header.page-header
   h1
@@ -77,6 +78,9 @@ header.page-header
                       a.btn.btn-xs.btn-danger.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-rollover-modal" data-content-url="#{new_admin_student_rollover_path(student)}"
                         i.fa.fa-life-saver
                         | &nbsp;Rollover
+
+                    - if student.cohort.active? || student.cohort.upcoming?
+                      = link_to 'Revert to Prep', admin_student_path(student), class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' }
 
 .modal.fade id="student-actions-modal"
   .modal-dialog

@@ -47,6 +47,10 @@ module ApplicationHelper
     Time.current.seconds_since_midnight >= DAY_FEEDBACK_AFTER
   end
 
+  def title(page_title)
+    content_for :title, page_title
+  end
+
   def link_to_add_fields(name, f, association, css_classes)
     new_object = f.object.send(association).klass.new
     id = new_object.object_id

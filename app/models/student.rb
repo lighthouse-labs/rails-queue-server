@@ -40,6 +40,10 @@ class Student < User
     cohort && cohort.finished?
   end
 
+  def revert_to_prep
+    update(type: nil, cohort: nil)
+  end
+
   def completed_code_review_requests
     assistance_requests.where(type: 'CodeReviewRequest').where.not(assistance_requests: {assistance_id: nil}).where(cohort_id: self.cohort_id).includes(:assistance)
   end

@@ -6,6 +6,8 @@ class Teacher < User
 
   has_many :evaluations
 
+  has_many :tech_interviews, class_name: TechInterview, foreign_key: :interviewer_id
+
   scope :filter_by_location, -> (location_id) {
     includes(:location).
     where(locations: {id: location_id})
@@ -40,7 +42,7 @@ class Teacher < User
   end
 
   def busy?
-    self.teaching_assistances.currently_active.length > 0
+    self.teaching_assistances.currently_active.length > 0 || self.evaluations.in_progress_evaluations.length > 0 || self.tech_interviews.in_progress.length > 0
   end
 
 
