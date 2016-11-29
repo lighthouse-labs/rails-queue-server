@@ -1,5 +1,36 @@
 # Change Log
 
+## [Unreleased](https://github.com/lighthouse-labs/compass/tree/HEAD)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.3...HEAD)
+
+**Implemented enhancements:**
+
+- Fix Prep Activities Completed Status Bar [\#170](https://github.com/lighthouse-labs/compass/issues/170)
+- Fix Submissions Tab  [\#169](https://github.com/lighthouse-labs/compass/issues/169)
+- Remove edit button for questions\#index [\#136](https://github.com/lighthouse-labs/compass/issues/136)
+- Descriptive Tab Titles  [\#81](https://github.com/lighthouse-labs/compass/issues/81)
+- Change submissions tab to tech interviews info tab [\#173](https://github.com/lighthouse-labs/compass/pull/173) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add titles to all view files [\#158](https://github.com/lighthouse-labs/compass/pull/158) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Remove edit/delete capability from question and quizzes pages [\#156](https://github.com/lighthouse-labs/compass/pull/156) ([shannonjanehogan](https://github.com/shannonjanehogan))
+
+**Fixed bugs:**
+
+- Drop column `allow\_feedback` from `activities` [\#148](https://github.com/lighthouse-labs/compass/issues/148)
+- Submission counting for quizzes [\#83](https://github.com/lighthouse-labs/compass/issues/83)
+- Error when teachers try to continue evaluation from project access point  [\#56](https://github.com/lighthouse-labs/compass/issues/56)
+- 500 error on TI submission, left in invalid state? [\#19](https://github.com/lighthouse-labs/compass/issues/19)
+- Fix prep tab on student profile- activity bar calculates correctly [\#175](https://github.com/lighthouse-labs/compass/pull/175) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Remove edit/delete capability from question and quizzes pages [\#156](https://github.com/lighthouse-labs/compass/pull/156) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Fix error caused by link to continue marking on projects index page [\#155](https://github.com/lighthouse-labs/compass/pull/155) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Remove allow feedback column from activities and references to it [\#152](https://github.com/lighthouse-labs/compass/pull/152) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Remove repeat outcomes for projects, and quizzes [\#127](https://github.com/lighthouse-labs/compass/pull/127) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add extra limitations to only show answers from initial quiz attempt [\#91](https://github.com/lighthouse-labs/compass/pull/91) ([shannonjanehogan](https://github.com/shannonjanehogan))
+
+**Closed issues:**
+
+- Quizzes have repeated outcomes [\#86](https://github.com/lighthouse-labs/compass/issues/86)
+
 ## [v2.0.3](https://github.com/lighthouse-labs/compass/tree/v2.0.3) (2016-11-24)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.2...v2.0.3)
 
@@ -12,14 +43,14 @@
 - Satellite students should see "Request Remote Assistance" [\#126](https://github.com/lighthouse-labs/compass/issues/126)
 - Admin: Allow removing student from cohort [\#100](https://github.com/lighthouse-labs/compass/issues/100)
 - Suggestion: In queue, in the "requests" list, Activity should be linked to activity page [\#72](https://github.com/lighthouse-labs/compass/issues/72)
-- Add icon to next and previous buttons for more clarity [\#165](https://github.com/lighthouse-labs/compass/pull/165) ([sjhogan2](https://github.com/sjhogan2))
-- Add functionality to revert student to prep only access [\#164](https://github.com/lighthouse-labs/compass/pull/164) ([sjhogan2](https://github.com/sjhogan2))
-- Add conditions to busy method to include evaluations and tech interviews [\#154](https://github.com/lighthouse-labs/compass/pull/154) ([sjhogan2](https://github.com/sjhogan2))
-- Change activity name to link to the activity\#show page [\#153](https://github.com/lighthouse-labs/compass/pull/153) ([sjhogan2](https://github.com/sjhogan2))
-- Feature/141 identify mentors [\#146](https://github.com/lighthouse-labs/compass/pull/146) ([sjhogan2](https://github.com/sjhogan2))
-- Refactor days/today view with performance enhancements [\#142](https://github.com/lighthouse-labs/compass/pull/142) ([sjhogan2](https://github.com/sjhogan2))
-- Feature/126 request remote assistance [\#133](https://github.com/lighthouse-labs/compass/pull/133) ([sjhogan2](https://github.com/sjhogan2))
-- Feature/40 no remote activity editing [\#85](https://github.com/lighthouse-labs/compass/pull/85) ([sjhogan2](https://github.com/sjhogan2))
+- Add icon to next and previous buttons for more clarity [\#165](https://github.com/lighthouse-labs/compass/pull/165) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add functionality to revert student to prep only access [\#164](https://github.com/lighthouse-labs/compass/pull/164) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add conditions to busy method to include evaluations and tech interviews [\#154](https://github.com/lighthouse-labs/compass/pull/154) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Change activity name to link to the activity\#show page [\#153](https://github.com/lighthouse-labs/compass/pull/153) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/141 identify mentors [\#146](https://github.com/lighthouse-labs/compass/pull/146) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Refactor days/today view with performance enhancements [\#142](https://github.com/lighthouse-labs/compass/pull/142) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/126 request remote assistance [\#133](https://github.com/lighthouse-labs/compass/pull/133) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/40 no remote activity editing [\#85](https://github.com/lighthouse-labs/compass/pull/85) ([shannonjanehogan](https://github.com/shannonjanehogan))
 
 **Fixed bugs:**
 
@@ -29,10 +60,10 @@
 - For lectures, dont allow activity\_feedback [\#47](https://github.com/lighthouse-labs/compass/issues/47)
 - View Student Profile Page Error [\#21](https://github.com/lighthouse-labs/compass/issues/21)
 - Vancouver student is displayed as Toronto student on project evaluation page [\#20](https://github.com/lighthouse-labs/compass/issues/20)
-- Fix bug so that correct student location appears regardless of mentor's cohort [\#166](https://github.com/lighthouse-labs/compass/pull/166) ([sjhogan2](https://github.com/sjhogan2))
-- Fix bug- assign attributes does not save the attributes [\#163](https://github.com/lighthouse-labs/compass/pull/163) ([sjhogan2](https://github.com/sjhogan2))
-- Add error handling for transition from rejected to cancelled [\#159](https://github.com/lighthouse-labs/compass/pull/159) ([sjhogan2](https://github.com/sjhogan2))
-- Add if statement to prevent feedback for lectures and breakouts [\#138](https://github.com/lighthouse-labs/compass/pull/138) ([sjhogan2](https://github.com/sjhogan2))
+- Fix bug so that correct student location appears regardless of mentor's cohort [\#166](https://github.com/lighthouse-labs/compass/pull/166) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Fix bug- assign attributes does not save the attributes [\#163](https://github.com/lighthouse-labs/compass/pull/163) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add error handling for transition from rejected to cancelled [\#159](https://github.com/lighthouse-labs/compass/pull/159) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add if statement to prevent feedback for lectures and breakouts [\#138](https://github.com/lighthouse-labs/compass/pull/138) ([shannonjanehogan](https://github.com/shannonjanehogan))
 
 **Closed issues:**
 
@@ -50,7 +81,7 @@
 
 **Implemented enhancements:**
 
-- Admin: List of ALL Users and ability to deactivate them [\#125](https://github.com/lighthouse-labs/compass/pull/125) ([sjhogan2](https://github.com/sjhogan2))
+- Admin: List of ALL Users and ability to deactivate them [\#125](https://github.com/lighthouse-labs/compass/pull/125) ([shannonjanehogan](https://github.com/shannonjanehogan))
 
 **Fixed bugs:**
 
@@ -75,7 +106,7 @@
 
 **Merged pull requests:**
 
-- Add missing styling to images, same as the styling for the images on projects\#show [\#123](https://github.com/lighthouse-labs/compass/pull/123) ([sjhogan2](https://github.com/sjhogan2))
+- Add missing styling to images, same as the styling for the images on projects\#show [\#123](https://github.com/lighthouse-labs/compass/pull/123) ([shannonjanehogan](https://github.com/shannonjanehogan))
 
 ## [v2.0.0](https://github.com/lighthouse-labs/compass/tree/v2.0.0) (2016-10-26)
 **Implemented enhancements:**
@@ -93,8 +124,8 @@
 - Tweeter Project \(and possibly more\) cannot be evaluated [\#104](https://github.com/lighthouse-labs/compass/issues/104)
 - Tech interview creator not working for W3 onward. [\#93](https://github.com/lighthouse-labs/compass/issues/93)
 - Error when attempting to access GET/prep/assistance\_requests [\#89](https://github.com/lighthouse-labs/compass/issues/89)
-- Change display to round to one decimal point to improve UI [\#122](https://github.com/lighthouse-labs/compass/pull/122) ([sjhogan2](https://github.com/sjhogan2))
-- Add additional filter criteria to limit completed project evals to currently selected cohort [\#121](https://github.com/lighthouse-labs/compass/pull/121) ([sjhogan2](https://github.com/sjhogan2))
+- Change display to round to one decimal point to improve UI [\#122](https://github.com/lighthouse-labs/compass/pull/122) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add additional filter criteria to limit completed project evals to currently selected cohort [\#121](https://github.com/lighthouse-labs/compass/pull/121) ([shannonjanehogan](https://github.com/shannonjanehogan))
 
 **Closed issues:**
 
@@ -126,32 +157,32 @@
 
 **Merged pull requests:**
 
-- Feature/117 lecture notes bug [\#120](https://github.com/lighthouse-labs/compass/pull/120) ([sjhogan2](https://github.com/sjhogan2))
+- Feature/117 lecture notes bug [\#120](https://github.com/lighthouse-labs/compass/pull/120) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Fixed 'underetanding' =\> 'understanding' [\#107](https://github.com/lighthouse-labs/compass/pull/107) ([sytantris](https://github.com/sytantris))
 - Admin rollover functionality [\#99](https://github.com/lighthouse-labs/compass/pull/99) ([kvirani](https://github.com/kvirani))
-- Add exception handling for users where first/last name = nil [\#95](https://github.com/lighthouse-labs/compass/pull/95) ([sjhogan2](https://github.com/sjhogan2))
-- Refactor code to handle exception cases for faulty params\[:id\] [\#90](https://github.com/lighthouse-labs/compass/pull/90) ([sjhogan2](https://github.com/sjhogan2))
-- Feature/23 display tech interview results [\#79](https://github.com/lighthouse-labs/compass/pull/79) ([sjhogan2](https://github.com/sjhogan2))
-- Add link to tech interview in student email notification [\#78](https://github.com/lighthouse-labs/compass/pull/78) ([sjhogan2](https://github.com/sjhogan2))
-- Feature/27 project status pills [\#76](https://github.com/lighthouse-labs/compass/pull/76) ([sjhogan2](https://github.com/sjhogan2))
-- Move action bar under heading and place buttons in action bar [\#74](https://github.com/lighthouse-labs/compass/pull/74) ([sjhogan2](https://github.com/sjhogan2))
-- Feature/57 admin link to activity [\#71](https://github.com/lighthouse-labs/compass/pull/71) ([sjhogan2](https://github.com/sjhogan2))
+- Add exception handling for users where first/last name = nil [\#95](https://github.com/lighthouse-labs/compass/pull/95) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Refactor code to handle exception cases for faulty params\[:id\] [\#90](https://github.com/lighthouse-labs/compass/pull/90) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/23 display tech interview results [\#79](https://github.com/lighthouse-labs/compass/pull/79) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add link to tech interview in student email notification [\#78](https://github.com/lighthouse-labs/compass/pull/78) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/27 project status pills [\#76](https://github.com/lighthouse-labs/compass/pull/76) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Move action bar under heading and place buttons in action bar [\#74](https://github.com/lighthouse-labs/compass/pull/74) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/57 admin link to activity [\#71](https://github.com/lighthouse-labs/compass/pull/71) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Fixed notes displaying expected answers on interview questions [\#70](https://github.com/lighthouse-labs/compass/pull/70) ([sytantris](https://github.com/sytantris))
-- Add if statement to handle cases where outcomes == nil [\#69](https://github.com/lighthouse-labs/compass/pull/69) ([sjhogan2](https://github.com/sjhogan2))
-- Feature/60 feedback timestamp [\#68](https://github.com/lighthouse-labs/compass/pull/68) ([sjhogan2](https://github.com/sjhogan2))
-- Fixed code so submit button shows up under correct conditions [\#66](https://github.com/lighthouse-labs/compass/pull/66) ([sjhogan2](https://github.com/sjhogan2))
+- Add if statement to handle cases where outcomes == nil [\#69](https://github.com/lighthouse-labs/compass/pull/69) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/60 feedback timestamp [\#68](https://github.com/lighthouse-labs/compass/pull/68) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Fixed code so submit button shows up under correct conditions [\#66](https://github.com/lighthouse-labs/compass/pull/66) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Update outcomes \(mostly "map" -\> "associative array"\) [\#64](https://github.com/lighthouse-labs/compass/pull/64) ([kvirani](https://github.com/kvirani))
-- Feature/42 admin teacher load speed [\#62](https://github.com/lighthouse-labs/compass/pull/62) ([sjhogan2](https://github.com/sjhogan2))
+- Feature/42 admin teacher load speed [\#62](https://github.com/lighthouse-labs/compass/pull/62) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Add admin prep stats [\#59](https://github.com/lighthouse-labs/compass/pull/59) ([kvirani](https://github.com/kvirani))
 - Feature/rollover support [\#48](https://github.com/lighthouse-labs/compass/pull/48) ([kvirani](https://github.com/kvirani))
-- Feature/44 project eval workflow [\#45](https://github.com/lighthouse-labs/compass/pull/45) ([sjhogan2](https://github.com/sjhogan2))
-- Day feedback constantly available [\#38](https://github.com/lighthouse-labs/compass/pull/38) ([sjhogan2](https://github.com/sjhogan2))
+- Feature/44 project eval workflow [\#45](https://github.com/lighthouse-labs/compass/pull/45) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Day feedback constantly available [\#38](https://github.com/lighthouse-labs/compass/pull/38) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Quiz questions now sync [\#33](https://github.com/lighthouse-labs/compass/pull/33) ([kvirani](https://github.com/kvirani))
-- Feature/210 admin curriculum feedback [\#31](https://github.com/lighthouse-labs/compass/pull/31) ([sjhogan2](https://github.com/sjhogan2))
+- Feature/210 admin curriculum feedback [\#31](https://github.com/lighthouse-labs/compass/pull/31) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - implemented slack notification upon curriculum deploy [\#30](https://github.com/lighthouse-labs/compass/pull/30) ([kvirani](https://github.com/kvirani))
 - Feature/26 prev evals on form [\#28](https://github.com/lighthouse-labs/compass/pull/28) ([kvirani](https://github.com/kvirani))
-- Error/230 admin cannot view day feedback [\#18](https://github.com/lighthouse-labs/compass/pull/18) ([sjhogan2](https://github.com/sjhogan2))
-- Feature/206 prep assistance button [\#17](https://github.com/lighthouse-labs/compass/pull/17) ([sjhogan2](https://github.com/sjhogan2))
+- Error/230 admin cannot view day feedback [\#18](https://github.com/lighthouse-labs/compass/pull/18) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/206 prep assistance button [\#17](https://github.com/lighthouse-labs/compass/pull/17) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - card 219 [\#16](https://github.com/lighthouse-labs/compass/pull/16) ([kvirani](https://github.com/kvirani))
 - Feature/197 assistance on activity [\#15](https://github.com/lighthouse-labs/compass/pull/15) ([kvirani](https://github.com/kvirani))
 - Feature/183 projects evaluation status [\#13](https://github.com/lighthouse-labs/compass/pull/13) ([kvirani](https://github.com/kvirani))
