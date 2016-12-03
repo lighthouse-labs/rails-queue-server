@@ -8,6 +8,7 @@ table.table.students
       th
 
   tbody
+    /Future to-do: move this logic/database querying into the model
     - @projects.each do |project|
       - evaluation = project.last_evaluation(@student)
       tr
