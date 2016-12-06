@@ -72,10 +72,12 @@ var Assistance = React.createClass({
   stopAssisting: function() {
     this.setState({disabled: true})
     App.assistance.stopAssisting(this.props.assistance)
+    ga('send', 'event', 'cancel-assistance', 'click');
   },
 
   openModal: function() {
     this.refs.requestModal.open()
+    ga('send', 'event', 'end-assistance', 'click');
   },
 
   render: function() {

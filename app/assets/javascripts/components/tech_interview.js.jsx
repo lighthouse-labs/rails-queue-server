@@ -1,5 +1,13 @@
 var TechInterview = React.createClass({
 
+  handleClick: function() {
+    ga('send', 'event', 'start-tech-interview', 'click');
+  },
+
+  handleStopInterview: function() {
+    ga('send', 'event', 'stop-tech-interview', 'click');
+  },
+
   renderButtons: function(){
     var interview = this.props.interview;
     var interviewTemplate = interview.tech_interview_template;
@@ -7,7 +15,7 @@ var TechInterview = React.createClass({
     if(!this.props.active){
       return (
         <p>
-          <a className="btn btn-primary btn-lg" href={`/tech_interviews/${interview.id}/start`} data-method="patch">Start Interview</a>
+          <a className="btn btn-primary btn-lg" href={`/tech_interviews/${interview.id}/start`} data-method="patch" onClick={this.handleClick}>Start Interview</a>
         </p>
       )
     } else {
@@ -15,7 +23,7 @@ var TechInterview = React.createClass({
         <p>
           <a className="btn btn-primary btn-lg" href={`/tech_interviews/${interview.id}/edit`}>Continue Interviewing</a>
           &nbsp;
-          <a className="btn btn-danger btn-lg" data-toggle="tooltip" title="Put it back into the queue for someone (else) to pick up later." href={`/tech_interviews/${interview.id}/stop`} data-method="patch">Stop Interviewing</a>
+          <a className="btn btn-danger btn-lg" data-toggle="tooltip" title="Put it back into the queue for someone (else) to pick up later." href={`/tech_interviews/${interview.id}/stop`} data-method="patch" onClick={this.handleStopInterview}>Stop Interviewing</a>
         </p>
       )
     }
