@@ -18,6 +18,8 @@ table.table.table-hover
             = render 'shared/student_info', student: assistance.assistee
         - if assistance.activity
           td = link_to "#{assistance.activity.name}", day_activity_path(assistance.activity.day, assistance.activity.id)
+        - else
+          td = "No Activity Selected"
         td = assistance.rating
         td = "#{time_ago_in_words(assistance.created_at)} ago"
         td
