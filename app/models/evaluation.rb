@@ -72,6 +72,10 @@ class Evaluation < ApplicationRecord
     markable?
   end
 
+  def rollover_submission?
+    cohort_id != student.cohort_id
+  end
+
   private_class_method :transition_class
 
   def self.initial_state
