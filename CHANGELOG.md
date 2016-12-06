@@ -1,8 +1,40 @@
 # Change Log
 
-## [Unreleased](https://github.com/lighthouse-labs/compass/tree/HEAD)
+## [v2.0.5](https://github.com/lighthouse-labs/compass/tree/v2.0.5) (2016-12-06)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.4...v2.0.5)
 
-[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.3...HEAD)
+**Implemented enhancements:**
+
+- Google Analytics Tracking [\#180](https://github.com/lighthouse-labs/compass/issues/180)
+- Fix CSS/UI for Student Profile Page [\#172](https://github.com/lighthouse-labs/compass/issues/172)
+- Fix Completion Tab [\#168](https://github.com/lighthouse-labs/compass/issues/168)
+- Project Eval management/index for Teachers [\#160](https://github.com/lighthouse-labs/compass/issues/160)
+- Rollback students cause bugs in the Project Evals page [\#145](https://github.com/lighthouse-labs/compass/issues/145)
+- Include the topic icon on next/previous [\#139](https://github.com/lighthouse-labs/compass/issues/139)
+- Feature/171 fix bootcamp tab [\#177](https://github.com/lighthouse-labs/compass/pull/177) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/160 project eval improvements [\#176](https://github.com/lighthouse-labs/compass/pull/176) ([shannonjanehogan](https://github.com/shannonjanehogan))
+
+**Fixed bugs:**
+
+- Default every mentor to being able to see tech interview in the queue [\#184](https://github.com/lighthouse-labs/compass/issues/184)
+- Students see the wrong assistance question [\#179](https://github.com/lighthouse-labs/compass/issues/179)
+- Student Profile Page- many small fixes needed [\#151](https://github.com/lighthouse-labs/compass/issues/151)
+- Feature/184 default interview queue [\#186](https://github.com/lighthouse-labs/compass/pull/186) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Fix bug- assistance request reason now shows correct reason [\#181](https://github.com/lighthouse-labs/compass/pull/181) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add method and check for evaluation rollover status [\#162](https://github.com/lighthouse-labs/compass/pull/162) ([shannonjanehogan](https://github.com/shannonjanehogan))
+
+**Closed issues:**
+
+- Integrate google analytics [\#178](https://github.com/lighthouse-labs/compass/issues/178)
+- Teachers: ability to view own activity [\#97](https://github.com/lighthouse-labs/compass/issues/97)
+
+**Merged pull requests:**
+
+- Feature/97 teachers activity [\#185](https://github.com/lighthouse-labs/compass/pull/185) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/178 integrate google analytics [\#182](https://github.com/lighthouse-labs/compass/pull/182) ([shannonjanehogan](https://github.com/shannonjanehogan))
+
+## [v2.0.4](https://github.com/lighthouse-labs/compass/tree/v2.0.4) (2016-11-28)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.3...v2.0.4)
 
 **Implemented enhancements:**
 
