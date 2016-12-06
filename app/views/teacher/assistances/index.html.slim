@@ -16,7 +16,8 @@ table.table.table-hover
         td.details data-value=assistance.assistee.last_name
           .student-info
             = render 'shared/student_info', student: assistance.assistee
-        td = link_to "#{assistance.activity.name}", day_activity_path(assistance.activity.day, assistance.activity.id)
+        - if assistance.activity
+          td = link_to "#{assistance.activity.name}", day_activity_path(assistance.activity.day, assistance.activity.id)
         td = assistance.rating
         td = "#{time_ago_in_words(assistance.created_at)} ago"
         td
