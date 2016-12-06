@@ -6,6 +6,9 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @project = find_project
+    @evaluation_ids = Evaluation.filter_by(params, cohort, @project)
+    @evaluations = Evaluation.where(id: @evaluation_ids)
   end
 
   private
@@ -13,4 +16,5 @@ class ProjectsController < ApplicationController
   def find_project
     @project = Project.find_by!(slug: params[:id])
   end
+
 end

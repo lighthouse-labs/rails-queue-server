@@ -40,6 +40,22 @@ class Evaluation < ApplicationRecord
 
   before_create :set_cohort
 
+  def self.filter_by(params, cohort, project)
+    if params["evals"] && params["evals"].include?("All Evals")
+      filter_by_all_evals(cohort, project)
+    else
+      filter_by_most_recent(cohort, project)
+    end
+  end
+
+  def self.filter_by_all_evals(cohort, project)
+    Evaluation.select("evaluations.id").from("evaluations").joins("JOIN users ON users.id = evaluations.student_id").where(users: {type: 'Student'}).where(users: {cohort_id: cohort}).where(project_id: project.id)
+  end
+
+  def self.filter_by_most_recent(cohort, project)
+    Evaluation.select("e1.id").from("evaluations e1").joins("JOIN users ON users.id = e1.student_id").joins("LEFT JOIN evaluations e2 ON (e1.student_id = e2.student_id AND e1.created_at < e2.created_at)").where("e2.created_at IS NULL").where("users.id = e1.student_id").where("users.type = 'Student'").where("users.cohort_id = #{cohort.id}").where("e1.project_id = #{project.id}")
+  end
+
   def state_machine
     @state_machine ||= EvaluationStateMachine.new(self, transition_class: EvaluationTransition)
   end
@@ -70,6 +86,16 @@ class Evaluation < ApplicationRecord
 
   def can_requeue?
     markable?
+  end
+
+   # in minutes
+  def duration
+    (completed_at - started_at).to_i
+  end
+
+  # in minutes
+  def time_in_queue
+    ((started_at || Time.current) - created_at).to_i
   end
 
   def rollover_submission?

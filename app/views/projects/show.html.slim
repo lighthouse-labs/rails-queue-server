@@ -15,9 +15,22 @@
 
 hr
 
-.instructions
-  == markdown(@project.description)
+ul.nav.nav-tabs role="tablist" id="studentTab"
+  li role="presentation" class="active"
+    a href="#project" aria-controls="project" role="tab" data-toggle="tab"
+      | Project Description
+  - if teacher?
+    li role="presentation"
+      a href="#students"  aria-controls="students" role="tab" data-toggle="tab"
+        | Students
+.tab-content
 
-== render 'outcomes', project: @project
+  #project.tab-pane role="tabpanel" class="active"
+    h3 Project Description
+    .instructions
+      == markdown(@project.description)
+      == render 'outcomes', project: @project
 
-
+  #students.tab-pane role="tabpanel"
+    h3 Students
+    == render 'students', project: @project

@@ -6,7 +6,7 @@ class EvaluationsController < ApplicationController
 
   def index
     if session[:cohort_id]
-      @evaluations = @project.evaluations.joins(:student).where('users.cohort_id = ?', session[:cohort_id])
+      @evaluations = @project.evaluations.joins(:student).where('users.cohort_id = ?', session[:cohort_id]).order('users.first_name')
     else
       @evaluations = @project.evaluations
     end

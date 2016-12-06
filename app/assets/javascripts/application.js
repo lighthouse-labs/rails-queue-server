@@ -64,4 +64,5 @@
 //= require questions
 //= require quizzes
 //= require console
+//= require projects
 //= require google_analytics
