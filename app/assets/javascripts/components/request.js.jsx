@@ -9,12 +9,14 @@ var Request = React.createClass({
   startAssisting: function() {
     this.setState({disabled: true})
     App.assistance.startAssisting(this.props.request);
+    ga('send', 'event', 'start-assistance', 'click');
   },
 
   cancelAssistance: function() {
     if(confirm("Are you sure you want to cancel this Request?")) {
       this.setState({disabled: true})
       App.assistance.cancelAssistanceRequest(this.props.request);
+      ga('send', 'event', 'cancel-assistance', 'click');
     }
   },
 

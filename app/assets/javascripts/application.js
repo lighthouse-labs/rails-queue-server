@@ -64,3 +64,4 @@
 //= require questions
 //= require quizzes
 //= require console
+//= require google_analytics

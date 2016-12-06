@@ -1,11 +1,15 @@
 var Evaluation = React.createClass({
 
+  handleClick: function() {
+    ga('send', 'event', 'start-marking-evaluation', 'click');
+  },
+
   renderMarkingButton: function(){
     var evaluation = this.props.evaluation;
     if(!this.props.active){
       return (
         <p>
-          <a className="btn btn-primary btn-lg" href={`/projects/${evaluation.project.slug}/evaluations/${evaluation.id}/start_marking`} data-method="put">Start Marking</a>
+          <a className="btn btn-primary btn-lg" href={`/projects/${evaluation.project.slug}/evaluations/${evaluation.id}/start_marking`} data-method="put" onClick={this.handleClick}>Start Marking</a>
         </p>
       )
     } else {

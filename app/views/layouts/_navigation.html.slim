@@ -174,8 +174,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
             li.teacher-duty
               span
                 - attrs = { data: { toggle: 'tooltip', placement: 'bottom' }, title: "Your Location: #{current_user.location.try(:name) || 'N/A'}" }
-                = link_to "Go on duty", '#', { class: "on-duty-link navbar-btn btn btn-success #{'hidden' if current_user.on_duty?}" }.merge(attrs)
-                = link_to "Go off duty", '#', { class: "off-duty-link navbar-btn btn btn-danger #{'hidden' unless current_user.on_duty?}" }.merge(attrs)
+                = link_to "Go on duty", '#', { class: "on-duty-link navbar-btn btn btn-success #{'hidden' if current_user.on_duty?}", onclick: "ga('send', 'event', 'go-on-duty', 'click');"}.merge(attrs)
+                = link_to "Go off duty", '#', { class: "off-duty-link navbar-btn btn btn-danger #{'hidden' unless current_user.on_duty?}", onclick: "ga('send', 'event', 'go-off-duty', 'click');"}.merge(attrs)
           - if @program.prep_assistance? && current_user.try(:enrolled_and_prepping?)
             li#assistance-request-module
               span#create-assistance-request
@@ -191,8 +191,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                   - else
                     = 'Waiting for Assistance'
               span#create-assistance-request class="#{'hidden' if current_user.waiting_for_assistance? || current_user.being_assisted?}"
-                button.btn.navbar-btn.btn-primary data-toggle="modal" data-target="#assistance-request-reason-modal"
-                  -if current_user.location.try(:satellite?)
+                button.btn.navbar-btn.btn-primary data-toggle="modal" data-target="#assistance-request-reason-modal" onclick="ga('send', 'event', 'request-assistance', 'click', 'student-requested-assistance');"
+                  - if current_user.location.try(:satellite?)
                     | Request Remote Assistance
                   - else
                     | Request Assistance
