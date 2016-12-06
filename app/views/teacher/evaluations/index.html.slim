@@ -18,7 +18,10 @@ table.table.table-hover
         td
           = render 'projects/student_project_status', project_evaluation: evaluation
         td = evaluation.project.name
-        td = "#{time_ago_in_words(evaluation.completed_at)} ago"
+        - if evaluation.completed_at
+          td = "#{time_ago_in_words(evaluation.completed_at)} ago"
+        - else
+          td = "Not yet completed"
         td
           = link_to 'View', project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-info btn-xs'
           | &nbsp;
