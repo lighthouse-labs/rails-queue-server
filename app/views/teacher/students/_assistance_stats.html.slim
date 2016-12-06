@@ -1,0 +1,14 @@
+.table-responsive
+  table.table.sortable
+    thead
+      tr
+        th Assistance Requests
+        th Assitances
+        th Avg Assistance Length
+        th Average Rating
+    tbody
+        tr
+          td = assistance_requests
+          td = assistances
+          td = "#{avg_assistance_length} mins"
+          td = "#{avg}/4"

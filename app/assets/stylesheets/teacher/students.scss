@@ -4,6 +4,15 @@
 
 .student-stats {
 
+  .avatar {
+    border-radius: 5px;
+    border: 2px solid black;
+  }
+
+  ul.list-inline.social-icons {
+    padding-top: 10px;
+  }
+
   .rounded-border {
     border: 2px solid #dddddd;
     border-radius: 4px;
@@ -73,10 +82,16 @@
     }
   }
 
+  button.btn.btn-danger.btn-xs.rollover {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+  }
+
   .titled-panel {
     @extend .rounded-border;
     position: relative;
-    min-height: 150px;
+    min-height: 60px;
     padding: 10px 0 5px 5px;
     &:not(.contact) {
       margin: 20px 0;

@@ -98,6 +98,10 @@ class Evaluation < ApplicationRecord
     ((started_at || Time.current) - created_at).to_i
   end
 
+  def rollover_submission?
+    cohort_id != student.cohort_id
+  end
+
   private_class_method :transition_class
 
   def self.initial_state
@@ -105,6 +109,16 @@ class Evaluation < ApplicationRecord
   end
 
   private_class_method :initial_state
+
+  # in minutes
+  def duration
+    (completed_at - started_at).to_i
+  end
+
+   # in minutes
+  def time_in_queue
+    ((started_at || Time.current) - created_at).to_i
+  end
 
   private
 

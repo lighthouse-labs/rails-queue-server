@@ -8,6 +8,4 @@ table.table
       tr
         td = skill_name.titleize
         td
-          - if avg_rating.to_i > 0
-            = ('X ' * avg_rating.to_i)
-            = 'x' if (avg_rating.to_f - avg_rating.to_i) > 0.4
+          = "#{avg_rating.to_i}/4"

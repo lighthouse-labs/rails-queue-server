@@ -5,6 +5,7 @@ class Teacher::StudentsController < Teacher::BaseController
   end
 
   def show
+    @projects = Project.all
   end
 
   private

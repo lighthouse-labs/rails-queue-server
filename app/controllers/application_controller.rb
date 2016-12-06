@@ -61,11 +61,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :admin?
 
-  def can_tech_interview?
-    admin? || current_user.try(:can_tech_interview?)
-  end
-  helper_method :can_tech_interview?
-
   def teachers_on_duty
     return [] if current_user && !current_user.is_a?(Teacher) && !current_user.is_a?(Student)
 

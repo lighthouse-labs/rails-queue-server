@@ -7,6 +7,7 @@ table.table.table-hover
     th Student Info
     th Status
     th Marker
+    th Rollover
     th
   tbody
     - @evaluations.each do |evaluation|
@@ -26,6 +27,11 @@ table.table.table-hover
               = mail_to evaluation.teacher.email, evaluation.teacher.email, class: 'email'
               br
                 span.label.label-primary = evaluation.teacher.location.name
+        td
+          - if evaluation.rollover_submission?
+            span.label.label-warning Rollover Submission
+          - else
+            span.label.label-info Current Cohort Submission
         td
           = link_to 'View', project_evaluation_path(@project, evaluation), class: 'btn btn-info btn-xs'
           | &nbsp;
