@@ -130,6 +130,9 @@ LaserShark::Application.routes.draw do
   # TEACHER
   namespace :teacher do
     resources :students, only: [:show]
+    resources :evaluations, only: [:index]
+    resources :assistances, only: [:index]
+    resources :tech_interviews, only: [:index]
   end
 
   # ADMIN
