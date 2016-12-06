@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114184749) do
+ActiveRecord::Schema.define(version: 20161206004855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -561,7 +561,6 @@ ActiveRecord::Schema.define(version: 20161114184749) do
     t.boolean  "on_duty",                default: false
     t.integer  "mentor_id"
     t.boolean  "mentor",                 default: false
-    t.boolean  "can_tech_interview"
     t.integer  "initial_cohort_id"
     t.string   "auth_token",             default: "",    null: false
     t.index ["auth_token"], name: "index_users_on_auth_token", using: :btree
