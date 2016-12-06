@@ -2,10 +2,6 @@ class StudentPresenter < UserPresenter
 
   presents :student
 
-  def avatar
-    image_tag student.avatar_url, width: '15%'
-  end
-
   def name
     content_tag :h3, student.full_name, class: 'student-details-name'
   end
@@ -19,8 +15,12 @@ class StudentPresenter < UserPresenter
     link_to date, cohort_students_path(student.cohort)
   end
 
+  def rollover_button?
+    student.rolled_in?(student.cohort) || student.rolled_out?(student.cohort)
+  end
+
   def contact
-    render 'contact_info', student: student
+    render 'contact_info', user: student
   end
 
   def day_button
@@ -75,12 +75,12 @@ class StudentPresenter < UserPresenter
   def quiz_stats
     quiz_ids = Quiz.active.bootcamp.select(:id)
     quiz_submissions = student.quiz_submissions.where(quiz_id: quiz_ids).where(initial: true)
-    quiz_ratio = quiz_submissions.any? ? (quiz_submissions.count / quiz_ids.count) * 100 : 0
+    quiz_ratio = quiz_submissions.any? ? (quiz_submissions.length.to_f / quiz_ids.count.to_f) * 100 : 0
     quiz_average = average_score_for_submissions(quiz_submissions)
 
     render 'stats', {
       title:    'Quizzes',
-      count:    quiz_submissions.count,
+      count:    quiz_submissions.length,
       max:      quiz_ids.count,
       avg:      quiz_average,
       progress: quiz_ratio
@@ -88,14 +88,17 @@ class StudentPresenter < UserPresenter
   end
 
   def assistance_stats
-    # TODO - this uses dummy data, replace it with real data.
-    render 'stats', {
+    stats = StudentStats.new(student).bootcamp_assistance_stats
+
+    render 'assistance_stats', {
       title:    'Assistances',
-      count:    '?',
-      max:      '?',
-      avg:      nil,
-      progress: 50
+      assistances:    stats[:assistances],
+      assistance_requests:      stats[:requests],
+      avg_assistance_length: stats[:assistances_length],
+      avg:      stats[:average_score],
+      progress: (stats[:assistances].to_f/stats[:requests].to_f) * 100
     }
+
   end
 
   def tech_interview_table

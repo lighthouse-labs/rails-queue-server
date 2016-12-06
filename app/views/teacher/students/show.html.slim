@@ -5,26 +5,31 @@
 
   .col-md-9
     .student-heading
-      = student_presenter.avatar
+      = image_tag avatar_for(@student), class: 'avatar'
       .student-info-holder
         = student_presenter.name
         = student_presenter.cohort_name_link
         br
         = student_presenter.cohort_date_link
+      - if student_presenter.rollover_button?
+        button.btn.btn-danger.btn-xs.rollover Rollover
       = student_presenter.day_button
       ul.nav.nav-tabs role="tablist"
         li.active role="presentation"
+          a href="#bootcamp_stats" aria-controls="" role="tab" data-toggle="tab" Bootcamp
+        li role="presentation"
           a href="#prep_stats" aria-controls="" role="tab" data-toggle="tab" Prep
         li role="presentation"
-          a href="#bootcamp_stats" aria-controls="" role="tab" data-toggle="tab" Bootcamp
+          a href="#assistance_stats" aria-controls="" role="tab" data-toggle="tab" Assistances
       .stats-holder
         .tab-content
-            .tab-pane.active#prep_stats role="tabpanel"
-              = student_presenter.prep_activity_stats
-              = student_presenter.prep_quiz_stats
-            .tab-pane#bootcamp_stats role="tabpanel"
+            .tab-pane.active#bootcamp_stats role="tabpanel"
               = student_presenter.activity_stats
               = student_presenter.quiz_stats
+            .tab-pane#prep_stats role="tabpanel"
+              = student_presenter.prep_activity_stats
+              = student_presenter.prep_quiz_stats
+            .tab-pane#assistance_stats role="tabpanel"
               = student_presenter.assistance_stats
 
     .student-results
@@ -32,7 +37,7 @@
         li.active role="presentation"
           a href="#outcomes" aria-controls="" role="tab" data-toggle="tab" Outcomes
         li role="presentation"
-          a href="#completion" aria-controls="" role="tab" data-toggle="tab" Completion
+          a href="#evaluations" aria-controls="" role="tab" data-toggle="tab" Project Evaluations
         li role="presentation"
           a href="#bootcamp_submissions" aria-controls="" role="tab" data-toggle="tab" Tech Interviews
         li role="presentation"
@@ -41,8 +46,8 @@
       .tab-content
         .tab-pane.active#outcomes role="tabpanel"
           = student_presenter.outcomes_table
-        .tab-pane#completion role="tabpanel"
-          p this is some content completion
+        .tab-pane#evaluations role="tabpanel"
+          = render "project_evaluations", evaluations: @evaluations, student: @student
         .tab-pane#bootcamp_submissions role="tabpanel"
           = student_presenter.tech_interview_table
         .tab-pane#prep_submissions role="tabpanel"
@@ -52,5 +57,3 @@
     .titled-panel.contact
       p.title Contact Info
       = student_presenter.contact
-    .titled-panel
-      p.title Bio / About

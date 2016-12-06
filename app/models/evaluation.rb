@@ -80,6 +80,16 @@ class Evaluation < ApplicationRecord
 
   private_class_method :initial_state
 
+  # in minutes
+  def duration
+    (completed_at - started_at).to_i
+  end
+
+   # in minutes
+  def time_in_queue
+    ((started_at || Time.current) - created_at).to_i
+  end
+
   private
 
   def set_cohort
