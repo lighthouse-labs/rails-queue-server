@@ -20,7 +20,7 @@ class AssistanceRequestsController < ApplicationController
     my_active_evaluations = Evaluation.where(teacher: current_user).where(state: "in_progress").newest_active_evaluations_first
     evaluations = Evaluation.open_evaluations.oldest_first.student_location(current_user.location)
     my_active_interviews = TechInterview.in_progress.interviewed_by(current_user)
-    interviews = can_tech_interview? ? TechInterview.oldest_first.queued.interviewee_location(current_user.location) : []
+    interviews = TechInterview.oldest_first.queued.interviewee_location(current_user.location)
     all_students = Student.in_active_cohort.active.order_by_last_assisted_at
 
     # For satellite mentors, show them their local students under All Students
