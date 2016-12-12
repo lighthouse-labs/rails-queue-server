@@ -1,5 +1,18 @@
 # Change Log
 
+## [v2.0.6](https://github.com/lighthouse-labs/compass/tree/v2.0.6) (2016-12-12)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.5...v2.0.6)
+
+**Fixed bugs:**
+
+- Teacher/Evaluations throws error if evaluation is not completed  [\#189](https://github.com/lighthouse-labs/compass/issues/189)
+- Teacher/Assistances Page throws error if the assistances don't have an activity  [\#187](https://github.com/lighthouse-labs/compass/issues/187)
+- Fix Bootcamp Tab [\#171](https://github.com/lighthouse-labs/compass/issues/171)
+- Continuing a Project Eval from the summary page results in 500 [\#106](https://github.com/lighthouse-labs/compass/issues/106)
+- All students are incorrectly labeled as being from Toronto [\#53](https://github.com/lighthouse-labs/compass/issues/53)
+- Add check if the evaluation is in progress [\#190](https://github.com/lighthouse-labs/compass/pull/190) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add check to see if assistance has an associated activity [\#188](https://github.com/lighthouse-labs/compass/pull/188) ([shannonjanehogan](https://github.com/shannonjanehogan))
+
 ## [v2.0.5](https://github.com/lighthouse-labs/compass/tree/v2.0.5) (2016-12-06)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.4...v2.0.5)
 
