@@ -12,6 +12,7 @@ var RequestItem = React.createClass({
       )
   },
 
+
   render: function() {
     var student = this.props.student;
     return(
@@ -22,7 +23,7 @@ var RequestItem = React.createClass({
 
         <div className="student-description">
           <h4 className="student-heading">
-            {student.first_name} {student.last_name}
+            <a href={`/teacher/students/${student.id}`}> {student.first_name} {student.last_name} </a>
             { this.renderStudentLocation() }
           </h4>
           <p className="student-cohort">
