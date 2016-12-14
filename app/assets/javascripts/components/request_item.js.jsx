@@ -12,7 +12,6 @@ var RequestItem = React.createClass({
       )
   },
 
-
   render: function() {
     var student = this.props.student;
     return(
