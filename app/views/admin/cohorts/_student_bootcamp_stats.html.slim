@@ -1,8 +1,8 @@
 - service = StudentStats.new(student, @cohort)
 - assistance_stats = service.bootcamp_assistance_stats
-- quiz_stats       = service.bootcamp_quiz_stats(cutoff_day: today)
+- quiz_stats       = service.bootcamp_quiz_stats(cutoff_day: today.prev_day)
 
-- to_date_activity_stats = service.bootcamp_activity_stats(cutoff_day: today)
+- to_date_activity_stats = service.bootcamp_activity_stats(cutoff_day: today.prev_day)
 - to_date_core_stats     = to_date_activity_stats[:core]
 - to_date_stretch_stats  = to_date_activity_stats[:stretch]
 
