@@ -93,6 +93,10 @@ class CurriculumDay
     (@date.to_date - @cohort.start_date).to_i
   end
 
+  def prev_day
+    CurriculumDay.new(@date.to_date.prev_day, @cohort)
+  end
+
   private
 
   def today
