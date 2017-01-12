@@ -1,5 +1,29 @@
 # Change Log
 
+## [v2.0.8](https://github.com/lighthouse-labs/compass/tree/v2.0.8) (2017-01-12)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.7...v2.0.8)
+
+**Fixed bugs:**
+
+- Project eval page truncates teacher notes [\#167](https://github.com/lighthouse-labs/compass/issues/167)
+
+**Merged pull requests:**
+
+- Project evals now have final score [\#199](https://github.com/lighthouse-labs/compass/pull/199) ([kvirani](https://github.com/kvirani))
+
+## [v2.0.7](https://github.com/lighthouse-labs/compass/tree/v2.0.7) (2017-01-11)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.6...v2.0.7)
+
+**Implemented enhancements:**
+
+- Admin dashboard to-date change [\#196](https://github.com/lighthouse-labs/compass/issues/196)
+- Link teachers to student profile page in queue  [\#192](https://github.com/lighthouse-labs/compass/issues/192)
+- Add link to student profile page from name in queue [\#193](https://github.com/lighthouse-labs/compass/pull/193) ([shannonjanehogan](https://github.com/shannonjanehogan))
+
+**Merged pull requests:**
+
+- Fixes \#196 [\#197](https://github.com/lighthouse-labs/compass/pull/197) ([kvirani](https://github.com/kvirani))
+
 ## [v2.0.6](https://github.com/lighthouse-labs/compass/tree/v2.0.6) (2016-12-12)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.5...v2.0.6)
 
