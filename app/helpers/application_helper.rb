@@ -116,6 +116,8 @@ module ApplicationHelper
       'label-danger'
     elsif eval.in_state?(:accepted)
       'label-success'
+    else
+      'label-default'
     end
   end
 

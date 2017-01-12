@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206004855) do
+ActiveRecord::Schema.define(version: 20170111233120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -247,6 +247,7 @@ ActiveRecord::Schema.define(version: 20161206004855) do
     t.text     "student_notes"
     t.datetime "cancelled_at"
     t.integer  "cohort_id"
+    t.integer  "final_score"
     t.index ["cohort_id"], name: "index_evaluations_on_cohort_id", using: :btree
   end
 
