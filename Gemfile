@@ -67,6 +67,7 @@ gem 'faker'
 
 ## charting / data analytics stuff
 gem 'groupdate'
+gem 'chartkick'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
