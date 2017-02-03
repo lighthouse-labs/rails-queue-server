@@ -6,6 +6,15 @@ header.page-header
 = render 'search_form'
 br
 
+- if @feedbacks.any?
+  .row
+    .col-sm-12
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title Average Rating By Month
+
+        .panel-body
+          = bar_chart @monthly_chart_data, min: 1, max: 5, label: "Average"
 .row
   .col-sm-12
     .panel.panel-default

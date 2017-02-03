@@ -8,6 +8,8 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
     @rating = @feedbacks.average_rating
     @paginated_feedbacks = @feedbacks.page(params[:page]).per(DEFAULT_PER)
 
+    @monthly_chart_data = @feedbacks.reorder('').group_by_month('activity_feedbacks.created_at', format: "%b %Y").average(:rating)
+
     respond_to do |format|
       format.html
       format.csv {render text: @feedbacks.to_csv}

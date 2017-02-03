@@ -30,12 +30,12 @@ class ActivityFeedback < ApplicationRecord
     references(:user, :cohort)
   }
   scope :filter_by_start_date, -> (date_str, location_id) {
-    Time.use_zone(Location.find(location_id).timezone) do
+    Time.use_zone((location_id ? Location.find(location_id) : Location.first).timezone) do
       where("activity_feedbacks.created_at >= ?", Time.zone.parse(date_str).beginning_of_day.utc)
     end
   }
   scope :filter_by_end_date, -> (date_str, location_id) {
-    Time.use_zone(Location.find(location_id).timezone) do
+    Time.use_zone((location_id ? Location.find(location_id) : Location.first).timezone) do
       where("activity_feedbacks.created_at <= ?", Time.zone.parse(date_str).end_of_day.utc)
     end
   }
