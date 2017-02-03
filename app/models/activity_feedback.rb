@@ -24,6 +24,11 @@ class ActivityFeedback < ApplicationRecord
     where(locations: {id: location_id}).
     references(:user, :location)
   }
+  scope :filter_by_cohort_location, -> (location_id) {
+    includes(user: :cohort).
+    where(cohorts: {location_id: location_id}).
+    references(:user, :cohort)
+  }
   scope :filter_by_cohort, -> (cohort_id) {
     includes(user: :cohort).
     where(cohorts: {id: cohort_id}).
