@@ -9,9 +9,9 @@ header.page-header
     .well
       = form_tag admin_prep_stats_path, class: 'form-inline', method: 'get' do
         .form-group
-          label for="user_id"
-            | Select User
-          = select_tag :user_id, options_from_collection_for_select(User.order(:first_name), :id, :full_name, params[:user_id]), prompt: 'All Users', class: "form-control"
+          label Search
+          = text_field_tag :keywords, params[:keywords], class: 'form-control', prompt: 'Keywords'
+
         = submit_tag 'Search', class: 'btn btn-success'
 
 
