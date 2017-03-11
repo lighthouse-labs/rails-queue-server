@@ -43,7 +43,7 @@
         th Completed
         th Submission Time
       tbody
-        - cohort.students.sort_by{ |student| student.completed_activity?(@activity) ? 0 : 1 }.each do |student|
+        - cohort.students.sort_by { |student| student.completed_activity?(@activity) ? 0 : 1 }.each do |student|
           tr
             td
               .student-info
