@@ -331,6 +331,10 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     pg (0.18.4)
+    pg_search (1.0.3)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     phantomjs (2.1.1.0)
     pkg-config (1.1.7)
     poltergeist (1.7.0)
@@ -504,6 +508,7 @@ DEPENDENCIES
   omniauth
   omniauth-github
   pg
+  pg_search
   phantomjs
   poltergeist
   puma (~> 3.0)
@@ -537,4 +542,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.13.7
+   1.14.4

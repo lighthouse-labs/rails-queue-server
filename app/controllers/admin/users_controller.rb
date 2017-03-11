@@ -5,7 +5,7 @@ class Admin::UsersController < Admin::BaseController
   DEFAULT_PER = 25
 
   def index
-    @users = User.all.includes(:location, :cohort).page(params[:page]).per(DEFAULT_PER)
+    @users = User.all.includes(:location, :cohort).order(id: :desc).page(params[:page]).per(DEFAULT_PER)
     apply_filters
   end
 
@@ -30,6 +30,7 @@ class Admin::UsersController < Admin::BaseController
     filter_by_type
     filter_by_location
     filter_by_admin
+    filter_by_keywords
   end
 
   def filter_by_status
@@ -61,6 +62,12 @@ class Admin::UsersController < Admin::BaseController
   def filter_by_location
     return unless params[:location_id].present?
     @users = @users.where(location_id: params[:location_id])
+  end
+
+  def filter_by_keywords
+    if params[:keywords].present?
+      @users = @users.by_keywords(params[:keywords])
+    end
   end
 
   def filter_by_admin

@@ -14,10 +14,12 @@
       label Admin
       = select_tag :admin, options_for_select(['Include', 'Only', 'Exclude'], params[:admin]), class: "form-control admin-feedback-dropdown"
 
-
     .form-group
       label Location
       = select_tag :location_id, options_from_collection_for_select(Location.all, :id, :name, params[:location_id]), prompt: 'All Locations', class: "form-control admin-feedback-dropdown"
 
+    .form-group
+      label Search
+      = text_field_tag :keywords, params[:keywords], class: 'form-control', prompt: 'Keywords'
 
     = submit_tag 'Filter', class: 'btn btn-success admin-feedback-button'

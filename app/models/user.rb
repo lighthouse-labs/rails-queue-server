@@ -1,5 +1,16 @@
 class User < ApplicationRecord
 
+  include PgSearch
+  pg_search_scope :by_keywords,
+    against: [:first_name, :last_name, :email, :phone_number, :github_username, :slack, :bio, :quirky_fact, :specialties],
+    using: {
+      tsearch: {
+        dictionary: "english",
+        any_word:   true,
+        prefix:     true
+      }
+    }
+
   mount_uploader :custom_avatar, CustomAvatarUploader
 
   belongs_to :cohort
