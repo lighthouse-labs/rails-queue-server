@@ -20,6 +20,14 @@ class AssistanceRequest < ApplicationRecord
   # this is the least intrusive solution for now, until we get rid of that logic (if ever) - KV
   scope :genuine, -> { where.not(reason: "Offline assistance requested").where(type: nil) }
   scope :open_requests, -> { where(:canceled_at => nil).where(:assistance_id => nil) }
+  scope :closed, -> {
+    genuine.
+    where(canceled_at: nil).
+    where.not(assistance_id: nil).
+    includes(:assistance).
+    references(:assistance).
+    where.not(assistances: { end_at: nil })
+  }
   scope :in_progress_requests, -> {
     includes(:assistance).
     where(assistance_requests: {canceled_at: nil}).

@@ -51,6 +51,9 @@ tr
       | &nbsp;
       | entries
 
+  td data-value=activity.assistance_requests.closed.count
+    = activity.assistance_requests.closed.count
+
   td data-value=activity.duration
     - if activity.duration?
       - if activity.duration > 60
@@ -61,7 +64,7 @@ tr
       span.label.label-warning N/A
 
   td data-value=activity.created_at.to_i
-    = activity.created_at.to_s(:friendly)
+    = activity.created_at.strftime("%b %d %Y")
 
   td
     - if activity.archived?
