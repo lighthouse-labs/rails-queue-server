@@ -27,6 +27,12 @@ h3.date-heading {
   }
 }
 
+nav.side-nav {
+  .day-nav-links {
+    margin-top: 12px;
+  }
+}
+
 .nav-week {
   @extend .pagination;
   @extend .pagination-minimal;
@@ -37,8 +43,20 @@ h3.date-heading {
     padding-right: 6px;
     li.week-number a {
       padding: 12px 8px;
+      color: #34495e;
+      font-weight: bold;
+      &:hover, &:active, &:visited {
+        background-color: #d6eaf8;
+        cursor: default;
+      }
     }
     li.day-number {
+
+      a {
+        // That's right, I did !important. I know, I know - KV
+        border-width: 3px !important;
+      }
+
       &:last-child a {
         border-radius: 50%;
       }
@@ -66,6 +84,7 @@ h3.date-heading {
       }
       &.active a {
         border-color: white;
+        margin: 7px 2px 6px
       }
     }
   }

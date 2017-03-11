@@ -4,8 +4,8 @@
     - w = @program.weeks >= 10 && week_number < 10 ? "0#{week_number}" : week_number
     .nav-week
       ul
-        li.previous.week-number title="Week #{week_number}" data-toggle="tooltip"
-          a href="#"
+        li.previous.week-number
+          a href="#" onclick="return false;"
             | W
             = w
         - (1..@program.days_per_week).each do |d|
