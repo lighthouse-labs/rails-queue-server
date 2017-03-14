@@ -11,6 +11,7 @@ class Assistance < ApplicationRecord
   validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 4, allow_nil: true }
 
   before_create :set_cohort
+  before_create :set_day
   before_create :set_start_at
   before_create :set_activity
 
@@ -54,14 +55,14 @@ class Assistance < ApplicationRecord
     }
   end
 
-  def day
-    CurriculumDay.new(self.start_at, self.assistee.cohort).to_s
-  end
-
   private
 
   def set_cohort
     self.cohort_id = assistee.try :cohort_id
+  end
+
+  def set_day
+    self.day = CurriculumDay.new(Time.current, self.cohort).to_s if self.cohort
   end
 
   def set_activity
