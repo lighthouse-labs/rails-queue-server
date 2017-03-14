@@ -11,9 +11,13 @@ module ApplicationHelper
     Date.current.month == 4 && Date.current.day == 1
   end
 
+  # teachers always have cable ON
+  # people in prep should have cable OFF
+  # active students (bootcamp) have cable ON
+  # people in limited cohorts have cable OFF (limited = no assistance stuff)
   def disable_cable?
     current_user.nil? || !current_user.active? || current_user.prospect? ||
-      (current_user.cohort && current_user.cohort.limited?)
+      (!current_user.is_a?(Teacher) && current_user.cohort && current_user.cohort.limited?)
   end
 
   # folks in limited (previous alumni) cohort dont need to take up action cable connections
