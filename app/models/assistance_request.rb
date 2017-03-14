@@ -12,6 +12,7 @@ class AssistanceRequest < ApplicationRecord
   validates :requestor, :presence => true
 
   before_create :set_cohort
+  before_create :set_day
   before_create :limit_one_per_user
   before_create :set_start_at
 
@@ -94,6 +95,9 @@ class AssistanceRequest < ApplicationRecord
 
   def set_cohort
     self.cohort_id = requestor.try :cohort_id
+  end
+  def set_day
+    self.day = CurriculumDay.new(Time.current, cohort).to_s if cohort
   end
 
   def set_start_at
