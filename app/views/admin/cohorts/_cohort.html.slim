@@ -11,4 +11,6 @@ tr
   td
     = link_to 'Dashboard', [:edit, :admin, cohort], class: 'btn btn-xs btn-primary'
     | &nbsp;
-    = link_to 'Manage Students', admin_students_path(cohort_id: cohort), class: 'btn btn-xs btn-info'
+    = link_to 'Students', admin_students_path(cohort_id: cohort), class: 'btn btn-xs btn-info'
+    | &nbsp;
+    = link_to 'Edit', edit_admin_cohort_path(cohort), class: 'btn btn-xs btn-warning'

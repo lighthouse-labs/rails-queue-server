@@ -1,7 +1,18 @@
 - title "Admin Edit Cohort: #{@cohort.name}"
 
-h1 Edit Cohort: #{@cohort.name}
-hr
+header.page-header
+  h1 Edit Cohort: #{@cohort.name}
+
+.well
+  = link_to 'Dashboard', [:admin, @cohort], class: 'btn btn-primary'
+  | &nbsp;
+  = link_to 'Students', admin_students_path(cohort_id: @cohort), class: 'btn btn-info'
+  | &nbsp;
+  = link_to [:admin, :cohorts], class: 'btn btn-info pull-right' do
+    | &laquo; Cohort List
+
+
+= render 'admin/cohorts/stats', cohort: @cohort
 
 = simple_form_for [:admin, @cohort],
   html: { class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
