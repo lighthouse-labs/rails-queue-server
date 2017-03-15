@@ -39,10 +39,16 @@ module ActivitiesHelper
   end
 
   def duration activity
+    if @program.display_exact_activity_duration? && activity.display_duration?
+      duration_range activity
+    else
+      vague_duration activity
+    end
+  end
+
+  def vague_duration activity
     duration = activity.duration.to_i
-    if @program.display_exact_activity_duration?
-      "#{duration}m"
-    elsif duration > 0 && duration <= 30
+    vague_duration = if duration > 0 && duration <= 30
       'Tiny'
     elsif duration > 30 && duration <= 60
       'Short'
@@ -53,6 +59,21 @@ module ActivitiesHelper
     else # 0 / nil
       ''
     end
+    "<br>#{vague_duration}<br>".html_safe
+  end
+
+  def duration_range(activity)
+    durations = activity.duration_range
+    if durations.size == 2 && durations[1] - durations[0] > 15
+      "#{round5(durations[0])}m<br>to<br>#{round5(durations[1])}m".html_safe
+    else
+      "<br>#{round5([durations.first, durations.last].max)}m<br>".html_safe
+    end
+  end
+
+  # round number to nearest increment of 5 (12.5 => 15; 12 => 10; 13 => 15; etc)
+  def round5(number)
+    (number.to_f / 5).round * 5
   end
 
   def activity_type(activity)

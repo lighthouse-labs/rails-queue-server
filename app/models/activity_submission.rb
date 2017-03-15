@@ -63,6 +63,10 @@ class ActivitySubmission < ApplicationRecord
     joins(:activity).where("activities.day <= ?", day.to_s)
   }
 
+  scope :reasonable_time_spent_stats, -> {
+    where.not(time_spent: nil).where(time_spent: [2..499])
+  }
+
   scope :bootcamp, -> {
     # Does 2 queries with an ugly id based array in the subquery, I know
     # That's because for some reason this more natural subquery approach won't work... bug in AR?

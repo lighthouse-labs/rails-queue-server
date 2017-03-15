@@ -4,4 +4,12 @@ class QuizActivity < Activity
 
   validates :quiz, presence: true
 
+  def display_vague_duration?
+    true
+  end
+
+  def display_duration?
+    false
+  end
+
 end

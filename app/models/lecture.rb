@@ -4,4 +4,8 @@ class Lecture < Activity
     false
   end
 
+  def display_duration?
+    false
+  end
+
 end

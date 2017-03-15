@@ -18,8 +18,7 @@
               i.fa.fa-bullhorn
               | &nbsp;Give Feedback
 
-      = render 'duration' if @activity.duration?
-
+      = render 'duration', presenter: activity_presenter  if @activity.duration?
 
   = activity_presenter.next_button
   = activity_presenter.previous_button
