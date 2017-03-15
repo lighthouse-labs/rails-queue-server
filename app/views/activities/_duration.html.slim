@@ -4,7 +4,7 @@
     | &nbsp;Duration
   .form-control
     - if weekend? || @activity.display_duration?
-      = duration(@activity)
+      = duration(@activity).gsub('<br>', ' ')
     - else
       = integer_time_to_s(@activity.start_time)
       | &nbsp;to&nbsp;

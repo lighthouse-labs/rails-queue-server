@@ -67,6 +67,10 @@ class Activity < ApplicationRecord
     return (hours + duration_hours) * 100 + (minutes + duration_minutes)
   end
 
+  def duration_range
+    [duration, average_time_spent || duration].compact.uniq.sort
+  end
+
   def next
     return @next if @next
 
@@ -94,8 +98,14 @@ class Activity < ApplicationRecord
     @prev = activities.last
   end
 
+  # if it has it, display it
+  # overwritten by some subclasses like Test, Lecture, Breakout, etc
   def display_duration?
-    type != 'Lecture' && type != 'Test'
+    duration?
+  end
+
+  def display_vague_duration?
+    false
   end
 
   def allow_feedback?
