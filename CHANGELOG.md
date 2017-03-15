@@ -1,5 +1,26 @@
 # Change Log
 
+## [v2.0.9](https://github.com/lighthouse-labs/compass/tree/v2.0.9) (2017-03-15)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.8...v2.0.9)
+
+**Closed issues:**
+
+- TI queue is giving me Toronto TIs [\#203](https://github.com/lighthouse-labs/compass/issues/203)
+
+**Merged pull requests:**
+
+- implement task  for updating activity stats \(feedback and time spent\) regularly [\#224](https://github.com/lighthouse-labs/compass/pull/224) ([kvirani](https://github.com/kvirani))
+- Display range for certain activities [\#223](https://github.com/lighthouse-labs/compass/pull/223) ([kvirani](https://github.com/kvirani))
+- Fix issue where some alumni teachers couldnt go on duty [\#222](https://github.com/lighthouse-labs/compass/pull/222) ([kvirani](https://github.com/kvirani))
+- Add day string col to assistances and assistance requests [\#221](https://github.com/lighthouse-labs/compass/pull/221) ([kvirani](https://github.com/kvirani))
+- Fix admin cohorts such that admins can now edit them [\#220](https://github.com/lighthouse-labs/compass/pull/220) ([kvirani](https://github.com/kvirani))
+- Bootcamp Activity list now shows correct completion count [\#219](https://github.com/lighthouse-labs/compass/pull/219) ([kvirani](https://github.com/kvirani))
+- Add assistance requests to admin/activities report [\#218](https://github.com/lighthouse-labs/compass/pull/218) ([kvirani](https://github.com/kvirani))
+- Responsive layout fixes [\#217](https://github.com/lighthouse-labs/compass/pull/217) ([kvirani](https://github.com/kvirani))
+- Feature/user search [\#216](https://github.com/lighthouse-labs/compass/pull/216) ([kvirani](https://github.com/kvirani))
+- Charting for activity \(curriculum\) feedback [\#205](https://github.com/lighthouse-labs/compass/pull/205) ([kvirani](https://github.com/kvirani))
+- Fixes project index page typos [\#204](https://github.com/lighthouse-labs/compass/pull/204) ([hora](https://github.com/hora))
+
 ## [v2.0.8](https://github.com/lighthouse-labs/compass/tree/v2.0.8) (2017-01-12)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.7...v2.0.8)
 
