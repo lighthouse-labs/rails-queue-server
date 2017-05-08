@@ -27,36 +27,31 @@ class Content::LoadProjects
     seq = 1
     Dir.entries(dir).sort.each do |content_file|
       next if content_file.starts_with?('.')
-      next unless content_file.ends_with?('.md')
-      project_data.push extract_project_file_data(@repo_dir, data_dir, content_file, seq)
+      # only expect directories for projects (new format)
+      full_path = File.join(@repo_dir, data_dir, content_file)
+      next unless File.directory?(full_path)
+      project_data.push handle_project_directory(@repo_dir, data_dir, content_file, seq)
       seq += 1
     end
 
-    project_data
+    project_data.compact
   end
 
-  def extract_project_file_data(repo_dir, data_dir, filename, sequence)
-    content = File.open(File.join(repo_dir, data_dir, filename)).read
-    attrs = extract_attributes(content)
-    filename_parts = filename.split('__')
-    attrs['file_path'] = File.join('data', data_dir, filename).to_s
-    attrs['name'] ||= URI.unescape(filename_parts[-2].strip)
+  def handle_project_directory(repo_dir, data_dir, dir_name, sequence)
+    dir_path = File.join(repo_dir, data_dir, dir_name)
+    attrs    = YAML.load_file(File.join(dir_path, '_config.yml'))
+
     attrs['order'] = sequence
-    attrs
-  end
+    attrs['file_path']   = File.join('data', data_dir, dir_name).to_s
+    description_location = File.join(dir_path, 'description.md')
+    rubric_location      = File.join(dir_path, 'evaluation_rubric.yml')
+    guide_location       = File.join(dir_path, 'evaluation_guide.md')
+    checklist_location   = File.join(dir_path, 'evaluation_checklist.md')
 
-  # returns an array containing:
-  def extract_attributes(content)
-    attrs = extract_frontmatter_attributes(content)
-    attrs['markdown'] = content.lstrip.sub(/^---(.*?)---/m, "")
-    attrs
-  end
-
-  def extract_frontmatter_attributes(content)
-    attrs = {}
-    if matches = content.lstrip.match(/^---(.*?)---.*/m)
-      attrs = YAML.load(matches[1])
-    end
+    attrs['description']          = File.open(description_location).read
+    attrs['evaluation_guide']     = File.open(guide_location).read if File.exist?(guide_location)
+    attrs['evaluation_rubric']    = YAML.load_file(rubric_location) if File.exist?(rubric_location)
+    attrs['evaluation_checklist'] = File.open(checklist_location).read if File.exist?(checklist_location)
     attrs
   end
 
@@ -71,16 +66,19 @@ class Content::LoadProjects
     uuid = attributes.delete 'uuid'
 
     attrs = {
-      name:      attributes['name'],
-      slug:      attributes['slug'],
-      order:     attributes['order'],
-      start_day: attributes['start_day'],
-      end_day:   attributes['end_day'],
-      image:     attributes['image'],
-      blurb:     attributes['blurb'],
-      evaluated: attributes['evaluated'],
-      description: attributes['markdown'],
+      name:              attributes['name'],
+      slug:              attributes['slug'],
+      order:             attributes['order'],
+      start_day:         attributes['start_day'],
+      end_day:           attributes['end_day'],
+      image:             attributes['image'],
+      blurb:             attributes['blurb'],
+      evaluated:         attributes['evaluated'],
+      description:       attributes['description'],
       content_file_path: attributes['file_path'],
+      evaluation_guide:  attributes['evaluation_guide'],
+      evaluation_rubric: attributes['evaluation_rubric'],
+      evaluation_checklist: attributes['evaluation_checklist'],
       content_repository: @repo,
     }
 

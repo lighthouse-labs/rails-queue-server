@@ -1,0 +1,38 @@
+/ == debug @evaluation.evaluation_rubric
+
+- @evaluation.evaluation_rubric.each do |criteria, properties|
+
+  .panel.panel-default
+
+    .panel-heading = properties['name']
+
+    .panel-body
+
+      div data-toggle="buttons"
+        label class="btn-togglable btn btn-success"
+          input type="radio" name="result[#{criteria}][score]" value="4" autocomplete="off"
+            strong Exceptional
+            br
+            == properties['rankings']['exceptional']
+
+        label class="btn-togglable btn btn-info"  style="text-align: left; white-space: normal; margin-bottom: 14px"
+          input type="radio" name="result[#{criteria}][score]" value="3" autocomplete="off"
+            strong Acceptable
+            br
+            == properties['rankings']['acceptable']
+
+        label class="btn-togglable btn btn-warning"  style="text-align: left; white-space: normal; margin-bottom: 14px"
+          input type="radio" name="result[#{criteria}][score]" value="2" autocomplete="off"
+            strong Needs Work
+            br
+            == properties['rankings']['needs_work']
+
+        label class="btn-togglable btn btn-danger"  style="text-align: left; white-space: normal; margin-bottom: 14px"
+          input type="radio" name="result[#{criteria}][score]" value="1" autocomplete="off"
+            strong Unsatisfactory
+            br
+            == properties['rankings']['unsatisfactory']
+
+      = label_tag "Feedback about #{properties['name']}"
+      = text_area_tag "result[#{criteria}][feedback]", '', class: 'form-control'
+

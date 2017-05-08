@@ -1,0 +1,42 @@
+hr
+
+ul.nav.nav-tabs role="tablist" id="studentTab"
+  - if @evaluation.evaluation_rubric?
+    li role="presentation"
+      a href="#eval-rubric" aria-controls="eval-rubric" role="tab" data-toggle="tab"
+        | Rubric
+
+  li role="presentation" class="active"
+    a href="#description" aria-controls="description" role="tab" data-toggle="tab"
+      | Project Description
+
+  - if @project.evaluation_checklist?
+    li role="presentation"
+      a href="#eval-checklist"  aria-controls="eval-checklist" role="tab" data-toggle="tab"
+        | Evaluation Checklist
+  - if @project.evaluation_guide?
+    li role="presentation"
+      a href="#eval-guide"  aria-controls="eval-guide" role="tab" data-toggle="tab"
+        | Evaluation Guide
+
+.tab-content
+
+  - if @evaluation.evaluation_rubric?
+    #eval-rubric.tab-pane role="tabpanel" class="active"
+      h3 Rubric Form
+      == render 'rubric_form'
+
+  #description.tab-pane role="tabpanel" class="active"
+    h3 Project Description
+    .instructions
+      == markdown(@project.description)
+
+  - if @evaluation.evaluation_guide?
+    #eval-guide.tab-pane role="tabpanel"
+      .instructions
+        == markdown(@evaluation.evaluation_guide)
+
+  - if @evaluation.evaluation_checklist?
+    #eval-checklist.tab-pane role="tabpanel"
+      .instructions
+        == markdown(@evaluation.evaluation_checklist)

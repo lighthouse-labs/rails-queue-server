@@ -42,9 +42,13 @@ class EvaluationsController < ApplicationController
     redirect_to [@project, @evaluation], alert: 'You are not the evaluator' unless @evaluation.teacher == current_user
     @evaluation_form = EvaluationForm.new @evaluation
     load_all_completed_evals
+    if @evaluation.v2?
+      render 'edit-new' # otherwise just `edit`
+    end
   end
 
   def update
+    raise params.inspect
     result = CompleteEvaluation.call(
       evaluation_form: params[:evaluation_form],
       evaluation: @evaluation,

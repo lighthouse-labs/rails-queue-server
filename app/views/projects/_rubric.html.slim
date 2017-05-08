@@ -1,0 +1,14 @@
+- rubric = project.evaluation_rubric
+
+p.alert.alert-info
+  | Evaluators use this form and select one of the options and provide written feedback (where applicable) for each section below. If any of the sections results in an <em>Unsatisfactory</em> result, the evaluation is rejected.
+
+table.table.table-condensed.table-bordered.table-striped
+  tbody
+    - rubric.each do |criteria, properties|
+      tr
+        td = properties['name']
+        td == properties['rankings']['exceptional']
+        td == properties['rankings']['acceptable']
+        td == properties['rankings']['needs_work']
+        td == properties['rankings']['unsatisfactory']

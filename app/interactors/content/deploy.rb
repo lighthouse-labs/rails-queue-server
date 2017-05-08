@@ -25,10 +25,10 @@ class Content::Deploy
       # - KV
       records = []
 
-      load_prep_records(repo_dir, records)
+      # load_prep_records(repo_dir, records)
       load_project_records(repo_dir, records)
-      load_activity_records(repo_dir, records)
-      load_interview_records(repo_dir, records)
+      # load_activity_records(repo_dir, records)
+      # load_interview_records(repo_dir, records)
 
       results = persist_changes(records)
       publish_deploy_summary(results)

@@ -23,6 +23,8 @@ class EvaluationStateMachine
   after_transition(to: :in_progress) do |evaluation, transition|
     evaluation.state = "in_progress"
     evaluation.started_at = Time.now
+    # For the first rollout of this, which may happen after evals are created, we need this line to make sure snapshot is taken - KV
+    evaluation.take_snapshot_of_eval_criteria
     evaluation.save
   end
 

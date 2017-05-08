@@ -39,6 +39,7 @@ class Evaluation < ApplicationRecord
            :in_state?, to: :state_machine
 
   before_create :set_cohort
+  before_create :snapshot_of_eval_criteria
 
   def self.filter_by(params, cohort, project)
     if params["evals"] && params["evals"].include?("All Evals")
@@ -118,6 +119,18 @@ class Evaluation < ApplicationRecord
    # in minutes
   def time_in_queue
     ((started_at || Time.current) - created_at).to_i
+  end
+
+  def take_snapshot_of_eval_criteria
+    self.evaluation_rubric    ||= project.evaluation_rubric
+    self.evaluation_checklist ||= project.evaluation_checklist
+    self.evaluation_guide     ||= project.evaluation_guide
+    self.last_sha1            ||= project.last_sha1
+  end
+
+  # Using the new rubric+guide+checklist approach
+  def v2?
+    evaluation_rubric?
   end
 
   private

@@ -15,7 +15,7 @@ module ActivitiesHelper
     )
   end
 
-  def markdown(content)
+  def markdown(content, renderer=CompassMarkdownRenderer)
     return '' if content.nil?
     options = {
       autolink: true,
@@ -23,7 +23,7 @@ module ActivitiesHelper
       fenced_code_blocks: true,
       tables: true
     }
-    @markdown ||= Redcarpet::Markdown.new(CompassMarkdownRenderer, options)
+    @markdown ||= Redcarpet::Markdown.new(renderer, options)
     @markdown.render(content)
   end
 

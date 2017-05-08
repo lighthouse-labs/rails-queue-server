@@ -52,6 +52,30 @@ body.project-evals-edit, body.project-evals-show {
   margin-right: 5px;
 }
 
+// Need feedback buttons for project evaluation rubric
+
+.btn-togglable {
+  text-align: left;
+  white-space: normal;
+  margin-bottom: 14px;
+  background-color: white;
+  color: black;
+  width: 100%;
+  &.btn-success {
+    border: 2px solid #1e854a;
+  }
+  &.btn-info {
+    border: 2px solid #2c81ba;
+  }
+  &.btn-warning {
+    border: 2px solid #f1c40f;
+  }
+  &.btn-danger {
+    border: 2px solid #ec7063;
+  }
+}
+
+
 .new-evaluation-form {
   margin-bottom: 20px;
 }
