@@ -50,7 +50,10 @@ class Content::LoadProjects
 
     attrs['description']          = File.open(description_location).read
     attrs['evaluation_guide']     = File.open(guide_location).read if File.exist?(guide_location)
-    attrs['evaluation_rubric']    = YAML.load_file(rubric_location) if File.exist?(rubric_location)
+    if File.exist?(rubric_location)
+      attrs['evaluation_rubric']  = YAML.load_file(rubric_location)
+      attrs['evaluation_rubric']  = reorder_hash(attrs['evaluation_rubric'])
+    end
     attrs['evaluation_checklist'] = File.open(checklist_location).read if File.exist?(checklist_location)
     attrs
   end
@@ -60,6 +63,14 @@ class Content::LoadProjects
       @records.push build_project(data)
     end
     nil
+  end
+
+  def reorder_hash(hash)
+    ordered = []
+    hash.each do |k, data|
+      ordered[data['order'].to_i] = [k, data]
+    end
+    ordered.compact.to_h
   end
 
   def build_project(attributes)
