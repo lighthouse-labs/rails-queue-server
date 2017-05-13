@@ -19,16 +19,16 @@ class Content::Deploy
     deployment do
       repo_dir = @repo_dir || download_and_extract_repo_archive
 
-
       # The records array gets appended to and eventually consumed by other services, below
       # It will contain AR instances (some loaded, others built, as needed)
       # - KV
       records = []
 
-      # load_prep_records(repo_dir, records)
+      load_prep_records(repo_dir, records)
       load_project_records(repo_dir, records)
-      # load_activity_records(repo_dir, records)
-      # load_interview_records(repo_dir, records)
+      load_teacher_records(repo_dir, records)
+      load_activity_records(repo_dir, records)
+      load_interview_records(repo_dir, records)
 
       results = persist_changes(records)
       publish_deploy_summary(results)
@@ -57,6 +57,14 @@ class Content::Deploy
       Content::LoadProjects.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
     else
       puts 'Projects not found. Skipping.'
+    end
+  end
+
+  def load_teacher_records(repo_dir, records)
+    if Dir.exists?(File.join(repo_dir, 'Teacher Resources').to_s)
+      Content::LoadTeacherSections.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
+    else
+      puts 'Teacher resources not found. Skipping.'
     end
   end
 

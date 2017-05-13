@@ -42,7 +42,7 @@ Follow these steps in order please:
 8. `bin/rake db:setup`
   * This will create, schema load, and seed the db
   * The seed script will download the (private) curriculum repo in order to ingest the content. This means your github auth should be set appropriately, otherwise it will have access issues and fail.
-9. Start the server, using `bin/rails s -b 0.0.0.0`
+9. Start the server, using `bin/serve`
 10. Create an admin+teacher account for yourself. First sign up as a teacher using this URL:
   * <http://compass.dev:3000/i/ggg> (teacher invite code URL)
   * Once you've authenticated successfully, `rails c` in and update the user to `admin=true` status

@@ -1,0 +1,39 @@
+- title "#{@evaluation.student.full_name} #{@project.name} Eval"
+
+- provide :body_class, 'project-evals-show-new'
+
+- content_for :side_nav do
+  = render('shared/menus/project_side_menu', project: @evaluation.project)
+
+h3 = "#{@evaluation.student.full_name}'s #{@project.name} (Eval)"
+
+- if teacher? && (@evaluation.in_state?(:pending) || @evaluation.in_state?(:in_progress))
+  .actions-container
+    .well.actions.affix
+      - if @evaluation.in_state?(:pending)
+        = link_to "Start Marking", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success", method: :put
+      - elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
+        = link_to "Continue Marking", edit_project_evaluation_path(@project, @evaluation), class: "btn btn-success"
+
+== render 'details'
+
+ul.nav.nav-tabs role="tablist" id="studentTab"
+  - if @evaluation.completed?
+    li role="presentation" class="active"
+      a href="#details" aria-controls="project" role="tab" data-toggle="tab"
+        | Evaluation Details
+  li role="presentation" class=(@evaluation.completed? ? '' : 'active')
+    a href="#project" aria-controls="project" role="tab" data-toggle="tab"
+      | Project Description
+
+.tab-content
+
+  - if @evaluation.completed?
+    #details.tab-pane role="tabpanel" class="active"
+      h3 Evaluation Details
+      == render 'result_details', view_only: true
+
+  #project.tab-pane role="tabpanel" class=(@evaluation.completed? ? '' : 'active')
+    h3 Project Description
+    .instructions
+      == markdown(@project.description)

@@ -21,7 +21,11 @@ class ActivityPresenter < BasePresenter
   def render_sidenav
     if prep?
       content_for :side_nav do
-        render('shared/menus/prep_side_menu')
+        render('shared/menus/sections_side_menu', title: 'Prep Work', sections: preps)
+      end
+    elsif teacher_resources?
+      content_for :side_nav do
+        render('shared/menus/sections_side_menu', title: 'Teacher Prep', sections: teacher_resources)
       end
     elsif bootcamp?
       content_for :side_nav do
@@ -29,6 +33,7 @@ class ActivityPresenter < BasePresenter
       end
     end
 
+    # append project specific content if it's part of a project.
     if project?
       content_for :side_nav do
         render('shared/menus/project_side_menu', project: activity.section)
@@ -96,6 +101,10 @@ class ActivityPresenter < BasePresenter
 
   def prep?
     activity.prep?
+  end
+
+  def teacher_resources?
+    activity.teachers_only?
   end
 
   def bootcamp?

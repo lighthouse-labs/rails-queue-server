@@ -1,0 +1,36 @@
+.panel.panel-default
+  .panel-heading Overall Feedback
+  .panel-body
+    == markdown(@evaluation.teacher_notes.to_s)
+
+- @evaluation.evaluation_rubric.each do |criteria, properties|
+
+  - result = (@evaluation.result || {})[criteria] || {}
+
+  .panel.panel-default.evaluation-results
+    .panel-heading = properties['name']
+    .panel-body
+
+      .alert.alert-success class="#{'active' if result['score'] == '4'}"
+        strong Exceptional
+        br
+        == properties['rankings']['exceptional']
+
+      .alert.alert-info class="#{'active' if result['score'] == '3'}"
+        strong Acceptable
+        br
+        == properties['rankings']['acceptable']
+
+      .alert.alert-warning class="#{'active' if result['score'] == '2'}"
+        strong Needs Work
+        br
+        == properties['rankings']['needs_work']
+
+      .alert.alert-error class="#{'active' if result['score'] == '1'}"
+        strong Unsatisfactory
+        br
+        == properties['rankings']['unsatisfactory']
+
+      - if result['feedback'].present?
+        h5 = "Feedback about #{properties['name']}"
+        == markdown(result['feedback'].to_s)

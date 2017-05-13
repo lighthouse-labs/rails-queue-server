@@ -15,7 +15,7 @@ class AddRubricFieldsToEvaluations < ActiveRecord::Migration[5.0]
 
     add_index  :evaluations, :evaluation_rubric, using: :gin
 
-    add_column :evaluations, :rubric_scores, :jsonb
-    add_index  :evaluations, :rubric_scores, using: :gin
+    add_column :evaluations, :result, :jsonb
+    add_index  :evaluations, :result, using: :gin
   end
 end

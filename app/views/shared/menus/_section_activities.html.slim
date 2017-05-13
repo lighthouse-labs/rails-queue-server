@@ -1,8 +1,8 @@
  ul.list-group
-  - prep.activities.chronological.active.each do |activity|
+  - section.activities.chronological.active.each do |activity|
     li class="list-group-item #{@activity && @activity.eql?(activity) ? 'selected' : ''} #{'stretch' if activity.stretch?}"
       i class=(icon_for(activity)) title=activity_type(activity)
-      = link_to prep_activity_path(prep, activity) do
+      = link_to activity_path(activity.id) do
         = " #{activity.name}"
         - if activity.stretch?
           i.fa.fa-rocket data-toggle='tooltip' title='Stretch'

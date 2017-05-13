@@ -128,11 +128,14 @@ class Activity < ApplicationRecord
     !prep? && day?
   end
 
+  def teachers_only?
+    self.section && self.section.is_a?(TeacherSection)
+  end
+
   # Also could be overwritten by sub classes
   def create_outcome_results?
     evaluates_code?
   end
-
 
   protected
 

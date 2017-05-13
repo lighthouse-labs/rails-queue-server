@@ -1,38 +1,79 @@
-/ == debug @evaluation.evaluation_rubric
+/ There may be existing results (partially updated but not finished evaluation)
+
+- view_only ||= false
+
+.alert.alert-info
+  strong Rules of engagement
+  ul
+    li This form auto saves server-side (on change of any input), so you can use it quite safely (unless offline)
+    li Textual feedback is required for categories which are rated below Acceptable
+    li The textareas expect Markdown format, but do add empty lines before & after lists (quirk)
+    li You should aim to take 30 minutes to finish the evaluation
+    li Upon completion, the student is sent a detailed e-mail (you are cc'd)
+    li Use the other tabs (Checklist, Guide and Description) for direction
+
+- if f.object.errors.full_messages.any?
+  .alert.alert-error
+    strong Please correct the following errors:
+    - f.object.errors.full_messages.each do |msg|
+      li = msg
+
+- elsif @evaluation.result.present?
+  .alert.alert-warning
+    strong This evaluation was already started and has some progress which you will find below.
+
+
 
 - @evaluation.evaluation_rubric.each do |criteria, properties|
 
-  .panel.panel-default
+  - result = (@evaluation.result || {})[criteria] || {}
+
+  .panel.panel-default data-affects-outcome=(criteria != 'version_control' ? '1' : nil)
 
     .panel-heading = properties['name']
 
     .panel-body
 
       div data-toggle="buttons"
-        label class="btn-togglable btn btn-success"
-          input type="radio" name="result[#{criteria}][score]" value="4" autocomplete="off"
+        label.btn.btn-togglable.btn-success class="#{'active' if result['score'] == '4'}"
+          input type="radio" name="evaluation[result][#{criteria}][score]" value="4" autocomplete="off" required="required" checked=('checked' if result['score'] == '4') disabled=view_only
             strong Exceptional
             br
             == properties['rankings']['exceptional']
 
-        label class="btn-togglable btn btn-info"  style="text-align: left; white-space: normal; margin-bottom: 14px"
-          input type="radio" name="result[#{criteria}][score]" value="3" autocomplete="off"
+        label.btn.btn-togglable.btn-info class="#{'active' if result['score'] == '3'}"
+          input type="radio" name="evaluation[result][#{criteria}][score]" value="3" autocomplete="off" required="required" checked=('checked' if result['score'] == '3') disabled=view_only
             strong Acceptable
             br
             == properties['rankings']['acceptable']
 
-        label class="btn-togglable btn btn-warning"  style="text-align: left; white-space: normal; margin-bottom: 14px"
-          input type="radio" name="result[#{criteria}][score]" value="2" autocomplete="off"
+        label.btn.btn-togglable.btn-warning class="#{'active' if result['score'] == '2'}"
+          input type="radio" name="evaluation[result][#{criteria}][score]" value="2" autocomplete="off" required="required"  checked=('checked' if result['score'] == '2') disabled=view_only
             strong Needs Work
             br
             == properties['rankings']['needs_work']
 
-        label class="btn-togglable btn btn-danger"  style="text-align: left; white-space: normal; margin-bottom: 14px"
-          input type="radio" name="result[#{criteria}][score]" value="1" autocomplete="off"
+        label class="btn-togglable btn btn-danger" class="#{'active' if result['score'] == '1'}"
+          input type="radio" name="evaluation[result][#{criteria}][score]" value="1" autocomplete="off" required="required" checked=('checked' if result['score'] == '1') disabled=view_only
             strong Unsatisfactory
             br
             == properties['rankings']['unsatisfactory']
 
-      = label_tag "Feedback about #{properties['name']}"
-      = text_area_tag "result[#{criteria}][feedback]", '', class: 'form-control'
+      - if view_only
+        h5 = "Feedback about #{properties['name']}"
+        == markdown(result['feedback'].to_s)
+      - else
+        - feedback_required = result['score'] == '1' || result['score'] == '2'
+        = label_tag :feedback, "Feedback about #{properties['name']} (Markdown format)", class: 'feedback-label'
+        = text_area_tag "evaluation[result][#{criteria}][feedback]", result['feedback'], class: 'form-control', required: feedback_required
+        span.required-notice.label.label-default class=(feedback_required ? '' : 'hidden') Note: Feedback text is required since rating is below acceptable
+
+.form-group
+  h4 Overall Feedback
+  = f.text_area :teacher_notes, rows: 10, class: "form-control", required: 'required'
+
+p.alert.alert-error.rejection-notice.hidden
+  strong Rejection
+  br
+  | This evaluation will be rejected because one or more sections above are marked Unsatisfactory.
 

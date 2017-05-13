@@ -1,7 +1,7 @@
-#Allows RedCarpet to pass the _blank link attribute for markdown link rendering 
+#Allows RedCarpet to pass the _blank link attribute for markdown link rendering
 #refer to solution at https://github.com/vmg/redcarpet/issues/85
 class CompassMarkdownRenderer < Redcarpet::Render::HTML
-  
+
   def initialize(extensions = {})
     super extensions.merge(link_attributes: {target: "_blank"})
   end
@@ -21,7 +21,7 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
   def block_code(code, lang)
     class_name = ""
     if lang
-      ar = lang.split('-') 
+      ar = lang.split('-')
       class_name += "language-#{ar.first}" if ar.first != "selectable"
       class_name += " allow-select" unless ar.include?("nonselectable")
     end
@@ -62,5 +62,5 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
     "<a class='btn btn-primary' onclick='$(this).closest(\".togglable-solution\").find(\".answer\").toggle();'>Toggle Answer</a>" \
     "</div>"
   end
-  
+
 end

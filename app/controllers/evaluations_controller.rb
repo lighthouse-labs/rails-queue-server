@@ -3,6 +3,7 @@ class EvaluationsController < ApplicationController
   before_action :teacher_required, except: [:new, :create, :cancel, :show]
   before_action :find_project
   before_action :find_evaluation, only: [:show, :edit, :update, :start_marking, :cancel, :cancel_marking]
+  before_action :check_can_evaluate, only: [:edit, :update]
 
   def index
     if session[:cohort_id]
@@ -14,6 +15,7 @@ class EvaluationsController < ApplicationController
 
   def show
     load_all_completed_evals
+    render 'show_new' if @evaluation.v2?
   end
 
   def new
@@ -38,26 +40,22 @@ class EvaluationsController < ApplicationController
   end
 
   def edit
-    redirect_to [@project, @evaluation], alert: 'Evaluation is not markable' unless @evaluation.markable?
-    redirect_to [@project, @evaluation], alert: 'You are not the evaluator' unless @evaluation.teacher == current_user
-    @evaluation_form = EvaluationForm.new @evaluation
+
     load_all_completed_evals
+
+    # TODO: remove this check once all the old evals clear - KV
     if @evaluation.v2?
-      render 'edit-new' # otherwise just `edit`
+      render 'edit_new' # otherwise just `edit`
+    else
+      @evaluation_form = EvaluationForm.new @evaluation
     end
   end
 
   def update
-    raise params.inspect
-    result = CompleteEvaluation.call(
-      evaluation_form: params[:evaluation_form],
-      evaluation: @evaluation,
-      decision: params[:commit]
-    )
-    if result.success?
-      redirect_to [@project, @evaluation], notice: "Evaluation successfully marked."
+    if request.xhr?
+      save_changes
     else
-      redirect_to action: :edit, notice: result.message
+      finish_marking
     end
   end
 
@@ -85,6 +83,57 @@ class EvaluationsController < ApplicationController
 
   private
 
+  def check_can_evaluate
+    if !@evaluation.markable?
+      redirect_to [@project, @evaluation], alert: 'Evaluation is not markable'
+    elsif @evaluation.teacher != current_user
+      redirect_to [@project, @evaluation], alert: 'You are not the evaluator'
+    end
+  end
+
+  def save_changes
+    result = Evaluations::UpdateResult.call(
+      evaluation_form: params[:evaluation],
+      evaluation: @evaluation
+    )
+    render json: { success: true }
+  end
+
+  def finish_marking
+    if @evaluation.v2?
+      finish_marking_v2
+    else
+      finish_marking_v1
+    end
+  end
+
+  # TODO: remove me (and any other v2 logic/code) after a few weeks - KV May 11 2017
+  def finish_marking_v1
+    result = CompleteEvaluation.call(
+      evaluation_form: params[:evaluation_form],
+      evaluation: @evaluation,
+      decision: params[:commit]
+    )
+    if result.success?
+      redirect_to [@project, @evaluation], notice: "Evaluation successfully marked."
+    else
+      redirect_to action: :edit, notice: result.message
+    end
+  end
+
+  def finish_marking_v2
+    result = Evaluations::Complete.call(
+      evaluation_form: params[:evaluation],
+      evaluation: @evaluation
+    )
+    if result.success?
+      redirect_to [@project, @evaluation], notice: "Evaluation marked. Student notified. You were cc'd."
+    else
+      load_all_completed_evals
+      render :edit_new
+    end
+  end
+
   def find_project
     @project = Project.find_by(slug: params[:project_id])
   end
@@ -94,7 +143,7 @@ class EvaluationsController < ApplicationController
 
     # security: students can only access their own evals
     if student?
-      redirect_to :root, alert('Not Allowed') unless @evaluation.student == current_user
+      redirect_to :root, alert: 'Not Allowed' unless @evaluation.student == current_user
     end
   end
 

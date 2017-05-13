@@ -47,6 +47,23 @@ class UserMailer < ActionMailer::Base
 
   end
 
+  # v2 (remove the evaluation_accepted and evaluation_rejected along with other non-v2 eval logic)
+  # when removing v2 logic, there are old evals that will always be v1, so v1 vs v2 conditionals for show should not be removed
+  def evaluation_result(evaluation)
+    @evaluation = evaluation
+    @student    = evaluation.student
+    @teacher    = evaluation.teacher
+    @project    = evaluation.project
+
+    feedback_email  = @evaluation.cohort.location.feedback_email
+
+    mail  subject: "LHL Project #{@evaluation.in_state?(:accepted) ? 'Accepted' : 'Rejected'}: #{@student.full_name}!",
+          to:      @student.email,
+          from:    @teacher.email,
+          cc:      @teacher.email,
+          bcc:     feedback_email
+  end
+
   def evaluation_accepted(evaluation)
     @evaluation = evaluation
     @student    = evaluation.student

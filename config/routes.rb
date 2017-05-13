@@ -40,6 +40,10 @@ LaserShark::Application.routes.draw do
     resources :activities
   end
 
+  resources :teacher_resources, only: [:index, :show] do
+    resources :activities, only: [:show]
+  end
+
   # get 'setup' => 'setup#show' # temporary
 
   post 'github-hook' => 'github_webhook_events#create'
@@ -98,7 +102,7 @@ LaserShark::Application.routes.draw do
     resource :info, only: [:edit, :update], controller: 'day_infos'
   end
 
-  resources :activities, only: [:index] do
+  resources :activities, only: [:index, :show] do
     resource :activity_submission, only: [:create, :destroy]
     resource :submission_with_feedback, only: [:create], controller: 'activity_submission_with_feedback'
     resources :messages, controller: 'activity_messages'

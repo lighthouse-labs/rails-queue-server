@@ -93,3 +93,16 @@ body.project-evals-show {
     width: 100%;
   }
 }
+
+body.project-evals-show-new {
+  .evaluation-results {
+    .alert {
+      opacity: 0.4;
+      margin-bottom: 6px;
+      padding: 14px;
+      &.active {
+        opacity: 1.0;
+      }
+    }
+  }
+}

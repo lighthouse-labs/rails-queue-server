@@ -89,6 +89,10 @@ class Evaluation < ApplicationRecord
     markable?
   end
 
+  def completed?
+    completed_at?
+  end
+
    # in minutes
   def duration
     (completed_at - started_at).to_i

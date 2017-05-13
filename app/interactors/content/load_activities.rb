@@ -11,18 +11,21 @@ class Content::LoadActivities
   end
 
   def call
-    activity_data = load_all_activity_data
+    activity_data  = load_all_activity_data
+    activity_data += load_all_activity_data('Teacher Resources')
     Content::ValidateUuids.call(collection: activity_data)
     build_records(activity_data)
   end
 
   private
 
-  def load_all_activity_data
+  def load_all_activity_data(subdir = '')
     activity_data = []
 
-    Dir.entries(@repo_dir).sort.each do |data_dir|
-      filepath = File.join(@repo_dir, data_dir)
+    root_path = File.join(@repo_dir, subdir)
+
+    Dir.entries(root_path).sort.each do |data_dir|
+      filepath = File.join(root_path, data_dir)
       next if data_dir.starts_with?('.')
       next if data_dir.starts_with?('_')
       next unless File.directory?(filepath)
@@ -33,14 +36,14 @@ class Content::LoadActivities
           Dir.entries(File.join(filepath, content_file)).sort.each do |archived_content_file|
             next if archived_content_file.starts_with?('.')
             next unless archived_content_file.ends_with?('.md')
-            activity_data.push extract_activity_file_data(@repo_dir, "#{data_dir}/_Archived", archived_content_file)
+            activity_data.push extract_activity_file_data(root_path, "#{data_dir}/_Archived", archived_content_file)
           end
         end
 
         # no other non .md files allowed (only the `_Archived` folder)
         next unless content_file.ends_with?('.md')
 
-        activity_data.push extract_activity_file_data(@repo_dir, data_dir, content_file, seq)
+        activity_data.push extract_activity_file_data(root_path, data_dir, content_file, seq)
         seq += 1
 
       end

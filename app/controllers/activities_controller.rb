@@ -5,6 +5,7 @@ class ActivitiesController < ApplicationController
   before_action :require_activity, only: [:show, :edit, :update]
   before_action :teacher_required, only: [:new, :create, :edit, :update]
   before_action :check_if_day_unlocked, only: [:show]
+  before_action :check_if_teacher_only, only: [:show]
   before_action :load_section, only: [:new, :edit, :update]
   before_action :load_form_url, only: [:new, :edit]
 
@@ -113,7 +114,10 @@ class ActivitiesController < ApplicationController
     else
       @activity = Activity.find(params[:id])
     end
-    params[:day_number] ||= @activity.day
+    params[:day_number]          ||= @activity.day
+    params[:teacher_resource_id] ||= @activity.section_id if @activity.teachers_only?
+    params[:prep_id]             ||= @activity.section_id if @activity.prep?
+    params[:project_id]          ||= @activity.section_id if @activity.project?
     # @activity = @activity.becomes(Activity)
   end
 
@@ -123,11 +127,19 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def check_if_teacher_only
+    if student? && @activity.teachers_only?
+      redirect_to day_path('today'), alert: 'Students are not allowed to view teacher resoures'
+    end
+  end
+
   def load_section
     if slug = params[:prep_id]
       @section = Prep.find_by(slug: slug)
     elsif slug = params[:project_id]
       @section = Project.find_by(slug: slug)
+    elsif slug = params[:teacher_resource_id] && (teacher? || admin?)
+      @section = TeacherSection.find_by(slug: slug)
     end
   end
 

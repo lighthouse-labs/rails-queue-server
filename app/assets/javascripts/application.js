@@ -24,6 +24,7 @@
 //= require ace/mode-javascript
 //= require prism
 //= require moment.min
+//= require autosize
 //= require bootstrap-sortable
 //= require eslint
 

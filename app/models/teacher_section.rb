@@ -1,0 +1,3 @@
+class TeacherSection < Section
+
+end

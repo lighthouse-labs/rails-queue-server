@@ -42,7 +42,6 @@ ul.nav.nav-tabs role="tablist" id="studentTab"
     h3 Project Description
     .instructions
       == markdown(@project.description)
-      == render 'outcomes', project: @project
 
   - if @project.evaluation_rubric?
     #eval-rubric.tab-pane role="tabpanel" class="active"

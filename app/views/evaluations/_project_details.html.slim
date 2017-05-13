@@ -2,11 +2,11 @@ hr
 
 ul.nav.nav-tabs role="tablist" id="studentTab"
   - if @evaluation.evaluation_rubric?
-    li role="presentation"
+    li role="presentation" class="active"
       a href="#eval-rubric" aria-controls="eval-rubric" role="tab" data-toggle="tab"
         | Rubric
 
-  li role="presentation" class="active"
+  li role="presentation" class=(@evaluation.evaluation_rubric? ? '' : 'active')
     a href="#description" aria-controls="description" role="tab" data-toggle="tab"
       | Project Description
 
@@ -24,9 +24,9 @@ ul.nav.nav-tabs role="tablist" id="studentTab"
   - if @evaluation.evaluation_rubric?
     #eval-rubric.tab-pane role="tabpanel" class="active"
       h3 Rubric Form
-      == render 'rubric_form'
+      == render 'rubric_form', f: f
 
-  #description.tab-pane role="tabpanel" class="active"
+  #description.tab-pane role="tabpanel" class=(@evaluation.evaluation_rubric? ? '' : 'active')
     h3 Project Description
     .instructions
       == markdown(@project.description)

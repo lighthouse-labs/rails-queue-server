@@ -111,6 +111,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :preps
 
+  def teacher_resources
+    @teacher_resources ||= TeacherSection.all
+  end
+  helper_method :teacher_resources
+
   def pending_feedbacks
     current_user.feedbacks.pending.reverse_chronological_order.where.not(feedbackable: nil).not_expired
   end

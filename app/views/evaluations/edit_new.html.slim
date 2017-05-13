@@ -1,6 +1,6 @@
 - title "Edit eval for #{@evaluation.student.full_name} #{@project.name}"
 
-- provide :body_class, 'project-evals-edit'
+- provide :body_class, 'project-evals-edit-new'
 
 .col-md-3
   = image_tag avatar_for(@evaluation.student), class: "evaluation-avatar"
@@ -11,7 +11,7 @@
 
   h3 = "#{@evaluation.student.full_name}'s #{@project.name} (Eval)"
 
-  = form_for @evaluation_form, url: project_evaluation_path, method: :put do |f|
+  = form_for @evaluation, url: project_evaluation_path, method: :put do |f|
 
     .actions-container
       .well.actions
@@ -23,12 +23,10 @@
 
     == render 'details'
 
-    == render 'project_details'
-
-    .form-group
-      h4 Overall Feedback
-
-      = f.text_area :teacher_notes, rows: 10, class: "form-control", required: 'required'
+    == render 'project_details', f: f
 
     .form-actions
       = f.submit 'Submit Evaluation', class: 'btn btn-primary btn-large'
+
+    br
+    br
