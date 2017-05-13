@@ -39,7 +39,7 @@ class Evaluation < ApplicationRecord
            :in_state?, to: :state_machine
 
   before_create :set_cohort
-  before_create :snapshot_of_eval_criteria
+  before_create :take_snapshot_of_eval_criteria
 
   def self.filter_by(params, cohort, project)
     if params["evals"] && params["evals"].include?("All Evals")

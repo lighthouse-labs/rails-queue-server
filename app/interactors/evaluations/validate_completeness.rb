@@ -10,12 +10,14 @@ class Evaluations::ValidateCompleteness
 
   def call
 
-    @evaluation_form['result'].each do |criteria, info|
-      name = @evaluation.evaluation_rubric[criteria]['name']
-      if !%{1 2 3 4}.include? info['score']
+    @evaluation.evaluation_rubric.each do |criteria, details|
+      name = details['name']
+      info = @evaluation_form['result'][criteria] || {}
+
+      if !%w{1 2 3 4}.include? info['score'].to_s
         @evaluation.errors.add :base, "Score for #{name} is required"
       elsif (info['score'] == '1' || info['score'] == '2') && info['feedback'].blank?
-        @evaluation.errors.add :base, "Feedback for #{name} is required (since it scored less than 3)"
+        @evaluation.errors.add :base, "Feedback for #{name} is required (since it scored less than Acceptable)"
       end
     end
 
