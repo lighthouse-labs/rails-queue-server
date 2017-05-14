@@ -1,8 +1,10 @@
 class ActivitiesController < ApplicationController
 
+  # must be before the course calendar inclusion now
+  before_action :require_activity, only: [:show, :edit, :update]
+
   include CourseCalendar # concern
 
-  before_action :require_activity, only: [:show, :edit, :update]
   before_action :teacher_required, only: [:new, :create, :edit, :update]
   before_action :check_if_day_unlocked, only: [:show]
   before_action :check_if_teacher_only, only: [:show]
