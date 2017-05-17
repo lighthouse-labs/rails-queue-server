@@ -59,7 +59,7 @@ if Rails.env.development?
       quirky_fact: Faker::Lorem.sentence,
       phone_number: Faker::PhoneNumber.phone_number,
       github_username: Faker::Internet.user_name,
-      location: locations.sample,
+      location: locations.sample
     )
   end
 
