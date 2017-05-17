@@ -120,7 +120,7 @@ module ApplicationHelper
       'label-info'
     elsif eval.in_state?(:rejected)
       'label-danger'
-    elsif eval.in_state?(:accepted)
+    elsif eval.in_state?(:accepted) || eval.in_state?(:auto_accepted)
       'label-success'
     else
       'label-default'
