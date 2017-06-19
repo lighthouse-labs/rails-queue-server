@@ -1,0 +1,27 @@
+- provide :container,  'fluid'
+- provide :body_class, 'admin-activities-show'
+- title "Admin Assistances"
+
+header.page-header
+  h1 Assistances
+
+.well
+  = render 'filters'
+
+= render 'stats'
+
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title
+          | Assitances
+          = " (#{@assistances.count} / #{Assistance.count} results)"
+
+      .table-responsive
+        table.table.students.sortable
+          thead
+            tr
+              th ID
+          tbody
+            == render collection: @assistances, partial: 'assistance'
