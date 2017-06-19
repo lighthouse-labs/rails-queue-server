@@ -15,17 +15,20 @@ header.page-header
     .panel.panel-default
       .panel-heading
         h3.panel-title
-          | Assitances
+          | Assistances
           = " (#{@assistances.count} / #{Assistance.count} results)"
 
       .table-responsive
         table.table.students.sortable
           thead
             tr
-              th ID
               th Student Info
               th Cohort
               th Teacher Info
-
+              th Date
+              th Activity
+              th Score
+              th Teacher Notes
+              th Length
           tbody
             == render collection: @assistances, partial: 'assistance'

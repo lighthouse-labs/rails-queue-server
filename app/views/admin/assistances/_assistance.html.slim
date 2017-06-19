@@ -1,8 +1,5 @@
 - present assistance.assistor do |teacher_presenter|
   tr
-    td data-value=assistance.id
-      = assistance.id
-
     td.details data-value=assistance.assistee.last_name
       .student-info
         = render 'shared/student_info', student: assistance.assistee
@@ -21,3 +18,23 @@
         = teacher_presenter.twitter_info
         = teacher_presenter.slack_info
         = teacher_presenter.skype_info
+
+    td.details data-value=assistance.created_at
+      = "#{assistance.created_at.strftime('%B %d, %Y')}"
+
+    td.details data-value=(assistance.activity ? assistance.activity : "activity_id")
+      - if assistance.activity
+        = link_to "#{assistance.activity.name}", day_activity_path(assistance.activity.day, assistance.activity.id)
+      - else
+        = "No Activity"
+
+    td.details data-value=assistance.rating
+      span.label class=l_score_label_class(assistance.rating) = "L: #{assistance.rating}"
+
+    td
+      small
+        em
+          article.read-more = assistance.notes
+
+    td.details data-value=assistance.end_at
+      = "#{distance_of_time_in_words(assistance.start_at, assistance.end_at)}"
