@@ -1,3 +1,23 @@
-tr
-  td data-value=assistance.id
-    = assistance.id
+- present assistance.assistor do |teacher_presenter|
+  tr
+    td data-value=assistance.id
+      = assistance.id
+
+    td.details data-value=assistance.assistee.last_name
+      .student-info
+        = render 'shared/student_info', student: assistance.assistee
+
+    td.details data-value=assistance.assistee.cohort.name
+      = assistance.assistee.cohort.name
+
+    td.details data-value=assistance.assistor.first_name
+      = link_to teacher_path(assistance.assistor) do
+        = teacher_presenter.image_for_index_page
+        strong = teacher_presenter.full_name
+
+      ul.list-inline.social-icons
+        = teacher_presenter.email_info
+        = teacher_presenter.github_info
+        = teacher_presenter.twitter_info
+        = teacher_presenter.slack_info
+        = teacher_presenter.skype_info
