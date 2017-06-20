@@ -7,7 +7,6 @@ class Admin::AssistancesController < Admin::BaseController
 
   def index
     @assistances = Assistance.all.order(created_at: :desc)
-    params[:location] = current_user.location.id.to_s unless params[:location].present?
     params[:start_date] = Date.current.beginning_of_month.to_s unless params[:start_date].present?
     params[:end_date] = Date.current.end_of_month.to_s unless params[:end_date].present?
 
@@ -23,8 +22,13 @@ class Admin::AssistancesController < Admin::BaseController
 
   def apply_filters
     filter_by_location
+    # filter_by_cohort
     filter_by_start_date
     filter_by_end_date
+    filter_by_teacher
+    # filter_by_rating
+    filter_by_student_keywords
+
   end
 
   def filter_by_location
@@ -33,18 +37,21 @@ class Admin::AssistancesController < Admin::BaseController
     end
   end
 
+  def filter_by_cohort
+  end
+
   def filter_by_start_date
     @assistances = @assistances.where("start_at > :date", date: params[:start_date])
   end
 
   def filter_by_end_date
-    @assistances = @assistances.where("start_at < :date", date: params[:end_date])
+    end_datetime = Time.parse(params[:end_date]).end_of_day()
+    @assistances = @assistances.where("start_at < :date", date: end_datetime)
   end
 
-
-  def filter_by_keywords
-    if params[:keywords].present?
-      @users = @users.by_keywords(params[:keywords])
+  def filter_by_teacher
+    if params[:teacher_id].present?
+      @assistances = @assistances.where(assistor: params[:teacher_id])
     end
   end
 
@@ -68,28 +75,10 @@ class Admin::AssistancesController < Admin::BaseController
     end
   end
 
-  def filter_by_type
-    @activities = case params[:type]
-    when 'Prep'
-      @activities.prep
-    when 'Bootcamp'
-      @activities.bootcamp
-    else
-      @activities
+  def filter_by_student_keywords
+    if params[:keywords].present?
+      @assistances = @assistances.by_student_keywords(params[:keywords])
     end
   end
-
-  def filter_by_stretch
-    params[:stretch]  ||= 'Include'
-    @activities = case params[:stretch]
-    when 'Exclude'
-      @activities.core
-    when 'Only'
-      @activities.stretch
-    else
-      @activities
-    end
-  end
-
 
 end
