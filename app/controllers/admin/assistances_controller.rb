@@ -7,18 +7,18 @@ class Admin::AssistancesController < Admin::BaseController
 
   def index
     @assistances = Assistance.all.order(created_at: :desc)
+
+    apply_filters
+
+    # Average time it takes to complete and assistance request
+    # There has got to be a better way to do this
+    @length_arr = @assistances.completed.collect{|s| s.end_at - s.start_at}
+    @assist_length_avg = @length_arr.inject{ |sum, el| sum + el }.to_f / @length_arr.size / 60
   end
 
   private
 
   def apply_filters
-    filter_by_archived
-    filter_by_type
-    filter_by_stretch
-    filter_by_notes
-    filter_by_lectures
-    filter_by_rating
-    filter_by_day
   end
 
   def filter_by_rating
@@ -36,18 +36,6 @@ class Admin::AssistancesController < Admin::BaseController
       @activities.where(average_rating: 5)
     when 'Unrated'
       @activities.where(average_rating: nil)
-    else
-      @activities
-    end
-  end
-
-  def filter_by_archived
-    params[:archived] ||= 'Exclude'
-    @activities = case params[:archived]
-    when 'Exclude'
-      @activities.active
-    when 'Only'
-      @activities.archived
     else
       @activities
     end
@@ -76,33 +64,5 @@ class Admin::AssistancesController < Admin::BaseController
     end
   end
 
-  def filter_by_notes
-    params[:notes]    ||= 'Exclude'
-    @activities = case params[:notes]
-    when 'Only'
-      @activities.where(type: 'PinnedNote')
-    when 'Exclude'
-      @activities.where.not(type: 'PinnedNote')
-    else
-      @activities
-    end
-  end
-
-  def filter_by_lectures
-    params[:lectures] ||= 'Exclude'
-    @activities = case params[:lectures]
-    when 'Only'
-      @activities.where(type: ['Lecture', 'Breakout'])
-    when 'Exclude'
-      @activities.where.not(type: ['Lecture', 'Breakout'])
-    else
-      @activities
-    end
-  end
-
-  def filter_by_day
-    @activities = @activities.where("lower(day) LIKE ?", "%#{params[:day].downcase}%") if params[:day].present?
-    @activities
-  end
 
 end
