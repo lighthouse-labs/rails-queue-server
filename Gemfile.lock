@@ -67,6 +67,7 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
     builder (3.2.2)
+    byebug (9.0.6)
     capybara (2.5.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -479,6 +480,7 @@ DEPENDENCIES
   bcrypt
   best_in_place!
   bootstrap-sass (~> 3.3.5)
+  byebug
   capybara
   carrierwave
   chartkick
@@ -542,4 +544,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.14.4
+   1.14.6
