@@ -12,5 +12,8 @@
       h3
         i.fa.fa-clock-o
         | &nbsp;
-        = "#{@assist_length_avg.to_i} mins"
+        - if @assist_length_avg.nan?
+          = "N/A"
+        - else
+          = "#{@assist_length_avg.to_i} mins"
       span Average Length
