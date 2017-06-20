@@ -19,6 +19,19 @@ class Admin::AssistancesController < Admin::BaseController
   private
 
   def apply_filters
+    filter_by_location
+  end
+
+  def filter_by_location
+    if params[:location].present?
+      @assistances = @assistances.joins(:cohort).where('cohorts.location_id' => params[:location])
+    end
+  end
+
+  def filter_by_keywords
+    if params[:keywords].present?
+      @users = @users.by_keywords(params[:keywords])
+    end
   end
 
   def filter_by_rating

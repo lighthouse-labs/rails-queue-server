@@ -1,33 +1,35 @@
-= form_tag admin_activities_path, class: 'form-inline', method: 'get' do
+= form_tag admin_assistances_path, class: 'form-inline', method: 'get' do
 
   .form-row
 
     .form-group
-      label Type
-      = select_tag :type, options_for_select(['All', 'Prep', 'Bootcamp'], params[:type]), class: "form-control admin-feedback-dropdown"
+      label Location
+      = select_tag :location, options_from_collection_for_select(Location.all.order('name'), "id", "name", params[:location] || current_user.location.id), class: "form-control admin-feedback-dropdown"
 
     .form-group
-      label Archived
-      = select_tag :archived, options_for_select(['Include', 'Only', 'Exclude'], params[:archived]), class: "form-control admin-feedback-dropdown"
+      label Cohort
+      = select_tag :cohort_id, options_from_collection_for_select(Location.all.order('name'), "id", "name", params[:cohort_id] || current_user.location.id), class: "form-control admin-feedback-dropdown"
 
     .form-group
-      label Stretch
-      = select_tag :stretch, options_for_select(['Include', 'Only', 'Exclude'], params[:stretch]), class: "form-control admin-feedback-dropdown"
+      label for="start_date"
+        |Start:
+      input type='date' class='form-control admin-feedback-date-select' name='start_date' id='start_date' value=params[:start_date]
 
     .form-group
-      label Notes
-      = select_tag :notes, options_for_select(['Include', 'Only', 'Exclude'], params[:notes]), class: "form-control admin-feedback-dropdown"
+      label for="end_date"
+        |End:
+      input type='date' class='form-control admin-feedback-date-select' name='end_date' id='end_date' value=params[:end_date]
 
     .form-group
-      label Lectures
-      = select_tag :lectures, options_for_select(['Include', 'Only', 'Exclude'], params[:lectures]), class: "form-control admin-feedback-dropdown"
+      label Teacher
+      = select_tag :teacher_id, options_from_collection_for_select(Teacher.all.order('first_name'), "id", "full_name", params[:teacher_id]), :prompt => 'All Teachers', class: "form-control admin-feedback-dropdown"
 
     .form-group
-      label Rating
-      = select_tag :rating, options_for_select(['All', 'Unrated', '1.x', '2.x', '3.x', '4.x', '5'], params[:rating]), class: "form-control admin-feedback-dropdown"
+      label L-Score
+      = select_tag :rating, options_for_select(['All', 'Unrated', '1', '2', '3', '4'], params[:rating]), class: "form-control admin-feedback-dropdown"
 
     .form-group
-      label Day / Week
-      = text_field_tag :day, params[:day], placeholder: 'e.g. w1d2 or w1', class: "form-control admin-feedback-text-box"
+      label Student
+      = text_field_tag :keywords, params[:keywords], placeholder: 'e.g. w1d2 or w1', class: "form-control admin-feedback-text-box"
 
     = submit_tag 'Filter', class: 'btn btn-success admin-feedback-button'
