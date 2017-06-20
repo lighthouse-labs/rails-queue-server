@@ -37,4 +37,7 @@
           article.read-more = assistance.notes
 
     td.details data-value=assistance.end_at
-      = "#{distance_of_time_in_words(assistance.start_at, assistance.end_at)}"
+      - if assistance.end_at
+        = "#{distance_of_time_in_words(assistance.start_at, assistance.end_at)}"
+      - else
+        = "In Progress"
