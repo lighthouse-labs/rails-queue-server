@@ -1,10 +1,5 @@
 class Admin::AssistancesController < Admin::BaseController
 
-  # def index
-  #   @activities = Activity.order(average_rating: :desc)
-  #   apply_filters
-  # end
-
   def index
     @assistances = Assistance.all.order(created_at: :desc)
     params[:start_date] = Date.current.beginning_of_month.to_s unless params[:start_date].present?
@@ -22,7 +17,7 @@ class Admin::AssistancesController < Admin::BaseController
 
   def apply_filters
     filter_by_location
-    # filter_by_cohort
+    filter_by_cohort
     filter_by_start_date
     filter_by_end_date
     filter_by_teacher
@@ -38,6 +33,9 @@ class Admin::AssistancesController < Admin::BaseController
   end
 
   def filter_by_cohort
+    if params[:cohort_id].present?
+      @assistances = @assistances.where(cohort: params[:cohort_id])
+    end
   end
 
   def filter_by_start_date

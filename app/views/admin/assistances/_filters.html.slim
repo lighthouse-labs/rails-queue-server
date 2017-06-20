@@ -4,11 +4,11 @@
 
     .form-group
       label Location
-      = select_tag :location, options_from_collection_for_select(Location.all.order('name'), "id", "name", params[:location] || current_user.location.id), class: "form-control admin-feedback-dropdown"
+      = select_tag :location, options_from_collection_for_select(Location.all.order('name'), "id", "name", params[:location] || "All"), :prompt => 'All Locations', class: "form-control admin-feedback-dropdown"
 
     .form-group
       label Cohort
-      = select_tag :cohort_id, options_from_collection_for_select(Location.all.order('name'), "id", "name", params[:cohort_id] || current_user.location.id), class: "form-control admin-feedback-dropdown"
+      = select_tag :cohort_id, options_from_collection_for_select(Cohort.all.order('start_date DESC').limit(10), "id", "name", params[:cohort_id]), :prompt => 'All Cohorts', class: "form-control admin-feedback-dropdown"
 
     .form-group
       label for="start_date"
