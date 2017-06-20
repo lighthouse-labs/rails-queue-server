@@ -7,6 +7,9 @@ class Admin::AssistancesController < Admin::BaseController
 
   def index
     @assistances = Assistance.all.order(created_at: :desc)
+    params[:location] = current_user.location.id.to_s unless params[:location].present?
+    params[:start_date] = Date.current.beginning_of_month.to_s unless params[:start_date].present?
+    params[:end_date] = Date.current.end_of_month.to_s unless params[:end_date].present?
 
     apply_filters
 
@@ -20,6 +23,8 @@ class Admin::AssistancesController < Admin::BaseController
 
   def apply_filters
     filter_by_location
+    filter_by_start_date
+    filter_by_end_date
   end
 
   def filter_by_location
@@ -27,6 +32,15 @@ class Admin::AssistancesController < Admin::BaseController
       @assistances = @assistances.joins(:cohort).where('cohorts.location_id' => params[:location])
     end
   end
+
+  def filter_by_start_date
+    @assistances = @assistances.where("start_at > :date", date: params[:start_date])
+  end
+
+  def filter_by_end_date
+    @assistances = @assistances.where("start_at < :date", date: params[:end_date])
+  end
+
 
   def filter_by_keywords
     if params[:keywords].present?
