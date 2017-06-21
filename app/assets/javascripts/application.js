@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require select2
 //= require turbolinks
 //= require jquery-ui/autocomplete
 //= require bootstrap-sprockets
@@ -67,3 +68,4 @@
 //= require console
 //= require projects
 //= require google_analytics
+//= require side_nav_search
