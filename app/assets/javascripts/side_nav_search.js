@@ -1,4 +1,4 @@
-$(function() {
+function ready() {
   $actSearch = ".activity-search-dropdown";
   $($actSearch).prepend("<option value='' selected='selected'></option>");
   $($actSearch).select2({
@@ -11,5 +11,7 @@ $(function() {
   $($actSearch).on("select2:select", function (e) {
     document.location = "/" + e.params.data.id;
   });
+};
 
-});
+$(document).ready(ready)
+$(document).on('turbolinks:load', ready);
