@@ -21,7 +21,6 @@ class Admin::AssistancesController < Admin::BaseController
     filter_by_start_date
     filter_by_end_date
     filter_by_teacher
-    # filter_by_rating
     filter_by_student_keywords
 
   end
@@ -50,26 +49,6 @@ class Admin::AssistancesController < Admin::BaseController
   def filter_by_teacher
     if params[:teacher_id].present?
       @assistances = @assistances.where(assistor: params[:teacher_id])
-    end
-  end
-
-  def filter_by_rating
-    params[:rating] ||= 'All'
-    @activities = case params[:rating]
-    when '1.x'
-      @activities.where(average_rating: 1.0..1.999)
-    when '2.x'
-      @activities.where(average_rating: 2.0..2.999)
-    when '3.x'
-      @activities.where(average_rating: 3.0..3.999)
-    when '4.x'
-      @activities.where(average_rating: 4.0..4.999)
-    when '5'
-      @activities.where(average_rating: 5)
-    when 'Unrated'
-      @activities.where(average_rating: nil)
-    else
-      @activities
     end
   end
 
