@@ -42,6 +42,10 @@ class Activity < ApplicationRecord
     joins(:section).where(sections: { type: 'Prep' })
   }
 
+  scope :teacher, -> {
+    joins(:section).where(sections: { type: 'TeacherSection' })
+  }
+
   scope :bootcamp, -> {
     where.not(day: nil)
   }

@@ -17,3 +17,15 @@ h1 = title
       div class="panel-collapse collapse #{'in' if active}" id="collapse_#{section.slug}" role="tabpanel" aria-labelledby="#{section.slug}"
         .panel-body
           = render "shared/menus/section_activities", section: section
+
+// root_path doesn't matter, as we are using jQuery
+- if title == "Prep Work"
+  = form_tag root_path, method: 'get', id: 'assistance-request-form'
+    .form-group
+      = select_tag(:activity_uuid, prep_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-search-dropdown')
+
+// root_path doesn't matter, as we are using jQuery
+- if title == "Teacher Prep"
+  = form_tag root_path, method: 'get', id: 'assistance-request-form'
+    .form-group
+      = select_tag(:activity_uuid, teacher_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-search-dropdown')
