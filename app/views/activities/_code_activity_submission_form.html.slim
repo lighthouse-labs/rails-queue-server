@@ -1,0 +1,15 @@
+- if current_user.completed_activity?(@activity)
+  = link_to activity_activity_submission_path(@activity), method: :delete, class:'btn btn-activity-incomplete-status'
+    i.fa.fa-times
+    | &nbsp;Cancel Submission
+- else
+  / Empty String b/c we don't want to render the 'Mark Completed Button' on code eval
+  = link_to '', data: { toggle: 'modal', target: '#new-activity-submission-modal' }
+
+  - content_for :end_of_body
+    = render 'activity_submission_with_feedback/modal'
+  coffee:
+    $ ->
+      $('#new-activity-submission-modal').on("hide.bs.modal", (e) ->
+        window.location.reload()
+      );

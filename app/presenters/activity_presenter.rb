@@ -71,7 +71,13 @@ class ActivityPresenter < BasePresenter
   end
 
   def submission_form
-    render "activity_submission_form" if allow_completion?
+    if allow_completion?
+      if !activity.evaluates_code?
+        render "activity_submission_form"
+      else
+        render "code_activity_submission_form"
+      end
+    end
   end
 
   def details_button
@@ -123,9 +129,8 @@ class ActivityPresenter < BasePresenter
 
   private
 
-  # for now, if the activity evaluates code, dont show submission
   def allow_completion?
-    !activity.evaluates_code? && !activity.is_a?(QuizActivity)
+    !activity.is_a?(QuizActivity)
   end
 
 end
