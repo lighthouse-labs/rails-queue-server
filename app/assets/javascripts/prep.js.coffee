@@ -279,8 +279,7 @@ $(document).on 'turbolinks:load', ->
         success: (response) =>
           # Reload the page because it's easier than changing a bunch of stuff
           if response.finalized
-            alert('Success! It looks like it works. Congrats!')
-            window.location.reload()
+            $('#new-activity-submission-modal').modal('show')
       )
 
   evaluateUserCode = (code) =>
