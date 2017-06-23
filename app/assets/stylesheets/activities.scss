@@ -53,7 +53,7 @@
   .btn-activity-complete-status {
     @include button-variant($btn-default-color, $brand-success, $btn-success-hover-bg, $btn-success-active-bg);
   }
-  .btn-activity-complete-status-no-code-review {
+  .btn-activity-complete-status {
    @include button-variant($btn-default-color, $brand-info, $btn-info-hover-bg, $btn-info-active-bg);
   }
   .btn-activity-incomplete-status {

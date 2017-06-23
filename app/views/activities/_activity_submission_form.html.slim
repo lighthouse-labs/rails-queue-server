@@ -6,10 +6,10 @@
     i.fa.fa-times
     | &nbsp;Cancel Submission
 - else
-  = link_to '#', class: 'btn btn-activity-complete-status-no-code-review', data: { toggle: 'modal', target: '#new-activity-submission-modal' }
+  = link_to '#', class: 'btn btn-activity-complete-status', data: { toggle: 'modal', target: '#new-activity-submission-modal' }
     i.fa.fa-check
     | &nbsp;Mark Completed
 
   - content_for :end_of_body
     = render 'activity_submission_with_feedback/modal'
-      
+
