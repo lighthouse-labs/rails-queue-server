@@ -159,7 +159,7 @@ class User < ApplicationRecord
   end
 
   def incomplete_activities
-    Activity.where.not(id: self.activity_submissions.select(:activity_id)).where("day <= ?", CurriculumDay.new(Date.today, cohort).to_s).order(:day).reverse
+    Activity.where.not(id: self.activity_submissions.select(:activity_id)).where("day <= ?", CurriculumDay.new(Date.yesterday, cohort).to_s).order(day: :desc)
   end
 
   def completed_code_reviews
