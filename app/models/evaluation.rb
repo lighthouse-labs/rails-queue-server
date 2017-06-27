@@ -29,7 +29,16 @@ class Evaluation < ApplicationRecord
         .references(:student, :cohort, :location)
     end
   }
+<<<<<<< fab8cf97fa2c5c403ceae946d75bc0743c0a0948
   scope :student_location, ->(location) {
+=======
+
+  scope :student_cohort_in_location, -> (location) {
+    joins(:student, :cohort).where(cohorts: {location_id: location.id})
+  }
+
+  scope :student_location, -> (location) {
+>>>>>>> changed PE selection to be based on cohort, if teacher location is van or to
     includes(:student).references(:student).where(users: { location_id: location.id })
   }
 
