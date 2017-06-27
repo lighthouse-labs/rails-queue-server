@@ -1,0 +1,105 @@
+# Implicitly Inherits: https://github.com/bbatsov/rubocop/blob/v0.48.1/config/default.yml
+# Note: use tag for release of rubocop currently in use (0.48.1 at time of comment)
+
+Rails:
+  Enabled: true
+
+AllCops:
+  Exclude:
+    - 'Gemfile'  # for now
+    - 'Gemfile.lock' # for now
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'db/seeds.rb'
+    - 'bin/*'
+    - 'config/application.rb'
+    - 'config/environment.rb'
+    - 'config/database.yml'
+    - 'config/environments/**/*'
+    - 'test/**/*'
+    - 'lib/tasks/wufoo.rake'
+    - 'lib/tasks/resque.rake'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
+
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines
+
+Layout/EmptyLinesAroundModuleBody:
+  EnforcedStyle: empty_lines
+
+#### Exclude Specs and related
+
+Style/StringLiterals:
+  Include:
+    - 'Gemfile'
+
+Layout/EmptyLinesAroundBlockBody:
+  Exclude:
+    - 'config/**/*'
+
+Layout/ExtraSpacing:
+  Exclude:
+    - 'spec/**/*'
+
+Layout/AlignHash:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+Lint/AssignmentInCondition:
+  AllowSafeAssignment: true
+
+Layout/IndentHash:
+  EnforcedStyle: consistent
+
+
+#### DISABLED THINGS
+
+# http://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/Documentation
+Style/Documentation:
+  Enabled: false
+
+# Will enable this when thinking of Ruby 3.0 upgrade
+# http://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/FrozenStringLiteralComment
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# http://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/ClassAndModuleChildren
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# http://www.rubydoc.info/gems/rubocop/0.45.0/RuboCop/Cop/Style/SymbolArray
+Style/SymbolArray:
+  Enabled: false
+
+# Gives really strange advice with AR scopes, etc
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+# Not on Rails 5 yet!
+Rails/ApplicationRecord:
+  Enabled: false
+
+# Not on Rails 5 yet!
+Rails/ApplicationJob:
+  Enabled: false
+
+# Not on Rails 5 yet!
+Rails/HttpPositionalArguments:
+  Enabled: false
+# Too many false positives
+# https://github.com/bbatsov/rubocop/issues/494#issuecomment-80559849
+# https://github.com/bbatsov/rubocop/pull/1370
+Metrics/MethodLength:
+  Enabled: false
+
+# Kept old settings for recollection, but for now its disabled
+Metrics/LineLength:
+  Enabled: false
+  Max: 120
+  Exclude:
+    - 'spec/**/*'
+    - 'config/**/*'
