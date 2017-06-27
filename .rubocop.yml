@@ -103,3 +103,10 @@ Metrics/LineLength:
   Exclude:
     - 'spec/**/*'
     - 'config/**/*'
+
+# Meant to handle Describe() blocks, which are usually over 25 lines.
+Metrics/BlockLength:
+  CountComments: false  # count full line comments?
+  Max: 25
+  Exclude:
+    - 'spec/**/*'
