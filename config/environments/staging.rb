@@ -1,6 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Logger level. Staging env should show same as production
+  Rails.logger.level = Logger::INFO
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -70,7 +73,7 @@ Rails.application.configure do
   config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
-  config.active_support.deprecation = :notify  
+  config.active_support.deprecation = :notify
 
   config.action_mailer.smtp_settings = {
     :address   => ENV["SMTP_SERVER"]   || "smtp.mandrillapp.com",
