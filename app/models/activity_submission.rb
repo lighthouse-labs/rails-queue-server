@@ -22,19 +22,19 @@ class ActivitySubmission < ApplicationRecord
 
   # if there is code evaluation, allow multiple submissions
   validates :user_id, uniqueness: {
-    scope: [:activity_id, :cohort_id],
+    scope:   [:activity_id, :cohort_id],
     message: "only one submission per activity per cohort"
-  }, unless: Proc.new {|activity_submission| activity_submission.activity.evaluates_code? }
+  }, unless: proc { |activity_submission| activity_submission.activity.evaluates_code? }
 
   validates :github_url,
-    presence: :true,
-    format: { with: URI::regexp(%w(http https)), message: "must be a valid format" },
-    if: :github_url_required?
+            presence: :true,
+            format:   { with: URI.regexp(%w[http https]), message: "must be a valid format" },
+            if:       :github_url_required?
 
   scope :with_github_url, -> {
-    includes(:activity).
-    where(activities: {allow_submissions: true}).
-    references(:activity)
+    includes(:activity)
+    .where(activities: { allow_submissions: true })
+    .references(:activity)
   }
 
   scope :not_code_reviewed, -> {
@@ -56,10 +56,10 @@ class ActivitySubmission < ApplicationRecord
     joins(:activity).where(activities: { stretch: true })
   }
 
-  scope :for_day, -> (day) {
+  scope :for_day, ->(day) {
     joins(:activity).where("activities.day = ?", day.to_s)
   }
-  scope :until_day, -> (day) {
+  scope :until_day, ->(day) {
     joins(:activity).where("activities.day <= ?", day.to_s)
   }
 
@@ -75,8 +75,8 @@ class ActivitySubmission < ApplicationRecord
   }
 
   def eval_results
-    if self.code_evaluation_results?
-      YAML.load self.code_evaluation_results.sub('--- !ruby/hash:ActionController::Parameters', '---')
+    if code_evaluation_results?
+      YAML.safe_load code_evaluation_results.sub('--- !ruby/hash:ActionController::Parameters', '---')
     end
   end
 
@@ -85,14 +85,14 @@ class ActivitySubmission < ApplicationRecord
     # It may make sense to keep the relationship so I have left it in place.
     # Really we have some bad normalization because of this, but I consider
     # it transitional at this point.
-    CodeReviewRequest.where(activity_id: self.activity_id, requestor_id: self.user_id).where.not(assistance_id: nil).joins(:assistance).references(:assistance).where.not(assistances: { end_at: nil }).any?
+    CodeReviewRequest.where(activity_id: activity_id, requestor_id: user_id).where.not(assistance_id: nil).joins(:assistance).references(:assistance).where.not(assistances: { end_at: nil }).any?
   end
 
   private
 
   def set_finalized_for_code_evaluation
-    if self.code_evaluation_results?
-      # TODO handle more than just prep data
+    if code_evaluation_results?
+      # TODO: handle more than just prep data
       results = formatted_code_evaluation_results
       self.finalized = results[:lint_results].zero? && results[:test_failures].zero?
     end
@@ -109,9 +109,9 @@ class ActivitySubmission < ApplicationRecord
 
   def formatted_code_evaluation_results
     {
-      lint_results: self.eval_results["lintResults"],
-      test_failures: self.eval_results["testFailures"],
-      test_passes: self.eval_results["testPasses"]
+      lint_results:  eval_results["lintResults"],
+      test_failures: eval_results["testFailures"],
+      test_passes:   eval_results["testPasses"]
     }
   end
 
@@ -124,27 +124,20 @@ class ActivitySubmission < ApplicationRecord
     student_probablitiy = user.code_review_percent / 100.0
     activity_probability = activity.code_review_percent / 100.0
     student_probablitiy * activity_probability >= rand
-  end
-
-
-
-  def handle_submission_destroy
-    ActionCable.server.broadcast "assistance", {
-      type: "CancelAssistanceRequest",
-      object: AssistanceRequestSerializer.new(self.code_review_request, root: false).as_json
-    }
+  end  def handle_submission_destroy
+    ActionCable.server.broadcast "assistance",       type:   "CancelAssistanceRequest",
+      object: AssistanceRequestSerializer.new(code_review_request, root: false).as_json
   end
 
   def create_user_outcome_results
-    self.activity.item_outcomes.each do |item_outcome|
+    activity.item_outcomes.each do |item_outcome|
       # TODO: change the way we calculate ratings
-      if self.activity.create_outcome_results?
-        self.user.outcome_results.create(
-          outcome: item_outcome.outcome,
-          source: item_outcome,
-          rating: Prep.evaluate_rating(formatted_code_evaluation_results)
-        )
-      end
+      next unless self.activity.create_outcome_results?
+      user.outcome_results.create(
+        outcome: item_outcome.outcome,
+        source:  item_outcome,
+        rating:  Prep.evaluate_rating(formatted_code_evaluation_results)
+      )
     end
   end
 

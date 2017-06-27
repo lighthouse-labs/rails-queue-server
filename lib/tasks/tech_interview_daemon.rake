@@ -16,5 +16,3 @@ namespace :daemons do
     puts 'Done with loop'
   end
 end
-
-

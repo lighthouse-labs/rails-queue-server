@@ -1,4 +1,5 @@
 class Evaluations::Finish
+
   include Interactor
 
   before do
@@ -27,7 +28,7 @@ class Evaluations::Finish
 
   def calc_final_score(eval)
     sum = 0
-    eval.result.each do |criteria, info|
+    eval.result.each do |_criteria, info|
       sum += info['score'].to_i
     end
     (sum.to_f / eval.result.size.to_f).round(2)

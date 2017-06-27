@@ -7,9 +7,7 @@ class TechInterviewTemplatesController < ApplicationController
   def show
     @interview_template = TechInterviewTemplate.find params[:id]
 
-    if student?
-      @result = @interview_template.interview_for(current_user)
-    end
+    @result = @interview_template.interview_for(current_user) if student?
   end
 
 end

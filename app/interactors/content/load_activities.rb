@@ -1,4 +1,5 @@
 class Content::LoadActivities
+
   include Interactor
 
   before do
@@ -45,7 +46,6 @@ class Content::LoadActivities
 
         activity_data.push extract_activity_file_data(root_path, data_dir, content_file, seq)
         seq += 1
-
       end
     end
 
@@ -55,7 +55,7 @@ class Content::LoadActivities
     activity_data
   end
 
-  def extract_activity_file_data(repo_dir, data_dir, filename, sequence=nil)
+  def extract_activity_file_data(repo_dir, data_dir, filename, sequence = nil)
     content = File.open(File.join(repo_dir, data_dir, filename)).read
     attrs = extract_attributes(content)
     filename_parts = filename.split('__')
@@ -73,11 +73,9 @@ class Content::LoadActivities
   def day_from_folder_name(dirname)
     case dirname
     when /Week (\d+) Day (\d)/
-      "w#{$1}d#{$2}"
+      "w#{Regexp.last_match(1)}d#{Regexp.last_match(2)}"
     when /Week (\d+) Weekend/
-      "w#{$1}e"
-    else
-      nil
+      "w#{Regexp.last_match(1)}e"
     end
   end
 
@@ -91,7 +89,7 @@ class Content::LoadActivities
   def extract_frontmatter_attributes(content)
     attrs = {}
     if matches = content.lstrip.match(/^---(.*?)---.*/m)
-      attrs = YAML.load(matches[1])
+      attrs = YAML.safe_load(matches[1])
     end
     attrs
   end

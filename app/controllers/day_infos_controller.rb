@@ -5,8 +5,7 @@ class DayInfosController < ApplicationController
   before_action :teacher_required
   before_action :load_day_info, only: [:edit, :update]
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @day_info.update day_info_params
@@ -25,7 +24,7 @@ class DayInfosController < ApplicationController
   def load_day_info
     @day_info = DayInfo.find_by(day: day.to_s)
   end
-  
+
   def day_info_params
     params.require(:day_info).permit(:description)
   end

@@ -9,7 +9,7 @@ class Section < ApplicationRecord
   validates :slug, presence: true, uniqueness: true
 
   def to_param
-    self.slug
+    slug
   end
 
   def core_duration_in_hours
@@ -21,4 +21,5 @@ class Section < ApplicationRecord
     # add 10% for buffer
     @total_duration_in_hours ||= (activities.active.sum(:duration) / 60.0) * 1.1
   end
+
 end

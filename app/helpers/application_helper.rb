@@ -32,7 +32,7 @@ module ApplicationHelper
     hours = int_time / 100
     minutes = int_time % 100
     minutes = "00" if minutes == 0
-    return "#{hours}:#{minutes}"
+    "#{hours}:#{minutes}"
   end
 
   def avatar_for(user)
@@ -63,7 +63,7 @@ module ApplicationHelper
     fields = f.fields_for(association, new_object, child_index: id) do |builder|
       render(association.to_s.singularize + "_fields", f: builder)
     end
-    link_to(name, '#', class: "add_fields btn btn-primary btn-sm #{css_classes}", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, '#', class: "add_fields btn btn-primary btn-sm #{css_classes}", data: { id: id, fields: fields.delete("\n") })
   end
 
   def shortened_github_url(url)
@@ -126,6 +126,5 @@ module ApplicationHelper
       'label-default'
     end
   end
-
 
 end

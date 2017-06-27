@@ -1,4 +1,5 @@
 class Content::LoadActivity
+
   include Interactor
 
   before do
@@ -74,7 +75,7 @@ class Content::LoadActivity
 
     # return hash with both attributes (latter may be nil)
     {
-      instructions: separated[0],
+      instructions:  separated[0],
       teacher_notes: separated[1] ? separated[1].lstrip : nil
     }
   end
@@ -90,7 +91,7 @@ class Content::LoadActivity
 
   def section(uuid)
     uuid &&
-     (scan_for_record_by_uuid(uuid) || Section.find_by(uuid: uuid))
+      (scan_for_record_by_uuid(uuid) || Section.find_by(uuid: uuid))
   end
 
   def scan_for_record_by_uuid(uuid)
@@ -99,43 +100,38 @@ class Content::LoadActivity
 
   def type(t)
     t = case t.strip.downcase
-    when 'quiz'
-      'QuizActivity'
-    when 'exercise'
-      'Assignment'
-    when 'problem'
-      'Assignment'
-    # FIXME: below categories should be changed/removed - KV
-    when 'project'
-    # FIXME: projects should be moved into their own curriculum dir, perhaps
-      'Reading'
-    when 'note', 'week outline', 'outline', 'folder description', 'module outline', 'day outline', 'weekend outline'
-      'PinnedNote'
-    # FIXME: below categories should be changed/removed - KV
-    when 'reading and questions'
-      'Reading'
-    # FIXME: below categories should be changed/removed - KV
-    when 'stretch', 'stretch reading'
-      'Reading'
-    when 'practice'
-      'Task'
-    when 'breakout'
-      'Lecture'
-    else
-      # make sure this is a valid Activity type, and if so, roll with it
-      t.strip.gsub(/\s+/, '_').classify
+        when 'quiz'
+          'QuizActivity'
+        when 'exercise'
+          'Assignment'
+        when 'problem'
+          'Assignment'
+        # FIXME: below categories should be changed/removed - KV
+        when 'project'
+          # FIXME: projects should be moved into their own curriculum dir, perhaps
+          'Reading'
+        when 'note', 'week outline', 'outline', 'folder description', 'module outline', 'day outline', 'weekend outline'
+          'PinnedNote'
+        # FIXME: below categories should be changed/removed - KV
+        when 'reading and questions'
+          'Reading'
+        # FIXME: below categories should be changed/removed - KV
+        when 'stretch', 'stretch reading'
+          'Reading'
+        when 'practice'
+          'Task'
+        when 'breakout'
+          'Lecture'
+        else
+          # make sure this is a valid Activity type, and if so, roll with it
+          t.strip.gsub(/\s+/, '_').classify
     end
 
     # Note: assumes all models are eager loaded
     # this is done in deploy.rb (main interactor) via:
     #     Rails.application.eager_load!
     # - KV
-    if Object.const_defined?(t) && t.constantize.superclass == Activity
-      t
-    else
-      # couldn't find a class with this name, so go with nil
-      nil
-    end
+    t if Object.const_defined?(t) && t.constantize.superclass == Activity
   end
 
   def load_quiz

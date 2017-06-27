@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 describe 'Authentication' do
-
   context "with new user profile" do
     it 'creates a user record based on Github OAuth Response Hash' do
       FactoryGirl.create :user # => 1
@@ -36,7 +35,7 @@ describe 'Authentication' do
       expect(User.count).to eq(1) # was already 1 due to FG.create above
     end
 
-    # Should redirect to prep page when completed registration but prepping (not assigned type to Student/Teacher) 
+    # Should redirect to prep page when completed registration but prepping (not assigned type to Student/Teacher)
     it "redirects to prep page (instead of registration page) if prepping" do
       visit github_session_path
       expect(current_path).to eq(prep_index_path)
@@ -56,5 +55,4 @@ describe 'Authentication' do
       expect(current_path).to eq(new_registration_path) # was already 1 due to FG.create above
     end
   end
-
 end

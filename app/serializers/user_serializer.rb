@@ -3,16 +3,16 @@ class UserSerializer < ActiveModel::Serializer
   root false
 
   attributes :id,
-    :type,
-    :email,
-    :first_name,
-    :last_name,
-    :full_name,
-    :github_username,
-    :avatar_url,
-    :busy,
-    :last_assisted_at,
-    :remote
+             :type,
+             :email,
+             :first_name,
+             :last_name,
+             :full_name,
+             :github_username,
+             :avatar_url,
+             :busy,
+             :last_assisted_at,
+             :remote
 
   has_one :location
   has_one :cohort
@@ -24,13 +24,11 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def busy
-    if teacher?
-      object.busy?
-    end
+    object.busy? if teacher?
   end
 
   def remote
-    !teacher? && (object.cohort.try(:location) != object.location) 
+    !teacher? && (object.cohort.try(:location) != object.location)
   end
 
   def teacher?

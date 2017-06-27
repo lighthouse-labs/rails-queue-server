@@ -1,4 +1,5 @@
 class MarkTechInterview
+
   include Interactor
 
   def call
@@ -48,6 +49,5 @@ class MarkTechInterview
   def create_feedback(tech_interview)
     tech_interview.create_student_feedback(student: tech_interview.interviewee, teacher: tech_interview.interviewer)
   end
-
 
 end

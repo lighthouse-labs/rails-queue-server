@@ -8,12 +8,12 @@ class Teacher < User
 
   has_many :tech_interviews, class_name: TechInterview, foreign_key: :interviewer_id
 
-  scope :filter_by_location, -> (location_id) {
-    includes(:location).
-    where(locations: {id: location_id})
+  scope :filter_by_location, ->(location_id) {
+    includes(:location)
+      .where(locations: { id: location_id })
   }
 
-  scope :filter_by_teacher, -> (teacher_id) {
+  scope :filter_by_teacher, ->(teacher_id) {
     where(id: teacher_id)
   }
 
@@ -29,11 +29,11 @@ class Teacher < User
   end
 
   def self.mentors(location)
-    where(mentor: true).
-    where(location: location)
+    where(mentor: true)
+      .where(location: location)
   end
 
-  def can_access_day?(day)
+  def can_access_day?(_day)
     true
   end
 
@@ -42,8 +42,7 @@ class Teacher < User
   end
 
   def busy?
-    self.teaching_assistances.currently_active.length > 0 || self.evaluations.in_progress_evaluations.length > 0 || self.tech_interviews.in_progress.length > 0
+    !teaching_assistances.currently_active.empty? || !evaluations.in_progress_evaluations.empty? || !tech_interviews.in_progress.empty?
   end
-
 
 end

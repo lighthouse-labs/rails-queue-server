@@ -20,8 +20,8 @@ puts "Starting Outcomes Sync"
 #        (will skip those lines)
 # print: prints to console each line that is added
 
-s.sync({force: true,
-        print: true})
+s.sync(force: true,
+       print: true)
 
 puts "Done"
 
@@ -29,14 +29,10 @@ def debug_print
   Category.all.each do |c|
     puts c.name
     c.skills.each do |s|
-      puts "\t"+s.name
+      puts "\t" + s.name
       s.outcomes.each do |o|
-        puts "\t\t"+o.text
+        puts "\t\t" + o.text
       end
     end
   end
 end
-
-
-
-

@@ -1,6 +1,7 @@
 # Not an ActiveRecord model
 
 class CurriculumDay
+
   attr_reader :date
   attr_reader :raw_date
   attr_reader :cohort
@@ -16,9 +17,7 @@ class CurriculumDay
 
     @date = @date.to_s if @date.is_a?(CurriculumDay)
 
-    if @date.is_a?(String) && @cohort
-      @date = calculate_date
-    end
+    @date = calculate_date if @date.is_a?(String) && @cohort
   end
 
   def to_s
@@ -30,15 +29,15 @@ class CurriculumDay
     week = double_digit_week? && w < 10 ? "0#{w}" : w
 
     @to_s = if day_number <= 0
-      # day_number may be negative if cohort hasn't yet started
-      "w#{'0' if double_digit_week?}1d1"
-    elsif w > program.weeks
-      "w#{program.weeks}e"
-    elsif @date.sunday? || @date.saturday?
-      "w#{week}e"
-    else
-      d = determine_d
-      "w#{week}d#{d}"
+              # day_number may be negative if cohort hasn't yet started
+              "w#{'0' if double_digit_week?}1d1"
+            elsif w > program.weeks
+              "w#{program.weeks}e"
+            elsif @date.sunday? || @date.saturday?
+              "w#{week}e"
+            else
+              d = determine_d
+              "w#{week}d#{d}"
     end
   end
 
@@ -51,11 +50,11 @@ class CurriculumDay
   end
 
   def <=>(other)
-    if !other.is_a?(CurriculumDay)
+    unless other.is_a?(CurriculumDay)
       # assume it's a "w2d4" sort of thing
       other = CurriculumDay.new(other, @cohort)
     end
-    self.date <=> other.date
+    date <=> other.date
   end
 
   def unlocked_until_day
@@ -73,20 +72,20 @@ class CurriculumDay
     return false unless @cohort
     return false if @cohort.start_date > Date.current
     if program.curriculum_unlocking == 'weekly'
-      self.date.cweek <= today.date.cweek || self.date.year < today.date.year
+      date.cweek <= today.date.cweek || date.year < today.date.year
       # 53rd week can roll over into the new year, preventing access from remaining days of that week.
       # if Jan 1st is a thursday, it will prevent access until the week ends.
     else # assume daily
-      self.date <= today.date
+      date <= today.date
     end
   end
 
   def today?
-    self.to_s == today.to_s
+    to_s == today.to_s
   end
 
   def info
-    DayInfo.where(day: self.to_s).first
+    DayInfo.where(day: to_s).first
   end
 
   def day_number
@@ -104,15 +103,15 @@ class CurriculumDay
   end
 
   def friday?
-    self.to_s.ends_with?('5')
+    to_s.ends_with?('5')
   end
 
   def weekend?
-    self.to_s.ends_with?('e')
+    to_s.ends_with?('e')
   end
 
   def unlock_weekend_on_friday
-    (friday? && weekend?) && (self.to_s[1] == today.to_s[1])
+    (friday? && weekend?) && (to_s[1] == today.to_s[1])
   end
 
   def determine_w
@@ -139,7 +138,7 @@ class CurriculumDay
     # 5 (fri) - 1,3 => 3
     # 6 (sat) - 1,3 => 3
     # 7 (sun) - 1,3 => 3
-    wday = (weekdays.reverse.detect {|d| d.to_i <= wday } || weekdays.first)
+    wday = (weekdays.reverse.detect { |d| d.to_i <= wday } || weekdays.first)
     weekdays.index(wday) + 1
   end
 
@@ -155,7 +154,8 @@ class CurriculumDay
   def calculate_date
     date_parts = @date.match(/w(\d+)((d(\d))|e)/).to_a.compact # eg: w5d1 or w4e
     # dow = day of week
-    week, dow = date_parts[1].to_i, date_parts.last
+    week = date_parts[1].to_i
+    dow = date_parts.last
     dow = dow == 'e' ? 6 : dow.to_i # weekend is day 6 (saturday)
 
     # limitation: assume start date is always a monday

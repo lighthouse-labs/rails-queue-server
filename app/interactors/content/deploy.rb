@@ -1,4 +1,5 @@
 class Content::Deploy
+
   include Interactor
 
   before do
@@ -14,7 +15,6 @@ class Content::Deploy
   end
 
   def call
-
     @log_path = setup_logger
     deployment do
       repo_dir = @repo_dir || download_and_extract_repo_archive
@@ -53,7 +53,7 @@ class Content::Deploy
   end
 
   def load_project_records(repo_dir, records)
-    if Dir.exists?(File.join(repo_dir, '_Projects').to_s)
+    if Dir.exist?(File.join(repo_dir, '_Projects').to_s)
       Content::LoadProjects.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
     else
       puts 'Projects not found. Skipping.'
@@ -61,7 +61,7 @@ class Content::Deploy
   end
 
   def load_teacher_records(repo_dir, records)
-    if Dir.exists?(File.join(repo_dir, 'Teacher Resources').to_s)
+    if Dir.exist?(File.join(repo_dir, 'Teacher Resources').to_s)
       Content::LoadTeacherSections.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
     else
       puts 'Teacher resources not found. Skipping.'
@@ -69,7 +69,7 @@ class Content::Deploy
   end
 
   def load_interview_records(repo_dir, records)
-    if Dir.exists?(File.join(repo_dir, '_Interviews').to_s)
+    if Dir.exist?(File.join(repo_dir, '_Interviews').to_s)
       Content::LoadInterviews.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
     else
       puts 'Interview templates not found. Skipping.'
@@ -93,13 +93,11 @@ class Content::Deploy
   end
 
   def publish_deploy_summary(results)
-    Content::PublishDeploySummary.call({
-      log:        @log,
-      deployment: @deployment,
-      updated:    results.updated,
-      created:    results.created,
-      archived:   results.archived
-    })
+    Content::PublishDeploySummary.call(log:        @log,
+                                       deployment: @deployment,
+                                       updated:    results.updated,
+                                       created:    results.created,
+                                       archived:   results.archived)
   end
 
   def deploy_started
@@ -108,7 +106,7 @@ class Content::Deploy
   end
 
   def deploy_failed(e)
-    @deployment.update!(status: 'failed', error_message: e.message )
+    @deployment.update!(status: 'failed', error_message: e.message)
     @log.error "Deployment failed (id: #{@deployment.id})"
   end
 
@@ -119,7 +117,7 @@ class Content::Deploy
   end
 
   def setup_logger
-    relative_path = File.join('log', 'content_deployments', @repo.full_name.gsub('/', '_'))
+    relative_path = File.join('log', 'content_deployments', @repo.full_name.tr('/', '_'))
     file_name = "#{Time.now.to_i}.log"
 
     dir = Rails.root.join(relative_path)
@@ -131,13 +129,12 @@ class Content::Deploy
     @log.level = :debug
 
     @log.add_appenders \
-        Logging.appenders.stdout,
-        Logging.appenders.file(File.join(dir, file_name))
+      Logging.appenders.stdout,
+      Logging.appenders.file(File.join(dir, file_name))
 
     @log.info "Log file name: #{relative_path}"
 
     relative_path
   end
-
 
 end

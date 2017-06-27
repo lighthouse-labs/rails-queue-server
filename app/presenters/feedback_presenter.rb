@@ -1,12 +1,11 @@
 class FeedbackPresenter < BasePresenter
+
   presents :feedback
 
   delegate :notes, :rating, :updated_at, :feedbackable, :technical_rating, :style_rating, :student, :teacher, to: :feedback
 
   def truncated_notes
-    if feedback.notes.present?
-      truncate feedback.notes, length: 200
-    end
+    truncate feedback.notes, length: 200 if feedback.notes.present?
   end
 
   def upcased_day
@@ -57,20 +56,24 @@ class FeedbackPresenter < BasePresenter
   end
 
   def github_info(teacher)
-    render(
-      'shared/social_icon',
-      handle: teacher.github_username,
-      company: 'github',
-      url: "https://github.com/#{teacher.github_username}"
-    ) if teacher.github_username?
+    if teacher.github_username?
+      render(
+        'shared/social_icon',
+        handle:  teacher.github_username,
+        company: 'github',
+        url:     "https://github.com/#{teacher.github_username}"
+      )
+    end
   end
 
   def slack_info(teacher)
-    render(
-      'shared/social_icon',
-      handle: teacher.slack,
-      company: 'slack'
-    ) if teacher.slack?
+    if teacher.slack?
+      render(
+        'shared/social_icon',
+        handle:  teacher.slack,
+        company: 'slack'
+      )
+    end
   end
 
   def teacher
@@ -84,9 +87,7 @@ class FeedbackPresenter < BasePresenter
   def assistance_request_reason
     if feedback.feedbackable_type == "Assistance"
       assistance_request = AssistanceRequest.find_by(assistance_id: feedback.feedbackable_id)
-      if assistance_request
-        assistance_request.reason
-      end
+      assistance_request.reason if assistance_request
     else
       'N/A'
     end

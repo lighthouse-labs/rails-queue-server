@@ -1,4 +1,5 @@
 class SubmitActivityWithFeedback
+
   include Interactor
 
   def call
@@ -13,7 +14,7 @@ class SubmitActivityWithFeedback
     end
 
     @activity_submission = context.activity_submission = @user.activity_submissions.new(
-      user:       @user, 
+      user:       @user,
       activity:   @activity,
       time_spent: @fields.time_spent,
       note:       @fields.note,
@@ -23,7 +24,7 @@ class SubmitActivityWithFeedback
     if @activity_submission.save
       if feedback?
         context.activity_feedback = @activity.activity_feedbacks.new(
-          user: @user,
+          user:   @user,
           rating: @fields.rating,
           detail: @fields.detail
         )
