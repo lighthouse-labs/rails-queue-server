@@ -2,23 +2,14 @@ div.col-md-12.incomplete-activity-details-row
 
   h4.col-md-1.activity-week #{activity.day.upcase}
 
-  .col-md-10
+  .col-md-11
     = link_to day_activity_path(activity.day, activity)
-      div class=("#{activity.type.downcase} " + 'activity')
+      div class=("#{activity.type} " + 'activity')
         .icon.icon-type title=activity.type
           i class=(icon_for(activity))
         - if activity.display_duration?
           .time.time-duration
-            br
             = duration activity
-            br
-        - else
-          .time
-            = integer_time_to_s activity.start_time
-            br
-            | to
-            br
-            = integer_time_to_s activity.end_time
         .icon.icon-completion
           - if current_user.completed_activity?(activity)
             i.fa.fa-check-square-o
@@ -26,8 +17,6 @@ div.col-md-12.incomplete-activity-details-row
             i.fa.fa-square-o
         .name
           = activity.name
-
-  .col-md-1
-    - if !activity.allow_submissions?
-      button.btn.incomplete-activity-submit-button data-activity-id="#{activity.id}" data-activity-type="#{activity.type}"
-        i.fa.fa-check data-activity-id="#{activity.id}" data-activity-type="#{activity.type}"
+          | &nbsp;
+          - if activity.stretch?
+            span.stretch = '(Stretch)'
