@@ -5,7 +5,7 @@ namespace :daemons do
       sleep((ENV['SLEEP'] || 15).to_i)
       begin
         TechInterviewCreator.new.run
-      rescue Exception => e
+      rescue StandardError => e
         if Rails.env.development?
           raise e
         else
@@ -13,6 +13,6 @@ namespace :daemons do
         end
       end
     end
-    puts 'Done with loop'
+    Rails.logger.info 'Done with loop'
   end
 end

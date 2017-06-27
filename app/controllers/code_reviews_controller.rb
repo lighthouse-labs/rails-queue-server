@@ -4,7 +4,6 @@ class CodeReviewsController < ApplicationController
 
   before_action :teacher_required
   before_action :load_cohorts
-  # before_filter :load_student
 
   def index; end
 
@@ -61,12 +60,6 @@ class CodeReviewsController < ApplicationController
     end
     @cohorts = @cohorts.uniq
     @cohorts
-  end
-
-  def load_student
-    id = params["student_id"] || params["assistee-id"]
-    puts "the id is: #{id}"
-    @student = Student.find(id)
   end
 
 end
