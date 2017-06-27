@@ -124,7 +124,8 @@ class ActivitySubmission < ApplicationRecord
     student_probablitiy = user.code_review_percent / 100.0
     activity_probability = activity.code_review_percent / 100.0
     student_probablitiy * activity_probability >= rand
-  end  def handle_submission_destroy
+  end
+  def handle_submission_destroy
     ActionCable.server.broadcast "assistance",       type:   "CancelAssistanceRequest",
       object: AssistanceRequestSerializer.new(code_review_request, root: false).as_json
   end
