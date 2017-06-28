@@ -277,9 +277,12 @@ $(document).on 'turbolinks:load', ->
             code_evaluation_results: JSON.stringify(results)
         dataType: 'json'
         success: (response) =>
-          # Reload the page because it's easier than changing a bunch of stuff
+          # Load the submission modal, and refresh if they hide it
           if response.finalized
             $('#new-activity-submission-modal').modal('show')
+            $('#new-activity-submission-modal').on("hide.bs.modal", (e) ->
+              window.location.reload()
+            );
       )
 
   evaluateUserCode = (code) =>
