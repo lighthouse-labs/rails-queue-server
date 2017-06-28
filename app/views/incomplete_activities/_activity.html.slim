@@ -1,10 +1,10 @@
-div.col-md-12.incomplete-activity-details-row
+ div.col-md-12.incomplete-activity-details-row
 
   h4.col-md-1.activity-week #{activity.day.upcase}
 
   .col-md-11
     = link_to day_activity_path(activity.day, activity)
-      div class=("#{activity.type} " + 'activity')
+      div class=('activity')
         .icon.icon-type title=activity.type
           i class=(icon_for(activity))
         - if activity.display_duration?
