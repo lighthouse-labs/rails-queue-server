@@ -4,7 +4,6 @@ h3.date-heading = "#{day.date.strftime("%a %b #{day.date.day}")}"
 
 == render 'layouts/calendar'
 
-// root_path doesn't matter, as we are using jQuery
-= form_tag root_path, method: 'get', id: 'assistance-request-form'
+= form_tag '', method: 'get', id: 'jump-to-bootcamp-activities'
   .form-group
-    = select_tag(:activity_uuid, assistance_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-search-dropdown')
+    = select_tag(:activity_uuid, bootcamp_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-jump-to-dropdown')

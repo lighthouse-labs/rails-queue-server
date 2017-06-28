@@ -18,14 +18,12 @@ h1 = title
         .panel-body
           = render "shared/menus/section_activities", section: section
 
-// root_path doesn't matter, as we are using jQuery
 - if title == "Prep Work"
-  = form_tag root_path, method: 'get', id: 'assistance-request-form'
+  = form_tag '', method: 'get', id: 'jump-to-prep-activities'
     .form-group
-      = select_tag(:activity_uuid, prep_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-search-dropdown')
+      = select_tag(:activity_uuid, prep_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-jump-to-dropdown')
 
-// root_path doesn't matter, as we are using jQuery
 - if title == "Teacher Prep"
-  = form_tag root_path, method: 'get', id: 'assistance-request-form'
+  = form_tag '', method: 'get', id: 'jump-to-teacher-activities'
     .form-group
-      = select_tag(:activity_uuid, teacher_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-search-dropdown')
+      = select_tag(:activity_uuid, teacher_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-jump-to-dropdown')
