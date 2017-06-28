@@ -122,7 +122,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
             = link_to incomplete_activities_path, title: 'Incomplete Activities'
               i.fa.fa-fw.fa-exclamation-triangle
               span.non-tablet-label
-                | Incomplete Activities (#{current_user.incomplete_activities.where(stretch: nil).count})
+                | Incomplete Activities (#{current_user.incomplete_activities.core.count})
 
       ul.nav.navbar-nav.navbar-right
         - if teacher? && !dropdown_cohorts.empty?
