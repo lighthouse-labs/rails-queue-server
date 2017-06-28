@@ -22,13 +22,8 @@ class ActivitySubmissionsController < ApplicationController
   end
 
   def destroy
-    unless @activity.evaluates_code?
-      activity_submission = @activity.activity_submissions.find_by(user: current_user)
-      activity_submission.destroy if activity_submission
-    else
-      activity_submissions = @activity.activity_submissions.where(user: current_user)
-      activity_submissions.each { |submission| submission.destroy }
-    end
+    activity_submission = @activity.activity_submissions.find_by(user: current_user)
+    activity_submission.destroy if activity_submission
 
     redirect_to :back
   end
