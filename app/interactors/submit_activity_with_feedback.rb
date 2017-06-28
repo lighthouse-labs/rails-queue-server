@@ -12,8 +12,15 @@ class SubmitActivityWithFeedback
       context.fail!
     end
 
+    # Update submission if it is a code eval
+    if @activity.evaluates_code?
+      @activity_submission = context.activity_submission = @user.activity_submissions.for_activity(@activity).finalized.first
+      @activity_submission.update(
+        time_spent: @fields.time_spent,
+        note: @fields.note,
+      )
+    else
     # Create a new submission if it is not a code eval
-    unless @activity.evaluates_code?
       @activity_submission = context.activity_submission = @user.activity_submissions.new(
         user:       @user,
         activity:   @activity,
@@ -21,16 +28,6 @@ class SubmitActivityWithFeedback
         note:       @fields.note,
         github_url: @fields.github_url
       )
-    else
-    # Update submission if it is a code eval
-      @activity_submission = context.activity_submission = @user.activity_submissions.find_by({
-        activity_id: @activity.id,
-        finalized: true
-      })
-      @activity_submission.update({
-        time_spent: @fields.time_spent,
-        note: @fields.note,
-        })
     end
 
 
