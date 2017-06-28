@@ -282,7 +282,7 @@ $(document).on 'turbolinks:load', ->
             $('#new-activity-submission-modal').modal('show')
             $('#new-activity-submission-modal').on("hide.bs.modal", (e) ->
               window.location.reload()
-            );
+            )
       )
 
   evaluateUserCode = (code) =>
