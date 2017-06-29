@@ -12,14 +12,14 @@ function modelMatcher (params, data) {
   if (data.children && data.children.length > 0) {
     // Clone the data object if there are children
     // This is required as we modify the object to remove any non-matches
-    var match = $.extend(true, {}, data);
+    const match = $.extend(true, {}, data);
 
     // Check each child of the option
-    for (var c = data.children.length - 1; c >= 0; c--) {
-      var child = data.children[c];
+    for (let c = data.children.length - 1; c >= 0; c--) {
+      const child = data.children[c];
       child.parentText += data.parentText + " " + data.text;
 
-      var matches = modelMatcher(params, child);
+      const matches = modelMatcher(params, child);
 
       // If there wasn't a match, remove the object in the array
       if (matches == null) {
@@ -38,8 +38,8 @@ function modelMatcher (params, data) {
 
   // If the typed-in term matches the text of this term, or the text from any
   // parent term, then it's a match.
-  var original = (data.parentText + ' ' + data.text).toUpperCase();
-  var term = params.term.toUpperCase();
+  const original = (data.parentText + ' ' + data.text).toUpperCase();
+  const term = params.term.toUpperCase();
 
 
   // Check if the text contains the term
