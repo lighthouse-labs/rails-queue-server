@@ -56,7 +56,7 @@ class Content::Deploy
     if Dir.exist?(File.join(repo_dir, '_Projects').to_s)
       Content::LoadProjects.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
     else
-      puts 'Projects not found. Skipping.'
+      Rails.logger.info 'Projects not found. Skipping.'
     end
   end
 
@@ -64,7 +64,7 @@ class Content::Deploy
     if Dir.exist?(File.join(repo_dir, 'Teacher Resources').to_s)
       Content::LoadTeacherSections.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
     else
-      puts 'Teacher resources not found. Skipping.'
+      Rails.logger.info 'Teacher resources not found. Skipping.'
     end
   end
 
@@ -72,7 +72,7 @@ class Content::Deploy
     if Dir.exist?(File.join(repo_dir, '_Interviews').to_s)
       Content::LoadInterviews.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
     else
-      puts 'Interview templates not found. Skipping.'
+      Rails.logger.info 'Interview templates not found. Skipping.'
     end
   end
 

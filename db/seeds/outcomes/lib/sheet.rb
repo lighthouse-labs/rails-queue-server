@@ -22,11 +22,11 @@ class Sheet
   end
 
   def log_invalid
-    puts "invalid entries in spreadsheet:"
+    Rails.logger.debug "invalid entries in spreadsheet:"
     @rows.each_with_index do |csv_row, index|
       unless Line.new(csv_row).valid?
-        puts "line: #{index + SKIP_LINES + 1}"
-        p csv_row
+        Rails.logger.debug "line: #{index + SKIP_LINES + 1}"
+        Rails.logger.info csv_row
       end
     end
     nil
@@ -51,12 +51,12 @@ class Sheet
         if line.category?
           depth_to_category_id[line.depth] = line.uuid
           (1..6).each { |x| depth_to_category_id[line.depth + x] = nil }
-          puts line.name if print
+          Rails.logger.info line.name if print
           line.upsert!
         elsif line.skill?
           skill_id = line.uuid
           category_id = (1..6).map { |x| depth_to_category_id[line.depth - x] }.detect { |v| v }
-          puts lookup[category_id].name + " / " + line.name if print
+          Rails.logger.info lookup[category_id].name + " / " + line.name if print
           line.upsert!(category_id)
         elsif line.outcome?
           line.upsert!(skill_id)

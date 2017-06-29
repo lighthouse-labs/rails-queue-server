@@ -136,15 +136,15 @@ class Line
 
   def upsert!(parent_id = nil)
     if category?
-      puts "\t > category / #{name} (#{uuid})"
+      Rails.logger.info "\t > category / #{name} (#{uuid})"
       Category.upsert!(uuid, name)
-      puts "\t > skill / core / #{uuid}"
+      Rails.logger.info "\t > skill / core / #{uuid}"
       Skill.upsert!(uuid, name, uuid)
     elsif skill?
-      puts "\t > skill / #{name} (#{uuid}) / parent: #{parent_id}"
+      Rails.logger.info "\t > skill / #{name} (#{uuid}) / parent: #{parent_id}"
       Skill.upsert!(uuid, name, parent_id)
     elsif outcome?
-      puts "\t > outcome / * / parent: #{parent_id}"
+      Rails.logger.info "\t > outcome / * / parent: #{parent_id}"
       Outcome.upsert!(uuid, name, parent_id, taxonomy, importance)
     end
   end

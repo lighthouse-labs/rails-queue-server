@@ -2,7 +2,7 @@ class TechInterviewCreator
 
   def run
     # no tech interviews on weekends
-    puts "Running..."
+    Rails.logger.info "Running..."
     return false unless weekday?
     # sort by most_recent so that junior cohorts take priority in terms of tech interviews. - KV
     Cohort.is_active.most_recent.each do |cohort|
@@ -23,7 +23,7 @@ class TechInterviewCreator
   end
 
   def handle_cohort_location(cohort, location)
-    puts "Handling cohort #{cohort.name}"
+    Rails.logger.info "Handling cohort #{cohort.name}"
 
     # if there are any active interviews in this location, then no go
     if interview = TechInterview.interviewee_location(location).active.first
@@ -41,7 +41,7 @@ class TechInterviewCreator
   end
 
   def handle_existing_interview(cohort, location, interview)
-    puts "Existing W#{interview.week} interview found for #{location.name}: #{interview.id}"
+    Rails.logger.info "Existing W#{interview.week} interview found for #{location.name}: #{interview.id}"
 
     if should_slack?(interview)
       slack_alert interview, generate_slack_message(cohort, location, interview)
@@ -67,7 +67,7 @@ class TechInterviewCreator
   end
 
   def slack_alert(interview, msg)
-    puts "SLACKING team about stale interview #{interview.id}"
+    Rails.logger.info "SLACKING team about stale interview #{interview.id}"
 
     result = NotifySlackChannel.call(
       webhook: ENV['SLACK_WEBHOOK_QUEUE_ALERTS'],
@@ -82,7 +82,7 @@ class TechInterviewCreator
 
   def create_interview(cohort, location, template)
     if student = fetch_student(cohort, location, template)
-      puts "Creating W#{template.week} interview for #{cohort.name} in #{location.name}: #{student.full_name}"
+      Rails.logger.info "Creating W#{template.week} interview for #{cohort.name} in #{location.name}: #{student.full_name}"
       return CreateTechInterview.call(
         interviewee:        student,
         interview_template: template
