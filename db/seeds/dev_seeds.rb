@@ -9,10 +9,10 @@ if Rails.env.development?
   puts "Legacy dev-only seed data coming at ya (development - only)!"
 
   cohort_van = Cohort.find_by(code: 'van')
-  cohort_van ||= Cohort.create! name: "Current Cohort Van", location: @location_van, start_date: Date.today - 7.days, program: @program, code: "van"
+  cohort_van ||= Cohort.create! name: "Current Cohort Van", location: @location_van, start_date: Time.zone.today - 7.days, program: @program, code: "van"
 
   cohort_tor = Cohort.find_by(code: 'toto')
-  cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Date.today - 14.days, program: @program, code: "toto"
+  cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Time.zone.today - 14.days, program: @program, code: "toto"
 
   1.upto(8).each do |week|
     1.upto(5).each do |day|
@@ -80,15 +80,15 @@ if Rails.env.development?
         # create a sampled assistance request
         ar = AssistanceRequest.create!(
           requestor:           student,
-          start_at:            Date.today - 10.minutes,
-          assistance_start_at: Date.today - 10.minutes,
-          assistance_end_at:   Date.today - 8.minutes,
+          start_at:            Time.zone.today - 10.minutes,
+          assistance_start_at: Time.zone.today - 10.minutes,
+          assistance_end_at:   Time.zone.today - 8.minutes,
           type:                nil,
           assistance:          Assistance.create(
             assistor: teacher,
             assistee: student,
-            start_at: Date.today - 10.minutes,
-            end_at:   Date.today - 8.minutes,
+            start_at: Time.zone.today - 10.minutes,
+            end_at:   Time.zone.today - 8.minutes,
             notes:    Faker::Lorem.sentence,
             rating:   [1, 2, 3, 4].sample
           ),

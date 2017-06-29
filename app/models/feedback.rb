@@ -7,8 +7,8 @@ class Feedback < ApplicationRecord
 
   scope :curriculum_feedbacks, -> { where(teacher: nil) }
   scope :teacher_feedbacks, -> { where.not(teacher: nil) }
-  scope :expired, -> { where("feedbacks.created_at < ?", Date.today - 1) }
-  scope :not_expired, -> { where("feedbacks.created_at >= ?", Date.today - 1) }
+  scope :expired, -> { where("feedbacks.created_at < ?", Time.zone.today - 1) }
+  scope :not_expired, -> { where("feedbacks.created_at >= ?", Time.zone.today - 1) }
   scope :completed, -> { where.not(rating: nil) }
   scope :pending, -> { where(rating: nil) }
   scope :reverse_chronological_order, -> { order("feedbacks.updated_at DESC") }
