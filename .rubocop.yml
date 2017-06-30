@@ -110,3 +110,7 @@ Metrics/BlockLength:
   Max: 25
   Exclude:
     - 'spec/**/*'
+
+# We don't agree with this lamba syntax. This fails on scope, :symbol -> { ... }
+Style/Lambda:
+  Enabled: false
