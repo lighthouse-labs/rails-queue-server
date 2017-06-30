@@ -3,6 +3,8 @@ Rails.application.configure do
 
   # Logger level. Staging env should show same as production
   Rails.logger.level = Logger::INFO
+  Rails.logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(Rails.logger)
 
   # Code is not reloaded between requests.
   config.cache_classes = true

@@ -3,6 +3,8 @@ Rails.application.configure do
 
   # Logger level
   Rails.logger.level = Logger::DEBUG
+  Rails.logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(Rails.logger)
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that

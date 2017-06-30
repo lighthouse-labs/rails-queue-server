@@ -3,6 +3,9 @@ Rails.application.configure do
 
   # Logger level. Dev env should show all
   Rails.logger.level = Logger::DEBUG
+  Rails.logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(Rails.logger)
+
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
