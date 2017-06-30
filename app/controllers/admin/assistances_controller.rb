@@ -2,8 +2,6 @@ class Admin::AssistancesController < Admin::BaseController
 
   def index
     @assistances = Assistance.all.order(created_at: :desc)
-    params[:start_date] = Date.current.beginning_of_month.to_s unless params[:start_date].present?
-    params[:end_date] = Date.current.end_of_month.to_s unless params[:end_date].present?
 
     apply_filters
 
@@ -38,10 +36,12 @@ class Admin::AssistancesController < Admin::BaseController
   end
 
   def filter_by_start_date
+    params[:start_date] = Date.current.beginning_of_month.to_s unless params[:start_date].present?
     @assistances = @assistances.where("start_at > :date", date: params[:start_date])
   end
 
   def filter_by_end_date
+    params[:end_date] = Date.current.end_of_month.to_s unless params[:end_date].present?
     end_datetime = Time.parse(params[:end_date]).end_of_day()
     @assistances = @assistances.where("start_at < :date", date: end_datetime)
   end
