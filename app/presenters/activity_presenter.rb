@@ -72,10 +72,10 @@ class ActivityPresenter < BasePresenter
 
   def submission_form
     if allow_completion?
-      if !activity.evaluates_code?
-        render "activity_submission_form"
-      else
+      if activity.evaluates_code?
         render "code_activity_submission_form"
+      else
+        render "activity_submission_form"
       end
     end
   end
