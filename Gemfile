@@ -96,7 +96,10 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'spring-commands-rspec'
   gem 'factory_girl_rails'
-  # gem 'rspec-rails', '2.14.2'
+  gem 'rspec-rails', '2.14.2'
+  gem 'rails-controller-testing'
+  gem 'rspec-wait'
+  gem 'byebug'
 
 end
 
@@ -107,6 +110,7 @@ group :test do
   gem 'poltergeist'
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
+  gem 'fuubar'
   # gem 'shoulda-matchers' # not ready for 4.1
 
   # http://d.pr/i/N429/2oGamluY

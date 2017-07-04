@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe CodeReviewController do
+describe CodeReviewsController do
 
 end

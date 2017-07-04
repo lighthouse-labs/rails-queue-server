@@ -3,17 +3,47 @@ require 'spec_helper'
 describe User do
 
   it "has a valid factory" do
-  	expect(build(:user)).to be_valid
+    expect(build(:user)).to be_valid
   end
 
-  it "should be valid with just uid, token" do
-    user = User.new(uid: "uid", token: "token")
-    expect(user).to be_valid
-  end
+  describe "should be invalid given: " do
 
-  it "should be invalid without uid" do
-    user = build(:user, uid: nil)
-    expect(user).to be_invalid
+    before(:each) do
+      @user = build(:user)
+    end
+
+    it "no uid" do
+      @user.uid = nil
+      expect(@user).to be_invalid
+    end
+    it "no token" do
+      @user.token = nil
+      expect(@user).to be_invalid
+    end
+    it "no first_name" do
+      @user.first_name = nil
+      expect(@user).to be_invalid
+    end
+    it "no last_name" do
+      @user.last_name = nil
+      expect(@user).to be_invalid
+    end
+    it "no phone_number" do
+      @user.phone_number = nil
+      expect(@user).to be_invalid
+    end
+    it "no email" do
+      @user.email = nil
+      expect(@user).to be_invalid
+    end
+    it "no location_id" do
+      @user.location_id = nil
+      expect(@user).to be_invalid
+    end
+    it "no github_username" do
+      @user.github_username = nil
+      expect(@user).to be_invalid
+    end
   end
 
   it "should be invalid without token" do
