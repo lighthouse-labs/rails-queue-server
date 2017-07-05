@@ -74,6 +74,14 @@ class ActivitySubmission < ApplicationRecord
     where(activity_id: Activity.bootcamp.pluck(:id))
   }
 
+  scope :for_activity, -> (activity) {
+    where(activity_id: activity.id)
+  }
+
+  scope :finalized, -> {
+    where(finalized: true)
+  }
+
   def eval_results
     if self.code_evaluation_results?
       YAML.load self.code_evaluation_results.sub('--- !ruby/hash:ActionController::Parameters', '---')
