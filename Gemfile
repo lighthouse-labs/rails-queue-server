@@ -98,7 +98,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '2.14.2'
   gem 'rails-controller-testing'
-  gem 'rspec-wait'
   gem 'byebug'
 
 end
