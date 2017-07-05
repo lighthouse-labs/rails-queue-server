@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 describe 'Authentication' do
-
   context "with new user profile" do
     it 'creates a user record based on Github OAuth Response Hash' do
       FactoryGirl.create :user # => 1
@@ -58,7 +57,5 @@ describe 'Authentication' do
       visit github_session_path
       expect(current_path).to eq(edit_profile_path) # was already 1 due to FG.create above
     end
-
   end
-
 end
