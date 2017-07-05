@@ -173,3 +173,21 @@ Some ruby code herecode
 ???
 ```
 
+## Testing
+
+**To run all tests:**
+
+`bundle exec rspec`
+
+**To run a specific file:**
+
+`bundle exec rspec ./spec/models/user_spec.rb`
+
+**To run a specific test:**
+
+`bundle exec rspec ./spec/models/user_spec.rb -e "User has a valid factory"`
+
+**Note:**
+
+`.rspec` file includes rspec options `--format Fuubar  --color spec`
+
