@@ -7,14 +7,18 @@
             | &times;
           span.sr-only
             | Close
-        h4.modal-title
-          | Mark Completed
+        - if @activity.evaluates_code?
+          h4.modal-title
+            | Success!
+        - else
+          h4.modal-title
+            | Mark Completed
       = simple_form_for ActivitySubmissionWithOptionalFeedback.new, url: activity_submission_with_feedback_path(@activity), method: :post, remote: true do |f|
           = render 'activity_submission_with_feedback/form', form: f
 
 - content_for :end_of_body
   coffee:
-    $ -> 
+    $ ->
       $("#new_activity_submission_with_optional_feedback").on("ajax:success", (e, data, status, xhr) ->
         window.location.reload()
       ).on "ajax:error", (e, xhr, status, error) ->
