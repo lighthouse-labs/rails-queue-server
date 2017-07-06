@@ -38,6 +38,8 @@ class Assistance < ApplicationRecord
   scope :assisted_by, -> (user) { where(:assistor => user) }
   scope :assisting, -> (user) { where(:assistee => user) }
 
+  scope :average_length, -> { average('EXTRACT(EPOCH FROM (assistances.end_at - assistances.start_at)) / 60.0').to_f }
+
   RATING_BASELINE = 3
 
   def end(notes, rating = nil, student_notes = nil)

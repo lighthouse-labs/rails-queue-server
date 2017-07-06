@@ -5,10 +5,7 @@ class Admin::AssistancesController < Admin::BaseController
 
     apply_filters
 
-    # Average time it takes to complete and assistance request
-    # There has got to be a better way to do this
-    @length_arr = @assistances.completed.collect{|s| s.end_at - s.start_at}
-    @assist_length_avg = @length_arr.inject{ |sum, el| sum + el }.to_f / @length_arr.size / 60
+    @assist_length_avg = @assistances.completed.average_length
   end
 
   private
@@ -20,19 +17,14 @@ class Admin::AssistancesController < Admin::BaseController
     filter_by_end_date
     filter_by_teacher
     filter_by_student_keywords
-
   end
 
   def filter_by_location
-    if params[:location].present?
-      @assistances = @assistances.joins(:cohort).where('cohorts.location_id' => params[:location])
-    end
+    @assistances = @assistances.joins(:cohort).where('cohorts.location_id' => params[:location]) if params[:location].present?
   end
 
   def filter_by_cohort
-    if params[:cohort_id].present?
-      @assistances = @assistances.where(cohort: params[:cohort_id])
-    end
+    @assistances = @assistances.where(cohort: params[:cohort_id]) if params[:cohort_id].present?
   end
 
   def filter_by_start_date
@@ -47,15 +39,10 @@ class Admin::AssistancesController < Admin::BaseController
   end
 
   def filter_by_teacher
-    if params[:teacher_id].present?
-      @assistances = @assistances.where(assistor: params[:teacher_id])
-    end
+    @assistances = @assistances.where(assistor: params[:teacher_id]) if params[:teacher_id].present?
   end
 
   def filter_by_student_keywords
-    if params[:keywords].present?
-      @assistances = @assistances.by_student_keywords(params[:keywords])
-    end
+    @assistances = @assistances.by_student_keywords(params[:keywords]) if params[:keywords].present?
   end
-
 end
