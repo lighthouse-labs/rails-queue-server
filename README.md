@@ -197,11 +197,13 @@ Some ruby code herecode
 ### CodeClimate
 
 Running tests automatically generate the `coverage/` folder (from the `simplecov` gem).
-Opening up the `index.html` is a great way to browse the code coverage.
+Opening up the `coverage/index.html` in the browser shows a filterable breakdown
 
-In order to update the coverage number on CodeClimate, run this command:
+In order to update the coverage number on CodeClimate, run this command (on master):
 
 `CODECLIMATE_REPO_TOKEN= <% Test Reporter ID %> bundle exec codeclimate-test-reporter`
 
-Where `<% Test Reporter ID %>` is from CodeClimate's website.
+Where `<% Test Reporter ID %>` is from CodeClimate's website. Settings >> Test Coverage
+
 Make sure gem `codeclimate-test-reporter` version is 1.0+
+
