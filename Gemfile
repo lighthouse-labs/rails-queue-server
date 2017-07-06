@@ -112,6 +112,7 @@ group :test do
   gem 'fuubar'
   # gem 'shoulda-matchers' # not ready for 4.1
 
+  gem 'simplecov', require: nil
   # http://d.pr/i/N429/2oGamluY
   gem "codeclimate-test-reporter", require: nil
 end

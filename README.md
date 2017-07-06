@@ -1,8 +1,11 @@
 Compass - by Lighthouse Labs
 =========
 
-[![wercker status](https://app.wercker.com/status/6070c1bb6d7619eb6e874b177dc3f995/m/ "wercker status")](https://app.wercker.com/project/bykey/6070c1bb6d7619eb6e874b177dc3f995) [![Code Climate](https://codeclimate.com/github/lighthouse-labs/laser_shark.png)](https://codeclimate.com/github/lighthouse-labs/laser_shark) [![Code Climate](https://codeclimate.com/github/lighthouse-labs/laser_shark/coverage.png)](https://codeclimate.com/github/lighthouse-labs/laser_shark/code?sort=covered_percent&sort_direction=desc) [![Dependency Status](https://gemnasium.com/lighthouse-labs/laser_shark.svg)](https://gemnasium.com/lighthouse-labs/laser_shark)
-
+<!-- [![wercker status](https://app.wercker.com/status/6070c1bb6d7619eb6e874b177dc3f995/m/ "wercker status")](https://app.wercker.com/project/bykey/6070c1bb6d7619eb6e874b177dc3f995) -->
+[![Code Climate](https://codeclimate.com/repos/5908c5f748708a0264000096/badges/2aace388b2ded83be3a6/gpa.svg)](https://codeclimate.com/repos/5908c5f748708a0264000096/feed)
+[![Test Coverage](https://codeclimate.com/repos/5908c5f748708a0264000096/badges/2aace388b2ded83be3a6/coverage.svg)](https://codeclimate.com/repos/5908c5f748708a0264000096/coverage)
+[![Issue Count](https://codeclimate.com/repos/5908c5f748708a0264000096/badges/2aace388b2ded83be3a6/issue_count.svg)](https://codeclimate.com/repos/5908c5f748708a0264000096/feed)
+<!-- [![Dependency Status](https://gemnasium.com/lighthouse-labs/laser_shark.svg)](https://gemnasium.com/lighthouse-labs/laser_shark) -->
 
 ## Ruby / Rails
 
@@ -191,3 +194,14 @@ Some ruby code herecode
 
 `.rspec` file includes rspec options `--format Fuubar  --color spec`
 
+### CodeClimate
+
+Running tests automatically generate the `coverage/` folder (from the `simplecov` gem).
+Opening up the `index.html` is a great way to browse the code coverage.
+
+In order to update the coverage number on CodeClimate, run this command:
+
+`CODECLIMATE_REPO_TOKEN= <% Test Reporter ID %> bundle exec codeclimate-test-reporter`
+
+Where `<% Test Reporter ID %>` is from CodeClimate's website.
+Make sure gem `codeclimate-test-reporter` version is 1.0+

@@ -73,3 +73,6 @@ config/cable.yml
 .env
 .powenv
 .ruby-version
+
+# Coverage file generated with simplecov gem
+coverage
