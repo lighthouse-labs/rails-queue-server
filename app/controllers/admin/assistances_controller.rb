@@ -7,6 +7,8 @@ class Admin::AssistancesController < Admin::BaseController
 
     @assist_length_avg = @assistances.completed.average_length
     @avg_l_score = @assistances.where.not(rating: nil).average(:rating).to_f.round(1)
+    @distinct_students = @assistances.pluck(:assistee_id).uniq.count
+    @distinct_teachers = @assistances.pluck(:assistor_id).uniq.count
   end
 
   private

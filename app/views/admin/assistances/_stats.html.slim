@@ -17,3 +17,19 @@
         - else
           = "#{@assist_length_avg.to_i} mins"
       span Average Length
+
+  .stat.panel.panel-default
+    .panel-body
+      h3
+        i.fa.fa-group
+        | &nbsp;
+        = @distinct_students
+      span Students
+
+  .stat.panel.panel-default
+    .panel-body
+      h3
+        i.fa.fa-life-ring
+        | &nbsp;
+        = @distinct_teachers
+      span Mentors
