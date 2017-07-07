@@ -19,11 +19,11 @@ h1 = title
           = render "shared/menus/section_activities", section: section
 
 - if title == "Prep Work"
-  = form_tag '', method: 'get', id: 'jump-to-prep-activities'
+  = form_tag '', method: 'get'
     .form-group
       = select_tag(:activity_uuid, prep_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-jump-to-dropdown')
 
 - if title == "Teacher Prep"
-  = form_tag '', method: 'get', id: 'jump-to-teacher-activities'
+  = form_tag '', method: 'get'
     .form-group
       = select_tag(:activity_uuid, teacher_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-jump-to-dropdown')

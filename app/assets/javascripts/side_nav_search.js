@@ -12,17 +12,17 @@ function modelMatcher (params, data) {
   if (data.children && data.children.length > 0) {
     // Clone the data object if there are children
     // This is required as we modify the object to remove any non-matches
-    const match = $.extend(true, {}, data);
+    var match = $.extend(true, {}, data);
 
     // Check each child of the option
-    for (let c = data.children.length - 1; c >= 0; c--) {
-      const child = data.children[c];
+    for (var c = data.children.length - 1; c >= 0; c--) {
+      var child = data.children[c];
       child.parentText += data.parentText + " " + data.text;
 
-      const matches = modelMatcher(params, child);
+      var matches = modelMatcher(params, child);
 
       // If there wasn't a match, remove the object in the array
-      if (matches == null) {
+      if (!matches) {
         match.children.splice(c, 1);
       }
     }
@@ -38,9 +38,8 @@ function modelMatcher (params, data) {
 
   // If the typed-in term matches the text of this term, or the text from any
   // parent term, then it's a match.
-  const original = (data.parentText + ' ' + data.text).toUpperCase();
-  const term = params.term.toUpperCase();
-
+  var original = (data.parentText + ' ' + data.text).toUpperCase();
+  var term = params.term.toUpperCase();
 
   // Check if the text contains the term
   if (original.indexOf(term) > -1) {
@@ -52,11 +51,10 @@ function modelMatcher (params, data) {
 }
 
 function ready() {
-
   $actSearch = ".activity-jump-to-dropdown";
   $($actSearch).prepend("<option value='' selected='selected'></option>");
   $($actSearch).select2({
-    placeholder: "Find an activity",
+    placeholder: "Jump to activity",
     matcher: modelMatcher
   })
   $($actSearch).closest('.form-group').children('.select2-container').css({
@@ -66,7 +64,7 @@ function ready() {
   $($actSearch).on("select2:select", function (e) {
     document.location = "/" + e.params.data.id;
   })
-};
+}
 
 $(document).ready(ready)
 $(document).on('turbolinks:load', ready);

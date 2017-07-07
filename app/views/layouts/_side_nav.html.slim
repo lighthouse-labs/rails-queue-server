@@ -3,7 +3,4 @@ h1.day-heading = day.to_s.upcase
 h3.date-heading = "#{day.date.strftime("%a %b #{day.date.day}")}"
 
 == render 'layouts/calendar'
-
-= form_tag '', method: 'get', id: 'jump-to-bootcamp-activities'
-  .form-group
-    = select_tag(:activity_uuid, bootcamp_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-jump-to-dropdown')
+== render 'layouts/jump_to'
