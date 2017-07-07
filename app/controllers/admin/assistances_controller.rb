@@ -6,6 +6,7 @@ class Admin::AssistancesController < Admin::BaseController
     apply_filters
 
     @assist_length_avg = @assistances.completed.average_length
+    @avg_l_score = @assistances.where.not(rating: nil).average(:rating).to_f.round(1)
   end
 
   private
@@ -15,6 +16,7 @@ class Admin::AssistancesController < Admin::BaseController
     filter_by_cohort
     filter_by_start_date
     filter_by_end_date
+    filter_by_day
     filter_by_teacher
     filter_by_student_keywords
   end
@@ -36,6 +38,10 @@ class Admin::AssistancesController < Admin::BaseController
     params[:end_date] = Date.current.end_of_month.to_s unless params[:end_date].present?
     end_datetime = Time.parse(params[:end_date]).end_of_day()
     @assistances = @assistances.where("start_at < :date", date: end_datetime)
+  end
+
+  def filter_by_day
+    @assistances = @assistances.where(day: params[:day]) if params[:day].present?
   end
 
   def filter_by_teacher
