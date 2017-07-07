@@ -13,13 +13,7 @@ class SubmitActivityWithFeedback
       context.fail!
     end
 
-    @activity_submission = context.activity_submission = @user.activity_submissions.new(
-      user:       @user,
-      activity:   @activity,
-      time_spent: @fields.time_spent,
-      note:       @fields.note,
-      github_url: @fields.github_url
-    )
+    handle_code_eval
 
     if @activity_submission.save
       if feedback?
@@ -36,10 +30,29 @@ class SubmitActivityWithFeedback
     end
   end
 
+  def handle_code_eval
+    # Update submission if it is a code eval
+    if @activity.evaluates_code?
+      @activity_submission = context.activity_submission = @user.activity_submissions.for_activity(@activity).finalized.first
+      @activity_submission.update(
+        time_spent: @fields.time_spent,
+        note: @fields.note,
+      )
+    else
+      # Create a new submission if it is not a code eval
+      @activity_submission = context.activity_submission = @user.activity_submissions.new(
+        user:       @user,
+        activity:   @activity,
+        time_spent: @fields.time_spent,
+        note:       @fields.note,
+        github_url: @fields.github_url
+      )
+    end
+  end
+
   private
 
   def feedback?
     @fields.rating.present? || @fields.detail.present?
   end
-
 end

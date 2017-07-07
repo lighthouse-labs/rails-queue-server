@@ -16,7 +16,7 @@ class Evaluations::UpdateResult
     if @evaluation.save
       # :)
     else
-      context.fail!(error: @evaluation.errrors.full_messages.first)
+      context.fail!(error: @evaluation.errors.full_messages.first)
     end
   end
 

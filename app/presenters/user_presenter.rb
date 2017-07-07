@@ -5,7 +5,7 @@ class UserPresenter < BasePresenter
   delegate :full_name, :email, :phone_number, :quirky_fact, :bio, :specialties, :company_name, :company_url, :slack, :skype, :type, to: :user
 
   def image_for_index_page
-    h.image_tag(avatar_for, style: 'float:left; width:60px; margin-right: 8px; border-radius: 5px; border: 2px solid black')
+    h.image_tag(avatar_for, style: 'float:left; width:60px; margin-right: 8px; border-radius: 5px; border: 2px solid black; overflow: hidden;')
   end
 
   def image_for_show_page
