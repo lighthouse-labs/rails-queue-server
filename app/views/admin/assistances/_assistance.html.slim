@@ -1,4 +1,4 @@
-- present assistance.assistor do |teacher_presenter|
+- present assistance do |assistance_presenter|
   tr
     td.details data-value=assistance.assistee.last_name
       .student-info
@@ -9,18 +9,18 @@
 
     td.details data-value=assistance.assistor.first_name
       = link_to teacher_path(assistance.assistor) do
-        = teacher_presenter.image_for_index_page
-        strong = teacher_presenter.full_name
+        = assistance_presenter.image_for_index_page
+        strong = assistance_presenter.assistor_full_name
 
       ul.list-inline.social-icons
-        = teacher_presenter.email_info
-        = teacher_presenter.github_info
-        = teacher_presenter.twitter_info
-        = teacher_presenter.slack_info
-        = teacher_presenter.skype_info
+        = assistance_presenter.email_info(assistance.assistor)
+        = assistance_presenter.github_info(assistance.assistor)
+        = assistance_presenter.twitter_info(assistance.assistor)
+        = assistance_presenter.slack_info(assistance.assistor)
+        = assistance_presenter.skype_info(assistance.assistor)
 
     td.details data-value=assistance.created_at
-      = "#{assistance.created_at.strftime('%B %d, %Y')}"
+      = assistance_presenter.formatted_date
 
     td.details data-value=(assistance.activity ? assistance.activity : "activity_id")
       - if assistance.activity
@@ -38,6 +38,6 @@
 
     td.details data-value=assistance.end_at
       - if assistance.end_at
-        = "#{distance_of_time_in_words(assistance.start_at, assistance.end_at)}"
+        = assistance_presenter.length
       - else
         = "In Progress"
