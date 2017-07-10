@@ -18,10 +18,10 @@ class AssistanceRequestsController < ApplicationController
     requests = AssistanceRequest.where(type: nil).open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
     code_reviews = CodeReviewRequest.open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
     my_active_evaluations = Evaluation.where(teacher: current_user).where(state: "in_progress").newest_active_evaluations_first
-    if current_user.location.name == "Vancouver" || current_user.location.name == "Toronto"
-      evaluations = Evaluation.open_evaluations.oldest_first.student_cohort_in_location(current_user.location)
-    else
+    if current_user.location.satellite
       evaluations = Evaluation.open_evaluations.oldest_first.student_location(current_user.location)
+    else
+      evaluations = Evaluation.open_evaluations.oldest_first.student_cohort_in_location(current_user.location)
     end
     my_active_interviews = TechInterview.in_progress.interviewed_by(current_user)
     interviews = TechInterview.oldest_first.queued.interviewee_location(current_user.location)
