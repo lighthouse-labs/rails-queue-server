@@ -61,14 +61,14 @@ describe User do
   describe '#being_assisted?' do
     it 'returns true if the user has an in progress assistance request' do
       ar = create(:assistance_request, canceled_at: nil, assistance: create(:assistance, end_at: nil))
-      expect(ar.requestor.being_assisted?).to be_true
+      expect(ar.requestor.being_assisted?).to be true
     end
     it 'returns false if the user only has completed assistance requests' do
       ar = create(:assistance_request, canceled_at: nil, assistance: create(:assistance, end_at: Date.current))
-      expect(ar.requestor.being_assisted?).to be_false
+      expect(ar.requestor.being_assisted?).to be false
     end
     it 'returns false if the user doesn\'t have any in progress assistance requests' do
-      expect(create(:user).being_assisted?).to be_false
+      expect(create(:user).being_assisted?).to be false
     end
   end
 
@@ -86,14 +86,14 @@ describe User do
   describe '#waiting_for_assistance?' do
     it 'returns true if the user has an open assistance request' do
       ar = create(:assistance_request)
-      expect(ar.requestor.waiting_for_assistance?).to be_true
+      expect(ar.requestor.waiting_for_assistance?).to be true
     end
     it 'returns false if the user only has canceled assistance requests' do
       ar = create(:canceled_assistance_request)
-      expect(ar.requestor.waiting_for_assistance?).to be_false
+      expect(ar.requestor.waiting_for_assistance?).to be false
     end
     it 'returns false if the user doesn\'t have any in progress assistance requests' do
-      expect(create(:user).waiting_for_assistance?).to be_false
+      expect(create(:user).waiting_for_assistance?).to be false
     end
   end
 
