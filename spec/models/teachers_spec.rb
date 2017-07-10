@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Teacher do
 
@@ -20,5 +20,5 @@ describe Teacher do
   #   teacher = build(:teacher, email: nil)
   #   expect(teacher).to be_invalid
   # end
-  
+
 end

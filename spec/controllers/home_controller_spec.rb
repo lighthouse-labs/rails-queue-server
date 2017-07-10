@@ -1,14 +1,11 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe HomeController do
-
-	logged_in_user
-
+  logged_in_user
   describe "GET 'show'" do
     it "returns http success" do
       get 'show'
-      expect(response).to redirect_to('/setup')
+      expect(response).to redirect_to('/prep')
     end
   end
-
 end

@@ -1,6 +1,6 @@
 # This is definitely an overkill test.
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Authentication' do
   context "with new user profile" do

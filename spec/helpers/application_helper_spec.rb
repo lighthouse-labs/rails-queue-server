@@ -1,6 +1,6 @@
-require "spec_helper"
+require "rails_helper"
 describe ApplicationHelper do
-  
+
   it "should calculate the integer_time_to_s" do
     integer_time_to_s(900).should eql "9:00"
     integer_time_to_s(1100).should eql "11:00"

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Admin::CohortsController do
   before :each do
@@ -8,7 +8,7 @@ describe Admin::CohortsController do
   describe 'GET #index' do
     it 'assigns all cohorts to @cohorts' do
       cohorts = create_list(:cohort, 5)
-      get :index 
+      get :index
       expect(assigns(:cohorts)).to match_array(cohorts)
     end
 

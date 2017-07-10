@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Cohort do
 	it "has a valid factory" do
@@ -11,6 +11,6 @@ describe Cohort do
 
   it "is invalid without a start date" do
     expect(build(:cohort, start_date: nil)).to have(1).errors_on(:start_date)
-  end  
+  end
 
 end
