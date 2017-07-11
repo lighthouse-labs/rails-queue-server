@@ -8,16 +8,16 @@ class Assistance < ApplicationRecord
   belongs_to :cohort # substitute for lack of enrollment record - KV
 
   pg_search_scope :by_student_keywords,
-    :associated_against => {
-      :assistee => [:first_name, :last_name, :email],
-    },
-    using: {
-      tsearch: {
-        dictionary: "english",
-        any_word:   true,
-        prefix:     true
-      }
-    }
+                  associated_against: {
+                    assistee: [:first_name, :last_name, :email]
+                  },
+                  using:              {
+                    tsearch: {
+                      dictionary: "english",
+                      any_word:   true,
+                      prefix:     true
+                    }
+                  }
 
   has_one :feedback, as: :feedbackable, dependent: :destroy
   has_one :assistance_request, dependent: :nullify

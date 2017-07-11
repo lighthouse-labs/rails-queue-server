@@ -1,4 +1,5 @@
 class AssistancePresenter < BasePresenter
+
   presents :assistance
 
   def avatar_for
@@ -18,52 +19,63 @@ class AssistancePresenter < BasePresenter
   end
 
   def email_info(teacher)
-    render(
-      'shared/social_icon',
-      handle: teacher.email,
-      company: 'github',
-      url: "https://github.com/#{teacher.email}"
-    ) if teacher.email?
+    if teacher.email?
+      render(
+        'shared/social_icon',
+        handle:  teacher.email,
+        company: 'github',
+        url:     "https://github.com/#{teacher.email}"
+      )
+    end
   end
 
   def github_info(teacher)
-    render(
-      'shared/social_icon',
-      handle: teacher.github_username,
-      company: 'github',
-      url: "https://github.com/#{teacher.github_username}"
-    ) if teacher.github_username?
+    if teacher.github_username?
+      render(
+        'shared/social_icon',
+        handle:  teacher.github_username,
+        company: 'github',
+        url:     "https://github.com/#{teacher.github_username}"
+      )
+    end
   end
 
   def twitter_info(teacher)
-    render(
-      'shared/social_icon',
-      handle: teacher.twitter,
-      company: 'twitter'
-    ) if teacher.twitter?
+    if teacher.twitter?
+      render(
+        'shared/social_icon',
+        handle:  teacher.twitter,
+        company: 'twitter'
+      )
+    end
   end
 
   def slack_info(teacher)
-    render(
-      'shared/social_icon',
-      handle: teacher.slack,
-      company: 'slack'
-    ) if teacher.slack?
+    if teacher.slack?
+      render(
+        'shared/social_icon',
+        handle:  teacher.slack,
+        company: 'slack'
+      )
+    end
   end
 
   def skype_info(teacher)
-    render(
-      'shared/social_icon',
-      handle: teacher.skype,
-      company: 'skype'
-    ) if teacher.skype?
+    if teacher.skype?
+      render(
+        'shared/social_icon',
+        handle:  teacher.skype,
+        company: 'skype'
+      )
+    end
   end
 
   def formatted_date
-    "#{assistance.created_at.strftime('%B %d, %Y')}"
+    assistance.created_at.strftime('%B %d, %Y').to_s
   end
 
   def length
-    "#{distance_of_time_in_words(assistance.start_at, assistance.end_at)}"
+    distance_of_time_in_words(assistance.start_at, assistance.end_at).to_s
   end
+
 end

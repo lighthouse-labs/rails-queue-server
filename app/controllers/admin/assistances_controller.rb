@@ -32,13 +32,13 @@ class Admin::AssistancesController < Admin::BaseController
   end
 
   def filter_by_start_date
-    params[:start_date] = Date.current.beginning_of_month.to_s unless params[:start_date].present?
+    params[:start_date] = Date.current.beginning_of_month.to_s if params[:start_date].blank?
     @assistances = @assistances.where("start_at > :date", date: params[:start_date])
   end
 
   def filter_by_end_date
-    params[:end_date] = Date.current.end_of_month.to_s unless params[:end_date].present?
-    end_datetime = Time.parse(params[:end_date]).end_of_day()
+    params[:end_date] = Date.current.end_of_month.to_s if params[:end_date].blank?
+    end_datetime = Time.parse(params[:end_date]).end_of_day
     @assistances = @assistances.where("start_at < :date", date: end_datetime)
   end
 
@@ -53,4 +53,5 @@ class Admin::AssistancesController < Admin::BaseController
   def filter_by_student_keywords
     @assistances = @assistances.by_student_keywords(params[:keywords]) if params[:keywords].present?
   end
+
 end
