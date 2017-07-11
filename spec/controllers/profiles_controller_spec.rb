@@ -5,11 +5,6 @@ describe ProfilesController do
   logged_in_user
 
   describe "GET #edit" do
-    it "assigns a registration form to @form" do
-      get :edit
-      expect(assigns(:form)).to be_a(RegistrationForm)
-    end
-
     it "renders :edit" do
       get :edit
       expect(response).to render_template :edit
@@ -17,11 +12,6 @@ describe ProfilesController do
   end
 
   describe "PATCH #update" do
-    it "assigns the registration form to @form" do
-      patch :update, user: attributes_for(:user)
-      expect(assigns(:form)).to be_a(RegistrationForm)
-    end
-
     context "with valid attributes" do
       it "does save the attributes to user" do
         expect do
