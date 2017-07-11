@@ -30,11 +30,11 @@ class Evaluation < ApplicationRecord
     end
   }
 
-  scope :student_cohort_in_location, -> (location) {
+  scope :student_cohort_in_location, ->(location) {
     joins(:student, :cohort).where(cohorts: { location_id: location.id })
   }
 
-  scope :student_location, -> (location) {
+  scope :student_location, ->(location) {
     includes(:student).references(:student).where(users: { location_id: location.id })
   }
 
