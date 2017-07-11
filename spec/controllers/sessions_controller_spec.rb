@@ -14,10 +14,10 @@ describe SessionsController do
         end.to change(User, :count).by(1)
       end
 
-      it "redirects to registration page" do
+      it "redirects to edit profile page" do
         create(:user)
         get :create, provider: "github"
-        expect(response).to redirect_to new_registration_path
+        expect(response).to redirect_to edit_profile_path
       end
     end
 
