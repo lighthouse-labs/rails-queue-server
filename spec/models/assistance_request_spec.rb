@@ -65,7 +65,7 @@ describe AssistanceRequest do
       expect(create(:canceled_assistance_request).in_progress?).to be false
     end
     it 'returns false if the request is open' do
-      expect(create(:assistance_request).in_progress?).to be false
+      expect(create(:assistance_request).in_progress?).to be_falsey
     end
     it 'returns false if the request has an assistance that has ended' do
       expect(create(:completed_assistance_request).in_progress?).to be false

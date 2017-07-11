@@ -1,25 +1,11 @@
 require 'rails_helper'
 
 describe QuizSubmissionsController do
-
-  describe "GET 'new'" do
-    it "returns http success" do
-      get 'new'
-      response.should be_success
-    end
-  end
-
-  describe "GET 'create'" do
-    it "returns http success" do
-      get 'create'
-      response.should be_success
-    end
-  end
-
   describe "GET 'show'" do
     it "returns http success" do
-      get 'show'
-      response.should be_success
+      pending('logic to determine which quiz submission to show to whom')
+      get :show
+      expect(response).to be_success
     end
   end
 
