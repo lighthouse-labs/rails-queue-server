@@ -1,4 +1,4 @@
-class Prep < Section 
+class Prep < Section
 
   def self.evaluate_rating(data)
     total_tests = data[:test_passes] + data[:test_failures]

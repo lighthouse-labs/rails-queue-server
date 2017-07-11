@@ -5,7 +5,7 @@ class SearchActivitiesController < ApplicationController
       @activities = []
       flash[:alert] = 'Please enter a search term'
     else
-      @activities = Activity.search(params[:query]).where("day <= ?", CurriculumDay.new(Date.today, cohort).to_s).order(:day).reverse
+      @activities = Activity.search(params[:query]).where("day <= ?", CurriculumDay.new(Time.zone.today, cohort).to_s).order(:day).reverse
     end
   end
 

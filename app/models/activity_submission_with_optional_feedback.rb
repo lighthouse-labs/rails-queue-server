@@ -1,8 +1,9 @@
 class ActivitySubmissionWithOptionalFeedback
+
   include ActiveModel::Model
 
   # For form object
-  # Validation, creation, etc of actual AR instances is done in interactor via controller 
+  # Validation, creation, etc of actual AR instances is done in interactor via controller
   #    - KV
 
   attr_accessor(

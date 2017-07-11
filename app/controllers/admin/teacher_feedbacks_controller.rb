@@ -14,7 +14,7 @@ class Admin::TeacherFeedbacksController < Admin::BaseController
   private
 
   def filter_by_params
-    params.slice(*FILTER_BY_OPTIONS).select { |k,v| v.present? }
+    params.slice(*FILTER_BY_OPTIONS).select { |_k, v| v.present? }
   end
 
 end

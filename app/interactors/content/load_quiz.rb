@@ -1,4 +1,5 @@
 class Content::LoadQuiz
+
   include Interactor
 
   before do
@@ -14,10 +15,8 @@ class Content::LoadQuiz
     abort("\n\n---\nHALT! Quiz UUID required") if uuid.blank?
 
     quiz = Quiz.find_or_initialize_by(uuid: uuid)
-    quiz.assign_attributes({
-      name: d['name'],
-      day: d['day']
-    })
+    quiz.assign_attributes(name: d['name'],
+                           day:  d['day'])
     questions = build_questions(d['questions'])
     quiz.questions = questions
 
@@ -33,9 +32,9 @@ class Content::LoadQuiz
       # abort("\n\n---\nHALT! Dupe Question UUID found. Check your data, as this is potentially disasterous!") if @question_uuids.include?(uuid)
 
       attrs = {
-        active: true,
-        uuid: uuid,
-        question: d['question'],
+        active:             true,
+        uuid:               uuid,
+        question:           d['question'],
         options_attributes: d['options_attributes']
       }
       attrs[:outcome] = Outcome.find_by(uuid: d['outcome']) if d['outcome']
@@ -78,7 +77,6 @@ class Content::LoadQuiz
         question.options.new new_option_data
       end
     end
-
   end
 
 end

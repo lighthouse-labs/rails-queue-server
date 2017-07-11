@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -20,16 +21,14 @@ class ApplicationController < ActionController::Base
 
   def set_raven_context
     if current_user
-      Raven.user_context({
-        'id' => current_user.id,
-        'email' => current_user.email
-      })
+      Raven.user_context('id'    => current_user.id,
+                         'email' => current_user.email)
     end
   end
 
   def current_user
-    @current_user ||= User.find_by_auth_token(request.headers[:'x-auth-token']) if request.headers[:'x-auth-token'].present?
-    @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
+    @current_user ||= User.find_by(auth_token: request.headers[:'x-auth-token']) if request.headers[:'x-auth-token'].present?
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
     cookies.signed[:user_id] = @current_user.id if @current_user && cookies.signed[:user_id].blank?
 
     @current_user
@@ -96,8 +95,8 @@ class ApplicationController < ActionController::Base
 
   def dropdown_cohorts
     @dropdown_cohorts = cohorts.starts_between(3.months.ago.to_date, 2.weeks.from_now.to_date)
-    .includes(:location)
-    .group_by(&:location)
+                               .includes(:location)
+                               .group_by(&:location)
   end
   helper_method :dropdown_cohorts
 

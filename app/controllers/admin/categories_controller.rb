@@ -16,17 +16,15 @@ class Admin::CategoriesController < Admin::BaseController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def update
-    if !@category.update(category_params)
+    unless @category.update(category_params)
       flash[:notice] = "Category not updated: #{@category.errors.full_messages[0]}"
     end
     redirect_to [:admin, :categories]
   end
 
-  
   def destroy
     @category.destroy
     redirect_to [:admin, :categories]
@@ -41,4 +39,5 @@ class Admin::CategoriesController < Admin::BaseController
   def category_params
     params.require(:category).permit(:name)
   end
+
 end

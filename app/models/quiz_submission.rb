@@ -25,7 +25,7 @@ class QuizSubmission < ApplicationRecord
   after_create :set_counts
 
   def other_submissions_by_user
-    user.quiz_submissions.where(quiz_id: quiz_id).where.not(id: self.id)
+    user.quiz_submissions.where(quiz_id: quiz_id).where.not(id: id)
   end
 
   def to_param
@@ -35,7 +35,7 @@ class QuizSubmission < ApplicationRecord
   def option_selected?(option)
     @memo ||= {}
     option_id = option.is_a?(Option) ? option.id : option
-    unless @memo.has_key?(option_id)
+    unless @memo.key?(option_id)
       @memo[option_id] = answers.map(&:option_id).include?(option_id)
     end
     @memo[option_id]
@@ -46,7 +46,7 @@ class QuizSubmission < ApplicationRecord
   end
 
   def self.average_correct
-    correct_answer_submissions = self.select(&:options_correct)
+    correct_answer_submissions = select(&:options_correct)
     correct_submissions_count = [correct_answer_submissions.length, 1].max
     correct_answer_sum = correct_answer_submissions.map(&:answers_count).reduce(0, &:+)
     correct_answer_sum.to_f / correct_submissions_count.to_f
@@ -71,6 +71,5 @@ class QuizSubmission < ApplicationRecord
       self.cohort_id = user.cohort_id
     end
   end
-
 
 end

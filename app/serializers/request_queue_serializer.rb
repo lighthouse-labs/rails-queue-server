@@ -65,4 +65,5 @@ class RequestQueueSerializer < ActiveModel::Serializer
       UserSerializer.new(student).as_json
     end
   end
+
 end

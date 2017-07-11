@@ -1,4 +1,5 @@
 class ActivityPresenter < BasePresenter
+
   presents :activity
 
   def name
@@ -49,7 +50,6 @@ class ActivityPresenter < BasePresenter
           content_tag(:i, nil, class: icon_for(activity.previous)) + ' ' +
           link_to(descriptive_activity_name(activity.previous), get_activity_path(activity.previous))
         ).html_safe
-
       end
     end
   end
@@ -90,9 +90,7 @@ class ActivityPresenter < BasePresenter
 
   def before_instructions
     # overwritten
-    if activity.evaluates_code?
-      render 'code_evaluation_info'
-    end
+    render 'code_evaluation_info' if activity.evaluates_code?
   end
 
   def after_instructions

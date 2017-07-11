@@ -2,11 +2,12 @@ require "csv"
 require_relative "line"
 
 class Sheet
+
   SKIP_LINES = 2
 
   def initialize(csv_path)
     @path = csv_path
-    self.reload
+    reload
     nil
   end
 
@@ -21,22 +22,22 @@ class Sheet
   end
 
   def log_invalid
-    puts "invalid entries in spreadsheet:"
+    Rails.logger.debug "invalid entries in spreadsheet:"
     @rows.each_with_index do |csv_row, index|
-      if not Line.new(csv_row).valid?
-        puts "line: #{index+SKIP_LINES+1}"
-        p csv_row
+      unless Line.new(csv_row).valid?
+        Rails.logger.debug "line: #{index + SKIP_LINES + 1}"
+        Rails.logger.info csv_row
       end
     end
-    return
+    nil
   end
 
   def sync(opts)
     print = opts[:print]
     force = opts[:force]
 
-    if force and self.valid?
-      self.log_invalid
+    if force && valid?
+      log_invalid
       return
     else
       lookup = {}
@@ -49,19 +50,20 @@ class Sheet
 
         if line.category?
           depth_to_category_id[line.depth] = line.uuid
-          (1..6).each {|x| depth_to_category_id[line.depth+x] = nil }
-          puts line.name if print
+          (1..6).each { |x| depth_to_category_id[line.depth + x] = nil }
+          Rails.logger.info line.name if print
           line.upsert!
         elsif line.skill?
           skill_id = line.uuid
-          category_id = (1..6).map {|x| depth_to_category_id[line.depth - x] }.detect {|v| v}
-          puts lookup[category_id].name + " / " + line.name if print
+          category_id = (1..6).map { |x| depth_to_category_id[line.depth - x] }.detect { |v| v }
+          Rails.logger.info lookup[category_id].name + " / " + line.name if print
           line.upsert!(category_id)
         elsif line.outcome?
           line.upsert!(skill_id)
         end
       end
     end
-    return
+    nil
   end
+
 end

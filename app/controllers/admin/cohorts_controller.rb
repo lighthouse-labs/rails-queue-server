@@ -18,8 +18,7 @@ class Admin::CohortsController < Admin::BaseController
     @cohort = Cohort.new(program: Program.first)
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @cohort = Cohort.new(cohort_params)

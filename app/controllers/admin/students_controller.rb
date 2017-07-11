@@ -12,8 +12,7 @@ class Admin::StudentsController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @student.update(student_params)

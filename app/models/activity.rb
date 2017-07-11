@@ -5,7 +5,7 @@ class Activity < ApplicationRecord
   belongs_to :content_repository
 
   has_many :activity_submissions, -> { order(:user_id) }
-  has_many :assistances, -> { order(:user_id)}
+  has_many :assistances, -> { order(:user_id) }
   has_many :assistance_requests
   has_many :messages, -> { order(created_at: :desc) }, class_name: 'ActivityMessage'
   has_many :recordings, -> { order(created_at: :desc) }
@@ -25,20 +25,20 @@ class Activity < ApplicationRecord
   scope :chronological, -> { order("activities.sequence ASC, activities.id ASC") }
   scope :reverse_chronological_for_day, -> { order("activities.day DESC, activities.sequence DESC") }
   scope :chronological_for_project, -> { includes(:section).references(:section).order("sections.order ASC, activities.day ASC, activities.sequence ASC, activities.id ASC") }
-  scope :for_day,   -> (day) { where(day: day.to_s) }
-  scope :until_day, -> (day) { where("activities.day <= ?", day.to_s) }
-  scope :search,    -> (query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
+  scope :for_day,   ->(day) { where(day: day.to_s) }
+  scope :until_day, ->(day) { where("activities.day <= ?", day.to_s) }
+  scope :search,    ->(query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
   scope :active,    -> { where(archived: [false, nil]) }
   scope :archived,  -> { where(archived: true) }
 
-  scope :assistance_worthy, -> { where.not(type: ['Lecture', 'Breakout', 'PinnedNote']) }
+  scope :assistance_worthy, -> { where.not(type: %w[Lecture Breakout PinnedNote]) }
 
-  scope :countable_as_submission, -> { where.not(type: ['QuizActivity', 'PinnedNote', 'Lecture', 'Breakout', 'Test']) }
+  scope :countable_as_submission, -> { where.not(type: %w[QuizActivity PinnedNote Lecture Breakout Test]) }
 
   scope :core,    -> { where(stretch: [nil, false]) }
   scope :stretch, -> { where(stretch: true) }
 
-  scope :prep,     -> {
+  scope :prep, -> {
     joins(:section).where(sections: { type: 'Prep' })
   }
 
@@ -64,18 +64,18 @@ class Activity < ApplicationRecord
       duration_minutes = 0
     end
 
-    return (hours + duration_hours) * 100 + (minutes + duration_minutes)
+    (hours + duration_hours) * 100 + (minutes + duration_minutes)
   end
 
   def next
     return @next if @next
 
-    activities = Activity.active.chronological.where('activities.sequence > ?', self.sequence)
+    activities = Activity.active.chronological.where('activities.sequence > ?', sequence)
 
     if prep?
-      activities = activities.where(section: self.section)
+      activities = activities.where(section: section)
     elsif day?
-      activities = activities.where(day: self.day)
+      activities = activities.where(day: day)
     end
 
     @next = activities.first
@@ -83,12 +83,12 @@ class Activity < ApplicationRecord
 
   def previous
     return @prev if @prev
-    activities = Activity.active.chronological.where('activities.sequence < ?', self.sequence)
+    activities = Activity.active.chronological.where('activities.sequence < ?', sequence)
 
     if prep?
-      activities = activities.where(section: self.section)
+      activities = activities.where(section: section)
     elsif day?
-      activities = activities.where(day: self.day)
+      activities = activities.where(day: day)
     end
 
     @prev = activities.last
@@ -117,11 +117,11 @@ class Activity < ApplicationRecord
   end
 
   def prep?
-    self.section && self.section.is_a?(Prep)
+    section && section.is_a?(Prep)
   end
 
   def project?
-    self.section && self.section.is_a?(Project)
+    section && section.is_a?(Project)
   end
 
   def bootcamp?
@@ -129,7 +129,7 @@ class Activity < ApplicationRecord
   end
 
   def teachers_only?
-    self.section && self.section.is_a?(TeacherSection)
+    section && section.is_a?(TeacherSection)
   end
 
   # Also could be overwritten by sub classes
@@ -140,7 +140,7 @@ class Activity < ApplicationRecord
   protected
 
   def add_revision_to_gist
-    if self.changes.any?
+    if changes.any?
       # For now don't bother with this, content already mostly in repo - KV
       # puts "DOING REVISION GIST!"
       # g = ActivityRevision.new(self)
@@ -149,7 +149,7 @@ class Activity < ApplicationRecord
   end
 
   def gist_id
-    self.gist_url.split('/').last
+    gist_url.split('/').last
   end
 
 end

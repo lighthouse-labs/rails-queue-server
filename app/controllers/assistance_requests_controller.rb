@@ -1,16 +1,16 @@
 class AssistanceRequestsController < ApplicationController
 
-  #before_action :selected_cohort_locations, only: [:index, :queue]
+  # before_action :selected_cohort_locations, only: [:index, :queue]
   before_action :teacher_required, only: [:index, :destroy, :start_assistance, :end_assistance, :queue]
 
   def index
-    @all_locations = Location.where("id IN (?)", Cohort.all.map(&:location_id).uniq).map{|l| LocationSerializer.new(l, root: false).as_json}
+    @all_locations = Location.where("id IN (?)", Cohort.all.map(&:location_id).uniq).map { |l| LocationSerializer.new(l, root: false).as_json }
 
     render component: "RequestQueue",
-      props: {
-        locations: @all_locations,
-        user: UserSerializer.new(current_user).as_json
-      }
+           props:     {
+             locations: @all_locations,
+             user:      UserSerializer.new(current_user).as_json
+           }
   end
 
   def queue
@@ -24,25 +24,25 @@ class AssistanceRequestsController < ApplicationController
     all_students = Student.in_active_cohort.active.order_by_last_assisted_at
 
     # For satellite mentors, show them their local students under All Students
-    if current_user.location.try(:satellite?)
-      all_students = all_students.where(location_id: current_user.location_id)
-    else
-      all_students = all_students.cohort_in_locations([params[:location]])
-    end
+    all_students = if current_user.location.try(:satellite?)
+                     all_students.where(location_id: current_user.location_id)
+                   else
+                     all_students.cohort_in_locations([params[:location]])
+                   end
 
-    render json: RequestQueueSerializer.new(assistances: my_active_assistances,
-                                            requests: requests,
-                                            code_reviews: code_reviews,
-                                            active_evaluations: my_active_evaluations,
-                                            evaluations: evaluations,
+    render json: RequestQueueSerializer.new(assistances:            my_active_assistances,
+                                            requests:               requests,
+                                            code_reviews:           code_reviews,
+                                            active_evaluations:     my_active_evaluations,
+                                            evaluations:            evaluations,
                                             active_tech_interviews: my_active_interviews,
-                                            tech_interviews: interviews,
-                                            students: all_students).as_json
+                                            tech_interviews:        interviews,
+                                            students:               all_students).as_json
   end
 
   def status
     respond_to do |format|
-      format.json {
+      format.json do
         # Fetch most recent student initiated request
         ar = current_user.assistance_requests.where(type: nil).newest_requests_first.first
         res = {}
@@ -52,15 +52,15 @@ class AssistanceRequestsController < ApplicationController
         elsif ar.try(:in_progress?)
           res[:state] = :active
           res[:assistor] = {
-              id: ar.assistance.assistor.id,
-              first_name: ar.assistance.assistor.first_name,
-              last_name: ar.assistance.assistor.last_name
+            id:         ar.assistance.assistor.id,
+            first_name: ar.assistance.assistor.first_name,
+            last_name:  ar.assistance.assistor.last_name
           }
         else
           res[:state] = :inactive
         end
         render json: res
-      }
+      end
       format.all { redirect_to(assistance_requests_path) }
     end
   end
@@ -70,7 +70,7 @@ class AssistanceRequestsController < ApplicationController
     status = ar.try(:cancel) ? 200 : 409
 
     respond_to do |format|
-      format.json { render(:nothing => true, :status => status) }
+      format.json { render(nothing: true, status: status) }
       format.all { redirect_to(assistance_requests_path) }
     end
   end

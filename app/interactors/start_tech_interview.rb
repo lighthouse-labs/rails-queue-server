@@ -1,4 +1,5 @@
 class StartTechInterview
+
   include Interactor
 
   def call
@@ -17,23 +18,18 @@ class StartTechInterview
       broadcast_to_queue
       broadcast_to_interviewee
     end
-
   end
 
   private
 
   def broadcast_to_queue
-    ActionCable.server.broadcast "assistance-#{@location.name}", {
-      type: "TechInterviewStarted",
-      object: TechInterviewSerializer.new(@tech_interview, root: false).as_json
-    }
+    ActionCable.server.broadcast "assistance-#{@location.name}", type:   "TechInterviewStarted",
+                                                                 object: TechInterviewSerializer.new(@tech_interview, root: false).as_json
   end
 
   def broadcast_to_interviewee
-    UserChannel.broadcast_to @interviewee, {
-      type: "TechInterviewStarted",
-      object: TechInterviewSerializer.new(@tech_interview).as_json
-    }
+    UserChannel.broadcast_to @interviewee, type:   "TechInterviewStarted",
+                                           object: TechInterviewSerializer.new(@tech_interview).as_json
   end
 
   def determine_day
@@ -42,9 +38,11 @@ class StartTechInterview
   end
 
   def create_results
-    @tech_interview.tech_interview_template.questions.active.each do |question|
-      @tech_interview.results.create! tech_interview_question: question, question: question.question, sequence: question.sequence
-    end unless @tech_interview.results.any?
+    unless @tech_interview.results.any?
+      @tech_interview.tech_interview_template.questions.active.each do |question|
+        @tech_interview.results.create! tech_interview_question: question, question: question.question, sequence: question.sequence
+      end
+    end
   end
 
 end

@@ -1,8 +1,6 @@
 class PrepActivityPresenter < ActivityPresenter
 
-  def render_sidenav
-
-  end
+  def render_sidenav; end
 
   private
 
@@ -11,4 +9,3 @@ class PrepActivityPresenter < ActivityPresenter
   end
 
 end
-

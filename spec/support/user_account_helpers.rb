@@ -2,7 +2,7 @@ module UserAccountHelpers
 
   module Macros
 
-  	def current_user(&user)
+    def current_user(&user)
       let(:current_user, &user)
       before { login_as current_user }
     end
