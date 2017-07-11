@@ -14,9 +14,9 @@ class Cohort < ApplicationRecord
   validates :location, presence: true
 
   validates :code,  uniqueness: true,
-                    presence: true,
-                    format: { with: /\A[0-9a-zA-Z]+\z/, allow_blank: true },
-                    length: { minimum: 3, allow_blank: true }
+                    presence:   true,
+                    format:     { with: /\A[0-9a-zA-Z]+\z/, allow_blank: true },
+                    length:     { minimum: 3, allow_blank: true }
 
   scope :upcoming, -> { where('cohorts.start_date > ?', Date.current) }
   scope :chronological, -> { order(start_date: :asc) }

@@ -5,12 +5,12 @@ describe 'Navbar' do
     it "has valid links in the navbar" do
       visit root_url
       find_link("Home").click
-      expect(page).to have_css("h1", :text => "Welcome to Compass")
+      expect(page).to have_css("h1", text: "Welcome to Compass")
 
       visit root_url
       expect(page).to have_link("Sign In")
       find_link("Sign In").click
-      expect(page).to have_css("h1", :text => "Login")
+      expect(page).to have_css("h1", text: "Login")
     end
   end
 
@@ -30,42 +30,42 @@ describe 'Navbar' do
 
       it 'should properly navigate to "Home"' do
         find_link("Home").click
-        expect(page).to have_css("h1", :text => "Welcome to Compass")
+        expect(page).to have_css("h1", text: "Welcome to Compass")
       end
 
       it 'should properly navigate to "Schedule"' do
         find_link("Schedule").click
-        expect(page).to have_css("h1", :text => "Schedule")
+        expect(page).to have_css("h1", text: "Schedule")
       end
 
       it 'should properly navigate to "Projects"' do
         find_link("Projects").click
-        expect(page).to have_css("h1", :text => "Projects")
+        expect(page).to have_css("h1", text: "Projects")
       end
 
       it 'should properly navigate to "Interviews"' do
         find_link("Interviews").click
-        expect(page).to have_css("h1", :text => "Interviews")
+        expect(page).to have_css("h1", text: "Interviews")
       end
 
       it 'should properly navigate to "Classmates"' do
         find_link("Classmates").click
-        expect(page).to have_css("h1", :text => "#{@cohort.name}")
+        expect(page).to have_css("h1", text: @cohort.name.to_s)
       end
 
       it 'should properly navigate to "Teacher"' do
         find_link("Teacher").click
-        expect(page).to have_css("h1", :text => "Teacher")
+        expect(page).to have_css("h1", text: "Teacher")
       end
 
       it 'should properly navigate to "Feedbacks"' do
         find_link("Feedback").click
-        expect(page).to have_css("h3", :text => "Pending")
+        expect(page).to have_css("h3", text: "Pending")
       end
 
       it 'should properly navigate to "Edit Profile"' do
         find_link("Edit Profile").click
-        expect(page).to have_css("h1", :text => "Edit Your Details")
+        expect(page).to have_css("h1", text: "Edit Your Details")
       end
     end
   end

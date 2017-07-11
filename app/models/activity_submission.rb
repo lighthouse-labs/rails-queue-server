@@ -33,8 +33,8 @@ class ActivitySubmission < ApplicationRecord
 
   scope :with_github_url, -> {
     includes(:activity)
-    .where(activities: { allow_submissions: true })
-    .references(:activity)
+      .where(activities: { allow_submissions: true })
+      .references(:activity)
   }
 
   scope :not_code_reviewed, -> {
@@ -74,7 +74,7 @@ class ActivitySubmission < ApplicationRecord
     where(activity_id: Activity.bootcamp.pluck(:id))
   }
 
-  scope :for_activity, -> (activity) {
+  scope :for_activity, ->(activity) {
     where(activity_id: activity.id)
   }
 
@@ -133,15 +133,16 @@ class ActivitySubmission < ApplicationRecord
     activity_probability = activity.code_review_percent / 100.0
     student_probablitiy * activity_probability >= rand
   end
+
   def handle_submission_destroy
-    ActionCable.server.broadcast "assistance",       type:   "CancelAssistanceRequest",
-      object: AssistanceRequestSerializer.new(code_review_request, root: false).as_json
+    ActionCable.server.broadcast "assistance", type:   "CancelAssistanceRequest",
+                                               object: AssistanceRequestSerializer.new(code_review_request, root: false).as_json
   end
 
   def create_user_outcome_results
     activity.item_outcomes.each do |item_outcome|
       # TODO: change the way we calculate ratings
-      next unless self.activity.create_outcome_results?
+      next unless activity.create_outcome_results?
       user.outcome_results.create(
         outcome: item_outcome.outcome,
         source:  item_outcome,

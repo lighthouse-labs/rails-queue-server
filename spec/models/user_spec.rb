@@ -6,7 +6,6 @@ describe User do
   end
 
   describe "should be invalid given: " do
-
     before(:each) do
       @user = build(:user)
     end
