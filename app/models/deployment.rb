@@ -11,5 +11,4 @@ class Deployment < ApplicationRecord
     "https://github.com/#{content_repository.full_name}/compare/#{base_sha}...#{sha}\#files_bucket"
   end
 
-
 end

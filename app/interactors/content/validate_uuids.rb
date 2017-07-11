@@ -1,4 +1,5 @@
 class Content::ValidateUuids
+
   include Interactor
 
   def call
@@ -7,7 +8,7 @@ class Content::ValidateUuids
 
   private
 
-  def validate_uuids(collection, uuids=[])
+  def validate_uuids(collection, uuids = [])
     collection.each do |item|
       uuid = item['uuid']
       abort("\n\n---\nHALT! UUID required in #{item.inspect}") if uuid.blank?

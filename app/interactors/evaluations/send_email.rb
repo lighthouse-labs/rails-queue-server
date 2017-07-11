@@ -1,4 +1,5 @@
 class Evaluations::SendEmail
+
   include Interactor
 
   before do

@@ -7,24 +7,24 @@ class TeacherFeedbackStatsSerializer < ActiveModel::Serializer
   def direct
     {
       average: teacher_direct_feedbacks.average_rating,
-      total: teacher_direct_feedbacks.count
+      total:   teacher_direct_feedbacks.count
     }
   end
 
   def lecture
     {
-      average: teacher_lecture_feedbacks.average_rating,
-      total: teacher_lecture_feedbacks.count,
-      teacher: group_by_date(teacher_lecture_feedbacks),
+      average:  teacher_lecture_feedbacks.average_rating,
+      total:    teacher_lecture_feedbacks.count,
+      teacher:  group_by_date(teacher_lecture_feedbacks),
       everyone: group_by_date(all_lecture_feedbacks)
     }
   end
 
   def mentor
     {
-      average: teacher_mentor_feedbacks.assistance.average_rating,
-      total: teacher_mentor_feedbacks.assistance.count,
-      teacher: group_by_date(teacher_mentor_feedbacks),
+      average:  teacher_mentor_feedbacks.assistance.average_rating,
+      total:    teacher_mentor_feedbacks.assistance.count,
+      teacher:  group_by_date(teacher_mentor_feedbacks),
       everyone: group_by_date(all_mentor_feedbacks)
     }
   end

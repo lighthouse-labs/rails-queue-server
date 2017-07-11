@@ -1,4 +1,5 @@
 class Content::LoadTeacherSections
+
   include Interactor
 
   before do
@@ -30,9 +31,9 @@ class Content::LoadTeacherSections
 
     attrs = {
       content_repository: @repo,
-      name:  attributes['name'],
-      slug:  attributes['slug'],
-      order: attributes['order']
+      name:               attributes['name'],
+      slug:               attributes['slug'],
+      order:              attributes['order']
     }
 
     section = TeacherSection.find_or_initialize_by(uuid: uuid)

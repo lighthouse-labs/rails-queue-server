@@ -1,4 +1,5 @@
 class MarkEvaluation
+
   include Interactor
 
   def call
@@ -17,4 +18,5 @@ class MarkEvaluation
 
     context.fail! unless @evaluation.save
   end
+
 end

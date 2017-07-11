@@ -1,6 +1,6 @@
 class ActivityMessage < ApplicationRecord
 
-  KINDS = ['Lecture Notes']
+  KINDS = ['Lecture Notes'].freeze
 
   belongs_to :activity
   belongs_to :user # message creator
@@ -8,7 +8,7 @@ class ActivityMessage < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
 
-  scope :for_cohort, -> (cohort) { where(cohort_id: cohort.id) }
+  scope :for_cohort, ->(cohort) { where(cohort_id: cohort.id) }
 
   validates :activity, presence: true
   validates :user, presence: true
@@ -34,4 +34,5 @@ class ActivityMessage < ApplicationRecord
       activity.feedbacks.create(student: student, teacher: user)
     end
   end
+
 end

@@ -8,19 +8,19 @@ class Admin::DayFeedbacksController < Admin::BaseController
   def index
     # => A location wasn't provided, use the current_user's location as the default
     if params[:location_id].nil?
-      params[:location_id] = current_user.location.id.to_s  
+      params[:location_id] = current_user.location.id.to_s
     end
 
     @day_feedbacks = DayFeedback.filter_by(filter_by_params)
 
     @paginated_day_feedbacks = @day_feedbacks.reverse_chronological_order
-      .page(params[:page])
-      .per(DEFAULT_PER)
+                                             .page(params[:page])
+                                             .per(DEFAULT_PER)
 
     respond_to do |format|
       format.html
-      format.csv {render text: @day_feedbacks.to_csv}
-      format.xls do 
+      format.csv { render text: @day_feedbacks.to_csv }
+      format.xls do
         headers['Content-Disposition'] = 'attachment; filename=day_feedbacks.xls'
       end
     end
@@ -36,22 +36,18 @@ class Admin::DayFeedbacksController < Admin::BaseController
 
   def archive
     @day_feedback.archive(current_user)
-    if @day_feedback.save
-      render nothing: true
-    end
+    render nothing: true if @day_feedback.save
   end
 
   def unarchive
     @day_feedback.unarchive
-    if @day_feedback.save
-      render nothing: true
-    end      
+    render nothing: true if @day_feedback.save
   end
 
   private
 
   def filter_by_params
-    params.slice(*FILTER_BY_OPTIONS).select { |k,v| v.present? }
+    params.slice(*FILTER_BY_OPTIONS).select { |_k, v| v.present? }
   end
 
   def load_dayfeedback

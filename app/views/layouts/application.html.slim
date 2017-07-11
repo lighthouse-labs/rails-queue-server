@@ -31,7 +31,7 @@ html
       == render 'layouts/search'
 
       - unless disable_cable?
-        - if current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student))
+        - if current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student) && current_user.active_student?)
           = render "layouts/teachers_holder"
         = render "layouts/reconnect_holder"
 

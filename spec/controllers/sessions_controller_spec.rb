@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe SessionsController do
-
   describe "GET #create" do
     before :each do
       request.env['omniauth.auth'] = GITHUB_OAUTH_HASH
@@ -74,7 +73,4 @@ describe SessionsController do
       expect(assigns(:current_user)).to eq nil
     end
   end
-
-
-
 end

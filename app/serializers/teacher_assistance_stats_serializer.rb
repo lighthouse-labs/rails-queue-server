@@ -9,7 +9,7 @@ class TeacherAssistanceStatsSerializer < ActiveModel::Serializer
   end
 
   def overall_assistance_stats
-    {total_count: assistances.count, average_l_score: assistances.average(:rating).to_f.round(2)}
+    { total_count: assistances.count, average_l_score: assistances.average(:rating).to_f.round(2) }
   end
 
   protected

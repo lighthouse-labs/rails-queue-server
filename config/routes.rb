@@ -36,7 +36,7 @@ LaserShark::Application.routes.draw do
 
   get '/i/:code', to: 'invitations#show', as: 'invitation' # student/teacher invitation handler
   # get 'prep'  => 'setup#show' # temporary
-  resources :prep, controller: 'preps', :only => [:index, :show] do
+  resources :prep, controller: 'preps', only: [:index, :show] do
     resources :activities
   end
 
@@ -54,7 +54,7 @@ LaserShark::Application.routes.draw do
   # STUDENT / TEACHER AUTH
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/github', as: 'github_session'
-  resource :session, :only => [:new, :destroy]
+  resource :session, only: [:new, :destroy]
   # resource :registration, only: [:new, :create]
 
   resource :profile, only: [:edit, :update]
@@ -111,7 +111,7 @@ LaserShark::Application.routes.draw do
   end
 
   resources :cohorts, only: [] do
-    resources :students, only: [:index]    # cohort_students_path(@cohort)
+    resources :students, only: [:index] # cohort_students_path(@cohort)
     put :switch_to, on: :member
   end
 
@@ -173,7 +173,7 @@ LaserShark::Application.routes.draw do
 
     resources :prep_stats, only: [:index]
 
-    #Outcomes CRUD
+    # Outcomes CRUD
     resources :outcomes
     resources :item_outcomes, only: [:create, :destroy]
     resources :categories do
@@ -186,7 +186,7 @@ LaserShark::Application.routes.draw do
 
     resources :activities, only: [:index]
 
-    #Projects CRUD
+    # Projects CRUD
     resources :projects, only: [:new, :create, :edit, :update, :destroy]
   end
 

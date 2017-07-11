@@ -113,5 +113,6 @@ tr.student-row class=css_class
             - if eval.final_score? && eval.final_score > 1
               = " (#{eval.final_score})"
       - else
-          span.code-review.label.label-default title=project.name data-toggle='tooltip'
+          - title = "#{project.name}: Not Submitted"
+          span.code-review.label.label-default title=title data-toggle='tooltip'
             | P#{i+1}

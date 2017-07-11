@@ -1,6 +1,6 @@
 class StudentStats
 
-  def initialize(student, cohort=nil)
+  def initialize(student, cohort = nil)
     @student = student
     @cohort  = cohort || student.cohort
   end
@@ -31,9 +31,7 @@ class StudentStats
   end
 
   def days_prepping_before_start
-    if prep_started?
-      (@cohort.start_date - prep_started_at.to_date).to_i
-    end
+    (@cohort.start_date - prep_started_at.to_date).to_i if prep_started?
   end
 
   def prep_total_stats
@@ -66,7 +64,7 @@ class StudentStats
     completed_stretch = completions.stretch.count
 
     @prep_activity_stats = {
-      core: {
+      core:    {
         completed: completed_core,
         total:     total_core,
         ratio:     total_core > 0 ? (completed_core.to_f / total_core.to_f) * 100 : 0
@@ -90,16 +88,15 @@ class StudentStats
     cohort_id = @cohort.id
 
     @bootcamp_assistance_stats = {
-      requests:      @student.assistance_requests.genuine.where(cohort_id: cohort_id).count,
-      assistances:   @student.assistances.completed.where(cohort_id: cohort_id).count,
+      requests:           @student.assistance_requests.genuine.where(cohort_id: cohort_id).count,
+      assistances:        @student.assistances.completed.where(cohort_id: cohort_id).count,
       assistances_length: @student.assistances.completed.average("start_at - end_at").to_i,
-      average_score: @student.assistances.completed.where(cohort_id: cohort_id).where.not(rating: nil).average(:rating).to_f.round(2)
+      average_score:      @student.assistances.completed.where(cohort_id: cohort_id).where.not(rating: nil).average(:rating).to_f.round(2)
     }
   end
 
   # don't memo-ize since using it multiple times for diff data (nullable arg) - KV
   def bootcamp_activity_stats(options = {})
-
     cutoff_day   = options.delete :cutoff_day
     for_day      = options.delete :for_day
 
@@ -121,7 +118,7 @@ class StudentStats
     completed_stretch = completions.stretch.count
 
     {
-      core: {
+      core:    {
         completed: completed_core,
         total:     total_core,
         ratio:     total_core > 0 ? (completed_core.to_f / total_core.to_f) * 100 : 0
@@ -135,21 +132,21 @@ class StudentStats
   end
 
   # not memoizing it since using it multiple times for diff data (nullable arg) - KV
-  def bootcamp_quiz_stats(options={})
+  def bootcamp_quiz_stats(options = {})
     cutoff_day = options.delete :cutoff_day
 
     quizzes = Quiz.active
-    if cutoff_day
-      quizzes = quizzes.until_day(cutoff_day) # specific ones
-    else
-      quizzes = quizzes.bootcamp # all
-    end
+    quizzes = if cutoff_day
+                quizzes.until_day(cutoff_day) # specific ones
+              else
+                quizzes.bootcamp # all
+              end
     quiz_stats(quizzes, @cohort.id)
   end
 
   private
 
-  def quiz_stats(quizzes, cohort_id=nil)
+  def quiz_stats(quizzes, cohort_id = nil)
     quiz_ids = quizzes.select(:id)
     all_submissions = @student.quiz_submissions.where(quiz_id: quiz_ids)
     all_submissions = all_submissions.where(cohort_id: cohort_id) if cohort_id
@@ -170,8 +167,6 @@ class StudentStats
     if submissions.any?
       # (submissions.average('correct::float / total::float').to_f * 100).round(2)
       ((submissions.sum('correct').to_f / submissions.sum('total').to_f) * 100).round(2)
-    else
-      nil
     end
   end
 

@@ -1,4 +1,5 @@
 class Admin::ProjectsController < Admin::BaseController
+
   before_action :find_project, only: [:edit, :update, :destroy]
 
   def new
@@ -14,8 +15,7 @@ class Admin::ProjectsController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @project.update(project_params)
@@ -42,4 +42,5 @@ class Admin::ProjectsController < Admin::BaseController
   def project_params
     params.require(:project).permit(:name, :description)
   end
+
 end

@@ -24,4 +24,5 @@ module DaysHelper
     completed_students = activity.activity_submissions.proper.where(cohort_id: cohort.id)
     "#{completed_students.count}/#{total_cohort_students}"
   end
+
 end

@@ -10,7 +10,7 @@ class ActivityStatsUpdater
         stats[:average_rating] = activity.activity_feedbacks.rated.average('rating::float').round(3)
       end
       if stats.any?
-        puts "#{activity.id}: #{stats[:average_rating]}/5.0, #{stats[:average_time_spent]}m"
+        Rails.logger.info "#{activity.id}: #{stats[:average_rating]}/5.0, #{stats[:average_time_spent]}m"
         Activity.where(id: activity.id).update_all(stats)
       end
     end

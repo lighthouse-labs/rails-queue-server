@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :teacher_required
 
@@ -29,8 +30,7 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @question.update question_params
@@ -58,4 +58,5 @@ class QuestionsController < ApplicationController
   def teacher_required
     redirect_to day_path('today'), alert: 'Not allowed' unless teacher?
   end
+
 end

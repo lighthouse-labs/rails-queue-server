@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe QuizSubmissionsController do
-
   describe "GET 'new'" do
     it "returns http success" do
       get 'new'
@@ -22,5 +21,4 @@ describe QuizSubmissionsController do
       response.should be_success
     end
   end
-
 end

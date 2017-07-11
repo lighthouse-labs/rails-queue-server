@@ -1,6 +1,11 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Logger level. Production env should show... INFO? env should show all
+  Rails.logger.level = Logger::INFO
+  Rails.logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(Rails.logger)
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -70,7 +75,7 @@ Rails.application.configure do
   config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
-  config.active_support.deprecation = :notify  
+  config.active_support.deprecation = :notify
 
   config.action_mailer.smtp_settings = {
     :address   => ENV["SMTP_SERVER"]   || "smtp.mandrillapp.com",
@@ -79,7 +84,7 @@ Rails.application.configure do
     :password  => ENV["SMTP_PASSWORD"] || ENV["MANDRILL_APIKEY"]
   }
   config.action_mailer.smtp_settings[:domain] = ENV["SMTP_DOMAIN"] if ENV["SMTP_DOMAIN"]
-  
+
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => ENV['HOST'] }
   config.action_mailer.delivery_method = :smtp

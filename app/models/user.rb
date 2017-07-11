@@ -2,14 +2,14 @@ class User < ApplicationRecord
 
   include PgSearch
   pg_search_scope :by_keywords,
-    against: [:first_name, :last_name, :email, :phone_number, :github_username, :slack, :bio, :quirky_fact, :specialties],
-    using: {
-      tsearch: {
-        dictionary: "english",
-        any_word:   true,
-        prefix:     true
-      }
-    }
+                  against: [:first_name, :last_name, :email, :phone_number, :github_username, :slack, :bio, :quirky_fact, :specialties],
+                  using:   {
+                    tsearch: {
+                      dictionary: "english",
+                      any_word:   true,
+                      prefix:     true
+                    }
+                  }
 
   mount_uploader :custom_avatar, CustomAvatarUploader
 
@@ -35,11 +35,11 @@ class User < ApplicationRecord
   scope :order_by_last_assisted_at, -> {
     order("last_assisted_at ASC NULLS FIRST")
   }
-  scope :cohort_in_locations, -> (locations) {
-    if locations.is_a?(Array) && locations.length > 0
-      includes(cohort: :location).
-      where(locations: {name: locations}).
-      references(:cohort, :location)
+  scope :cohort_in_locations, ->(locations) {
+    if locations.is_a?(Array) && !locations.empty?
+      includes(cohort: :location)
+        .where(locations: { name: locations })
+        .references(:cohort, :location)
     end
   }
   scope :active, -> {
@@ -48,7 +48,7 @@ class User < ApplicationRecord
   scope :deactivated, -> {
     where.not(deactivated_at: nil)
   }
-  scope :completed_activity, -> (activity) {
+  scope :completed_activity, ->(activity) {
     if activity.is_a?(QuizActivity)
       # For quiz activities, we don't have activity submissions, and quiz_submissions are used to determine completion instead
       joins(:quiz_submissions).where(quiz_submissions: { initial: true, quiz_id: activity.quiz_id })
@@ -97,8 +97,9 @@ class User < ApplicationRecord
   end
 
   def deactivated?
-    self.deactivated_at?
+    deactivated_at?
   end
+
   def active?
     !deactivated? && completed_registration?
   end
@@ -113,30 +114,30 @@ class User < ApplicationRecord
   end
 
   def being_assisted?
-    self.assistance_requests.where(type: nil).in_progress_requests.exists?
+    assistance_requests.where(type: nil).in_progress_requests.exists?
   end
 
   def position_in_queue
-    self.assistance_requests.where(type: nil).open_requests.newest_requests_first.first.try(:position_in_queue)
+    assistance_requests.where(type: nil).open_requests.newest_requests_first.first.try(:position_in_queue)
   end
 
   def current_assistor
-    self.assistance_requests.where(type: nil).in_progress_requests.newest_requests_first.first.try(:assistance).try(:assistor)
+    assistance_requests.where(type: nil).in_progress_requests.newest_requests_first.first.try(:assistance).try(:assistor)
   end
 
   def waiting_for_assistance?
-    self.assistance_requests.where(type: nil).open_requests.exists?
+    assistance_requests.where(type: nil).open_requests.exists?
   end
 
   def completion_records_for(activity)
     if activity.evaluates_code?
       chain = activity_submissions.where(finalized: true, activity: activity)
-      chain = chain.where(cohort_id: self.cohort_id) if activity.bootcamp? && self.cohort_id?
+      chain = chain.where(cohort_id: cohort_id) if activity.bootcamp? && cohort_id?
       chain
     elsif activity.is_a?(QuizActivity)
       activity.quiz.submissions_by(self)
-    elsif activity.bootcamp? && self.cohort_id?
-      activity_submissions.where(cohort_id: self.cohort_id).where(activity_id: activity.id)
+    elsif activity.bootcamp? && cohort_id?
+      activity_submissions.where(cohort_id: cohort_id).where(activity_id: activity.id)
     else
       activity_submissions.where(activity: activity)
     end
@@ -155,15 +156,15 @@ class User < ApplicationRecord
   end
 
   def full_name
-    "#{self.first_name} #{self.last_name}"
+    "#{first_name} #{last_name}"
   end
 
   def incomplete_activities
-    Activity.where.not(id: self.activity_submissions.select(:activity_id)).where("day <= ?", CurriculumDay.new(Date.yesterday, cohort).to_s).order(day: :desc)
+    Activity.where.not(id: self.activity_submissions.select(:activity_id)).where("day <= ?", CurriculumDay.new(Time.zone.yesterday, cohort).to_s).order(day: :desc)
   end
 
   def completed_code_reviews
-    self.assistance_requests.where(type: 'CodeReviewRequest').joins(:assistance).references(:assistance).where.not(assistances: { end_at: nil }).order(created_at: :desc).where(cohort_id: cohort_id)
+    assistance_requests.where(type: 'CodeReviewRequest').joins(:assistance).references(:assistance).where.not(assistances: { end_at: nil }).order(created_at: :desc).where(cohort_id: cohort_id)
   end
 
   # 1
@@ -174,13 +175,13 @@ class User < ApplicationRecord
 
   # 2
   def submitted_but_not_reviewed_activities
-    unreviewed_submissions = self.activity_submissions.where(cohort_id: cohort_id).proper.where.not(activity_id: completed_code_reviews.select(:activity_id))
+    unreviewed_submissions = activity_submissions.where(cohort_id: cohort_id).proper.where.not(activity_id: completed_code_reviews.select(:activity_id))
     Activity.bootcamp.reverse_chronological_for_day.where(id: unreviewed_submissions.select(:activity_id))
   end
 
   # 3
   def unsubmitted_activities_before(day)
-    Activity.active.countable_as_submission.where("day <= ?", day.to_s).reverse_chronological_for_day.where.not(id: self.activity_submissions.where(cohort_id: cohort_id).proper.select(:activity_id))
+    Activity.active.countable_as_submission.where("day <= ?", day.to_s).reverse_chronological_for_day.where.not(id: activity_submissions.where(cohort_id: cohort_id).proper.select(:activity_id))
   end
 
   def visible_bootcamp_activities
@@ -193,6 +194,7 @@ class User < ApplicationRecord
   end
 
   class << self
+
     def authenticate_via_github(auth)
       @user = where(uid: auth["uid"]).first
       return @user if @user
@@ -207,14 +209,15 @@ class User < ApplicationRecord
 
     def attributes_from_oauth(auth)
       {
-        token: auth["credentials"]["token"],
+        token:           auth["credentials"]["token"],
         github_username: auth["info"]["nickname"],
-        first_name: auth["info"]["name"].to_s.split.first,
-        last_name: auth["info"]["name"].to_s.split.last,
-        avatar_url: auth["info"]["image"],
-        email: auth["info"]["email"]
+        first_name:      auth["info"]["name"].to_s.split.first,
+        last_name:       auth["info"]["name"].to_s.split.last,
+        avatar_url:      auth["info"]["image"],
+        email:           auth["info"]["email"]
       }
     end
+
   end
 
 end

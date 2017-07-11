@@ -1,5 +1,6 @@
 # Only for v2 - Assumes the eval has a project that has the new v2 style rubric - KV
 class Evaluations::UpdateResult
+
   include Interactor
 
   before do
@@ -15,7 +16,7 @@ class Evaluations::UpdateResult
     if @evaluation.save
       # :)
     else
-      context.fail!(error: @evaluation.errrors.full_messages.first)
+      context.fail!(error: @evaluation.errors.full_messages.first)
     end
   end
 

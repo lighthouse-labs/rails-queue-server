@@ -1,4 +1,5 @@
 class CreateTechInterview
+
   include Interactor
 
   def call
@@ -17,21 +18,17 @@ class CreateTechInterview
     else
       context.fail!(error: @tech_interview.errors.full_messages.first)
     end
-
   end
 
   private
 
   def broadcast_to_queue
-    ActionCable.server.broadcast "assistance-#{@location.name}", {
-      type: "NewTechInterview",
-      object: TechInterviewSerializer.new(@tech_interview, root: false).as_json
-    }
+    ActionCable.server.broadcast "assistance-#{@location.name}", type:   "NewTechInterview",
+                                                                 object: TechInterviewSerializer.new(@tech_interview, root: false).as_json
   end
 
   def broadcast_to_interviewee
-    UserChannel.broadcast_to @interviewee, {type: "TechInterviewQueued", object: TechInterviewSerializer.new(@tech_interview).as_json}
+    UserChannel.broadcast_to @interviewee, type: "TechInterviewQueued", object: TechInterviewSerializer.new(@tech_interview).as_json
   end
-
 
 end

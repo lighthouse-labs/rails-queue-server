@@ -1,9 +1,8 @@
 require 'spec_helper'
 
 describe User do
-
   it "has a valid factory" do
-  	expect(build(:user)).to be_valid
+    expect(build(:user)).to be_valid
   end
 
   it "should be valid with just uid, token" do
@@ -66,5 +65,4 @@ describe User do
       expect(create(:user).waiting_for_assistance?).to be_false
     end
   end
-
 end

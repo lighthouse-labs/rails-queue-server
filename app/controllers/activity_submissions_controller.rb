@@ -2,11 +2,11 @@ class ActivitySubmissionsController < ApplicationController
 
   # include CourseCalendar # concern
 
-  before_filter :retrieve_activity
+  before_action :retrieve_activity
 
   def create
     activity_params = activity_submission_params.dup
-    activity_params["code_evaluation_results"] = JSON.parse(activity_params["code_evaluation_results"]).to_yaml unless activity_params["code_evaluation_results"].blank?
+    activity_params["code_evaluation_results"] = JSON.parse(activity_params["code_evaluation_results"]).to_yaml if activity_params["code_evaluation_results"].present?
 
     @activity_submission = @activity.activity_submissions.new(activity_params)
     @activity_submission.user = current_user

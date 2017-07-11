@@ -33,7 +33,7 @@ class ActivityRevision
 
   def client
     return @client if @client
-    return nil unless ENV['GIST_TOKEN'].present?
+    return nil if ENV['GIST_TOKEN'].blank?
     @client = Octokit::Client.new(access_token: ENV['GIST_TOKEN'])
     @client.login
     @client
@@ -41,16 +41,16 @@ class ActivityRevision
 
   def gist_params
     {
-      'public' => false,
+      'public'      => false,
       'description' => "#{@activity.day} - #{@activity.name} (#{@activity.type})",
-      'files' => {
+      'files'       => {
         'instructions.md' => {
           content: "\#Instructions\n#{@activity.instructions}"
         },
-        'notes.md' => {
+        'notes.md'        => {
           content: "\#Teacher Notes\n#{@activity.teacher_notes}"
         },
-        '_data.yml' => {
+        '_data.yml'       => {
           content: @activity.attributes.except("teacher_notes", "instructions", "created_at", "updated_at").to_yaml
         }
       }
