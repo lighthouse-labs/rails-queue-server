@@ -10,7 +10,11 @@ FactoryGirl.define do
     sequence(:uid, 1000)
     sequence(:token, 2000)
     completed_registration true
-    location_id 1
+    association :location
+
+    trait :admin do
+      admin true
+    end
 
     factory :user_for_auth do
       token "token"
