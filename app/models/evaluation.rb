@@ -31,7 +31,7 @@ class Evaluation < ApplicationRecord
   }
 
   scope :student_cohort_in_location, -> (location) {
-    joins(:student, :cohort).where(cohorts: {location_id: location.id})
+    joins(:student, :cohort).where(cohorts: { location_id: location.id })
   }
 
   scope :student_location, -> (location) {
