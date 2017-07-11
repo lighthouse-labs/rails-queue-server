@@ -11,7 +11,6 @@ require 'database_cleaner'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
-require 'auth_helper'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -25,7 +24,6 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
-  config.include AuthHelper
 
   config.include UserAccountHelpers, type: :controller
   config.extend UserAccountHelpers::Macros, type: :controller
