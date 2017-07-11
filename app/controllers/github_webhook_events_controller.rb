@@ -4,7 +4,7 @@ class GithubWebhookEventsController < ApplicationController
   skip_before_action :authenticate_user
   skip_before_action :set_timezone
 
-  before_filter :ensure_valid_signature
+  before_action :ensure_valid_signature
 
   def create
     response = Content::HandleGithubWebhookPayload.call(payload: @payload)

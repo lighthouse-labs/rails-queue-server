@@ -1,10 +1,11 @@
 class UserPresenter < BasePresenter
+
   presents :user
 
   delegate :full_name, :email, :phone_number, :quirky_fact, :bio, :specialties, :company_name, :company_url, :slack, :skype, :type, to: :user
 
   def image_for_index_page
-    h.image_tag(avatar_for, style: 'float:left; width:60px; margin-right: 8px; border-radius: 5px; border: 2px solid black')
+    h.image_tag(avatar_for, style: 'float:left; width:60px; margin-right: 8px; border-radius: 5px; border: 2px solid black; overflow: hidden;')
   end
 
   def image_for_show_page
@@ -12,46 +13,56 @@ class UserPresenter < BasePresenter
   end
 
   def github_info
-    render(
-      'shared/social_icon',
-      handle: user.github_username,
-      company: 'github',
-      url: "https://github.com/#{user.github_username}"
-    ) if user.github_username?
+    if user.github_username?
+      render(
+        'shared/social_icon',
+        handle:  user.github_username,
+        company: 'github',
+        url:     "https://github.com/#{user.github_username}"
+      )
+    end
   end
 
   def twitter_info
-    render(
-      'shared/social_icon',
-      handle: user.twitter,
-      company: 'twitter',
-      url: "https://twitter.com/#{user.twitter}"
-    ) if user.twitter?
+    if user.twitter?
+      render(
+        'shared/social_icon',
+        handle:  user.twitter,
+        company: 'twitter',
+        url:     "https://twitter.com/#{user.twitter}"
+      )
+    end
   end
 
   def slack_info
-    render(
-      'shared/social_icon',
-      handle: user.slack,
-      company: 'slack'
-    ) if user.slack?
+    if user.slack?
+      render(
+        'shared/social_icon',
+        handle:  user.slack,
+        company: 'slack'
+      )
+    end
   end
 
   def skype_info
-    render(
-      'shared/social_icon',
-      handle: user.skype,
-      company: 'skype'
-    ) if user.skype?
+    if user.skype?
+      render(
+        'shared/social_icon',
+        handle:  user.skype,
+        company: 'skype'
+      )
+    end
   end
 
   def email_info
-    render(
-      'shared/social_icon',
-      handle: user.email,
-      company: 'inbox',
-      url: "mailto:#{user.email}"
-    ) if user.email?
+    if user.email?
+      render(
+        'shared/social_icon',
+        handle:  user.email,
+        company: 'inbox',
+        url:     "mailto:#{user.email}"
+      )
+    end
   end
 
   private

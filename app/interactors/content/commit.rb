@@ -5,6 +5,7 @@
 #  - KV
 
 class Content::Commit
+
   include Interactor
 
   before do
@@ -16,9 +17,11 @@ class Content::Commit
   end
 
   def call
-    updated, created, archived = [], [], []
+    updated = []
+    created = []
+    archived = []
 
-    @records.each_with_index do |rec, i|
+    @records.each_with_index do |rec, _i|
       if rec.new_record?
         @log.info "Creating #{rec.class} #{rec.uuid}"
         rec.save!

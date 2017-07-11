@@ -4,11 +4,11 @@ describe Admin::StudentsController do
   before :each do
     set_valid_auth
   end
-  
+
   describe 'GET #index' do
     it 'assigns all students to @students' do
       students = create_list(:student, 5)
-      get :index 
+      get :index
       expect(assigns(:students)).to match_array(students)
     end
 

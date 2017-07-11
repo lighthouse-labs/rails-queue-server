@@ -1,17 +1,16 @@
 class TechInterviewsController < ApplicationController
 
-  before_filter :not_for_students
+  before_action :not_for_students
 
-  before_filter :require_template, only: [:new, :create]
-  before_filter :require_interviewee, only: [:new, :create]
+  before_action :require_template, only: [:new, :create]
+  before_action :require_interviewee, only: [:new, :create]
 
-  before_filter :require_interview, only: [:edit, :update, :confirm, :complete, :show, :start, :stop]
-  before_filter :only_incomplete, only: [:edit, :update, :confirm, :complete]
-  before_filter :only_queued, only: [:start]
-  before_filter :only_in_progress, only: [:stop, :edit, :update]
+  before_action :require_interview, only: [:edit, :update, :confirm, :complete, :show, :start, :stop]
+  before_action :only_incomplete, only: [:edit, :update, :confirm, :complete]
+  before_action :only_queued, only: [:start]
+  before_action :only_in_progress, only: [:stop, :edit, :update]
 
-  def show
-  end
+  def show; end
 
   def new
     @tech_interview = TechInterview.new(interviewee: @interviewee)
@@ -19,7 +18,7 @@ class TechInterviewsController < ApplicationController
 
   def create
     @tech_interview = @interview_template.pending_interview_for(@interviewee) ||
-      @interview_template.tech_interviews.new(interviewee: @interviewee, cohort: @interviewee.cohort)
+                      @interview_template.tech_interviews.new(interviewee: @interviewee, cohort: @interviewee.cohort)
 
     result = StartTechInterview.call(
       tech_interview: @tech_interview,
@@ -61,8 +60,7 @@ class TechInterviewsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @tech_interview.update(interview_params)
@@ -74,15 +72,14 @@ class TechInterviewsController < ApplicationController
   end
 
   # GET (final step form)
-  def confirm
-  end
+  def confirm; end
 
   # PUT (final step submission)
   def complete
     result = CompleteTechInterview.call(
-      params: params,
+      params:         params,
       tech_interview: @tech_interview,
-      interviewer: current_user
+      interviewer:    current_user
     )
 
     if @tech_interview.save
@@ -96,7 +93,6 @@ class TechInterviewsController < ApplicationController
 
   def require_template
     @interview_template = TechInterviewTemplate.find params[:tech_interview_template_id]
-
   end
 
   def require_interviewee
@@ -116,15 +112,13 @@ class TechInterviewsController < ApplicationController
   end
 
   def only_queued
-    if !@tech_interview.queued?
+    unless @tech_interview.queued?
       redirect_to :back, alert: 'No longer in the queue!'
     end
   end
 
   def only_in_progress
-    if !@tech_interview.in_progress?
-      redirect_to @tech_interview
-    end
+    redirect_to @tech_interview unless @tech_interview.in_progress?
   end
 
   def not_for_students

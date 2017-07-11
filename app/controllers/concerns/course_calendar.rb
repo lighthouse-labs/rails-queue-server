@@ -1,4 +1,5 @@
 module CourseCalendar
+
   extend ActiveSupport::Concern
 
   included do
@@ -7,7 +8,7 @@ module CourseCalendar
     helper_method :previous_day?
     helper_method :day
     helper_method :weekend?
-    before_filter :allowed_day?
+    before_action :allowed_day?
   end
 
   private
@@ -28,19 +29,19 @@ module CourseCalendar
     return @day if @day
     d = params[:number] || params[:day_number]
     @day = case d
-    when 'today'
-      today
-    when 'yesterday'
-      yesterday
-    when nil
-      activity = if params[:uuid]
-        Activity.find_by(uuid: params[:uuid])
-      elsif params[:activity_id]
-        Activity.find_by(id: params[:activity_id])
-      end
-      activity.try(:day) || today
-    else
-      d
+           when 'today'
+             today
+           when 'yesterday'
+             yesterday
+           when nil
+             activity = if params[:uuid]
+                          Activity.find_by(uuid: params[:uuid])
+                        elsif params[:activity_id]
+                          Activity.find_by(id: params[:activity_id])
+             end
+             activity.try(:day) || today
+           else
+             d
     end
     @day = CurriculumDay.new(@day, cohort) if @day.is_a?(String)
     @day

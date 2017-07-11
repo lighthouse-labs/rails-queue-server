@@ -7,23 +7,23 @@ class Quiz < ApplicationRecord
   has_and_belongs_to_many :questions
   has_many :outcomes, through: :questions
 
-  scope :active,   -> {
+  scope :active, -> {
     where(id: Activity.active.where.not(quiz_id: nil).select(:quiz_id))
   }
-  scope :prep,     -> {
+  scope :prep, -> {
     where(day: nil)
   }
   scope :bootcamp, -> {
     where.not(day: nil)
   }
   # Ideally this scope should be able to use the one above cleanly, but given the hack mentioned above, it's not easy.
-  scope :until_day, -> (day) {
+  scope :until_day, ->(day) {
     where(id: Activity.bootcamp.active.where.not(quiz_id: nil).until_day(day).pluck(:quiz_id))
   }
 
   def submissions_by(user)
     chain = quiz_submissions.where(user_id: user.id).order(id: :desc)
-    chain = chain.where(cohort_id: user.cohort_id) if user.cohort_id? && self.bootcamp?
+    chain = chain.where(cohort_id: user.cohort_id) if user.cohort_id? && bootcamp?
     chain
   end
 
@@ -41,7 +41,7 @@ class Quiz < ApplicationRecord
 
   # validates :cohort, presence: true
 
-  #validates :day, presence: true
+  # validates :day, presence: true
 
   # validate do
   #   errors.add(:questions, "insufficient for a quiz; #{QUESTIONS_PER_QUIZ} needed") if questions.length < QUESTIONS_PER_QUIZ

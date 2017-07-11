@@ -4,23 +4,22 @@ h1= @cohort.name
 table.table
   thead
     tr
-      th
       th Name
       th Email
       th Phone
-      th GitHub Username
+      th
 
   tbody
     - @students.each do |student|
       - present student, UserPresenter do |student_presenter|
         tr
-          td = student_presenter.image_for_index_page
-          td
-            - if teacher?
-              = link_to student_presenter.full_name, teacher_student_path(student)
-            - else
-              = student_presenter.full_name
+          td.student-info
+              = render 'shared/student_info', student: student
           td = student_presenter.email
           td = student_presenter.phone_number
-          td = student_presenter.github_info
-
+          td
+            ul.list-inline.social-icons
+              = student_presenter.github_info
+              = student_presenter.twitter_info
+              = student_presenter.slack_info
+              = student_presenter.skype_info

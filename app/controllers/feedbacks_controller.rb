@@ -1,5 +1,6 @@
 class FeedbacksController < ApplicationController
-  before_filter :student_required
+
+  before_action :student_required
   before_action :load_feedback, only: [:update, :modal_content]
 
   def index
@@ -11,7 +12,7 @@ class FeedbacksController < ApplicationController
     @feedback.update(feedback_params)
     if @feedback.save
       redirect_to :back
-    else    
+    else
       redirect_to(:back, alert: 'Feedback could not be saved')
     end
   end
@@ -35,4 +36,5 @@ class FeedbacksController < ApplicationController
   def load_feedback
     @feedback = Feedback.find(params[:id].to_i)
   end
+
 end

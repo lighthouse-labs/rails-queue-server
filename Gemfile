@@ -76,6 +76,7 @@ gem 'pg_search'
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
+  gem 'rubocop'
 
   # listen creates too many fsevent_watch processes and kills my laptop. Removing this until resolved - KV
   # gem 'listen', '~> 3.1.5'

@@ -10,7 +10,7 @@ module ActivitiesHelper
 
   def assistance_activities_grouped_by_day_for_select
     grouped_options_for_select(
-      current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :id).group_by {|d| d[1] },
+      current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :id).group_by { |d| d[1] },
       @activity.try(:id)
     )
   end
@@ -33,13 +33,13 @@ module ActivitiesHelper
     )
   end
 
-  def markdown(content, renderer=CompassMarkdownRenderer)
+  def markdown(content, renderer = CompassMarkdownRenderer)
     return '' if content.nil?
     options = {
-      autolink: true,
+      autolink:            true,
       space_after_headers: true,
-      fenced_code_blocks: true,
-      tables: true
+      fenced_code_blocks:  true,
+      tables:              true
     }
     @markdown ||= Redcarpet::Markdown.new(renderer, options)
     @markdown.render(content)
@@ -56,7 +56,7 @@ module ActivitiesHelper
     name
   end
 
-  def duration activity
+  def duration(activity)
     if @program.display_exact_activity_duration? && activity.display_duration?
       duration_range activity
     else
@@ -64,18 +64,18 @@ module ActivitiesHelper
     end
   end
 
-  def vague_duration activity
+  def vague_duration(activity)
     duration = activity.duration.to_i
     vague_duration = if duration > 0 && duration <= 30
-      'Tiny'
-    elsif duration > 30 && duration <= 60
-      'Short'
-    elsif duration > 60 && duration < 120
-      'Medium'
-    elsif duration >= 120
-      'Long'
-    else # 0 / nil
-      ''
+                       'Tiny'
+                     elsif duration > 30 && duration <= 60
+                       'Short'
+                     elsif duration > 60 && duration < 120
+                       'Medium'
+                     elsif duration >= 120
+                       'Long'
+                     else # 0 / nil
+                       ''
     end
     "<br>#{vague_duration}<br>".html_safe
   end
@@ -139,14 +139,13 @@ module ActivitiesHelper
   end
 
   def activity_type_options
-    [
-      'Assignment',
-      'Task',
-      'Lecture',
-      'Homework',
-      'Video',
-      'Test'
+    %w[
+      Assignment
+      Task
+      Lecture
+      Homework
+      Video
+      Test
     ]
   end
-
 end

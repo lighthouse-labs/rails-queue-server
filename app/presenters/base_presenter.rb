@@ -1,10 +1,11 @@
 class BasePresenter
+
   def initialize(object, template)
     @object = object
     @template = template
   end
 
-private
+  private
 
   def self.presents(name)
     define_method(name) do
@@ -19,4 +20,5 @@ private
   def method_missing(*args, &block)
     @template.send(*args, &block)
   end
+
 end

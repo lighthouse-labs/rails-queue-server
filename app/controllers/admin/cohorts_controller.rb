@@ -18,8 +18,7 @@ class Admin::CohortsController < Admin::BaseController
     @cohort = Cohort.new(program: Program.first)
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @cohort = Cohort.new(cohort_params)
@@ -42,7 +41,7 @@ class Admin::CohortsController < Admin::BaseController
     @active_students = @cohort.students.active.includes(:location).references(:location).order('locations.name')
     @other_students  = @cohort.rolled_out_students.to_a + @cohort.students.deactivated.to_a
     @interview_templates = TechInterviewTemplate.all
-    @projects = Project.evaluated.all
+    @projects = Project.all
   end
 
   private

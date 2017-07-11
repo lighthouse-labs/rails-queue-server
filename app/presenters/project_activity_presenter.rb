@@ -14,4 +14,5 @@ class ProjectActivityPresenter < ActivityPresenter
   def edit_button_path
     edit_project_activity_path(activity.day, activity)
   end
+
 end

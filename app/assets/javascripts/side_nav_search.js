@@ -1,5 +1,6 @@
 // Matching formula. Allows user to select activity by searching by grouping
 // ex: w1d3 will return all w1d3 activities rather than just the title
+// Taken from https://stackoverflow.com/questions/21992727/display-result-matching-optgroup-using-select2/32084193#32084193
 function modelMatcher (params, data) {
   data.parentText = data.parentText || "";
 

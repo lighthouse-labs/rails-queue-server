@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe QuestionsController do
-
   describe "GET 'index'" do
     it "returns http success" do
       get 'index'
@@ -43,5 +42,4 @@ describe QuestionsController do
       response.should be_success
     end
   end
-
 end

@@ -1,4 +1,5 @@
 class Content::LoadProjects
+
   include Interactor
 
   before do
@@ -77,20 +78,20 @@ class Content::LoadProjects
     uuid = attributes.delete 'uuid'
 
     attrs = {
-      name:              attributes['name'],
-      slug:              attributes['slug'],
-      order:             attributes['order'],
-      start_day:         attributes['start_day'],
-      end_day:           attributes['end_day'],
-      image:             attributes['image'],
-      blurb:             attributes['blurb'],
-      evaluated:         attributes['evaluated'],
-      description:       attributes['description'],
-      content_file_path: attributes['file_path'],
-      evaluation_guide:  attributes['evaluation_guide'],
-      evaluation_rubric: attributes['evaluation_rubric'],
+      name:                 attributes['name'],
+      slug:                 attributes['slug'],
+      order:                attributes['order'],
+      start_day:            attributes['start_day'],
+      end_day:              attributes['end_day'],
+      image:                attributes['image'],
+      blurb:                attributes['blurb'],
+      evaluated:            attributes['evaluated'],
+      description:          attributes['description'],
+      content_file_path:    attributes['file_path'],
+      evaluation_guide:     attributes['evaluation_guide'],
+      evaluation_rubric:    attributes['evaluation_rubric'],
       evaluation_checklist: attributes['evaluation_checklist'],
-      content_repository: @repo,
+      content_repository:   @repo
     }
 
     section = Project.find_or_initialize_by(uuid: uuid)

@@ -1,12 +1,11 @@
 class ActivityFeedbackPresenter < BasePresenter
+
   presents :activity_feedback
 
   delegate :detail, to: :activity_feedback
 
   def truncated_detail
-    if activity_feedback.detail.present?
-      truncate feedback.detail, length: 200
-    end
+    truncate feedback.detail, length: 200 if activity_feedback.detail.present?
   end
 
   def upcased_day
@@ -17,9 +16,7 @@ class ActivityFeedbackPresenter < BasePresenter
     end
   end
 
-  def rating
-    activity_feedback.rating
-  end
+  delegate :rating, to: :activity_feedback
 
   def activity_name
     link_to activity_feedback.activity.name, activity_by_uuid_path(activity_feedback.activity.uuid)

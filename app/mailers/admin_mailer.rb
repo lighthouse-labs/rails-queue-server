@@ -19,9 +19,9 @@ class AdminMailer < ActionMailer::Base
     to = ENV['SUPER_ADMIN_EMAIL'] if to.blank?
 
     mail(
-      subject: "Student Feedback (#{feedback.day}) [\##{feedback.id}]",
+      subject:  "Student Feedback (#{feedback.day}) [\##{feedback.id}]",
       reply_to: feedback.student.email,
-      to: to
+      to:       to
     )
   end
 

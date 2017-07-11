@@ -1,4 +1,5 @@
 class EvaluationForm
+
   include ActiveModel::Model
 
   attr_accessor :evaluation, :outcomes, :teacher_notes, :final_score
@@ -13,4 +14,5 @@ class EvaluationForm
       end
     end
   end
+
 end

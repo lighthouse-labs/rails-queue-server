@@ -1,4 +1,5 @@
 class Content::DownloadRepoArchive
+
   include Interactor
 
   before do
@@ -20,7 +21,7 @@ class Content::DownloadRepoArchive
     # https://github.com/octokit/octokit.rb/blob/master/lib/octokit/client/contents.rb#L152
     remote_archive_location = github.archive_link(@repo.full_name, ref: @sha)
 
-    local_dir = Rails.root.join('tmp', "curriculum", "#{Time.now.to_i}")
+    local_dir = Rails.root.join('tmp', "curriculum", Time.now.to_i.to_s)
     tarball_path = local_dir.join('archive.tar.gz')
     content_path = local_dir.join('contents')
 
@@ -40,7 +41,7 @@ class Content::DownloadRepoArchive
 
     repo_dir = Dir.glob(content_path.join('*')).detect { |f| File.directory? f }
 
-    raise "Error: Expected " unless repo_dir.present?
+    raise "Error: Expected " if repo_dir.blank?
 
     # we only care about the contents within
     context.repo_dir = File.join(repo_dir, 'data')

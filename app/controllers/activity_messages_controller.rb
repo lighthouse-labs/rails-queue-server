@@ -9,19 +9,15 @@ class ActivityMessagesController < ApplicationController
   def new
     @message = @activity.messages.new(
       cohort: @cohort,
-      kind: ActivityMessage::KINDS.first,
+      kind:   ActivityMessage::KINDS.first
     )
   end
 
-  def edit
-
-  end
+  def edit; end
 
   def create
-    @message = @activity.messages.new(message_params.merge({
-      user: current_user,
-      day: @activity.day,
-    }))
+    @message = @activity.messages.new(message_params.merge(user: current_user,
+                                                           day:  @activity.day))
     @message.body << "\n" + day_activity_url(@activity.day, @activity)
     if @message.save
       notice = "Message Created. Students notified via e-mail."
@@ -33,7 +29,6 @@ class ActivityMessagesController < ApplicationController
   end
 
   def update
-
     if @message.update(message_params)
       notice = 'Message Updated. Note: Student e-mails are not resent.'
       redirect_to day_activity_path(@activity.day, @activity), notice: notice
