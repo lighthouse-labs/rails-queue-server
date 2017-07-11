@@ -9,10 +9,10 @@ class Evaluation < ApplicationRecord
 
   has_many :evaluation_transitions, autosave: false
 
-  validates_presence_of :github_url
+  validates :github_url, presence: true
 
   validates :github_url,
-    format: { with: URI::regexp(%w(http https)), message: "must be a valid format" }
+            format: { with: URI.regexp(%w[http https]), message: "must be a valid format" }
 
   scope :oldest_first, -> { order(created_at: :asc) }
 
@@ -22,14 +22,14 @@ class Evaluation < ApplicationRecord
 
   scope :completed, -> { where.not(completed_at: nil) }
 
-  scope :student_cohort_in_locations, -> (locations) {
-    if locations.is_a?(Array) && locations.length > 0
-      includes(student: {cohort: :location}).
-      where(locations: {name: locations}).
-      references(:student, :cohort, :location)
+  scope :student_cohort_in_locations, ->(locations) {
+    if locations.is_a?(Array) && !locations.empty?
+      includes(student: { cohort: :location })
+        .where(locations: { name: locations })
+        .references(:student, :cohort, :location)
     end
   }
-  scope :student_location, -> (location) {
+  scope :student_location, ->(location) {
     includes(:student).references(:student).where(users: { location_id: location.id })
   }
 
@@ -50,7 +50,7 @@ class Evaluation < ApplicationRecord
   end
 
   def self.filter_by_all_evals(cohort, project)
-    Evaluation.select("evaluations.id").from("evaluations").joins("JOIN users ON users.id = evaluations.student_id").where(users: {type: 'Student'}).where(users: {cohort_id: cohort}).where(project_id: project.id)
+    Evaluation.select("evaluations.id").from("evaluations").joins("JOIN users ON users.id = evaluations.student_id").where(users: { type: 'Student' }).where(users: { cohort_id: cohort }).where(project_id: project.id)
   end
 
   def self.filter_by_most_recent(cohort, project)
@@ -66,7 +66,7 @@ class Evaluation < ApplicationRecord
   end
 
   def status
-    current_state.gsub(/_/, " ").titleize
+    current_state.tr('_', " ").titleize
   end
 
   def cancellable?
@@ -93,7 +93,7 @@ class Evaluation < ApplicationRecord
     completed_at?
   end
 
-   # in minutes
+  # in minutes
   def duration
     (completed_at - started_at).to_i
   end
@@ -120,7 +120,7 @@ class Evaluation < ApplicationRecord
     (completed_at - started_at).to_i
   end
 
-   # in minutes
+  # in minutes
   def time_in_queue
     ((started_at || Time.current) - created_at).to_i
   end
@@ -140,7 +140,7 @@ class Evaluation < ApplicationRecord
   private
 
   def set_cohort
-    self.cohort = self.student.cohort
+    self.cohort = student.cohort
   end
 
 end

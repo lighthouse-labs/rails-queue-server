@@ -1,4 +1,5 @@
 class NotifySlackChannel
+
   include Interactor
 
   before do
@@ -7,7 +8,7 @@ class NotifySlackChannel
   end
 
   def call
-    options    = {
+    options = {
       username: 'Compass',
       icon_url: 'https://cdn3.iconfinder.com/data/icons/browsers-1/512/Browser_JJ-512.png'
     }

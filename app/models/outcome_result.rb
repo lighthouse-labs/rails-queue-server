@@ -13,6 +13,7 @@ class OutcomeResult < ApplicationRecord
   protected
 
   def populate_source
-    self.source_name ||= self.source_type
+    self.source_name ||= source_type
   end
+
 end

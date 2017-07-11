@@ -6,11 +6,11 @@ class EvaluationsController < ApplicationController
   before_action :check_can_evaluate, only: [:edit, :update]
 
   def index
-    if session[:cohort_id]
-      @evaluations = @project.evaluations.joins(:student).where('users.cohort_id = ?', session[:cohort_id]).order('users.first_name')
-    else
-      @evaluations = @project.evaluations
-    end
+    @evaluations = if session[:cohort_id]
+                     @project.evaluations.joins(:student).where('users.cohort_id = ?', session[:cohort_id]).order('users.first_name')
+                   else
+                     @project.evaluations
+                   end
   end
 
   def show
@@ -40,7 +40,6 @@ class EvaluationsController < ApplicationController
   end
 
   def edit
-
     load_all_completed_evals
 
     # TODO: remove this check once all the old evals clear - KV
@@ -94,7 +93,7 @@ class EvaluationsController < ApplicationController
   def save_changes
     result = Evaluations::UpdateResult.call(
       evaluation_form: params[:evaluation],
-      evaluation: @evaluation
+      evaluation:      @evaluation
     )
     render json: { success: true }
   end
@@ -111,8 +110,8 @@ class EvaluationsController < ApplicationController
   def finish_marking_v1
     result = CompleteEvaluation.call(
       evaluation_form: params[:evaluation_form],
-      evaluation: @evaluation,
-      decision: params[:commit]
+      evaluation:      @evaluation,
+      decision:        params[:commit]
     )
     if result.success?
       redirect_to [@project, @evaluation], notice: "Evaluation successfully marked."
@@ -124,7 +123,7 @@ class EvaluationsController < ApplicationController
   def finish_marking_v2
     result = Evaluations::Complete.call(
       evaluation_form: params[:evaluation],
-      evaluation: @evaluation
+      evaluation:      @evaluation
     )
     if result.success?
       redirect_to [@project, @evaluation], notice: "Evaluation marked. Student notified. You were cc'd."
@@ -158,6 +157,5 @@ class EvaluationsController < ApplicationController
   def load_all_completed_evals
     @all_completed_evaluations = @project.evaluations_for(@evaluation.student).completed.where.not(id: @evaluation.id)
   end
-
 
 end

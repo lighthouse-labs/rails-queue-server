@@ -1,12 +1,11 @@
 class CodeReviewsController < ApplicationController
+
   include CourseCalendar
 
-  before_filter :teacher_required
+  before_action :teacher_required
   before_action :load_cohorts
-  # before_filter :load_student
 
-  def index
-  end
+  def index; end
 
   def show
     @code_review = Assistance.find(params[:id])
@@ -29,7 +28,7 @@ class CodeReviewsController < ApplicationController
   def create
     code_review_request = CodeReviewRequest.new(
       requestor_id: params[:assistance][:assistee_id],
-      activity_id: params[:activity_id]
+      activity_id:  params[:activity_id]
     )
 
     code_review_request.save!
@@ -61,12 +60,6 @@ class CodeReviewsController < ApplicationController
     end
     @cohorts = @cohorts.uniq
     @cohorts
-  end
-
-  def load_student
-    id = params["student_id"] || params["assistee-id"]
-    puts "the id is: #{id}"
-    @student = Student.find(id)
   end
 
 end

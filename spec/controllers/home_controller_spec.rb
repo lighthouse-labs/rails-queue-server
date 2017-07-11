@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe HomeController do
-
-	logged_in_user
+  logged_in_user
 
   describe "GET 'show'" do
     it "returns http success" do
@@ -10,5 +9,4 @@ describe HomeController do
       expect(response).to redirect_to('/setup')
     end
   end
-
 end

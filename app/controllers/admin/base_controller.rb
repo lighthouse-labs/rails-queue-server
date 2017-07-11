@@ -2,7 +2,7 @@ class Admin::BaseController < ApplicationController
 
   # skip_before_action :authenticate_user
 
-  before_filter :admin_required
+  before_action :admin_required
 
   layout 'admin'
 

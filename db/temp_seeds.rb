@@ -12,7 +12,7 @@ skills1[0].outcomes << outcome1
 skills1[1].outcomes << outcome2
 skills1[2].outcomes << outcome3
 
-skills1.each {|skill| c1.skills << skill}
+skills1.each { |skill| c1.skills << skill }
 c1.save!
 
 skills2 = []
@@ -29,10 +29,10 @@ skills2[0].outcomes << outcome4
 skills2[1].outcomes << outcome5
 skills2[2].outcomes << outcome6
 
-skills2.each {|skill| c2.skills << skill}
+skills2.each { |skill| c2.skills << skill }
 c2.save!
 
-p = Project.create!(name: "Generic Ruby Project", description: "This project is as generic as can be!", slug:"generic-ruby-project")
+p = Project.create!(name: "Generic Ruby Project", description: "This project is as generic as can be!", slug: "generic-ruby-project")
 p.outcomes << outcome4
 p.outcomes << outcome5
 p.outcomes << outcome6

@@ -8,13 +8,13 @@ class TechInterview < ApplicationRecord
 
   has_one :student_feedback, as: :feedbackable, dependent: :destroy, class_name: 'Feedback'
 
-  has_many :results, { class_name: 'TechInterviewResult', dependent: :destroy }
+  has_many :results, class_name: 'TechInterviewResult', dependent: :destroy
 
   accepts_nested_attributes_for :results, allow_destroy: false
 
   scope :oldest_first, -> { order(created_at: :asc) }
-  scope :interviewed_by, -> (interviewer) { where(interviewer: interviewer) }
-  scope :interviewing,   -> (interviewee, cohort=nil) {
+  scope :interviewed_by, ->(interviewer) { where(interviewer: interviewer) }
+  scope :interviewing,   ->(interviewee, cohort = nil) {
     cohort ||= interviewee.cohort
     where(interviewee: interviewee, cohort: cohort)
   }
@@ -22,15 +22,15 @@ class TechInterview < ApplicationRecord
   scope :queued,         -> { where(started_at: nil) }
   scope :active,         -> { where(completed_at: nil) }
   scope :in_progress,    -> { where.not(started_at: nil).where(completed_at: nil) }
-  scope :for_cohort,     -> (cohort) { where(cohort: cohort) }
-  scope :for_locations,  -> (locations) {
-    if locations.is_a?(Array) && locations.length > 0
-      includes(cohort: :location).
-      where(locations: { name: locations }).
-      references(:cohort, :location)
+  scope :for_cohort,     ->(cohort) { where(cohort: cohort) }
+  scope :for_locations,  ->(locations) {
+    if locations.is_a?(Array) && !locations.empty?
+      includes(cohort: :location)
+        .where(locations: { name: locations })
+        .references(:cohort, :location)
     end
   }
-  scope :interviewee_location, -> (location) {
+  scope :interviewee_location, ->(location) {
     includes(:interviewee).references(:interviewee).where(users: { location_id: location.id })
   }
 
@@ -43,9 +43,7 @@ class TechInterview < ApplicationRecord
     started? && !completed?
   end
 
-  def week
-    tech_interview_template.week
-  end
+  delegate :week, to: :tech_interview_template
 
   def started?
     started_at?
@@ -73,7 +71,7 @@ class TechInterview < ApplicationRecord
 
   def set_cohort
     # expect to always an interviewee and for them to have a cohort
-    self.cohort = self.interviewee.cohort
+    self.cohort = interviewee.cohort
   end
 
 end

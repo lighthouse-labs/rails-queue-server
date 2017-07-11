@@ -1,4 +1,5 @@
 class InvitationsController < ApplicationController
+
   skip_before_action :authenticate_user, only: [:show]
 
   def show
@@ -11,4 +12,5 @@ class InvitationsController < ApplicationController
 
     redirect_to new_session_path
   end
+
 end

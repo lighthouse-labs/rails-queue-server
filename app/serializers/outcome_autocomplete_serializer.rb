@@ -4,7 +4,7 @@ class OutcomeAutocompleteSerializer < ActiveModel::Serializer
 
   def attributes
     attrs = super
-    attrs.tap do 
+    attrs.tap do
       attrs[:activities] = activities
     end
   end

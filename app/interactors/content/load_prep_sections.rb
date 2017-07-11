@@ -1,4 +1,5 @@
 class Content::LoadPrepSections
+
   include Interactor
 
   before do
@@ -28,15 +29,14 @@ class Content::LoadPrepSections
 
     attrs = {
       content_repository: @repo,
-      name:  attributes['name'],
-      slug:  attributes['slug'],
-      order: attributes['order']
+      name:               attributes['name'],
+      slug:               attributes['slug'],
+      order:              attributes['order']
     }
 
     section = Prep.find_or_initialize_by(uuid: uuid)
     section.assign_attributes(attrs)
     section
   end
-
 
 end

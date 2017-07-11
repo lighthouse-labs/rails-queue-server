@@ -11,15 +11,15 @@ class TechInterviewTemplate < ApplicationRecord
   validates :uuid, presence: true
 
   def pending_interview_for(student)
-    self.tech_interviews.interviewing(student).order(updated_at: :desc).queued.first
+    tech_interviews.interviewing(student).order(updated_at: :desc).queued.first
   end
 
   def interview_for(student)
-    self.tech_interviews.interviewing(student).order(updated_at: :desc).first
+    tech_interviews.interviewing(student).order(updated_at: :desc).first
   end
 
-  def completed_interview_for(student, cohort=nil)
-    self.tech_interviews.interviewing(student, cohort).order(updated_at: :desc).completed.first
+  def completed_interview_for(student, cohort = nil)
+    tech_interviews.interviewing(student, cohort).order(updated_at: :desc).completed.first
   end
 
 end

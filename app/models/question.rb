@@ -16,26 +16,26 @@ class Question < ApplicationRecord
 
   scope :active, -> { where(active: true) }
 
-  scope :stats, -> (quiz) {
+  scope :stats, ->(quiz) {
     question_stats = select('questions.*', 'options.correct AS options_correct', 'COUNT(answers.id) AS answers_count')
-      .group('questions.id', 'options.correct')
-      .joins('LEFT JOIN options ON questions.id = options.question_id')
-      .joins('LEFT JOIN answers ON answers.option_id = options.id')
+                     .group('questions.id', 'options.correct')
+                     .joins('LEFT JOIN options ON questions.id = options.question_id')
+                     .joins('LEFT JOIN answers ON answers.option_id = options.id')
     if quiz
       question_stats = question_stats
-        .where('answers.id IN (SELECT answers.id FROM answers JOIN quiz_submissions ON quiz_submissions.id = answers.quiz_submission_id WHERE quiz_submissions.quiz_id = ?)', quiz.id)
+                       .where('answers.id IN (SELECT answers.id FROM answers JOIN quiz_submissions ON quiz_submissions.id = answers.quiz_submission_id WHERE quiz_submissions.quiz_id = ?)', quiz.id)
     end
     question_stats
   }
 
-  scope :initial_stats, -> (quiz) {
+  scope :initial_stats, ->(quiz) {
     question_stats = select('questions.*', 'options.correct AS options_correct', 'COUNT(answers.id) AS answers_count')
-      .group('questions.id', 'options.correct')
-      .joins('LEFT JOIN options ON questions.id = options.question_id')
-      .joins('LEFT JOIN answers ON answers.option_id = options.id')
+                     .group('questions.id', 'options.correct')
+                     .joins('LEFT JOIN options ON questions.id = options.question_id')
+                     .joins('LEFT JOIN answers ON answers.option_id = options.id')
     if quiz
       question_stats = question_stats
-        .where('answers.id IN (SELECT answers.id FROM answers JOIN quiz_submissions ON quiz_submissions.id = answers.quiz_submission_id WHERE quiz_submissions.quiz_id = ? AND quiz_submissions.initial = true)', quiz.id)
+                       .where('answers.id IN (SELECT answers.id FROM answers JOIN quiz_submissions ON quiz_submissions.id = answers.quiz_submission_id WHERE quiz_submissions.quiz_id = ? AND quiz_submissions.initial = true)', quiz.id)
     end
     question_stats
   }

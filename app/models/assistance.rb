@@ -2,8 +2,8 @@ class Assistance < ApplicationRecord
 
   include PgSearch
 
-  belongs_to :assistor, :class_name => User
-  belongs_to :assistee, :class_name => User
+  belongs_to :assistor, class_name: User
+  belongs_to :assistee, class_name: User
   belongs_to :activity
   belongs_to :cohort # substitute for lack of enrollment record - KV
 
@@ -30,13 +30,13 @@ class Assistance < ApplicationRecord
   before_create :set_activity
 
   scope :currently_active, -> {
-    joins(:assistance_request).
-    where("assistance_requests.canceled_at IS NULL AND assistances.end_at IS NULL")
+    joins(:assistance_request)
+      .where("assistance_requests.canceled_at IS NULL AND assistances.end_at IS NULL")
   }
   scope :completed, -> { where('assistances.end_at IS NOT NULL') }
   scope :order_by_start, -> { order(:start_at) }
-  scope :assisted_by, -> (user) { where(:assistor => user) }
-  scope :assisting, -> (user) { where(:assistee => user) }
+  scope :assisted_by, ->(user) { where(assistor: user) }
+  scope :assisting, ->(user) { where(assistee: user) }
 
   scope :average_length, -> { average('EXTRACT(EPOCH FROM (assistances.end_at - assistances.start_at)) / 60.0').to_f }
 
@@ -47,26 +47,26 @@ class Assistance < ApplicationRecord
     self.rating = rating
     self.student_notes = student_notes
     self.end_at = Time.now
-    self.save
-    self.assistee.last_assisted_at = Time.now
+    save
+    assistee.last_assisted_at = Time.now
     if assistance_request.instance_of?(CodeReviewRequest) && !rating.nil? && !assistee.code_review_percent.nil?
       assistee.code_review_percent += Assistance::RATING_BASELINE - rating
       UserMailer.new_code_review_message(self).deliver
     end
 
-    self.assistee.save.tap do
-      self.create_feedback(student: self.assistee, teacher: self.assistor)
+    assistee.save.tap do
+      create_feedback(student: assistee, teacher: assistor)
       send_notes_to_slack
     end
   end
 
   def to_json
-    return {
+    {
       start_time: start_at,
-      id: id,
-      assistee: {
+      id:         id,
+      assistee:   {
         avatar_url: assistee.avatar_url,
-        full_name: assistee.full_name
+        full_name:  assistee.full_name
       }
     }
   end
@@ -78,13 +78,11 @@ class Assistance < ApplicationRecord
   end
 
   def set_day
-    self.day = CurriculumDay.new(Time.current, self.cohort).to_s if self.cohort
+    self.day = CurriculumDay.new(Time.current, cohort).to_s if cohort
   end
 
   def set_activity
-    if assistance_request
-      self.activity ||= assistance_request.activity
-    end
+    self.activity ||= assistance_request.activity if assistance_request
   end
 
   def set_start_at
@@ -93,20 +91,21 @@ class Assistance < ApplicationRecord
 
   def send_notes_to_slack
     post_to_slack(ENV['SLACK_CHANNEL'])
-    post_to_slack(ENV['SLACK_CHANNEL_REMOTE']) if self.assistee.remote
+    post_to_slack(ENV['SLACK_CHANNEL_REMOTE']) if assistee.remote
   end
 
   def post_to_slack(channel)
     return if ENV['SLACK_TOKEN'].nil? || channel.nil?
     options = {
-      username: self.assistor.github_username,
-      icon_url: self.assistor.avatar_url,
-      channel: channel
+      username: assistor.github_username,
+      icon_url: assistor.avatar_url,
+      channel:  channel
     }
     begin
       poster = Slack::Poster.new('lighthouse', ENV['SLACK_TOKEN'], options)
-      poster.send_message("*Assisted #{self.assistee.full_name} for #{ ((self.end_at - self.start_at)/60).to_i } minutes*:\n #{self.notes}")
+      poster.send_message("*Assisted #{assistee.full_name} for #{((end_at - start_at) / 60).to_i} minutes*:\n #{notes}")
     rescue
     end
   end
+
 end

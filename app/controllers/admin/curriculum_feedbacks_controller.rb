@@ -19,7 +19,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
 
     respond_to do |format|
       format.html
-      format.csv {render text: @feedbacks.to_csv}
+      format.csv { render text: @feedbacks.to_csv }
       format.xls do
         headers['Content-Disposition'] = 'attachment; filename=curriculum_feedbacks.xls'
       end
@@ -33,7 +33,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
   end
 
   def sort_direction
-    ["asc", "desc"].include?(params[:direction]) ? params[:direction] : "desc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
   def order
@@ -46,6 +46,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
   helper_method :safe_params
 
   def filter_by_params
-    params.slice(*FILTER_BY_OPTIONS).select { |k,v| v.present? }
+    params.slice(*FILTER_BY_OPTIONS).select { |_k, v| v.present? }
   end
+
 end

@@ -120,7 +120,7 @@ All PRs must contain:
 - Please install [github_changelog_generator](https://github.com/skywinder/github-changelog-generator) which is used to generate and update the [CHANGELOG.md](https://github.com/lighthouse-labs/compass/blob/master/CHANGELOG.md)
 - Please create a new [personal access token](https://github.com/settings/tokens) for use with this (see below).
 
-1. Create a tag (eg: [v2.0.2](https://github.com/lighthouse-labs/compass/tree/v2.0.2)): `git tag v2.x.x`
+1. Create a tag (eg: [2017.07.10.0930](https://github.com/lighthouse-labs/compass/tree/2017.07.10.0930)): `git tag 2017.xx.xx.xxxx`
 2. Push the tag: `git push --tags`
 3. Run the `github_changelog_generator` with the `-t` parameter: `github_changelog_generator -t <your github token>` from the root of the project.
 4. Push the change to the `CHANGELOG.md` to GitHub (master branch)
@@ -172,4 +172,3 @@ Some ruby code herecode
 Some ruby code herecode
 ???
 ```
-

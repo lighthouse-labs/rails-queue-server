@@ -1,4 +1,5 @@
 class CreateQuizSubmission
+
   include Interactor
 
   def call

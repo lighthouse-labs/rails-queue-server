@@ -5,8 +5,8 @@ class ActivitySubmissionWithFeedbackController < ApplicationController
   def create
     @activity = Activity.find params[:activity_id]
     result = SubmitActivityWithFeedback.call(
-      user: current_user,
-      activity: @activity,
+      user:                                       current_user,
+      activity:                                   @activity,
       activity_submission_with_optional_feedback: ActivitySubmissionWithOptionalFeedback.new(submission_params)
     )
 
@@ -19,7 +19,6 @@ class ActivitySubmissionWithFeedbackController < ApplicationController
       @errors = result.errors unless @success
       render layout: false, status: 400 # bad request
     end
-
   end
 
   private
