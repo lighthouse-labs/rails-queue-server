@@ -1,6 +1,6 @@
 class Teacher::BaseController < ApplicationController
 
-  before_filter :teacher_required
+  before_action :teacher_required
 
   private
 

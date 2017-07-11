@@ -4,10 +4,10 @@ class Admin::RolloversController < Admin::BaseController
 
   # ajax GET (for modal)
   def new
-    @cohorts = Cohort.active_or_upcoming.
-      where(location_id: @student.cohort.location_id).
-      where.not(id: @student.cohort_id).chronological.
-      where('cohorts.start_date > ?', @student.cohort.start_date)
+    @cohorts = Cohort.active_or_upcoming
+                     .where(location_id: @student.cohort.location_id)
+                     .where.not(id: @student.cohort_id).chronological
+                     .where('cohorts.start_date > ?', @student.cohort.start_date)
 
     render 'new', layout: false
   end
@@ -23,7 +23,6 @@ class Admin::RolloversController < Admin::BaseController
       redirect_to :back, alert: "Could not roll over: #{@student.errors.full_messages.first}"
     end
   end
-
 
   private
 

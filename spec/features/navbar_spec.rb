@@ -67,7 +67,6 @@ describe 'Navbar' do
         find_link("Edit Profile").click
         expect(page).to have_css("h1", :text => "Edit Your Details")
       end
-
     end
   end
 end

@@ -6,4 +6,5 @@ class CodeReviewSerializer < ActiveModel::Serializer
 
   has_one :requestor, serializer: UserSerializer
   has_one :activity
+
 end

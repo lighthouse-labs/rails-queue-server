@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Teacher do
-
   # it "has a valid factory" do
   #   expect(build(:teacher)).to be_valid
   # end
@@ -20,5 +19,4 @@ describe Teacher do
   #   teacher = build(:teacher, email: nil)
   #   expect(teacher).to be_invalid
   # end
-
 end

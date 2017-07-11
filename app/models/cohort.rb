@@ -21,7 +21,7 @@ class Cohort < ApplicationRecord
   scope :upcoming, -> { where('cohorts.start_date > ?', Date.current) }
   scope :chronological, -> { order(start_date: :asc) }
   scope :most_recent, -> { order(start_date: :desc) }
-  scope :starts_between, -> (from, to) { where("cohorts.start_date >= ? AND cohorts.start_date <= ?", from, to) }
+  scope :starts_between, ->(from, to) { where("cohorts.start_date >= ? AND cohorts.start_date <= ?", from, to) }
   scope :is_active, -> { starts_between(Date.current - 8.weeks, Date.current) }
   scope :active_or_upcoming, -> { upcoming.or(Cohort.is_active) }
 
@@ -42,26 +42,25 @@ class Cohort < ApplicationRecord
     start_date < (Date.current - 8.weeks)
   end
 
-  def week
-    curriculum_day.week
-  end
+  delegate :week, to: :curriculum_day
 
   def name_with_location
     "#{name} - #{location.try(:name) || 'No Location'}"
   end
 
-  def curriculum_day(date=nil)
+  def curriculum_day(date = nil)
     date ||= Date.current
     CurriculumDay.new(date, self)
   end
 
   def student_locations
-    Location.where(id: self.students.active.pluck('distinct location_id'))
+    Location.where(id: students.active.pluck('distinct location_id'))
   end
 
   def num_students_started
     students.count + rolled_out_students.count
   end
+
   def num_remote_students_started
     students.remote.count + rolled_out_students.count
   end

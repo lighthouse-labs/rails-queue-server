@@ -1,4 +1,5 @@
 class Content::LoadInterviews
+
   include Interactor
 
   before do
@@ -35,7 +36,7 @@ class Content::LoadInterviews
     interview_data
   end
 
-  def extract_interview_file_data(repo_dir, data_dir, filename, sequence)
+  def extract_interview_file_data(repo_dir, data_dir, filename, _sequence)
     content = File.open(File.join(repo_dir, data_dir, filename)).read
     attrs = extract_attributes(content)
     filename_parts = filename.split('__')
@@ -54,7 +55,7 @@ class Content::LoadInterviews
   def extract_frontmatter_attributes(content)
     attrs = {}
     if matches = content.lstrip.match(/^---(.*?)---.*/m)
-      attrs = YAML.load(matches[1])
+      attrs = YAML.safe_load(matches[1])
     end
     attrs
   end
@@ -76,7 +77,7 @@ class Content::LoadInterviews
     attrs = {
       week:               attributes['week'],
       content_file_path:  attributes['file_path'],
-      content_repository: @repo,
+      content_repository: @repo
     }
 
     attrs.merge!(split_description_and_teacher_notes(attributes))
@@ -100,7 +101,7 @@ class Content::LoadInterviews
         question: d['question'],
         answer:   d['answer'],
         notes:    d['notes'],
-        sequence: i+1,
+        sequence: i + 1
       }
       attrs[:outcome] = Outcome.find_by(uuid: d['outcome']) if d['outcome']
 
@@ -113,8 +114,8 @@ class Content::LoadInterviews
 
   def find_or_build_question(interview, attrs)
     question = interview.questions.detect { |q| q.uuid == attrs[:uuid] } ||
-      TechInterviewQuestion.new
-    question.assign_attributes(attrs.merge({tech_interview_template: interview}))
+               TechInterviewQuestion.new
+    question.assign_attributes(attrs.merge(tech_interview_template: interview))
     question
   end
 
@@ -125,11 +126,9 @@ class Content::LoadInterviews
 
     # return hash with both attributes (latter may be nil)
     {
-      description: separated[0],
+      description:   separated[0],
       teacher_notes: separated[1] ? separated[1].lstrip : nil
     }
   end
 
 end
-
-

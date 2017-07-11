@@ -1,6 +1,6 @@
 class IncompleteActivitiesController < ApplicationController
 
-  before_filter :student_required
+  before_action :student_required
 
   def index
     @activities = current_user.incomplete_activities

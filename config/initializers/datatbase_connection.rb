@@ -1,4 +1,4 @@
-#config/initializers/database_connection.rb
+# config/initializers/database_connection.rb
 # Rails.application.config.after_initialize do
 #   ActiveRecord::Base.connection_pool.disconnect!
 

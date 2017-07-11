@@ -11,4 +11,5 @@ class PrepAssistanceRequestsController < ApplicationController
     end
     redirect_to "http://web-prep-help.lighthouselabs.ca/"
   end
+
 end

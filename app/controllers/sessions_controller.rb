@@ -1,10 +1,9 @@
 class SessionsController < ApplicationController
+
   skip_before_action :authenticate_user, only: [:new, :create]
 
   def new
-    if current_user
-      redirect_to day_path('today')
-    end
+    redirect_to day_path('today') if current_user
   end
 
   def create

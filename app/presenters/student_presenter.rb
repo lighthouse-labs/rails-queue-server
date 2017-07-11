@@ -29,7 +29,7 @@ class StudentPresenter < UserPresenter
       link_to "#{days} days to start", '#', class: "btn btn-default"
     elsif student.cohort.try(:active?)
       day = CurriculumDay.new(Date.current, student.cohort).to_s.upcase
-      link_to "#{day}", day_path('today'), class: "btn btn-default"
+      link_to day.to_s, day_path('today'), class: "btn btn-default"
     elsif student.cohort.try(:finished?)
       link_to "Alumni", '#', class: "btn btn-default"
     end
@@ -37,25 +37,21 @@ class StudentPresenter < UserPresenter
 
   def prep_activity_stats
     stats = StudentStats.new(student).prep_activity_stats
-    render 'stats', {
-      title:    'Activities',
-      count:    stats[:core][:completed] + stats[:stretch][:completed],
-      max:      stats[:core][:total] + stats[:stretch][:total],
-      avg:      nil,
-      progress: stats[:core][:ratio]
-    }
+    render 'stats', title:    'Activities',
+                    count:    stats[:core][:completed] + stats[:stretch][:completed],
+                    max:      stats[:core][:total] + stats[:stretch][:total],
+                    avg:      nil,
+                    progress: stats[:core][:ratio]
   end
 
   def prep_quiz_stats
     stats = StudentStats.new(student).prep_quiz_stats
 
-    render 'stats', {
-      title:    'Quizzes',
-      count:    stats[:completed],
-      max:      stats[:total],
-      avg:      stats[:average],
-      progress: stats[:ratio]
-    }
+    render 'stats', title:    'Quizzes',
+                    count:    stats[:completed],
+                    max:      stats[:total],
+                    avg:      stats[:average],
+                    progress: stats[:ratio]
   end
 
   def activity_stats
@@ -63,13 +59,11 @@ class StudentPresenter < UserPresenter
     total_activities = Activity.bootcamp.active.all
     activity_ratio = total_activities.any? ? (completed_activities.count.to_f / total_activities.count) * 100 : 0
 
-    render 'stats', {
-      title:    'Activities',
-      count:    completed_activities.count,
-      max:      total_activities.count,
-      avg:      nil,
-      progress: activity_ratio
-    }
+    render 'stats', title:    'Activities',
+                    count:    completed_activities.count,
+                    max:      total_activities.count,
+                    avg:      nil,
+                    progress: activity_ratio
   end
 
   def quiz_stats
@@ -78,27 +72,22 @@ class StudentPresenter < UserPresenter
     quiz_ratio = quiz_submissions.any? ? (quiz_submissions.length.to_f / quiz_ids.count.to_f) * 100 : 0
     quiz_average = average_score_for_submissions(quiz_submissions)
 
-    render 'stats', {
-      title:    'Quizzes',
-      count:    quiz_submissions.length,
-      max:      quiz_ids.count,
-      avg:      quiz_average,
-      progress: quiz_ratio
-    }
+    render 'stats', title:    'Quizzes',
+                    count:    quiz_submissions.length,
+                    max:      quiz_ids.count,
+                    avg:      quiz_average,
+                    progress: quiz_ratio
   end
 
   def assistance_stats
     stats = StudentStats.new(student).bootcamp_assistance_stats
 
-    render 'assistance_stats', {
-      title:    'Assistances',
-      assistances:    stats[:assistances],
-      assistance_requests:      stats[:requests],
-      avg_assistance_length: stats[:assistances_length],
-      avg:      stats[:average_score],
-      progress: (stats[:assistances].to_f/stats[:requests].to_f) * 100
-    }
-
+    render 'assistance_stats', title:                 'Assistances',
+                               assistances:           stats[:assistances],
+                               assistance_requests:   stats[:requests],
+                               avg_assistance_length: stats[:assistances_length],
+                               avg:                   stats[:average_score],
+                               progress:              (stats[:assistances].to_f / stats[:requests].to_f) * 100
   end
 
   def tech_interview_table
@@ -113,10 +102,10 @@ class StudentPresenter < UserPresenter
   def prep_table
     stats = Prep.all.map do |p|
       {
-        name: p.name,
+        name:                 p.name,
         activity_submissions: p.activity_submissions.proper.where(user_id: student.id).count,
-        total_activities: p.activities.count,
-        quiz_average: average_quiz_score_for_section(p)
+        total_activities:     p.activities.count,
+        quiz_average:         average_quiz_score_for_section(p)
       }
     end
 
@@ -126,16 +115,14 @@ class StudentPresenter < UserPresenter
   private
 
   def average_quiz_score_for_section(s)
-    quiz_ids = Quiz.joins(quiz_activities: [:section]).where(sections: {id: s.id}).select(:id)
+    quiz_ids = Quiz.joins(quiz_activities: [:section]).where(sections: { id: s.id }).select(:id)
     quiz_submissions = student.quiz_submissions.where(quiz_id: quiz_ids).where(initial: true)
     average_score_for_submissions(quiz_submissions).to_i if quiz_submissions.any?
   end
 
   def average_score_for_submissions(submissions)
     if submissions.any?
-      submissions.inject(0.0) { |sum, submission| sum + (submission.score.to_f / submission.quiz.questions.count)} / submissions.count.to_f * 100.0
-    else
-      nil
+      submissions.inject(0.0) { |sum, submission| sum + (submission.score.to_f / submission.quiz.questions.count) } / submissions.count.to_f * 100.0
     end
   end
 

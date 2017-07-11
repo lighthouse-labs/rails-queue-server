@@ -13,7 +13,7 @@ class ActivitiesController < ApplicationController
 
   def index
     @activities = Activity
-    unless params[:term].blank?
+    if params[:term].present?
       @activities = @activities.search(params[:term])
       @activities = @activities.where.not(day: nil)
     end
@@ -111,11 +111,11 @@ class ActivitiesController < ApplicationController
   end
 
   def require_activity
-    if params[:uuid].present?
-      @activity = Activity.find_by!(uuid: params[:uuid])
-    else
-      @activity = Activity.find(params[:id])
-    end
+    @activity = if params[:uuid].present?
+                  Activity.find_by!(uuid: params[:uuid])
+                else
+                  Activity.find(params[:id])
+                end
     params[:day_number]          ||= @activity.day
     params[:teacher_resource_id] ||= @activity.section_id if @activity.teachers_only?
     params[:prep_id]             ||= @activity.section_id if @activity.prep?
@@ -155,18 +155,18 @@ class ActivitiesController < ApplicationController
 
   def load_new_url
     @form_url = if params[:day_number]
-      day_activities_path(params[:day_number])
-    else
-      [@section, :activities]
+                  day_activities_path(params[:day_number])
+                else
+                  [@section, :activities]
     end
   end
 
   def load_edit_url
     @form_url = if params[:day_number]
-      day_activity_path(params[:day_number], @activity)
-    elsif @section && @section.is_a?(Prep)
-      prep_activity_path(@section, @activity)
-    #elsif @section && @section.is_a?(Project)
+                  day_activity_path(params[:day_number], @activity)
+                elsif @section && @section.is_a?(Prep)
+                  prep_activity_path(@section, @activity)
+      # elsif @section && @section.is_a?(Project)
       # project_activity_path <= Not yet supported - KV
     end
   end
@@ -184,4 +184,5 @@ class ActivitiesController < ApplicationController
       redirect_to day_activity_path(@activity.day, @activity), notice: notice
     end
   end
+
 end

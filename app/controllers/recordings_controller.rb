@@ -8,11 +8,11 @@ class RecordingsController < ApplicationController
   end
 
   def new
-    if params[:activity_id]
-      @recording = Activity.find(params[:activity_id]).recordings.new
-    else
-      @recording = Recording.new
-    end
+    @recording = if params[:activity_id]
+                   Activity.find(params[:activity_id]).recordings.new
+                 else
+                   Recording.new
+                 end
     @recording.cohort = @cohort
     @recording.program = @program
   end
@@ -26,8 +26,7 @@ class RecordingsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @recording.update(recording_params)

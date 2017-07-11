@@ -1,4 +1,5 @@
 class ActivityPresenter < BasePresenter
+
   presents :activity
 
   def name
@@ -49,7 +50,6 @@ class ActivityPresenter < BasePresenter
           content_tag(:i, nil, class: icon_for(activity.previous)) + ' ' +
           link_to(descriptive_activity_name(activity.previous), get_activity_path(activity.previous))
         ).html_safe
-
       end
     end
   end
@@ -71,7 +71,13 @@ class ActivityPresenter < BasePresenter
   end
 
   def submission_form
-    render "activity_submission_form" if allow_completion?
+    if allow_completion?
+      if activity.evaluates_code?
+        render "code_activity_submission_form"
+      else
+        render "activity_submission_form"
+      end
+    end
   end
 
   def details_button
@@ -84,9 +90,7 @@ class ActivityPresenter < BasePresenter
 
   def before_instructions
     # overwritten
-    if activity.evaluates_code?
-      render 'code_evaluation_info'
-    end
+    render 'code_evaluation_info' if activity.evaluates_code?
   end
 
   def after_instructions
@@ -123,9 +127,8 @@ class ActivityPresenter < BasePresenter
 
   private
 
-  # for now, if the activity evaluates code, dont show submission
   def allow_completion?
-    !activity.evaluates_code? && !activity.is_a?(QuizActivity)
+    !activity.is_a?(QuizActivity)
   end
 
 end

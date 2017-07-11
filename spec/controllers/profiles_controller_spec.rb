@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe ProfilesController do
-
   logged_in_user
 
   describe "GET #edit" do
@@ -40,5 +39,4 @@ describe ProfilesController do
       end
     end
   end
-
 end

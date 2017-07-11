@@ -5,11 +5,9 @@ class Admin::SkillsController < Admin::BaseController
 
   def create
     @skill = @category.skills.new(skill_params)
-    if @skill.save
-      redirect_to [:admin, @category]
-    end
+    redirect_to [:admin, @category] if @skill.save
   end
-  
+
   def update
     @skill.update(skill_params)
     redirect_to [:admin, @category, @skill]
@@ -21,7 +19,7 @@ class Admin::SkillsController < Admin::BaseController
     @category = Category.find params[:category_id]
   end
 
-  def load_skill 
+  def load_skill
     @skill = @category.skills.find params[:id]
   end
 

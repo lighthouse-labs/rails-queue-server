@@ -9,4 +9,5 @@ class Option < ApplicationRecord
   def selected?(submission)
     submission.option_selected?(self)
   end
+
 end

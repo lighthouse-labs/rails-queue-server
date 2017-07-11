@@ -1,9 +1,9 @@
-#Allows RedCarpet to pass the _blank link attribute for markdown link rendering
-#refer to solution at https://github.com/vmg/redcarpet/issues/85
+# Allows RedCarpet to pass the _blank link attribute for markdown link rendering
+# refer to solution at https://github.com/vmg/redcarpet/issues/85
 class CompassMarkdownRenderer < Redcarpet::Render::HTML
 
   def initialize(extensions = {})
-    super extensions.merge(link_attributes: {target: "_blank"})
+    super extensions.merge(link_attributes: { target: "_blank" })
   end
 
   def table(header, body)
@@ -44,14 +44,12 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
   private
 
   def html_escape(string)
-    string.gsub(/['&\"<>\/]/, {
-      '&' => '&amp;',
-      '<' => '&lt;',
-      '>' => '&gt;',
-      '"' => '&quot;',
-      "'" => '&#x27;',
-      "/" => '&#x2F;',
-    })
+    string.gsub(/['&\"<>\/]/, '&' => '&amp;',
+                              '<' => '&lt;',
+                              '>' => '&gt;',
+                              '"' => '&quot;',
+                              "'" => '&#x27;',
+                              "/" => '&#x2F;')
   end
 
   def generate_toggle_block(content)

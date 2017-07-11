@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Activity do
-
   it "has a valid factory" do
     expect(build(:activity)).to be_valid
   end

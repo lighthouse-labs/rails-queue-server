@@ -13,7 +13,7 @@ class Project < Section
   before_validation :set_slug
 
   def complete?(user)
-    self.activities.all? { |activity| user.completed_activity?(activity) }
+    activities.all? { |activity| user.completed_activity?(activity) }
   end
 
   def submitted?(student)
@@ -34,11 +34,11 @@ class Project < Section
     false
   end
 
-  def last_evaluation(student, cohort=nil)
+  def last_evaluation(student, cohort = nil)
     evaluations_for(student, cohort).first
   end
 
-  def evaluations_for(student, cohort=nil)
+  def evaluations_for(student, cohort = nil)
     cohort ||= student.cohort
     evaluations.where(student: student, cohort: cohort).order(created_at: :desc)
   end
@@ -52,4 +52,5 @@ class Project < Section
   def set_slug
     self.slug ||= name.gsub(/\s+/, "").downcase
   end
+
 end

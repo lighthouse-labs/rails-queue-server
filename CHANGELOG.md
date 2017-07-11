@@ -1,5 +1,48 @@
 # Change Log
 
+## [Unreleased](https://github.com/lighthouse-labs/compass/tree/HEAD)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.10.0930...HEAD)
+
+**Fixed bugs:**
+
+- Incorrect Evaluation Time in Project Eval View [\#128](https://github.com/lighthouse-labs/compass/issues/128)
+- Error in Prep Course Code Evaluations [\#25](https://github.com/lighthouse-labs/compass/issues/25)
+
+**Closed issues:**
+
+- Project Evals – Rubric category ordering is ignored by Compass [\#261](https://github.com/lighthouse-labs/compass/issues/261)
+- Active Cohorts are not updated. [\#230](https://github.com/lighthouse-labs/compass/issues/230)
+- \(Minor, Low-Priority\) Is feedback still required for final project assistance requests? [\#174](https://github.com/lighthouse-labs/compass/issues/174)
+- Project Evaluations - should be more evaluator friendly [\#55](https://github.com/lighthouse-labs/compass/issues/55)
+
+## [2017.07.10.0930](https://github.com/lighthouse-labs/compass/tree/2017.07.10.0930) (2017-07-05)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.9...2017.07.10.0930)
+
+**Implemented enhancements:**
+
+- Code challenge activities should ask students for actuals [\#242](https://github.com/lighthouse-labs/compass/issues/242)
+- Only active students and teachers should see Teachers on Duty [\#149](https://github.com/lighthouse-labs/compass/issues/149)
+- 252 Student\#index UI Fixes [\#253](https://github.com/lighthouse-labs/compass/pull/253) ([jmatsuba](https://github.com/jmatsuba))
+- 242 Code Challenge Actuals [\#250](https://github.com/lighthouse-labs/compass/pull/250) ([wesley-wong](https://github.com/wesley-wong))
+
+**Fixed bugs:**
+
+- Prep Quizes Data [\#234](https://github.com/lighthouse-labs/compass/issues/234)
+- Tech interviews don't appear in the queue for one mentor [\#183](https://github.com/lighthouse-labs/compass/issues/183)
+
+**Closed issues:**
+
+- Consider Closing [\#271](https://github.com/lighthouse-labs/compass/issues/271)
+- Fix minor UI / UX annoyances on the students\#index page [\#252](https://github.com/lighthouse-labs/compass/issues/252)
+- EM dashboard should display all projects and statuses [\#241](https://github.com/lighthouse-labs/compass/issues/241)
+
+**Merged pull requests:**
+
+- 149 Do Not Show On Duty Teachers to Inactive Students [\#257](https://github.com/lighthouse-labs/compass/pull/257) ([jmatsuba](https://github.com/jmatsuba))
+- Updates project notes to be consistent with curriculum repo [\#232](https://github.com/lighthouse-labs/compass/pull/232) ([hora](https://github.com/hora))
+- Proposed wording for new tech interview focus [\#209](https://github.com/lighthouse-labs/compass/pull/209) ([donburks](https://github.com/donburks))
+
 ## [v2.0.9](https://github.com/lighthouse-labs/compass/tree/v2.0.9) (2017-03-15)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.8...v2.0.9)
 

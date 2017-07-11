@@ -14,29 +14,25 @@ csv = Rails.root.join("db/seeds/outcomes/Lighthouse Learning Outcomes - Graduate
 
 s = Sheet.new(csv)
 
-puts "Starting Outcomes Sync"
+Rails.logger.info "Starting Outcomes Sync"
 
 # force: runs even if some lines in spreadsheet are invalid
 #        (will skip those lines)
 # print: prints to console each line that is added
 
-s.sync({force: true,
-        print: true})
+s.sync(force: true,
+       print: true)
 
-puts "Done"
+Rails.logger.info "Done"
 
 def debug_print
   Category.all.each do |c|
-    puts c.name
+    Rails.logger.debug c.name
     c.skills.each do |s|
-      puts "\t"+s.name
+      Rails.logger.debug "\t" + s.name
       s.outcomes.each do |o|
-        puts "\t\t"+o.text
+        Rails.logger.debug "\t\t" + o.text
       end
     end
   end
 end
-
-
-
-

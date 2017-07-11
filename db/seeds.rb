@@ -1,4 +1,4 @@
-puts "SEEDING"
+Rails.logger.info "SEEDING"
 
 # Real shit
 @program = Program.find_or_create_by(name: "Web Immersive") do |p|
@@ -27,4 +27,4 @@ if Rails.env.development?
   require Rails.root.join('db/seeds/dev_seeds').to_s
 end
 
-puts "DONE DONE!"
+Rails.logger.info "DONE DONE!"

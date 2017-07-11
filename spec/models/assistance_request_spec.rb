@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe AssistanceRequest do
-
   it 'has a valid factory' do
     expect(build(:assistance_request)).to be_valid
   end
@@ -120,5 +119,4 @@ describe AssistanceRequest do
       expect(AssistanceRequest.in_progress_requests).to_not include(ar)
     end
   end
-
 end

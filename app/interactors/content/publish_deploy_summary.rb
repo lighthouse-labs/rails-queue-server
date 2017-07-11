@@ -1,4 +1,5 @@
 class Content::PublishDeploySummary
+
   include Interactor
 
   before do
@@ -13,9 +14,9 @@ class Content::PublishDeploySummary
 
   def call
     message =  ["New Curriculum Deployment! Woohoo!"]
-    message << "#{@created.size} new activities." if @created.size > 0
-    message << "#{@updated.size} activities updated." if @updated.size > 0
-    message << "#{@archived.size} activities removed (archived)." if @archived.size > 0
+    message << "#{@created.size} new activities." unless @created.empty?
+    message << "#{@updated.size} activities updated." unless @updated.empty?
+    message << "#{@archived.size} activities removed (archived)." unless @archived.empty?
 
     if prev_deployment = @deployment.prev
       compare_link = @deployment.github_compare_link_against(prev_deployment)
@@ -28,9 +29,6 @@ class Content::PublishDeploySummary
       webhook: ENV['SLACK_WEBHOOK_CURRICULUM_DEPLOYMENTS'],
       message: message.join("\n")
     )
-
   end
-
-
 
 end
