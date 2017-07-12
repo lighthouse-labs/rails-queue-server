@@ -22,7 +22,7 @@ class Activity < ApplicationRecord
                   against:            [:name, :day, :type],
                   associated_against: {
                     section: [:name, :type],
-                    skills:  :name,
+                    skills:  :name
                   },
                   using:              {
                     tsearch: {
