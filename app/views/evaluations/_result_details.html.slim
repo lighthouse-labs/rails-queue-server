@@ -3,7 +3,7 @@
   .panel-body
     == markdown(@evaluation.teacher_notes.to_s)
 
-- @evaluation.evaluation_rubric.each do |criteria, properties|
+- @evaluation.sorted_rubric.each do |criteria, properties|
 
   - result = (@evaluation.result || {})[criteria] || {}
 
