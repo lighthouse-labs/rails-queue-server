@@ -36,7 +36,7 @@ class SubmitActivityWithFeedback
       @activity_submission = context.activity_submission = @user.activity_submissions.for_activity(@activity).finalized.first
       @activity_submission.update(
         time_spent: @fields.time_spent,
-        note: @fields.note,
+        note:       @fields.note
       )
     else
       # Create a new submission if it is not a code eval
@@ -55,4 +55,5 @@ class SubmitActivityWithFeedback
   def feedback?
     @fields.rating.present? || @fields.detail.present?
   end
+
 end
