@@ -9,6 +9,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+gem "select2-rails"
+
 gem 'turbolinks', '~> 5'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
