@@ -19,11 +19,7 @@ h1 = title
           = render "shared/menus/section_activities", section: section
 
 - if title == "Prep Work"
-  = form_tag '', method: 'get'
-    .form-group
-      = select_tag(:activity_uuid, prep_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-jump-to-dropdown')
+  = render "layouts/jump_to_activity", grouped_activities: prep_activities_uuid_for_select
 
-- if title == "Teacher Prep"
-  = form_tag '', method: 'get'
-    .form-group
-      = select_tag(:activity_uuid, teacher_activities_uuid_for_select, prompt: 'Which activity?', class: 'form-control activity-jump-to-dropdown')
+- elsif title == "Teacher Prep"
+  = render "layouts/jump_to_activity", grouped_activities: teacher_activities_uuid_for_select
