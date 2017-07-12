@@ -12,18 +12,70 @@ class ActivitiesController < ApplicationController
   before_action :load_form_url, only: [:new, :edit]
 
   def index
-    @activities = Activity
-    if params[:term].present?
-      @activities = @activities.search(params[:term])
-      @activities = @activities.where.not(day: nil)
-    end
+    @activities = Activity.active.order(average_rating: :desc)
+    apply_filters
+    @activities = @activities.page(params[:page])
+  end
 
-    @activities = @activities.active unless teacher? || admin?
+  private
 
-    respond_to do |format|
-      format.html
-      format.js { render json: @activities, each_serializer: ActivitySerializer, root: false }
+  def apply_filters
+    filter_by_type
+    filter_by_stretch
+    filter_by_notes
+    filter_by_lectures
+    filter_by_keywords
+  end
+
+  def filter_by_type
+    @activities = case params[:type]
+                  when 'Prep'
+                    @activities.prep
+                  when 'Bootcamp'
+                    @activities.bootcamp
+                  else
+                    @activities
     end
+  end
+
+  def filter_by_stretch
+    params[:stretch] ||= 'Include'
+    @activities = case params[:stretch]
+                  when 'Exclude'
+                    @activities.core
+                  when 'Only'
+                    @activities.stretch
+                  else
+                    @activities
+    end
+  end
+
+  def filter_by_notes
+    params[:notes] ||= 'Exclude'
+    @activities = case params[:notes]
+                  when 'Only'
+                    @activities.where(type: 'PinnedNote')
+                  when 'Exclude'
+                    @activities.where.not(type: 'PinnedNote')
+                  else
+                    @activities
+    end
+  end
+
+  def filter_by_lectures
+    params[:lectures] ||= 'Exclude'
+    @activities = case params[:lectures]
+                  when 'Only'
+                    @activities.where(type: %w[Lecture Breakout])
+                  when 'Exclude'
+                    @activities.where.not(type: %w[Lecture Breakout])
+                  else
+                    @activities
+    end
+  end
+
+  def filter_by_keywords
+    @users = @users.by_keywords(params[:keywords]) if params[:keywords].present?
   end
 
   def new

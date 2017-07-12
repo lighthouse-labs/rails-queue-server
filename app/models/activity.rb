@@ -1,5 +1,16 @@
 class Activity < ApplicationRecord
 
+  include PgSearch
+  pg_search_scope :by_keywords,
+                  against: [:name],
+                  using:   {
+                    tsearch: {
+                      dictionary: "english",
+                      any_word:   true,
+                      prefix:     true
+                    }
+                  }
+
   belongs_to :section
   # optional. Means content stored on server
   belongs_to :content_repository
