@@ -17,6 +17,54 @@ class ActivitiesController < ApplicationController
     @activities = @activities.page(params[:page])
   end
 
+  def create
+    @activity = Activity.new(activity_params)
+    if @activity.save(activity_params)
+      handle_redirect("Activity Created!")
+    else
+      load_section
+      load_new_url
+      render :new
+    end
+  end
+
+  def show
+    # => If it evaluates code, we take multiple submissions (always a new submission)
+    if @activity.evaluates_code?
+      @activity_submission = ActivitySubmission.new
+      @last_submission = current_user.activity_submissions.where(activity: @activity)
+      @last_submission = @last_submission.where(cohort_id: current_user.cohort_id) if current_user.cohort_id? && @activity.bootcamp?
+      @last_submission = @last_submission.last
+    else
+      @activity_submission = current_user.activity_submissions.where(activity: @activity).first || ActivitySubmission.new
+    end
+
+    @feedback = @activity.feedbacks.find_by(student: current_user)
+
+    # new feedback model
+    @activity_feedbacks = @activity.activity_feedbacks
+    @activity_feedbacks = @activity_feedbacks.where(user: current_user) unless teacher?
+
+    if teacher?
+      @messages = @activity.messages
+    elsif cohort # no messages if student or just User and no cohort is assigned
+      @messages = @activity.messages.for_cohort(cohort)
+    end
+  end
+
+  def update
+    if @activity.update(activity_params)
+      handle_redirect("Updated!")
+    else
+      render :edit
+    end
+  end
+
+  def autocomplete
+    @outcomes = (Outcome.search(params[:term]) - @activity.outcomes)
+    render json: ActivityAutocompleteSerializer.new(outcomes: @outcomes).outcomes.as_json, root: false
+  end
+
   private
 
   def apply_filters
@@ -75,7 +123,7 @@ class ActivitiesController < ApplicationController
   end
 
   def filter_by_keywords
-    @users = @users.by_keywords(params[:keywords]) if params[:keywords].present?
+    @activities = @activities.by_keywords(params[:keywords]) if params[:keywords].present?
   end
 
   def new
@@ -87,56 +135,6 @@ class ActivitiesController < ApplicationController
       @form_url = day_activities_path(params[:day_number])
     end
   end
-
-  def create
-    @activity = Activity.new(activity_params)
-    if @activity.save(activity_params)
-      handle_redirect("Activity Created!")
-    else
-      load_section
-      load_new_url
-      render :new
-    end
-  end
-
-  def show
-    # => If it evaluates code, we take multiple submissions (always a new submission)
-    if @activity.evaluates_code?
-      @activity_submission = ActivitySubmission.new
-      @last_submission = current_user.activity_submissions.where(activity: @activity)
-      @last_submission = @last_submission.where(cohort_id: current_user.cohort_id) if current_user.cohort_id? && @activity.bootcamp?
-      @last_submission = @last_submission.last
-    else
-      @activity_submission = current_user.activity_submissions.where(activity: @activity).first || ActivitySubmission.new
-    end
-
-    @feedback = @activity.feedbacks.find_by(student: current_user)
-
-    # new feedback model
-    @activity_feedbacks = @activity.activity_feedbacks
-    @activity_feedbacks = @activity_feedbacks.where(user: current_user) unless teacher?
-
-    if teacher?
-      @messages = @activity.messages
-    elsif cohort # no messages if student or just User and no cohort is assigned
-      @messages = @activity.messages.for_cohort(cohort)
-    end
-  end
-
-  def update
-    if @activity.update(activity_params)
-      handle_redirect("Updated!")
-    else
-      render :edit
-    end
-  end
-
-  def autocomplete
-    @outcomes = (Outcome.search(params[:term]) - @activity.outcomes)
-    render json: ActivityAutocompleteSerializer.new(outcomes: @outcomes).outcomes.as_json, root: false
-  end
-
-  private
 
   def activity_params
     params.require(:activity).permit(
