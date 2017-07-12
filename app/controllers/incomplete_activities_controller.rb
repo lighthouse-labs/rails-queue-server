@@ -4,7 +4,6 @@ class IncompleteActivitiesController < ApplicationController
 
   def index
     @activities = current_user.incomplete_activities
-    @incomplete_and_stretch = @activities.stretch
   end
 
   private
