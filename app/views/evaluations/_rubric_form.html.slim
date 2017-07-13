@@ -24,7 +24,7 @@
 
 
 
-- @evaluation.evaluation_rubric.each do |criteria, properties|
+- @evaluation.sorted_rubric.each do |criteria, properties|
 
   - result = (@evaluation.result || {})[criteria] || {}
 
@@ -76,4 +76,3 @@ p.alert.alert-error.rejection-notice.hidden
   strong Rejection
   br
   | This evaluation will be rejected because one or more sections above are marked Unsatisfactory.
-

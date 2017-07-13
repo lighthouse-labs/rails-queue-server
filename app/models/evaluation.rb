@@ -112,6 +112,10 @@ class Evaluation < ApplicationRecord
     cohort_id != student.cohort_id
   end
 
+  def sorted_rubric
+    evaluation_rubric.sort_by { |_, data| data['order'] }.to_h
+  end
+
   private_class_method :transition_class
 
   def self.initial_state

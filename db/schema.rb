@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170511004109) do
+ActiveRecord::Schema.define(version: 20170712192428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -449,11 +449,10 @@ ActiveRecord::Schema.define(version: 20170511004109) do
     t.string   "image"
     t.boolean  "evaluated"
     t.string   "last_sha1"
-    t.jsonb    "evaluation_rubric"
+    t.json     "evaluation_rubric"
     t.text     "evaluation_guide"
     t.text     "evaluation_checklist"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
-    t.index ["evaluation_rubric"], name: "index_sections_on_evaluation_rubric", using: :gin
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end
 
