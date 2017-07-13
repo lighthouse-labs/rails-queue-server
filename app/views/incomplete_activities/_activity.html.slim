@@ -1,0 +1,22 @@
+.col-md-12.incomplete-activity-details-row
+
+  h4.col-md-1.activity-week #{activity.day.upcase}
+
+  .col-md-11
+    = link_to day_activity_path(activity.day, activity)
+      .activity
+        .icon.icon-type title=activity.type
+          i class=(icon_for(activity))
+        - if activity.display_duration?
+          .time.time-duration
+            = duration activity
+        .icon.icon-completion
+          - if current_user.completed_activity?(activity)
+            i.fa.fa-check-square-o
+          - else
+            i.fa.fa-square-o
+        .name
+          = activity.name
+          | &nbsp;
+          - if activity.stretch?
+            span.stretch = '(Stretch)'
