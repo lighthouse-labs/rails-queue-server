@@ -108,7 +108,7 @@ class Evaluation < ApplicationRecord
   end
 
   def sorted_rubric
-    evaluation_rubric.sort_by { |criterion_name, data| data['order'] }.to_h
+    evaluation_rubric.sort_by { |_, data| data['order'] }.to_h
   end
 
   private_class_method :transition_class
