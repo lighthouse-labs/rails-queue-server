@@ -12,6 +12,9 @@
   a {
     margin-right: 5px;
   }
+  li.list-group-item.active a {
+    color: white
+  }
 }
 
 .project-detail {
