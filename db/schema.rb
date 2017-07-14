@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712192428) do
+ActiveRecord::Schema.define(version: 20170713223427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -347,6 +347,11 @@ ActiveRecord::Schema.define(version: 20170712192428) do
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
   end
 
+  create_table "practices", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "prep_assistance_requests", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -541,6 +546,11 @@ ActiveRecord::Schema.define(version: 20170712192428) do
     t.index ["tech_interview_template_id"], name: "index_tech_interviews_on_tech_interview_template_id", using: :btree
   end
 
+  create_table "tests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_activity_outcomes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "activity_outcome_id"
@@ -570,22 +580,23 @@ ActiveRecord::Schema.define(version: 20170712192428) do
     t.datetime "last_assisted_at"
     t.datetime "deactivated_at"
     t.string   "slack"
-    t.boolean  "remote",                 default: false
+    t.boolean  "remote",                  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "code_review_percent",    default: 80
-    t.boolean  "admin",                  default: false, null: false
+    t.integer  "code_review_percent",     default: 80
+    t.boolean  "admin",                   default: false, null: false
     t.string   "company_name"
     t.string   "company_url"
     t.text     "bio"
     t.string   "quirky_fact"
     t.string   "specialties"
     t.integer  "location_id"
-    t.boolean  "on_duty",                default: false
+    t.boolean  "on_duty",                 default: false
     t.integer  "mentor_id"
-    t.boolean  "mentor",                 default: false
+    t.boolean  "mentor",                  default: false
     t.integer  "initial_cohort_id"
-    t.string   "auth_token",             default: "",    null: false
+    t.string   "auth_token",              default: "",    null: false
+    t.boolean  "supress_tech_interviews"
     t.index ["auth_token"], name: "index_users_on_auth_token", using: :btree
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
     t.index ["initial_cohort_id"], name: "index_users_on_initial_cohort_id", using: :btree

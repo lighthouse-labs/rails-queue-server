@@ -93,7 +93,7 @@ class TechInterviewCreator
 
   def fetch_student(cohort, location, template)
     interviewed_student_ids = template.tech_interviews.for_cohort(cohort).select(:interviewee_id)
-    cohort.students.active.where.not(id: interviewed_student_ids).where(location_id: location.id).order('random()').first
+    cohort.students.active.where.not(id: interviewed_student_ids).where(location_id: location.id, supress_tech_interviews: nil).order('random()').first
   end
 
   def within_mentor_hours?
