@@ -81,6 +81,13 @@ header.page-header
                         i.fa.fa-life-saver
                         | &nbsp;Rollover
 
+                    - if student.supress_tech_interviews.nil?
+                      a.btn.btn-xs.btn-danger.admin-student-toggle-tech-interviews-btn data-content-url="#{admin_student_path(student)}"
+                        | &nbsp;Supress Tech Interviews?
+                    - elsif student.supress_tech_interviews
+                      a.btn.btn-xs.btn-warning.admin-student-toggle-tech-interviews-btn data-content-url="#{admin_student_path(student)}"
+                        | &nbsp;Allow Tech Interviews
+
                     - if student.cohort.active? || student.cohort.upcoming?
                       = link_to 'Revert to Prep', admin_student_path(student), class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' }
 

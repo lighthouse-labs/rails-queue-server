@@ -15,7 +15,10 @@ class Admin::StudentsController < Admin::BaseController
   def edit; end
 
   def update
-    if @student.update(student_params)
+    if params[:toggle_tech_interviews]
+      @student.supress_tech_interviews = (@student.supress_tech_interviews.nil? ? true : nil)
+      @student.save
+    elsif @student.update(student_params)
       render nothing: true if request.xhr?
       redirect_to :back
     else

@@ -36,3 +36,11 @@ $ ->
       url: contentURL
       method: 'GET').done (info) ->
         modal.find('.modal-content').html(info)
+
+  $(document).on 'click', '.admin-student-toggle-tech-interviews-btn', (event) ->
+    contentURL = event.target.getAttribute('data-content-url')
+    contentURL += '?toggle_tech_interviews=true'
+    $.ajax(
+      url: contentURL
+      type: 'PUT').done (info) ->
+        window.location.reload()
