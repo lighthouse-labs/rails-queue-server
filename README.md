@@ -62,6 +62,25 @@ User (student/teacher) Authentication can only happen through Github. Much like 
 
 Start the server using the command `bin/rails s -b 0.0.0.0`.
 
+## Queue
+
+The Queue is reliant on Redis (though ActionCable).
+
+To install Redis:
+
+```
+wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+cd redis-stable
+make
+```
+
+Run redis with `redis-server` in any directory
+
+To populate Tech Interviews, run:
+
+`rake daemons:tech_interviews` in another terminal within the `compass/` folder
+
 ## Curriculum Development
 
 Use the rake command `rake curriculum:deploy`. It is suggested that you test your markdown from the curriculum repo before you push that content. This rake command can be given an arg to bypass the process of downloading the curriculum content form github and instead use a local copy.
