@@ -9,7 +9,6 @@ class Student < User
       .where(assistance_requests: { type: nil, canceled_at: nil, assistance_id: nil })
       .references(:assistance_requests)
   }
-
   scope :remote, -> { joins(:cohort).where('users.location_id IS NOT NULL AND cohorts.location_id <> users.location_id') }
 
   def prospect?
@@ -66,6 +65,14 @@ class Student < User
     else
       'No Mentor'
     end
+  end
+
+  def evaluations
+    Evaluation.where(student_id: id)
+  end
+
+  def evaluation_for(project)
+    Evaluation.where(student_id: id, project_id: project.id)
   end
 
 end
