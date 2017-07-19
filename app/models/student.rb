@@ -71,7 +71,7 @@ class Student < User
     Evaluation.where(student_id: id)
   end
 
-  def evaluation_for(project)
+  def evaluations_for(project)
     Evaluation.where(student_id: id, project_id: project.id)
   end
 
