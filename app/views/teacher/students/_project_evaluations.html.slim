@@ -13,6 +13,6 @@ table.table.students
       - evaluations = @student.evaluations_for(project)
       - if evaluations.count > 1
         - evaluations.each do |evaluation|
-          = render 'project_evaluation_row', project: project, evaluation: evaluation
+          = render 'projects/evaluation_row', project: project, evaluation: evaluation, student: student
       - else
-        = render 'project_evaluation_row', project: project, evaluation: evaluations.first
+        = render 'projects/evaluation_row', project: project, evaluation: evaluations.first, student: student
