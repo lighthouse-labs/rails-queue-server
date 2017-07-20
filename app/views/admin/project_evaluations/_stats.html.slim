@@ -1,0 +1,51 @@
+.summary-stats
+
+  .stat.panel.panel-default
+    .panel-body
+      h3
+        i.fa.fa-pencil-square-o
+        | &nbsp;
+        = @evaluations.distinct.pluck(:project_id).count
+      span Projects
+
+  .stat.panel.panel-default
+    .panel-body
+      h3
+        i.fa.fa-fire
+        | &nbsp;
+        = @evaluations.distinct.pluck(:student_id).count
+      span Students
+
+  .stat.panel.panel-default
+    .panel-body
+      h3
+        i.fa.fa-fire
+        | &nbsp;
+        = @evaluations.distinct.pluck(:teacher_id).count
+      span Teachers
+
+  .stat.panel.panel-default
+    .panel-body
+      h3
+        i.fa.fa-address-book-o
+        | &nbsp;
+        span title='Queued' data-toggle='tooltip'
+          = @evaluations.where(state: 'pending').count
+        | &nbsp;»&nbsp;
+        span title='In Progress' data-toggle='tooltip'
+          = @evaluations.where(state: 'in_progress').count
+        | &nbsp;»&nbsp;
+        span title='Accepted' data-toggle='tooltip'
+          = @evaluations.where(state: 'accepted').count
+        | &nbsp;»&nbsp;
+        span title='Auto-Accepted' data-toggle='tooltip'
+          = @evaluations.where(state: 'auto_accepted').count
+      span Status
+
+  .stat.panel.panel-default
+    .panel-body
+      h3
+        i.fa.fa-star
+        | &nbsp;
+        = @evaluations.average(:final_score).to_f.round(1)
+      span Average Score

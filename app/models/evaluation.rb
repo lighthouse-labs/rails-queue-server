@@ -14,6 +14,7 @@ class Evaluation < ApplicationRecord
   validates :github_url,
             format: { with: URI.regexp(%w[http https]), message: "must be a valid format" }
 
+  scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :asc) }
 
   scope :open_evaluations, -> { includes(:project).includes(:student).where(state: "pending") }
