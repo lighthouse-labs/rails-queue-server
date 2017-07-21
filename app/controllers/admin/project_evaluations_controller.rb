@@ -12,12 +12,9 @@ class Admin::ProjectEvaluationsController < ApplicationController
 
   def apply_filters
     filter_by_project
+    filter_by_start_date
+    filter_by_end_date
     # filter_by_type
-    # filter_by_stretch
-    # filter_by_notes
-    # filter_by_lectures
-    # filter_by_rating
-    # filter_by_day
   end
 
   def filter_by_project
@@ -25,17 +22,19 @@ class Admin::ProjectEvaluationsController < ApplicationController
     params[:project] == 'All' ? @evaluations : @evaluations = @evaluations.where(project_id: params[:project])
   end
 
-  def filter_by_archived
-    params[:archived] ||= 'Exclude'
-    # byebug
-    # @evaluations = case params[:archived]
-    #                when 'Exclude'
-    #                  @evaluations.active
-    #                when 'Only'
-    #                  @evaluations.archived
-    #                else
-    #                  @evaluations
-    #                end
+  def filter_by_start_date
+    params[:start_date] ||= Date.current.beginning_of_month
+    @evaluations = @evaluations.where("updated_at > ?", params[:start_date])
+  end
+
+  def filter_by_end_date
+    params[:end_date] = if params[:end_date].empty?
+                          Date.current
+                        else
+                          Date.parse(params[:end_date])
+                        end
+    end_date_end_of_day = params[:end_date].end_of_day.to_s
+    @evaluations = @evaluations.where("updated_at < ?", end_date_end_of_day)
   end
 
   def filter_by_type
@@ -47,47 +46,6 @@ class Admin::ProjectEvaluationsController < ApplicationController
                    else
                      @evaluations
                    end
-  end
-
-  def filter_by_stretch
-    params[:stretch] ||= 'Include'
-    @evaluations = case params[:stretch]
-                   when 'Exclude'
-                     @evaluations.core
-                   when 'Only'
-                     @evaluations.stretch
-                   else
-                     @evaluations
                    end
-  end
-
-  def filter_by_notes
-    params[:notes] ||= 'Exclude'
-    @evaluations = case params[:notes]
-                   when 'Only'
-                     @evaluations.where(type: 'PinnedNote')
-                   when 'Exclude'
-                     @evaluations.where.not(type: 'PinnedNote')
-                   else
-                     @evaluations
-    end
-  end
-
-  def filter_by_lectures
-    params[:lectures] ||= 'Exclude'
-    @evaluations = case params[:lectures]
-                   when 'Only'
-                     @evaluations.where(type: %w[Lecture Breakout])
-                   when 'Exclude'
-                     @evaluations.where.not(type: %w[Lecture Breakout])
-                   else
-                     @evaluations
-    end
-  end
-
-  def filter_by_day
-    @evaluations = @evaluations.where("lower(day) LIKE ?", "%#{params[:day].downcase}%") if params[:day].present?
-    @evaluations
-  end
 
 end

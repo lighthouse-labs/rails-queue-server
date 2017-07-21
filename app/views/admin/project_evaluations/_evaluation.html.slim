@@ -1,6 +1,4 @@
 tr
-  td
-    = link_to evaluation.project.name, evaluation.project
   td.details data-value=evaluation.student.last_name
       .student-info
         = render 'shared/student_info', student: evaluation.student, show_cohort: true
@@ -18,6 +16,17 @@ tr
         = link_to evaluation.teacher.full_name, teacher_path(evaluation.teacher)
         br
           span.label.label-primary = evaluation.teacher.location.name
+
+  td
+    = link_to evaluation.project.name, evaluation.project
+    br
+    - if evaluation
+      = link_to 'View', project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-info btn-xs'
+      | &nbsp;
+      - if evaluation.in_state?(:pending)
+        = link_to "Start Marking", start_marking_project_evaluation_path(evaluation.project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
+      - elsif evaluation.in_state?(:in_progress) && evaluation.teacher == current_user
+        = link_to "Continue Marking", edit_project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-primary btn-xs'
 
   td
     - if evaluation && (evaluation.status == "Rejected" || evaluation.status == "Accepted")
@@ -39,10 +48,4 @@ tr
         = "#{evaluation.duration / 60}m long"
 
   td
-    - if evaluation
-      = link_to 'View', project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-info btn-xs'
-      | &nbsp;
-      - if evaluation.in_state?(:pending)
-        = link_to "Start Marking", start_marking_project_evaluation_path(evaluation.project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
-      - elsif evaluation.in_state?(:in_progress) && evaluation.teacher == current_user
-        = link_to "Continue Marking", edit_project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-primary btn-xs'
+    = evaluation.updated_at.to_date

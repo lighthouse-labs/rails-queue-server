@@ -19,14 +19,6 @@
   .stat.panel.panel-default
     .panel-body
       h3
-        i.fa.fa-fire
-        | &nbsp;
-        = @evaluations.distinct.pluck(:teacher_id).count
-      span Teachers
-
-  .stat.panel.panel-default
-    .panel-body
-      h3
         i.fa.fa-address-book-o
         | &nbsp;
         span title='Queued' data-toggle='tooltip'

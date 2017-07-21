@@ -22,12 +22,12 @@ header.page-header
         table.table.sortable
           thead
             tr
-              th Project
               th Student
               th Status
               th Marker
+              th Project
               th Stats
-              th
+              th Date
           tbody
             == render collection: @evaluations.newest_first, partial: 'evaluation'
           tfoot
