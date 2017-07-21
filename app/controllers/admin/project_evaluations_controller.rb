@@ -28,10 +28,10 @@ class Admin::ProjectEvaluationsController < ApplicationController
   end
 
   def filter_by_end_date
-    params[:end_date] = if params[:end_date].empty?
-                          Date.current
-                        else
+    params[:end_date] = if params[:end_date]
                           Date.parse(params[:end_date])
+                        else
+                          Date.current
                         end
     end_date_end_of_day = params[:end_date].end_of_day.to_s
     @evaluations = @evaluations.where("updated_at < ?", end_date_end_of_day)
@@ -46,6 +46,6 @@ class Admin::ProjectEvaluationsController < ApplicationController
                    else
                      @evaluations
                    end
-                   end
+  end
 
 end
