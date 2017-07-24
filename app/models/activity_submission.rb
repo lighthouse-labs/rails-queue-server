@@ -17,7 +17,7 @@ class ActivitySubmission < ApplicationRecord
   after_destroy :handle_submission_destroy
 
   default_value_for :completed_at, allows_nil: false do
-    Time.now
+    Time.current
   end
 
   # if there is code evaluation, allow multiple submissions

@@ -23,19 +23,19 @@ class EvaluationStateMachine
 
   after_transition(to: :in_progress) do |evaluation, _transition|
     evaluation.state = "in_progress"
-    evaluation.started_at = Time.now
+    evaluation.started_at = Time.current
     evaluation.save
   end
 
   after_transition(to: :accepted) do |evaluation, _transition|
     evaluation.state = "accepted"
-    evaluation.completed_at = Time.now
+    evaluation.completed_at = Time.current
     evaluation.save
   end
 
   after_transition(to: :auto_accepted) do |evaluation, _transition|
     evaluation.state = "auto_accepted"
-    evaluation.completed_at = Time.now
+    evaluation.completed_at = Time.current
     evaluation.save
   end
 
@@ -48,13 +48,13 @@ class EvaluationStateMachine
 
   after_transition(to: :rejected) do |evaluation, _transition|
     evaluation.state = "rejected"
-    evaluation.completed_at = Time.now
+    evaluation.completed_at = Time.current
     evaluation.save
   end
 
   after_transition(to: :cancelled) do |evaluation, _transition|
     evaluation.state = "cancelled"
-    evaluation.cancelled_at = Time.now
+    evaluation.cancelled_at = Time.current
     evaluation.save
   end
 

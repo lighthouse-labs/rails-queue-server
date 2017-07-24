@@ -111,14 +111,14 @@ class Content::Deploy
   end
 
   def deploy_successful
-    @deployment.update!(status: 'completed', completed_at: Time.now, summary_file: '')
+    @deployment.update!(status: 'completed', completed_at: Time.current, summary_file: '')
     @repo.update! last_sha: @sha
     @log.info "Deployment #{@sha} successful (id: #{@deployment.id})"
   end
 
   def setup_logger
     relative_path = File.join('log', 'content_deployments', @repo.full_name.tr('/', '_'))
-    file_name = "#{Time.now.to_i}.log"
+    file_name = "#{Time.current.to_i}.log"
 
     dir = Rails.root.join(relative_path)
     FileUtils.mkdir_p dir
