@@ -9,6 +9,20 @@ class Evaluation < ApplicationRecord
 
   has_many :evaluation_transitions, autosave: false
 
+  include PgSearch
+  pg_search_scope :by_keywords,
+                  associated_against: {
+                    student: [:first_name, :last_name, :email, :github_username],
+                    teacher: [:first_name, :last_name, :email, :github_username]
+                  },
+                  using:              {
+                    tsearch: {
+                      dictionary: "english",
+                      any_word:   true,
+                      prefix:     true
+                    }
+                  }
+
   validates :github_url, presence: true
 
   validates :github_url,
@@ -22,6 +36,7 @@ class Evaluation < ApplicationRecord
   scope :in_progress_evaluations, -> { where(state: "in_progress").where.not(teacher_id: nil) }
 
   scope :completed, -> { where.not(completed_at: nil) }
+  scope :incomplete, -> { where(completed_at: nil) }
 
   scope :student_cohort_in_locations, ->(locations) {
     if locations.is_a?(Array) && !locations.empty?

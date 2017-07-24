@@ -16,4 +16,20 @@
       label Project
       = select_tag :project, options_for_select(@project_names.unshift('All'), params[:project]), class: "form-control admin-project-dropdown"
 
+    .form-group
+      label Location
+      = select_tag :location_id, options_for_select(@locations.unshift('All'), params[:location_id]), class: "form-control admin-project-dropdown"
+
+    .form-group
+      label Incomplete
+      = select_tag :incomplete, options_for_select(['Include', 'Only', 'Exclude'], params[:incomplete]), class: "form-control admin-project-dropdown"
+
+    .form-group
+      label Auto-Accepted
+      = select_tag :auto_accepted, options_for_select(['Include', 'Exclude'], params[:auto_accepted]), class: "form-control admin-project-dropdown"
+
+    .form-group
+      label Search
+      = text_field_tag :keywords, params[:keywords], placeholder: 'e.g. Slideshow Bob', class: "form-control admin-project-text-box"
+
     = submit_tag 'Filter', class: 'btn btn-success admin-project-button'
