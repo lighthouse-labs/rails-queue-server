@@ -1,9 +1,7 @@
 class Admin::ProjectEvaluationsController < ApplicationController
 
-  DEFAULT_PER = 5
-
   def index
-    @evaluations = Evaluation.page(params[:page]).per(DEFAULT_PER)
+    @evaluations = Evaluation.page(params[:page])
     @project_names = Project.pluck(:name, :id)
     @locations = Location.pluck(:name, :id)
     apply_filters
