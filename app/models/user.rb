@@ -89,7 +89,7 @@ class User < ApplicationRecord
   end
 
   def deactivate!
-    update! deactivated_at: Time.now
+    update! deactivated_at: Time.current
   end
 
   def reactivate!

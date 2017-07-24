@@ -71,7 +71,7 @@ class DayFeedback < ApplicationRecord
   end
 
   def archive(user)
-    self.archived_at = Time.now
+    self.archived_at = Time.current
     self.archived_by_user_id = user.id
   end
 
