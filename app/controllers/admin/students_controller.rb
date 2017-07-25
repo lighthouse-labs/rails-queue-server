@@ -6,7 +6,7 @@ class Admin::StudentsController < Admin::BaseController
   def index
     if params[:cohort_id]
       @current_cohort = Cohort.find(params[:cohort_id])
-      @students = @current_cohort.students
+      @students = @current_cohort.students.order(first_name: :asc)
     else
       @students = Student.all
     end
@@ -15,10 +15,7 @@ class Admin::StudentsController < Admin::BaseController
   def edit; end
 
   def update
-    if params[:toggle_tech_interviews]
-      @student.supress_tech_interviews = (@student.supress_tech_interviews.nil? ? true : nil)
-      @student.save
-    elsif @student.update(student_params)
+    if @student.update(student_params)
       render nothing: true if request.xhr?
       redirect_to :back
     else
@@ -36,6 +33,12 @@ class Admin::StudentsController < Admin::BaseController
     @cohorts = Cohort.active_or_upcoming
     # @mentors = Teacher.mentors(@student.cohort.location)
     render layout: false
+  end
+
+  def toggle_tech_interviews
+    load_student
+    @student.suppress_tech_interviews = !@student.suppress_tech_interviews
+    @student.save
   end
 
   private
