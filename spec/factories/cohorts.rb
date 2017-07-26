@@ -5,6 +5,7 @@ FactoryGirl.define do
     name { Faker::Name.name }
     start_date { Date.current }
     code { SecureRandom.hex(10) }
+    association :location
     association :program
   end
 end
