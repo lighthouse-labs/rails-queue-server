@@ -83,10 +83,10 @@ header.page-header
 
                     - if !student.suppress_tech_interviews
                       a.btn.btn-xs.btn-danger.admin-student-toggle-tech-interviews-btn data-content-url="#{toggle_tech_interviews_admin_student_path(student)}"
-                        | &nbsp;Disable Interviews
+                        | Disable Interviews
                     - elsif student.suppress_tech_interviews
                       a.btn.btn-xs.btn-warning.admin-student-toggle-tech-interviews-btn data-content-url="#{toggle_tech_interviews_admin_student_path(student)}"
-                        | &nbsp;Enable Interviews
+                        | Enable Interviews
 
                     - if student.cohort.active? || student.cohort.upcoming?
                       = link_to 'Revert to Prep', admin_student_path(student), class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' }

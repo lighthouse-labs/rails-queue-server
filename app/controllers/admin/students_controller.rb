@@ -1,6 +1,6 @@
 class Admin::StudentsController < Admin::BaseController
 
-  before_action :load_student, only: [:update, :edit, :destroy, :modal_content]
+  before_action :load_student, only: [:update, :edit, :destroy, :modal_content, :toggle_tech_interviews]
   before_action :prep_form, only: [:index, :edit]
 
   def index
@@ -36,9 +36,14 @@ class Admin::StudentsController < Admin::BaseController
   end
 
   def toggle_tech_interviews
-    load_student
     @student.suppress_tech_interviews = !@student.suppress_tech_interviews
     @student.save
+    message = @student.suppress_tech_interviews ? 'Enable Interviews' : 'Disable Interviews'
+    if @student.save
+      render nothing: true, json: { status: "Success", student: @student.id, message: message }
+    else
+      render nothing: true, json: { status: "Error", errors: @student.errors.full_messages }
+    end
   end
 
   private

@@ -42,5 +42,13 @@ $ ->
     contentURL += '?toggle_tech_interviews=true'
     $.ajax(
       url: contentURL
-      type: 'PUT').done (info) ->
-        window.location.reload()
+      type: 'PUT').done (response) ->
+        if response.status == "Success"
+          data_url = "/admin/students/" + response.student + "/toggle_tech_interviews"
+          selector = "a[data-content-url=\'" + data_url + "\']"
+          target = $(selector)[0]
+          target.innerHTML = response.message
+          if response.message == 'Enable Interviews'
+            $(selector).removeClass('btn-danger').addClass('btn-warning')
+          else
+            $(selector).removeClass('btn-warning').addClass('btn-danger')
