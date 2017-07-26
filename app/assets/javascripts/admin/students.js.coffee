@@ -15,7 +15,9 @@ $ ->
     newCohortName = $(this).find('option:selected').text()
     studentID = $(this).parents('td').parents('tr').data 'id'
     changeCohort(studentID, cohortID)
-    $(this).parents('td').html('<div class="admin-student-cohort-changed"> Cohort changed to ' + newCohortName + '! </div>')
+    $(this).parents('td')
+      .html('<div class="admin-student-cohort-changed"> Cohort changed to ' +
+        newCohortName + '! </div>')
 
   $(document).on 'show.bs.modal', '#student-actions-modal', (event) ->
     button = $(event.relatedTarget)
@@ -37,18 +39,20 @@ $ ->
       method: 'GET').done (info) ->
         modal.find('.modal-content').html(info)
 
-  $(document).on 'click', '.admin-student-toggle-tech-interviews-btn', (event) ->
-    contentURL = event.target.getAttribute('data-content-url')
-    contentURL += '?toggle_tech_interviews=true'
-    $.ajax(
-      url: contentURL
-      type: 'PUT').done (response) ->
-        if response.status == "Success"
-          data_url = "/admin/students/" + response.student + "/toggle_tech_interviews"
-          selector = "a[data-content-url=\'" + data_url + "\']"
-          target = $(selector)[0]
-          target.innerHTML = response.message
-          if response.message == 'Enable Interviews'
-            $(selector).removeClass('btn-danger').addClass('btn-warning')
-          else
-            $(selector).removeClass('btn-warning').addClass('btn-danger')
+  $(document).on 'click',
+    '.admin-student-toggle-tech-interviews-btn', (event) ->
+      contentURL = event.target.getAttribute('data-content-url')
+      contentURL += '?toggle_tech_interviews=true'
+      $.ajax(
+        url: contentURL
+        type: 'PUT').done (response) ->
+          if response.status == "Success"
+            data_url = "/admin/students/" + response.student +
+              "/toggle_tech_interviews"
+            selector = "a[data-content-url=\'" + data_url + "\']"
+            target = $(selector)[0]
+            target.innerHTML = response.message
+            if response.message == 'Enable Interviews'
+              $(selector).removeClass('btn-danger').addClass('btn-warning')
+            else
+              $(selector).removeClass('btn-warning').addClass('btn-danger')
