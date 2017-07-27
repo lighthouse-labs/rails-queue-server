@@ -34,6 +34,10 @@ class Cohort < ApplicationRecord
     start_date > Date.current
   end
 
+  def started?
+    start_date <= Date.current
+  end
+
   def active?
     start_date >= (Date.current - 8.weeks) && start_date <= Date.current
   end

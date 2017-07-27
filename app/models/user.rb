@@ -160,7 +160,7 @@ class User < ApplicationRecord
   end
 
   def incomplete_activities
-    if cohort.curriculum_day(Date.current).day_number > 0
+    if cohort.started?
       Activity.active.countable_as_submission.where.not(id: activity_submissions.select(:activity_id)).where("day <= ?", CurriculumDay.new(Time.current.yesterday, cohort).to_s).order(day: :desc)
     else
       Activity.none
