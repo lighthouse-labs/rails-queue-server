@@ -10,6 +10,14 @@ $ ->
       url: '/admin/students/' + studentID + '?mentor_id=' + cohortID
       type: 'PUT'
 
+  toggleTechInterview = (element) ->
+    if element.text() == "Enable Interviews"
+      element.removeClass('btn-warning').addClass('btn-danger')
+      element.text("Disable Interviews")
+    else
+      element.removeClass('btn-danger').addClass('btn-warning')
+      element.text("Enable Interviews")
+
   $(document).on 'change', '.admin-student-cohort-selector', ->
     cohortID = $(this).val()
     newCohortName = $(this).find('option:selected').text()
@@ -41,18 +49,11 @@ $ ->
 
   $(document).on 'click',
     '.admin-student-toggle-tech-interviews-btn', (event) ->
+      element = $(event.target)
       contentURL = event.target.getAttribute('data-content-url')
       contentURL += '?toggle_tech_interviews=true'
       $.ajax(
         url: contentURL
         type: 'PUT').done (response) ->
           if response.status == "Success"
-            data_url = "/admin/students/" + response.student +
-              "/toggle_tech_interviews"
-            selector = "a[data-content-url=\'" + data_url + "\']"
-            target = $(selector)[0]
-            target.innerHTML = response.message
-            if response.message == 'Enable Interviews'
-              $(selector).removeClass('btn-danger').addClass('btn-warning')
-            else
-              $(selector).removeClass('btn-warning').addClass('btn-danger')
+            toggleTechInterview(element)

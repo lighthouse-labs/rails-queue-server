@@ -37,12 +37,10 @@ class Admin::StudentsController < Admin::BaseController
 
   def toggle_tech_interviews
     @student.suppress_tech_interviews = !@student.suppress_tech_interviews
-    @student.save
-    message = @student.suppress_tech_interviews ? 'Enable Interviews' : 'Disable Interviews'
     if @student.save
-      render nothing: true, json: { status: "Success", student: @student.id, message: message }
+      render json: { status: "Success" }
     else
-      render nothing: true, json: { status: "Error", errors: @student.errors.full_messages }
+      render json: { status: 500, errors: @student.errors.full_messages }
     end
   end
 
