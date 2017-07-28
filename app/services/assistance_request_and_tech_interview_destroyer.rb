@@ -30,10 +30,6 @@ class AssistanceRequestAndTechInterviewDestroyer
     interviews = TechInterview.where(started_at: nil)
 
     Rails.logger.info "#{interviews.count} entries found."
-    interviews.each do |ti|
-      TechInterviewResult.where(tech_interview_id: ti.id).delete_all
-      ti.delete
-    end
   end
 
 end
