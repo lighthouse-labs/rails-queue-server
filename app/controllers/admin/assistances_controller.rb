@@ -1,7 +1,9 @@
 class Admin::AssistancesController < Admin::BaseController
 
+  DEFAULT_PER = 100
+
   def index
-    @assistances = Assistance.all.order(created_at: :desc)
+    @assistances = Assistance.order(created_at: :desc).page(params[:page]).per(DEFAULT_PER)
 
     apply_filters
 
@@ -38,7 +40,7 @@ class Admin::AssistancesController < Admin::BaseController
 
   def filter_by_end_date
     params[:end_date] = Date.current.end_of_month.to_s if params[:end_date].blank?
-    end_datetime = Time.parse(params[:end_date]).end_of_day
+    end_datetime = Time.zone.parse(params[:end_date]).end_of_day
     @assistances = @assistances.where("start_at < :date", date: end_datetime)
   end
 
