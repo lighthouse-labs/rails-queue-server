@@ -3,7 +3,7 @@
 - title "Admin evaluations"
 
 header.page-header
-  h1 Evaluations
+  h1 Project Evaluations
 
 .well
   = render 'filters'
@@ -29,7 +29,7 @@ header.page-header
               th Stats
               th Date
           tbody
-            == render collection: @evaluations.newest_first, partial: 'evaluation'
+            == render collection: @evaluations, partial: 'evaluation'
           tfoot
             tr
               th colspan="6"

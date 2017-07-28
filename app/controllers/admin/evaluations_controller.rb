@@ -1,7 +1,7 @@
-class Admin::ProjectEvaluationsController < ApplicationController
+class Admin::EvaluationsController < ApplicationController
 
   def index
-    @evaluations = Evaluation.page(params[:page])
+    @evaluations = Evaluation.page(params[:page]).newest_first
     @project_names = Project.pluck(:name, :id)
     @locations = Location.pluck(:name, :id)
     apply_filters
@@ -21,12 +21,12 @@ class Admin::ProjectEvaluationsController < ApplicationController
 
   def filter_by_project
     params[:project] ||= 'All'
-    params[:project] == 'All' ? @evaluations : @evaluations = @evaluations.where(project_id: params[:project])
+    params[:project] == 'All' ? @evaluations : @evaluations = @evaluations.for_project(params[:project])
   end
 
   def filter_by_start_date
     params[:start_date] ||= Date.current.beginning_of_month
-    @evaluations = @evaluations.where("evaluations.updated_at > ?", params[:start_date])
+    @evaluations = @evaluations.after_date(params[:start_date])
   end
 
   def filter_by_end_date
@@ -36,7 +36,7 @@ class Admin::ProjectEvaluationsController < ApplicationController
                           Date.current
                         end
     end_date_end_of_day = params[:end_date].end_of_day.to_s
-    @evaluations = @evaluations.where("evaluations.updated_at < ?", end_date_end_of_day)
+    @evaluations = @evaluations.before_date(end_date_end_of_day)
   end
 
   def filter_by_location
@@ -68,7 +68,7 @@ class Admin::ProjectEvaluationsController < ApplicationController
     params[:auto_accepted] ||= 'Exclude'
     @evaluations = case params[:auto_accepted]
                    when 'Exclude'
-                     @evaluations.where.not(state: 'auto_accepted')
+                     @evaluations.exclude_autocomplete
                    when 'Include'
                      @evaluations
                    end
