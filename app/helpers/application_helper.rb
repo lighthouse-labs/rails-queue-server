@@ -113,10 +113,6 @@ module ApplicationHelper
     end
   end
 
-  def project_score_label_class(val)
-    l_score_label_class(val)
-  end
-
   def project_eval_status_label_class(eval)
     if eval.in_state?(:pending)
       'label-warning'
