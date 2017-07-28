@@ -68,11 +68,21 @@ class ActivitiesController < ApplicationController
   private
 
   def apply_filters
+    filter_by_permissions
     filter_by_type
     filter_by_stretch
     filter_by_notes
     filter_by_lectures
     filter_by_keywords
+  end
+
+  def filter_by_permissions
+    if current_user.is_a?(Student)
+      curriculum_day = current_user.cohort.curriculum_day.to_s
+      @activities = @activities.until_day(curriculum_day)
+    else
+      @activities
+    end
   end
 
   def filter_by_type
