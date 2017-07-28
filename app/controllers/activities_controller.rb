@@ -97,7 +97,7 @@ class ActivitiesController < ApplicationController
 
   def filter_by_permissions
     if current_user.is_a?(Student)
-      curriculum_day = current_user.cohort.curriculum_day.to_s
+      curriculum_day = current_user.cohort.curriculum_day(Date.current.end_of_week).to_s
       @activities = @activities.until_day(curriculum_day)
     else
       @activities
