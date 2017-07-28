@@ -77,7 +77,7 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
   gem 'rubocop'
-  gem 'byebug'
+
   # listen creates too many fsevent_watch processes and kills my laptop. Removing this until resolved - KV
   # gem 'listen', '~> 3.1.5'
   gem 'spring-watcher-listen', '~> 2.0.1'
@@ -99,7 +99,10 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'spring-commands-rspec'
   gem 'factory_girl_rails'
-  # gem 'rspec-rails', '2.14.2'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-collection_matchers'
+  gem 'rails-controller-testing'
+  gem 'byebug'
 
 end
 
@@ -110,8 +113,10 @@ group :test do
   gem 'poltergeist'
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
+  gem 'fuubar'
   # gem 'shoulda-matchers' # not ready for 4.1
 
+  gem 'simplecov', require: nil
   # http://d.pr/i/N429/2oGamluY
   gem "codeclimate-test-reporter", require: nil
 end

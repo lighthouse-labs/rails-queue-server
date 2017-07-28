@@ -1,8 +1,9 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Admin::StudentsController do
   before :each do
-    set_valid_auth
+    admin_user = create(:user, :admin)
+    login_as(admin_user)
   end
 
   describe 'GET #index' do

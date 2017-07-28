@@ -9,7 +9,7 @@ class IncompleteActivitiesController < ApplicationController
   private
 
   def student_required
-    redirect_to(:root, alert: 'Not allowed') unless student?
+    redirect_to(:root, alert: 'You are not a student') unless student?
   end
 
 end

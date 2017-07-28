@@ -1,45 +1,51 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe QuestionsController do
   describe "GET 'index'" do
     it "returns http success" do
-      get 'index'
-      response.should be_success
+      pending('outdated route, remove or modify')
+      get :index
+      expect(response).to be_success
     end
   end
 
   describe "GET 'show'" do
     it "returns http success" do
-      get 'show'
-      response.should be_success
+      pending('outdated route, remove or modify')
+      get :show
+      expect(response).to be_success
     end
   end
 
   describe "GET 'new'" do
     it "returns http success" do
+      pending('outdated route, remove or modify')
       get 'new'
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
   describe "GET 'create'" do
     it "returns http success" do
+      pending('outdated route, remove or modify')
       get 'create'
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
   describe "GET 'edit'" do
     it "returns http success" do
+      pending('outdated route, remove or modify')
       get 'edit'
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
   describe "GET 'update'" do
     it "returns http success" do
+      pending('outdated route, remove or modify')
       get 'update'
-      response.should be_success
+      expect(response).to be_success
     end
   end
 end

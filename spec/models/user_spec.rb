@@ -1,18 +1,47 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe User do
   it "has a valid factory" do
     expect(build(:user)).to be_valid
   end
 
-  it "should be valid with just uid, token" do
-    user = User.new(uid: "uid", token: "token")
-    expect(user).to be_valid
-  end
+  describe "should be invalid given: " do
+    before(:each) do
+      @user = build(:user)
+    end
 
-  it "should be invalid without uid" do
-    user = build(:user, uid: nil)
-    expect(user).to be_invalid
+    it "no uid" do
+      @user.uid = nil
+      expect(@user).to be_invalid
+    end
+    it "no token" do
+      @user.token = nil
+      expect(@user).to be_invalid
+    end
+    it "no first_name" do
+      @user.first_name = nil
+      expect(@user).to be_invalid
+    end
+    it "no last_name" do
+      @user.last_name = nil
+      expect(@user).to be_invalid
+    end
+    it "no phone_number" do
+      @user.phone_number = nil
+      expect(@user).to be_invalid
+    end
+    it "no email" do
+      @user.email = nil
+      expect(@user).to be_invalid
+    end
+    it "no location_id" do
+      @user.location_id = nil
+      expect(@user).to be_invalid
+    end
+    it "no github_username" do
+      @user.github_username = nil
+      expect(@user).to be_invalid
+    end
   end
 
   it "should be invalid without token" do
@@ -30,14 +59,14 @@ describe User do
   describe '#being_assisted?' do
     it 'returns true if the user has an in progress assistance request' do
       ar = create(:assistance_request, canceled_at: nil, assistance: create(:assistance, end_at: nil))
-      expect(ar.requestor.being_assisted?).to be_true
+      expect(ar.requestor.being_assisted?).to be true
     end
     it 'returns false if the user only has completed assistance requests' do
       ar = create(:assistance_request, canceled_at: nil, assistance: create(:assistance, end_at: Date.current))
-      expect(ar.requestor.being_assisted?).to be_false
+      expect(ar.requestor.being_assisted?).to be false
     end
     it 'returns false if the user doesn\'t have any in progress assistance requests' do
-      expect(create(:user).being_assisted?).to be_false
+      expect(create(:user).being_assisted?).to be false
     end
   end
 
@@ -55,14 +84,14 @@ describe User do
   describe '#waiting_for_assistance?' do
     it 'returns true if the user has an open assistance request' do
       ar = create(:assistance_request)
-      expect(ar.requestor.waiting_for_assistance?).to be_true
+      expect(ar.requestor.waiting_for_assistance?).to be true
     end
     it 'returns false if the user only has canceled assistance requests' do
       ar = create(:canceled_assistance_request)
-      expect(ar.requestor.waiting_for_assistance?).to be_false
+      expect(ar.requestor.waiting_for_assistance?).to be false
     end
     it 'returns false if the user doesn\'t have any in progress assistance requests' do
-      expect(create(:user).waiting_for_assistance?).to be_false
+      expect(create(:user).waiting_for_assistance?).to be false
     end
   end
 end

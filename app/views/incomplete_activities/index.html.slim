@@ -1,2 +1,5 @@
-h3.incomplete-activities-title Incomplete Activities (#{@activities.count})
-= render partial: 'incomplete_activities/incomplete', collection: @activities, as: :activity
+h3.incomplete-activities-title
+  | Incomplete Activities
+  small
+    | &nbsp Core (#{@activities.core.count}) Stretch (#{@activities.stretch.count})
+= render partial: 'incomplete_activities/activity', collection: @activities, as: :activity
