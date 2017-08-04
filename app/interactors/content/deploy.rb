@@ -61,7 +61,7 @@ class Content::Deploy
   end
 
   def load_teacher_records(repo_dir, records)
-    if Dir.exist?(File.join(repo_dir, 'Teacher Resources').to_s)
+    if Dir.exist?(File.join(repo_dir, 'Training').to_s)
       Content::LoadTeacherSections.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
     else
       Rails.logger.info 'Teacher resources not found. Skipping.'
