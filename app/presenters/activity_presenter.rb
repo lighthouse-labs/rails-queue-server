@@ -26,7 +26,7 @@ class ActivityPresenter < BasePresenter
       end
     elsif teacher_resources?
       content_for :side_nav do
-        render('shared/menus/sections_side_menu', title: 'Teacher Prep', sections: teacher_resources)
+        render('shared/menus/sections_side_menu', title: 'Training', sections: teacher_resources)
       end
     elsif bootcamp?
       content_for :side_nav do
