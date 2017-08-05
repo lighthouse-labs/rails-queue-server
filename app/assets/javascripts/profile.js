@@ -73,4 +73,4 @@
   window.Profile = {
     manageAvatarLoading: manageAvatarLoading
   }
-})()
+}())

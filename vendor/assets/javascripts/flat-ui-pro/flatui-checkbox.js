@@ -2,7 +2,7 @@
  * flatui-checkbox v0.0.3
  * ============================================================ */
  
-!function ($) {
+!(function ($) {
 
  /* CHECKBOX PUBLIC CLASS DEFINITION
   * ============================== */
@@ -68,7 +68,7 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('checkbox')
-        , options = $.extend({}, $.fn.checkbox.defaults, $this.data(), typeof option == 'object' && option);
+        , options = $.extend({}, $.fn.checkbox.defaults, $this.data(), typeof option === 'object' && option);
       if (!data) $this.data('checkbox', (data = new Checkbox(this, options)));
       if (option == 'toggle') data.toggle()
       if (option == 'check' || option == 'uncheck') data.setCheck(option)
@@ -109,4 +109,4 @@
 		});
 	});
 
-}(window.jQuery);
+}(window.jQuery));

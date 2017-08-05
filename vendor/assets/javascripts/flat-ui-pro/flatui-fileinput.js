@@ -5,7 +5,7 @@
  * ===========================================================
  */
 
-+function ($) { "use strict";
++(function ($) { "use strict";
 
   var isIE = window.navigator.appName == 'Microsoft Internet Explorer'
 
@@ -186,7 +186,7 @@
       var $this = $(this)
       , data = $this.data('fileinput')
       if (!data) $this.data('fileinput', (data = new Fileupload(this, options)))
-      if (typeof options == 'string') data[options]()
+      if (typeof options === 'string') data[options]()
     })
   }
 
@@ -212,4 +212,4 @@
     });
   });
 
-}(window.jQuery);
+}(window.jQuery));

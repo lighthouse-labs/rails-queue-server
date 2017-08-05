@@ -70,7 +70,7 @@ var TimeAgo = React.createClass(
 
       period = Math.min(Math.max(period, this.props.minPeriod), this.props.maxPeriod)
 
-      if(!!period){
+      if(period){
         this.timeoutId = setTimeout(this.tick, period)
       }
 

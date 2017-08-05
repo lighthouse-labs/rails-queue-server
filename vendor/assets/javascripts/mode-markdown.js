@@ -121,7 +121,7 @@ var XmlHighlightRules = function(normalize) {
             },
             {
                 token : ["punctuation.instruction.xml", "keyword.instruction.xml"],
-                regex : "(<\\?)([-_a-zA-Z0-9]+)", next : "processing_instruction",
+                regex : "(<\\?)([-_a-zA-Z0-9]+)", next : "processing_instruction"
             },
             {token : "comment.xml", regex : "<\\!--", next : "comment"},
             {
@@ -977,7 +977,7 @@ var HtmlHighlightRules = function() {
         tag_stuff: [
             {include : "attributes"},
             {token : "meta.tag.punctuation.tag-close.xml", regex : "/?>", next : "start"}
-        ],
+        ]
     });
 
     this.embedTagRules(CssHighlightRules, "css-", "style");
@@ -1425,7 +1425,7 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 
     this.$getMode = function(state) {
-        if (typeof state != "string")
+        if (typeof state !== "string")
             state = state[0];
         for (var key in this.subModes) {
             if (state.indexOf(key) === 0)
