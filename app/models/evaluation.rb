@@ -9,18 +9,33 @@ class Evaluation < ApplicationRecord
 
   has_many :evaluation_transitions, autosave: false
 
+  include PgSearch
+  pg_search_scope :by_keywords,
+                  associated_against: {
+                    student: [:first_name, :last_name, :email, :github_username],
+                    teacher: [:first_name, :last_name, :email, :github_username]
+                  },
+                  using:              {
+                    tsearch: {
+                      dictionary: "english",
+                      any_word:   true,
+                      prefix:     true
+                    }
+                  }
+
   validates :github_url, presence: true
 
   validates :github_url,
             format: { with: URI.regexp(%w[http https]), message: "must be a valid format" }
 
+  scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :asc) }
 
   scope :open_evaluations, -> { includes(:project).includes(:student).where(state: "pending") }
-
   scope :in_progress_evaluations, -> { where(state: "in_progress").where.not(teacher_id: nil) }
-
   scope :completed, -> { where.not(completed_at: nil) }
+  scope :incomplete, -> { where(completed_at: nil) }
+  scope :exclude_cancelled, -> { where.not(state: 'cancelled') }
 
   scope :student_cohort_in_locations, ->(locations) {
     if locations.is_a?(Array) && !locations.empty?
@@ -39,6 +54,18 @@ class Evaluation < ApplicationRecord
   }
 
   scope :newest_active_evaluations_first, -> { order(started_at: :desc) }
+
+  scope :for_project, ->(project) { where(project_id: project.id) }
+  scope :after_date, ->(date) { where("evaluations.updated_at > ?", date) }
+  scope :before_date, ->(date) { where("evaluations.updated_at < ?", date) }
+  scope :exclude_autocomplete, -> { where.not(state: 'auto_accepted') }
+
+  scope :pending, -> { where(state: 'pending') }
+  scope :cancelled, -> { where(state: 'cancelled') }
+  scope :in_progress, -> { where(state: 'in_progress') }
+  scope :accepted, -> { where(state: 'accepted') }
+  scope :rejected, -> { where(state: 'rejected')  }
+  scope :auto_accepted, -> { where(state: 'auto_accepted') }
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
            :in_state?, to: :state_machine

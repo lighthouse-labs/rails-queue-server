@@ -186,6 +186,7 @@ LaserShark::Application.routes.draw do
     end
 
     resources :activities, only: [:index]
+    resources :evaluations, only: [:index]
     resources :assistances, only: [:index]
     # Projects CRUD
     resources :projects, only: [:new, :create, :edit, :update, :destroy]
