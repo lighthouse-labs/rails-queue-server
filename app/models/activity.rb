@@ -50,6 +50,8 @@ class Activity < ApplicationRecord
     where.not(day: nil)
   }
 
+  scope :before_yesterday, ->(cohort) { where("day <= ?", CurriculumDay.new(Time.zone.yesterday, cohort).to_s) }
+
   after_update :add_revision_to_gist
 
   # to avoid callback on .update via instruction download
