@@ -30,6 +30,7 @@ class AssistanceRequestAndTechInterviewDestroyer
     interviews = TechInterview.where(started_at: nil)
 
     Rails.logger.info "#{interviews.count} entries found."
+    interviews.delete_all
   end
 
 end
