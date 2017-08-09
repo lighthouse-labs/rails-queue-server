@@ -23,6 +23,10 @@
     .form-group
       label Incomplete
       = select_tag :incomplete, options_for_select(['Include', 'Only', 'Exclude'], params[:incomplete]), class: "form-control admin-project-dropdown"
+    
+    .form-group
+      label Cancelled
+      = select_tag :cancelled, options_for_select(['Include', 'Only', 'Exclude'], params[:cancelled]), class: "form-control admin-project-dropdown"
 
     .form-group
       label Auto-Accepted

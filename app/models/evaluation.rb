@@ -32,11 +32,10 @@ class Evaluation < ApplicationRecord
   scope :oldest_first, -> { order(created_at: :asc) }
 
   scope :open_evaluations, -> { includes(:project).includes(:student).where(state: "pending") }
-
   scope :in_progress_evaluations, -> { where(state: "in_progress").where.not(teacher_id: nil) }
-
   scope :completed, -> { where.not(completed_at: nil) }
   scope :incomplete, -> { where(completed_at: nil) }
+  scope :exclude_cancelled, -> { where.not(state: 'cancelled') }
 
   scope :student_cohort_in_locations, ->(locations) {
     if locations.is_a?(Array) && !locations.empty?
@@ -56,10 +55,17 @@ class Evaluation < ApplicationRecord
 
   scope :newest_active_evaluations_first, -> { order(started_at: :desc) }
 
-  scope :for_project, ->(project_id) { where(project_id: project_id) }
+  scope :for_project, ->(project) { where(project_id: project.id) }
   scope :after_date, ->(date) { where("evaluations.updated_at > ?", date) }
   scope :before_date, ->(date) { where("evaluations.updated_at < ?", date) }
   scope :exclude_autocomplete, -> { where.not(state: 'auto_accepted') }
+
+  scope :pending, -> { where(state: 'pending') }
+  scope :cancelled, -> { where(state: 'cancelled') }
+  scope :in_progress, -> { where(state: 'in_progress') }
+  scope :accepted, -> { where(state: 'accepted') }
+  scope :rejected, -> { where(state: 'rejected')  }
+  scope :auto_accepted, -> { where(state: 'auto_accepted') }
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
            :in_state?, to: :state_machine

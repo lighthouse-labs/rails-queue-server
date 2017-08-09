@@ -16,12 +16,13 @@ class Admin::EvaluationsController < ApplicationController
     filter_by_location
     filter_by_keywords
     exclude_incomplete
+    exclude_cancelled
     exclude_autocomplete
   end
 
   def filter_by_project
     params[:project] ||= 'All'
-    params[:project] == 'All' ? @evaluations : @evaluations = @evaluations.for_project(params[:project])
+    params[:project] == 'All' ? @evaluations : @evaluations = @evaluations.for_project(Project.find(params[:project]))
   end
 
   def filter_by_start_date
@@ -59,6 +60,18 @@ class Admin::EvaluationsController < ApplicationController
                      @evaluations.completed
                    when 'Only'
                      @evaluations.incomplete
+                   when 'Include'
+                     @evaluations
+                   end
+  end
+
+  def exclude_cancelled
+    params[:cancelled] ||= 'Exclude'
+    @evaluations = case params[:cancelled]
+                   when 'Exclude'
+                     @evaluations.exclude_cancelled
+                   when 'Only'
+                     @evaluations.cancelled
                    when 'Include'
                      @evaluations
                    end

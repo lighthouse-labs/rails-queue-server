@@ -5,19 +5,22 @@
       h3
         | &nbsp;
         span title='Queued' data-toggle='tooltip'
-          = @evaluations.where(state: 'pending').count
+          = @evaluations.pending.count
+        | &nbsp;»&nbsp;
+        span title='Cancelled' data-toggle='tooltip'
+          = @evaluations.cancelled.count
         | &nbsp;»&nbsp;
         span title='In Progress' data-toggle='tooltip'
-          = @evaluations.where(state: 'in_progress').count
+          = @evaluations.in_progress.count
         | &nbsp;»&nbsp;
         span title='Accepted' data-toggle='tooltip'
-          = @evaluations.where(state: 'accepted').count
+          = @evaluations.accepted.count
         | &nbsp;»&nbsp;
         span title='Rejected' data-toggle='tooltip'
-          = @evaluations.where(state: 'rejected').count
+          = @evaluations.rejected.count
         | &nbsp;»&nbsp;
         span title='Auto-Accepted' data-toggle='tooltip'
-          = @evaluations.where(state: 'auto_accepted').count
+          = @evaluations.auto_accepted.count
       span Status
 
   .stat.panel.panel-default
