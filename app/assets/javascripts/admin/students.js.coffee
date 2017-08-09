@@ -49,11 +49,9 @@ $ ->
 
   $(document).on 'click',
     '.admin-student-toggle-tech-interviews-btn', (event) ->
-      element = $(event.target)
       contentURL = event.target.getAttribute('data-content-url')
-      contentURL += '?toggle_tech_interviews=true'
       $.ajax(
         url: contentURL
         type: 'PUT').done (response) ->
           if response.status == "Success"
-            toggleTechInterview(element)
+            toggleTechInterview($(event.target))
