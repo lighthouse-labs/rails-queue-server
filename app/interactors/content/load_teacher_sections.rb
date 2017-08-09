@@ -12,7 +12,7 @@ class Content::LoadTeacherSections
   end
 
   def call
-    data_dir = 'Teacher Resources'
+    data_dir = 'Training'
     dir = File.join(@repo_dir, data_dir)
 
     sections = YAML.load_file(File.join(dir, 'sections.yml'))['sections']

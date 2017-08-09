@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe RecordingsController do
   context 'logged in as teacher' do

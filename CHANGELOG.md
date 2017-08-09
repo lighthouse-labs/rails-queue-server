@@ -1,5 +1,25 @@
 # Change Log
 
+## [2017.08.02.1130](https://github.com/lighthouse-labs/compass/tree/2017.08.02.1130) (2017-08-01)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.25.1030...2017.08.02.1130)
+
+**Merged pull requests:**
+
+- Added google analytic events for disconnects and reconnects [\#316](https://github.com/lighthouse-labs/compass/pull/316) ([jmatsuba](https://github.com/jmatsuba))
+- Revert "Activities Full Text Search" [\#310](https://github.com/lighthouse-labs/compass/pull/310) ([jmatsuba](https://github.com/jmatsuba))
+- Activities Full Text Search [\#287](https://github.com/lighthouse-labs/compass/pull/287) ([wesley-wong](https://github.com/wesley-wong))
+- RSpec Testing [\#279](https://github.com/lighthouse-labs/compass/pull/279) ([wesley-wong](https://github.com/wesley-wong))
+
+## [2017.07.25.1030](https://github.com/lighthouse-labs/compass/tree/2017.07.25.1030) (2017-07-24)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.17.1500...2017.07.25.1030)
+
+**Merged pull requests:**
+
+- Time.now to Time.current [\#301](https://github.com/lighthouse-labs/compass/pull/301) ([wesley-wong](https://github.com/wesley-wong))
+- Lecture Notes Image Width Fix [\#300](https://github.com/lighthouse-labs/compass/pull/300) ([wesley-wong](https://github.com/wesley-wong))
+- Incomplete activities now exclude [\#298](https://github.com/lighthouse-labs/compass/pull/298) ([wesley-wong](https://github.com/wesley-wong))
+- Incomplete activities fix, footer fix [\#295](https://github.com/lighthouse-labs/compass/pull/295) ([wesley-wong](https://github.com/wesley-wong))
+
 ## [2017.07.17.1500](https://github.com/lighthouse-labs/compass/tree/2017.07.17.1500) (2017-07-17)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.10.0930...2017.07.17.1500)
 

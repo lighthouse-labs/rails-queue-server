@@ -145,6 +145,7 @@ LaserShark::Application.routes.draw do
     resources :students, only: [:index, :update, :edit, :destroy] do
       member do
         get :modal_content
+        put :toggle_tech_interviews
       end
       resource :rollover, only: [:new, :create]
     end
@@ -186,7 +187,7 @@ LaserShark::Application.routes.draw do
 
     resources :activities, only: [:index]
     resources :evaluations, only: [:index]
-
+    resources :assistances, only: [:index]
     # Projects CRUD
     resources :projects, only: [:new, :create, :edit, :update, :destroy]
   end
