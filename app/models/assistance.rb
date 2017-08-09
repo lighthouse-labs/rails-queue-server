@@ -1,9 +1,23 @@
 class Assistance < ApplicationRecord
 
+  include PgSearch
+
   belongs_to :assistor, class_name: User
   belongs_to :assistee, class_name: User
   belongs_to :activity
   belongs_to :cohort # substitute for lack of enrollment record - KV
+
+  pg_search_scope :by_student_keywords,
+                  associated_against: {
+                    assistee: [:first_name, :last_name, :email]
+                  },
+                  using:              {
+                    tsearch: {
+                      dictionary: "english",
+                      any_word:   true,
+                      prefix:     true
+                    }
+                  }
 
   has_one :feedback, as: :feedbackable, dependent: :destroy
   has_one :assistance_request, dependent: :nullify
@@ -23,6 +37,8 @@ class Assistance < ApplicationRecord
   scope :order_by_start, -> { order(:start_at) }
   scope :assisted_by, ->(user) { where(assistor: user) }
   scope :assisting, ->(user) { where(assistee: user) }
+
+  scope :average_length, -> { average('EXTRACT(EPOCH FROM (assistances.end_at - assistances.start_at)) / 60.0').to_f }
 
   RATING_BASELINE = 3
 
