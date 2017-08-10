@@ -57,6 +57,10 @@ class Cohort < ApplicationRecord
     CurriculumDay.new(date, self)
   end
 
+  def on_curriculum_day?(curriculum_day)
+    curriculum_day == CurriculumDay.new(Date.current, self).to_s
+  end
+
   def student_locations
     Location.where(id: students.active.pluck('distinct location_id'))
   end
