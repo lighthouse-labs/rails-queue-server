@@ -8,7 +8,7 @@ table.table.students
       th
   tbody
     - cohort.students.active.order_by_first_name.each do |student|
-      - evaluations = student.evaluations_for(@project)
+      - evaluations = student.evaluations.for_project(@project)
       - if @project.name == 'Final Group Project'
         / No evaluation for final project
 

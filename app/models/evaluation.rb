@@ -57,6 +57,7 @@ class Evaluation < ApplicationRecord
   scope :newest_active_evaluations_first, -> { order(started_at: :desc) }
 
   scope :for_project, ->(project) { where(project_id: project.id) }
+  scope :for_student, ->(student) { where(student_id: student.id) }
   scope :after_date, ->(date) { where("evaluations.updated_at > ?", date) }
   scope :before_date, ->(date) { where("evaluations.updated_at < ?", date) }
   scope :exclude_autocomplete, -> { where.not(state: 'auto_accepted') }

@@ -10,7 +10,7 @@ table.table.students
   tbody
     /Future to-do: move this logic/database querying into the model
     - @projects.each do |project|
-      - evaluations = @student.evaluations_for(project)
+      - evaluations = @student.evaluations.for_project(project)
       - if evaluations.count > 1
         - evaluations.each do |evaluation|
           = render 'projects/evaluation_row', project: project, evaluation: evaluation, student: student

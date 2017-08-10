@@ -2,6 +2,7 @@ class Student < User
 
   has_many :day_feedbacks, foreign_key: :user_id
   has_many :feedbacks
+  has_many :evaluations
 
   scope :in_active_cohort, -> { joins(:cohort).merge(Cohort.is_active) }
   scope :has_open_requests, -> {
@@ -66,13 +67,4 @@ class Student < User
       'No Mentor'
     end
   end
-
-  def evaluations
-    Evaluation.where(student_id: id)
-  end
-
-  def evaluations_for(project)
-    Evaluation.where(student_id: id, project_id: project.id)
-  end
-
 end
