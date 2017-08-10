@@ -1,0 +1,15 @@
+- present evaluation, EvaluationPresenter do |evaluation_presenter|
+  tr
+    td.details data-value=evaluation.student.last_name
+      = evaluation_presenter.student_info
+    td
+      = evaluation_presenter.project_status
+
+    td.details
+      = evaluation_presenter.teacher_info
+    td
+      = evaluation_presenter.project
+    td
+      = evaluation_presenter.stats
+    td
+      = evaluation.updated_at.to_date

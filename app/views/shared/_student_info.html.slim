@@ -17,3 +17,7 @@ br
   span.label.label-danger = student.location.name
 - else
   span.label.label-primary = student.location.name
+br
+- if defined? show_cohort
+  = link_to admin_cohort_path(student.cohort.id)
+    span.label.label-info = student.cohort.name

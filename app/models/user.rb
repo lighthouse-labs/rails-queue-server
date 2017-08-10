@@ -165,7 +165,11 @@ class User < ApplicationRecord
   end
 
   def incomplete_activities
-    Activity.active.countable_as_submission.before_yesterday(cohort).where.not(id: complete_submissions).order(day: :desc)
+     if cohort.started? && !cohort.on_curriculum_day?('w1d1')
+      Activity.active.countable_as_submission.before_yesterday(cohort).where.not(id: complete_submissions).order(day: :desc)
+    else
+      Activity.none
+    end
   end
 
   def completed_code_reviews

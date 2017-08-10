@@ -1,0 +1,36 @@
+- provide :container,  'fluid'
+- provide :body_class, 'admin-evaluations-show'
+- title "Admin evaluations"
+
+header.page-header
+  h1 Project Evaluations
+
+.well
+  = render 'filters'
+
+= render 'stats'
+
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title
+          | Evaluations
+          = " (#{@evaluations.count} / #{@evaluations.total_count} results)"
+
+      .table-responsive
+        table.table.sortable
+          thead
+            tr
+              th Student
+              th Status
+              th Marker
+              th Project
+              th Stats
+              th Date
+          tbody
+            == render collection: @evaluations, partial: 'evaluation'
+          tfoot
+            tr
+              th colspan="6"
+                = paginate @evaluations, window: 2

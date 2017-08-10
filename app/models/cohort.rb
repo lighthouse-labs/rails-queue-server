@@ -34,6 +34,10 @@ class Cohort < ApplicationRecord
     start_date > Date.current
   end
 
+  def started?
+    start_date <= Date.current
+  end
+
   def active?
     start_date >= (Date.current - 8.weeks) && start_date <= Date.current
   end
@@ -51,6 +55,10 @@ class Cohort < ApplicationRecord
   def curriculum_day(date = nil)
     date ||= Date.current
     CurriculumDay.new(date, self)
+  end
+
+  def on_curriculum_day?(curriculum_day)
+    curriculum_day == CurriculumDay.new(Date.current, self).to_s
   end
 
   def student_locations

@@ -85,7 +85,7 @@ class CurriculumDay
   end
 
   def info
-    DayInfo.where(day: to_s).first
+    DayInfo.find_by(day: to_s)
   end
 
   def day_number

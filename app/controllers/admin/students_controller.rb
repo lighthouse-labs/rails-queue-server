@@ -1,12 +1,12 @@
 class Admin::StudentsController < Admin::BaseController
 
-  before_action :load_student, only: [:update, :edit, :destroy, :modal_content]
+  before_action :load_student, only: [:update, :edit, :destroy, :modal_content, :toggle_tech_interviews]
   before_action :prep_form, only: [:index, :edit]
 
   def index
     if params[:cohort_id]
       @current_cohort = Cohort.find(params[:cohort_id])
-      @students = @current_cohort.students
+      @students = @current_cohort.students.order(first_name: :asc)
     else
       @students = Student.all
     end
@@ -33,6 +33,15 @@ class Admin::StudentsController < Admin::BaseController
     @cohorts = Cohort.active_or_upcoming
     # @mentors = Teacher.mentors(@student.cohort.location)
     render layout: false
+  end
+
+  def toggle_tech_interviews
+    @student.suppress_tech_interviews = !@student.suppress_tech_interviews
+    if @student.save
+      render json: { status: "Success" }
+    else
+      render json: { status: 500, errors: @student.errors.full_messages }
+    end
   end
 
   private
