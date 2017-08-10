@@ -15,7 +15,7 @@ class Cohort < ApplicationRecord
 
   validates :code,  uniqueness: true,
                     presence:   true,
-                    format:     { with: /\A[-a-z]+\z/, allow_blank: true },
+                    format:     { with: /\A[0-9a-zA-Z]+\z/, allow_blank: true },
                     length:     { minimum: 3, allow_blank: true }
 
   scope :upcoming, -> { where('cohorts.start_date > ?', Date.current) }
@@ -32,6 +32,10 @@ class Cohort < ApplicationRecord
 
   def upcoming?
     start_date > Date.current
+  end
+
+  def started?
+    start_date <= Date.current
   end
 
   def active?
@@ -51,6 +55,10 @@ class Cohort < ApplicationRecord
   def curriculum_day(date = nil)
     date ||= Date.current
     CurriculumDay.new(date, self)
+  end
+
+  def on_curriculum_day?(curriculum_day)
+    curriculum_day == CurriculumDay.new(Date.current, self).to_s
   end
 
   def student_locations

@@ -13,7 +13,7 @@ class Content::LoadActivities
 
   def call
     activity_data  = load_all_activity_data
-    activity_data += load_all_activity_data('Teacher Resources')
+    activity_data += load_all_activity_data('Training')
     Content::ValidateUuids.call(collection: activity_data)
     build_records(activity_data)
   end

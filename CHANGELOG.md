@@ -1,54 +1,64 @@
 # Change Log
 
-## [Unreleased](https://github.com/lighthouse-labs/compass/tree/HEAD)
+## [2017.08.10.1100](https://github.com/lighthouse-labs/compass/tree/2017.08.10.1100) (2017-08-09)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.02.1130...2017.08.10.1100)
 
-[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.10.0930...HEAD)
+**Merged pull requests:**
 
-**Fixed bugs:**
+- Cosmetic update, because Don is incapable of remembering how Slim works. [\#319](https://github.com/lighthouse-labs/compass/pull/319) ([donburks](https://github.com/donburks))
+- Changed 'Teacher Resources' to 'Training' [\#318](https://github.com/lighthouse-labs/compass/pull/318) ([donburks](https://github.com/donburks))
+- Project Evaluations index for Admins [\#299](https://github.com/lighthouse-labs/compass/pull/299) ([wesley-wong](https://github.com/wesley-wong))
+- Added Rake task that removes assistance requests and tech interviews [\#292](https://github.com/lighthouse-labs/compass/pull/292) ([wesley-wong](https://github.com/wesley-wong))
+- Ability to Suppress Tech Interview [\#289](https://github.com/lighthouse-labs/compass/pull/289) ([wesley-wong](https://github.com/wesley-wong))
+- Assistances index for Admins [\#246](https://github.com/lighthouse-labs/compass/pull/246) ([wesley-wong](https://github.com/wesley-wong))
 
-- Incorrect Evaluation Time in Project Eval View [\#128](https://github.com/lighthouse-labs/compass/issues/128)
-- Error in Prep Course Code Evaluations [\#25](https://github.com/lighthouse-labs/compass/issues/25)
+## [2017.08.02.1130](https://github.com/lighthouse-labs/compass/tree/2017.08.02.1130) (2017-08-01)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.25.1030...2017.08.02.1130)
 
-**Closed issues:**
+**Merged pull requests:**
 
-- Project Evals – Rubric category ordering is ignored by Compass [\#261](https://github.com/lighthouse-labs/compass/issues/261)
-- Active Cohorts are not updated. [\#230](https://github.com/lighthouse-labs/compass/issues/230)
-- \(Minor, Low-Priority\) Is feedback still required for final project assistance requests? [\#174](https://github.com/lighthouse-labs/compass/issues/174)
-- Project Evaluations - should be more evaluator friendly [\#55](https://github.com/lighthouse-labs/compass/issues/55)
+- Added google analytic events for disconnects and reconnects [\#316](https://github.com/lighthouse-labs/compass/pull/316) ([jmatsuba](https://github.com/jmatsuba))
+- Revert "Activities Full Text Search" [\#310](https://github.com/lighthouse-labs/compass/pull/310) ([jmatsuba](https://github.com/jmatsuba))
+- Activities Full Text Search [\#287](https://github.com/lighthouse-labs/compass/pull/287) ([wesley-wong](https://github.com/wesley-wong))
+- RSpec Testing [\#279](https://github.com/lighthouse-labs/compass/pull/279) ([wesley-wong](https://github.com/wesley-wong))
+
+## [2017.07.25.1030](https://github.com/lighthouse-labs/compass/tree/2017.07.25.1030) (2017-07-24)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.17.1500...2017.07.25.1030)
+
+**Merged pull requests:**
+
+- Time.now to Time.current [\#301](https://github.com/lighthouse-labs/compass/pull/301) ([wesley-wong](https://github.com/wesley-wong))
+- Lecture Notes Image Width Fix [\#300](https://github.com/lighthouse-labs/compass/pull/300) ([wesley-wong](https://github.com/wesley-wong))
+- Incomplete activities now exclude [\#298](https://github.com/lighthouse-labs/compass/pull/298) ([wesley-wong](https://github.com/wesley-wong))
+- Incomplete activities fix, footer fix [\#295](https://github.com/lighthouse-labs/compass/pull/295) ([wesley-wong](https://github.com/wesley-wong))
+
+## [2017.07.17.1500](https://github.com/lighthouse-labs/compass/tree/2017.07.17.1500) (2017-07-17)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.10.0930...2017.07.17.1500)
+
+**Merged pull requests:**
+
+- hotfix - migration fix - explicitly use a cast in the migration [\#293](https://github.com/lighthouse-labs/compass/pull/293) ([jmatsuba](https://github.com/jmatsuba))
+- Ugly Project Nav [\#291](https://github.com/lighthouse-labs/compass/pull/291) ([wesley-wong](https://github.com/wesley-wong))
+- Updated readme to include Queue setup [\#290](https://github.com/lighthouse-labs/compass/pull/290) ([wesley-wong](https://github.com/wesley-wong))
+- A simple white footer [\#288](https://github.com/lighthouse-labs/compass/pull/288) ([wesley-wong](https://github.com/wesley-wong))
+- Project Evaluation Rubric Order / Changed Fix [\#286](https://github.com/lighthouse-labs/compass/pull/286) ([jmatsuba](https://github.com/jmatsuba))
+- Update Readme with new Tag Syntax [\#275](https://github.com/lighthouse-labs/compass/pull/275) ([jmatsuba](https://github.com/jmatsuba))
+- Project Evals Queue Logic Change [\#256](https://github.com/lighthouse-labs/compass/pull/256) ([jmatsuba](https://github.com/jmatsuba))
+- Student Incomplete activities [\#254](https://github.com/lighthouse-labs/compass/pull/254) ([wesley-wong](https://github.com/wesley-wong))
 
 ## [2017.07.10.0930](https://github.com/lighthouse-labs/compass/tree/2017.07.10.0930) (2017-07-05)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.9...2017.07.10.0930)
 
-**Implemented enhancements:**
-
-- Code challenge activities should ask students for actuals [\#242](https://github.com/lighthouse-labs/compass/issues/242)
-- Only active students and teachers should see Teachers on Duty [\#149](https://github.com/lighthouse-labs/compass/issues/149)
-- 252 Student\#index UI Fixes [\#253](https://github.com/lighthouse-labs/compass/pull/253) ([jmatsuba](https://github.com/jmatsuba))
-- 242 Code Challenge Actuals [\#250](https://github.com/lighthouse-labs/compass/pull/250) ([wesley-wong](https://github.com/wesley-wong))
-
-**Fixed bugs:**
-
-- Prep Quizes Data [\#234](https://github.com/lighthouse-labs/compass/issues/234)
-- Tech interviews don't appear in the queue for one mentor [\#183](https://github.com/lighthouse-labs/compass/issues/183)
-
-**Closed issues:**
-
-- Consider Closing [\#271](https://github.com/lighthouse-labs/compass/issues/271)
-- Fix minor UI / UX annoyances on the students\#index page [\#252](https://github.com/lighthouse-labs/compass/issues/252)
-- EM dashboard should display all projects and statuses [\#241](https://github.com/lighthouse-labs/compass/issues/241)
-
 **Merged pull requests:**
 
 - 149 Do Not Show On Duty Teachers to Inactive Students [\#257](https://github.com/lighthouse-labs/compass/pull/257) ([jmatsuba](https://github.com/jmatsuba))
+- 252 Student\#index UI Fixes [\#253](https://github.com/lighthouse-labs/compass/pull/253) ([jmatsuba](https://github.com/jmatsuba))
+- 242 Code Challenge Actuals [\#250](https://github.com/lighthouse-labs/compass/pull/250) ([wesley-wong](https://github.com/wesley-wong))
 - Updates project notes to be consistent with curriculum repo [\#232](https://github.com/lighthouse-labs/compass/pull/232) ([hora](https://github.com/hora))
 - Proposed wording for new tech interview focus [\#209](https://github.com/lighthouse-labs/compass/pull/209) ([donburks](https://github.com/donburks))
 
 ## [v2.0.9](https://github.com/lighthouse-labs/compass/tree/v2.0.9) (2017-03-15)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.8...v2.0.9)
-
-**Closed issues:**
-
-- TI queue is giving me Toronto TIs [\#203](https://github.com/lighthouse-labs/compass/issues/203)
 
 **Merged pull requests:**
 
@@ -67,10 +77,6 @@
 ## [v2.0.8](https://github.com/lighthouse-labs/compass/tree/v2.0.8) (2017-01-12)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.7...v2.0.8)
 
-**Fixed bugs:**
-
-- Project eval page truncates teacher notes [\#167](https://github.com/lighthouse-labs/compass/issues/167)
-
 **Merged pull requests:**
 
 - Project evals now have final score [\#199](https://github.com/lighthouse-labs/compass/pull/199) ([kvirani](https://github.com/kvirani))
@@ -78,222 +84,88 @@
 ## [v2.0.7](https://github.com/lighthouse-labs/compass/tree/v2.0.7) (2017-01-11)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.6...v2.0.7)
 
-**Implemented enhancements:**
-
-- Admin dashboard to-date change [\#196](https://github.com/lighthouse-labs/compass/issues/196)
-- Link teachers to student profile page in queue  [\#192](https://github.com/lighthouse-labs/compass/issues/192)
-- Add link to student profile page from name in queue [\#193](https://github.com/lighthouse-labs/compass/pull/193) ([shannonjanehogan](https://github.com/shannonjanehogan))
-
 **Merged pull requests:**
 
 - Fixes \#196 [\#197](https://github.com/lighthouse-labs/compass/pull/197) ([kvirani](https://github.com/kvirani))
+- Add link to student profile page from name in queue [\#193](https://github.com/lighthouse-labs/compass/pull/193) ([shannonjanehogan](https://github.com/shannonjanehogan))
 
 ## [v2.0.6](https://github.com/lighthouse-labs/compass/tree/v2.0.6) (2016-12-12)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.5...v2.0.6)
 
-**Fixed bugs:**
+**Merged pull requests:**
 
-- Teacher/Evaluations throws error if evaluation is not completed  [\#189](https://github.com/lighthouse-labs/compass/issues/189)
-- Teacher/Assistances Page throws error if the assistances don't have an activity  [\#187](https://github.com/lighthouse-labs/compass/issues/187)
-- Fix Bootcamp Tab [\#171](https://github.com/lighthouse-labs/compass/issues/171)
-- Continuing a Project Eval from the summary page results in 500 [\#106](https://github.com/lighthouse-labs/compass/issues/106)
-- All students are incorrectly labeled as being from Toronto [\#53](https://github.com/lighthouse-labs/compass/issues/53)
 - Add check if the evaluation is in progress [\#190](https://github.com/lighthouse-labs/compass/pull/190) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Add check to see if assistance has an associated activity [\#188](https://github.com/lighthouse-labs/compass/pull/188) ([shannonjanehogan](https://github.com/shannonjanehogan))
 
 ## [v2.0.5](https://github.com/lighthouse-labs/compass/tree/v2.0.5) (2016-12-06)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.4...v2.0.5)
 
-**Implemented enhancements:**
-
-- Google Analytics Tracking [\#180](https://github.com/lighthouse-labs/compass/issues/180)
-- Fix CSS/UI for Student Profile Page [\#172](https://github.com/lighthouse-labs/compass/issues/172)
-- Fix Completion Tab [\#168](https://github.com/lighthouse-labs/compass/issues/168)
-- Project Eval management/index for Teachers [\#160](https://github.com/lighthouse-labs/compass/issues/160)
-- Rollback students cause bugs in the Project Evals page [\#145](https://github.com/lighthouse-labs/compass/issues/145)
-- Include the topic icon on next/previous [\#139](https://github.com/lighthouse-labs/compass/issues/139)
-- Feature/171 fix bootcamp tab [\#177](https://github.com/lighthouse-labs/compass/pull/177) ([shannonjanehogan](https://github.com/shannonjanehogan))
-- Feature/160 project eval improvements [\#176](https://github.com/lighthouse-labs/compass/pull/176) ([shannonjanehogan](https://github.com/shannonjanehogan))
-
-**Fixed bugs:**
-
-- Default every mentor to being able to see tech interview in the queue [\#184](https://github.com/lighthouse-labs/compass/issues/184)
-- Students see the wrong assistance question [\#179](https://github.com/lighthouse-labs/compass/issues/179)
-- Student Profile Page- many small fixes needed [\#151](https://github.com/lighthouse-labs/compass/issues/151)
-- Feature/184 default interview queue [\#186](https://github.com/lighthouse-labs/compass/pull/186) ([shannonjanehogan](https://github.com/shannonjanehogan))
-- Fix bug- assistance request reason now shows correct reason [\#181](https://github.com/lighthouse-labs/compass/pull/181) ([shannonjanehogan](https://github.com/shannonjanehogan))
-- Add method and check for evaluation rollover status [\#162](https://github.com/lighthouse-labs/compass/pull/162) ([shannonjanehogan](https://github.com/shannonjanehogan))
-
-**Closed issues:**
-
-- Integrate google analytics [\#178](https://github.com/lighthouse-labs/compass/issues/178)
-- Teachers: ability to view own activity [\#97](https://github.com/lighthouse-labs/compass/issues/97)
-
 **Merged pull requests:**
 
+- Feature/184 default interview queue [\#186](https://github.com/lighthouse-labs/compass/pull/186) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Feature/97 teachers activity [\#185](https://github.com/lighthouse-labs/compass/pull/185) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Feature/178 integrate google analytics [\#182](https://github.com/lighthouse-labs/compass/pull/182) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Fix bug- assistance request reason now shows correct reason [\#181](https://github.com/lighthouse-labs/compass/pull/181) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/171 fix bootcamp tab [\#177](https://github.com/lighthouse-labs/compass/pull/177) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Feature/160 project eval improvements [\#176](https://github.com/lighthouse-labs/compass/pull/176) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add method and check for evaluation rollover status [\#162](https://github.com/lighthouse-labs/compass/pull/162) ([shannonjanehogan](https://github.com/shannonjanehogan))
 
 ## [v2.0.4](https://github.com/lighthouse-labs/compass/tree/v2.0.4) (2016-11-28)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.3...v2.0.4)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
-- Fix Prep Activities Completed Status Bar [\#170](https://github.com/lighthouse-labs/compass/issues/170)
-- Fix Submissions Tab  [\#169](https://github.com/lighthouse-labs/compass/issues/169)
-- Remove edit button for questions\#index [\#136](https://github.com/lighthouse-labs/compass/issues/136)
-- Descriptive Tab Titles  [\#81](https://github.com/lighthouse-labs/compass/issues/81)
+- Fix prep tab on student profile- activity bar calculates correctly [\#175](https://github.com/lighthouse-labs/compass/pull/175) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Change submissions tab to tech interviews info tab [\#173](https://github.com/lighthouse-labs/compass/pull/173) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Add titles to all view files [\#158](https://github.com/lighthouse-labs/compass/pull/158) ([shannonjanehogan](https://github.com/shannonjanehogan))
-- Remove edit/delete capability from question and quizzes pages [\#156](https://github.com/lighthouse-labs/compass/pull/156) ([shannonjanehogan](https://github.com/shannonjanehogan))
-
-**Fixed bugs:**
-
-- Drop column `allow\_feedback` from `activities` [\#148](https://github.com/lighthouse-labs/compass/issues/148)
-- Submission counting for quizzes [\#83](https://github.com/lighthouse-labs/compass/issues/83)
-- Error when teachers try to continue evaluation from project access point  [\#56](https://github.com/lighthouse-labs/compass/issues/56)
-- 500 error on TI submission, left in invalid state? [\#19](https://github.com/lighthouse-labs/compass/issues/19)
-- Fix prep tab on student profile- activity bar calculates correctly [\#175](https://github.com/lighthouse-labs/compass/pull/175) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Remove edit/delete capability from question and quizzes pages [\#156](https://github.com/lighthouse-labs/compass/pull/156) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Fix error caused by link to continue marking on projects index page [\#155](https://github.com/lighthouse-labs/compass/pull/155) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Remove allow feedback column from activities and references to it [\#152](https://github.com/lighthouse-labs/compass/pull/152) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Remove repeat outcomes for projects, and quizzes [\#127](https://github.com/lighthouse-labs/compass/pull/127) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Add extra limitations to only show answers from initial quiz attempt [\#91](https://github.com/lighthouse-labs/compass/pull/91) ([shannonjanehogan](https://github.com/shannonjanehogan))
 
-**Closed issues:**
-
-- Quizzes have repeated outcomes [\#86](https://github.com/lighthouse-labs/compass/issues/86)
-
 ## [v2.0.3](https://github.com/lighthouse-labs/compass/tree/v2.0.3) (2016-11-24)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.2...v2.0.3)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
-- Admin: Ability to move students to "prep only" status [\#157](https://github.com/lighthouse-labs/compass/issues/157)
-- Help students identify mentors when giving feedback [\#141](https://github.com/lighthouse-labs/compass/issues/141)
-- Performance Improvements for Nav Bar  [\#140](https://github.com/lighthouse-labs/compass/issues/140)
-- Project Eval Summary Page should show students who have not submitted yet [\#130](https://github.com/lighthouse-labs/compass/issues/130)
-- Satellite students should see "Request Remote Assistance" [\#126](https://github.com/lighthouse-labs/compass/issues/126)
-- Admin: Allow removing student from cohort [\#100](https://github.com/lighthouse-labs/compass/issues/100)
-- Suggestion: In queue, in the "requests" list, Activity should be linked to activity page [\#72](https://github.com/lighthouse-labs/compass/issues/72)
+- Fix bug so that correct student location appears regardless of mentor's cohort [\#166](https://github.com/lighthouse-labs/compass/pull/166) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Add icon to next and previous buttons for more clarity [\#165](https://github.com/lighthouse-labs/compass/pull/165) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Add functionality to revert student to prep only access [\#164](https://github.com/lighthouse-labs/compass/pull/164) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Fix bug- assign attributes does not save the attributes [\#163](https://github.com/lighthouse-labs/compass/pull/163) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add error handling for transition from rejected to cancelled [\#159](https://github.com/lighthouse-labs/compass/pull/159) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Add conditions to busy method to include evaluations and tech interviews [\#154](https://github.com/lighthouse-labs/compass/pull/154) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Change activity name to link to the activity\#show page [\#153](https://github.com/lighthouse-labs/compass/pull/153) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Feature/141 identify mentors [\#146](https://github.com/lighthouse-labs/compass/pull/146) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Refactor days/today view with performance enhancements [\#142](https://github.com/lighthouse-labs/compass/pull/142) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add if statement to prevent feedback for lectures and breakouts [\#138](https://github.com/lighthouse-labs/compass/pull/138) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Feature/126 request remote assistance [\#133](https://github.com/lighthouse-labs/compass/pull/133) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Feature/40 no remote activity editing [\#85](https://github.com/lighthouse-labs/compass/pull/85) ([shannonjanehogan](https://github.com/shannonjanehogan))
-
-**Fixed bugs:**
-
-- Tech Interview does not update properly from final step [\#161](https://github.com/lighthouse-labs/compass/issues/161)
-- 500 error on projects\#show with invalid slug [\#147](https://github.com/lighthouse-labs/compass/issues/147)
-- Project Submission Error \(When cancelling rejected projects\)  [\#124](https://github.com/lighthouse-labs/compass/issues/124)
-- For lectures, dont allow activity\_feedback [\#47](https://github.com/lighthouse-labs/compass/issues/47)
-- View Student Profile Page Error [\#21](https://github.com/lighthouse-labs/compass/issues/21)
-- Vancouver student is displayed as Toronto student on project evaluation page [\#20](https://github.com/lighthouse-labs/compass/issues/20)
-- Fix bug so that correct student location appears regardless of mentor's cohort [\#166](https://github.com/lighthouse-labs/compass/pull/166) ([shannonjanehogan](https://github.com/shannonjanehogan))
-- Fix bug- assign attributes does not save the attributes [\#163](https://github.com/lighthouse-labs/compass/pull/163) ([shannonjanehogan](https://github.com/shannonjanehogan))
-- Add error handling for transition from rejected to cancelled [\#159](https://github.com/lighthouse-labs/compass/pull/159) ([shannonjanehogan](https://github.com/shannonjanehogan))
-- Add if statement to prevent feedback for lectures and breakouts [\#138](https://github.com/lighthouse-labs/compass/pull/138) ([shannonjanehogan](https://github.com/shannonjanehogan))
-
-**Closed issues:**
-
-- Evaluation is 'NaN Years from now' [\#137](https://github.com/lighthouse-labs/compass/issues/137)
-- Student profile page image seems to be sourced badly [\#134](https://github.com/lighthouse-labs/compass/issues/134)
-- Feature Request: Add Student To Feedback [\#132](https://github.com/lighthouse-labs/compass/issues/132)
-- Update visualization for project evaluations [\#87](https://github.com/lighthouse-labs/compass/issues/87)
-- No advanced lecture activity \(no way to upload advanced lecture videos\) [\#75](https://github.com/lighthouse-labs/compass/issues/75)
-- Starting Project Evaluation does not mark me as busy [\#54](https://github.com/lighthouse-labs/compass/issues/54)
-- \[Midterm\] Multiple Projects Evals [\#49](https://github.com/lighthouse-labs/compass/issues/49)
-- Activities that are remote should not be editable by teachers/admins. [\#40](https://github.com/lighthouse-labs/compass/issues/40)
 
 ## [v2.0.2](https://github.com/lighthouse-labs/compass/tree/v2.0.2) (2016-11-07)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.1...v2.0.2)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Admin: List of ALL Users and ability to deactivate them [\#125](https://github.com/lighthouse-labs/compass/pull/125) ([shannonjanehogan](https://github.com/shannonjanehogan))
 
-**Fixed bugs:**
-
-- Tech Interview stats - Need to round average score [\#110](https://github.com/lighthouse-labs/compass/issues/110)
-
-**Closed issues:**
-
-- Projects page incorrectly shows projects with progress that have not been started yet [\#116](https://github.com/lighthouse-labs/compass/issues/116)
-- Admin: List of ALL Users and ability to deactivate them [\#41](https://github.com/lighthouse-labs/compass/issues/41)
-
 ## [v2.0.1](https://github.com/lighthouse-labs/compass/tree/v2.0.1) (2016-10-31)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/v2.0.0...v2.0.1)
-
-**Fixed bugs:**
-
-- Rollover student sees incorrect project eval status [\#129](https://github.com/lighthouse-labs/compass/issues/129)
-- Tweeter Project Eval page image rendering issue [\#114](https://github.com/lighthouse-labs/compass/issues/114)
-
-**Closed issues:**
-
-- Admin: activities list  [\#131](https://github.com/lighthouse-labs/compass/issues/131)
 
 **Merged pull requests:**
 
 - Add missing styling to images, same as the styling for the images on projects\#show [\#123](https://github.com/lighthouse-labs/compass/pull/123) ([shannonjanehogan](https://github.com/shannonjanehogan))
 
 ## [v2.0.0](https://github.com/lighthouse-labs/compass/tree/v2.0.0) (2016-10-26)
-**Implemented enhancements:**
-
-- Lectures notes not visible to students [\#117](https://github.com/lighthouse-labs/compass/issues/117)
-- Tech interview generator should prioritize junior cohort [\#109](https://github.com/lighthouse-labs/compass/issues/109)
-- post a notification on Slack every time there is a curriculum deployment [\#29](https://github.com/lighthouse-labs/compass/issues/29)
-- Move Eval "Start" button into action bar [\#24](https://github.com/lighthouse-labs/compass/issues/24)
-- Add support for Users.auth\_token authentication before session auth [\#92](https://github.com/lighthouse-labs/compass/pull/92) ([interlock](https://github.com/interlock))
-
-**Fixed bugs:**
-
-- Lectures notes not visible to students [\#117](https://github.com/lighthouse-labs/compass/issues/117)
-- Assistance Queue: Satellite mentors do not see anything under "All Students" [\#108](https://github.com/lighthouse-labs/compass/issues/108)
-- Tweeter Project \(and possibly more\) cannot be evaluated [\#104](https://github.com/lighthouse-labs/compass/issues/104)
-- Tech interview creator not working for W3 onward. [\#93](https://github.com/lighthouse-labs/compass/issues/93)
-- Error when attempting to access GET/prep/assistance\_requests [\#89](https://github.com/lighthouse-labs/compass/issues/89)
-- Change display to round to one decimal point to improve UI [\#122](https://github.com/lighthouse-labs/compass/pull/122) ([shannonjanehogan](https://github.com/shannonjanehogan))
-- Add additional filter criteria to limit completed project evals to currently selected cohort [\#121](https://github.com/lighthouse-labs/compass/pull/121) ([shannonjanehogan](https://github.com/shannonjanehogan))
-
-**Closed issues:**
-
-- Admin - cohort student management UI improvements [\#119](https://github.com/lighthouse-labs/compass/issues/119)
-- Compass unusable / broken in development - Rails5 bug [\#113](https://github.com/lighthouse-labs/compass/issues/113)
-- Typo regarding project continuatioon [\#111](https://github.com/lighthouse-labs/compass/issues/111)
-- Student who has dropped course still shows up in tech interview queue [\#105](https://github.com/lighthouse-labs/compass/issues/105)
-- Archived Tech interview questions still prompted [\#103](https://github.com/lighthouse-labs/compass/issues/103)
-- Admin: Ability to roll over students [\#98](https://github.com/lighthouse-labs/compass/issues/98)
-- No method error when accessing admin/curriculum feedbacks  [\#94](https://github.com/lighthouse-labs/compass/issues/94)
-- Default to current day when teacher/admin switches cohort [\#84](https://github.com/lighthouse-labs/compass/issues/84)
-- Error when submitting project evaluation for Chatty App [\#67](https://github.com/lighthouse-labs/compass/issues/67)
-- Project Evaluations - Re-submit broken [\#65](https://github.com/lighthouse-labs/compass/issues/65)
-- admin prep stats show inactive users [\#63](https://github.com/lighthouse-labs/compass/issues/63)
-- \[student feedback\] datestamp? [\#60](https://github.com/lighthouse-labs/compass/issues/60)
-- Admin - ability to view stats for prep-only \(non-cohort\) students [\#58](https://github.com/lighthouse-labs/compass/issues/58)
-- admin curriculum feedback - link to activity [\#57](https://github.com/lighthouse-labs/compass/issues/57)
-- Add extra information to student tech interview results e-mail  [\#46](https://github.com/lighthouse-labs/compass/issues/46)
-- Projects: There should be no evaluation workflow for midterm/final projects [\#44](https://github.com/lighthouse-labs/compass/issues/44)
-- Admin -\> Teacher Feedback. Initial page load SUPER slow on production [\#42](https://github.com/lighthouse-labs/compass/issues/42)
-- Intro Course: Day Feedback available at all time [\#37](https://github.com/lighthouse-labs/compass/issues/37)
-- Admin: can't move student into upcoming cohort  [\#36](https://github.com/lighthouse-labs/compass/issues/36)
-- Queue: Project evals not sorted correctly [\#35](https://github.com/lighthouse-labs/compass/issues/35)
-- Better New issue button [\#34](https://github.com/lighthouse-labs/compass/issues/34)
-- Quiz question updates do not sync [\#32](https://github.com/lighthouse-labs/compass/issues/32)
-- view project status pills on `/projects` \(for Students & Teachers\) [\#27](https://github.com/lighthouse-labs/compass/issues/27)
-- Project evaluator should be able to see previous teacher notes [\#26](https://github.com/lighthouse-labs/compass/issues/26)
-- For students display tech interview results on the show page if it is completed. [\#23](https://github.com/lighthouse-labs/compass/issues/23)
-
 **Merged pull requests:**
 
+- Change display to round to one decimal point to improve UI [\#122](https://github.com/lighthouse-labs/compass/pull/122) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add additional filter criteria to limit completed project evals to currently selected cohort [\#121](https://github.com/lighthouse-labs/compass/pull/121) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Feature/117 lecture notes bug [\#120](https://github.com/lighthouse-labs/compass/pull/120) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Fixed 'underetanding' =\> 'understanding' [\#107](https://github.com/lighthouse-labs/compass/pull/107) ([sytantris](https://github.com/sytantris))
 - Admin rollover functionality [\#99](https://github.com/lighthouse-labs/compass/pull/99) ([kvirani](https://github.com/kvirani))
 - Add exception handling for users where first/last name = nil [\#95](https://github.com/lighthouse-labs/compass/pull/95) ([shannonjanehogan](https://github.com/shannonjanehogan))
+- Add support for Users.auth\_token authentication before session auth [\#92](https://github.com/lighthouse-labs/compass/pull/92) ([interlock](https://github.com/interlock))
 - Refactor code to handle exception cases for faulty params\[:id\] [\#90](https://github.com/lighthouse-labs/compass/pull/90) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Feature/23 display tech interview results [\#79](https://github.com/lighthouse-labs/compass/pull/79) ([shannonjanehogan](https://github.com/shannonjanehogan))
 - Add link to tech interview in student email notification [\#78](https://github.com/lighthouse-labs/compass/pull/78) ([shannonjanehogan](https://github.com/shannonjanehogan))

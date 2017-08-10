@@ -8,6 +8,7 @@ class StopTechInterview
     @location       = @tech_interview.cohort.location
 
     @tech_interview.started_at = nil
+    TechInterviewResult.where(tech_interview_id: @tech_interview.id).delete_all
 
     if @tech_interview.save
       broadcast_to_queue

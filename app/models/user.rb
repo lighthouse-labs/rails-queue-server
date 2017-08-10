@@ -92,7 +92,7 @@ class User < ApplicationRecord
   end
 
   def deactivate!
-    update! deactivated_at: Time.now
+    update! deactivated_at: Time.current
   end
 
   def reactivate!
@@ -163,7 +163,11 @@ class User < ApplicationRecord
   end
 
   def incomplete_activities
-    Activity.where.not(id: activity_submissions.select(:activity_id)).where("day <= ?", CurriculumDay.new(Time.zone.yesterday, cohort).to_s).order(day: :desc)
+    if cohort.started? && !cohort.on_curriculum_day?('w1d1')
+      Activity.active.countable_as_submission.where.not(id: activity_submissions.select(:activity_id)).where("day <= ?", CurriculumDay.new(Time.current.yesterday, cohort).to_s).order(day: :desc)
+    else
+      Activity.none
+    end
   end
 
   def completed_code_reviews

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe AssistanceRequest do
   it 'has a valid factory' do
@@ -43,31 +43,31 @@ describe AssistanceRequest do
 
   describe '#open?' do
     it 'returns true if the request is not cancelled and does not have an assistance' do
-      expect(create(:assistance_request).open?).to be_true
+      expect(create(:assistance_request).open?).to be true
     end
     it 'returns false if the request is canceled' do
-      expect(create(:canceled_assistance_request).open?).to be_false
+      expect(create(:canceled_assistance_request).open?).to be false
     end
     it 'returns false if the request is in progress' do
-      expect(create(:in_progress_assistance_request).open?).to be_false
+      expect(create(:in_progress_assistance_request).open?).to be false
     end
     it 'returns false if the request is completed' do
-      expect(create(:completed_assistance_request).open?).to be_false
+      expect(create(:completed_assistance_request).open?).to be false
     end
   end
 
   describe '#in_progress?' do
     it 'returns true if the request is not cancelled and has an assistance that has not ended' do
-      expect(create(:in_progress_assistance_request).in_progress?).to be_true
+      expect(create(:in_progress_assistance_request).in_progress?).to be true
     end
     it 'returns false if the request is canceled' do
-      expect(create(:canceled_assistance_request).in_progress?).to be_false
+      expect(create(:canceled_assistance_request).in_progress?).to be false
     end
     it 'returns false if the request is open' do
-      expect(create(:assistance_request).in_progress?).to be_false
+      expect(create(:assistance_request).in_progress?).to be_falsey
     end
     it 'returns false if the request has an assistance that has ended' do
-      expect(create(:completed_assistance_request).in_progress?).to be_false
+      expect(create(:completed_assistance_request).in_progress?).to be false
     end
   end
 
