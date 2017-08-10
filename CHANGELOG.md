@@ -1,5 +1,17 @@
 # Change Log
 
+## [2017.08.10.1100](https://github.com/lighthouse-labs/compass/tree/2017.08.10.1100) (2017-08-09)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.02.1130...2017.08.10.1100)
+
+**Merged pull requests:**
+
+- Cosmetic update, because Don is incapable of remembering how Slim works. [\#319](https://github.com/lighthouse-labs/compass/pull/319) ([donburks](https://github.com/donburks))
+- Changed 'Teacher Resources' to 'Training' [\#318](https://github.com/lighthouse-labs/compass/pull/318) ([donburks](https://github.com/donburks))
+- Project Evaluations index for Admins [\#299](https://github.com/lighthouse-labs/compass/pull/299) ([wesley-wong](https://github.com/wesley-wong))
+- Added Rake task that removes assistance requests and tech interviews [\#292](https://github.com/lighthouse-labs/compass/pull/292) ([wesley-wong](https://github.com/wesley-wong))
+- Ability to Suppress Tech Interview [\#289](https://github.com/lighthouse-labs/compass/pull/289) ([wesley-wong](https://github.com/wesley-wong))
+- Assistances index for Admins [\#246](https://github.com/lighthouse-labs/compass/pull/246) ([wesley-wong](https://github.com/wesley-wong))
+
 ## [2017.08.02.1130](https://github.com/lighthouse-labs/compass/tree/2017.08.02.1130) (2017-08-01)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.25.1030...2017.08.02.1130)
 
