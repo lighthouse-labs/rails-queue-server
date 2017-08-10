@@ -166,7 +166,7 @@ class User < ApplicationRecord
 
   def incomplete_activities
      if cohort.started? && !cohort.on_curriculum_day?('w1d1')
-      Activity.active.countable_as_submission.before_yesterday(cohort).where.not(id: complete_submissions).order(day: :desc)
+      Activity.active.countable_as_submission.past_due_for_cohort(cohort).where.not(id: complete_submissions).order(day: :desc)
     else
       Activity.none
     end
