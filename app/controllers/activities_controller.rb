@@ -12,28 +12,9 @@ class ActivitiesController < ApplicationController
   before_action :load_form_url, only: [:new, :edit]
 
   def index
-    @activities = Activity
-    if params[:term].present?
-      @activities = @activities.search(params[:term])
-      @activities = @activities.where.not(day: nil)
-    end
-
-    @activities = @activities.active unless teacher? || admin?
-
-    respond_to do |format|
-      format.html
-      format.js { render json: @activities, each_serializer: ActivitySerializer, root: false }
-    end
-  end
-
-  def new
-    @activity = Activity.new(day: params[:day_number])
-    if @section
-      @activity.section = @section
-      @form_url = [@section, :activities]
-    else
-      @form_url = day_activities_path(params[:day_number])
-    end
+    @activities = Activity.active.order(average_rating: :desc)
+    apply_filters
+    @activities = @activities.page(params[:page])
   end
 
   def create
