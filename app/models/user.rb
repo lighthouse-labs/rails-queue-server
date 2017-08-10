@@ -159,9 +159,14 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def complete_submissions
+    # Code evaluated activities need to be finalized, other activies only need to have time spent
+    activity_submissions.where(finalized: true).or(activity_submissions.where.not(time_spent: nil)).select(:activity_id)
+  end
+
   def incomplete_activities
-    if cohort.started? && !cohort.on_curriculum_day?('w1d1')
-      Activity.active.countable_as_submission.where.not(id: activity_submissions.select(:activity_id)).where("day <= ?", CurriculumDay.new(Time.current.yesterday, cohort).to_s).order(day: :desc)
+     if cohort.started? && !cohort.on_curriculum_day?('w1d1')
+      Activity.active.countable_as_submission.past_due_for_cohort(cohort).where.not(id: complete_submissions).order(day: :desc)
     else
       Activity.none
     end
