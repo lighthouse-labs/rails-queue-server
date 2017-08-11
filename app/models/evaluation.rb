@@ -66,7 +66,7 @@ class Evaluation < ApplicationRecord
   scope :cancelled, -> { where(state: 'cancelled') }
   scope :in_progress, -> { where(state: 'in_progress') }
   scope :accepted, -> { where(state: 'accepted') }
-  scope :rejected, -> { where(state: 'rejected')  }
+  scope :rejected, -> { where(state: 'rejected') }
   scope :auto_accepted, -> { where(state: 'auto_accepted') }
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
