@@ -4,11 +4,10 @@
       = evaluation_presenter.student_info
     td
       = evaluation_presenter.project_status
-
     td.details
       = evaluation_presenter.teacher_info
     td
-      = evaluation_presenter.project
+      = evaluation_presenter.project(include_link = true)
     td
       = evaluation_presenter.stats
     td

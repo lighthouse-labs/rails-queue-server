@@ -1,0 +1,21 @@
+class ProjectPresenter < BasePresenter
+    presents :project
+
+		def student_info(student)
+			content_tag(:div, render('shared/student_info', student: student), class: 'student-info')
+		end
+
+		def student_project_status
+			project_week = project.end_day[1].to_i
+			if cohort.week > project_week
+				result = content_tag(:span, 'Overdue', class: 'label label-danger')
+			elsif cohort.week == project_week
+				result = content_tag(:span, 'This Week', class: 'label label-info')
+			elsif cohort.week + 1 == project_week
+				result = content_tag(:span, 'Next Week', class: 'label label-info')
+			else
+				result = content_tag(:span, 'Pending', class: 'label label-info') 
+			end
+			result
+    end
+end

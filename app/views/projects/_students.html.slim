@@ -10,25 +10,16 @@ table.table.students
     - cohort.students.active.order_by_first_name.each do |student|
       - evaluations = student.evaluations.for_project(@project)
       - if @project.name == 'Final Group Project'
-        / No evaluation for final project
-
+        / No evaluations for final project
       - elsif evaluations.empty?
         / Show student with a status label
         tr
-          td.details data-value=student.last_name
-            .student-info
-              = render 'shared/student_info', student: student
-          td.details data-value=@project_week
-            - if cohort.week > @project_week
-              span.label.label-danger Overdue
-            - elsif cohort.week == @project_week
-              span.label.label-info This Week
-            - elsif cohort.week + 1 == @project_week
-              span.label.label-info Next Week
-            - else
-              span.label.label-info Pending
-
+          - present @project, ProjectPresenter do |project_presenter|
+            td.details
+              = project_presenter.student_info(student)
+            td.details
+              = project_presenter.student_project_status
       - else
         / Show only most recent evaluation for student
         - evaluation = evaluations.newest_completed_first.first
-        = render 'projects/evaluation_row', evaluation: evaluation, student: student, project: @project
+        = render 'projects/evaluation_row', evaluation: evaluation, student: student, project: @project, show: 'student'

@@ -6,6 +6,7 @@ class Teacher::StudentsController < Teacher::BaseController
 
   def show
     @projects = Project.all
+    @evaluations = Evaluation.where(student_id: @student.id)
   end
 
   private

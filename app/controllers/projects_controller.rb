@@ -8,7 +8,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project = find_project
-    @project_week = @project.end_day[1].to_i
   end
 
   private
