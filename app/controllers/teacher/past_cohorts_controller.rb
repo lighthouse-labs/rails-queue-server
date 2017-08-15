@@ -10,24 +10,17 @@ class Teacher::PastCohortsController < Teacher::BaseController
 
   def apply_filters
     filter_by_active_at_date
-    filter_started_before_date
     filter_started_after_date
+    filter_started_before_date
     filter_by_location
     filter_by_status
     filter_by_keywords
   end
 
   def filter_by_active_at_date
-    if params[:date].present?
-      date = Date.parse(params[:date])
+    if params[:active_at].present?
+      date = Date.parse(params[:active_at])
       @cohorts = @cohorts.starts_between(date - 8.weeks, date)
-    end
-  end
-
-  def filter_started_before_date
-    if params[:started_before_date].present?
-      date = Date.parse(params[:started_before_date])
-      @cohorts = @cohorts.started_before(date)
     end
   end
 
@@ -35,6 +28,13 @@ class Teacher::PastCohortsController < Teacher::BaseController
     if params[:started_after_date].present?
       date = Date.parse(params[:started_after_date])
       @cohorts = @cohorts.started_after(date)
+    end
+  end
+
+  def filter_started_before_date
+    if params[:started_before_date].present?
+      date = Date.parse(params[:started_before_date])
+      @cohorts = @cohorts.started_before(date)
     end
   end
 
