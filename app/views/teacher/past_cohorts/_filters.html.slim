@@ -17,7 +17,7 @@
       input type='date' class='form-control' name='started_after_date' value=params[:started_after_date]
     
     .form-group
-      label Lectures
+      label Location
       = select_tag :location_id, options_from_collection_for_select(Location.all, :id, :name, params[:location_id]), prompt: 'All Locations', class: "form-control teacher-past-cohorts-dropdown"
 
     .form-group
