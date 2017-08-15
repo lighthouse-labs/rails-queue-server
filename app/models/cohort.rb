@@ -18,13 +18,28 @@ class Cohort < ApplicationRecord
                     format:     { with: /\A[0-9a-zA-Z]+\z/, allow_blank: true },
                     length:     { minimum: 3, allow_blank: true }
 
+  include PgSearch
+  pg_search_scope :by_keywords,
+                  associated_against: {
+                    students: [:first_name, :last_name, :email, :phone_number, :github_username]
+                  },
+                  using:              {
+                    tsearch: {
+                      dictionary: "english",
+                      any_word:   true,
+                      prefix:     true
+                    }
+                  }
+
   scope :upcoming, -> { where('cohorts.start_date > ?', Date.current) }
   scope :chronological, -> { order(start_date: :asc) }
   scope :most_recent_first, -> { order(start_date: :desc) }
   scope :starts_between, ->(from, to) { where("cohorts.start_date >= ? AND cohorts.start_date <= ?", from, to) }
   scope :is_active, -> { starts_between(Date.current - 8.weeks, Date.current) }
   scope :active_or_upcoming, -> { upcoming.or(Cohort.is_active) }
-
+  scope :is_finished, -> { where('cohorts.start_date < ?', (Date.current - 8.weeks)) }
+  scope :started_before, ->(date) { where('cohorts.start_date <= ?', date) }
+  scope :started_after, ->(date) { where('cohorts.start_date >= ?', date) }
   # assumes monday start date =/ - KV
   def end_date
     start_date.advance(weeks: program.weeks, days: 4)

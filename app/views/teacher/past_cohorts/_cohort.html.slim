@@ -1,0 +1,11 @@
+tr
+  td = link_to cohort.name, [:admin, cohort]
+  td = cohort.start_date
+  td = cohort.location.name
+  td
+    = link_to cohort.students.active.count, students_path(cohort_id: cohort)
+
+  td = cohort_status(cohort)
+  td
+    button.btn.btn-link.btn-sm
+      = link_to 'Select', [:switch_to, cohort], method: :put

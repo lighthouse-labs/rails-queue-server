@@ -138,6 +138,9 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                 - cohorts.each do |c|
                   li class=(c == cohort ? 'active' : '')
                     = link_to c.name, [:switch_to, c], method: :put
+              li.divider[role="separator"]
+              li
+                = link_to 'Past Cohorts...', teacher_past_cohorts_path
         - if current_user
           - if active_student?
             li
