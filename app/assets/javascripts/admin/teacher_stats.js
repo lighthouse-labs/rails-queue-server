@@ -89,7 +89,7 @@ $(document).on('turbolinks:load', function() {
           lineWidth: 1,
           color: 'gray'
         }
-      ],
+      ]
     });
 
     lectureFeedbackContainer.highcharts({
@@ -163,7 +163,7 @@ $(document).on('turbolinks:load', function() {
           lineWidth: 1,
           color: 'gray'
         }
-      ],
+      ]
     });
 
   });

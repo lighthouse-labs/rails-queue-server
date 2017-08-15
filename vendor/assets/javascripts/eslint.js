@@ -1,4 +1,4 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}({1:[function(require,module,exports){
 /**
  * @fileoverview The AST node types produced by the parser.
  * @author Nicholas C. Zakas
@@ -1405,7 +1405,7 @@ module.exports = {
 
 },{}],7:[function(require,module,exports){
 (function (global){
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.acorn = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.acorn = f()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}({1:[function(_dereq_,module,exports){
 // A recursive descent parser operates by defining functions for all
 // syntactic elements, and recursively calling those, each function
 // advancing the input stream and returning an AST node. Precedence
@@ -1439,7 +1439,7 @@ var pp = _state.Parser.prototype;
 
 pp.checkPropClash = function (prop, propHash) {
   if (this.options.ecmaVersion >= 6 && (prop.computed || prop.method || prop.shorthand)) return;
-  var key = prop.key;var name = undefined;
+  var key = prop.key;var name;
   switch (key.type) {
     case "Identifier":
       name = key.name;break;
@@ -1596,7 +1596,7 @@ pp.buildBinary = function (startPos, startLoc, left, right, op, logical) {
 pp.parseMaybeUnary = function (refDestructuringErrors, sawUnary) {
   var startPos = this.start,
       startLoc = this.startLoc,
-      expr = undefined;
+      expr;
   if (this.type.prefix) {
     var node = this.startNode(),
         update = this.type === _tokentype.types.incDec;
@@ -1672,7 +1672,7 @@ pp.parseSubscripts = function (base, startPos, startLoc, noCalls) {
 // or `{}`.
 
 pp.parseExprAtom = function (refDestructuringErrors) {
-  var node = undefined,
+  var node,
       canBeArrow = this.potentialArrowAt == this.start;
   switch (this.type) {
     case _tokentype.types._super:
@@ -1756,7 +1756,7 @@ pp.parseParenExpression = function () {
 pp.parseParenAndDistinguishExpression = function (canBeArrow) {
   var startPos = this.start,
       startLoc = this.startLoc,
-      val = undefined;
+      val;
   if (this.options.ecmaVersion >= 6) {
     this.next();
 
@@ -1765,8 +1765,8 @@ pp.parseParenAndDistinguishExpression = function (canBeArrow) {
     var exprList = [],
         first = true;
     var refDestructuringErrors = { shorthandAssign: 0, trailingComma: 0 },
-        spreadStart = undefined,
-        innerParenStart = undefined;
+        spreadStart,
+        innerParenStart;
     while (this.type !== _tokentype.types.parenR) {
       first ? first = false : this.expect(_tokentype.types.comma);
       if (this.type === _tokentype.types.ellipsis) {
@@ -1891,9 +1891,9 @@ pp.parseObj = function (isPattern, refDestructuringErrors) {
     } else first = false;
 
     var prop = this.startNode(),
-        isGenerator = undefined,
-        startPos = undefined,
-        startLoc = undefined;
+        isGenerator,
+        startPos,
+        startLoc;
     if (this.options.ecmaVersion >= 6) {
       prop.method = false;
       prop.shorthand = false;
@@ -2058,7 +2058,7 @@ pp.parseExprList = function (close, allowTrailingComma, allowEmpty, refDestructu
       if (allowTrailingComma && this.afterTrailingComma(close)) break;
     } else first = false;
 
-    var elt = undefined;
+    var elt;
     if (allowEmpty && this.type === _tokentype.types.comma) elt = null;else if (this.type === _tokentype.types.ellipsis) elt = this.parseSpread(refDestructuringErrors);else elt = this.parseMaybeAssign(false, refDestructuringErrors);
     elts.push(elt);
   }
@@ -2361,7 +2361,7 @@ var Position = (function () {
   };
 
   return Position;
-})();
+}());
 
 exports.Position = Position;
 
@@ -2776,7 +2776,7 @@ function getOptions(opts) {
       options.onToken = function (token) {
         return tokens.push(token);
       };
-    })();
+    }());
   }
   if (_util.isArray(options.onComment)) options.onComment = pushComment(options, options.onComment);
 
@@ -3021,7 +3021,7 @@ var Parser = (function () {
   };
 
   return Parser;
-})();
+}());
 
 exports.Parser = Parser;
 
@@ -3091,7 +3091,7 @@ pp.isLet = function () {
 pp.parseStatement = function (declaration, topLevel) {
   var starttype = this.type,
       node = this.startNode(),
-      kind = undefined;
+      kind;
 
   if (this.isLet()) {
     starttype = _tokentype.types._var;
@@ -3388,7 +3388,7 @@ pp.parseExpressionStatement = function (node, expr) {
 pp.parseBlock = function (allowStrict) {
   var node = this.startNode(),
       first = true,
-      oldStrict = undefined;
+      oldStrict;
   node.body = [];
   this.expect(_tokentype.types.braceL);
   while (!this.eat(_tokentype.types.braceR)) {
@@ -3746,7 +3746,7 @@ pp.braceIsBlock = function (prevType) {
 };
 
 pp.updateContext = function (prevType) {
-  var update = undefined,
+  var update,
       type = this.type;
   if (type.keyword && prevType == _tokentype.types.dot) this.exprAllowed = false;else if (update = type.updateContext) update.call(this, prevType);else this.exprAllowed = type.beforeExpr;
 };
@@ -3839,7 +3839,7 @@ exports.Token = Token;
 var pp = _state.Parser.prototype;
 
 // Are we running under Rhino?
-var isRhino = typeof Packages == "object" && Object.prototype.toString.call(Packages) == "[object JavaPackage]";
+var isRhino = typeof Packages === "object" && Object.prototype.toString.call(Packages) == "[object JavaPackage]";
 
 // Move to the next token
 
@@ -3927,7 +3927,7 @@ pp.skipBlockComment = function () {
   this.pos = end + 2;
   if (this.options.locations) {
     _whitespace.lineBreakG.lastIndex = start;
-    var match = undefined;
+    var match;
     while ((match = _whitespace.lineBreakG.exec(this.input)) && match.index < this.pos) {
       ++this.curLine;
       this.lineStart = match.index + match[0].length;
@@ -4242,8 +4242,8 @@ var regexpUnicodeSupport = !!tryCreateRegexp("￿", "u");
 pp.readRegexp = function () {
   var _this = this;
 
-  var escaped = undefined,
-      inClass = undefined,
+  var escaped,
+      inClass,
       start = this.pos;
   for (;;) {
     if (this.pos >= this.input.length) this.raise(start, "Unterminated regular expression");
@@ -4304,7 +4304,7 @@ pp.readInt = function (radix, len) {
       total = 0;
   for (var i = 0, e = len == null ? Infinity : len; i < e; ++i) {
     var code = this.input.charCodeAt(this.pos),
-        val = undefined;
+        val;
     if (code >= 97) val = code - 97 + 10; // a
     else if (code >= 65) val = code - 65 + 10; // A
       else if (code >= 48 && code <= 57) val = code - 48; // 0-9
@@ -4351,7 +4351,7 @@ pp.readNumber = function (startsWithDot) {
   if (_identifier.isIdentifierStart(this.fullCharCodeAtPos())) this.raise(this.pos, "Identifier directly after number");
 
   var str = this.input.slice(start, this.pos),
-      val = undefined;
+      val;
   if (isFloat) val = parseFloat(str);else if (!octal || str.length === 1) val = parseInt(str, 10);else if (/[89]/.test(str) || this.strict) this.raise(start, "Invalid number");else val = parseInt(str, 8);
   return this.finishToken(_tokentype.types.num, val);
 };
@@ -4360,7 +4360,7 @@ pp.readNumber = function (startsWithDot) {
 
 pp.readCodePoint = function () {
   var ch = this.input.charCodeAt(this.pos),
-      code = undefined;
+      code;
 
   if (ch === 123) {
     if (this.options.ecmaVersion < 6) this.unexpected();
@@ -4760,8 +4760,8 @@ exports.nonASCIIwhitespace = nonASCIIwhitespace;
 var skipWhiteSpace = /(?:\s|\/\/.*|\/\*[^]*?\*\/)*/g;
 exports.skipWhiteSpace = skipWhiteSpace;
 
-},{}]},{},[3])(3)
-});
+},{}]},{},[3]))(3)
+}));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],8:[function(require,module,exports){
 module.exports={
@@ -5640,9 +5640,9 @@ exports.VisitorKeys = (function() {
     return keys;
 }());
 
-},{"./lib/ast-node-types":1,"./lib/comment-attachment":2,"./lib/token-translator":3,"./lib/visitor-keys":4,"./package.json":8,"acorn":7,"acorn-jsx/inject":5}]},{},[]);
+},{"./lib/ast-node-types":1,"./lib/comment-attachment":2,"./lib/token-translator":3,"./lib/visitor-keys":4,"./package.json":8,"acorn":7,"acorn-jsx/inject":5}]},{},[]));
 
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.eslint = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.eslint = f()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}({1:[function(require,module,exports){
 module.exports={
   "type": "Program",
   "body": [],
@@ -7403,8 +7403,8 @@ exports.formatArgs = formatArgs;
 exports.save = save;
 exports.load = load;
 exports.useColors = useColors;
-exports.storage = 'undefined' != typeof chrome
-               && 'undefined' != typeof chrome.storage
+exports.storage = 'undefined' !== typeof chrome
+               && 'undefined' !== typeof chrome.storage
                   ? chrome.storage.local
                   : localstorage();
 
@@ -7784,7 +7784,7 @@ var y = d * 365.25;
 
 module.exports = function(val, options){
   options = options || {};
-  if ('string' == typeof val) return parse(val);
+  if ('string' === typeof val) return parse(val);
   return options.long
     ? long(val)
     : short(val);
@@ -12064,7 +12064,7 @@ var Definition = function Definition(type, name, node, parent, index, kind) {
 
 exports.default = Definition;
 
-var ParameterDefinition = function (_Definition) {
+var ParameterDefinition = (function (_Definition) {
   _inherits(ParameterDefinition, _Definition);
 
   function ParameterDefinition(name, node, index, rest) {
@@ -12082,7 +12082,7 @@ var ParameterDefinition = function (_Definition) {
   }
 
   return ParameterDefinition;
-}(Definition);
+}(Definition));
 
 exports.ParameterDefinition = ParameterDefinition;
 exports.Definition = Definition;
@@ -12276,7 +12276,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }());
 
 var _estraverse = require('estraverse');
 
@@ -12318,7 +12318,7 @@ function getLast(xs) {
     return xs[xs.length - 1] || null;
 }
 
-var PatternVisitor = function (_esrecurse$Visitor) {
+var PatternVisitor = (function (_esrecurse$Visitor) {
     _inherits(PatternVisitor, _esrecurse$Visitor);
 
     _createClass(PatternVisitor, null, [{
@@ -12439,7 +12439,7 @@ var PatternVisitor = function (_esrecurse$Visitor) {
     }]);
 
     return PatternVisitor;
-}(_esrecurse2.default.Visitor);
+}(_esrecurse2.default.Visitor));
 
 /* vim: set sw=4 ts=4 et tw=80 : */
 
@@ -12454,7 +12454,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }());
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -12491,7 +12491,7 @@ var RW = READ | WRITE;
  * @class Reference
  */
 
-var Reference = function () {
+var Reference = (function () {
   function Reference(ident, scope, flag, writeExpr, maybeImplicitGlobal, partial, init) {
     _classCallCheck(this, Reference);
 
@@ -12618,7 +12618,7 @@ var Reference = function () {
   }]);
 
   return Reference;
-}();
+}());
 
 /**
  * @constant Reference.READ
@@ -12649,7 +12649,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }());
 
 var _estraverse = require('estraverse');
 
@@ -12723,7 +12723,7 @@ function traverseIdentifierInPattern(options, rootPattern, referencer, callback)
 // FIXME: Now, we don't create module environment, because the context is
 // implementation dependent.
 
-var Importer = function (_esrecurse$Visitor) {
+var Importer = (function (_esrecurse$Visitor) {
     _inherits(Importer, _esrecurse$Visitor);
 
     function Importer(declaration, referencer) {
@@ -12772,12 +12772,12 @@ var Importer = function (_esrecurse$Visitor) {
     }]);
 
     return Importer;
-}(_esrecurse2.default.Visitor);
+}(_esrecurse2.default.Visitor));
 
 // Referencing variables and creating bindings.
 
 
-var Referencer = function (_esrecurse$Visitor2) {
+var Referencer = (function (_esrecurse$Visitor2) {
     _inherits(Referencer, _esrecurse$Visitor2);
 
     function Referencer(options, scopeManager) {
@@ -13275,7 +13275,7 @@ var Referencer = function (_esrecurse$Visitor2) {
     }]);
 
     return Referencer;
-}(_esrecurse2.default.Visitor);
+}(_esrecurse2.default.Visitor));
 
 /* vim: set sw=4 ts=4 et tw=80 : */
 
@@ -13290,7 +13290,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }()); /*
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Copyright (C) 2015 Yusuke Suzuki <utatane.tea@gmail.com>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Redistribution and use in source and binary forms, with or without
@@ -13334,7 +13334,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @class ScopeManager
  */
 
-var ScopeManager = function () {
+var ScopeManager = (function () {
     function ScopeManager(options) {
         _classCallCheck(this, ScopeManager);
 
@@ -13574,7 +13574,7 @@ var ScopeManager = function () {
     }]);
 
     return ScopeManager;
-}();
+}());
 
 /* vim: set sw=4 ts=4 et tw=80 : */
 
@@ -13592,7 +13592,7 @@ exports.ClassScope = exports.ForScope = exports.FunctionScope = exports.SwitchSc
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }()); /*
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Copyright (C) 2015 Yusuke Suzuki <utatane.tea@gmail.com>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Redistribution and use in source and binary forms, with or without
@@ -13739,7 +13739,7 @@ function shouldBeStatically(def) {
  * @class Scope
  */
 
-var Scope = function () {
+var Scope = (function () {
     function Scope(scopeManager, type, upperScope, block, isMethodDefinition) {
         _classCallCheck(this, Scope);
 
@@ -14098,11 +14098,11 @@ var Scope = function () {
     }]);
 
     return Scope;
-}();
+}());
 
 exports.default = Scope;
 
-var GlobalScope = exports.GlobalScope = function (_Scope) {
+var GlobalScope = exports.GlobalScope = (function (_Scope) {
     _inherits(GlobalScope, _Scope);
 
     function GlobalScope(scopeManager, block) {
@@ -14154,9 +14154,9 @@ var GlobalScope = exports.GlobalScope = function (_Scope) {
     }]);
 
     return GlobalScope;
-}(Scope);
+}(Scope));
 
-var ModuleScope = exports.ModuleScope = function (_Scope2) {
+var ModuleScope = exports.ModuleScope = (function (_Scope2) {
     _inherits(ModuleScope, _Scope2);
 
     function ModuleScope(scopeManager, upperScope, block) {
@@ -14166,9 +14166,9 @@ var ModuleScope = exports.ModuleScope = function (_Scope2) {
     }
 
     return ModuleScope;
-}(Scope);
+}(Scope));
 
-var FunctionExpressionNameScope = exports.FunctionExpressionNameScope = function (_Scope3) {
+var FunctionExpressionNameScope = exports.FunctionExpressionNameScope = (function (_Scope3) {
     _inherits(FunctionExpressionNameScope, _Scope3);
 
     function FunctionExpressionNameScope(scopeManager, upperScope, block) {
@@ -14182,9 +14182,9 @@ var FunctionExpressionNameScope = exports.FunctionExpressionNameScope = function
     }
 
     return FunctionExpressionNameScope;
-}(Scope);
+}(Scope));
 
-var CatchScope = exports.CatchScope = function (_Scope4) {
+var CatchScope = exports.CatchScope = (function (_Scope4) {
     _inherits(CatchScope, _Scope4);
 
     function CatchScope(scopeManager, upperScope, block) {
@@ -14194,9 +14194,9 @@ var CatchScope = exports.CatchScope = function (_Scope4) {
     }
 
     return CatchScope;
-}(Scope);
+}(Scope));
 
-var WithScope = exports.WithScope = function (_Scope5) {
+var WithScope = exports.WithScope = (function (_Scope5) {
     _inherits(WithScope, _Scope5);
 
     function WithScope(scopeManager, upperScope, block) {
@@ -14224,9 +14224,9 @@ var WithScope = exports.WithScope = function (_Scope5) {
     }]);
 
     return WithScope;
-}(Scope);
+}(Scope));
 
-var TDZScope = exports.TDZScope = function (_Scope6) {
+var TDZScope = exports.TDZScope = (function (_Scope6) {
     _inherits(TDZScope, _Scope6);
 
     function TDZScope(scopeManager, upperScope, block) {
@@ -14236,9 +14236,9 @@ var TDZScope = exports.TDZScope = function (_Scope6) {
     }
 
     return TDZScope;
-}(Scope);
+}(Scope));
 
-var BlockScope = exports.BlockScope = function (_Scope7) {
+var BlockScope = exports.BlockScope = (function (_Scope7) {
     _inherits(BlockScope, _Scope7);
 
     function BlockScope(scopeManager, upperScope, block) {
@@ -14248,9 +14248,9 @@ var BlockScope = exports.BlockScope = function (_Scope7) {
     }
 
     return BlockScope;
-}(Scope);
+}(Scope));
 
-var SwitchScope = exports.SwitchScope = function (_Scope8) {
+var SwitchScope = exports.SwitchScope = (function (_Scope8) {
     _inherits(SwitchScope, _Scope8);
 
     function SwitchScope(scopeManager, upperScope, block) {
@@ -14260,9 +14260,9 @@ var SwitchScope = exports.SwitchScope = function (_Scope8) {
     }
 
     return SwitchScope;
-}(Scope);
+}(Scope));
 
-var FunctionScope = exports.FunctionScope = function (_Scope9) {
+var FunctionScope = exports.FunctionScope = (function (_Scope9) {
     _inherits(FunctionScope, _Scope9);
 
     function FunctionScope(scopeManager, upperScope, block, isMethodDefinition) {
@@ -14319,9 +14319,9 @@ var FunctionScope = exports.FunctionScope = function (_Scope9) {
     }]);
 
     return FunctionScope;
-}(Scope);
+}(Scope));
 
-var ForScope = exports.ForScope = function (_Scope10) {
+var ForScope = exports.ForScope = (function (_Scope10) {
     _inherits(ForScope, _Scope10);
 
     function ForScope(scopeManager, upperScope, block) {
@@ -14331,9 +14331,9 @@ var ForScope = exports.ForScope = function (_Scope10) {
     }
 
     return ForScope;
-}(Scope);
+}(Scope));
 
-var ClassScope = exports.ClassScope = function (_Scope11) {
+var ClassScope = exports.ClassScope = (function (_Scope11) {
     _inherits(ClassScope, _Scope11);
 
     function ClassScope(scopeManager, upperScope, block) {
@@ -14343,7 +14343,7 @@ var ClassScope = exports.ClassScope = function (_Scope11) {
     }
 
     return ClassScope;
-}(Scope);
+}(Scope));
 
 /* vim: set sw=4 ts=4 et tw=80 : */
 
@@ -14966,7 +14966,7 @@ defineProperty(WeakMapPoly.prototype, toStringTagSymbol, d('c', 'WeakMap'));
             F.prototype = o;
             return new F();
         };
-    })();
+    }());
 
     objectKeys = Object.keys || function (o) {
         var keys = [], key;
@@ -16003,7 +16003,7 @@ module.exports={
             F.prototype = o;
             return new F();
         };
-    })();
+    }());
 
     objectKeys = Object.keys || function (o) {
         var keys = [], key;
@@ -19133,7 +19133,7 @@ function extend() {
  * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <https://lodash.com/license>
  */
-;(function() {
+(function() {
 
   /** Used as a safe reference for `undefined` in pre-ES5 environments. */
   var undefined;
@@ -19476,7 +19476,7 @@ function extend() {
     : undefined;
 
   /** Detect free variable `global` from Node.js. */
-  var freeGlobal = checkGlobal(freeExports && freeModule && typeof global == 'object' && global);
+  var freeGlobal = checkGlobal(freeExports && freeModule && typeof global === 'object' && global);
 
   /** Detect free variable `self`. */
   var freeSelf = checkGlobal(objectTypes[typeof self] && self);
@@ -20267,7 +20267,7 @@ function extend() {
     // Many host objects are `Object` objects that can coerce to strings
     // despite having improperly defined `toString` methods.
     var result = false;
-    if (value != null && typeof value.toString != 'function') {
+    if (value != null && typeof value.toString !== 'function') {
       try {
         result = !!(value + '');
       } catch (e) {}
@@ -20284,7 +20284,7 @@ function extend() {
    * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
    */
   function isIndex(value, length) {
-    value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
+    value = (typeof value === 'number' || reIsUint.test(value)) ? +value : -1;
     length = length == null ? MAX_SAFE_INTEGER : length;
     return value > -1 && value % 1 == 0 && value < length;
   }
@@ -20492,7 +20492,7 @@ function extend() {
         enumerate = Reflect ? Reflect.enumerate : undefined,
         getPrototypeOf = Object.getPrototypeOf,
         getOwnPropertySymbols = Object.getOwnPropertySymbols,
-        iteratorSymbol = typeof (iteratorSymbol = Symbol && Symbol.iterator) == 'symbol' ? iteratorSymbol : undefined,
+        iteratorSymbol = typeof (iteratorSymbol = Symbol && Symbol.iterator) === 'symbol' ? iteratorSymbol : undefined,
         objectCreate = Object.create,
         propertyIsEnumerable = objectProto.propertyIsEnumerable,
         setTimeout = context.setTimeout,
@@ -20974,7 +20974,7 @@ function extend() {
     function mapDelete(key) {
       var data = this.__data__;
       if (isKeyable(key)) {
-        return hashDelete(typeof key == 'string' ? data.string : data.hash, key);
+        return hashDelete(typeof key === 'string' ? data.string : data.hash, key);
       }
       return Map ? data.map['delete'](key) : assocDelete(data.map, key);
     }
@@ -20991,7 +20991,7 @@ function extend() {
     function mapGet(key) {
       var data = this.__data__;
       if (isKeyable(key)) {
-        return hashGet(typeof key == 'string' ? data.string : data.hash, key);
+        return hashGet(typeof key === 'string' ? data.string : data.hash, key);
       }
       return Map ? data.map.get(key) : assocGet(data.map, key);
     }
@@ -21008,7 +21008,7 @@ function extend() {
     function mapHas(key) {
       var data = this.__data__;
       if (isKeyable(key)) {
-        return hashHas(typeof key == 'string' ? data.string : data.hash, key);
+        return hashHas(typeof key === 'string' ? data.string : data.hash, key);
       }
       return Map ? data.map.has(key) : assocHas(data.map, key);
     }
@@ -21026,7 +21026,7 @@ function extend() {
     function mapSet(key, value) {
       var data = this.__data__;
       if (isKeyable(key)) {
-        hashSet(typeof key == 'string' ? data.string : data.hash, key, value);
+        hashSet(typeof key === 'string' ? data.string : data.hash, key, value);
       } else if (Map) {
         data.map.set(key, value);
       } else {
@@ -21067,7 +21067,7 @@ function extend() {
       var map = cache.__data__;
       if (isKeyable(value)) {
         var data = map.__data__,
-            hash = typeof value == 'string' ? data.string : data.hash;
+            hash = typeof value === 'string' ? data.string : data.hash;
 
         return hash[value] === HASH_UNDEFINED;
       }
@@ -21086,7 +21086,7 @@ function extend() {
       var map = this.__data__;
       if (isKeyable(value)) {
         var data = map.__data__,
-            hash = typeof value == 'string' ? data.string : data.hash;
+            hash = typeof value === 'string' ? data.string : data.hash;
 
         hash[value] = HASH_UNDEFINED;
       }
@@ -21319,7 +21319,7 @@ function extend() {
      */
     function assignMergeValue(object, key, value) {
       if ((value !== undefined && !eq(object[key], value)) ||
-          (typeof key == 'number' && value === undefined && !(key in object))) {
+          (typeof key === 'number' && value === undefined && !(key in object))) {
         object[key] = value;
       }
     }
@@ -21412,7 +21412,7 @@ function extend() {
      * @returns {Array} Returns the array-like object.
      */
     function baseCastFunction(value) {
-      return typeof value == 'function' ? value : identity;
+      return typeof value === 'function' ? value : identity;
     }
 
     /**
@@ -21568,7 +21568,7 @@ function extend() {
      * @returns {number} Returns the timer id.
      */
     function baseDelay(func, wait, args) {
-      if (typeof func != 'function') {
+      if (typeof func !== 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       return setTimeout(function() { func.apply(undefined, args); }, wait);
@@ -21855,7 +21855,7 @@ function extend() {
       // that are composed entirely of index properties, return `false` for
       // `hasOwnProperty` checks of them.
       return hasOwnProperty.call(object, key) ||
-        (typeof object == 'object' && key in object && getPrototypeOf(object) === null);
+        (typeof object === 'object' && key in object && getPrototypeOf(object) === null);
     }
 
     /**
@@ -22655,7 +22655,7 @@ function extend() {
       var low = 0,
           high = array ? array.length : low;
 
-      if (typeof value == 'number' && value === value && high <= HALF_MAX_ARRAY_LENGTH) {
+      if (typeof value === 'number' && value === value && high <= HALF_MAX_ARRAY_LENGTH) {
         while (low < high) {
           var mid = (low + high) >>> 1,
               computed = array[mid];
@@ -23202,7 +23202,7 @@ function extend() {
             customizer = length > 1 ? sources[length - 1] : undefined,
             guard = length > 2 ? sources[2] : undefined;
 
-        customizer = typeof customizer == 'function'
+        customizer = typeof customizer === 'function'
           ? (length--, customizer)
           : undefined;
 
@@ -23420,7 +23420,7 @@ function extend() {
         }
         while (index--) {
           var func = funcs[index];
-          if (typeof func != 'function') {
+          if (typeof func !== 'function') {
             throw new TypeError(FUNC_ERROR_TEXT);
           }
           if (prereq && !wrapper && getFuncName(func) == 'wrapper') {
@@ -23636,7 +23636,7 @@ function extend() {
      */
     function createRange(fromRight) {
       return function(start, end, step) {
-        if (step && typeof step != 'number' && isIterateeCall(start, end, step)) {
+        if (step && typeof step !== 'number' && isIterateeCall(start, end, step)) {
           end = step = undefined;
         }
         // Ensure the sign of `-0` is preserved.
@@ -23759,7 +23759,7 @@ function extend() {
      */
     function createWrapper(func, bitmask, thisArg, partials, holders, argPos, ary, arity) {
       var isBindKey = bitmask & BIND_KEY_FLAG;
-      if (!isBindKey && typeof func != 'function') {
+      if (!isBindKey && typeof func !== 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       var length = partials ? partials.length : 0;
@@ -24014,8 +24014,8 @@ function extend() {
         // Non `Object` object instances with different constructors are not equal.
         if (objCtor != othCtor &&
             ('constructor' in object && 'constructor' in other) &&
-            !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
-              typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+            !(typeof objCtor === 'function' && objCtor instanceof objCtor &&
+              typeof othCtor === 'function' && othCtor instanceof othCtor)) {
           result = false;
         }
       }
@@ -24156,7 +24156,7 @@ function extend() {
       getTag = function(value) {
         var result = objectToString.call(value),
             Ctor = result == objectTag ? value.constructor : null,
-            ctorString = typeof Ctor == 'function' ? funcToString.call(Ctor) : '';
+            ctorString = typeof Ctor === 'function' ? funcToString.call(Ctor) : '';
 
         if (ctorString) {
           switch (ctorString) {
@@ -24238,7 +24238,7 @@ function extend() {
           result = array.constructor(length);
 
       // Add properties assigned by `RegExp#exec`.
-      if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'index')) {
+      if (length && typeof array[0] === 'string' && hasOwnProperty.call(array, 'index')) {
         result.index = array.index;
         result.input = array.input;
       }
@@ -24253,7 +24253,7 @@ function extend() {
      * @returns {Object} Returns the initialized clone.
      */
     function initCloneObject(object) {
-      return (typeof object.constructor == 'function' && !isPrototype(object))
+      return (typeof object.constructor === 'function' && !isPrototype(object))
         ? baseCreate(getPrototypeOf(object))
         : {};
     }
@@ -24351,7 +24351,7 @@ function extend() {
      * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
      */
     function isKey(value, object) {
-      if (typeof value == 'number') {
+      if (typeof value === 'number') {
         return true;
       }
       return !isArray(value) &&
@@ -24383,7 +24383,7 @@ function extend() {
       var funcName = getFuncName(func),
           other = lodash[funcName];
 
-      if (typeof other != 'function' || !(funcName in LazyWrapper.prototype)) {
+      if (typeof other !== 'function' || !(funcName in LazyWrapper.prototype)) {
         return false;
       }
       if (func === other) {
@@ -24402,7 +24402,7 @@ function extend() {
      */
     function isPrototype(value) {
       var Ctor = value && value.constructor,
-          proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+          proto = (typeof Ctor === 'function' && Ctor.prototype) || objectProto;
 
       return value === proto;
     }
@@ -24969,7 +24969,7 @@ function extend() {
       if (!length) {
         return [];
       }
-      if (start && typeof start != 'number' && isIterateeCall(array, value, start)) {
+      if (start && typeof start !== 'number' && isIterateeCall(array, value, start)) {
         start = 0;
         end = length;
       }
@@ -25614,7 +25614,7 @@ function extend() {
       if (!length) {
         return [];
       }
-      if (end && typeof end != 'number' && isIterateeCall(array, start, end)) {
+      if (end && typeof end !== 'number' && isIterateeCall(array, start, end)) {
         start = 0;
         end = length;
       }
@@ -26356,7 +26356,7 @@ function extend() {
       var length = arrays.length,
           iteratee = length > 1 ? arrays[length - 1] : undefined;
 
-      iteratee = typeof iteratee == 'function' ? (arrays.pop(), iteratee) : undefined;
+      iteratee = typeof iteratee === 'function' ? (arrays.pop(), iteratee) : undefined;
       return unzipWith(arrays, iteratee);
     });
 
@@ -26949,7 +26949,7 @@ function extend() {
      * // => logs 'a' then 'b' (iteration order is not guaranteed)
      */
     function forEach(collection, iteratee) {
-      return (typeof iteratee == 'function' && isArray(collection))
+      return (typeof iteratee === 'function' && isArray(collection))
         ? arrayEach(collection, iteratee)
         : baseEach(collection, baseCastFunction(iteratee));
     }
@@ -26973,7 +26973,7 @@ function extend() {
      * // => logs `2` then `1`
      */
     function forEachRight(collection, iteratee) {
-      return (typeof iteratee == 'function' && isArray(collection))
+      return (typeof iteratee === 'function' && isArray(collection))
         ? arrayEachRight(collection, iteratee)
         : baseEachRight(collection, baseCastFunction(iteratee));
     }
@@ -27072,7 +27072,7 @@ function extend() {
      */
     var invokeMap = rest(function(collection, path, args) {
       var index = -1,
-          isFunc = typeof path == 'function',
+          isFunc = typeof path === 'function',
           isProp = isKey(path),
           result = isArrayLike(collection) ? Array(collection.length) : [];
 
@@ -27588,7 +27588,7 @@ function extend() {
      * // => logs 'done saving!' after the two async saves have completed
      */
     function after(n, func) {
-      if (typeof func != 'function') {
+      if (typeof func !== 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       n = toInteger(n);
@@ -27639,7 +27639,7 @@ function extend() {
      */
     function before(n, func) {
       var result;
-      if (typeof func != 'function') {
+      if (typeof func !== 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       n = toInteger(n);
@@ -27904,7 +27904,7 @@ function extend() {
           maxWait = false,
           trailing = true;
 
-      if (typeof func != 'function') {
+      if (typeof func !== 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       wait = toNumber(wait) || 0;
@@ -28115,7 +28115,7 @@ function extend() {
      * _.memoize.Cache = WeakMap;
      */
     function memoize(func, resolver) {
-      if (typeof func != 'function' || (resolver && typeof resolver != 'function')) {
+      if (typeof func !== 'function' || (resolver && typeof resolver !== 'function')) {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       var memoized = function() {
@@ -28154,7 +28154,7 @@ function extend() {
      * // => [1, 3, 5]
      */
     function negate(predicate) {
-      if (typeof predicate != 'function') {
+      if (typeof predicate !== 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       return function() {
@@ -28351,7 +28351,7 @@ function extend() {
      * // => 'hello fred, barney, & pebbles'
      */
     function rest(func, start) {
-      if (typeof func != 'function') {
+      if (typeof func !== 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       start = nativeMax(start === undefined ? (func.length - 1) : toInteger(start), 0);
@@ -28411,7 +28411,7 @@ function extend() {
      * // => a Promise of 76
      */
     function spread(func, start) {
-      if (typeof func != 'function') {
+      if (typeof func !== 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       start = start === undefined ? 0 : nativeMax(toInteger(start), 0);
@@ -28470,7 +28470,7 @@ function extend() {
       var leading = true,
           trailing = true;
 
-      if (typeof func != 'function') {
+      if (typeof func !== 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       if (isObject(options)) {
@@ -29070,7 +29070,7 @@ function extend() {
      * // => true
      */
     function isEqualWith(value, other, customizer) {
-      customizer = typeof customizer == 'function' ? customizer : undefined;
+      customizer = typeof customizer === 'function' ? customizer : undefined;
       var result = customizer ? customizer(value, other) : undefined;
       return result === undefined ? baseIsEqual(value, other, customizer) : !!result;
     }
@@ -29097,7 +29097,7 @@ function extend() {
         return false;
       }
       return (objectToString.call(value) == errorTag) ||
-        (typeof value.message == 'string' && typeof value.name == 'string');
+        (typeof value.message === 'string' && typeof value.name === 'string');
     }
 
     /**
@@ -29125,7 +29125,7 @@ function extend() {
      * // => false
      */
     function isFinite(value) {
-      return typeof value == 'number' && nativeIsFinite(value);
+      return typeof value === 'number' && nativeIsFinite(value);
     }
 
     /**
@@ -29177,7 +29177,7 @@ function extend() {
      * // => false
      */
     function isInteger(value) {
-      return typeof value == 'number' && value == toInteger(value);
+      return typeof value === 'number' && value == toInteger(value);
     }
 
     /**
@@ -29205,7 +29205,7 @@ function extend() {
      * // => false
      */
     function isLength(value) {
-      return typeof value == 'number' &&
+      return typeof value === 'number' &&
         value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
     }
 
@@ -29261,7 +29261,7 @@ function extend() {
      * // => false
      */
     function isObjectLike(value) {
-      return !!value && typeof value == 'object';
+      return !!value && typeof value === 'object';
     }
 
     /**
@@ -29343,7 +29343,7 @@ function extend() {
      * // => true
      */
     function isMatchWith(object, source, customizer) {
-      customizer = typeof customizer == 'function' ? customizer : undefined;
+      customizer = typeof customizer === 'function' ? customizer : undefined;
       return baseIsMatch(object, source, getMatchData(source), customizer);
     }
 
@@ -29474,7 +29474,7 @@ function extend() {
      * // => false
      */
     function isNumber(value) {
-      return typeof value == 'number' ||
+      return typeof value === 'number' ||
         (isObjectLike(value) && objectToString.call(value) == numberTag);
     }
 
@@ -29515,7 +29515,7 @@ function extend() {
         return true;
       }
       var Ctor = proto.constructor;
-      return (typeof Ctor == 'function' &&
+      return (typeof Ctor === 'function' &&
         Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
     }
 
@@ -29605,7 +29605,7 @@ function extend() {
      * // => false
      */
     function isString(value) {
-      return typeof value == 'string' ||
+      return typeof value === 'string' ||
         (!isArray(value) && isObjectLike(value) && objectToString.call(value) == stringTag);
     }
 
@@ -29626,7 +29626,7 @@ function extend() {
      * // => false
      */
     function isSymbol(value) {
-      return typeof value == 'symbol' ||
+      return typeof value === 'symbol' ||
         (isObjectLike(value) && objectToString.call(value) == symbolTag);
     }
 
@@ -29890,7 +29890,7 @@ function extend() {
         var other = isFunction(value.valueOf) ? value.valueOf() : value;
         value = isObject(other) ? (other + '') : other;
       }
-      if (typeof value != 'string') {
+      if (typeof value !== 'string') {
         return value === 0 ? value : +value;
       }
       value = value.replace(reTrim, '');
@@ -29976,7 +29976,7 @@ function extend() {
      */
     function toString(value) {
       // Exit early for strings to avoid a performance hit in some environments.
-      if (typeof value == 'string') {
+      if (typeof value === 'string') {
         return value;
       }
       if (value == null) {
@@ -31065,7 +31065,7 @@ function extend() {
      * // => { '0': { '1': 'a' } }
      */
     function setWith(object, path, value, customizer) {
-      customizer = typeof customizer == 'function' ? customizer : undefined;
+      customizer = typeof customizer === 'function' ? customizer : undefined;
       return object == null ? object : baseSet(object, path, value, customizer);
     }
 
@@ -31253,7 +31253,7 @@ function extend() {
      * // => { '0': { '1': 'a' } }
      */
     function updateWith(object, path, updater, customizer) {
-      customizer = typeof customizer == 'function' ? customizer : undefined;
+      customizer = typeof customizer === 'function' ? customizer : undefined;
       return object == null ? object : baseUpdate(object, path, baseCastFunction(updater), customizer);
     }
 
@@ -31427,15 +31427,15 @@ function extend() {
      * // => a floating-point number between 1.2 and 5.2
      */
     function random(lower, upper, floating) {
-      if (floating && typeof floating != 'boolean' && isIterateeCall(lower, upper, floating)) {
+      if (floating && typeof floating !== 'boolean' && isIterateeCall(lower, upper, floating)) {
         upper = floating = undefined;
       }
       if (floating === undefined) {
-        if (typeof upper == 'boolean') {
+        if (typeof upper === 'boolean') {
           floating = upper;
           upper = undefined;
         }
-        else if (typeof lower == 'boolean') {
+        else if (typeof lower === 'boolean') {
           floating = lower;
           lower = undefined;
         }
@@ -31551,7 +31551,7 @@ function extend() {
      */
     function endsWith(string, target, position) {
       string = toString(string);
-      target = typeof target == 'string' ? target : (target + '');
+      target = typeof target === 'string' ? target : (target + '');
 
       var length = string.length;
       position = position === undefined
@@ -32617,7 +32617,7 @@ function extend() {
           toIteratee = getIteratee();
 
       pairs = !length ? [] : arrayMap(pairs, function(pair) {
-        if (typeof pair[1] != 'function') {
+        if (typeof pair[1] !== 'function') {
           throw new TypeError(FUNC_ERROR_TEXT);
         }
         return [toIteratee(pair[0]), pair[1]];
@@ -32773,7 +32773,7 @@ function extend() {
      * // => [{ 'user': 'fred', 'age': 40 }]
      */
     function iteratee(func) {
-      return baseIteratee(typeof func == 'function' ? func : baseClone(func, true));
+      return baseIteratee(typeof func === 'function' ? func : baseClone(func, true));
     }
 
     /**
@@ -34024,7 +34024,7 @@ function extend() {
     };
 
     LazyWrapper.prototype.invokeMap = rest(function(path, args) {
-      if (typeof path == 'function') {
+      if (typeof path === 'function') {
         return new LazyWrapper(this);
       }
       return this.map(function(value) {
@@ -34088,7 +34088,7 @@ function extend() {
           return (isTaker && chainAll) ? result[0] : result;
         };
 
-        if (useLazy && checkIteratee && typeof iteratee == 'function' && iteratee.length != 1) {
+        if (useLazy && checkIteratee && typeof iteratee === 'function' && iteratee.length != 1) {
           // Avoid lazy use if the iteratee has a "length" value other than `1`.
           isLazy = useLazy = false;
         }
@@ -34176,7 +34176,7 @@ function extend() {
   (freeWindow || freeSelf || {})._ = _;
 
   // Some AMD build optimizers like r.js check for condition patterns like the following:
-  if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) {
+  if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
     // Define as an anonymous module so, through path mapping, it can be
     // referenced as the "underscore" module.
     define(function() {
@@ -65016,5 +65016,5 @@ module.exports = Traverser;
 
 
 
-},{"estraverse":201}]},{},[229])(229)
-});
+},{"estraverse":201}]},{},[229]))(229)
+}));

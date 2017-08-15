@@ -2,7 +2,7 @@
  * flatui-radio v0.0.3
  * ============================================================ */
 
-!function ($) {
+!(function ($) {
 
  /* RADIO PUBLIC CLASS DEFINITION
   * ============================== */
@@ -97,7 +97,7 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('radio')
-        , options = $.extend({}, $.fn.radio.defaults, $this.data(), typeof option == 'object' && option);
+        , options = $.extend({}, $.fn.radio.defaults, $this.data(), typeof option === 'object' && option);
       if (!data) $this.data('radio', (data = new Radio(this, options)));
       if (option == 'toggle') data.toggle()
       if (option == 'check' || option == 'uncheck') data.setCheck(option)
@@ -136,4 +136,4 @@
     });
   });
 
-}(window.jQuery);
+}(window.jQuery));

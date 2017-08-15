@@ -9,7 +9,7 @@
  *
  */
 
-;
+
 (function($) {
   'use strict';
 
@@ -757,4 +757,4 @@
     targetType   : 'hint'
   };
 
-})(jQuery);
+}(jQuery));

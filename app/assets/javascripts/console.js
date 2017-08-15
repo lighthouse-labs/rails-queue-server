@@ -30,21 +30,21 @@ var hijackConsole = function(win) {
         var data = arguments[0];
         if (data instanceof Array) {
           data = data.slice(0);
-        } else if (typeof(data) == 'object') {
+        } else if (typeof(data) === 'object') {
           data = jQuery.extend({}, data);
         }
         con.backlog.push([new Date(), fn, data]);
         ncon[fn].apply(ncon, arguments);
         con.display(arguments);
       };
-    })(k);
+    }(k));
     con['clear'] = (function(fn) {
       return function() {
           con.backlog = [];
           con.clearDisplay();
           ncon['clear'].apply(ncon, arguments);
       };
-    })('clear');
+    }('clear'));
   });
 };
 

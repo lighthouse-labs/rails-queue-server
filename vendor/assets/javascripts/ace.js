@@ -34,7 +34,7 @@ var ACE_NAMESPACE = "";
 
 var global = (function() {
     return this;
-})();
+}());
 
 
 if (!ACE_NAMESPACE && typeof requirejs !== "undefined")
@@ -167,7 +167,7 @@ function exportAce(ns) {
 
 exportAce(ACE_NAMESPACE);
 
-})();
+}());
 
 define('ace/ace', ['require', 'exports', 'module' , 'ace/lib/fixoldbrowsers', 'ace/lib/dom', 'ace/lib/event', 'ace/editor', 'ace/edit_session', 'ace/undomanager', 'ace/virtual_renderer', 'ace/worker/worker_client', 'ace/keyboard/hash_handler', 'ace/placeholder', 'ace/multi_select', 'ace/mode/folding/fold_mode', 'ace/theme/textmate', 'ace/ext/error_marker', 'ace/config'], function(require, exports, module) {
 
@@ -192,7 +192,7 @@ require("./ext/error_marker");
 exports.config = require("./config");
 exports.require = require;
 exports.edit = function(el) {
-    if (typeof(el) == "string") {
+    if (typeof(el) === "string") {
         var _id = el;
         el = document.getElementById(_id);
         if (!el)
@@ -336,7 +336,7 @@ function addUnicodePackage (pack) {
     var codePoint = /\w{4}/g;
     for (var name in pack)
         exports.packages[name] = pack[name].replace(codePoint, "\\u$&");
-};
+}
 
 });
 
@@ -442,7 +442,7 @@ var TextHighlightRules = function() {
             for (var i = 0; i < state.length; i++) {
                 var rule = state[i];
                 if (rule.next) {
-                    if (typeof rule.next != "string") {
+                    if (typeof rule.next !== "string") {
                         if (rule.nextState && rule.nextState.indexOf(prefix) !== 0)
                             rule.nextState = prefix + rule.nextState;
                     } else {
@@ -461,7 +461,7 @@ var TextHighlightRules = function() {
     };
 
     this.embedRules = function (HighlightRules, prefix, escapeRules, states, append) {
-        var embedRules = typeof HighlightRules == "function"
+        var embedRules = typeof HighlightRules === "function"
             ? new HighlightRules().getRules()
             : HighlightRules;
         if (states) {
@@ -527,7 +527,7 @@ var TextHighlightRules = function() {
                     var stateName = rule.stateName;
                     if (!stateName)  {
                         stateName = rule.token;
-                        if (typeof stateName != "string")
+                        if (typeof stateName !== "string")
                             stateName = stateName[0] || "";
                         if (rules[stateName])
                             stateName += id++;
@@ -555,7 +555,7 @@ var TextHighlightRules = function() {
                         }
                     }
                 }
-                if (rule.include || typeof rule == "string") {
+                if (rule.include || typeof rule === "string") {
                     var includeName = rule.include || rule;
                     var toInsert = rules[includeName];
                 } else if (Array.isArray(rule))
@@ -620,7 +620,7 @@ var Anchor = exports.Anchor = function(doc, row, column) {
     this.$onChange = this.onChange.bind(this);
     this.attach(doc);
 
-    if (typeof column == "undefined")
+    if (typeof column === "undefined")
         this.setPosition(row.row, row.column);
     else
         this.setPosition(row, column);
@@ -1300,7 +1300,7 @@ function Folding() {
         if (location == null) {
             range = new Range(0, 0, this.getLength(), 0);
             expandInner = true;
-        } else if (typeof location == "number")
+        } else if (typeof location === "number")
             range = new Range(location, 0, location, this.getLine(location).length);
         else if ("row" in location)
             range = Range.fromPoints(location, location);
@@ -1948,7 +1948,7 @@ var Tokenizer = function(rules) {
                     rule.token = null;
                     rule.onMatch = this.$arrayTokens;
                 }
-            } else if (typeof rule.token == "function" && !rule.onMatch) {
+            } else if (typeof rule.token === "function" && !rule.onMatch) {
                 if (matchcount > 1)
                     rule.onMatch = this.$applyToken;
                 else
@@ -1964,7 +1964,7 @@ var Tokenizer = function(rules) {
                     matchcount = 1;
                     adjustedregex = this.removeCapturingGroups(rule.regex);
                 }
-                if (!rule.splitRegex && typeof rule.token != "string")
+                if (!rule.splitRegex && typeof rule.token !== "string")
                     splitterRurles.push(rule); // flag will be known only at the very end
             }
 
@@ -2066,7 +2066,7 @@ var Tokenizer = function(rules) {
         return new RegExp(src, (flag||"").replace("g", ""));
     };
     this.getLineTokens = function(line, startState) {
-        if (startState && typeof startState != "string") {
+        if (startState && typeof startState !== "string") {
             var stack = startState.slice(0);
             startState = stack[0];
         } else
@@ -2116,7 +2116,7 @@ var Tokenizer = function(rules) {
                     type = rule.token;
 
                 if (rule.next) {
-                    if (typeof rule.next == "string")
+                    if (typeof rule.next === "string")
                         currentState = rule.next;
                     else
                         currentState = rule.next(currentState, stack);
@@ -2136,7 +2136,7 @@ var Tokenizer = function(rules) {
             }
 
             if (value) {
-                if (typeof type == "string") {
+                if (typeof type === "string") {
                     if ((!rule || rule.merge !== false) && token.type === type) {
                         token.value += value;
                     } else {
@@ -2566,7 +2566,7 @@ var Mode = function() {
 
     this.$delegator = function(method, args, defaultHandler) {
         var state = args[0];
-        if (typeof state != "string")
+        if (typeof state !== "string")
             state = state[0];
         for (var i = 0; i < this.$embeds.length; i++) {
             if (!this.$modes[this.$embeds[i]]) continue;
@@ -2932,7 +2932,7 @@ var Range = function(startRow, startColumn, endRow, endColumn) {
         return this.start.row == row && this.start.column == column;
     };
     this.setStart = function(row, column) {
-        if (typeof row == "object") {
+        if (typeof row === "object") {
             this.start.column = row.column;
             this.start.row = row.row;
         } else {
@@ -2941,7 +2941,7 @@ var Range = function(startRow, startColumn, endRow, endColumn) {
         }
     };
     this.setEnd = function(row, column) {
-        if (typeof row == "object") {
+        if (typeof row === "object") {
             this.end.column = row.column;
             this.end.row = row.row;
         } else {
@@ -2983,7 +2983,7 @@ var Range = function(startRow, startColumn, endRow, endColumn) {
         if (!this.isMultiLine()) {
             if (row === this.start.row) {
                 return column < this.start.column ? -1 : (column > this.end.column ? 1 : 0);
-            };
+            }
         }
 
         if (row < this.start.row)
@@ -3344,7 +3344,7 @@ var Selection = function(session) {
         if (this.$isEmpty) {
             this.moveCursorTo(this.lead.row, this.lead.column + columns);
             return;
-        };
+        }
 
         var anchor = this.getSelectionAnchor();
         var lead = this.getSelectionLead();
@@ -3460,7 +3460,7 @@ var Selection = function(session) {
         this.$moveSelection(this.moveCursorWordLeft);
     };
     this.getWordRange = function(row, column) {
-        if (typeof column == "undefined") {
+        if (typeof column === "undefined") {
             var cursor = row || this.lead;
             row = cursor.row;
             column = cursor.column;
@@ -3477,7 +3477,7 @@ var Selection = function(session) {
     };
 
     this.getLineRange = function(row, excludeLastChar) {
-        var rowStart = typeof row == "number" ? row : this.lead.row;
+        var rowStart = typeof row === "number" ? row : this.lead.row;
         var rowEnd;
 
         var foldLine = this.session.getFoldLine(rowStart);
@@ -4208,7 +4208,7 @@ var EditSession = function(text, mode) {
     this.on("changeFold", this.onChangeFold.bind(this));
     this.$onChange = this.onChange.bind(this);
 
-    if (typeof text != "object" || !text.getLine)
+    if (typeof text !== "object" || !text.getLine)
         text = new Document(text);
 
     this.setDocument(text);
@@ -4484,7 +4484,7 @@ var EditSession = function(text, mode) {
         var marker = {
             range : range,
             type : type || "line",
-            renderer: typeof type == "function" ? type : null,
+            renderer: typeof type === "function" ? type : null,
             clazz : clazz,
             inFront: !!inFront,
             id: id
@@ -4540,7 +4540,7 @@ var EditSession = function(text, mode) {
         this.$searchHighlight.setRegexp(re);
     };
     this.highlightLines = function(startRow, endRow, clazz, inFront) {
-        if (typeof endRow != "number") {
+        if (typeof endRow !== "number") {
             clazz = endRow;
             endRow = startRow;
         }
@@ -5763,7 +5763,7 @@ var EditSession = function(text, mode) {
                c >= 0xFE68 && c <= 0xFE6B ||
                c >= 0xFF01 && c <= 0xFF60 ||
                c >= 0xFFE0 && c <= 0xFFE6;
-    };
+    }
 
 }).call(EditSession.prototype);
 
@@ -5780,7 +5780,7 @@ config.defineOptions(EditSession.prototype, "session", {
                 value = true;
             else if (value == "printMargin")
                 value = -1;
-            else if (typeof value == "string")
+            else if (typeof value === "string")
                 value = parseInt(value, 10) || false;
 
             if (this.$wrap == value)
@@ -5788,7 +5788,7 @@ config.defineOptions(EditSession.prototype, "session", {
             if (!value) {
                 this.setUseWrapMode(false);
             } else {
-                var col = typeof value == "number" ? value : null;
+                var col = typeof value === "number" ? value : null;
                 this.setWrapLimitRange(col, col);
                 this.setUseWrapMode(true);
             }
@@ -5940,7 +5940,7 @@ oop.inherits(CommandManager, HashHandler);
         try {
             this.$inReplay = true;
             this.macro.forEach(function(x) {
-                if (typeof x == "string")
+                if (typeof x === "string")
                     this.exec(x, editor);
                 else
                     this.exec(x[0], editor, x[1]);
@@ -5952,7 +5952,7 @@ oop.inherits(CommandManager, HashHandler);
 
     this.trimMacro = function(m) {
         return m.map(function(x){
-            if (typeof x[0] != "string")
+            if (typeof x[0] !== "string")
                 x[0] = x[0].name;
             if (!x[1])
                 x = x[0];
@@ -6000,7 +6000,7 @@ var KeyBinding = function(editor) {
     this.addKeyboardHandler = function(kb, pos) {
         if (!kb)
             return;
-        if (typeof kb == "function" && !kb.handleKeyboard)
+        if (typeof kb === "function" && !kb.handleKeyboard)
             kb.handleKeyboard = kb;
         var i = this.$handlers.indexOf(kb);
         if (i != -1)
@@ -6081,7 +6081,7 @@ function HashHandler(config, platform) {
     this.platform = platform || (useragent.isMac ? "mac" : "win");
     this.commands = {};
     this.commandKeyBinding = {};
-    if (this.__defineGetter__ && this.__defineSetter__ && typeof console != "undefined" && console.error) {
+    if (this.__defineGetter__ && this.__defineSetter__ && typeof console !== "undefined" && console.error) {
         var warned = false;
         var warn = function() {
             if (!warned) {
@@ -6102,7 +6102,7 @@ function HashHandler(config, platform) {
     }
 
     this.addCommands(config);
-};
+}
 
 (function() {
 
@@ -6132,7 +6132,7 @@ function HashHandler(config, platform) {
     this.bindKey = function(key, command) {
         if(!key)
             return;
-        if (typeof command == "function") {
+        if (typeof command === "function") {
             this.addCommand({exec: command, bindKey: key, name: command.name || key});
             return;
         }
@@ -6184,7 +6184,7 @@ function HashHandler(config, platform) {
         if (!binding)
             return;
 
-        var key = typeof binding == "string" ? binding: binding[this.platform];
+        var key = typeof binding === "string" ? binding: binding[this.platform];
         this.bindKey(key, command);
     };
     this.parseKeys = function(keys) {
@@ -6206,7 +6206,7 @@ function HashHandler(config, platform) {
         for (var i = parts.length; i--;) {
             var modifier = keyUtil.KEY_MODS[parts[i]];
             if (modifier == null) {
-                if (typeof console != "undefined")
+                if (typeof console !== "undefined")
                 console.error("invalid modifier " + parts[i] + " in " + keys);
                 return false;
             }
@@ -6892,7 +6892,7 @@ exports.commands = [{
                 curLine = " " + curLine;
             }
             insertLine += curLine;
-        };
+        }
 
         if (selectionEnd.row + 1 < (editor.session.doc.getLength() - 1)) {
             insertLine += editor.session.doc.getNewLineCharacter();
@@ -6969,7 +6969,7 @@ EventEmitter._dispatchEvent = function(eventName, e) {
     if (!listeners.length && !defaultHandler)
         return;
 
-    if (typeof e != "object" || !e)
+    if (typeof e !== "object" || !e)
         e = {};
 
     if (!e.type)
@@ -8431,7 +8431,7 @@ var VirtualRenderer = function(container, theme) {
     };
 
     this.alignCursor = function(cursor, alignment) {
-        if (typeof cursor == "number")
+        if (typeof cursor === "number")
             cursor = {row: cursor, column: 0};
 
         var pos = this.$cursorLayer.getPixelPosition(cursor);
@@ -8609,7 +8609,7 @@ var VirtualRenderer = function(container, theme) {
         this.$themeId = theme;
         _self._dispatchEvent('themeChange',{theme:theme});
 
-        if (!theme || typeof theme == "string") {
+        if (!theme || typeof theme === "string") {
             var moduleName = theme || this.$options.theme.initialValue;
             config.loadModule(["theme", moduleName], afterLoad);
         } else {
@@ -8692,7 +8692,7 @@ config.defineOptions(VirtualRenderer.prototype, "renderer", {
     },
     printMargin: {
         set: function(val) {
-            if (typeof val == "number")
+            if (typeof val === "number")
                 this.$printMarginColumn = val;
             this.$showPrintMargin = !!val;
             this.$updatePrintMargin();
@@ -8765,7 +8765,7 @@ config.defineOptions(VirtualRenderer.prototype, "renderer", {
     },
     fontSize:  {
         set: function(size) {
-            if (typeof size == "number")
+            if (typeof size === "number")
                 size = size + "px";
             this.container.style.fontSize = size;
             this.updateFontSize();
@@ -8826,7 +8826,7 @@ var EventEmitter = require("./lib/event_emitter").EventEmitter;
 
 var global = (function() {
     return this;
-})();
+}());
 
 var options = {
     packaged: false,
@@ -8969,7 +8969,7 @@ init(true);function init(packaged) {
     for (var key in scriptOptions)
         if (typeof scriptOptions[key] !== "undefined")
             exports.set(key, scriptOptions[key]);
-};
+}
 
 exports.init = init;
 
@@ -9001,7 +9001,7 @@ var optionsProvider = {
             return;
         var opt = this.$options[name];
         if (!opt) {
-            if (typeof console != "undefined" && console.warn)
+            if (typeof console !== "undefined" && console.warn)
                 console.warn('misspelled option "' + name + '"');
             return undefined;
         }
@@ -9016,7 +9016,7 @@ var optionsProvider = {
     getOption: function(name) {
         var opt = this.$options[name];
         if (!opt) {
-            if (typeof console != "undefined" && console.warn)
+            if (typeof console !== "undefined" && console.warn)
                 console.warn('misspelled option "' + name + '"');
             return undefined;
         }
@@ -9033,7 +9033,7 @@ exports.defineOptions = function(obj, path, options) {
 
     Object.keys(options).forEach(function(key) {
         var opt = options[key];
-        if (typeof opt == "string")
+        if (typeof opt === "string")
             opt = {forwardTo: opt};
 
         opt.name || (opt.name = key);
@@ -11835,7 +11835,7 @@ var TextInput = function(parentNode, host) {
 
     var onPaste = function(e) {
         var data = handleClipboardData(e);
-        if (typeof data == "string") {
+        if (typeof data === "string") {
             if (data)
                 host.onPaste(data);
             if (useragent.isIE)
@@ -12062,7 +12062,7 @@ exports.copyObject = function(obj) {
 exports.copyArray = function(array){
     var copy = [];
     for (var i=0, l=array.length; i<l; i++) {
-        if (array[i] && typeof array[i] == "object")
+        if (array[i] && typeof array[i] === "object")
             copy[i] = this.copyObject( array[i] );
         else
             copy[i] = array[i];
@@ -13905,9 +13905,9 @@ var Editor = function(renderer, session) {
         if (!options)
             options = {};
 
-        if (typeof needle == "string" || needle instanceof RegExp)
+        if (typeof needle === "string" || needle instanceof RegExp)
             options.needle = needle;
-        else if (typeof needle == "object")
+        else if (typeof needle === "object")
             oop.mixin(options, needle);
 
         var range = this.selection.getRange();
@@ -14302,7 +14302,7 @@ exports.getOS = function() {
         return exports.OS.WINDOWS;
     }
 };
-if (typeof navigator != "object")
+if (typeof navigator !== "object")
     return;
 
 var os = (navigator.platform.match(/mac|win|linux/i) || ["other"])[0].toLowerCase();
@@ -15383,15 +15383,15 @@ var Keys = (function() {
                 return i & ret.KEY_MODS[x];
             }).join("-") + "-";
         }
-    })();
+    }());
 
     return ret;
-})();
+}());
 oop.mixin(exports, Keys);
 
 exports.keyCodeToString = function(keyCode) {
     var keyString = Keys[keyCode];
-    if (typeof keyString != "string")
+    if (typeof keyString !== "string")
         keyString = String.fromCharCode(keyCode);
     return keyString.toLowerCase();
 };
@@ -15887,7 +15887,7 @@ var FoldMode = exports.FoldMode = function() {};
 define('ace/lib/dom', ['require', 'exports', 'module' ], function(require, exports, module) {
 
 
-if (typeof document == "undefined")
+if (typeof document === "undefined")
     return;
 
 var XHTML_NS = "http://www.w3.org/1999/xhtml";
@@ -16255,7 +16255,7 @@ function Empty() {}
 if (!Function.prototype.bind) {
     Function.prototype.bind = function bind(that) { // .length is 1
         var target = this;
-        if (typeof target != "function") {
+        if (typeof target !== "function") {
             throw new TypeError("Function.prototype.bind called on incompatible " + target);
         }
         var args = slice.call(arguments, 1); // for normal call
@@ -16641,7 +16641,7 @@ if (!Object.getOwnPropertyDescriptor) {
     var ERR_NON_OBJECT = "Object.getOwnPropertyDescriptor called on a " +
                          "non-object: ";
     Object.getOwnPropertyDescriptor = function getOwnPropertyDescriptor(object, property) {
-        if ((typeof object != "object" && typeof object != "function") || object === null)
+        if ((typeof object !== "object" && typeof object !== "function") || object === null)
             throw new TypeError(ERR_NON_OBJECT + object);
         if (!owns(object, property))
             return;
@@ -16699,7 +16699,7 @@ if (!Object.create) {
         if (prototype === null) {
             object = createEmpty();
         } else {
-            if (typeof prototype != "object")
+            if (typeof prototype !== "object")
                 throw new TypeError("typeof prototype["+(typeof prototype)+"] != 'object'");
             var Type = function () {};
             Type.prototype = prototype;
@@ -16721,7 +16721,7 @@ function doesDefinePropertyWork(object) {
 }
 if (Object.defineProperty) {
     var definePropertyWorksOnObject = doesDefinePropertyWork({});
-    var definePropertyWorksOnDom = typeof document == "undefined" ||
+    var definePropertyWorksOnDom = typeof document === "undefined" ||
         doesDefinePropertyWork(document.createElement("div"));
     if (!definePropertyWorksOnObject || !definePropertyWorksOnDom) {
         var definePropertyFallback = Object.defineProperty;
@@ -16735,9 +16735,9 @@ if (!Object.defineProperty || definePropertyFallback) {
                                       "on this javascript engine";
 
     Object.defineProperty = function defineProperty(object, property, descriptor) {
-        if ((typeof object != "object" && typeof object != "function") || object === null)
+        if ((typeof object !== "object" && typeof object !== "function") || object === null)
             throw new TypeError(ERR_NON_OBJECT_TARGET + object);
-        if ((typeof descriptor != "object" && typeof descriptor != "function") || descriptor === null)
+        if ((typeof descriptor !== "object" && typeof descriptor !== "function") || descriptor === null)
             throw new TypeError(ERR_NON_OBJECT_DESCRIPTOR + descriptor);
         if (definePropertyFallback) {
             try {
@@ -16794,13 +16794,13 @@ try {
 } catch (exception) {
     Object.freeze = (function freeze(freezeObject) {
         return function freeze(object) {
-            if (typeof object == "function") {
+            if (typeof object === "function") {
                 return object;
             } else {
                 return freezeObject(object);
             }
         };
-    })(Object.freeze);
+    }(Object.freeze));
 }
 if (!Object.preventExtensions) {
     Object.preventExtensions = function preventExtensions(object) {
@@ -16852,7 +16852,7 @@ if (!Object.keys) {
     Object.keys = function keys(object) {
 
         if (
-            (typeof object != "object" && typeof object != "function") ||
+            (typeof object !== "object" && typeof object !== "function") ||
             object === null
         ) {
             throw new TypeError("Object.keys called on a non-object");
@@ -16955,18 +16955,18 @@ define('ace/lib/regexp', ['require', 'exports', 'module' ], function(require, ex
             split: String.prototype.split
         },
         compliantExecNpcg = real.exec.call(/()??/, "")[1] === undefined, // check `exec` handling of nonparticipating capturing groups
-        compliantLastIndexIncrement = function () {
+        compliantLastIndexIncrement = (function () {
             var x = /^/g;
             real.test.call(x, "");
             return !x.lastIndex;
-        }();
+        }());
 
     if (compliantLastIndexIncrement && compliantExecNpcg)
         return;
     RegExp.prototype.exec = function (str) {
         var match = real.exec.apply(this, arguments),
             name, r2;
-        if ( typeof(str) == 'string' && match) {
+        if ( typeof(str) === 'string' && match) {
             if (!compliantExecNpcg && match.length > 1 && indexOf(match, "") > -1) {
                 r2 = RegExp(this.source, real.replace.call(getNativeFlags(this), "g", ""));
                 real.replace.call(str.slice(match.index), r2, function () {
@@ -17095,7 +17095,7 @@ exports.showErrorMarker = function(editor, dir) {
     var gutterAnno;
     if (annotations) {
         var annotation = annotations[0];
-        pos.column = (annotation.pos && typeof annotation.column != "number"
+        pos.column = (annotation.pos && typeof annotation.column !== "number"
             ? annotation.pos.sc
             : annotation.column) || 0;
         pos.row = annotation.row;
@@ -17830,7 +17830,7 @@ var Document = function(text) {
 
 exports.Document = Document;
 });
-;
+
             (function() {
                 window.require(["ace/ace"], function(a) {
                     a && a.config.init(true);
@@ -17839,5 +17839,5 @@ exports.Document = Document;
                     for (var key in a) if (a.hasOwnProperty(key))
                         ace[key] = a[key];
                 });
-            })();
+            }());
         
