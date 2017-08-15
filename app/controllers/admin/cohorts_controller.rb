@@ -3,7 +3,7 @@ class Admin::CohortsController < Admin::BaseController
   before_action :require_cohort, only: [:edit, :update, :show]
 
   def index
-    @cohorts = Cohort.most_recent.all
+    @cohorts = Cohort.most_recent_first.all
 
     @cohort_location = current_user.location
     @cohort_location = @cohort_location.supported_by_location if @cohort_location.supported_by_location

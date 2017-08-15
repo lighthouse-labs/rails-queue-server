@@ -20,7 +20,7 @@ class Cohort < ApplicationRecord
 
   scope :upcoming, -> { where('cohorts.start_date > ?', Date.current) }
   scope :chronological, -> { order(start_date: :asc) }
-  scope :most_recent, -> { order(start_date: :desc) }
+  scope :most_recent_first, -> { order(start_date: :desc) }
   scope :starts_between, ->(from, to) { where("cohorts.start_date >= ? AND cohorts.start_date <= ?", from, to) }
   scope :is_active, -> { starts_between(Date.current - 8.weeks, Date.current) }
   scope :active_or_upcoming, -> { upcoming.or(Cohort.is_active) }

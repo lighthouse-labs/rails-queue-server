@@ -5,7 +5,7 @@ class TechInterviewCreator
     Rails.logger.info "Running..."
     return false unless weekday?
     # sort by most_recent so that junior cohorts take priority in terms of tech interviews. - KV
-    Cohort.is_active.most_recent.each do |cohort|
+    Cohort.is_active.most_recent_first.each do |cohort|
       tz = cohort.location.timezone
       Time.use_zone(tz) do
         handle_cohort(cohort) if within_mentor_hours?
