@@ -19,7 +19,7 @@ end
 require Rails.root.join('db/seeds/outcomes/sync').to_s
 
 ContentRepository.all.each do |r|
-  Content::Deploy.call(content_repository: r, repo_dir: '/Users/wesleywong/lhl/iOS-Curriculum/data')
+  Content::Deploy.call(content_repository: r, branch: 'feature/prep-activities-format')
 end
 
 # Fake shit
