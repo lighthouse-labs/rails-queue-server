@@ -13,13 +13,13 @@ end
 #       and have set your GITHUB_ADMIN_OAUTH_TOKEN in the .env file
 @repo = ContentRepository.find_or_create_by!(
   github_username: "lighthouse-labs",
-  github_repo: "2016-web-curriculum-activities"
+  github_repo: "iOS-Curriculum"
 )
 
 require Rails.root.join('db/seeds/outcomes/sync').to_s
 
 ContentRepository.all.each do |r|
-  Content::Deploy.call(content_repository: r)
+  Content::Deploy.call(content_repository: r, repo_dir: '/Users/wesleywong/lhl/iOS-Curriculum/data')
 end
 
 # Fake shit
