@@ -78,7 +78,7 @@ group :development do
   gem 'web-console'
   gem 'byebug'
   gem 'rubocop'
-
+  gem 'byebug'
   # listen creates too many fsevent_watch processes and kills my laptop. Removing this until resolved - KV
   # gem 'listen', '~> 3.1.5'
   gem 'spring-watcher-listen', '~> 2.0.1'

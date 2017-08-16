@@ -1,0 +1,32 @@
+- provide :container,  'fluid'
+- provide :body_class, 'activities-show'
+- title "Activities Search"
+
+header.page-header
+  h1 Activities Search
+
+.well
+  = render 'filters'
+
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title
+          | Activities
+          = " (#{@activities.count} / #{@activities.total_count} results )"
+
+
+      .table-responsive
+        table.table.students.sortable
+          thead
+            tr
+              th Name & Type
+              th Day / Module
+              th Duration
+          tbody
+            == render collection: @activities, partial: 'activity_table', as: :activity
+          tfoot
+            tr
+              th colspan="6"
+                = paginate @activities, window: 2

@@ -14,7 +14,23 @@ class Activity < ApplicationRecord
 
   has_many :item_outcomes, as: :item, dependent: :destroy
   has_many :outcomes, through: :item_outcomes
+  has_many :skills, through: :outcomes
   has_many :outcome_results, as: :source
+
+  include PgSearch
+  pg_search_scope :by_keywords,
+                  against:            [:name, :day, :type],
+                  associated_against: {
+                    section: [:name, :type],
+                    skills:  :name
+                  },
+                  using:              {
+                    tsearch: {
+                      dictionary: "english",
+                      any_word:   true,
+                      prefix:     true
+                    }
+                  }
 
   validates :name, presence: true, length: { maximum: 56 }
   validates :duration, numericality: { only_integer: true, allow_blank: true }
