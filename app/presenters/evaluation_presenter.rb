@@ -37,9 +37,12 @@ class EvaluationPresenter < BasePresenter
     content_tag(:span, evaluation.teacher.location.name, class: 'label label-primary')
   end
 
-  def project
-    result = project_name
-    result += tag('br')
+  def project(include_link = nil)
+    result = tag("div")
+    if include_link
+      result = project_name
+      result += tag('br')
+    end
     result += view_button if evaluation
     result += nbsp_escape_false
     result += state_marking_button

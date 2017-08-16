@@ -1,0 +1,17 @@
+- present evaluation, EvaluationPresenter do |evaluation_presenter|
+  tr
+    td.details
+      - if show == 'student'
+        = evaluation_presenter.student_info
+      - elsif show == 'project'
+        = link_to project.name, project     
+    td
+      - if evaluation
+        = render 'projects/student_project_status', project_evaluation: evaluation
+    td.details
+      = evaluation_presenter.teacher_info
+    td.details
+      = evaluation_presenter.stats
+    td
+      = evaluation_presenter.project
+    td

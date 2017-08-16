@@ -28,6 +28,7 @@ class Evaluation < ApplicationRecord
   validates :github_url,
             format: { with: URI.regexp(%w[http https]), message: "must be a valid format" }
 
+  scope :newest_completed_first, -> { order(completed_at: :desc) }
   scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :asc) }
 
@@ -56,6 +57,7 @@ class Evaluation < ApplicationRecord
   scope :newest_active_evaluations_first, -> { order(started_at: :desc) }
 
   scope :for_project, ->(project) { where(project_id: project.id) }
+  scope :for_student, ->(student) { where(student_id: student.id) }
   scope :after_date, ->(date) { where("evaluations.updated_at > ?", date) }
   scope :before_date, ->(date) { where("evaluations.updated_at < ?", date) }
   scope :exclude_autocomplete, -> { where.not(state: 'auto_accepted') }
@@ -64,7 +66,7 @@ class Evaluation < ApplicationRecord
   scope :cancelled, -> { where(state: 'cancelled') }
   scope :in_progress, -> { where(state: 'in_progress') }
   scope :accepted, -> { where(state: 'accepted') }
-  scope :rejected, -> { where(state: 'rejected')  }
+  scope :rejected, -> { where(state: 'rejected') }
   scope :auto_accepted, -> { where(state: 'auto_accepted') }
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,

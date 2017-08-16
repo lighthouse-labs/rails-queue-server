@@ -2,6 +2,7 @@ class Student < User
 
   has_many :day_feedbacks, foreign_key: :user_id
   has_many :feedbacks
+  has_many :evaluations
 
   scope :in_active_cohort, -> { joins(:cohort).merge(Cohort.is_active) }
   scope :has_open_requests, -> {
@@ -9,7 +10,6 @@ class Student < User
       .where(assistance_requests: { type: nil, canceled_at: nil, assistance_id: nil })
       .references(:assistance_requests)
   }
-
   scope :remote, -> { joins(:cohort).where('users.location_id IS NOT NULL AND cohorts.location_id <> users.location_id') }
 
   def prospect?

@@ -8,8 +8,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project = find_project
-    @evaluation_ids = Evaluation.filter_by(params, cohort, @project)
-    @evaluations = Evaluation.where(id: @evaluation_ids)
   end
 
   private

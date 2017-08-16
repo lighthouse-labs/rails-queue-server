@@ -1,9 +1,9 @@
 - provide :body_class, 'student-stats'
 - title "#{@student.full_name}"
 
-- present(@student) do |student_presenter|
+- present @student, StudentPresenter do |student_presenter|
 
-  .col-md-9
+  .col-md-12
     .student-heading
       = image_tag avatar_for(@student), class: 'avatar'
       .student-info-holder
@@ -11,6 +11,7 @@
         = student_presenter.cohort_name_link
         br
         = student_presenter.cohort_date_link
+        = student_presenter.contact
       - if student_presenter.rollover_button?
         button.btn.btn-danger.btn-xs.rollover Rollover
       = student_presenter.day_button
@@ -47,13 +48,10 @@
         .tab-pane.active#outcomes role="tabpanel"
           = student_presenter.outcomes_table
         .tab-pane#evaluations role="tabpanel"
-          = render "project_evaluations", evaluations: @evaluations, student: @student
+          = render "project_evaluations", evaluations: @evaluations
         .tab-pane#bootcamp_submissions role="tabpanel"
           = student_presenter.tech_interview_table
         .tab-pane#prep_submissions role="tabpanel"
           = student_presenter.prep_table
 
-  .col-md-3
-    .titled-panel.contact
-      p.title Contact Info
-      = student_presenter.contact
+ 
