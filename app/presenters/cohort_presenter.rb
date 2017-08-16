@@ -13,4 +13,5 @@ class CohortPresenter < BasePresenter
   def cohort_switcher
     link_to 'Select', [:switch_to, cohort], method: :put, class: 'btn btn-link btn-sm'
   end
+
 end

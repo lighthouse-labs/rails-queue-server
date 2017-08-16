@@ -2,7 +2,7 @@ class Teacher::PastCohortsController < Teacher::BaseController
 
   def index
     @cohorts = Cohort.most_recent_first.all.page(params[:page])
-    
+
     apply_filters
   end
 
