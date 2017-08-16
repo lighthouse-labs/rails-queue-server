@@ -68,16 +68,16 @@ class Content::Deploy
     end
   end
 
+  def load_activity_records(repo_dir, records)
+    Content::LoadActivities.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
+  end
+
   def load_interview_records(repo_dir, records)
     if Dir.exist?(File.join(repo_dir, '_Interviews').to_s)
       Content::LoadInterviews.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
     else
       Rails.logger.info 'Interview templates not found. Skipping.'
     end
-  end
-
-  def load_activity_records(repo_dir, records)
-    Content::LoadActivities.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
   end
 
   def download_and_extract_repo_archive
