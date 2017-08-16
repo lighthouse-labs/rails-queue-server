@@ -2,9 +2,7 @@ class Teacher::PastCohortsController < Teacher::BaseController
 
   def index
     @cohorts = Cohort.most_recent_first.all.page(params[:page])
-    @cohort_location = current_user.location
-    @cohort_location = @cohort_location.supported_by_location if @cohort_location.supported_by_location
-
+    
     apply_filters
   end
 
