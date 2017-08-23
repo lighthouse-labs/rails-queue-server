@@ -1,4 +1,4 @@
-class Teacher::PastCohortsController < Teacher::BaseController
+class Teacher::CohortSwitcherController < Teacher::BaseController
 
   def index
     @cohorts = Cohort.most_recent_first.all.page(params[:page])
