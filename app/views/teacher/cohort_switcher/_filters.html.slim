@@ -18,14 +18,14 @@
      
     .form-group
       label Location
-      = select_tag :location_id, options_from_collection_for_select(Location.all, :id, :name, params[:location_id]), prompt: 'All Locations', class: "form-control teacher-past-cohorts-dropdown"
+      = select_tag :location_id, options_from_collection_for_select(Location.all, :id, :name, params[:location_id]), prompt: 'All Locations', class: "form-control"
     
     .form-group
       label Status
-      = select_tag :status, options_for_select(['All', 'Upcoming', 'Active', 'Finished'], params[:status]), class: "form-control teacher-past-cohorts-dropdown"
+      = select_tag :status, options_for_select(['All', 'Upcoming', 'Active', 'Active/Finished', 'Finished'], params[:status]), class: "form-control"
 
     .form-group
       label Student Search
-      = text_field_tag :keywords, params[:keywords], placeholder: 'e.g. Pam, p@mail.com', class: "form-control teacher-past-cohorts-text-box"
+      = text_field_tag :keywords, params[:keywords], placeholder: 'e.g. Pam, p@mail.com', class: "form-control"
 
-    = submit_tag 'Filter', class: 'btn btn-success teacher-past-cohorts-button'
+    = submit_tag 'Filter', class: 'btn btn-success'

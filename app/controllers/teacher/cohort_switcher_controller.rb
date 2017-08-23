@@ -50,12 +50,14 @@ class Teacher::CohortSwitcherController < Teacher::BaseController
   end
 
   def filter_by_status
-    params[:status] ||= 'All'
+    params[:status] ||= 'Active/Finished'
     @cohorts = case params[:status]
                when 'Upcoming'
                  @cohorts.upcoming
                when 'Active'
                  @cohorts.is_active
+               when 'Active/Finished'
+                 @cohorts.started_before(Date.current)                 
                when 'Finished'
                  @cohorts.is_finished
                else
