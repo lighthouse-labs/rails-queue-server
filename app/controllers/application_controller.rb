@@ -82,14 +82,14 @@ class ApplicationController < ActionController::Base
     @cohort ||= current_user.try(:cohort) # Students have a cohort
     # Try to find the next one that's upcoming.
     # Failing that use the latest
-    @cohort ||= (Cohort.upcoming.chronological.first || Cohort.most_recent.first)
+    @cohort ||= (Cohort.upcoming.chronological.first || Cohort.most_recent_first.first)
     @program = @cohort.try(:program)
     @cohort
   end
   helper_method :cohort
 
   def cohorts
-    @cohorts ||= Cohort.most_recent
+    @cohorts ||= Cohort.most_recent_first
   end
   helper_method :cohorts
 

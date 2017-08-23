@@ -137,6 +137,7 @@ LaserShark::Application.routes.draw do
     resources :evaluations, only: [:index]
     resources :assistances, only: [:index]
     resources :tech_interviews, only: [:index]
+    resources :cohort_switcher, only: [:index]
   end
 
   # ADMIN
