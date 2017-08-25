@@ -37,6 +37,7 @@ class Activity < ApplicationRecord
   validates :start_time, numericality: { only_integer: true, allow_blank: true }
   validates :sequence, numericality: { only_integer: true }
   validates :day, format: { with: DAY_REGEX, allow_blank: true }
+  validates :uuid, presence: true, uniqueness: true
 
   scope :chronological, -> { order("activities.sequence ASC, activities.id ASC") }
   scope :reverse_chronological_for_day, -> { order("activities.day DESC, activities.sequence DESC") }
