@@ -69,7 +69,6 @@ class ActivitiesController < ApplicationController
 
   def apply_filters
     filter_by_permissions
-    filter_by_type
     filter_by_stretch
     filter_by_notes
     filter_by_lectures
@@ -82,17 +81,6 @@ class ActivitiesController < ApplicationController
       @activities = @activities.until_day(curriculum_day)
     else
       @activities
-    end
-  end
-
-  def filter_by_type
-    @activities = case params[:type]
-                  when 'Prep'
-                    @activities.prep
-                  when 'Bootcamp'
-                    @activities.bootcamp
-                  else
-                    @activities
     end
   end
 
