@@ -21,5 +21,5 @@ table.table.students
               = project_presenter.student_project_status
       - else
         / Show only most recent evaluation for student
-        - evaluation = evaluations.newest_completed_first.first
+        - evaluation = evaluations.newest_first.first
         = render 'projects/evaluation_row', evaluation: evaluation, student: student, project: @project, show: 'student'
