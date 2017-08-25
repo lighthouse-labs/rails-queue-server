@@ -14,31 +14,6 @@ if Rails.env.development?
   cohort_tor = Cohort.find_by(code: 'toto')
   cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Time.zone.today - 14.days, program: @program, code: "toto"
 
-  1.upto(8).each do |week|
-    1.upto(5).each do |day|
-      day = "w#{week}d#{day}"
-
-      DayInfo.find_or_create_by!(day: day)
-
-      [900, 1100, 1500, 1900, 2200].each_with_index do |time, i|
-        params = {
-          name:         Faker::Commerce.product_name,
-          day:          day,
-          start_time:   time,
-          duration:     rand(60..180),
-          instructions: Faker::Lorem.paragraphs.join("<br/><br/>"),
-          sequence:     i
-        }
-
-        # don't create if already there
-        next unless time == 900
-        Lecture.create!(params) unless Lecture.where(day: day).any?
-        # else
-        # Assignment.create!(params) unless Assignment.where(day: day, start_time: time).any?
-      end
-    end
-  end
-
   User.where(last_name: 'The Fake').destroy_all
 
   @teachers = []
