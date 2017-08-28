@@ -57,7 +57,7 @@ class Teacher::CohortSwitcherController < Teacher::BaseController
                when 'Active'
                  @cohorts.is_active
                when 'Active/Finished'
-                 @cohorts.started_before(Date.current)                 
+                 @cohorts.started_before(Date.current)
                when 'Finished'
                  @cohorts.is_finished
                else

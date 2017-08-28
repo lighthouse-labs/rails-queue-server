@@ -3,10 +3,6 @@
   .form-row
 
     .form-group
-      label Type
-      = select_tag :type, options_for_select(['All', 'Prep', 'Bootcamp'], params[:type]), class: "form-control"
-
-    .form-group
       label Stretch
       = select_tag :stretch, options_for_select(['Include', 'Only', 'Exclude'], params[:stretch]), class: "form-control"
 

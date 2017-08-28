@@ -6,6 +6,7 @@ FactoryGirl.define do
     day { "w#{rand(1..8)}d#{rand(1..5)}" }
     start_time { [900, 1100, 1500, 1900, 2200].sample }
     duration { rand(60..180) }
+    uuid { SecureRandom.uuid }
     # sequence is a FactoryGirl method, thus the odd syntax
     add_attribute :sequence, 1
   end
