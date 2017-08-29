@@ -1,5 +1,20 @@
 # Change Log
 
+## [2017.08.29.0645](https://github.com/lighthouse-labs/compass/tree/2017.08.29.0645) (2017-08-28)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.10.1100...2017.08.29.0645)
+
+**Merged pull requests:**
+
+- Search fixes, dev\_seed fix, project evals ui/ux [\#338](https://github.com/lighthouse-labs/compass/pull/338) ([wesley-wong](https://github.com/wesley-wong))
+- Indentation fixes on user model incomplete activities [\#332](https://github.com/lighthouse-labs/compass/pull/332) ([wesley-wong](https://github.com/wesley-wong))
+- Made Compass Deploy More Defensive [\#331](https://github.com/lighthouse-labs/compass/pull/331) ([wesley-wong](https://github.com/wesley-wong))
+- Allow teachers/admins to switch to any cohort, via a new cohort switcher view  [\#328](https://github.com/lighthouse-labs/compass/pull/328) ([wesley-wong](https://github.com/wesley-wong))
+- Incomplete Activities Properly Handle Code Evaluated Activities [\#321](https://github.com/lighthouse-labs/compass/pull/321) ([wesley-wong](https://github.com/wesley-wong))
+- Added .eslintrc, ran eslint --fix to fix errors [\#320](https://github.com/lighthouse-labs/compass/pull/320) ([wesley-wong](https://github.com/wesley-wong))
+- Activities Full Text Search [\#313](https://github.com/lighthouse-labs/compass/pull/313) ([wesley-wong](https://github.com/wesley-wong))
+- Incomplete Activities Scope Fix for W1D1 [\#304](https://github.com/lighthouse-labs/compass/pull/304) ([wesley-wong](https://github.com/wesley-wong))
+- Project Evaluations UI/UX Improvements [\#296](https://github.com/lighthouse-labs/compass/pull/296) ([wesley-wong](https://github.com/wesley-wong))
+
 ## [2017.08.10.1100](https://github.com/lighthouse-labs/compass/tree/2017.08.10.1100) (2017-08-09)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.02.1130...2017.08.10.1100)
 
