@@ -196,6 +196,6 @@ LaserShark::Application.routes.draw do
   # To test 500 error notifications on production
   get 'error-test' => 'test_errors#create'
 
-  get '/:uuid', to: 'activities#show', constraints: { uuid: /[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}/i }, as: :activity_by_uuid
+  get '/:uuid', to: 'activities#show', constraints: { uuid: /[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/i }, as: :activity_by_uuid
 
 end
