@@ -19,7 +19,7 @@ class Activity < ApplicationRecord
 
   include PgSearch
   pg_search_scope :by_keywords,
-                  against:            [:name, :day, :type],
+                  against:            [:name, :day, :type, :instructions],
                   associated_against: {
                     section: [:name, :type],
                     skills:  :name
