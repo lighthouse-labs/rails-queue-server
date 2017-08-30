@@ -52,3 +52,6 @@ tr data-id='#{user.id}'
           | Deactivate
         .btn.btn-primary.btn-xs.user-reactivate-button.hidden-button
           | Reactivate
+      - if !user.admin? 
+        = link_to impersonate_admin_user_path(user.id), class: 'btn btn-warning btn-xs user-impersonate-button'
+          | Impersonate

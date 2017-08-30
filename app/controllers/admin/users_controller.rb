@@ -19,6 +19,12 @@ class Admin::UsersController < Admin::BaseController
     render nothing: true
   end
 
+  def impersonate
+    session[:impersonating_user_id] = current_user.id
+    session[:user_id] = params[:id]
+    redirect_to day_path('today')
+  end
+
   private
 
   def load_user

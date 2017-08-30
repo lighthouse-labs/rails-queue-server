@@ -60,6 +60,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :admin?
 
+  def impersonating?
+    session[:impersonating_user_id].present?
+  end
+  helper_method :impersonating?
+
   def teachers_on_duty
     return [] if current_user && !current_user.is_a?(Teacher) && !current_user.is_a?(Student)
 

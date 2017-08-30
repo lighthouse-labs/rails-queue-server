@@ -33,6 +33,14 @@ class SessionsController < ApplicationController
     redirect_to :root
   end
 
+  def revert_admin
+    if impersonating?
+      session[:user_id] = session[:impersonating_user_id]
+      session[:impersonating_user_id] = nil
+      redirect_to admin_users_path
+    end
+  end
+
   protected
 
   def auth_hash_params
