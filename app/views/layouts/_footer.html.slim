@@ -3,5 +3,4 @@
   nav.navbar.navbar-default.navbar-fixed-bottom.navbar-text
     .container.text-center
       | You are now impersonating #{current_user.full_name}&nbsp;&nbsp;
-      = link_to revert_admin_session_path, class: 'btn btn-primary btn-xs'
-        | Stop Impersonating 
+      = link_to 'Stop Impersonating', revert_admin_session_path, method: :put, class: 'btn btn-primary btn-xs'

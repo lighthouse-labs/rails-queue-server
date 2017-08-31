@@ -55,7 +55,8 @@ LaserShark::Application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/github', as: 'github_session'
   resource :session, only: [:new, :destroy] do
-    get :revert_admin
+    put :revert_admin
+    put :impersonate, on: :member
   end
   # resource :registration, only: [:new, :create]
 
@@ -160,7 +161,6 @@ LaserShark::Application.routes.draw do
     end
     resources :users, only: [:index] do
       member do
-        get :impersonate
         post :reactivate
         post :deactivate
       end

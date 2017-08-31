@@ -6,13 +6,4 @@ class Admin::BaseController < ApplicationController
 
   layout 'admin'
 
-  private
-
-  def admin_required
-    unless admin?
-      flash[:alert] = 'Access Not Allowed'
-      redirect_to :root
-    end
-  end
-
 end

@@ -19,6 +19,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def admin_required
+    unless admin?
+      flash[:alert] = 'Access Not Allowed'
+      redirect_to :root
+    end
+  end
+
   def set_raven_context
     if current_user
       Raven.user_context('id'    => current_user.id,
@@ -79,6 +86,11 @@ class ApplicationController < ActionController::Base
   helper_method :teachers_on_duty
 
   def cohort
+    if impersonating?
+      @cohort = Cohort.find_by(id: session[:cohort_id])
+      @program = @cohort.try(:program)      
+    end
+    
     return @cohort if @cohort
     # Teachers can switch to any cohort
     if teacher?

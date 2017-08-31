@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   skip_before_action :authenticate_user, only: [:new, :create]
+  before_action :admin_required, only: [:impersonate]
 
   def new
     redirect_to day_path('today') if current_user
@@ -39,6 +40,16 @@ class SessionsController < ApplicationController
       session[:impersonating_user_id] = nil
       redirect_to admin_users_path
     end
+  end
+
+  def impersonate
+    session[:impersonating_user_id] = current_user.id
+    impersonated_user = User.find(params[:id])
+    session[:user_id] = impersonated_user.id
+    if impersonated_user.is_a?(Student)
+      session[:cohort_id] = impersonated_user.cohort.id
+    end
+    redirect_to day_path('today')
   end
 
   protected
