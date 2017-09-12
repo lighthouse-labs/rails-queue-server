@@ -88,9 +88,9 @@ class ApplicationController < ActionController::Base
   def cohort
     if impersonating?
       @cohort = Cohort.find_by(id: session[:cohort_id])
-      @program = @cohort.try(:program)      
+      @program = @cohort.try(:program)
     end
-    
+
     return @cohort if @cohort
     # Teachers can switch to any cohort
     if teacher?
