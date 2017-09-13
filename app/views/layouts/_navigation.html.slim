@@ -178,7 +178,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                 li
                   = link_to 'Your Tech Interviews', teacher_tech_interviews_path
 
-          -if teacher?
+          -if teacher? && !impersonating?
             li.new-issue
               div class="btn-group" data-toggle="tooltip" data-placement="left" title="Report curriculum or compass issues (thanks!)"
                 button type="button" class="navbar-btn btn btn-warning dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -196,7 +196,10 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                 - attrs = { data: { toggle: 'tooltip', placement: 'bottom' }, title: "Your Location: #{current_user.location.try(:name) || 'N/A'}" }
                 = link_to "Go on duty", '#', { class: "on-duty-link navbar-btn btn btn-sm btn-success #{'hidden' if current_user.on_duty?}", onclick: "ga('send', 'event', 'go-on-duty', 'click');"}.merge(attrs)
                 = link_to "Go off duty", '#', { class: "off-duty-link navbar-btn btn btn-sm btn-danger #{'hidden' unless current_user.on_duty?}", onclick: "ga('send', 'event', 'go-off-duty', 'click');"}.merge(attrs)
-          - if @program.prep_assistance? && current_user.try(:enrolled_and_prepping?)
+          - if impersonating? && (current_user.try(:active_student?) || (@program.prep_assistance? && current_user.try(:enrolled_and_prepping?)))
+                button.btn.btn-sm.navbar-btn.btn-primary.disabled
+                 | Disabled
+          - elsif @program.prep_assistance? && current_user.try(:enrolled_and_prepping?)
             li#assistance-request-module
               span#create-assistance-request
                 = link_to 'Request Assistance', prep_assistance_requests_path(activity_id: @activity), method: :post, class: "btn btn-sm navbar-btn btn-primary"
