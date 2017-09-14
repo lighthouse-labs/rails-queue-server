@@ -45,10 +45,10 @@ class SessionsController < ApplicationController
   def impersonate
     impersonated_user = User.find(params[:id])
     if impersonated_user.admin?
-      flash[:alert] = 'You cannot impersonate an admin'      
+      flash[:alert] = 'You cannot impersonate an admin'
       return redirect_to admin_users_path
     elsif impersonated_user.is_a?(Student)
-      session[:cohort_id] = impersonated_user.cohort.id  
+      session[:cohort_id] = impersonated_user.cohort.id
     end
     session[:user_id] = impersonated_user.id
     session[:impersonating_user_id] = current_user.id
