@@ -12,7 +12,7 @@ class TeacherResourcesController < ApplicationController
 
   def redirect_to_first_activity
     @section = params[:id].present? ? TeacherSection.find_by!(slug: params[:id]) : TeacherSection.first
-    @activity = @section.activities.chronological.active.first
+    @activity = @section.activities.chronological.active.first if @section
     if @activity
       redirect_to teacher_resource_activity_path(@section, @activity)
     else
