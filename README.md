@@ -115,7 +115,7 @@ It is reccomended that you create a second compass on your local machine so that
   - for iOS P/T: https://github.com/lighthouse-labs/iOS-Curriculum-Part-Time
 4. Continue with the rest of the steps (from step 9)
 
-**if you are setting up a part-time curriculum*, there is a little bit more work you need to do. (configuration for part time needs to be fairly specific or it may not work.)
+*if you are setting up a part-time curriculum*, there is a little bit more work you need to do. (configuration for part time needs to be fairly specific or it may not work.)
 
 1.  in `seeds.rb` change `@program`
   ```rb
