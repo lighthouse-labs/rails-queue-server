@@ -5,17 +5,31 @@ Compass - by Lighthouse Labs
 [![Test Coverage](https://codeclimate.com/repos/5908c5f748708a0264000096/badges/2aace388b2ded83be3a6/coverage.svg)](https://codeclimate.com/repos/5908c5f748708a0264000096/coverage)
 [![Issue Count](https://codeclimate.com/repos/5908c5f748708a0264000096/badges/2aace388b2ded83be3a6/issue_count.svg)](https://codeclimate.com/repos/5908c5f748708a0264000096/feed)
 
-## Ruby / Rails
+Welcome to Compass! Lighthouse Lab's website for hosting our curriculum to students and managing their education.
 
-This project is built with :
-* ruby 2.3.0 (mentioned in the Gemfile)
-* rails 5.0.0.1
-* slim instead of erb/haml
-* postgres 9.x
-* bootstrap 3.something with FlatUI
-* phantomjs (use `brew` to install) for integration test driver
-  * Please make sure your phantomjs brew package is up2date: `brew update && brew upgrade phantomjs`
-* poltergeist for phantomjs driver
+[Web F/T site](https://web-compass.lighthouselabs.ca/days/today)
+
+[iOS F/T site](https://ios.compass.lighthouselabs.ca/welcome)
+
+[Web P/T site](https://web-pt.compass.lighthouselabs.ca/welcome)
+
+[iOS F/T site](https://ios-pt.compass.lighthouselabs.ca/welcome)
+
+ Table of Contents
+  1. [Setup](#setup)
+      - [Github App Setup](#github-app-setup)
+      - [Start the Server](#server)
+      - [Getting the Queue to work](#queue)
+      - [Setting up iOS or Part-time](#ios-and-part-time-support)
+  2. [Project Management Process](#pm-process)
+      - [for Lead Dev](#for-lead-dev)
+      - [for Contributors](#for-contributors-and-junior-devs)
+  3. [Deployment](#deployment)
+  4. [CSS UI Framework](#css-ui-framework)
+  5. [Linter](#linter)
+  6. [Testing](#testing)
+  7. [CodeClimate](#codeclimate)
+  8. [Built With](#built-with)
 
 ## Setup
 
@@ -30,8 +44,8 @@ Follow these steps in order please:
   * From your terminal, type in `sudo nano /etc/hosts` (Mac/Linux Only)
   * Note: if you are using a VM (Vagrant, etc), this should be done on your host (main) machine, not your virtual machine
   * Add the following entry as a new line at the end of the `/etc/hosts` file: `127.0.0.1 compass.dev`.
-  * Make sure the HOST env var is set correctly in `.env` (`HOST=compass.dev:3000`)
-  * Now you can go to the URL `http://compass.dev:3000/` instead of `http://localhost:3000/` for when you are working on this app.
+  * Make sure the HOST env var is set correctly in `.env` (`HOST=compass.dev:4000`)
+  * Now you can go to the URL `http://compass.dev:4000/` instead of `http://localhost:4000/` for when you are working on this app.
 6. Create a [Developer level Oauth Application on Github](https://github.com/settings/developers)
   * Screenshot: http://d.pr/i/182yT/1rXSKzEe
   * Set the two client keys as GITHUB_KEY and GITHUB_SECRET in the env file
@@ -45,23 +59,25 @@ Follow these steps in order please:
   * The seed script will download the (private) curriculum repo in order to ingest the content. This means your github auth should be set appropriately, otherwise it will have access issues and fail.
 9. Start the server, using `bin/serve`
 10. Create an admin+teacher account for yourself. First sign up as a teacher using this URL:
-  * <http://compass.dev:3000/i/ggg> (teacher invite code URL)
-  * Once you've authenticated successfully, `rails c` in and update the user to `admin=true` status
-  * Save without validation (`user.save(validate: false)`) - FIXME: so this is not necessary
+  * <http://compass.dev:4000/i/ggg> (teacher invite code URL)
+  * Once you've authenticated successfully, `rails c` in and update the user (using `u = User.last`, set `u.admin = true`, then `u.save`)
 11. It is recommended that you create/use another, fake github account to represent a student that can be logged in at the same time (in private browsing mode)
+  * you can use our (`compass-test-student` GH account, account info available in intern docs)
 
 ## Github App Setup
 
 User (student/teacher) Authentication can only happen through Github. Much like how Facebook has Apps that you need if you want to allow users to login through Facebook, we need to create an "app" on Github).
 
 1. Create a Github application on your Github profile (for your dev environment): <https://github.com/settings/applications/new>
-2. Specify `http://compass.dev:3000/auth/github/callback` as the Callback URL (when they ask you)
+2. Specify `http://compass.dev:4000/auth/github/callback` as the Callback URL (when they ask you)
 3. After the app is created, it gives you some keys. Add the OAuth client ID and client secret as `GITHUB_KEY` and `GITHUB_SECRET` to your `.env` file
 4. Kill and Restart your local server (`guard` or `rails s` or whatever) if running
 
 ## Server
 
-Start the server using the command `bin/rails s -b 0.0.0.0`.
+Start the server using the command `bin/serve`
+This runs `bin/rails s -b 0.0.0.0 -p 4000` 
+  - You can change this to 3000 if you prefer (affects above GitHub changes)
 
 ## Queue
 
@@ -82,6 +98,45 @@ To populate Tech Interviews, run:
 
 `rake daemons:tech_interviews` in another terminal within the `compass/` folder
 
+  *subject to change: we are starting to schedule tech interviews now*
+
+ ### iOS and Part Time Support
+
+It is reccomended that you create a second compass on your local machine so that you can quickly switch between iOS and web and any of the part time courses.
+
+1. Setup [GitHub App](#github-app-setup) same as before
+2. Follow the [Setup](#setup) above with some modifications:
+  - On step 2, change `database.yml` to use a different db, for example, `compass_ios`
+  - Stop just before you run `rake db:setup`
+    - `db:setup` seeds the database with activities using activities from the [web curriculum repo](https://github.com/lighthouse-labs/2016-web-curriculum-activities).
+3. Change the `seeds.rb` file to reflect the repo you want to seed from. In the *ContentRepository.find_or_create_by!(* line change github_repo to appropriate repo, for example: `github_repo: "iOS-Curriculum"` matches with https://github.com/lighthouse-labs/iOS-Curriculum
+  - for iOS F/T: https://github.com/lighthouse-labs/iOS-Curriculum
+  - for web P/T: https://github.com/lighthouse-labs/intro-to-web-development-curriculum
+  - for iOS P/T: https://github.com/lighthouse-labs/iOS-Curriculum-Part-Time
+4. Continue with the rest of the steps (from step 9)
+
+*if you are setting up a part-time curriculum*, there is a little bit more work you need to do. (configuration for part time needs to be fairly specific or it may not work.)
+
+1.  in `seeds.rb` change `@program`
+  ```rb
+  p.weeks = 7
+  p.days_per_week = 2
+  p.weekends = false
+  p.curriculum_unlocking = 'weekly'
+  p.has_interviews = false
+  p.has_projects = false
+  ```
+
+2. in `dev_seeds.rb` where `cohort_van` or `cohort_tor`, in `Cohort.create!(` add ` weekdays: '1, 3'` for Monday and Wednesday classes, for example
+
+Reasoning:
+
+  - Usually the part-time curriculum is 2 days per week. This is reflected by changing the `Program.days_per_week` column to 2.
+  - Each program has a different length, for iOS part time`Program.weeks = 7`
+  - Program should curriculum unlocking weekly, else it does not handle well if the start is not a Monday. Also allows students to look ahead
+  - Program false flags on projects on interviews and projects (no interviews/projects)
+  - Every cohort needs to setup for weekdays column, for example `'1,3'`, these should match up with the Program's days per week.
+
 ## Curriculum Development
 
 Use the rake command `rake curriculum:deploy`. It is suggested that you test your markdown from the curriculum repo before you push that content. This rake command can be given an arg to bypass the process of downloading the curriculum content form github and instead use a local copy.
@@ -100,39 +155,38 @@ bin/rake curriculum:deploy BRANCH=my-cool-branch-name
 
 ## PM Process
 
+We are using GitHub Projects to manage this repo.
+
 **Setup**:
 
-1. Install [Zenhub](https://chrome.google.com/webstore/detail/zenhub-for-github/ogcgkffhplmphkaahpmffcafajaocjbd) chrome extension
-2. Auth with Zenhub
-3. Use the [board](https://github.com/lighthouse-labs/compass/pulls#boards) to see where things are at
-  * Keep in mind that it contains both issues as well as PRs to address some of those issues
+1. Use [GitHub Projects](https://github.com/lighthouse-labs/compass/projects/2) to see issues.
+2. Download James' [Custom Plugin](https://lhl-git-time-tracker.herokuapp.com/)
+  * Use this plugin to add time estimates/actuals to tickets
+  * Keep in mind that it contains only issues not PRs. Issues in Review/QA should have relevant PR
 
 ### Rules / Process:
 
-**For lead dev:**
+#### For lead dev
 
 - Review the PRs in Review/QA pipeline
-- Use "Review changes" (new) feature to submit a request for changes, or merge+delete the branch+PR
+- Use "Review changes" feature to submit a request for changes, or merge+delete the branch+PR
 - If the PR had feedback with request for changes, change its pipeline to Backlog as well
   - Add any missing labels while you are at it
   - BTW The labels are used by [github_changelog_generator](https://github.com/skywinder/github-changelog-generator) to group changes in the CHANGELOG
 
 
-**For junior/intern dev:**
+#### For contributors and junior devs
 
-All PRs must contain:
+- When naming branches, please use the following format: `enh/231-switch-past-cohorts` or `bug/356-new-cohort-code-regex`
+  - This should match up with the issue number and label
+- Please Follow issue/PR templates
+- Before you submit a PR, please
+  - Run [linter](#linter)
+  - Run [tests](#testing)
+  - Double check your work
+  - Check for [CodeClimate](#codeclimate) errors after pr is submitted
 
-- One or more commit(s) that states `fixes #issuenum` or `resolves #issuenum` in the commit message
-  - This way the issue is auto-closed upon merge into master (the default GitHub branch)
-- A description with:
-  - A link to the issue
-  - Time estimated
-  - Time spent
-  - Screenshots before vs after where applicable
-- Labeled accordingly.
-  - The corresponding issue should also be labeled
-- Zenhub Pipeline of `Review/QA`, which PRs are automatically added to.
-
+Note*: creating an new issue automatically adds a card to the github projects. In addition, submiting a PR moves a card into the Review/QA column when properly labeled (with `resolves #issue`)
 ## Deployment
 
 **Setup**:
@@ -152,46 +206,13 @@ All PRs must contain:
 8. Let Ed Ops folks know about the deployment (`web-ed-ops-vancouver@lighthouselabs.ca` and `web-ed-ops-toronto@lighthouselabs.ca`)
 9. Let all (web bootcamp) teachers know about the deployment by pasting the link to the release on GitHub on #web-curriculum in Slack
 
-## CSS UI Framwork
+## CSS UI Framework
 
 <https://github.com/wingrunr21/flat-ui-sass> was used to convert FlatUI Pro from LESS to SASS (located in `vendor/assets` )
 
-## Custom markdown
+## Linter
+We also have the `rubocop` gem to lint locally, which can be run with `bundle exec rubocop`. To automatically fix simple lint errors such as indentation and white spacing, you can use `bundle exec rubocop -a`, however, there is some risk with this.
 
-**To make code selectable in the browser use:**
-
-
-\`\`\`ruby-selectable
-Some selectable text
-Some selectable text
-Some selectable text
-\`\`\`
-
-\`\`\`selectable
-Some selectable text here
-Some selectable text here
-Some selectable text here
-\`\`\`
-
-**To make a toggleable answer section:**
-
-```
-???ruby
-Some ruby code herecode
-Some ruby code herecode
-Some ruby code herecode
-???
-```
-
-or
-
-```
-???ruby-selectable
-Some ruby code herecode
-Some ruby code herecode
-Some ruby code herecode
-???
-```
 ## Testing
 
 **To run all tests:**
@@ -210,7 +231,7 @@ Some ruby code herecode
 
 `.rspec` file includes rspec options `--format Fuubar  --color spec`
 
-### CodeClimate
+## CodeClimate
 
 Running tests automatically generate the `coverage/` folder (from the `simplecov` gem).
 Opening up the `coverage/index.html` in the browser shows a filterable breakdown
@@ -222,3 +243,15 @@ In order to update the coverage number on CodeClimate, run this command (on mast
 Where `<% Test Reporter ID %>` is from CodeClimate's website. Settings >> Test Coverage
 
 Make sure gem `codeclimate-test-reporter` version is 1.0+
+
+## Built With
+
+This project is built with :
+* ruby 2.3.0 (mentioned in the Gemfile)
+* rails 5.0.0.1
+* slim instead of erb/haml
+* postgres 9.x
+* bootstrap 3.something with FlatUI
+* phantomjs (use `brew` to install) for integration test driver
+  * Please make sure your phantomjs brew package is up2date: `brew update && brew upgrade phantomjs`
+* poltergeist for phantomjs driver
