@@ -52,7 +52,7 @@ class SessionsController < ApplicationController
     end
     session[:user_id] = impersonated_user.id
     session[:impersonating_user_id] = current_user.id
-    redirect_to day_path('today')
+    redirect_to root_path
   end
 
   protected
