@@ -54,7 +54,10 @@ LaserShark::Application.routes.draw do
   # STUDENT / TEACHER AUTH
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/github', as: 'github_session'
-  resource :session, only: [:new, :destroy]
+  resource :session, only: [:new, :destroy] do
+    put :revert_admin
+    put :impersonate, on: :member
+  end
   # resource :registration, only: [:new, :create]
 
   resource :profile, only: [:edit, :update]
