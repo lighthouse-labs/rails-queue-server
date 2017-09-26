@@ -1,5 +1,16 @@
 # Change Log
 
+## [2017.09.26.0915](https://github.com/lighthouse-labs/compass/tree/2017.09.26.0915) (2017-09-25)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.29.0645...2017.09.26.0915)
+
+**Merged pull requests:**
+
+- Making compass more robust, reformatted and added to Readme [\#362](https://github.com/lighthouse-labs/compass/pull/362) ([wesley-wong](https://github.com/wesley-wong))
+- Admins can now Impersonate non admins [\#359](https://github.com/lighthouse-labs/compass/pull/359) ([wesley-wong](https://github.com/wesley-wong))
+- Revert regex change in cohort model, change faker code in cohort factory [\#357](https://github.com/lighthouse-labs/compass/pull/357) ([wesley-wong](https://github.com/wesley-wong))
+- Activity search now searches through :instructions column [\#353](https://github.com/lighthouse-labs/compass/pull/353) ([wesley-wong](https://github.com/wesley-wong))
+- Replaced Regex in /routes.rb to Accommodate UUID v1 [\#349](https://github.com/lighthouse-labs/compass/pull/349) ([wesley-wong](https://github.com/wesley-wong))
+
 ## [2017.08.29.0645](https://github.com/lighthouse-labs/compass/tree/2017.08.29.0645) (2017-08-28)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.10.1100...2017.08.29.0645)
 
