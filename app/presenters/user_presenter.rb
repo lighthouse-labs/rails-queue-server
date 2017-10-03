@@ -68,22 +68,14 @@ class UserPresenter < BasePresenter
   def user_info
     if user.type == 'Student'
       render('shared/student_info', student: user, show_email: true)
-  #   elsif user.type == 'Teacher'
-  #       link_to teacher_path(user) do
-  #     = image_tag avatar_for(user), class: 'avatar'
-  #   = link_to "#{user.full_name}", teacher_path(user)
-  #   br
-  #   = mail_to(user.email, user.email, target: '_blank', class: 'email')
-  #   br
-  #   span.label.label-primary = user.location.name
-
-  # - else
-  #   = image_tag avatar_for(user), class: 'avatar'
-  #   = "#{user.full_name}"
-  #   br
-  #   = mail_to(user.email, user.email, target: '_blank', class: 'email')
-  #   br
-  #   span.label.label-primary = user.location.name
+    elsif user.type == 'Teacher'
+      output = link_to image_for_index_page, teacher_path(user)
+      output += link_to "#{user.full_name}", teacher_path(user)
+      user_content output
+    else
+      output = image_for_index_page
+      output += "#{user.full_name}"
+      user_content output
     end
   end
 
@@ -91,6 +83,14 @@ class UserPresenter < BasePresenter
 
   def avatar_for
     h.avatar_for(user)
+  end
+
+  def user_content output
+    output += tag 'br'
+    output += mail_to user.email, user.email, target: '_blank', class: 'email'
+    output += tag 'br'
+    output += content_tag :span, user.location.name, class: 'label label-primary'
+    content_tag :div, output
   end
 
 end
