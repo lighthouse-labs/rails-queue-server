@@ -70,11 +70,11 @@ class UserPresenter < BasePresenter
       render('shared/student_info', student: user, show_email: true)
     elsif user.type == 'Teacher'
       output = link_to image_for_index_page, teacher_path(user)
-      output += link_to "#{user.full_name}", teacher_path(user)
+      output += link_to user.full_name.to_s, teacher_path(user)
       user_content output
     else
       output = image_for_index_page
-      output += "#{user.full_name}"
+      output += user.full_name.to_s
       user_content output
     end
   end
@@ -85,7 +85,7 @@ class UserPresenter < BasePresenter
     h.avatar_for(user)
   end
 
-  def user_content output
+  def user_content(output)
     output += tag 'br'
     output += mail_to user.email, user.email, target: '_blank', class: 'email'
     output += tag 'br'
