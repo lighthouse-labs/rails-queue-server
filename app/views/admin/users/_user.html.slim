@@ -1,56 +1,49 @@
-tr data-id='#{user.id}'
-  td
-    .user-info
-      = image_tag avatar_for(user), class: 'user-avatar'
-      = user.full_name
-      - if user.email
-        br
-        = mail_to(user.email, user.email, target: '_blank', class: 'email')
-      br
-      span.label.label-primary = user.location.try(:name)
-  td
-    - if user.type
-      = user.type
-    - else
-      = "User"
-
-    - if user.admin?
-      br
-      span.label.label-warning Admin
-  td
-    - if user.cohort
-      = link_to user.cohort.name, [:admin, user.cohort]
-    - else
-      = 'N/A'
-    - if user.initial_cohort
-      br
-      = link_to user.initial_cohort.name, [:admin, user.initial_cohort]
-      | &nbsp;
-      small = "(Initially)"
-  td
-    - present user, UserPresenter do |presenter|
-      ul.list-inline.social-icons
-        = presenter.email_info
-        = presenter.github_info
-        = presenter.twitter_info
-        = presenter.slack_info
-        = presenter.skype_info
-  td
-    = "#{time_ago_in_words(user.created_at)} ago"
-  td
-    div
-      .label.label-danger.label-deactivated class=(user.deactivated? ? '' : 'hide') Deactivated
-  td
-    .btn-collection
-      - if user.deactivated?
-        .btn.btn-primary.btn-xs.user-reactivate-button
-          | Reactivate
-        .btn.btn-danger.btn-xs.user-deactivate-button.hidden-button
-          | Deactivate
+- present user, UserPresenter do |presenter|
+  tr data-id='#{user.id}'
+    td.student-info
+      = presenter.user_info    
+    td
+      - if user.type
+        = user.type
       - else
-        .btn.btn-danger.btn-xs.user-deactivate-button
-          | Deactivate
-        .btn.btn-primary.btn-xs.user-reactivate-button.hidden-button
-          | Reactivate
-      - if !user.admin? 
-        = link_to 'Impersonate', impersonate_session_path(id: user.id), method: :put, class: 'btn btn-warning btn-xs user-impersonate-button'
+        = "User"
+
+      - if user.admin?
+        br
+        span.label.label-warning Admin
+    td
+      - if user.cohort
+        = link_to user.cohort.name, [:admin, user.cohort]
+      - else
+        = 'N/A'
+      - if user.initial_cohort
+        br
+        = link_to user.initial_cohort.name, [:admin, user.initial_cohort]
+        | &nbsp;
+        small = "(Initially)"
+    td
+        ul.list-inline.social-icons
+          = presenter.email_info
+          = presenter.github_info
+          = presenter.twitter_info
+          = presenter.slack_info
+          = presenter.skype_info
+    td
+      = "#{time_ago_in_words(user.created_at)} ago"
+    td
+      div
+        .label.label-danger.label-deactivated class=(user.deactivated? ? '' : 'hide') Deactivated
+    td
+      .btn-collection
+        - if user.deactivated?
+          .btn.btn-primary.btn-xs.user-reactivate-button
+            | Reactivate
+          .btn.btn-danger.btn-xs.user-deactivate-button.hidden-button
+            | Deactivate
+        - else
+          .btn.btn-danger.btn-xs.user-deactivate-button
+            | Deactivate
+          .btn.btn-primary.btn-xs.user-reactivate-button.hidden-button
+            | Reactivate
+        - if !user.admin? 
+          = link_to 'Impersonate', impersonate_session_path(id: user.id), method: :put, class: 'btn btn-warning btn-xs user-impersonate-button'

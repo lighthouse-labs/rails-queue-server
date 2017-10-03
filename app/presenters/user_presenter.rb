@@ -65,6 +65,28 @@ class UserPresenter < BasePresenter
     end
   end
 
+  def user_info
+    if user.type == 'Student'
+      render('shared/student_info', student: user, show_email: true)
+  #   elsif user.type == 'Teacher'
+  #       link_to teacher_path(user) do
+  #     = image_tag avatar_for(user), class: 'avatar'
+  #   = link_to "#{user.full_name}", teacher_path(user)
+  #   br
+  #   = mail_to(user.email, user.email, target: '_blank', class: 'email')
+  #   br
+  #   span.label.label-primary = user.location.name
+
+  # - else
+  #   = image_tag avatar_for(user), class: 'avatar'
+  #   = "#{user.full_name}"
+  #   br
+  #   = mail_to(user.email, user.email, target: '_blank', class: 'email')
+  #   br
+  #   span.label.label-primary = user.location.name
+    end
+  end
+
   private
 
   def avatar_for
