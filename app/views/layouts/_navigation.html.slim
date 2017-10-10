@@ -14,7 +14,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
             i.fa.fa-fw.fa-compass
             span.visible-xs-inline
               | Home
-        - if active_student?
+        - if active_student? || alumni?
           li.dropdown
             = link_to '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown', title: 'User'
               i.fa.fa-fw.fa-user
