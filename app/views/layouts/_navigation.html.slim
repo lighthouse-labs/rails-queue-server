@@ -10,10 +10,35 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
     .collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-left
         li
-          = link_to :welcome, title: 'Compass Home', class: 'logo'
+          / = link_to :welcome, title: 'Compass Home', class: 'logo'
+          a.logo  
             i.fa.fa-fw.fa-compass
             span.visible-xs-inline
               | Home
+        - if active_student?
+          li.dropdown
+            = link_to '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown', title: 'User'
+              i.fa.fa-fw.fa-paper-plane-o
+              span.non-tablet-label
+                | User
+              b.caret
+            span.dropdown-arrow
+            ul.dropdown-menu
+              li
+                = link_to prep_index_path, title: 'Prep Work'
+                  i.fa.fa-fw.fa-paper-plane-o
+                  span.non-tablet-label
+                    | Prep
+              li
+                = link_to students_path,title: 'Classmates'
+                  i.fa.fa-fw.fa-group
+                  span.non-tablet-label
+                    | Classmates
+              li
+                = link_to teachers_path(location_id: current_user.location_id), title: 'Teachers'
+                  i.fa.fa-fw.fa-life-ring
+                  span.non-tablet-label
+                    | Teachers
         li
           = link_to prep_index_path, title: 'Prep Work'
             i.fa.fa-fw.fa-paper-plane-o
