@@ -39,12 +39,13 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                   i.fa.fa-fw.fa-life-ring
                   span.non-tablet-label
                     | Teachers
-        - if teacher? || admin?
+        - else
           li
             = link_to prep_index_path, title: 'Prep Work'
               i.fa.fa-fw.fa-paper-plane-o
               span.non-tablet-label
                 | Prep
+        - if teacher? || admin?
           li
             = link_to teacher_resources_path, title: 'Training'
               i.fa.fa-fw.fa-paper-plane-o
