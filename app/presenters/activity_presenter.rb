@@ -75,7 +75,7 @@ class ActivityPresenter < BasePresenter
       if activity.evaluates_code?
         render "code_activity_submission_form"
       else
-        render "activity_submission_form"
+        render "activity_submission_form", next_path: activity.next ? get_activity_path(activity.next) : get_activity_path(activity)
       end
     end
   end
