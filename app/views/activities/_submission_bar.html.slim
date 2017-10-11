@@ -1,7 +1,7 @@
-hr
-.actions
-  .form-group
-    .form-inline
-      .left-actions
-        - if active_student?
+- if !teacher?
+  hr
+  .actions
+    .form-group
+      .form-inline
+        .left-actions
           = activity_presenter.submission_form
