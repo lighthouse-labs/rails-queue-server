@@ -40,7 +40,7 @@ class TechInterviewsController < ApplicationController
     )
 
     if result.success?
-      redirect_to edit_tech_interview_path(@tech_interview), notice: "Interview Started. Grab #{@tech_interview.interviewee.first_name}, find a quiet spot and go through the questions. Remember to keep it to 30 - 40 minutes tops."
+      redirect_to edit_tech_interview_path(@tech_interview), notice: "Interview Started. Grab #{@tech_interview.interviewee.first_name}, find a quiet spot and go through the questions. Remember to keep it to 45 to 60 minutes."
     else
       redirect_to :back, alert: result.error
     end
