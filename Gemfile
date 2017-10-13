@@ -76,9 +76,7 @@ gem 'pg_search'
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
-  gem 'byebug'
   gem 'rubocop'
-  gem 'byebug'
   # listen creates too many fsevent_watch processes and kills my laptop. Removing this until resolved - KV
   # gem 'listen', '~> 3.1.5'
   gem 'spring-watcher-listen', '~> 2.0.1'
@@ -86,25 +84,22 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-
   gem 'rails_layout'
   gem 'letter_opener'
   gem 'letter_opener_web'
-
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
 end
 
 group :development, :test do
+  gem 'pry-byebug'
   gem 'dotenv-rails'
   gem 'spring-commands-rspec'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.5'
   gem 'rspec-collection_matchers'
   gem 'rails-controller-testing'
-  gem 'byebug'
-
 end
 
 
