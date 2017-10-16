@@ -10,15 +10,16 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
     .collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-left
         li
-          = link_to :welcome, title: 'Compass Home', class: 'logo'
+          = link_to day_path('today'), title: 'Home', class: 'logo'
             i.fa.fa-fw.fa-compass
             span.visible-xs-inline
               | Home
-        li
-          = link_to prep_index_path, title: 'Prep Work'
-            i.fa.fa-fw.fa-paper-plane-o
-            span.non-tablet-label
-              | Prep
+        - unless active_student? || alumni?
+          li
+            = link_to prep_index_path, title: 'Prep Work'
+              i.fa.fa-fw.fa-paper-plane-o
+              span.non-tablet-label
+                | Prep
         - if teacher? || admin?
           li
             = link_to teacher_resources_path, title: 'Training'
@@ -65,19 +66,12 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                   - cohorts.each do |c|
                     li class=(c == cohort ? 'active' : '')
                       = link_to cohort_link(c), cohort_students_path(c)
-          - else
-            - unless cohort && cohort.limited?
-              li.dropdown
-                = link_to students_path,title: 'Classmates'
-                  i.fa.fa-fw.fa-group
-                  span.non-tablet-label
-                    | Classmates
+        - if teacher?
           li
             = link_to teachers_path(location_id: current_user.location_id), title: 'Teachers'
               i.fa.fa-fw.fa-life-ring
               span.non-tablet-label
                 | Teachers
-        - if teacher?
           li
             = link_to :assistance_requests, title: 'Request Queue'
               i.fa.fa-fw.fa-list-ol
@@ -168,6 +162,13 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
             ul.dropdown-menu
               li
                 = link_to 'Edit Profile', edit_profile_path
+              - if active_student? || alumni?
+                li
+                  = link_to 'Prep Work', prep_index_path 
+                li
+                  = link_to 'Classmates', students_path
+                li
+                  = link_to 'Teachers', teachers_path(location_id: current_user.location_id)
               li
                 = link_to 'Sign Out', session_path, :method => :delete, class: "sign-out-link"
               - if teacher?
