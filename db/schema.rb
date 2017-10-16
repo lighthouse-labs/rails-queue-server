@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713223427) do
+ActiveRecord::Schema.define(version: 20171016202343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,16 @@ ActiveRecord::Schema.define(version: 20170713223427) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "last_sha"
+  end
+
+  create_table "curriculum_breaks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.datetime "starts_on"
+    t.integer  "num_weeks"
+    t.integer  "cohort_id"
+    t.index ["cohort_id"], name: "index_curriculum_breaks_on_cohort_id", using: :btree
   end
 
   create_table "day_feedbacks", force: :cascade do |t|
@@ -597,6 +607,7 @@ ActiveRecord::Schema.define(version: 20170713223427) do
   add_foreign_key "activity_feedbacks", "users"
   add_foreign_key "answers", "options"
   add_foreign_key "answers", "quiz_submissions"
+  add_foreign_key "curriculum_breaks", "cohorts"
   add_foreign_key "deployments", "content_repositories"
   add_foreign_key "options", "questions"
   add_foreign_key "outcome_results", "outcomes"
