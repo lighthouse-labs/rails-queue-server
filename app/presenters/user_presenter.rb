@@ -89,7 +89,9 @@ class UserPresenter < BasePresenter
     output += tag 'br'
     output += mail_to user.email, user.email, target: '_blank', class: 'email'
     output += tag 'br'
-    output += content_tag :span, user.location.name, class: 'label label-primary'
+    if user.location
+      output += content_tag :span, user.location.name, class: 'label label-primary'
+    end
     content_tag :div, output
   end
 
