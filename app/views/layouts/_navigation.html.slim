@@ -156,10 +156,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
           li.dropdown.current-user
             = link_to '#', class: 'dropdown-toggle', :'data-toggle' => 'dropdown' do
               = image_tag avatar_for(current_user), class: 'avatar'
-              - if current_user.first_name
-                = teacher? ? current_user.initials : current_user.first_name
-              - else
-                | New User
+              = teacher? ? current_user.initials : current_user.first_name
               b.caret
             span.dropdown-arrow
             ul.dropdown-menu
