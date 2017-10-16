@@ -32,7 +32,10 @@
       = "#{time_ago_in_words(user.created_at)} ago"
     td
       div
-        .label.label-danger.label-deactivated class=(user.deactivated? ? '' : 'hide') Deactivated
+        - if user.active?
+          .label.label-success Active
+        - else
+          .label.label-danger.label-deactivated class=(user.deactivated? ? '' : 'hide') Deactivated
     td
       .btn-collection
         - if user.deactivated?
