@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def registration_check
-    if current_user && !current_user.first_name
+    if current_user && !current_user.completed_registration?
       redirect_to edit_profile_path, alert: 'Please complete your profile'
     end
   end
@@ -147,7 +147,7 @@ class ApplicationController < ActionController::Base
   def assign_as_student_to_cohort(cohort)
     current_user.cohort = cohort
     current_user.type = 'Student'
-    current_user.save!
+    current_user.save!(validate: false)
     flash[:notice] = "Welcome, you have student access to the cohort: #{cohort.name}!"
   end
 
