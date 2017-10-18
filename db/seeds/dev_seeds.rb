@@ -34,7 +34,7 @@ if Rails.env.development?
       quirky_fact:            Faker::Lorem.sentence,
       phone_number:           Faker::PhoneNumber.phone_number,
       github_username:        Faker::Internet.user_name,
-      avatar_url:             "http://fillmurray.com/#{50+x}/#{50+x}",
+      avatar_url:             "http://fillmurray.com/#{50+x*10}/#{50+x*10}",
       location:               locations.sample
     )
   end
@@ -48,6 +48,7 @@ if Rails.env.development?
         cohort:                 cohort,
         phone_number:           Faker::PhoneNumber.phone_number,
         github_username:        Faker::Internet.user_name,
+        avatar_url:             "http://placecage.com/#{50+i*10}/#{50+i*10}",
         location:               cohort.location,
         uid:                    1000 + i,
         token:                  2000 + i,
@@ -97,25 +98,51 @@ if Rails.env.development?
     end # 10 loop for students
   end # locations
 
-  Cohort.find_by(code: 'vanc').students.each do |student|
-    # Project.all.each do |project|
-    #   Evaluation.create!(
-    #     project_id: project.order,
-    #     student_id: student.id,
-    #     teacher_id: @teachers.sample.id,
-    #     github_url: Faker::Internet.url('github.com'),
-    #     teacher_notes: Faker::Lorem.sentence,
-    #     student_notes: Faker::Lorem.sentence,
-    #     cohort_id: student.cohort.id,
-    #     final_score: [1, 2, 3].sample + (rand()*100).floor/100.0,
-    #     evaluation_rubric: Faker::Lorem.sentence,
-    #     evaluation_checklist: Faker::Lorem.sentence,
-    #     evaluation_guide: Faker::Lorem.sentence,
-    #     last_sha1: Faker::Number.number(10),
-    #     result: 'Accepted',
-    #     state: 'accepted'
-    #   )
-    # end
+  # Needed for project evals
+  rubric = {
+    "project_organization"=>{"name"=>"Project Organization","order"=>10,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
+    "version_control"=>{"name"=>"Version Control","order"=>20,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
+    "functional_requirements"=>{"name"=>"Functional Requirements","order"=>30,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
+    "user_experience"=>{"name"=>"User Experience","order"=>40,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
+    "code_structure"=>{"name"=>"Code Style","order"=>50,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
+    "commenting"=>{"name"=>"Commenting","order"=>60,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
+    "code_best_practices"=>{"name"=>"JavaScript, HTML and CSS Best Practices","order"=>70,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
+    "code_modularity"=>{"name"=>"Code Modularity and Reusability","order"=>80,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
+    "solution_techniques"=>{"name"=>"Solution Techniques","order"=>90,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}
+  }
+
+  score = ["1", "2", "3", "4"]
+
+    # Seeds for completed cohort only
+    Cohort.find_by(code: 'vanc').students.each do |student|
+    Project.all.each do |project|
+      Evaluation.create!(
+        project_id: project.id,
+        student_id: student.id,
+        teacher_id: @teachers.sample.id,
+        github_url: Faker::Internet.url('github.com'),
+        teacher_notes: Faker::Lorem.sentence,
+        student_notes: Faker::Lorem.sentence,
+        started_at: Time.zone.today - 20.days,
+        completed_at: Time.zone.today - 10.days,
+        cohort_id: student.cohort.id,
+        final_score: [1, 2, 3].sample + (rand()*100).floor/100.0,
+        evaluation_rubric: rubric,
+        evaluation_checklist: Faker::Lorem.sentence,
+        evaluation_guide: Faker::Lorem.sentence,
+        last_sha1: Faker::Number.number(10),
+        result: {"commenting": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
+                "code_structure": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
+                "code_modularity": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
+                "user_experience": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
+                "version_control": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
+                "code_best_practices": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
+                "solution_techniques": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
+                "project_organization": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
+                "functional_requirements": {"score": score.sample,"feedback": Faker::Lorem.sentence}}
+        # state: 'accepted'
+      )
+    end
 
     TechInterviewTemplate.all.each do |ti|
       t = TechInterview.create!(
