@@ -14,6 +14,9 @@ if Rails.env.development?
   cohort_tor = Cohort.find_by(code: 'toto')
   cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Time.zone.today - 14.days, program: @program, code: "toto"
 
+  cohort_van_finished = Cohort.find_by(code: 'vanc')
+  cohort_van_finished ||= Cohort.create! name: "Previous Cohort Van", location: @location_van, start_date: Time.zone.today - 67.days, program: @program, code: "vanc"
+
   User.where(last_name: 'The Fake').destroy_all
 
   @teachers = []
@@ -31,6 +34,7 @@ if Rails.env.development?
       quirky_fact:            Faker::Lorem.sentence,
       phone_number:           Faker::PhoneNumber.phone_number,
       github_username:        Faker::Internet.user_name,
+      avatar_url:             "http://fillmurray.com/#{50+x}/#{50+x}",
       location:               locations.sample
     )
   end
@@ -88,6 +92,59 @@ if Rails.env.development?
           activity:   activity
         )
       end
+
+
     end # 10 loop for students
   end # locations
+
+  Cohort.find_by(code: 'vanc').students.each do |student|
+    # Project.all.each do |project|
+    #   Evaluation.create!(
+    #     project_id: project.order,
+    #     student_id: student.id,
+    #     teacher_id: @teachers.sample.id,
+    #     github_url: Faker::Internet.url('github.com'),
+    #     teacher_notes: Faker::Lorem.sentence,
+    #     student_notes: Faker::Lorem.sentence,
+    #     cohort_id: student.cohort.id,
+    #     final_score: [1, 2, 3].sample + (rand()*100).floor/100.0,
+    #     evaluation_rubric: Faker::Lorem.sentence,
+    #     evaluation_checklist: Faker::Lorem.sentence,
+    #     evaluation_guide: Faker::Lorem.sentence,
+    #     last_sha1: Faker::Number.number(10),
+    #     result: 'Accepted',
+    #     state: 'accepted'
+    #   )
+    # end
+
+    TechInterviewTemplate.all.each do |ti|
+      t = TechInterview.create!(
+        tech_interview_template_id: ti.id,
+        interviewee_id: student.id,
+        interviewer_id: @teachers.sample.id,
+        started_at: Time.zone.today - 10.days,
+        completed_at: Time.zone.today - 10.days,
+        total_answered: ti.questions.count,
+        total_asked: ti.questions.count,
+        average_score: 0,
+        feedback: Faker::Lorem.sentence,
+        internal_notes: Faker::Lorem.sentence,
+        cohort_id: student.cohort.id
+      )
+      TechInterviewQuestion.where(tech_interview_template_id: ti.id).each do |q|
+        res = TechInterviewResult.create!(
+          tech_interview_id: t.id,
+          tech_interview_question_id: q.id,
+          question: q.question,
+          notes: Faker::Lorem.sentence,
+          score: [1, 2, 3, 4].sample,
+          sequence: q.sequence
+        )
+        t.average_score += res.score
+      end
+      t.average_score /= t.total_asked
+      t.save!
+    end
+  end
+
 end
