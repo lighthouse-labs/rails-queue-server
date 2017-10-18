@@ -1,7 +1,7 @@
 - title "Admin Edit Cohort Curriculum Breaks: #{@cohort.name}"
 
 header.page-header
-  h1 Edit Edit Cohort Curriculum Breaks: #{@cohort.name}
+  h1 Edit Curriculum Breaks for: #{@cohort.name}
 
 .well
   = link_to 'Dashboard', [:admin, @cohort], class: 'btn btn-primary'
@@ -12,9 +12,7 @@ header.page-header
     | &laquo; Cohort List
 
 
-= render 'admin/cohorts/stats', cohort: @cohort
-
-= simple_form_for [:admin, @cohort],
+= simple_form_for [:admin, @cohort, @curriculum_break],
   html: { class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
 
   = render f

@@ -1,0 +1,27 @@
+- provide :container, 'fluid'
+- provide :body_class, 'admin-cohorts-index'
+- title "Breaks for Cohort"
+
+header.page-header
+  h1 = "Breaks for #{@cohort.name}"
+
+.actions.well
+  = link_to 'New Break', "#", class: 'btn btn-default'
+
+
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Cohort Breaks
+        = link_to 'New Break', "#", class: 'btn btn-default'
+      .panel-body
+        table.table
+          thead
+            tr
+              th Name
+              th Starts On
+              th Num Weeks
+
+          tbody
+            = render @curriculum_breaks

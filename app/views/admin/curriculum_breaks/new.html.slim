@@ -1,0 +1,13 @@
+- title "Admin New Break"
+
+h1 New Break
+hr
+
+= simple_form_for [:admin, @cohort, @curriculum_break],
+  html: { class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
+
+  = render f
+
+  .actions.well
+    = f.submit 'Create!', class: 'btn btn-primary', style: 'margin-right: 10px;'
+    = link_to '&laquo; Cancel'.html_safe, [:admin, :cohorts]
