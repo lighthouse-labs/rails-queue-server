@@ -4,12 +4,15 @@
 
 if Rails.env.development?
 
-  locations = [@location_van, @location_to]
+  locations = [@location_van, @location_to, @location_cal]
 
   puts "Legacy dev-only seed data coming at ya (development - only)!"
 
   cohort_van = Cohort.find_by(code: 'van')
   cohort_van ||= Cohort.create! name: "Current Cohort Van", location: @location_van, start_date: Time.zone.today - 7.days, program: @program, code: "van"
+
+  cohort_cal = Cohort.find_by(code: 'cal')
+  cohort_cal ||= Cohort.create! name: "Satellite Cohort Cal", location: @location_cal, start_date: Time.zone.today - 7.days, program: @program, code: "cal"
 
   cohort_tor = Cohort.find_by(code: 'toto')
   cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Time.zone.today - 14.days, program: @program, code: "toto"
@@ -20,7 +23,7 @@ if Rails.env.development?
   User.where(last_name: 'The Fake').destroy_all
 
   @teachers = []
-  10.times do |x|
+  20.times do |x|
     @teachers << Teacher.create!(
       first_name:             Faker::Name.first_name,
       last_name:              'The Fake',
@@ -55,21 +58,24 @@ if Rails.env.development?
         completed_registration: true
       )
 
+      start_time = Time.now - 3.days
+
       10.times do |_y|
         teacher = @teachers.sample
         # create a sampled assistance request
         ar = AssistanceRequest.create!(
           requestor:           student,
           assistor_id:         teacher.id,
-          start_at:            Time.zone.today - 10.minutes,
-          assistance_start_at: Time.zone.today - 10.minutes,
-          assistance_end_at:   Time.zone.today - 8.minutes,
+          start_at:            start_time,
+          created_at:          start_time,
+          assistance_start_at: start_time + rand(1..20).minutes,
+          assistance_end_at:   start_time + rand(21..40).minutes,
           type:                nil,
           assistance:          Assistance.create(
             assistor: teacher,
             assistee: student,
-            start_at: Time.zone.today - 10.minutes,
-            end_at:   Time.zone.today - 8.minutes,
+            start_at: start_time + rand(1..20).minutes,
+            end_at:   start_time + rand(21..40).minutes,
             notes:    Faker::Lorem.sentence,
             rating:   [1, 2, 3, 4].sample
           ),
