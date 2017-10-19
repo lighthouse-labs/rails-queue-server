@@ -111,12 +111,12 @@ if Rails.env.development?
     "solution_techniques"=>{"name"=>"Solution Techniques","order"=>90,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}
   }
 
-  score = ["1", "2", "3", "4"]
+  score = ["2", "3", "4"]
 
     # Seeds for completed cohort only
-    Cohort.find_by(code: 'vanc').students.each do |student|
+  Cohort.find_by(code: 'vanc').students.each do |student|
     Project.all.each do |project|
-      Evaluation.create!(
+      e = Evaluation.create!(
         project_id: project.id,
         student_id: student.id,
         teacher_id: @teachers.sample.id,
@@ -139,8 +139,17 @@ if Rails.env.development?
                 "code_best_practices": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
                 "solution_techniques": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
                 "project_organization": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
-                "functional_requirements": {"score": score.sample,"feedback": Faker::Lorem.sentence}}
-        # state: 'accepted'
+                "functional_requirements": {"score": score.sample,"feedback": Faker::Lorem.sentence}},
+        state: 'accepted'
+      )
+      EvaluationTransition.create!(
+        to_state: 'accepted',
+        metadata: {},
+        sort_key: 20,
+        evaluation_id: e.id,
+        most_recent: true,
+        created_at: Time.zone.today - 10.days,
+        updated_at: Time.zone.today - 10.days
       )
     end
 
