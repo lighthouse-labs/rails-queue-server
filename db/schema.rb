@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(version: 20171016202343) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
-    t.datetime "starts_on"
+    t.date     "starts_on"
     t.integer  "num_weeks"
     t.integer  "cohort_id"
     t.index ["cohort_id"], name: "index_curriculum_breaks_on_cohort_id", using: :btree

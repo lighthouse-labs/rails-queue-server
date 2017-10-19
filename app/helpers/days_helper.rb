@@ -5,7 +5,6 @@ module DaysHelper
     classes.push('disabled') unless current_user.can_access_day?(d)
 
     d = CurriculumDay.new(d, cohort)
-
     classes.push('active') if d.to_s == day.to_s
     classes.push('today') if d.today?
     classes.push('unlocked') if d.unlocked?

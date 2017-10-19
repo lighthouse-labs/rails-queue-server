@@ -3,18 +3,15 @@
 - title "Breaks for Cohort"
 
 header.page-header
-  h1 = "Breaks for #{@cohort.name}"
-
-.actions.well
-  = link_to 'New Break', "#", class: 'btn btn-default'
-
+  h2 = "Breaks for #{@cohort.name}"
+  = link_to 'New Break',new_admin_cohort_curriculum_break_path(@cohort) , class: 'btn btn-default'
 
 .row
-  .col-sm-12
+  .col-sm-6
     .panel.panel-default
       .panel-heading
         h3.panel-title Cohort Breaks
-        = link_to 'New Break', "#", class: 'btn btn-default'
+
       .panel-body
         table.table
           thead
