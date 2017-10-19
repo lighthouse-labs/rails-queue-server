@@ -60,6 +60,7 @@ if Rails.env.development?
         # create a sampled assistance request
         ar = AssistanceRequest.create!(
           requestor:           student,
+          assistor_id:         teacher.id,
           start_at:            Time.zone.today - 10.minutes,
           assistance_start_at: Time.zone.today - 10.minutes,
           assistance_end_at:   Time.zone.today - 8.minutes,
@@ -111,9 +112,10 @@ if Rails.env.development?
     "solution_techniques"=>{"name"=>"Solution Techniques","order"=>90,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}
   }
 
+  # Left out 1 to simulate projects being accepted
   score = ["2", "3", "4"]
 
-    # Seeds for completed cohort only
+  # Seeds for completed cohort only
   Cohort.find_by(code: 'vanc').students.each do |student|
     Project.all.each do |project|
       e = Evaluation.create!(
