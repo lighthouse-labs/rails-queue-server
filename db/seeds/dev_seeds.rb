@@ -145,6 +145,15 @@ if Rails.env.development?
         state: 'accepted'
       )
       EvaluationTransition.create!(
+        to_state: 'in_progress',
+        metadata: {},
+        sort_key: 10,
+        evaluation_id: e.id,
+        most_recent: false,
+        created_at: Time.zone.today - 9.days,
+        updated_at: Time.zone.today - 9.days
+      )
+      EvaluationTransition.create!(
         to_state: 'accepted',
         metadata: {},
         sort_key: 20,
