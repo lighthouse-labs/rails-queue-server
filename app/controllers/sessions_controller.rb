@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   skip_before_action :authenticate_user, only: [:new, :create]
+  skip_before_action :registration_check
   before_action :admin_required, only: [:impersonate]
 
   def new
