@@ -9,16 +9,16 @@ if Rails.env.development?
   puts "Legacy dev-only seed data coming at ya (development - only)!"
 
   cohort_van = Cohort.find_by(code: 'van')
-  cohort_van ||= Cohort.create! name: "Current Cohort Van", location: @location_van, start_date: Time.zone.today - 7.days, program: @program, code: "van"
+  cohort_van ||= Cohort.create! name: "Current Cohort Van", location: @location_van, start_date: Time.now - 7.days, program: @program, code: "van"
 
   cohort_cal = Cohort.find_by(code: 'cal')
-  cohort_cal ||= Cohort.create! name: "Satellite Cohort Cal", location: @location_cal, start_date: Time.zone.today - 7.days, program: @program, code: "cal"
+  cohort_cal ||= Cohort.create! name: "Satellite Cohort Cal", location: @location_cal, start_date: Time.now - 7.days, program: @program, code: "cal"
 
   cohort_tor = Cohort.find_by(code: 'toto')
-  cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Time.zone.today - 14.days, program: @program, code: "toto"
+  cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Time.now - 14.days, program: @program, code: "toto"
 
   cohort_van_finished = Cohort.find_by(code: 'vanc')
-  cohort_van_finished ||= Cohort.create! name: "Previous Cohort Van", location: @location_van, start_date: Time.zone.today - 67.days, program: @program, code: "vanc"
+  cohort_van_finished ||= Cohort.create! name: "Previous Cohort Van", location: @location_van, start_date: Time.now - 67.days, program: @program, code: "vanc"
 
   User.where(last_name: 'The Fake').destroy_all
 
@@ -58,18 +58,22 @@ if Rails.env.development?
         completed_registration: true
       )
 
-      start_time = Time.now - 3.days
-
       10.times do |_y|
         teacher = @teachers.sample
         # create a sampled assistance request
+
+        if cohort.start_date < Time.now - 60.days # Complete cohort
+          start_time = Time.now - 7.days - rand(1..50).days
+        else
+          start_time = Time.now - rand(1..7).days
+        end
+
         ar = AssistanceRequest.create!(
           requestor:           student,
           assistor_id:         teacher.id,
           start_at:            start_time,
-          created_at:          start_time,
           assistance_start_at: start_time + rand(1..20).minutes,
-          assistance_end_at:   start_time + rand(21..40).minutes,
+          assistance_end_at:   start_time + rand(21..80).minutes,
           type:                nil,
           assistance:          Assistance.create(
             assistor: teacher,
