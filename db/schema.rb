@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 20171016202343) do
   create_table "curriculum_breaks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "name"
+    t.string   "reason"
     t.date     "starts_on"
     t.integer  "num_weeks"
     t.integer  "cohort_id"

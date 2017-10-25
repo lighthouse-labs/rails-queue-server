@@ -26,7 +26,7 @@ header.page-header
   .breaks.well
     strong Cohort Break
     - if @cohort.curriculum_break
-      p = @cohort.curriculum_break.name
+      p = @cohort.curriculum_break.reason
       p Starts On: #{ @cohort.curriculum_break.starts_on }
       p Number of Weeks: #{ @cohort.curriculum_break.num_weeks }
       = link_to "Edit", edit_admin_cohort_curriculum_break_path(@cohort, @cohort.curriculum_break), class: 'btn btn-primary'

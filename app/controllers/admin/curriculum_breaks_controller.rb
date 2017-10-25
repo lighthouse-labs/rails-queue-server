@@ -49,7 +49,7 @@ class Admin::CurriculumBreaksController < Admin::BaseController
 
   def curriculum_break_params
     params.require(:curriculum_break).permit(
-      :name,
+      :reason,
       :starts_on,
       :num_weeks
     )

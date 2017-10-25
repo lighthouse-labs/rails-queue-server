@@ -166,7 +166,7 @@ LaserShark::Application.routes.draw do
       end
     end
     resources :cohorts, except: [:destroy] do
-      resources :curriculum_breaks
+      resources :curriculum_breaks, only: [:new, :create, :edit, :update, :destroy]
     end
     resources :feedbacks, except: [:edit, :update, :destroy]
     resources :teacher_feedbacks, only: [:index]
