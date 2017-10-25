@@ -111,6 +111,11 @@ var RequestModal = React.createClass({
                     <option value="4">L4 | Excellent (Needs stretch)</option>
                 </select>
               </div>
+              <div className="form-group">
+                <label className="checkbox">
+                  <input type="checkbox" value="checked"/> Notify Education Team about this
+                </label>
+              </div>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-default" onClick={this.close}>Cancel</button>
