@@ -113,7 +113,7 @@ var RequestModal = React.createClass({
               </div>
               <div className="form-group">
                 <label className="checkbox">
-                  <input type="checkbox" value="checked"/> Notify Education Team about this
+                  <input type="checkbox"/> Notify Education Team about this
                 </label>
               </div>
             </div>
