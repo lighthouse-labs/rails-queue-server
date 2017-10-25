@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
 
   before_action :load_user, only: [:edit, :update]
+  skip_before_action :registration_check
 
   def edit
     @on_profile_edit = true

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authenticate_user
+  before_action :registration_check
   before_action :set_timezone
   before_action :set_raven_context
 
@@ -16,6 +17,12 @@ class ApplicationController < ActionController::Base
     elsif current_user.deactivated?
       session[:user_id] = nil
       redirect_to :root, alert: 'Your account has been deactivated. Please contact the admin if this is in error.'
+    end
+  end
+
+  def registration_check
+    if current_user && !current_user.completed_registration?
+      redirect_to edit_profile_path, alert: 'Please complete your profile'
     end
   end
 
@@ -140,7 +147,7 @@ class ApplicationController < ActionController::Base
   def assign_as_student_to_cohort(cohort)
     current_user.cohort = cohort
     current_user.type = 'Student'
-    current_user.save!
+    current_user.save!(validate: false)
     flash[:notice] = "Welcome, you have student access to the cohort: #{cohort.name}!"
   end
 
