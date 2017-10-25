@@ -7,7 +7,7 @@ class Cohort < ApplicationRecord
   has_many :rolled_out_students, foreign_key: 'initial_cohort_id', class_name: 'Student'
   has_many :recordings
   has_many :tech_interviews
-  has_many :curriculum_breaks
+  has_one :curriculum_break
 
   validates :name, presence: true
   validates :start_date, presence: true
