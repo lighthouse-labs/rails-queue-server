@@ -1,31 +1,37 @@
 class Admin::CurriculumBreaksController < Admin::BaseController
 
   before_action :require_cohort
-  before_action :require_curriculum_break, only: [:edit, :update, :show]
+  before_action :require_curriculum_break, only: [:edit, :update, :destroy, :show]
 
-  def index
-    @curriculum_breaks = CurriculumBreak.for_cohort(@cohort)
-  end
 
   def new
     @curriculum_break = CurriculumBreak.new(cohort: @cohort)
   end
 
-  def show
+  def edit
   end
 
   def create
     @curriculum_break = CurriculumBreak.new(curriculum_break_params)
+    @curriculum_break.cohort = @cohort
     if @curriculum_break.save
-      redirect_to admin_cohort_curriculum_breaks_path(@cohort), notice: 'Created!'
+      redirect_to edit_admin_cohort_path(@cohort), notice: 'Created a cohort break!'
     else
       render :new
     end
   end
 
+  def destroy
+    if @curriculum_break.destroy
+      redirect_to edit_admin_cohort_path(@cohort), notice: 'Deleted a cohort break!'
+    else
+      redirect_to edit_admin_cohort_path(@cohort), alert: "Couldn't do it!"
+    end
+  end
+
   def update
     if @curriculum_break.update(curriculum_break_params)
-      redirect_to admin_cohort_curriculum_breaks_path(@cohort), notice: 'Updated!'
+      redirect_to admin_cohort_path(@cohort), notice: 'Updated cohort break!'
     else
       render :edit
     end
@@ -45,8 +51,7 @@ class Admin::CurriculumBreaksController < Admin::BaseController
     params.require(:curriculum_break).permit(
       :name,
       :starts_on,
-      :num_weeks,
-      :cohort_id
+      :num_weeks
     )
   end
 

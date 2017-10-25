@@ -142,12 +142,12 @@ class CurriculumDay
 
   def determine_week_with_breaks(day_num)
     if @break_days && @break_days.include?(day_num)
-      last_week_before_break
+      @last_week_before_break
     else
       w = (day_num / 7) + 1
       if w > (program.weeks + @curriculum_break.num_weeks)
         program.weeks
-      elsif w > last_week_before_break
+      elsif w > @last_week_before_break
         w - @curriculum_break.num_weeks
       else
         w
