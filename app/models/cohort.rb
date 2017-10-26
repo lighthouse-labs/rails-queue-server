@@ -43,7 +43,11 @@ class Cohort < ApplicationRecord
   scope :started_after, ->(date) { where('cohorts.start_date >= ?', date) }
   # assumes monday start date =/ - KV
   def end_date
-    start_date.advance(weeks: program.weeks, days: 4)
+    if curriculum_break
+      start_date.advance(weeks: program.weeks + curriculum_break.num_weeks, days: 4)
+    else
+      start_date.advance(weeks: program.weeks, days: 4)
+    end
   end
 
   def upcoming?
@@ -55,11 +59,11 @@ class Cohort < ApplicationRecord
   end
 
   def active?
-    start_date >= (Date.current - 8.weeks) && start_date <= Date.current
+    Date.current >= start_date && Date.current <= end_date
   end
 
   def finished?
-    start_date < (Date.current - 8.weeks)
+    Date.current > end_date
   end
 
   delegate :week, to: :curriculum_day
