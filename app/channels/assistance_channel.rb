@@ -63,4 +63,9 @@ class AssistanceChannel < ApplicationCable::Channel
     end
   end
 
+  def notifyEM(data)
+    student = Student.find data["student_id"]
+    
+  end
+
 end
