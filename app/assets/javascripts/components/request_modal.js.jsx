@@ -52,20 +52,10 @@ var RequestModal = React.createClass({
 
     // const student = this.props.assistance.assistee || this.props.student;
 
-    if(this.props.assistance){
-      console.log(this.props.student);
-      // if (notify) {
-      //   const student = this.props.assistance.assistee;
-      //   App.assistance.notifyEM(student, notes, rating);
-      // }
-      App.assistance.endAssistance(this.props.assistance, notes, rating);
+    if (this.props.assistance) {
+      App.assistance.endAssistance(this.props.assistance, notes, rating, notify);
     } else {
-      console.log(this.props.assistance.assistee);
-      // if (notify) {
-      //   const student = this.props.student;
-      //   App.assistance.notifyEM(student, notes, rating);
-      // }
-      App.assistance.providedAssistance(this.props.student, notes, rating);
+      App.assistance.providedAssistance(this.props.student, notes, rating, notify);
     }
   },
 
