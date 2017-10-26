@@ -3,6 +3,10 @@
 h1 New Break
 hr
 
+.well
+  p Cohort Breaks are to be used for actual breaks in the curriculum, for things like christmas holidays.
+  p At this time we only support 1 break per cohort, it must start on a monday, and are by the week.
+
 = simple_form_for [:admin, @cohort, @curriculum_break],
   html: { class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
 
@@ -10,4 +14,4 @@ hr
 
   .actions.well
     = f.submit 'Create!', class: 'btn btn-primary', style: 'margin-right: 10px;'
-    = link_to '&laquo; Cancel'.html_safe, [:admin, :cohorts]
+    = link_to '&laquo; Cancel'.html_safe, edit_admin_cohort_path(@cohort)

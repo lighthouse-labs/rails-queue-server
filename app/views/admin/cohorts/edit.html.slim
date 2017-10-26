@@ -23,15 +23,21 @@ header.page-header
     = f.submit 'Update', class: 'btn btn-primary', style: 'margin-right: 10px;'
     = link_to '&laquo; Cancel'.html_safe, [:admin, :cohorts]
 
-  .breaks.well
-    strong Cohort Break
+  .curriculum-break.well
+    h5 Cohort Break
     - if @cohort.curriculum_break
-      p = @cohort.curriculum_break.reason
-      p Starts On: #{ @cohort.curriculum_break.starts_on }
-      p Number of Weeks: #{ @cohort.curriculum_break.num_weeks }
+      p
+        strong Reason:
+        = @cohort.curriculum_break.reason
+      p
+        strong Starts On:
+        = @cohort.curriculum_break.starts_on
+      p
+        strong Number of Weeks:
+        = @cohort.curriculum_break.num_weeks
       = link_to "Edit", edit_admin_cohort_curriculum_break_path(@cohort, @cohort.curriculum_break), class: 'btn btn-primary'
       | &nbsp;
       = link_to "Delete", admin_cohort_curriculum_break_path(@cohort, @cohort.curriculum_break), data: { confrim: "You sure? :|" }, method: 'delete', class: 'btn btn-danger'
     - else
-      p No Break
+      p There are no breaks in this cohort
       = link_to "Add a Break", new_admin_cohort_curriculum_break_path(@cohort), class: 'btn btn-primary'

@@ -3,7 +3,6 @@ class Admin::CurriculumBreaksController < Admin::BaseController
   before_action :require_cohort
   before_action :require_curriculum_break, only: [:edit, :update, :destroy, :show]
 
-
   def new
     @curriculum_break = CurriculumBreak.new(cohort: @cohort)
   end
@@ -31,7 +30,7 @@ class Admin::CurriculumBreaksController < Admin::BaseController
 
   def update
     if @curriculum_break.update(curriculum_break_params)
-      redirect_to admin_cohort_path(@cohort), notice: 'Updated cohort break!'
+      redirect_to edit_admin_cohort_path(@cohort), notice: 'Updated cohort break!'
     else
       render :edit
     end
@@ -54,6 +53,5 @@ class Admin::CurriculumBreaksController < Admin::BaseController
       :num_weeks
     )
   end
-
 
 end
