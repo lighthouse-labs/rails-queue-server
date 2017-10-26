@@ -40,6 +40,9 @@ var RequestModal = React.createClass({
   endAssistance: function() {
     var notes      = this.refs.notes.value;
     var rating     = this.refs.rating.value;
+    var notify     = this.refs.notify.checked;
+
+    console.log(this.props.student);
 
     if(!this.formIsValid()){
       this.setNotesError();
@@ -48,6 +51,12 @@ var RequestModal = React.createClass({
     }
 
     this.close();
+
+    // if (notify) {
+    //   const fullName = this.props.student.full_name;
+
+    //   // email 
+    // }
 
     if(this.props.assistance){
       App.assistance.endAssistance(this.props.assistance, notes, rating);
@@ -113,7 +122,7 @@ var RequestModal = React.createClass({
               </div>
               <div className="form-group">
                 <label className="checkbox">
-                  <input type="checkbox"/> Notify Education Team about this
+                  <input className="dumbcheck" type="checkbox" ref="notify" /> Notify Education Team about this
                 </label>
               </div>
             </div>
