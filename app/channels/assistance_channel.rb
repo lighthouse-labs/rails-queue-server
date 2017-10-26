@@ -19,7 +19,7 @@ class AssistanceChannel < ApplicationCable::Channel
 
   def end_assistance(data)
     assistance = Assistance.find data["assistance_id"]
-    assistance.end(data["notes"], data["rating"].to_i)
+    assistance.end(data["notes"], data["rating"].to_i, data["notify"])
 
     ActionCable.server.broadcast "assistance-#{assistance.assistance_request.requestor.cohort.location.name}", type:   "AssistanceEnded",
                                                                                                                object: AssistanceSerializer.new(assistance, root: false).as_json
@@ -56,16 +56,11 @@ class AssistanceChannel < ApplicationCable::Channel
     if assistance_request.save
       assistance_request.start_assistance(current_user)
       assistance = assistance_request.reload.assistance
-      assistance.end(data["notes"], data["rating"])
+      assistance.end(data["notes"], data["rating"], data["notify"])
 
       ActionCable.server.broadcast "assistance-#{assistance_request.requestor.cohort.location.name}", type:   "OffineAssistanceCreated",
                                                                                                       object: UserSerializer.new(student).as_json
     end
-  end
-
-  def notifyEM(data)
-    student = Student.find data["student_id"]
-    
   end
 
 end

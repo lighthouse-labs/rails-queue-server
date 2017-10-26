@@ -48,9 +48,7 @@ var RequestModal = React.createClass({
       return;
     }
 
-    this.close(); 
-
-    // const student = this.props.assistance.assistee || this.props.student;
+    this.close();
 
     if (this.props.assistance) {
       App.assistance.endAssistance(this.props.assistance, notes, rating, notify);
