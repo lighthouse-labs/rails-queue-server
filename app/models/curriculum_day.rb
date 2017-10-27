@@ -147,7 +147,7 @@ class CurriculumDay
       w = (day_num / 7) + 1
       if w > (program.weeks + @curriculum_break.num_weeks)
         program.weeks
-      elsif w > @last_week_before_break
+      elsif w > (@last_week_before_break + @curriculum_break.num_weeks)
         w - @curriculum_break.num_weeks
       else
         w
