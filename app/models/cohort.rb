@@ -41,6 +41,7 @@ class Cohort < ApplicationRecord
   scope :is_finished, -> { where('cohorts.start_date < ?', (Date.current - 8.weeks)) }
   scope :started_before, ->(date) { where('cohorts.start_date <= ?', date) }
   scope :started_after, ->(date) { where('cohorts.start_date >= ?', date) }
+
   # assumes monday start date =/ - KV
   def end_date
     if curriculum_break

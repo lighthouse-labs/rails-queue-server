@@ -30,7 +30,7 @@ class CurriculumDay
   end
 
   def to_s
-    # return @to_s if @to_s
+    return @to_s if @to_s
     w = determine_w
 
     # prefix with 0 if needs to be double digit and isn't
@@ -48,7 +48,7 @@ class CurriculumDay
             else
               d = determine_d
               "w#{week}d#{d}"
-    end
+            end
   end
 
   def double_digit_week?
@@ -106,7 +106,7 @@ class CurriculumDay
     CurriculumDay.new(@date.to_date.prev_day, @cohort)
   end
 
-  # private
+  private
 
   def today
     @today ||= CurriculumDay.new(Date.current, @cohort)
