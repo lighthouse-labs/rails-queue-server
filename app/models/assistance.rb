@@ -57,7 +57,7 @@ class Assistance < ApplicationRecord
     end
 
     if notify
-      mail_to_EMs(assistee, assistor, notes, rating)
+      UserMailer.notify_education_manager(self).deliver
     end
 
     assistee.save.tap do
@@ -112,10 +112,6 @@ class Assistance < ApplicationRecord
       poster.send_message("*Assisted #{assistee.full_name} for #{((end_at - start_at) / 60).to_i} minutes*:\n #{notes}")
     rescue
     end
-  end
-
-  def mail_to_EMs(assistee, assistor, notes, rating)
-    
   end
 
 end

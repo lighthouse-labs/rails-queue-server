@@ -92,4 +92,14 @@ class UserMailer < ActionMailer::Base
           bcc:     feedback_email
   end
 
+  def notify_education_manager(assistance)
+    @notes = assistance.notes
+    @student = assistance.assistee
+    @teacher = assistance.assistor
+    @rating = assistance.rating
+
+    mail  subject: "Testing EM mail",
+          to:      "alex@lighthouselabs.ca"
+  end
+
 end
