@@ -33,7 +33,7 @@ require Rails.root.join('spec/support/capybara_selenium')
 ActiveRecord::Migration.maintain_test_schema!
 
 # Removes intrusive ActiveRecord SQL logger
-ActiveRecord::Base.logger.level = 'info'
+ActiveRecord::Base.logger.level = 'warn'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
