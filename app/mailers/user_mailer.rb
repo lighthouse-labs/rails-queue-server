@@ -99,7 +99,7 @@ class UserMailer < ActionMailer::Base
     @rating = assistance.rating
 
     mail  subject: "Testing EM mail",
-          to:      "alex@lighthouselabs.ca"
+          to:      "alex@lighthouselabs.ca" # Should be sent to EM email in ENV
   end
 
 end

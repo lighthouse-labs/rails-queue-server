@@ -42,7 +42,7 @@ class Assistance < ApplicationRecord
 
   RATING_BASELINE = 3
 
-  def end(notes, rating = nil, student_notes = nil, notify = nil)
+  def end(notes, rating = nil, student_notes = nil, notify)
     self.notes = notes
     self.rating = rating
     self.student_notes = student_notes
@@ -57,7 +57,7 @@ class Assistance < ApplicationRecord
     end
 
     if notify
-      UserMailer.notify_education_manager(self).deliver
+      UserMailer.notify_education_manager(self).deliver_now
     end
 
     assistee.save.tap do
