@@ -114,7 +114,7 @@ var RequestModal = React.createClass({
               </div>
               <div className="form-group">
                 <label className="checkbox">
-                  <input className="dumbcheck" style="visibility:visible" type="checkbox" ref="notify" /> Notify Education Team about this
+                  <input className="dumbcheck" type="checkbox" ref="notify" /> Notify Education Team about this
                 </label>
               </div>
             </div>
