@@ -42,16 +42,22 @@ class Assistance < ApplicationRecord
 
   RATING_BASELINE = 3
 
-  def end(notes, rating = nil, student_notes = nil)
+  def end(notes, rating = nil, student_notes = nil, notify = nil)
     self.notes = notes
     self.rating = rating
     self.student_notes = student_notes
     self.end_at = Time.current
+    self.flag = notify
     save
     assistee.last_assisted_at = Time.current
+    
     if assistance_request.instance_of?(CodeReviewRequest) && !rating.nil? && !assistee.code_review_percent.nil?
       assistee.code_review_percent += Assistance::RATING_BASELINE - rating
       UserMailer.new_code_review_message(self).deliver
+    end
+
+    if notify
+      mail_to_EMs(assistee, assistor, notes, rating)
     end
 
     assistee.save.tap do
@@ -106,6 +112,10 @@ class Assistance < ApplicationRecord
       poster.send_message("*Assisted #{assistee.full_name} for #{((end_at - start_at) / 60).to_i} minutes*:\n #{notes}")
     rescue
     end
+  end
+
+  def mail_to_EMs(assistee, assistor, notes, rating)
+    
   end
 
 end
