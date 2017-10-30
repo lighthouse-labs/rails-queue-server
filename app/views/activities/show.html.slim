@@ -113,7 +113,7 @@
                   h5 Teacher (Internal) Notes
                   == markdown msg.teacher_notes
 
-            - if teacher? && current_user == msg.user
+            - if (teacher? && current_user == msg.user) || admin?
               .actions
                 = link_to edit_activity_message_path(@activity, msg), class: 'edit'
                   i.fa.fa-edit

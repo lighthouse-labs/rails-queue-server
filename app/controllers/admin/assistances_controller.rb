@@ -34,8 +34,7 @@ class Admin::AssistancesController < Admin::BaseController
   end
 
   def filter_by_start_date
-    params[:start_date] = Date.current.beginning_of_month.to_s if params[:start_date].blank?
-    @assistances = @assistances.where("start_at > :date", date: params[:start_date])
+    @assistances = @assistances.where("start_at > :date", date: params[:start_date]) if params[:start_date].present?
   end
 
   def filter_by_end_date
