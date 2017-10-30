@@ -11,17 +11,16 @@
           = link_to '+ Message', new_activity_message_path(@activity), class: 'btn btn-new-message'
 
         - else
-          = activity_presenter.submission_form
-          | &nbsp;
-          - if @activity.allow_feedback?
-            = link_to '#feedback-form', class: 'btn btn-primary'
-              i.fa.fa-bullhorn
-              | &nbsp;Give Feedback
+            = activity_presenter.next_button
+            = activity_presenter.previous_button
+            / = activity_presenter.submission_form
+            / | &nbsp;
+            / - if @activity.allow_feedback?
+            /   = link_to '#feedback-form', class: 'btn btn-primary'
+            /     i.fa.fa-bullhorn
+            /     | &nbsp;Give Feedback
 
       = render 'duration', presenter: activity_presenter  if @activity.duration?
-
-  = activity_presenter.next_button
-  = activity_presenter.previous_button
 
 - if @activity.gist_url?
   .actions
