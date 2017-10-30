@@ -194,7 +194,6 @@ class CurriculumDay
       date = date.advance(days: d - 1)
     end
     @date = date
-    binding.pry
     if @curriculum_break && (day_number >= @curriculum_break.day_number_starts_on)
       @date = date.advance(weeks: @curriculum_break.num_weeks)
     else

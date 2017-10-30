@@ -1,7 +1,7 @@
 class Admin::CurriculumBreaksController < Admin::BaseController
 
   before_action :require_cohort
-  before_action :require_curriculum_break, only: [:edit, :update, :destroy, :show]
+  before_action :require_curriculum_break, only: [:edit, :update, :destroy]
 
   def new
     @curriculum_break = CurriculumBreak.new(cohort: @cohort)
