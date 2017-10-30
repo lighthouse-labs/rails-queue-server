@@ -45,9 +45,9 @@ class Cohort < ApplicationRecord
   # assumes monday start date =/ - KV
   def end_date
     if curriculum_break
-      start_date.advance(weeks: program.weeks + curriculum_break.num_weeks, days: 4)
+      start_date.advance(weeks: (program.weeks - 1) + curriculum_break.num_weeks, days: 4)
     else
-      start_date.advance(weeks: program.weeks, days: 4)
+      start_date.advance(weeks: (program.weeks - 1), days: 4)
     end
   end
 
