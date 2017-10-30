@@ -119,10 +119,10 @@
                   i.fa.fa-edit
                 = link_to activity_message_path(@activity, msg), method: :delete, confirm: 'Sure ,lad?', class: 'delete'
                   i.fa.fa-times
-  
-  - if !@activity.is_a?(QuizActivity)
-    section.activity-details
-      = render 'submission_bar', activity_presenter: activity_presenter
 
   = render 'feedback' if @activity.allow_feedback?
 
+  - if !@activity.is_a?(QuizActivity)
+    section.activity-details
+      = render 'submission_bar', activity_presenter: activity_presenter
+      
