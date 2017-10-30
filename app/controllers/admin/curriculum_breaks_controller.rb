@@ -7,8 +7,7 @@ class Admin::CurriculumBreaksController < Admin::BaseController
     @curriculum_break = CurriculumBreak.new(cohort: @cohort)
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @curriculum_break = CurriculumBreak.new(curriculum_break_params)

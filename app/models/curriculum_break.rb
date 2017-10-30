@@ -35,7 +35,7 @@ class CurriculumBreak < ApplicationRecord
   end
 
   def week_number_before_break
-    #any valid CurriculumDay for this cohort will work, as we just want access to a private method
+    # any valid CurriculumDay for this cohort will work, as we just want access to a private method
     cd = CurriculumDay.new("w1d1", cohort)
     cd.send(:determine_week_without_breaks, day_number_before_break)
   end
