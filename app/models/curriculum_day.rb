@@ -194,7 +194,8 @@ class CurriculumDay
   end
 
   def post_break_yet_active_week_number?(week_number)
-    week_number > (@last_week_before_break + @curriculum_break.num_weeks)
+    return false if past_end_week_of_cohort?(week_number)
+    week_number > (@curriculum_break.right_before_break_week_number + @curriculum_break.num_weeks)
   end
 
   def adjust_date_calculation_for_break?(day_number)
