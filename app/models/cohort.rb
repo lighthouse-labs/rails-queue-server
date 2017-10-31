@@ -7,6 +7,7 @@ class Cohort < ApplicationRecord
   has_many :rolled_out_students, foreign_key: 'initial_cohort_id', class_name: 'Student'
   has_many :recordings
   has_many :tech_interviews
+  # only supports one break per cohort
   has_one :curriculum_break
 
   validates :name, presence: true
@@ -43,12 +44,10 @@ class Cohort < ApplicationRecord
   scope :started_after, ->(date) { where('cohorts.start_date >= ?', date) }
 
   # assumes monday start date =/ - KV
+  # last day of instruction, friday of the last week - JM
   def end_date
-    if curriculum_break
-      start_date.advance(weeks: (program.weeks - 1) + curriculum_break.num_weeks, days: 4)
-    else
-      start_date.advance(weeks: (program.weeks - 1), days: 4)
-    end
+    weeks = curriculum_break ? (program.weeks - 1) + curriculum_break.num_weeks : program.weeks - 1
+    start_date.advance(weeks: weeks, days: 4)
   end
 
   def upcoming?
