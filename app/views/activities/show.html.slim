@@ -122,6 +122,4 @@
 
   = render 'feedback' if @activity.allow_feedback?
 
-  - if !@activity.is_a?(QuizActivity) && !@activity.is_a?(PinnedNote)
-    section.activity-details
-      = render 'submission_bar', activity_presenter: activity_presenter
+  = render 'submission_bar', activity_presenter: activity_presenter
