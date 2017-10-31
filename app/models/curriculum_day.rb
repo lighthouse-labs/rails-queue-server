@@ -97,9 +97,8 @@ class CurriculumDay
     CurriculumDay.new(@date.to_date.prev_day, @cohort)
   end
 
-  def determine_week_without_breaks(day_num)
-    w = (day_num / 7) + 1
-    w > program.weeks ? program.weeks : w.to_i
+  def self.week_based_on_cohort_and_day_num(cohort, day_number)
+    determine_week_without_breaks(day_number, cohort.program)
   end
 
   private
@@ -118,17 +117,6 @@ class CurriculumDay
 
   def unlock_weekend_on_friday
     (friday? && weekend?) && (to_s[1] == today.to_s[1])
-  end
-
-  def determine_w
-    d = day_number
-    if d <= 0
-      1
-    elsif @curriculum_break
-      determine_week_with_breaks(d)
-    else
-      determine_week_without_breaks(d)
-    end
   end
 
   def determine_d
@@ -185,6 +173,36 @@ class CurriculumDay
     end
   end
 
+  def determine_w
+    d = day_number
+    if d <= 0
+      1
+    elsif @curriculum_break
+      determine_week_with_breaks(d)
+    else
+      determine_week_without_breaks(d)
+    end
+  end
+
+  def determine_week_without_breaks(day_num, prog=nil)
+    program = prog || @program
+    w = (day_num / 7) + 1
+    w > program.weeks ? program.weeks : w.to_i
+  end
+
+  def determine_week_with_breaks(day_num)
+    w = (day_num / 7) + 1
+    if on_break?(day_num)
+      @curriculum_break.right_before_break_week_number
+    elsif past_end_week_of_cohort?(w)
+      program.weeks
+    elsif post_break_yet_active_week_number?(w)
+      w - @curriculum_break.num_weeks
+    else
+      w
+    end
+  end
+
   def on_break?(day_number)
     @curriculum_break && @curriculum_break.active_on_day_number?(day_number)
   end
@@ -204,19 +222,6 @@ class CurriculumDay
     # and for some_cohort a Break starts on week 2, the date returned should be
     # adjusted for the break
     @curriculum_break && (day_number >= @curriculum_break.starts_on_day_number)
-  end
-
-  def determine_week_with_breaks(day_num)
-    w = (day_num / 7) + 1
-    if on_break?(day_num)
-      @curriculum_break.right_before_break_week_number
-    elsif past_end_week_of_cohort?(w)
-      program.weeks
-    elsif post_break_yet_active_week_number?(w)
-      w - @curriculum_break.num_weeks
-    else
-      w
-    end
   end
 
 end
