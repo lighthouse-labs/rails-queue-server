@@ -1,6 +1,7 @@
 class Admin::CohortsController < Admin::BaseController
 
   before_action :require_cohort, only: [:edit, :update, :show]
+  before_action :check_limited, only: [:show]
 
   def index
     @cohorts = Cohort.most_recent_first.all
@@ -48,6 +49,12 @@ class Admin::CohortsController < Admin::BaseController
 
   def require_cohort
     @cohort = Cohort.find params[:id]
+  end
+
+  def check_limited
+    if @cohort.limited?
+      redirect_to(admin_cohorts_path)
+    end
   end
 
   def cohort_params
