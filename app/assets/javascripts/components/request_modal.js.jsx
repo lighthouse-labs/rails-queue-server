@@ -114,6 +114,10 @@ var RequestModal = React.createClass({
               </div>
               <div className="form-group">
                 <label className="checkbox">
+                  <span className="icons">
+                    <span className="first-icon fui-checkbox-unchecked"></span>
+                    <span className="second-icon fui-checkbox-checked"></span>
+                  </span>
                   <input className="notify-checkbox" type="checkbox" ref="notify" /> Notify Education Team about this
                 </label>
               </div>
