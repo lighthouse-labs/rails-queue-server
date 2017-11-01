@@ -1,13 +1,14 @@
 require 'rails_helper'
 
-describe 'Navbar' do
+describe 'Navbar', type: :feature, js: true do
   context "when the student is logged out" do
     it "has valid links in the navbar" do
-      visit root_url
+      visit root_path
+      # save_screenshot
       find_link("Home").click
       expect(page).to have_css("h1", text: "Welcome to Compass")
 
-      visit root_url
+      visit root_path
       expect(page).to have_link("Sign In")
       find_link("Sign In").click
       expect(page).to have_css("h1", text: "Login")
@@ -16,11 +17,11 @@ describe 'Navbar' do
 
   context "when the student is logged in" do
     describe "valid links in the navbar" do
-      before :each do
-        @cohort = FactoryGirl.create :cohort
 
-        # We need to create a student logged in
-        FactoryGirl.create :student, cohort: @cohort, uid: GITHUB_OAUTH_HASH['uid']
+      let(:cohort) { create :cohort }
+      let(:student) { create :student, cohort: cohort, uid: GITHUB_OAUTH_HASH['uid'] }
+      before :each do
+        student
         visit github_session_path
       end
 
@@ -28,9 +29,9 @@ describe 'Navbar' do
         expect(page).to_not have_link("Sign In")
       end
 
-      it 'should properly navigate to "Home"' do
+      it 'should properly navigate to Today' do
         find_link("Home").click
-        expect(page).to have_css("h1", text: "Welcome to Compass")
+        expect(page).to have_css("h1", text: "Schedule")
       end
 
       it 'should properly navigate to "Schedule"' do
@@ -49,21 +50,24 @@ describe 'Navbar' do
       end
 
       it 'should properly navigate to "Classmates"' do
+        find_link(student.first_name).click
         find_link("Classmates").click
-        expect(page).to have_css("h1", text: @cohort.name.to_s)
+        expect(page).to have_css("h1", text: cohort.name.to_s)
       end
 
       it 'should properly navigate to "Teacher"' do
-        find_link("Teacher").click
-        expect(page).to have_css("h1", text: "Teacher")
+        find_link(student.first_name).click
+        find_link("Teachers").click
+        expect(page).to have_css("h1", text: "Teachers")
       end
 
-      it 'should properly navigate to "Feedbacks"' do
+      it 'should properly navigate to "Feedback"' do
         find_link("Feedback").click
         expect(page).to have_css("h3", text: "Pending")
       end
 
       it 'should properly navigate to "Edit Profile"' do
+        find_link(student.first_name).click
         find_link("Edit Profile").click
         expect(page).to have_css("h1", text: "Edit Your Details")
       end

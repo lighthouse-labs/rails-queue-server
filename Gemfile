@@ -97,19 +97,19 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'spring-commands-rspec'
   gem 'factory_girl_rails'
-  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-rails', '~> 3.6'
   gem 'rspec-collection_matchers'
   gem 'rails-controller-testing'
+  gem 'database_cleaner'
 end
 
 
 group :test do
   gem 'capybara'
-  gem 'launchy'
-  gem 'poltergeist'
-  gem 'database_cleaner', '1.0.1'
+  # https://robots.thoughtbot.com/headless-feature-specs-with-chrome
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
   gem 'email_spec'
-  gem 'fuubar'
   # gem 'shoulda-matchers' # not ready for 4.1
 
   gem 'simplecov', require: nil
