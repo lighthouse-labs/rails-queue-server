@@ -76,7 +76,7 @@ User (student/teacher) Authentication can only happen through Github. Much like 
 ## Server
 
 Start the server using the command `bin/serve`
-This runs `bin/rails s -b 0.0.0.0 -p 4000` 
+This runs `bin/rails s -b 0.0.0.0 -p 4000`
   - You can change this to 3000 if you prefer (affects above GitHub changes)
 
 ## Queue
@@ -227,13 +227,12 @@ We also have the `rubocop` gem to lint locally, which can be run with `bundle ex
 
 `bundle exec rspec ./spec/models/user_spec.rb -e "User has a valid factory"`
 
-**Note:**
+**Note:** Use `HEADLESS=0` when running feature specs to see your browser in action (sometimes useful for debugging or just plain entertainment).
 
-`.rspec` file includes rspec options `--format Fuubar  --color spec`
 
 ## CodeClimate
 
-Running tests automatically generate the `coverage/` folder (from the `simplecov` gem).
+Running tests with `COV=1` set will generate the `coverage/` folder (from the `simplecov` gem).
 Opening up the `coverage/index.html` in the browser shows a filterable breakdown
 
 In order to update the coverage number on CodeClimate, run this command (on master):
@@ -252,6 +251,6 @@ This project is built with :
 * slim instead of erb/haml
 * postgres 9.x
 * bootstrap 3.something with FlatUI
-* phantomjs (use `brew` to install) for integration test driver
-  * Please make sure your phantomjs brew package is up2date: `brew update && brew upgrade phantomjs`
-* poltergeist for phantomjs driver
+* capybara, selenium and chrome-headless for testing
+
+

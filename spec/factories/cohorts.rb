@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :cohort do
     name { Faker::Name.name }
     start_date { Date.current }
-    code { Faker::Superhero.name.parameterize }
+    code { Faker::GameOfThrones.character.parameterize }
     association :location
     association :program
   end
