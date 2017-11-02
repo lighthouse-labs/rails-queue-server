@@ -32,7 +32,6 @@ describe CurriculumDay, type: :model do
     end
 
     context "when initialized as a Date" do
-
       describe "where we are on w1d2" do
         subject(:curriculum_day) do
           CurriculumDay.new(Date.new(2018, 04, 03), cohort)
@@ -52,17 +51,15 @@ describe CurriculumDay, type: :model do
           expect(subject.date).to eq(Date.new(2018, 04, 27))
         end
       end
-
     end
   end
 
   describe '#to_s' do
 
     context "with programs <10 weeks long" do
-
       let(:program) { create :program, weeks: 8 }
 
-      context "when on the first day" do
+      describe "when on the first day" do
         subject { CurriculumDay.new(Date.new(2018, 04, 02), cohort) }
 
         it "is 'w1d1'" do
@@ -70,7 +67,7 @@ describe CurriculumDay, type: :model do
         end
       end
 
-      context "any time before the first day" do
+      describe "any time before the first day" do
         subject { CurriculumDay.new(Date.new(2018, 03, 23), cohort) }
 
         it "is 'w1d1'" do
@@ -78,7 +75,7 @@ describe CurriculumDay, type: :model do
         end
       end
 
-      context "any time after the final day" do
+      describe "any time after the final day" do
         subject { CurriculumDay.new(Date.new(2019, 04, 04), cohort) }
 
         # FIXME: OMG this is broken. Fix the logic cuz the test looks right! -KV
@@ -87,7 +84,7 @@ describe CurriculumDay, type: :model do
         end
       end
 
-      context "on the second weekend's Saturday" do
+      describe "on the second weekend's Saturday" do
         subject { CurriculumDay.new(Date.new(2018, 04, 14), cohort) }
 
         # FIXME: OMG this is broken. Fix the logic cuz the test looks right! -KV
@@ -96,7 +93,7 @@ describe CurriculumDay, type: :model do
         end
       end
 
-      context "on the second weekend's Sunday" do
+      describe "on the second weekend's Sunday" do
         subject { CurriculumDay.new(Date.new(2018, 04, 15), cohort) }
 
         # FIXME: OMG this is broken. Fix the logic cuz the test looks right! -KV
@@ -109,8 +106,7 @@ describe CurriculumDay, type: :model do
     context "with programs >=10 weeks long" do
       let(:program) { create :program, weeks: 12 }
 
-
-      context "when on the first day" do
+      describe "when on the first day" do
         subject { CurriculumDay.new(Date.new(2018, 04, 02), cohort) }
 
         it "is 'w01d1'" do
@@ -118,7 +114,7 @@ describe CurriculumDay, type: :model do
         end
       end
 
-      context "any time before the first day" do
+      describe "any time before the first day" do
         subject { CurriculumDay.new(Date.new(2018, 03, 23), cohort) }
 
         it "is 'w01d1'" do
@@ -126,7 +122,7 @@ describe CurriculumDay, type: :model do
         end
       end
 
-      context "any time after the final day" do
+      describe "any time after the final day" do
         subject { CurriculumDay.new(Date.new(2019, 04, 04), cohort) }
 
         # FIXME: OMG this is broken. Fix the logic cuz the test looks right! -KV
@@ -135,7 +131,7 @@ describe CurriculumDay, type: :model do
         end
       end
 
-      context "on the second weekend's Saturday" do
+      describe "on the second weekend's Saturday" do
         subject { CurriculumDay.new(Date.new(2018, 04, 14), cohort) }
 
         # FIXME: OMG this is broken. Fix the logic cuz the test looks right! -KV
@@ -144,7 +140,7 @@ describe CurriculumDay, type: :model do
         end
       end
 
-      context "on the second weekend's Sunday" do
+      describe "on the second weekend's Sunday" do
         subject { CurriculumDay.new(Date.new(2018, 04, 15), cohort) }
 
         # FIXME: OMG this is broken. Fix the logic cuz the test looks right! -KV
@@ -153,7 +149,7 @@ describe CurriculumDay, type: :model do
         end
       end
 
-      context "on the eleventh week's Tuesday" do
+      describe "on the eleventh week's Tuesday" do
         subject { CurriculumDay.new(Date.new(2018, 06, 12), cohort) }
 
         # FIXME: OMG this is broken. Fix the logic cuz the test looks right! -KV
@@ -164,5 +160,4 @@ describe CurriculumDay, type: :model do
     end
 
   end
-
 end
