@@ -26,18 +26,18 @@ class CurriculumDay
     w = determine_w
 
     # prefix with 0 if needs to be double digit and isn't
-    week = double_digit_week? && w < 10 ? "0#{w}" : w
+    # week = double_digit_week? && w < 10 ? "0#{w}" : w
 
     @to_s = if day_number <= 0
               # day_number may be negative if cohort hasn't yet started
-              "w#{'0' if double_digit_week?}1d1"
+              "w1d1"
             elsif w > program.weeks
               "w#{program.weeks}e"
             elsif @date.sunday? || @date.saturday?
-              "w#{week}e"
+              "w#{w}e"
             else
               d = determine_d
-              "w#{week}d#{d}"
+              "w#{w}d#{d}"
     end
   end
 
