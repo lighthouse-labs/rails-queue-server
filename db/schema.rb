@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713223427) do
+ActiveRecord::Schema.define(version: 20171023175938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -373,6 +373,7 @@ ActiveRecord::Schema.define(version: 20170713223427) do
     t.boolean  "has_code_reviews",                default: true
     t.boolean  "display_exact_activity_duration"
     t.boolean  "prep_assistance"
+    t.boolean  "has_queue",                       default: true
   end
 
   create_table "questions", force: :cascade do |t|

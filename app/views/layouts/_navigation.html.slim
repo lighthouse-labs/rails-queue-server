@@ -73,11 +73,12 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
               i.fa.fa-fw.fa-life-ring
               span.non-tablet-label
                 | Teachers
-          li
-            = link_to :assistance_requests, title: 'Request Queue'
-              i.fa.fa-fw.fa-list-ol
-              span.non-tablet-label
-                | Queue
+          - if @program.try :has_queue?
+            li
+              = link_to :assistance_requests, title: 'Request Queue'
+                i.fa.fa-fw.fa-list-ol
+                span.non-tablet-label
+                  | Queue
           - if @program.try :has_code_reviews?
             li
               = link_to :code_reviews, title: 'Code Reviews'
@@ -193,11 +194,12 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
                       a href="https://github.com/#{repo.full_name}/issues" target="_blank" + Curriculum Issue
                   li
                     a href="https://github.com/lighthouse-labs/compass/issues" target="_blank" + Compass Issue
-            li.teacher-duty
-              span
-                - attrs = { data: { toggle: 'tooltip', placement: 'bottom' }, title: "Your Location: #{current_user.location.try(:name) || 'N/A'}" }
-                = link_to "Go on duty", '#', { class: "on-duty-link navbar-btn btn btn-sm btn-success #{'hidden' if current_user.on_duty?}", onclick: "ga('send', 'event', 'go-on-duty', 'click');"}.merge(attrs)
-                = link_to "Go off duty", '#', { class: "off-duty-link navbar-btn btn btn-sm btn-danger #{'hidden' unless current_user.on_duty?}", onclick: "ga('send', 'event', 'go-off-duty', 'click');"}.merge(attrs)
+            - if @program.try :has_queue?
+              li.teacher-duty
+                span
+                  - attrs = { data: { toggle: 'tooltip', placement: 'bottom' }, title: "Your Location: #{current_user.location.try(:name) || 'N/A'}" }
+                  = link_to "Go on duty", '#', { class: "on-duty-link navbar-btn btn btn-sm btn-success #{'hidden' if current_user.on_duty?}", onclick: "ga('send', 'event', 'go-on-duty', 'click');"}.merge(attrs)
+                  = link_to "Go off duty", '#', { class: "off-duty-link navbar-btn btn btn-sm btn-danger #{'hidden' unless current_user.on_duty?}", onclick: "ga('send', 'event', 'go-off-duty', 'click');"}.merge(attrs)
           - if impersonating? && (current_user.try(:active_student?) || (@program.prep_assistance? && current_user.try(:enrolled_and_prepping?)))
                 button.btn.btn-sm.navbar-btn.btn-primary.disabled
                  | Disabled while Impersonating
@@ -205,7 +207,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" data-turbolinks-per
             li#assistance-request-module
               span#create-assistance-request
                 = link_to 'Request Assistance', prep_assistance_requests_path(activity_id: @activity), method: :post, class: "btn btn-sm navbar-btn btn-primary"
-          - elsif current_user.try(:active_student?)
+          - elsif current_user.try(:active_student?) && @program.try(:has_queue?)
             li#assistance-request-module
               span#cancel-assistance-request class="#{'hidden' unless current_user.waiting_for_assistance? || current_user.being_assisted?}"
                 = link_to '#', class: 'navbar-btn btn btn-sm btn-warning cancel-request-assistance-button', :'data-toggle' => 'tooltip', :'data-placement' => 'bottom', title: 'Cancel this Assistance Request' do
