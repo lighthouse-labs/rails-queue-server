@@ -373,7 +373,7 @@ ActiveRecord::Schema.define(version: 20171023175938) do
     t.boolean  "has_code_reviews",                default: true
     t.boolean  "display_exact_activity_duration"
     t.boolean  "prep_assistance"
-    t.boolean  "has_queue"
+    t.boolean  "has_queue",                       default: true
   end
 
   create_table "questions", force: :cascade do |t|
