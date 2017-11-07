@@ -152,7 +152,6 @@
     $.ajax({
       url: feedUrl,
       dataType: 'json',
-      cache: false,
       success: function(data) {
         // If there are events that day, show events section
         if (data.items.length > 0) {
