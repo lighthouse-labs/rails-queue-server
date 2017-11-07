@@ -9,16 +9,16 @@ if Rails.env.development?
   puts "Legacy dev-only seed data coming at ya (development - only)!"
 
   cohort_van = Cohort.find_by(code: 'van')
-  cohort_van ||= Cohort.create! name: "Current Cohort Van", location: @location_van, start_date: Time.now - 7.days, program: @program, code: "van"
+  cohort_van ||= Cohort.create! name: "Current Cohort Van", location: @location_van, start_date: Time.now.monday - 7.days, program: @program, code: "van"
 
   cohort_cal = Cohort.find_by(code: 'cal')
-  cohort_cal ||= Cohort.create! name: "Satellite Cohort Cal", location: @location_cal, start_date: Time.now - 7.days, program: @program, code: "cal"
+  cohort_cal ||= Cohort.create! name: "Satellite Cohort Cal", location: @location_cal, start_date: Time.now.monday - 7.days, program: @program, code: "cal"
 
   cohort_tor = Cohort.find_by(code: 'toto')
-  cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Time.now - 14.days, program: @program, code: "toto"
+  cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Time.now.monday - 14.days, program: @program, code: "toto"
 
   cohort_van_finished = Cohort.find_by(code: 'vanc')
-  cohort_van_finished ||= Cohort.create! name: "Previous Cohort Van", location: @location_van, start_date: Time.now - 67.days, program: @program, code: "vanc"
+  cohort_van_finished ||= Cohort.create! name: "Previous Cohort Van", location: @location_van, start_date: Time.now.monday - 67.days, program: @program, code: "vanc"
 
   User.where(last_name: 'The Fake').destroy_all
 
