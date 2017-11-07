@@ -7,8 +7,7 @@
         calendarId: 'en.canadian#holiday@group.v.calendar.google.com',
         apiKey: '',
         startDate: new Date().toISOString(),
-        endDate: new Date().toISOString(),
-        tag: ['#web']
+        endDate: new Date().toISOString()
       },
       options);
 
@@ -153,6 +152,7 @@
     $.ajax({
       url: feedUrl,
       dataType: 'json',
+      cache: false,
       success: function(data) {
         // If there are events that day, show events section
         if (data.items.length > 0) {
