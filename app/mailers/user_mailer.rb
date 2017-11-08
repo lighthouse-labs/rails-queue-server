@@ -98,8 +98,8 @@ class UserMailer < ActionMailer::Base
     @teacher = assistance.assistor
     @rating = assistance.rating
 
-    mail  subject: "Testing EM mail",
-          to:      "alex@lighthouselabs.ca" # Should be sent to EM email in ENV
+    mail  subject: "Assistance Log Notification",
+          to:      # Should be sent to EM email in ENV
   end
 
 end
