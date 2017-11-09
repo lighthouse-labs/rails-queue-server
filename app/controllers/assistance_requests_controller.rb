@@ -26,6 +26,7 @@ class AssistanceRequestsController < ApplicationController
     my_active_interviews = TechInterview.in_progress.interviewed_by(current_user)
     interviews = TechInterview.oldest_first.queued.interviewee_location(current_user.location)
     all_students = Student.in_active_cohort.active.order_by_last_assisted_at
+    tech_interview_templates = TechInterviewTemplate.where(week: current_user.location.cohorts.is_active.map { |c| c.week })
 
     # For satellite mentors, show them their local students under All Students
     all_students = if current_user.location.try(:satellite?)

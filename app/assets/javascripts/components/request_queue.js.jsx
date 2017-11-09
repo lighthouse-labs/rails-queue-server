@@ -64,6 +64,9 @@ var RequestQueue = React.createClass({
   },
 
   requestSuccess: function(response) {
+
+    console.log(response);
+
     this.setState({
       activeAssistances: response.active_assistances,
       requests: response.requests,
