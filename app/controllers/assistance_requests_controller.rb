@@ -35,14 +35,15 @@ class AssistanceRequestsController < ApplicationController
                      all_students.cohort_in_locations([params[:location]])
                    end
 
-    render json: RequestQueueSerializer.new(assistances:            my_active_assistances,
-                                            requests:               requests,
-                                            code_reviews:           code_reviews,
-                                            active_evaluations:     my_active_evaluations,
-                                            evaluations:            evaluations,
-                                            active_tech_interviews: my_active_interviews,
-                                            tech_interviews:        interviews,
-                                            students:               all_students).as_json
+    render json: RequestQueueSerializer.new(assistances:                my_active_assistances,
+                                            requests:                   requests,
+                                            code_reviews:               code_reviews,
+                                            active_evaluations:         my_active_evaluations,
+                                            evaluations:                evaluations,
+                                            active_tech_interviews:     my_active_interviews,
+                                            tech_interviews:            interviews,
+                                            students:                   all_students,
+                                            tech_interview_templates:   tech_interview_templates).as_json
   end
 
   def status
