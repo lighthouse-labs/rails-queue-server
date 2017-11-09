@@ -102,6 +102,27 @@ var RequestQueueItems = React.createClass({
     )
   },
 
+  techInterviewTemplateHolder: function(){
+    return(
+      <div>
+        <h3 className="section-heading">Tech Interviews This Week</h3>
+        <ul className="student-list">
+          { this.renderTechInterviewTemplates() }
+        </ul>
+      </div>
+    )
+  },
+
+  renderTechInterviewTemplates: function(){
+    var that = this;
+    if(this.props.techInterviewTemplates.length > 0)
+      return this.props.techInterviewTemplates.map(function(template){
+        return <TechInterviewTemplate interview={ interview } key={ interview.id } location={that.props.location} />
+      });
+    else
+      return <i>There are no tech interviews this week.</i>
+  },
+
   techInterviewHolder: function(){
     return(
       <div>
