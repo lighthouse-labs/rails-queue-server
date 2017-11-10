@@ -13,7 +13,7 @@ class ActivitySubmissionWithFeedbackController < ApplicationController
     @success = result.success?
 
     if @success
-      flash[:notice] = 'Congrats on completing this activity!'
+      flash[:notice] = "Congrats on completing activity '#{@activity.name}'!"
       render nothing: true, status: 200
     else
       @errors = result.errors unless @success

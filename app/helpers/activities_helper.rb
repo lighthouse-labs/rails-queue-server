@@ -8,6 +8,10 @@ module ActivitiesHelper
     end
   end
 
+  def get_day_path(activity)
+    day_path(activity.day)
+  end
+
   def assistance_activities_grouped_by_day_for_select
     grouped_options_for_select(
       current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :id).group_by { |d| d[1] },
