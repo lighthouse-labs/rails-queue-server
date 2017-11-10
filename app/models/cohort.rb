@@ -88,4 +88,8 @@ class Cohort < ApplicationRecord
     students.remote.count + rolled_out_students.count
   end
 
+  def active_queue?
+    program.has_queue? && active? && !disable_queue_days.include?(curriculum_day.to_s)
+  end
+
 end
