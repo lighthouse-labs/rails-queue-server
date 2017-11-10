@@ -52,9 +52,7 @@ class Admin::CohortsController < Admin::BaseController
   end
 
   def check_limited
-    if @cohort.limited?
-      redirect_to(admin_cohorts_path)
-    end
+    redirect_to(admin_cohorts_path) if @cohort.limited?
   end
 
   def cohort_params
