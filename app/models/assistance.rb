@@ -57,7 +57,7 @@ class Assistance < ApplicationRecord
     end
 
     if notify
-      UserMailer.notify_education_manager(self).deliver_now
+      UserMailer.notify_education_manager(self).deliver_later
     end
 
     assistee.save.tap do
