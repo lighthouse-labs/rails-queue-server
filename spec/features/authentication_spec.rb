@@ -2,7 +2,15 @@
 
 require 'rails_helper'
 
-describe 'Authentication' do
+describe 'Authentication', type: :feature do
+
+  let(:program) { create :program }
+  let(:cohort) { create :cohort, program: program }
+
+  before :each do
+    cohort
+  end
+
   context "with new user profile" do
     it 'creates a user record based on Github OAuth Response Hash' do
       FactoryGirl.create :user # => 1

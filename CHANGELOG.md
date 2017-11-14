@@ -1,5 +1,22 @@
 # Change Log
 
+## [2017.10.27.0915](https://github.com/lighthouse-labs/compass/tree/2017.10.27.0915) (2017-10-26)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.09.26.0915...2017.10.27.0915)
+
+**Merged pull requests:**
+
+- Removed the Default Date Range Filter for Admin-Assistances [\#390](https://github.com/lighthouse-labs/compass/pull/390) ([ahache](https://github.com/ahache))
+- Admin users are able to edit/delete activity messages [\#389](https://github.com/lighthouse-labs/compass/pull/389) ([ahache](https://github.com/ahache))
+- Only render +Message and +Video for non prep activities [\#388](https://github.com/lighthouse-labs/compass/pull/388) ([ahache](https://github.com/ahache))
+- Hotfix: Moved AWS Region to a ENV variable  [\#387](https://github.com/lighthouse-labs/compass/pull/387) ([jmatsuba](https://github.com/jmatsuba))
+- Moved search bar to new line in Activities Search view [\#383](https://github.com/lighthouse-labs/compass/pull/383) ([ahache](https://github.com/ahache))
+- Force Users to Complete Registration [\#381](https://github.com/lighthouse-labs/compass/pull/381) ([ahache](https://github.com/ahache))
+- Added active label to admin user view [\#380](https://github.com/lighthouse-labs/compass/pull/380) ([ahache](https://github.com/ahache))
+- Cleanup of Unneeded Files [\#379](https://github.com/lighthouse-labs/compass/pull/379) ([jmatsuba](https://github.com/jmatsuba))
+- Update Tech Interview Time to 45-60min [\#375](https://github.com/lighthouse-labs/compass/pull/375) ([monting](https://github.com/monting))
+- Reorganized the Top Navigation for Students and Alumni [\#374](https://github.com/lighthouse-labs/compass/pull/374) ([ahache](https://github.com/ahache))
+- Admin Users\#Index Names Now Link to Profiles [\#369](https://github.com/lighthouse-labs/compass/pull/369) ([ahache](https://github.com/ahache))
+
 ## [2017.09.26.0915](https://github.com/lighthouse-labs/compass/tree/2017.09.26.0915) (2017-09-25)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.29.0645...2017.09.26.0915)
 
