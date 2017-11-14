@@ -1,7 +1,15 @@
-h1 = @teacher.first_name has flagged an assistance with @student.full_name
-hr
-h3 = @teacher.first_name
-h3 = @student.full_name
-hr
-p = @rating
-p = @notes
+p = "#{@teacher.first_name} has flagged an assistance with #{@student.full_name}"
+p 
+  strong Assistance Info
+  br
+  = "Cohort: #{@cohort}"
+  br
+  = "Notes: #{@notes}"
+  br
+  = "Rating: #{@rating}/4"
+  br
+  = @date.strftime("Assisted on %m/%d/%Y at %I:%M%p %Z")
+
+p 
+  | View all of #{@student.first_name}'s assistance logs&nbsp;
+  = link_to 'here', admin_assistances_url(:keywords => @student.full_name.gsub(" ", "+"))

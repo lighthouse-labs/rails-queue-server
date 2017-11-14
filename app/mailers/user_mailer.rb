@@ -93,10 +93,12 @@ class UserMailer < ActionMailer::Base
   end
 
   def notify_education_manager(assistance)
-    @notes = assistance.notes
     @student = assistance.assistee
     @teacher = assistance.assistor
+    @notes = assistance.notes
     @rating = assistance.rating
+    @cohort = @student.cohort.name
+    @date = assistance.end_at
 
     location = Location.find(@student.location.supported_by_location_id).name.upcase
     env_target = "EM_#{location}_EMAIL"
