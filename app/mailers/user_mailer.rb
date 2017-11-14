@@ -98,8 +98,11 @@ class UserMailer < ActionMailer::Base
     @teacher = assistance.assistor
     @rating = assistance.rating
 
+    location = Location.find(@student.location.supported_by_location_id).name.upcase
+    env_target = "EM_#{location}_EMAIL"
+
     mail  subject: "Assistance Log Notification",
-          to:      # Should be sent to EM email in ENV
+          to:      ENV[env_target]
   end
 
 end
