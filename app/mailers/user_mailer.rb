@@ -101,7 +101,7 @@ class UserMailer < ActionMailer::Base
     location = Location.find(@student.location.supported_by_location_id).name.upcase
     env_target = "EM_#{location}_EMAIL"
 
-    mail  subject: "Assistance Log Notification",
+    mail  subject: "Flagged Assistance Notification",
           to:      ENV[env_target]
   end
 
