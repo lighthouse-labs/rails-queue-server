@@ -50,7 +50,7 @@ class Assistance < ApplicationRecord
     self.flag = notify
     save
     assistee.last_assisted_at = Time.current
-    
+
     if assistance_request.instance_of?(CodeReviewRequest) && !rating.nil? && !assistee.code_review_percent.nil?
       assistee.code_review_percent += Assistance::RATING_BASELINE - rating
       UserMailer.new_code_review_message(self).deliver
