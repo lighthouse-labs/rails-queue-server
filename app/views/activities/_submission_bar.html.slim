@@ -6,10 +6,9 @@
         .form-inline
           .left-actions
             - if @activity.is_a?(QuizActivity) || @activity.is_a?(PinnedNote) || @activity.evaluates_code?
-              - next_activity = @activity.next ? get_activity_path(@activity.next) : get_day_path(@activity)
-              = link_to next_activity, class: 'btn btn-activity-complete-status-no-code-review'
+              - next_path = @activity.next ? get_activity_path(@activity.next) : get_next_index_path(@activity)
+              = link_to next_path, class: 'btn btn-activity-complete-status-no-code-review'
                 i.fa.fa-caret-right
                 | &nbsp;Next
             - else
               = activity_presenter.submission_form
-              
