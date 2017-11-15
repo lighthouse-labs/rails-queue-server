@@ -8,6 +8,16 @@ module ActivitiesHelper
     end
   end
 
+  def get_next_index_path(activity)
+    if activity.section && activity.section.type == "Prep"
+      prep_index_path
+    elsif activity.day
+      day_path(activity.day)
+    else
+      root_path
+    end
+  end
+
   def assistance_activities_grouped_by_day_for_select
     grouped_options_for_select(
       current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :id).group_by { |d| d[1] },

@@ -1,5 +1,17 @@
 # Change Log
 
+## [2017.11.14.1530](https://github.com/lighthouse-labs/compass/tree/2017.11.14.1530) (2017-11-10)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.10.27.0915...2017.11.14.1530)
+
+**Merged pull requests:**
+
+- Fixed Google Calendar Integration for Student Events [\#412](https://github.com/lighthouse-labs/compass/pull/412) ([ahache](https://github.com/ahache))
+- Initial CurriculumDay Model Specs [\#406](https://github.com/lighthouse-labs/compass/pull/406) ([kvirani](https://github.com/kvirani))
+- Updated Automated Testing Framework [\#405](https://github.com/lighthouse-labs/compass/pull/405) ([kvirani](https://github.com/kvirani))
+- Disabled Cohort Dashboard for Limited Cohorts \(Previous Alumni\) [\#403](https://github.com/lighthouse-labs/compass/pull/403) ([ahache](https://github.com/ahache))
+- Added Program Flag to Allow Disabling the Queue [\#386](https://github.com/lighthouse-labs/compass/pull/386) ([ahache](https://github.com/ahache))
+- Mark Activity Complete UI and User Flow Change [\#376](https://github.com/lighthouse-labs/compass/pull/376) ([ahache](https://github.com/ahache))
+
 ## [2017.10.27.0915](https://github.com/lighthouse-labs/compass/tree/2017.10.27.0915) (2017-10-26)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.09.26.0915...2017.10.27.0915)
 
