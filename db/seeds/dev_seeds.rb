@@ -4,21 +4,18 @@
 
 if Rails.env.development?
 
-  locations = [@location_van, @location_to, @location_cal]
+  locations = [@location_van, @location_to]
 
   puts "Legacy dev-only seed data coming at ya (development - only)!"
 
   cohort_van = Cohort.find_by(code: 'van')
   cohort_van ||= Cohort.create! name: "Current Cohort Van", location: @location_van, start_date: Time.now.monday - 7.days, program: @program, code: "van"
 
-  cohort_cal = Cohort.find_by(code: 'cal')
-  cohort_cal ||= Cohort.create! name: "Satellite Cohort Cal", location: @location_cal, start_date: Time.now.monday - 7.days, program: @program, code: "cal"
-
   cohort_tor = Cohort.find_by(code: 'toto')
   cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Time.now.monday - 14.days, program: @program, code: "toto"
 
   cohort_van_finished = Cohort.find_by(code: 'vanc')
-  cohort_van_finished ||= Cohort.create! name: "Previous Cohort Van", location: @location_van, start_date: Time.now.monday - 67.days, program: @program, code: "vanc"
+  cohort_van_finished ||= Cohort.create! name: "Previous Cohort Van", location: @location_van, start_date: Time.now.monday - 77.days, program: @program, code: "vanc"
 
   User.where(last_name: 'The Fake').destroy_all
 
@@ -37,13 +34,14 @@ if Rails.env.development?
       quirky_fact:            Faker::Lorem.sentence,
       phone_number:           Faker::PhoneNumber.phone_number,
       github_username:        Faker::Internet.user_name,
-      avatar_url:             "http://fillmurray.com/#{50+x*10}/#{50+x*10}",
+      avatar_url:             Faker::Avatar.image,
       location:               locations.sample
     )
   end
 
   Cohort.all.each do |cohort|
-    10.times do |i|
+    x = cohort == Cohort.find_by(code: 'van') ? 20 : 10
+    x.times do |i|
       student = Student.create!(
         first_name:             Faker::Name.first_name,
         last_name:              "The Fake",
@@ -51,8 +49,8 @@ if Rails.env.development?
         cohort:                 cohort,
         phone_number:           Faker::PhoneNumber.phone_number,
         github_username:        Faker::Internet.user_name,
-        avatar_url:             "http://placecage.com/#{50+i*10}/#{50+i*10}",
-        location:               cohort.location,
+        avatar_url:             Faker::Avatar.image,
+        location:               i >= 10 ? cohort.location : @location_cal,
         uid:                    1000 + i,
         token:                  2000 + i,
         completed_registration: true
@@ -62,8 +60,8 @@ if Rails.env.development?
         teacher = @teachers.sample
         # create a sampled assistance request
 
-        if cohort.start_date < Time.now - 60.days # Complete cohort
-          start_time = Time.now - 7.days - rand(1..50).days
+        if cohort.end_date < Time.now # Complete cohort
+          start_time = cohort.end_date - rand(1..70).days
         else
           start_time = Time.now - rand(1..7).days
         end
@@ -105,7 +103,6 @@ if Rails.env.development?
         )
       end
 
-
     end # 10 loop for students
   end # locations
 
@@ -128,7 +125,7 @@ if Rails.env.development?
   # Seeds for completed cohort only
   Cohort.find_by(code: 'vanc').students.each do |student|
     Project.all.each do |project|
-      e = Evaluation.create!(
+      eval = Evaluation.create!(
         project_id: project.id,
         student_id: student.id,
         teacher_id: @teachers.sample.id,
@@ -158,7 +155,7 @@ if Rails.env.development?
         to_state: 'in_progress',
         metadata: {},
         sort_key: 10,
-        evaluation_id: e.id,
+        evaluation_id: eval.id,
         most_recent: false,
         created_at: Time.zone.today - 9.days,
         updated_at: Time.zone.today - 9.days
@@ -167,7 +164,7 @@ if Rails.env.development?
         to_state: 'accepted',
         metadata: {},
         sort_key: 20,
-        evaluation_id: e.id,
+        evaluation_id: eval.id,
         most_recent: true,
         created_at: Time.zone.today - 10.days,
         updated_at: Time.zone.today - 10.days
