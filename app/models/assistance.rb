@@ -56,9 +56,7 @@ class Assistance < ApplicationRecord
       UserMailer.new_code_review_message(self).deliver
     end
 
-    if notify
-      UserMailer.notify_education_manager(self).deliver_later
-    end
+    UserMailer.notify_education_manager(self).deliver_later if notify
 
     assistee.save.tap do
       create_feedback(student: assistee, teacher: assistor)
