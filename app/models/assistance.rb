@@ -42,7 +42,7 @@ class Assistance < ApplicationRecord
 
   RATING_BASELINE = 3
 
-  def end(notes, notify, rating = nil, student_notes = nil)
+  def end(notes, rating = nil, student_notes = nil, notify)
     self.notes = notes
     self.rating = rating
     self.student_notes = student_notes
