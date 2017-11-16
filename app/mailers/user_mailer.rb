@@ -100,12 +100,11 @@ class UserMailer < ActionMailer::Base
     @cohort = @student.cohort.name
     @date = assistance.end_at
 
-    # location = Location.find(@student.location.supported_by_location_id).name.upcase
     location = @student.location.em_location.name.upcase
-    env_target = "EM_#{location}_EMAIL"
+    email = ENV["EM_#{location}_EMAIL"] || 'rosy@lighthouselabs.ca'
 
     mail  subject: "Flagged Assistance Notification",
-          to:      ENV[env_target]
+          to:      email
   end
 
 end
