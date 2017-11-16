@@ -63,7 +63,8 @@ class Admin::CohortsController < Admin::BaseController
       :program_id,
       :location_id,
       :teacher_email_group,
-      :weekdays
+      :weekdays,
+      :disable_queue_days
     )
   end
 
