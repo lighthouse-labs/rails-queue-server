@@ -29,6 +29,8 @@ class Assistance < ApplicationRecord
   before_create :set_start_at
   before_create :set_activity
 
+  after_save :update_student_average
+
   scope :currently_active, -> {
     joins(:assistance_request)
       .where("assistance_requests.canceled_at IS NULL AND assistances.end_at IS NULL")
@@ -92,6 +94,11 @@ class Assistance < ApplicationRecord
   def send_notes_to_slack
     post_to_slack(ENV['SLACK_CHANNEL'])
     post_to_slack(ENV['SLACK_CHANNEL_REMOTE']) if assistee.remote
+  end
+
+  def update_student_average
+    assistee.assistance_average = assistee.assistances.average(:rating).truncate(2).to_f
+    assistee.save!
   end
 
   def post_to_slack(channel)
