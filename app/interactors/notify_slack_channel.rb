@@ -9,7 +9,7 @@ class NotifySlackChannel
 
   def call
     options = {
-      username: 'Compass',
+      username: "#{Program.first.name} Compass",
       icon_url: 'https://cdn3.iconfinder.com/data/icons/browsers-1/512/Browser_JJ-512.png'
     }
     poster = Slack::Poster.new(@webhook, options)

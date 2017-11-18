@@ -43,7 +43,7 @@ class Content::LoadActivities
 
         # no other non .md files allowed (only the `_Archived` folder)
         next unless content_file.ends_with?('.md')
-
+        @current_filename = content_file
         activity_data.push extract_activity_file_data(root_path, data_dir, content_file, seq)
         seq += 1
       end
@@ -53,6 +53,8 @@ class Content::LoadActivities
     # @log.debug activity_data.awesome_inspect
 
     activity_data
+  rescue Exception => e
+    raise e, e.message + " \n*suspect filename: #{@current_filename}*", e.backtrace
   end
 
   def extract_activity_file_data(repo_dir, data_dir, filename, sequence = nil)
