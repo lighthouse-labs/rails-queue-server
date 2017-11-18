@@ -390,8 +390,8 @@ var RequestQueue = React.createClass({
           activeTechInterviews={this.state.activeTechInterviews}
           techInterviews={this.state.techInterviews}
           students={this.state.students}
-          techInterviewTemplates={this.state.techInterviewTemplates}
           cohorts={this.state.cohorts}
+          techInterviewTemplates={this.state.techInterviewTemplates}
           location={this.state.location} />
       </div>
     )
