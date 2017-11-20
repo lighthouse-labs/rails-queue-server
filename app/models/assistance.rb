@@ -28,7 +28,6 @@ class Assistance < ApplicationRecord
   before_create :set_day
   before_create :set_start_at
   before_create :set_activity
-
   after_save :update_student_average
 
   scope :currently_active, -> {
