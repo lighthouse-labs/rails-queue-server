@@ -1,7 +1,5 @@
 var TechInterviewTemplate = React.createClass({
-  
     render: function() {
-  
       return (
         <div>
           <h4>
@@ -13,6 +11,5 @@ var TechInterviewTemplate = React.createClass({
         </div>
       )
     }
-  
   })
   
