@@ -116,8 +116,14 @@ var RequestQueueItems = React.createClass({
   renderTechInterviewTemplates: function(){
     var that = this;
     if(this.props.techInterviewTemplates.length > 0)
-      return this.props.techInterviewTemplates.map(function(template, idx){
-        return <TechInterviewTemplate week={template.week} id={ template.id } description={template.description} cohort={that.props.cohorts[idx].cohort.name} />
+      return this.props.techInterviewTemplates.map(function(interviewTemplate, idx){
+        return <TechInterviewTemplate 
+                 week={interviewTemplate.week} 
+                 id={ interviewTemplate.id } 
+                 description={interviewTemplate.description} 
+                 cohortName={that.props.cohorts[idx].cohort.name} 
+                 cohortId={that.props.cohorts[idx].cohort.id}
+               />
       });
     else
       return <i>There are no tech interviews this week.</i>

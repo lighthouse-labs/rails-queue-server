@@ -6,10 +6,10 @@ var TechInterviewTemplate = React.createClass({
         <div>
           <h4>
             Week {this.props.week} Interview
-            <small> - <i>{this.props.cohort}</i> </small>
+            <small> - <i>{this.props.cohortName}</i> </small>
           </h4>
           <p>{this.props.description}</p>
-          <a className="btn btn-primary btn-lg" href={`/tech_interview_templates/${this.props.id}`}>More Info</a>
+          <a className="btn btn-primary btn-lg" href={`/tech_interview_templates/${this.props.id}?cohort=${this.props.cohortId}`}>View Interview</a>
         </div>
       )
     }
