@@ -96,7 +96,7 @@ class Assistance < ApplicationRecord
   end
 
   def update_student_average
-    assistee.assistance_average = assistee.assistances.average(:rating).truncate(2).to_f
+    assistee.assistance_average = assistee.assistances.completed.where(cohort_id: assistee.cohort_id).where.not(rating: nil).average(:rating).to_f.round(2)
     assistee.save!
   end
 
