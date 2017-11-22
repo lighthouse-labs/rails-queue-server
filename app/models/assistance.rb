@@ -86,7 +86,7 @@ class Assistance < ApplicationRecord
   end
 
   def set_start_at
-    self.start_at = Time.current
+    self.start_at ||= Time.current
   end
 
   def send_notes_to_slack
