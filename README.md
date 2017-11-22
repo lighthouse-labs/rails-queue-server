@@ -8,9 +8,13 @@ Compass - by Lighthouse Labs
 Welcome to Compass! Lighthouse Lab's website for hosting our curriculum to students and managing their education.
 
 [Web F/T site](https://web-compass.lighthouselabs.ca)
+
 [iOS F/T site](https://ios.compass.lighthouselabs.ca)
+
 [Web P/T site](https://web-pt.compass.lighthouselabs.ca)
-[Web P/T site](https://web-pt-frontend.compass.lighthouselabs.ca)
+
+[Web P/T Frontend site](https://web-pt-frontend.compass.lighthouselabs.ca)
+
 [iOS F/T site](https://ios-pt.compass.lighthouselabs.ca)
 
  Table of Contents
@@ -102,6 +106,7 @@ It is recommended that you create a second compass on your local machine so that
   - for iOS F/T: https://github.com/lighthouse-labs/iOS-Curriculum
   - for web P/T: https://github.com/lighthouse-labs/intro-to-web-development-curriculum
   - for iOS P/T: https://github.com/lighthouse-labs/iOS-Curriculum-Part-Time
+  - for web P/T Frontend: https://github.com/lighthouse-labs/web-pt-frontend-curriculum
 4. Continue with the rest of the steps (from step 9)
 
 *if you are setting up a part-time curriculum*, there is a little bit more work you need to do. (configuration for part time needs to be fairly specific or it may not work.)
