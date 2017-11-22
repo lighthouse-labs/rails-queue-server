@@ -20,7 +20,7 @@ class Admin::CohortsController < Admin::BaseController
   end
 
   def edit
-    @days = @cohort.disable_queue_days.join(',')
+    set_disabled_days(@cohort.disable_queue_days)
   end
 
   def create
@@ -55,9 +55,15 @@ class Admin::CohortsController < Admin::BaseController
       days_string = params['disable_queue_days'].gsub(/\s+/, "")
       days_arr = days_string.split(',').compact.first(100)
       @cohort.disable_queue_days = days_arr
+      @cohort.valid?
+      set_disabled_days(days_arr) if @cohort.errors[:disable_queue_days].present?
     else
       @cohort.disable_queue_days = []
     end
+  end
+
+  def set_disabled_days(arr)
+    @days = arr.join(',')
   end
 
   def require_cohort

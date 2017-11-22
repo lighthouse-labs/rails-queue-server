@@ -12,6 +12,7 @@ class Cohort < ApplicationRecord
   validates :start_date, presence: true
   validates :program, presence: true
   validates :location, presence: true
+  validate  :disable_queue_days_are_valid
 
   validates :code,  uniqueness: true,
                     presence:   true,
@@ -90,6 +91,24 @@ class Cohort < ApplicationRecord
 
   def active_queue?
     program.has_queue? && active? && !disable_queue_days.include?(curriculum_day.to_s)
+  end
+
+  private
+
+  def disable_queue_days_are_valid
+    days_are_formatted_correctly
+    days_are_in_the_correct_range
+  end
+
+  def days_are_formatted_correctly
+    if !disable_queue_days.empty?
+      disable_queue_days.each do |day|
+        errors.add(:disable_queue_days, "has one or more days not formatted correctly") unless day =~ DAY_REGEX
+      end
+    end
+  end
+
+  def days_are_in_the_correct_range
   end
 
 end
