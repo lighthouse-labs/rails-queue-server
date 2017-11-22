@@ -5,9 +5,12 @@ class TechInterviewTemplatesController < ApplicationController
   end
 
   def show
-    if params[:cohort] != nil
+    if params[:cohort].present?
       @cohort = Cohort.find params[:cohort]
-      session[:cohort_id] = @cohort.id
+      if session[:cohort_id] != @cohort.id
+        session[:cohort_id] = @cohort.id
+        flash[:notice] = "You have switched to #{@cohort.name}"
+      end
     end
 
     @interview_template = TechInterviewTemplate.find params[:id]
