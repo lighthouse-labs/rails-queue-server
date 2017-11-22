@@ -16,7 +16,9 @@ class Admin::CohortsController < Admin::BaseController
   end
 
   def new
-    @cohort = Cohort.new(program: Program.first)
+    program = Program.first
+    @cohort = Cohort.new(program: program)
+    set_disabled_days(program.disable_queue_days)
   end
 
   def edit
