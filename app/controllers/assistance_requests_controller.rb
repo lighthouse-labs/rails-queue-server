@@ -27,9 +27,9 @@ class AssistanceRequestsController < ApplicationController
     interviews = TechInterview.oldest_first.queued.interviewee_location(current_user.location)
     all_students = Student.in_active_cohort.active.order_by_last_assisted_at
 
-    cohort_week = Location.find_by(name: params[:location]).cohorts.is_active.map{ |c| [c.week, c.name] }.to_h
-    tech_interview_templates = TechInterviewTemplate.where(week: cohort_week.keys)
-    cohorts = Cohort.where(name: cohort_week.values)
+    cohort_id_week_hash = Location.find_by(name: params[:location]).cohorts.is_active.map{ |c| [c.id, c.week] }.to_h
+    cohorts = Cohort.where(id: cohort_id_week_hash.keys)    
+    tech_interview_templates = TechInterviewTemplate.where(week: cohort_id_week_hash.values)
 
     # For satellite mentors, show them their local students under All Students
     all_students = if current_user.location.try(:satellite?)
