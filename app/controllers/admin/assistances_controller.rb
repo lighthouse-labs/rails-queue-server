@@ -23,6 +23,7 @@ class Admin::AssistancesController < Admin::BaseController
     filter_by_day
     filter_by_teacher
     filter_by_student_keywords
+    filter_by_flagged
   end
 
   def filter_by_location
@@ -53,6 +54,10 @@ class Admin::AssistancesController < Admin::BaseController
 
   def filter_by_student_keywords
     @assistances = @assistances.by_student_keywords(params[:keywords]) if params[:keywords].present?
+  end
+
+  def filter_by_flagged
+    @assistances = @assistances.where(flag: true) if params[:flagged].present?
   end
 
 end
