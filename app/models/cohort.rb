@@ -20,6 +20,8 @@ class Cohort < ApplicationRecord
                     length:     { minimum: 3, allow_blank: true }
 
   include PgSearch
+  include DisableQueueDayValidators
+
   pg_search_scope :by_keywords,
                   associated_against: {
                     students: [:first_name, :last_name, :email, :phone_number, :github_username]
@@ -91,24 +93,6 @@ class Cohort < ApplicationRecord
 
   def active_queue?
     program.has_queue? && active? && !disable_queue_days.include?(curriculum_day.to_s)
-  end
-
-  private
-
-  def disable_queue_days_are_valid
-    days_are_formatted_correctly
-    days_are_in_the_correct_range
-  end
-
-  def days_are_formatted_correctly
-    if !disable_queue_days.empty?
-      disable_queue_days.each do |day|
-        errors.add(:disable_queue_days, "has one or more days not formatted correctly") unless day =~ DAY_REGEX
-      end
-    end
-  end
-
-  def days_are_in_the_correct_range
   end
 
 end
