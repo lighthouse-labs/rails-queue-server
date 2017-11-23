@@ -101,7 +101,7 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def set_start_at
-    self.start_at = Time.current
+    self.start_at ||= Time.current
   end
 
   def limit_one_per_user
