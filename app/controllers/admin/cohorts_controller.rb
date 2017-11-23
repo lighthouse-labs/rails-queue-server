@@ -57,8 +57,7 @@ class Admin::CohortsController < Admin::BaseController
       days_string = params['disable_queue_days'].gsub(/\s+/, "")
       days_arr = days_string.split(',').compact.first(100)
       @cohort.disable_queue_days = days_arr
-      @cohort.valid?
-      set_disabled_days(days_arr) if @cohort.errors[:disable_queue_days].present?
+      set_disabled_days(days_arr) unless @cohort.valid?
     else
       @cohort.disable_queue_days = []
     end
