@@ -116,7 +116,7 @@ class Content::LoadActivities
         archived_activity = Activity.find_by(id: a[0])
         archived_activity.archived = true
         archived_activity.save!
-      end  
+      end
     end
   end
 
