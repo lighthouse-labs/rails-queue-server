@@ -11,7 +11,7 @@ class AssistancePresenter < BasePresenter
   end
 
   def formatted_date
-    assistance.created_at.strftime('%B %d, %Y').to_s
+    assistance.start_at.strftime('%B %d, %Y').to_s
   end
 
   def duration

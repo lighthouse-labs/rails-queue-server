@@ -8,6 +8,7 @@ Rails.logger.info "SEEDING"
 end
 @location_van = Location.find_or_create_by!(name: "Vancouver")
 @location_to = Location.find_or_create_by!(name: "Toronto")
+@location_cal = Location.find_or_create_by!(name: "Calgary")
 
 # Note: assumed that you (your github profile) will have access to this curriculum content repo
 #       and have set your GITHUB_ADMIN_OAUTH_TOKEN in the .env file
