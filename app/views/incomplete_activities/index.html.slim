@@ -1,5 +1,18 @@
 h3.incomplete-activities-title
   | Incomplete Activities
-  small
-    | &nbsp Core (#{@activities.core.count}) Stretch (#{@activities.stretch.count})
-= render partial: 'incomplete_activities/activity', collection: @activities, as: :activity
+
+ul.nav.nav-tabs role="tablist"
+  li role="presentation" class="active"
+    a href="#core" role="tab" data-toggle="tab"
+      | Core (#{@activities.core.count})
+  li role="presentation"
+    a href="#stretch" role="tab" data-toggle="tab"
+      | Stretch (#{@activities.stretch.count})
+
+.tab-content.partial-tabs
+
+  #core.tab-pane role="tabpanel" class="active"
+    == render partial: 'incomplete_activities/activity', collection: @activities.core, as: :activity
+
+  #stretch.tab-pane role="tabpanel"
+    == render partial: 'incomplete_activities/activity', collection: @activities.stretch, as: :activity
