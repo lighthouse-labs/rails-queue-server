@@ -1,11 +1,11 @@
 module DisableQueueDayValidators
 
+  private
+  
   def disable_queue_days_are_valid
     days_are_formatted_correctly
     days_are_in_the_correct_range
   end
-
-  private
 
   def days_are_formatted_correctly
     if disable_queue_days.any?
