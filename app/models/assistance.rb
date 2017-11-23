@@ -42,17 +42,21 @@ class Assistance < ApplicationRecord
 
   RATING_BASELINE = 3
 
-  def end(notes, rating = nil, student_notes = nil)
+  def end(notes, notify, rating = nil, student_notes = nil)
     self.notes = notes
     self.rating = rating
     self.student_notes = student_notes
     self.end_at = Time.current
+    self.flag = notify
     save
     assistee.last_assisted_at = Time.current
+
     if assistance_request.instance_of?(CodeReviewRequest) && !rating.nil? && !assistee.code_review_percent.nil?
       assistee.code_review_percent += Assistance::RATING_BASELINE - rating
       UserMailer.new_code_review_message(self).deliver
     end
+
+    UserMailer.notify_education_manager(self).deliver_later if notify
 
     assistee.save.tap do
       create_feedback(student: assistee, teacher: assistor)
