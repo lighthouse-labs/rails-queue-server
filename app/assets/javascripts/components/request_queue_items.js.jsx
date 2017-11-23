@@ -102,6 +102,33 @@ var RequestQueueItems = React.createClass({
     )
   },
 
+  techInterviewTemplateHolder: function(){
+    return(
+      <div>
+        <h3 className="section-heading">Tech Interviews This Week</h3>
+        <ul className="student-list">
+          { this.renderTechInterviewTemplates() }
+        </ul>
+      </div>
+    )
+  },
+
+  renderTechInterviewTemplates: function(){
+    var that = this;
+    if(this.props.techInterviewTemplates.length > 0)
+      return this.props.techInterviewTemplates.map(function(interviewTemplate, idx){
+        return <TechInterviewTemplate 
+                 week={interviewTemplate.week} 
+                 id={ interviewTemplate.id } 
+                 description={interviewTemplate.description} 
+                 cohortName={that.props.cohorts[idx].cohort.name} 
+                 cohortId={that.props.cohorts[idx].cohort.id}
+               />
+      });
+    else
+      return <i>There are no tech interviews this week.</i>
+  },
+
   techInterviewHolder: function(){
     return(
       <div>
@@ -153,7 +180,7 @@ var RequestQueueItems = React.createClass({
           { this.renderRequests() }
         </ul>
 
-        { this.techInterviewHolder() }
+        { this.techInterviewTemplateHolder() }
 
         { this.codeReviewHolder() }
 

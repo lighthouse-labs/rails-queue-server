@@ -52,6 +52,8 @@ var RequestQueue = React.createClass({
       activeTechInterviews: [],
       techInterviews: [],
       students: [],
+      techInterviewTemplates: [],
+      cohorts: [],
       hasNotification: ("Notification" in window),
       canNotify: false,
 
@@ -64,6 +66,7 @@ var RequestQueue = React.createClass({
   },
 
   requestSuccess: function(response) {
+
     this.setState({
       activeAssistances: response.active_assistances,
       requests: response.requests,
@@ -72,7 +75,9 @@ var RequestQueue = React.createClass({
       evaluations: response.evaluations,
       activeTechInterviews: response.active_tech_interviews,
       techInterviews: response.tech_interviews,
-      students: response.all_students
+      students: response.all_students,
+      techInterviewTemplates: response.tech_interview_templates,
+      cohorts: response.cohorts
     });
   },
 
@@ -385,6 +390,8 @@ var RequestQueue = React.createClass({
           activeTechInterviews={this.state.activeTechInterviews}
           techInterviews={this.state.techInterviews}
           students={this.state.students}
+          cohorts={this.state.cohorts}
+          techInterviewTemplates={this.state.techInterviewTemplates}
           location={this.state.location} />
       </div>
     )
