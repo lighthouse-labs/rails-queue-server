@@ -12,7 +12,7 @@
             = link_to '+ Message', new_activity_message_path(@activity), class: 'btn btn-new-message'
 
         - else
-          = render 'completion_status', presenter: activity_presenter
+          = render 'completion_status'
 
       = render 'duration', presenter: activity_presenter  if @activity.duration?
 
