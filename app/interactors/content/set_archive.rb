@@ -13,7 +13,7 @@ class Content::SetArchive
       repo_uuids.push data['uuid']
     end
 
-    database_uuids = model.where(archived: nil).map{ |m| [m.id, m.uuid] }
+    database_uuids = model.where(archived: [nil, false]).map{ |m| [m.id, m.uuid] }
 
     database_uuids.each do |db|
       if !repo_uuids.include?(db[1])
