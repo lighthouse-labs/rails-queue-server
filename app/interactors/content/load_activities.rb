@@ -103,21 +103,4 @@ class Content::LoadActivities
     nil
   end
 
-  def set_archive(activity_data)
-    repo_uuids = []
-
-    activity_data.each do |activity|
-      repo_uuids.push activity['uuid']
-    end
-    
-    db_activity_uuids = Activity.where(archived: nil).map{ |a| [a.id, a.uuid] }
-    db_activity_uuids.each do |a|
-      if !repo_uuids.include?(a[1])
-        archived_activity = Activity.find_by(id: a[0])
-        archived_activity.archived = true
-        archived_activity.save!
-      end
-    end
-  end
-
 end
