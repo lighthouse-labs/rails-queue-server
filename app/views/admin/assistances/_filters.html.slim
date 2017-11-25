@@ -31,4 +31,9 @@
       label Student
       = text_field_tag :keywords, params[:keywords], placeholder: 'e.g. Nicolas or Cag', class: "form-control admin-feedback-text-box"
 
+    .form-group
+      label for='flagged'
+        |Flagged
+      = check_box_tag :flagged
+
     = submit_tag 'Filter', class: 'btn btn-success admin-feedback-button'

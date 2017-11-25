@@ -28,6 +28,7 @@ class Assistance < ApplicationRecord
   before_create :set_day
   before_create :set_start_at
   before_create :set_activity
+  after_save :update_student_average
 
   scope :currently_active, -> {
     joins(:assistance_request)
@@ -42,17 +43,21 @@ class Assistance < ApplicationRecord
 
   RATING_BASELINE = 3
 
-  def end(notes, rating = nil, student_notes = nil)
+  def end(notes, notify, rating = nil, student_notes = nil)
     self.notes = notes
     self.rating = rating
     self.student_notes = student_notes
     self.end_at = Time.current
+    self.flag = notify
     save
     assistee.last_assisted_at = Time.current
+
     if assistance_request.instance_of?(CodeReviewRequest) && !rating.nil? && !assistee.code_review_percent.nil?
       assistee.code_review_percent += Assistance::RATING_BASELINE - rating
       UserMailer.new_code_review_message(self).deliver
     end
+
+    UserMailer.notify_education_manager(self).deliver_later if notify
 
     assistee.save.tap do
       create_feedback(student: assistee, teacher: assistor)
@@ -92,6 +97,11 @@ class Assistance < ApplicationRecord
   def send_notes_to_slack
     post_to_slack(ENV['SLACK_CHANNEL'])
     post_to_slack(ENV['SLACK_CHANNEL_REMOTE']) if assistee.remote
+  end
+
+  def update_student_average
+    assistee.cohort_assistance_average = assistee.assistances.completed.where(cohort_id: assistee.cohort_id).where.not(rating: nil).average(:rating).to_f.round(2)
+    assistee.save!
   end
 
   def post_to_slack(channel)
