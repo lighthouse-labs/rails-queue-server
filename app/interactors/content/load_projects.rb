@@ -14,6 +14,7 @@ class Content::LoadProjects
   def call
     project_data = load_all_project_data
     Content::ValidateUuids.call(collection: project_data)
+    Content::SetArchive.call(repo_data: project_data, model: Project)
     build_records(project_data)
   end
 
