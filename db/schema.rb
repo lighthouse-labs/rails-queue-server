@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171023175938) do
+ActiveRecord::Schema.define(version: 20171128172708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(version: 20171023175938) do
     t.integer  "activity_id"
     t.integer  "cohort_id"
     t.string   "day"
+    t.boolean  "flag"
     t.index ["activity_id"], name: "index_assistances_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_assistances_on_cohort_id", using: :btree
   end
@@ -453,6 +454,7 @@ ActiveRecord::Schema.define(version: 20171023175938) do
     t.json     "evaluation_rubric"
     t.text     "evaluation_guide"
     t.text     "evaluation_checklist"
+    t.boolean  "archived"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end
@@ -571,23 +573,24 @@ ActiveRecord::Schema.define(version: 20171023175938) do
     t.datetime "last_assisted_at"
     t.datetime "deactivated_at"
     t.string   "slack"
-    t.boolean  "remote",                   default: false
+    t.boolean  "remote",                    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "code_review_percent",      default: 80
-    t.boolean  "admin",                    default: false, null: false
+    t.integer  "code_review_percent",       default: 80
+    t.boolean  "admin",                     default: false, null: false
     t.string   "company_name"
     t.string   "company_url"
     t.text     "bio"
     t.string   "quirky_fact"
     t.string   "specialties"
     t.integer  "location_id"
-    t.boolean  "on_duty",                  default: false
+    t.boolean  "on_duty",                   default: false
     t.integer  "mentor_id"
-    t.boolean  "mentor",                   default: false
+    t.boolean  "mentor",                    default: false
     t.integer  "initial_cohort_id"
-    t.string   "auth_token",               default: "",    null: false
+    t.string   "auth_token",                default: "",    null: false
     t.boolean  "suppress_tech_interviews"
+    t.float    "cohort_assistance_average"
     t.index ["auth_token"], name: "index_users_on_auth_token", using: :btree
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
     t.index ["initial_cohort_id"], name: "index_users_on_initial_cohort_id", using: :btree
