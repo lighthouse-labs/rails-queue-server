@@ -34,7 +34,7 @@ if Rails.env.development?
       quirky_fact:            Faker::Lorem.sentence,
       phone_number:           Faker::PhoneNumber.phone_number,
       github_username:        Faker::Internet.user_name,
-      avatar_url:             Faker::Avatar.image,
+      avatar_url:             Faker::LoremPixel.image("#{50+x}x#{50+x}"),
       location:               locations.sample
     )
   end
@@ -49,8 +49,8 @@ if Rails.env.development?
         cohort:                 cohort,
         phone_number:           Faker::PhoneNumber.phone_number,
         github_username:        Faker::Internet.user_name,
-        avatar_url:             Faker::Avatar.image,
-        location:               i >= 10 ? cohort.location : @location_cal,
+        avatar_url:             Faker::LoremPixel.image("#{50+i}x#{50+i}"),
+        location:               i < 10 ? cohort.location : @location_cal,
         uid:                    1000 + i,
         token:                  2000 + i,
         completed_registration: true
