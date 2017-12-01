@@ -116,13 +116,17 @@ var RequestQueueItems = React.createClass({
   renderTechInterviewTemplates: function(){
     var that = this;
     if(this.props.techInterviewTemplates.length > 0)
-      return this.props.techInterviewTemplates.map(function(interviewTemplate, idx){
-        return <TechInterviewTemplate 
+      return this.props.techInterviewTemplates.map(function(interviewTemplate){
+        var interviewCohort = that.props.cohorts.filter(function(cohortObj){
+          return cohortObj.cohort.week == interviewTemplate.week;
+        })[0].cohort;
+        return <TechInterviewTemplate
+                 key={interviewTemplate.id} 
                  week={interviewTemplate.week} 
                  id={ interviewTemplate.id } 
                  description={interviewTemplate.description} 
-                 cohortName={that.props.cohorts[idx].cohort.name} 
-                 cohortId={that.props.cohorts[idx].cohort.id}
+                 cohortName={interviewCohort.name} 
+                 cohortId={interviewCohort.id}
                />
       });
     else
@@ -179,6 +183,8 @@ var RequestQueueItems = React.createClass({
         <ul className="student-list">
           { this.renderRequests() }
         </ul>
+
+        { this.techInterviewTemplateHolder() }
 
         { this.codeReviewHolder() }
 
