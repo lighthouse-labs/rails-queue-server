@@ -43,7 +43,7 @@ class Activity < ApplicationRecord
   scope :reverse_chronological_for_day, -> { order("activities.day DESC, activities.sequence DESC") }
   scope :chronological_for_project, -> { includes(:section).references(:section).order("sections.order ASC, activities.day ASC, activities.sequence ASC, activities.id ASC") }
   scope :for_day,   ->(day) { where(day: day.to_s) }
-  scope :for_week,  ->(day) { where("activities.day BETWEEN ? AND ?", "w#{day.week}d1", "w#{day.week}e")}
+  scope :for_week,  ->(day) { where("activities.day BETWEEN ? AND ?", "w#{day.week}d1", "w#{day.week}e") }
   scope :until_day, ->(day) { where("activities.day <= ?", day.to_s) }
   scope :search,    ->(query) { where("lower(name) LIKE :query or lower(day) LIKE :query", query: "%#{query.downcase}%") }
   scope :active,    -> { where(archived: [false, nil]) }

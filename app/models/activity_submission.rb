@@ -59,6 +59,9 @@ class ActivitySubmission < ApplicationRecord
   scope :for_day, ->(day) {
     joins(:activity).where("activities.day = ?", day.to_s)
   }
+  scope :for_week, ->(day) {
+    joins(:activity).where("activities.day BETWEEN ? AND ?", "w#{day.week}d1", "w#{day.week}e")
+  }
   scope :until_day, ->(day) {
     joins(:activity).where("activities.day <= ?", day.to_s)
   }

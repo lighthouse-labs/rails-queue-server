@@ -99,6 +99,7 @@ class StudentStats
   def bootcamp_activity_stats(options = {})
     cutoff_day   = options.delete :cutoff_day
     for_day      = options.delete :for_day
+    for_week     = options.delete :for_week
 
     activities  = Activity.active.bootcamp.countable_as_submission
     completions = @student.activity_submissions.proper.bootcamp.where(cohort_id: @cohort.id)
@@ -109,6 +110,9 @@ class StudentStats
     elsif for_day
       activities  = activities.for_day(for_day)
       completions = completions.for_day(for_day)
+    elsif for_week
+      activities  = activities.for_week(for_week)
+      completions = completions.for_week(for_week)
     end
 
     total_core     = activities.core.count
