@@ -20,7 +20,8 @@
 
     p Tell us how you found this #{(@activity.type || 'Activity').titleize}
 
-    = form.input :rating, collection: [['5 - Perfect', 5], ['4 - Great', 4], ['3 - Good', 3], ['2 - Problematic', 2], ['1 - Useless', 1]], allow_blank: true, label: 'Rate this activity overall (optional)'
+    .raty-editor name="feedback[rating]" data-score=form.object.rating value=""
+      = form.hidden_field :rating, id: "modal-average-rating"
     = form.input :detail, as: :text, placeholder: 'The more you can give us the better!'
 
 .modal-footer
