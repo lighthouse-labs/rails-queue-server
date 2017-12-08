@@ -115,26 +115,6 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  def activity_params
-    params.require(:activity).permit(
-      :name,
-      :type,
-      :duration,
-      :start_time,
-      :sequence,
-      :instructions,
-      :teacher_notes,
-      :allow_submissions,
-      :day,
-      :section_id,
-      :gist_url,
-      :media_filename,
-      :code_review_percent,
-      :test_code,
-      :initial_code
-    )
-  end
-
   def teacher_required
     redirect_to(day_activity_path(@activity.day, @activity), alert: 'Not allowed') unless teacher?
   end
