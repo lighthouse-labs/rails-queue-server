@@ -17,17 +17,6 @@ class ActivitiesController < ApplicationController
     @activities = @activities.page(params[:page])
   end
 
-  def create
-    @activity = Activity.new(activity_params)
-    if @activity.save(activity_params)
-      handle_redirect("Activity Created!")
-    else
-      load_section
-      load_new_url
-      render :new
-    end
-  end
-
   def show
     # => If it evaluates code, we take multiple submissions (always a new submission)
     if @activity.evaluates_code?
@@ -49,14 +38,6 @@ class ActivitiesController < ApplicationController
       @messages = @activity.messages
     elsif cohort # no messages if student or just User and no cohort is assigned
       @messages = @activity.messages.for_cohort(cohort)
-    end
-  end
-
-  def update
-    if @activity.update(activity_params)
-      handle_redirect("Updated!")
-    else
-      render :edit
     end
   end
 
