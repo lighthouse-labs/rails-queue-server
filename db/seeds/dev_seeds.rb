@@ -8,8 +8,11 @@ if Rails.env.development?
 
   puts "Legacy dev-only seed data coming at ya (development - only)!"
 
-  cohort_van = Cohort.find_by(code: 'van')
-  cohort_van ||= Cohort.create! name: "Current Cohort Van", location: @location_van, start_date: Time.now.monday - 7.days, program: @program, code: "van"
+  cohort_van_junior = Cohort.find_by(code: 'vanj')
+  cohort_van_junior ||= Cohort.create! name: "Junior Cohort Van", location: @location_van, start_date: Time.now.monday - 14.days, program: @program, code: "vanj"
+
+  cohort_van_senior = Cohort.find_by(code: 'vans')
+  cohort_van_senior ||= Cohort.create! name: "Senior Cohort Van", location: @location_van, start_date: Time.now.monday - 42.days, program: @program, code: "vans"  
 
   cohort_tor = Cohort.find_by(code: 'toto')
   cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Time.now.monday - 14.days, program: @program, code: "toto"
@@ -40,7 +43,7 @@ if Rails.env.development?
   end
 
   Cohort.all.each do |cohort|
-    x = cohort == Cohort.find_by(code: 'van') ? 20 : 10
+    x = cohort == Cohort.find_by(code: 'vanj') ? 20 : 10
     x.times do |i|
       student = Student.create!(
         first_name:             Faker::Name.first_name,
