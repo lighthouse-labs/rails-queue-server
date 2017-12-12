@@ -149,6 +149,10 @@ class Evaluation < ApplicationRecord
     Cohort.find(cohort_id).week - Project.find(project_id).end_day.match(/\d+/).to_s.to_i
   end
 
+  def resubmission?
+    Evaluation.where("project_id = ? AND student_id = ? AND state = ?", project_id, student_id, "rejected").count > 0
+  end
+
   private_class_method :transition_class
 
   def self.initial_state
