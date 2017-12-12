@@ -145,6 +145,10 @@ class Evaluation < ApplicationRecord
     evaluation_rubric.sort_by { |_, data| data['order'] }.to_h
   end
 
+  def weeks_project_due
+    Cohort.find(cohort_id).week - Project.find(project_id).end_day.match(/\d+/).to_s.to_i
+  end
+
   private_class_method :transition_class
 
   def self.initial_state

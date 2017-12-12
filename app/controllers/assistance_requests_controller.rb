@@ -19,9 +19,9 @@ class AssistanceRequestsController < ApplicationController
     code_reviews = CodeReviewRequest.open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
     my_active_evaluations = Evaluation.where(teacher: current_user).where(state: "in_progress").newest_active_evaluations_first
     evaluations = if current_user.location.try(:satellite?)
-                    Evaluation.open_evaluations.student_priority.student_location(current_user.location)
+                    Evaluation.open_evaluations.student_priority.student_location(current_user.location).sort_by { |e| -e.weeks_project_due }
                   else
-                    Evaluation.open_evaluations.student_priority.student_cohort_in_location(current_user.location)
+                    Evaluation.open_evaluations.student_priority.student_cohort_in_location(current_user.location).sort_by { |e| -e.weeks_project_due }
                   end
     my_active_interviews = TechInterview.in_progress.interviewed_by(current_user)
     interviews = TechInterview.oldest_first.queued.interviewee_location(current_user.location)
