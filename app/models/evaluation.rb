@@ -74,6 +74,7 @@ class Evaluation < ApplicationRecord
 
   before_create :set_cohort
   before_create :take_snapshot_of_eval_criteria
+  after_create :set_resubmission
 
   def self.filter_by(params, cohort, project)
     if params["evals"] && params["evals"].include?("All Evals")
@@ -187,6 +188,10 @@ class Evaluation < ApplicationRecord
 
   def set_cohort
     self.cohort = student.cohort
+  end
+
+  def set_resubmission
+    self.resubmission = self.resubmission?
   end
 
 end
