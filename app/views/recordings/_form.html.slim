@@ -8,7 +8,8 @@
     hr
 
   = f.input :title
-  = f.input :file_name
+  = f.input :file_name, label: 'S3 File Name'
+  = f.input :youtube_link, label: 'YouTube Link'
   = f.association :presenter, collection: Teacher.all.order(:last_name, :first_name), label_method: :full_name
   = f.input :presenter_name, label: 'Guest presenter'
   = f.input :recorded_at, wrapper_html: { class: 'form-inline' }
