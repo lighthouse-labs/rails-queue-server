@@ -24,9 +24,6 @@ class CurriculumDay
     return @to_s if @to_s
     w = determine_w
 
-    # prefix with 0 if needs to be double digit and isn't
-    # week = double_digit_week? && w < 10 ? "0#{w}" : w
-
     @to_s = if on_break?(day_number)
               "w#{week}e"
             elsif day_number <= 0
@@ -40,10 +37,6 @@ class CurriculumDay
               d = determine_d
               "w#{w}d#{d}"
     end
-  end
-
-  def double_digit_week?
-    program.weeks >= 10
   end
 
   def week
