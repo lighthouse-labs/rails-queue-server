@@ -9,7 +9,7 @@
 = form.association :location
 = form.input :code, placeholder: 'All lowercase, no spaces (hyphens encourged!)'
 = form.association :program
-= form.input :start_date
+= form.input :start_date, as: :date, html5: true
 = form.input :teacher_email_group
 - if form.object.program.days_per_week != 5
   = form.input :weekdays

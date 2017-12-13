@@ -190,6 +190,16 @@ ActiveRecord::Schema.define(version: 20171111001233) do
     t.string   "last_sha"
   end
 
+  create_table "curriculum_breaks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "reason"
+    t.date     "starts_on"
+    t.integer  "num_weeks"
+    t.integer  "cohort_id"
+    t.index ["cohort_id"], name: "index_curriculum_breaks_on_cohort_id", using: :btree
+  end
+
   create_table "day_feedbacks", force: :cascade do |t|
     t.string   "mood"
     t.string   "title"
@@ -600,6 +610,7 @@ ActiveRecord::Schema.define(version: 20171111001233) do
   add_foreign_key "activity_feedbacks", "users"
   add_foreign_key "answers", "options"
   add_foreign_key "answers", "quiz_submissions"
+  add_foreign_key "curriculum_breaks", "cohorts"
   add_foreign_key "deployments", "content_repositories"
   add_foreign_key "options", "questions"
   add_foreign_key "outcome_results", "outcomes"
