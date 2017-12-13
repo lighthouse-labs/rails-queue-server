@@ -97,8 +97,10 @@ class CurriculumDay
     CurriculumDay.new(@date.to_date.prev_day, @cohort)
   end
 
-  def self.week_based_on_cohort_and_day_num(cohort, day_number)
-    determine_week_without_breaks(day_number, cohort.program)
+  def determine_week_without_breaks(day_num)
+    # has to be public, calling it from CurriculumBreak, ya i know, this is not ideal
+    w = (day_num / 7) + 1
+    w > program.weeks ? program.weeks : w.to_i
   end
 
   private
@@ -182,12 +184,6 @@ class CurriculumDay
     else
       determine_week_without_breaks(d)
     end
-  end
-
-  def determine_week_without_breaks(day_num, prog=nil)
-    program = prog || @program
-    w = (day_num / 7) + 1
-    w > program.weeks ? program.weeks : w.to_i
   end
 
   def determine_week_with_breaks(day_num)
