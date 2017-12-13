@@ -9,6 +9,15 @@ tr
     .student-info
       = render 'shared/student_info', student: student
 
+  - present student, UserPresenter do |presenter|
+    td
+      ul.list-inline.social-icons
+        = presenter.email_info
+        = presenter.github_info
+        = presenter.twitter_info
+        = presenter.slack_info
+        = presenter.skype_info
+
   td data-value=student.created_at.to_i
     = student.created_at.to_s(:friendly)
     br

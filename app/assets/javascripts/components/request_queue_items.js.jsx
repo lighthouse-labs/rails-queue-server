@@ -180,8 +180,6 @@ var RequestQueueItems = React.createClass({
           { this.renderRequests() }
         </ul>
 
-        { this.techInterviewTemplateHolder() }
-
         { this.codeReviewHolder() }
 
         { this.evaluationHolder() }
