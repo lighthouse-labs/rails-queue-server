@@ -13,3 +13,7 @@
 = form.input :teacher_email_group
 - if form.object.program.days_per_week != 5
   = form.input :weekdays
+.form-group
+  label.col-sm-3.control-label Queue Disabled Days
+  div.col-sm-9
+    = text_area_tag :disable_queue_days, @days, class: "form-control"

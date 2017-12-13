@@ -14,6 +14,7 @@ class Cohort < ApplicationRecord
   validates :start_date, presence: true
   validates :program, presence: true
   validates :location, presence: true
+  validate  :disable_queue_days_are_valid
 
   validates :code,  uniqueness: true,
                     presence:   true,
@@ -21,6 +22,8 @@ class Cohort < ApplicationRecord
                     length:     { minimum: 3, allow_blank: true }
 
   include PgSearch
+  include DisableQueueDayValidators
+
   pg_search_scope :by_keywords,
                   associated_against: {
                     students: [:first_name, :last_name, :email, :phone_number, :github_username]
@@ -91,6 +94,10 @@ class Cohort < ApplicationRecord
 
   def num_remote_students_started
     students.remote.count + rolled_out_students.count
+  end
+
+  def active_queue?
+    program.has_queue? && active? && !disable_queue_days.include?(curriculum_day.to_s)
   end
 
 end

@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(version: 20171111001233) do
     t.integer  "location_id"
     t.boolean  "limited"
     t.string   "weekdays"
+    t.text     "disable_queue_days",  default: [], null: false, array: true
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
   end
 
@@ -385,6 +386,7 @@ ActiveRecord::Schema.define(version: 20171111001233) do
     t.boolean  "display_exact_activity_duration"
     t.boolean  "prep_assistance"
     t.boolean  "has_queue",                       default: true
+    t.text     "disable_queue_days",              default: [],   null: false, array: true
   end
 
   create_table "questions", force: :cascade do |t|
