@@ -9,13 +9,15 @@ class Recording < ApplicationRecord
   validate :ensure_program_has_recordings_bucket, if: :program
 
   def s3_url
-    @s3_url ||= Recording.s3_presigner.presigned_url(
-      :get_object,
-      bucket:     program.recordings_bucket,
-      key:        s3_object_key,
-      # Link expires after an hour
-      expires_in: 3600
-    )
+    if file_name
+      @s3_url ||= Recording.s3_presigner.presigned_url(
+        :get_object,
+        bucket:     program.recordings_bucket,
+        key:        s3_object_key,
+        # Link expires after an hour
+        expires_in: 3600
+      )
+    end
   end
 
   def self.s3_presigner
