@@ -14,7 +14,7 @@ class CurriculumDay
     @date = date
     @cohort = cohort
     @program = cohort.try :program
-    @curriculum_break = cohort.curriculum_break
+    @curriculum_break = cohort.curriculum_break if cohort
 
     @date = @date.to_s if @date.is_a?(CurriculumDay)
     calculate_date if @date.is_a?(String) && @cohort
