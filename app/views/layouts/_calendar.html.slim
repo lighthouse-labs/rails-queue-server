@@ -1,7 +1,5 @@
 .nav-calendar
   - (1..@program.weeks).each do |week_number|
-    / quick hack: prefix with 0 if program is 10 weeks or more (double digit) - KV
-    / - w = @program.weeks >= 10 && week_number < 10 ? "0#{week_number}" : week_number
     - w = week_number
     .nav-week
       ul
