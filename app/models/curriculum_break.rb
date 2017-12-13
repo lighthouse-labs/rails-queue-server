@@ -21,7 +21,7 @@ class CurriculumBreak < ApplicationRecord
   end
 
   def right_before_break_week_number
-    CurriculumDay.week_based_on_cohort_and_day_num(day_number_before_break, cohort)
+    CurriculumDay.week_based_on_cohort_and_day_num(cohort, day_number_before_break)
   end
 
   private
