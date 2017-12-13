@@ -67,6 +67,8 @@ gem 'aws-sdk-core'
 
 gem 'faker'
 
+gem 'youtube_addy'
+
 ## charting / data analytics stuff
 gem 'groupdate'
 gem 'chartkick'
