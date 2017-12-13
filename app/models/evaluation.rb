@@ -30,6 +30,7 @@ class Evaluation < ApplicationRecord
 
   scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :asc) }
+  scope :student_priority, -> { joins(:student).merge(Student.order(:cohort_assistance_average)) }
 
   scope :open_evaluations, -> { includes(:project).includes(:student).where(state: "pending") }
   scope :in_progress_evaluations, -> { where(state: "in_progress").where.not(teacher_id: nil) }

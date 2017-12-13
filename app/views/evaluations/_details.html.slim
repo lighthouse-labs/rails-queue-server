@@ -44,6 +44,14 @@
             = @evaluation.created_at.to_s(:short_friendly)
             = " (#{time_ago_in_words(@evaluation.created_at)} ago)"
 
+          - if teacher? && (@evaluation.in_state?(:pending) || @evaluation.in_state?(:in_progress))
+            dt Mark
+            dd
+              - if @evaluation.in_state?(:pending)
+                = link_to "Start Marking", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success", method: :put
+              - elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
+                = link_to "Continue Marking", edit_project_evaluation_path(@project, @evaluation), class: "btn btn-success"
+
 .row
   .col-sm-12
     .panel.panel-default.evals

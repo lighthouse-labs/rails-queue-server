@@ -7,13 +7,15 @@ Compass - by Lighthouse Labs
 
 Welcome to Compass! Lighthouse Lab's website for hosting our curriculum to students and managing their education.
 
-[Web F/T site](https://web-compass.lighthouselabs.ca/days/today)
+[Web F/T site](https://web-compass.lighthouselabs.ca)
 
-[iOS F/T site](https://ios.compass.lighthouselabs.ca/welcome)
+[iOS F/T site](https://ios.compass.lighthouselabs.ca)
 
-[Web P/T site](https://web-pt.compass.lighthouselabs.ca/welcome)
+[Web P/T site](https://web-pt.compass.lighthouselabs.ca)
 
-[iOS F/T site](https://ios-pt.compass.lighthouselabs.ca/welcome)
+[Web P/T Frontend site](https://web-pt-frontend.compass.lighthouselabs.ca)
+
+[iOS F/T site](https://ios-pt.compass.lighthouselabs.ca)
 
  Table of Contents
   1. [Setup](#setup)
@@ -76,7 +78,7 @@ User (student/teacher) Authentication can only happen through Github. Much like 
 ## Server
 
 Start the server using the command `bin/serve`
-This runs `bin/rails s -b 0.0.0.0 -p 4000` 
+This runs `bin/rails s -b 0.0.0.0 -p 4000`
   - You can change this to 3000 if you prefer (affects above GitHub changes)
 
 ## Queue
@@ -86,23 +88,14 @@ The Queue is reliant on Redis (though ActionCable).
 To install Redis:
 
 ```
-wget http://download.redis.io/redis-stable.tar.gz
-tar xvzf redis-stable.tar.gz
-cd redis-stable
-make
+brew install redis
 ```
 
 Run redis with `redis-server` in any directory
 
-To populate Tech Interviews, run:
+### iOS and Part Time Support
 
-`rake daemons:tech_interviews` in another terminal within the `compass/` folder
-
-  *subject to change: we are starting to schedule tech interviews now*
-
- ### iOS and Part Time Support
-
-It is reccomended that you create a second compass on your local machine so that you can quickly switch between iOS and web and any of the part time courses.
+It is recommended that you create a second compass on your local machine so that you can quickly switch between iOS and web and any of the part time courses.
 
 1. Setup [GitHub App](#github-app-setup) same as before
 2. Follow the [Setup](#setup) above with some modifications:
@@ -113,6 +106,7 @@ It is reccomended that you create a second compass on your local machine so that
   - for iOS F/T: https://github.com/lighthouse-labs/iOS-Curriculum
   - for web P/T: https://github.com/lighthouse-labs/intro-to-web-development-curriculum
   - for iOS P/T: https://github.com/lighthouse-labs/iOS-Curriculum-Part-Time
+  - for web P/T Frontend: https://github.com/lighthouse-labs/web-pt-frontend-curriculum
 4. Continue with the rest of the steps (from step 9)
 
 *if you are setting up a part-time curriculum*, there is a little bit more work you need to do. (configuration for part time needs to be fairly specific or it may not work.)
@@ -177,8 +171,7 @@ We are using GitHub Projects to manage this repo.
 
 #### For contributors and junior devs
 
-- When naming branches, please use the following format: `enh/231-switch-past-cohorts` or `bug/356-new-cohort-code-regex`
-  - This should match up with the issue number and label
+- When naming branches, please use the following format: `issue#-short-name`  eg: `231-switch-past-cohorts`
 - Please Follow issue/PR templates
 - Before you submit a PR, please
   - Run [linter](#linter)
@@ -186,7 +179,7 @@ We are using GitHub Projects to manage this repo.
   - Double check your work
   - Check for [CodeClimate](#codeclimate) errors after pr is submitted
 
-Note*: creating an new issue automatically adds a card to the github projects. In addition, submiting a PR moves a card into the Review/QA column when properly labeled (with `resolves #issue`)
+Note*: creating an new issue automatically adds a card to the github projects. In addition, submitting a PR moves a card into the Review/QA column when properly labeled (with `resolves #issue`)
 ## Deployment
 
 **Setup**:
@@ -227,13 +220,12 @@ We also have the `rubocop` gem to lint locally, which can be run with `bundle ex
 
 `bundle exec rspec ./spec/models/user_spec.rb -e "User has a valid factory"`
 
-**Note:**
+**Note:** Use `HEADLESS=0` when running feature specs to see your browser in action (sometimes useful for debugging or just plain entertainment).
 
-`.rspec` file includes rspec options `--format Fuubar  --color spec`
 
 ## CodeClimate
 
-Running tests automatically generate the `coverage/` folder (from the `simplecov` gem).
+Running tests with `COV=1` set will generate the `coverage/` folder (from the `simplecov` gem).
 Opening up the `coverage/index.html` in the browser shows a filterable breakdown
 
 In order to update the coverage number on CodeClimate, run this command (on master):
@@ -252,6 +244,4 @@ This project is built with :
 * slim instead of erb/haml
 * postgres 9.x
 * bootstrap 3.something with FlatUI
-* phantomjs (use `brew` to install) for integration test driver
-  * Please make sure your phantomjs brew package is up2date: `brew update && brew upgrade phantomjs`
-* poltergeist for phantomjs driver
+* capybara, selenium and chrome-headless for testing

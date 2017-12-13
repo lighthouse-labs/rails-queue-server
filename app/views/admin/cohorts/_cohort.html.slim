@@ -1,5 +1,8 @@
 tr
-  td = link_to cohort.name, [:admin, cohort]
+  - if cohort.limited?
+    td = cohort.name
+  - else
+    td = link_to cohort.name, [:admin, cohort]
   td = cohort.start_date
   td = cohort.location.name
   td

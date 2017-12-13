@@ -30,8 +30,7 @@ class Content::Deploy
       load_activity_records(repo_dir, records)
       load_interview_records(repo_dir, records)
 
-      results = persist_changes(records)
-      publish_deploy_summary(results)
+      @results = persist_changes(records)
     end
   end
 
@@ -46,6 +45,8 @@ class Content::Deploy
   rescue Exception => e
     deploy_failed(e)
     raise e
+  ensure
+    publish_deploy_summary
   end
 
   def load_prep_records(repo_dir, records)
@@ -92,12 +93,10 @@ class Content::Deploy
     Content::Commit.call(log: @log, records: records, repo: @repo)
   end
 
-  def publish_deploy_summary(results)
+  def publish_deploy_summary
     Content::PublishDeploySummary.call(log:        @log,
                                        deployment: @deployment,
-                                       updated:    results.updated,
-                                       created:    results.created,
-                                       archived:   results.archived)
+                                       results:    @results)
   end
 
   def deploy_started

@@ -7,8 +7,7 @@
         calendarId: 'en.canadian#holiday@group.v.calendar.google.com',
         apiKey: '',
         startDate: new Date().toISOString(),
-        endDate: new Date().toISOString(),
-        tag: ['#web']
+        endDate: new Date().toISOString()
       },
       options);
 

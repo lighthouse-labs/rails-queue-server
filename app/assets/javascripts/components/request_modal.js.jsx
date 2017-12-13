@@ -40,6 +40,7 @@ var RequestModal = React.createClass({
   endAssistance: function() {
     var notes      = this.refs.notes.value;
     var rating     = this.refs.rating.value;
+    var notify     = this.refs.notify.checked;
 
     if(!this.formIsValid()){
       this.setNotesError();
@@ -49,10 +50,10 @@ var RequestModal = React.createClass({
 
     this.close();
 
-    if(this.props.assistance){
-      App.assistance.endAssistance(this.props.assistance, notes, rating);
+    if (this.props.assistance) {
+      App.assistance.endAssistance(this.props.assistance, notes, rating, notify);
     } else {
-      App.assistance.providedAssistance(this.props.student, notes, rating);
+      App.assistance.providedAssistance(this.props.student, notes, rating, notify);
     }
   },
 
@@ -110,6 +111,15 @@ var RequestModal = React.createClass({
                     <option value="3">L3 | On track</option>
                     <option value="4">L4 | Excellent (Needs stretch)</option>
                 </select>
+              </div>
+              <div className="form-group">
+                <label className="checkbox">
+                  <span className="icons">
+                    <span className="first-icon fui-checkbox-unchecked"></span>
+                    <span className="second-icon fui-checkbox-checked"></span>
+                  </span>
+                  <input className="notify-checkbox" type="checkbox" ref="notify" /> Notify Education Team about this
+                </label>
               </div>
             </div>
             <div className="modal-footer">
