@@ -17,7 +17,8 @@ module ApplicationHelper
   # people in limited cohorts have cable OFF (limited = no assistance stuff)
   def disable_cable?
     current_user.nil? || !current_user.active? || current_user.prospect? ||
-      (!current_user.is_a?(Teacher) && current_user.cohort && current_user.cohort.limited?) || impersonating?
+      (!current_user.is_a?(Teacher) && current_user.cohort && current_user.cohort.limited?) || impersonating? ||
+      (current_user.is_a?(Student) && !current_user.cohort.program.has_queue?)
   end
 
   # folks in limited (previous alumni) cohort dont need to take up action cable connections

@@ -92,4 +92,19 @@ class UserMailer < ActionMailer::Base
           bcc:     feedback_email
   end
 
+  def notify_education_manager(assistance)
+    @student = assistance.assistee
+    @teacher = assistance.assistor
+    @notes = assistance.notes
+    @rating = assistance.rating
+    @cohort = @student.cohort.name
+    @date = assistance.end_at
+
+    location = @student.location.education_manager_location.name.upcase
+    email = ENV["EM_#{location}_EMAIL"] || 'rosy@lighthouselabs.ca'
+
+    mail  subject: "Flagged Assistance Notification",
+          to:      email
+  end
+
 end

@@ -29,11 +29,14 @@ class Content::LoadInterviews
     Dir.entries(dir).sort.each do |content_file|
       next if content_file.starts_with?('.')
       next unless content_file.ends_with?('.md')
+      @current_filename = content_file
       interview_data.push extract_interview_file_data(@repo_dir, data_dir, content_file, seq)
       seq += 1
     end
 
     interview_data
+  rescue Exception => e
+    raise e, e.message + " \n*suspect filename: #{@current_filename}*", e.backtrace
   end
 
   def extract_interview_file_data(repo_dir, data_dir, filename, _sequence)
