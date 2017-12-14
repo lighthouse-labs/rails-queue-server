@@ -5,7 +5,7 @@ class Content::Deploy
   before do
     @repo   = context.content_repository
     @sha    = context.sha
-    @branch = context.branch || 'master'
+    @branch = context.branch || @repo.github_branch
 
     # @repo_dir is usually nil, but can be set and in that case it wont download it from github
     # useful for local curriculum change testing (before pushing changes)

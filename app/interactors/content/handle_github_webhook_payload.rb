@@ -10,8 +10,9 @@ class Content::HandleGithubWebhookPayload
 
     context.fail!(error: "Repository #{payload['repository']['full_name']} not found") unless @repo
 
-    # only care about pushes to master
-    return true unless payload['ref'] == 'refs/heads/master'
+    # only care about pushes to the branch we care about, usually master
+    branch_ref = @repo.github_branch ? "refs/heads/#{@repo.github_branch}" : 'refs/heads/master'
+    return true unless payload['ref'] == branch_ref
 
     Content::Deploy.call(content_repository: @repo, sha: payload['after'])
   end
