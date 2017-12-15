@@ -1,5 +1,19 @@
 # Change Log
 
+## [2017.12.14.0930](https://github.com/lighthouse-labs/compass/tree/2017.12.14.0930) (2017-12-14)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.11.24.1300...2017.12.14.0930)
+
+**Merged pull requests:**
+
+- 10 Weeks - Support of Auto Deploying Other Branches [\#458](https://github.com/lighthouse-labs/compass/pull/458) ([jmatsuba](https://github.com/jmatsuba))
+- Add 'Links' Column to Admin User Prep Stats View [\#449](https://github.com/lighthouse-labs/compass/pull/449) ([ahache](https://github.com/ahache))
+- Reposition Start Marking Button on Project Evaluations View Page [\#441](https://github.com/lighthouse-labs/compass/pull/441) ([ahache](https://github.com/ahache))
+- Bugfix for Curriculum Unlocking Logic for Cohorts over New Years [\#439](https://github.com/lighthouse-labs/compass/pull/439) ([jmatsuba](https://github.com/jmatsuba))
+- Temporary Removal of Tech Interview Section of Queue [\#438](https://github.com/lighthouse-labs/compass/pull/438) ([ahache](https://github.com/ahache))
+- 10 Week - Disable Queue on Certain Days for a Cohort [\#434](https://github.com/lighthouse-labs/compass/pull/434) ([jmatsuba](https://github.com/jmatsuba))
+- Remove Zero Padded Days for 10 Week Programs [\#410](https://github.com/lighthouse-labs/compass/pull/410) ([ahache](https://github.com/ahache))
+- 10 Weeks - Support Holiday Breaks in Cohort [\#398](https://github.com/lighthouse-labs/compass/pull/398) ([jmatsuba](https://github.com/jmatsuba))
+
 ## [2017.11.24.1300](https://github.com/lighthouse-labs/compass/tree/2017.11.24.1300) (2017-11-24)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.11.20.1330...2017.11.24.1300)
 
