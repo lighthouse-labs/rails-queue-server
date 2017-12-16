@@ -30,7 +30,7 @@ class Evaluation < ApplicationRecord
 
   scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :asc) }
-  scope :student_priority, -> { joins(:student).merge(Student.order(:cohort_assistance_average)) }
+  scope :student_priority, -> { joins(:student).merge(Student.order(:cohort_assistance_average)).sort_by { |e| -e.project_due_weeks } }
 
   scope :open_evaluations, -> { includes(:project).includes(:student).where(state: "pending") }
   scope :in_progress_evaluations, -> { where(state: "in_progress").where.not(teacher_id: nil) }
@@ -146,8 +146,9 @@ class Evaluation < ApplicationRecord
     evaluation_rubric.sort_by { |_, data| data['order'] }.to_h
   end
 
-  def weeks_project_due
-    Cohort.find(cohort_id).week - Project.find(project_id).end_day.match(/\d+/).to_s.to_i
+  # project.end_day contains "w#d#" due date, extracting this week value as an integer
+  def project_due_weeks
+    cohort.week - project.end_day.match(/\d+/).to_s.to_i
   end
 
   def resubmission?
@@ -192,6 +193,7 @@ class Evaluation < ApplicationRecord
 
   def set_resubmission
     self.resubmission = self.resubmission?
+    save
   end
 
 end
