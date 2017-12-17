@@ -55,7 +55,7 @@ class RecordingsController < ApplicationController
   def recording_params
     params.require(:recording).permit(
       :file_name,
-      :youtube_link,
+      :youtube,
       :recorded_at,
       :presenter_id,
       :cohort_id,

@@ -9,7 +9,7 @@ class Recording < ApplicationRecord
   validate :ensure_program_has_recordings_bucket, if: :program
 
   def s3_url
-    return nil if file_name.empty? 
+    return nil if self.youtube 
     @s3_url ||= Recording.s3_presigner.presigned_url(
       :get_object,
       bucket:     program.recordings_bucket,
@@ -20,8 +20,8 @@ class Recording < ApplicationRecord
   end
 
   def youtube_code
-    return nil if youtube_link.empty?
-    YouTubeAddy.extract_video_id(youtube_link)
+    return nil unless self.youtube
+    YouTubeAddy.extract_video_id(file_name)
   end
 
   def self.s3_presigner
