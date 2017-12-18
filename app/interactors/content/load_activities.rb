@@ -14,14 +14,17 @@ class Content::LoadActivities
   def call
     activity_data  = load_all_activity_data
     activity_data += load_all_activity_data('Training') if Dir.exist?(File.join(@repo_dir, 'Training').to_s)
-    activity_data += load_all_activity_data('Sections') if Dir.exist?(File.join(@repo_dir, 'Sections').to_s)
+    activity_data += load_all_activity_data('Sections', true) if Dir.exist?(File.join(@repo_dir, 'Sections').to_s)
     Content::ValidateUuids.call(collection: activity_data)
     build_records(activity_data)
   end
 
   private
 
-  def load_all_activity_data(subdir = '')
+  # The sequence_from_file_name is a hack for week5 content
+  # For those activities, we want the sequence field to be populated from the file name
+  # TBH all the files in the repo should have that to true, but it will cause every activity to change so that would suck
+  def load_all_activity_data(subdir = '', sequence_from_file_name = false)
     activity_data = []
 
     root_path = File.join(@repo_dir, subdir)
@@ -45,7 +48,7 @@ class Content::LoadActivities
         # no other non .md files allowed (only the `_Archived` folder)
         next unless content_file.ends_with?('.md')
         @current_filename = content_file
-        activity_data.push extract_activity_file_data(root_path, data_dir, content_file, seq)
+        activity_data.push extract_activity_file_data(root_path, data_dir, content_file, sequence_from_file_name ? nil : seq)
         seq += 1
       end
     end
@@ -63,7 +66,7 @@ class Content::LoadActivities
     attrs = extract_attributes(content)
     filename_parts = filename.split('__')
 
-    attrs['sequence'] = sequence if sequence
+    attrs['sequence'] = sequence ? sequence : filename_parts.first.to_i
     attrs['file_path'] = File.join('data', data_dir, filename).to_s
     attrs['type'] = filename_parts.last.split('.').first.strip
     # We extract the W1D1 type day format used by Compass from the content file's parent folder (curriculum content naming convention)
