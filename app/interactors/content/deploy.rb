@@ -27,6 +27,7 @@ class Content::Deploy
       load_prep_records(repo_dir, records)
       load_project_records(repo_dir, records)
       load_teacher_records(repo_dir, records)
+      load_section_records(repo_dir, records)
       load_activity_records(repo_dir, records)
       load_interview_records(repo_dir, records)
 
@@ -66,6 +67,14 @@ class Content::Deploy
       Content::LoadTeacherSections.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
     else
       Rails.logger.info 'Teacher resources not found. Skipping.'
+    end
+  end
+
+  def load_section_records(repo_dir, records)
+    if Dir.exist?(File.join(repo_dir, 'Sections').to_s)
+      Content::LoadSections.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
+    else
+      Rails.logger.info 'Section records not found. Skipping.'
     end
   end
 
