@@ -48,7 +48,8 @@ class Content::LoadActivities
         # no other non .md files allowed (only the `_Archived` folder)
         next unless content_file.ends_with?('.md')
         @current_filename = content_file
-        activity_data.push extract_activity_file_data(root_path, data_dir, content_file, sequence_from_file_name ? nil : seq)
+        seq_output = sequence_from_file_name ? nil : seq
+        activity_data.push extract_activity_file_data(root_path, data_dir, content_file, seq_output)
         seq += 1
       end
     end
