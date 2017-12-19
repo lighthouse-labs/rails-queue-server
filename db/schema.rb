@@ -179,15 +179,27 @@ ActiveRecord::Schema.define(version: 20171212031900) do
     t.integer  "location_id"
     t.boolean  "limited"
     t.string   "weekdays"
+    t.text     "disable_queue_days",  default: [], null: false, array: true
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
   end
 
   create_table "content_repositories", force: :cascade do |t|
     t.string   "github_username"
     t.string   "github_repo"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "last_sha"
+    t.string   "github_branch",   default: "master"
+  end
+
+  create_table "curriculum_breaks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "reason"
+    t.date     "starts_on"
+    t.integer  "num_weeks"
+    t.integer  "cohort_id"
+    t.index ["cohort_id"], name: "index_curriculum_breaks_on_cohort_id", using: :btree
   end
 
   create_table "day_feedbacks", force: :cascade do |t|
@@ -376,6 +388,7 @@ ActiveRecord::Schema.define(version: 20171212031900) do
     t.boolean  "display_exact_activity_duration"
     t.boolean  "prep_assistance"
     t.boolean  "has_queue",                       default: true
+    t.text     "disable_queue_days",              default: [],   null: false, array: true
   end
 
   create_table "questions", force: :cascade do |t|
@@ -601,6 +614,7 @@ ActiveRecord::Schema.define(version: 20171212031900) do
   add_foreign_key "activity_feedbacks", "users"
   add_foreign_key "answers", "options"
   add_foreign_key "answers", "quiz_submissions"
+  add_foreign_key "curriculum_breaks", "cohorts"
   add_foreign_key "deployments", "content_repositories"
   add_foreign_key "options", "questions"
   add_foreign_key "outcome_results", "outcomes"

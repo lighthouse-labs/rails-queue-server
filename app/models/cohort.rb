@@ -7,11 +7,14 @@ class Cohort < ApplicationRecord
   has_many :rolled_out_students, foreign_key: 'initial_cohort_id', class_name: 'Student'
   has_many :recordings
   has_many :tech_interviews
+  # only supports one break per cohort
+  has_one :curriculum_break
 
   validates :name, presence: true
   validates :start_date, presence: true
   validates :program, presence: true
   validates :location, presence: true
+  validate  :disable_queue_days_are_valid
 
   validates :code,  uniqueness: true,
                     presence:   true,
@@ -19,6 +22,8 @@ class Cohort < ApplicationRecord
                     length:     { minimum: 3, allow_blank: true }
 
   include PgSearch
+  include DisableQueueDayValidators
+
   pg_search_scope :by_keywords,
                   associated_against: {
                     students: [:first_name, :last_name, :email, :phone_number, :github_username]
@@ -40,9 +45,12 @@ class Cohort < ApplicationRecord
   scope :is_finished, -> { where('cohorts.start_date < ?', (Date.current - 8.weeks)) }
   scope :started_before, ->(date) { where('cohorts.start_date <= ?', date) }
   scope :started_after, ->(date) { where('cohorts.start_date >= ?', date) }
+
   # assumes monday start date =/ - KV
+  # last day of instruction, friday of the last week - JM
   def end_date
-    start_date.advance(weeks: program.weeks, days: 4)
+    weeks = curriculum_break ? (program.weeks - 1) + curriculum_break.num_weeks : program.weeks - 1
+    start_date.advance(weeks: weeks, days: 4)
   end
 
   def upcoming?
@@ -54,11 +62,11 @@ class Cohort < ApplicationRecord
   end
 
   def active?
-    start_date >= (Date.current - 8.weeks) && start_date <= Date.current
+    Date.current >= start_date && Date.current <= end_date
   end
 
   def finished?
-    start_date < (Date.current - 8.weeks)
+    Date.current > end_date
   end
 
   delegate :week, to: :curriculum_day
@@ -86,6 +94,10 @@ class Cohort < ApplicationRecord
 
   def num_remote_students_started
     students.remote.count + rolled_out_students.count
+  end
+
+  def active_queue?
+    program.has_queue? && active? && !disable_queue_days.include?(curriculum_day.to_s)
   end
 
 end

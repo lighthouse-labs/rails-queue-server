@@ -16,10 +16,14 @@ class Admin::CohortsController < Admin::BaseController
   end
 
   def new
-    @cohort = Cohort.new(program: Program.first)
+    program = Program.first
+    @cohort = Cohort.new(program: program)
+    set_disabled_days(program.disable_queue_days)
   end
 
-  def edit; end
+  def edit
+    set_disabled_days(@cohort.disable_queue_days)
+  end
 
   def create
     @cohort = Cohort.new(cohort_params)
@@ -31,6 +35,7 @@ class Admin::CohortsController < Admin::BaseController
   end
 
   def update
+    handle_disable_queue_days
     if @cohort.update(cohort_params)
       redirect_to [:edit, :admin, @cohort], notice: 'Updated!'
     else
@@ -46,6 +51,21 @@ class Admin::CohortsController < Admin::BaseController
   end
 
   private
+
+  def handle_disable_queue_days
+    if params['disable_queue_days']
+      days_string = params['disable_queue_days'].gsub(/\s+/, "")
+      days_arr = days_string.split(',').compact.first(100)
+      @cohort.disable_queue_days = days_arr
+      set_disabled_days(days_arr) unless @cohort.valid?
+    else
+      @cohort.disable_queue_days = []
+    end
+  end
+
+  def set_disabled_days(arr)
+    @days = arr.join(',')
+  end
 
   def require_cohort
     @cohort = Cohort.find params[:id]
