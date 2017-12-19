@@ -7,6 +7,7 @@ class Content::LoadActivities
     @repo     = context.repo
     @repo_dir = context.repo_dir
     @records  = context.records
+    @program  = Program.first
 
     @log.info "LOADING/BUILDING ACTIVITY RECORDS"
   end
@@ -65,19 +66,30 @@ class Content::LoadActivities
   def extract_activity_file_data(repo_dir, data_dir, filename, sequence = nil)
     content = File.open(File.join(repo_dir, data_dir, filename)).read
     attrs = extract_attributes(content)
+    day_from_file = attrs['day']
     filename_parts = filename.split('__')
 
     attrs['sequence'] = sequence ? sequence : filename_parts.first.to_i
     attrs['file_path'] = File.join('data', data_dir, filename).to_s
     attrs['type'] = filename_parts.last.split('.').first.strip
-    # We extract the W1D1 type day format used by Compass from the content file's parent folder (curriculum content naming convention)
-    attrs['day']  ||= day_from_folder_name(data_dir) # eg: w1d3 or w4e
+    attrs['day'] = determine_day(day_from_file, data_dir)
     # We use the relevant part of the md file name if name attribute is not set in yaml front matter
     attrs['name'] ||= URI.unescape(filename_parts[-2].strip)
     attrs
   end
 
+  def determine_day(day_from_file, data_dir)
+    curric_day = day_from_file || day_from_folder_name(data_dir) # eg: w1d3 or w4e
+    return nil if curric_day.nil? || curric_day.match(DAY_REGEX).nil?
+    activity_week = /\d+/.match(curric_day).to_s.to_i
+    if @program.weeks > 9 && activity_week < 10
+      curric_day.insert(1,"0")
+    end
+    curric_day
+  end
+
   def day_from_folder_name(dirname)
+    # We extract the W1D1 type day format used by Compass from the content file's parent folder (curriculum content naming convention)
     case dirname
     when /Week (\d+) Day (\d)/
       "w#{Regexp.last_match(1)}d#{Regexp.last_match(2)}"
