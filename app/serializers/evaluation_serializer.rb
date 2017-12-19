@@ -2,7 +2,7 @@ class EvaluationSerializer < ActiveModel::Serializer
 
   root false
 
-  attributes :id, :created_at, :github_url
+  attributes :id, :created_at, :github_url, :resubmission
   has_one :project, serializer: ProjectSerializer
   has_one :student, serializer: UserSerializer
 
