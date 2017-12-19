@@ -147,7 +147,7 @@ class EvaluationsController < ApplicationController
   end
 
   def evaluation_params
-    params.require(:evaluation).permit(:github_url, :student_notes, :resubmission)
+    params.require(:evaluation).permit(:github_url, :student_notes)
   end
 
   def teacher_required
