@@ -1,5 +1,14 @@
 # Change Log
 
+## [2017.12.19.1530](https://github.com/lighthouse-labs/compass/tree/2017.12.19.1530) (2017-12-19)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.12.14.0930...2017.12.19.1530)
+
+**Merged pull requests:**
+
+- 10 Weeks - Bug Fix - Using Double Digit Days for Programs \> 9 wks [\#466](https://github.com/lighthouse-labs/compass/pull/466) ([jmatsuba](https://github.com/jmatsuba))
+- 10 Week - Section Importer [\#464](https://github.com/lighthouse-labs/compass/pull/464) ([kvirani](https://github.com/kvirani))
+- Reorder Project Evaluations Based on Due Date and Student Strength [\#455](https://github.com/lighthouse-labs/compass/pull/455) ([ahache](https://github.com/ahache))
+
 ## [2017.12.14.0930](https://github.com/lighthouse-labs/compass/tree/2017.12.14.0930) (2017-12-14)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.11.24.1300...2017.12.14.0930)
 
@@ -11,7 +20,7 @@
 - Bugfix for Curriculum Unlocking Logic for Cohorts over New Years [\#439](https://github.com/lighthouse-labs/compass/pull/439) ([jmatsuba](https://github.com/jmatsuba))
 - Temporary Removal of Tech Interview Section of Queue [\#438](https://github.com/lighthouse-labs/compass/pull/438) ([ahache](https://github.com/ahache))
 - 10 Week - Disable Queue on Certain Days for a Cohort [\#434](https://github.com/lighthouse-labs/compass/pull/434) ([jmatsuba](https://github.com/jmatsuba))
-- Remove Zero Padded Days for 10 Week Programs [\#410](https://github.com/lighthouse-labs/compass/pull/410) ([ahache](https://github.com/ahache))
+- 10 Weeks - Remove Zero Padded Days for 10 Week Programs [\#410](https://github.com/lighthouse-labs/compass/pull/410) ([ahache](https://github.com/ahache))
 - 10 Weeks - Support Holiday Breaks in Cohort [\#398](https://github.com/lighthouse-labs/compass/pull/398) ([jmatsuba](https://github.com/jmatsuba))
 
 ## [2017.11.24.1300](https://github.com/lighthouse-labs/compass/tree/2017.11.24.1300) (2017-11-24)
