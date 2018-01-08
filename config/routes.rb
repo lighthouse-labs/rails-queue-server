@@ -1,7 +1,7 @@
 LaserShark::Application.routes.draw do
 
   resources :projects, only: [:index, :show] do
-    resources :activities
+    resources :activities, only: [:index, :show, :edit]
     resources :evaluations, only: [:index, :show, :new, :create, :edit, :update] do
       member do
         put :start_marking
@@ -37,7 +37,7 @@ LaserShark::Application.routes.draw do
   get '/i/:code', to: 'invitations#show', as: 'invitation' # student/teacher invitation handler
   # get 'prep'  => 'setup#show' # temporary
   resources :prep, controller: 'preps', only: [:index, :show] do
-    resources :activities
+    resources :activities, only: [:index, :show, :edit]
   end
 
   resources :teacher_resources, only: [:index, :show] do
@@ -99,7 +99,7 @@ LaserShark::Application.routes.draw do
 
   # CONTENT BROWSING
   resources :days, param: :number, only: [:show] do
-    resources :activities, only: [:new, :create, :show, :edit, :update]
+    resources :activities, only: [:show, :edit]
     resources :feedbacks, only: [:create, :new], controller: :day_feedbacks
 
     resource :info, only: [:edit, :update], controller: 'day_infos'
@@ -165,7 +165,9 @@ LaserShark::Application.routes.draw do
         post :deactivate
       end
     end
-    resources :cohorts, except: [:destroy]
+    resources :cohorts, except: [:destroy] do
+      resources :curriculum_breaks, only: [:new, :create, :edit, :update, :destroy]
+    end
     resources :feedbacks, except: [:edit, :update, :destroy]
     resources :teacher_feedbacks, only: [:index]
     resources :curriculum_feedbacks, only: [:index]

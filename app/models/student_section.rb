@@ -1,0 +1,3 @@
+class StudentSection < Section
+
+end

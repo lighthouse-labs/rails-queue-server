@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171217193020) do
+=======
+ActiveRecord::Schema.define(version: 20180103190253) do
+>>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -470,6 +474,7 @@ ActiveRecord::Schema.define(version: 20171217193020) do
     t.json     "evaluation_rubric"
     t.text     "evaluation_guide"
     t.text     "evaluation_checklist"
+    t.text     "teacher_notes"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end

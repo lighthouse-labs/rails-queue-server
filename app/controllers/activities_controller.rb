@@ -17,17 +17,6 @@ class ActivitiesController < ApplicationController
     @activities = @activities.page(params[:page])
   end
 
-  def create
-    @activity = Activity.new(activity_params)
-    if @activity.save(activity_params)
-      handle_redirect("Activity Created!")
-    else
-      load_section
-      load_new_url
-      render :new
-    end
-  end
-
   def show
     # => If it evaluates code, we take multiple submissions (always a new submission)
     if @activity.evaluates_code?
@@ -49,14 +38,6 @@ class ActivitiesController < ApplicationController
       @messages = @activity.messages
     elsif cohort # no messages if student or just User and no cohort is assigned
       @messages = @activity.messages.for_cohort(cohort)
-    end
-  end
-
-  def update
-    if @activity.update(activity_params)
-      handle_redirect("Updated!")
-    else
-      render :edit
     end
   end
 
@@ -134,26 +115,6 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  def activity_params
-    params.require(:activity).permit(
-      :name,
-      :type,
-      :duration,
-      :start_time,
-      :sequence,
-      :instructions,
-      :teacher_notes,
-      :allow_submissions,
-      :day,
-      :section_id,
-      :gist_url,
-      :media_filename,
-      :code_review_percent,
-      :test_code,
-      :initial_code
-    )
-  end
-
   def teacher_required
     redirect_to(day_activity_path(@activity.day, @activity), alert: 'Not allowed') unless teacher?
   end
@@ -216,20 +177,6 @@ class ActivitiesController < ApplicationController
                   prep_activity_path(@section, @activity)
       # elsif @section && @section.is_a?(Project)
       # project_activity_path <= Not yet supported - KV
-    end
-  end
-
-  def handle_redirect(notice)
-    if @activity.section
-      # redirect_to polymorphic_url(@activity.section, @activity), notice: notice
-
-      if @activity.prep?
-        redirect_to prep_activity_path(@activity.section, @activity), notice: notice
-      elsif @activity.project?
-        redirect_to project_activity_path(@activity.section, @activity), notice: notice
-      end
-    else
-      redirect_to day_activity_path(@activity.day, @activity), notice: notice
     end
   end
 

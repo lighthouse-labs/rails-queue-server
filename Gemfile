@@ -57,6 +57,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
 
+gem 'newrelic_rpm'
 gem "sentry-raven"
 
 gem 'rubyzip', '>= 1.0.0'
