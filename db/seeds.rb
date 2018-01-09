@@ -2,7 +2,7 @@ Rails.logger.info "SEEDING"
 
 # Real shit
 @program = Program.find_or_create_by(name: "Web Immersive") do |p|
-  p.weeks = 8
+  p.weeks = 10
   p.days_per_week = 5
   p.weekends = true
 end
