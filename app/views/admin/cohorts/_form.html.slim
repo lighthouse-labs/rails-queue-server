@@ -9,7 +9,11 @@
 = form.association :location
 = form.input :code, placeholder: 'All lowercase, no spaces (hyphens encourged!)'
 = form.association :program
-= form.input :start_date
+= form.input :start_date, as: :date, html5: true
 = form.input :teacher_email_group
 - if form.object.program.days_per_week != 5
   = form.input :weekdays
+.form-group
+  label.col-sm-3.control-label Queue Disabled Days
+  div.col-sm-9
+    = text_area_tag :disable_queue_days, @days, class: "form-control"

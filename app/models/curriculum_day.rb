@@ -14,21 +14,22 @@ class CurriculumDay
     @date = date
     @cohort = cohort
     @program = cohort.try :program
+    @curriculum_break = cohort.curriculum_break if cohort
 
     @date = @date.to_s if @date.is_a?(CurriculumDay)
-
-    @date = calculate_date if @date.is_a?(String) && @cohort
+    calculate_date if @date.is_a?(String) && @cohort
   end
 
   def to_s
     return @to_s if @to_s
-
     w = determine_w
 
     # prefix with 0 if needs to be double digit and isn't
     week = double_digit_week? && w < 10 ? "0#{w}" : w
 
-    @to_s = if day_number <= 0
+    @to_s = if on_break?(day_number)
+              "w#{week}e"
+            elsif day_number <= 0
               # day_number may be negative if cohort hasn't yet started
               "w#{'0' if double_digit_week?}1d1"
             elsif w > program.weeks
@@ -38,7 +39,7 @@ class CurriculumDay
             else
               d = determine_d
               "w#{week}d#{d}"
-    end
+            end
   end
 
   def double_digit_week?
@@ -59,8 +60,8 @@ class CurriculumDay
 
   def unlocked_until_day
     if program.curriculum_unlocking == 'weekly'
-      date = Date.current.sunday
-      CurriculumDay.new(date, @cohort)
+      unlocked_date = date.sunday
+      CurriculumDay.new(unlocked_date, @cohort)
     else
       self
     end
@@ -96,6 +97,12 @@ class CurriculumDay
     CurriculumDay.new(@date.to_date.prev_day, @cohort)
   end
 
+  def determine_week_without_breaks(day_num)
+    # has to be public, calling it from CurriculumBreak, ya i know, this is not ideal
+    w = (day_num / 7) + 1
+    w > program.weeks ? program.weeks : w.to_i
+  end
+
   private
 
   def today
@@ -112,16 +119,6 @@ class CurriculumDay
 
   def unlock_weekend_on_friday
     (friday? && weekend?) && (to_s[1] == today.to_s[1])
-  end
-
-  def determine_w
-    d = day_number
-    if day_number <= 0
-      1
-    else
-      w = (day_number / 7) + 1
-      w > program.weeks ? program.weeks : w
-    end
   end
 
   def determine_d
@@ -153,6 +150,7 @@ class CurriculumDay
 
   def calculate_date
     date_parts = @date.match(/w(\d+)((d(\d))|e)/).to_a.compact # eg: w5d1 or w4e
+
     # dow = day of week
     week = date_parts[1].to_i
     dow = date_parts.last
@@ -170,7 +168,56 @@ class CurriculumDay
       d = weekdays[dow - 1].to_i
       date = date.advance(days: d - 1)
     end
-    date
+
+    @date = date # date needs to be set for day_number to be correct
+    if adjust_date_calculation_for_break?(day_number)
+      @date = date.advance(weeks: @curriculum_break.num_weeks)
+    end
+  end
+
+  def determine_w
+    d = day_number
+    if d <= 0
+      1
+    elsif @curriculum_break
+      determine_week_with_breaks(d)
+    else
+      determine_week_without_breaks(d)
+    end
+  end
+
+  def determine_week_with_breaks(day_num)
+    w = (day_num / 7) + 1
+    if on_break?(day_num)
+      @curriculum_break.right_before_break_week_number
+    elsif past_end_week_of_cohort?(w)
+      program.weeks
+    elsif post_break_yet_active_week_number?(w)
+      w - @curriculum_break.num_weeks
+    else
+      w
+    end
+  end
+
+  def on_break?(day_number)
+    @curriculum_break && @curriculum_break.active_on_day_number?(day_number)
+  end
+
+  def past_end_week_of_cohort?(week_number)
+    week_number > (program.weeks + @curriculum_break.num_weeks)
+  end
+
+  def post_break_yet_active_week_number?(week_number)
+    return false if past_end_week_of_cohort?(week_number)
+    week_number > (@curriculum_break.right_before_break_week_number + @curriculum_break.num_weeks)
+  end
+
+  def adjust_date_calculation_for_break?(day_number)
+    # adjust if there is a break and the date calculation starts on or if after
+    # the start of the break by day number. EG: CurriculumDay('w2d1', some_cohort)
+    # and for some_cohort a Break starts on week 2, the date returned should be
+    # adjusted for the break
+    @curriculum_break && (day_number >= @curriculum_break.starts_on_day_number)
   end
 
 end
