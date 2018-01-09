@@ -97,6 +97,14 @@ class CurriculumDay
     CurriculumDay.new(@date.to_date.prev_day, @cohort)
   end
 
+  def start_of_week
+    CurriculumDay.new(@date.to_date.monday, @cohort)
+  end
+
+  def end_of_week
+    CurriculumDay.new(@date.to_date.sunday, @cohort)
+  end
+
   def determine_week_without_breaks(day_num)
     # has to be public, calling it from CurriculumBreak, ya i know, this is not ideal
     w = (day_num / 7) + 1
