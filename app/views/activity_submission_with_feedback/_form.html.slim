@@ -26,7 +26,7 @@
 .modal-footer
   button.btn.btn-default type='button' data-dismiss='modal'
     | Cancel
-  = button_tag 'Submit', class: 'btn btn-primary activity-submit', onclick: 'disableAndSubmit();'
+  = button_tag 'Submit', class: 'btn btn-primary', onclick: 'disableAndSubmit();'
 
 - content_for :end_of_body
   javascript:
