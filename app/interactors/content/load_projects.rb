@@ -44,13 +44,15 @@ class Content::LoadProjects
     attrs    = YAML.load_file(File.join(dir_path, '_config.yml'))
 
     attrs['order'] = sequence
-    attrs['file_path']   = File.join('data', data_dir, dir_name).to_s
-    description_location = File.join(dir_path, 'description.md')
-    rubric_location      = File.join(dir_path, 'evaluation_rubric.yml')
-    guide_location       = File.join(dir_path, 'evaluation_guide.md')
-    checklist_location   = File.join(dir_path, 'evaluation_checklist.md')
+    attrs['file_path']     = File.join('data', data_dir, dir_name).to_s
+    description_location   = File.join(dir_path, 'description.md')
+    teacher_notes_location = File.join(dir_path, 'teacher_notes.md')
+    rubric_location        = File.join(dir_path, 'evaluation_rubric.yml')
+    guide_location         = File.join(dir_path, 'evaluation_guide.md')
+    checklist_location     = File.join(dir_path, 'evaluation_checklist.md')
 
     attrs['description']          = File.open(description_location).read
+    attrs['teacher_notes']        = File.open(teacher_notes_location).read if File.exist?(teacher_notes_location)
     attrs['evaluation_guide']     = File.open(guide_location).read if File.exist?(guide_location)
     if File.exist?(rubric_location)
       attrs['evaluation_rubric']  = YAML.load_file(rubric_location)
@@ -88,6 +90,7 @@ class Content::LoadProjects
       blurb:                attributes['blurb'],
       evaluated:            attributes['evaluated'],
       description:          attributes['description'],
+      teacher_notes:        attributes['teacher_notes'],
       content_file_path:    attributes['file_path'],
       evaluation_guide:     attributes['evaluation_guide'],
       evaluation_rubric:    attributes['evaluation_rubric'],

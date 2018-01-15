@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128172708) do
+ActiveRecord::Schema.define(version: 20180103190253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,15 +179,27 @@ ActiveRecord::Schema.define(version: 20171128172708) do
     t.integer  "location_id"
     t.boolean  "limited"
     t.string   "weekdays"
+    t.text     "disable_queue_days",  default: [], null: false, array: true
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
   end
 
   create_table "content_repositories", force: :cascade do |t|
     t.string   "github_username"
     t.string   "github_repo"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "last_sha"
+    t.string   "github_branch",   default: "master"
+  end
+
+  create_table "curriculum_breaks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "reason"
+    t.date     "starts_on"
+    t.integer  "num_weeks"
+    t.integer  "cohort_id"
+    t.index ["cohort_id"], name: "index_curriculum_breaks_on_cohort_id", using: :btree
   end
 
   create_table "day_feedbacks", force: :cascade do |t|
@@ -256,6 +268,8 @@ ActiveRecord::Schema.define(version: 20171128172708) do
     t.text     "evaluation_guide"
     t.text     "evaluation_checklist"
     t.jsonb    "result"
+    t.boolean  "resubmission"
+    t.datetime "due"
     t.index ["cohort_id"], name: "index_evaluations_on_cohort_id", using: :btree
     t.index ["evaluation_rubric"], name: "index_evaluations_on_evaluation_rubric", using: :gin
     t.index ["result"], name: "index_evaluations_on_result", using: :gin
@@ -375,6 +389,7 @@ ActiveRecord::Schema.define(version: 20171128172708) do
     t.boolean  "display_exact_activity_duration"
     t.boolean  "prep_assistance"
     t.boolean  "has_queue",                       default: true
+    t.text     "disable_queue_days",              default: [],   null: false, array: true
   end
 
   create_table "questions", force: :cascade do |t|
@@ -455,6 +470,7 @@ ActiveRecord::Schema.define(version: 20171128172708) do
     t.text     "evaluation_guide"
     t.text     "evaluation_checklist"
     t.boolean  "archived"
+    t.text     "teacher_notes"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end
@@ -601,6 +617,7 @@ ActiveRecord::Schema.define(version: 20171128172708) do
   add_foreign_key "activity_feedbacks", "users"
   add_foreign_key "answers", "options"
   add_foreign_key "answers", "quiz_submissions"
+  add_foreign_key "curriculum_breaks", "cohorts"
   add_foreign_key "deployments", "content_repositories"
   add_foreign_key "options", "questions"
   add_foreign_key "outcome_results", "outcomes"

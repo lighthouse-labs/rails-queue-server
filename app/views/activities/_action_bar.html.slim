@@ -12,10 +12,12 @@
             = link_to '+ Message', new_activity_message_path(@activity), class: 'btn btn-new-message'
 
         - else
-          = activity_presenter.next_button
-          = activity_presenter.previous_button
+          = render 'completion_status'
 
       = render 'duration', presenter: activity_presenter  if @activity.duration?
+
+  = activity_presenter.next_button
+  = activity_presenter.previous_button
 
 - if @activity.gist_url?
   .actions

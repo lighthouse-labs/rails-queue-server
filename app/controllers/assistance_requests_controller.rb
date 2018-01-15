@@ -19,13 +19,17 @@ class AssistanceRequestsController < ApplicationController
     code_reviews = CodeReviewRequest.open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
     my_active_evaluations = Evaluation.where(teacher: current_user).where(state: "in_progress").newest_active_evaluations_first
     evaluations = if current_user.location.try(:satellite?)
-                    Evaluation.open_evaluations.oldest_first.student_location(current_user.location)
+                    Evaluation.open_evaluations.student_location(current_user.location).student_priority
                   else
-                    Evaluation.open_evaluations.oldest_first.student_cohort_in_location(current_user.location)
+                    Evaluation.open_evaluations.student_cohort_in_location(current_user.location).student_priority
                   end
     my_active_interviews = TechInterview.in_progress.interviewed_by(current_user)
     interviews = TechInterview.oldest_first.queued.interviewee_location(current_user.location)
     all_students = Student.in_active_cohort.active.order_by_last_assisted_at
+
+    cohort_id_week_hash = Location.find_by(name: params[:location]).cohorts.is_active.map{ |c| [c.id, c.week] }.to_h
+    cohorts = Cohort.where(id: cohort_id_week_hash.keys)    
+    tech_interview_templates = TechInterviewTemplate.where(week: cohort_id_week_hash.values)
 
     # For satellite mentors, show them their local students under All Students
     all_students = if current_user.location.try(:satellite?)
@@ -34,14 +38,16 @@ class AssistanceRequestsController < ApplicationController
                      all_students.cohort_in_locations([params[:location]])
                    end
 
-    render json: RequestQueueSerializer.new(assistances:            my_active_assistances,
-                                            requests:               requests,
-                                            code_reviews:           code_reviews,
-                                            active_evaluations:     my_active_evaluations,
-                                            evaluations:            evaluations,
-                                            active_tech_interviews: my_active_interviews,
-                                            tech_interviews:        interviews,
-                                            students:               all_students).as_json
+    render json: RequestQueueSerializer.new(assistances:                my_active_assistances,
+                                            requests:                   requests,
+                                            code_reviews:               code_reviews,
+                                            active_evaluations:         my_active_evaluations,
+                                            evaluations:                evaluations,
+                                            active_tech_interviews:     my_active_interviews,
+                                            tech_interviews:            interviews,
+                                            students:                   all_students,
+                                            tech_interview_templates:   tech_interview_templates,
+                                            cohorts:                    cohorts).as_json
   end
 
   def status

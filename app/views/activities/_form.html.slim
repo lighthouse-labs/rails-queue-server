@@ -18,13 +18,6 @@ h3 Instructions
     br
     = link_to 'Repository (Master)', "https://github.com/#{@activity.repo_full_name}"
 
-= f.hidden_field :instructions, id: 'activity-instructions', disabled: f.object.remote_content?
-
-= f.hidden_field :teacher_notes, id: 'activity-notes', disabled: f.object.remote_content?
-
-pre#instructions_content style="display:none" = @activity.instructions
-#instructions-editor.editor
-
 h3 Teacher Notes
 
 - if @activity.teacher_notes
