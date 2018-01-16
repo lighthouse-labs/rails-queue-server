@@ -469,8 +469,8 @@ ActiveRecord::Schema.define(version: 20180103190253) do
     t.json     "evaluation_rubric"
     t.text     "evaluation_guide"
     t.text     "evaluation_checklist"
-    t.boolean  "archived"
     t.text     "teacher_notes"
+    t.boolean  "archived"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end
