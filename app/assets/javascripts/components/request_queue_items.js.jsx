@@ -115,22 +115,26 @@ var RequestQueueItems = React.createClass({
 
   renderTechInterviewTemplates: function(){
     var that = this;
-    if(this.props.techInterviewTemplates.length > 0)
-      return this.props.techInterviewTemplates.map(function(interviewTemplate){
+    if(this.props.techInterviewTemplates.length > 0) {
+      return this.props.techInterviewTemplates.map(function(interviewTemplate) {
         var interviewCohort = that.props.cohorts.filter(function(cohortObj){
           return cohortObj.cohort.week == interviewTemplate.week;
-        })[0].cohort;
-        return <TechInterviewTemplate
-                 key={interviewTemplate.id} 
-                 week={interviewTemplate.week} 
-                 id={ interviewTemplate.id } 
-                 description={interviewTemplate.description} 
-                 cohortName={interviewCohort.name} 
-                 cohortId={interviewCohort.id}
-               />
+        });
+        if (interviewCohort.length > 0) {
+          interviewCohort = interviewCohort[0].cohort;
+          return <TechInterviewTemplate
+                  key={interviewTemplate.id} 
+                  week={interviewTemplate.week} 
+                  id={ interviewTemplate.id } 
+                  description={interviewTemplate.description} 
+                  cohortName={interviewCohort.name} 
+                  cohortId={interviewCohort.id}
+                />
+        }
       });
-    else
+    } else {
       return <i>There are no tech interviews this week.</i>
+    }
   },
 
   techInterviewHolder: function(){
