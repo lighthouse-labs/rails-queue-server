@@ -11,21 +11,22 @@ table.table.table-hover
     th
   tbody
     - @evaluations.each do |evaluation|
-      tr
-        td.details data-value=evaluation.student.last_name
-          .student-info
-            = render 'shared/student_info', student: evaluation.student
-        td
-          = render 'projects/student_project_status', project_evaluation: evaluation
-        td = evaluation.project.name
-        - if evaluation.completed_at
-          td = "#{time_ago_in_words(evaluation.completed_at)} ago"
-        - else
-          td = "Not yet completed"
-        td
-          = link_to 'View', project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-info btn-xs'
-          | &nbsp;
-          - if evaluation.in_state?(:pending)
-            = link_to "Start Marking", start_marking_project_evaluation_path(evaluation.project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
-          - elsif evaluation.in_state?(:in_progress) && evaluation.teacher == current_user
-            = link_to "Continue Marking", edit_project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-primary btn-xs'
+      - if evaluation.student && evaluation.project
+        tr
+          td.details data-value=evaluation.student.last_name
+            .student-info
+              = render 'shared/student_info', student: evaluation.student
+          td
+            = render 'projects/student_project_status', project_evaluation: evaluation
+          td = evaluation.project.name
+          - if evaluation.completed_at
+            td = "#{time_ago_in_words(evaluation.completed_at)} ago"
+          - else
+            td = "Not yet completed"
+          td
+            = link_to 'View', project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-info btn-xs'
+            | &nbsp;
+            - if evaluation.in_state?(:pending)
+              = link_to "Start Marking", start_marking_project_evaluation_path(evaluation.project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
+            - elsif evaluation.in_state?(:in_progress) && evaluation.teacher == current_user
+              = link_to "Continue Marking", edit_project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-primary btn-xs'
