@@ -28,12 +28,12 @@ $(document).on 'turbolinks:load', ->
   calculateDateOfCurriculumDay = (day, startDate, type) ->
     # Get which week/day is currently being viewed
     # Subtract one because if they are week 1, should not add an extra week. Similarly, if day 2 should only add 1 day and not 2.
-    weeks = parseInt(day[1]) - 1
+    weeks = parseInt(day.substring(1,3)) - 1
     # If day is a weekend the number of days to add is 5
-    if day[3] is undefined
+    if day[4] is undefined
       days = 5
     else
-      days = parseInt day[3] - 1
+      days = parseInt day[4] - 1
     # Get the date that curriculum day translates to, e.g. w2d1 would be 1 week after the start date
     dateYear = startDate.substring(0,4)
     dateMonth = startDate.substring(5,7)
