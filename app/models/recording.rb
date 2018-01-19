@@ -20,7 +20,7 @@ class Recording < ApplicationRecord
   end
 
   def youtube_code
-    return nil unless file_type == "youtube"
+    return nil unless file_type.downcase == "youtube"
     YouTubeAddy.extract_video_id(file_name)
   end
 
