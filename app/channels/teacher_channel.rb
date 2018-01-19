@@ -23,7 +23,7 @@ class TeacherChannel < ApplicationCable::Channel
   protected
 
   def channel_name
-    location_name = current_user.is_a?(Student) ? current_user.cohort.location.name : current_user.location.name
+    location_name = current_user.location.name
     "teachers-#{location_name}"
   end
 
