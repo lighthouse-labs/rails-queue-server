@@ -5,7 +5,7 @@ article.recording
     = recording_title(@recording)
   - if teacher?
     .actions.well
-      = link_to 'Edit', edit_recording_path(@recording), class: 'edit-recording-btn'
+      = link_to 'Edit', edit_recording_path(@recording)
       = link_to 'Delete', @recording, method: :delete, class: 'delete-recording-btn'
   - if @recording.activity
     p
@@ -33,7 +33,7 @@ article.recording
     video.video-js.vjs-default-skin controls="true" preload="auto" width="100%" height="434"
       source type="video/mp4" src=@recording.s3_url
   - if @recording.youtube_code
-    iframe width="100%" height="434" frameborder="0" src="http://www.youtube.com/embed/#{@recording.youtube_code}" gesture="media" allow="encrypted-media" allowfullscreen
+    iframe width="1280" height="720" frameborder="0" src="http://www.youtube.com/embed/#{@recording.youtube_code}" gesture="media" allow="encrypted-media" allowfullscreen
   - if @recording.s3_url
     p
       a href=@recording.s3_url title="Right click > Save Link As..."
