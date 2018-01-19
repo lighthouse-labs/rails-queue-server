@@ -16,8 +16,9 @@ class Admin::StudentsController < Admin::BaseController
 
   def update
     if @student.update(student_params)
-      render nothing: true if request.xhr?
-      redirect_to :back
+      prep_form
+      render :edit
+      flash[:notice] = "Updated"
     else
       prep_form
       render :edit

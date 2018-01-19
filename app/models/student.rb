@@ -4,6 +4,8 @@ class Student < User
   has_many :feedbacks
   has_many :evaluations
 
+  validates :unlocked_until_day, format: { with: TEN_WEEK_DAY_REGEX, allow_blank: true }
+
   scope :in_active_cohort, -> { joins(:cohort).merge(Cohort.is_active) }
   scope :has_open_requests, -> {
     joins(:assistance_requests)
