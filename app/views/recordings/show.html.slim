@@ -26,9 +26,9 @@ article.recording
       = "Guest presenter: #{@recording.presenter_name}"
       = ' &bull; '.html_safe
     - if @recording.recorded_at
-      = "Recorded: #{format_date_time(@recording.recorded_at)}"
+      = "Recorded: #{@recording.recorded_at.strftime("%b %d %Y")}"
       = ' &bull; '.html_safe
-    = "Added: #{format_date_time(@recording.created_at)}"
+    = "Added: #{@recording.created_at.strftime("%b %d %Y %l:%M %p")}"
   - if @recording.s3_url
     video.video-js.vjs-default-skin controls="true" preload="auto" width="100%" height="434"
       source type="video/mp4" src=@recording.s3_url

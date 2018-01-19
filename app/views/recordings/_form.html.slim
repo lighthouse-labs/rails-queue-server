@@ -7,14 +7,14 @@
         li = msg
     hr
 
-  = f.input :title
-  = f.input :file_type, collection: ['S3', 'YouTube']
+  = f.input :title, placeholder: 'Lecture Name Ex. Ajax'
+  = f.input :file_type, collection: ['S3', 'YouTube'], selected: "YouTube"
   = f.input :file_name, label: 'File/URL', placeholder: 'S3 File Name or YouTube Link'
   = f.association :presenter, collection: Teacher.all.order(:last_name, :first_name), label_method: :full_name
-  = f.input :presenter_name, label: 'Guest presenter'
+  = f.input :presenter_name, label: 'Guest presenter', placeholder: 'if applicable'
   = f.input :recorded_at, as: :date, html5: true
   = f.association :cohort
-  = f.association :program
+
 
   = f.hidden_field :activity_id
 

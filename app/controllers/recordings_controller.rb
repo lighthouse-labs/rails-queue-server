@@ -19,6 +19,7 @@ class RecordingsController < ApplicationController
 
   def create
     @recording = Recording.new(recording_params)
+    @recording.program = @program
     if @recording.save
       redirect_to recording_path(@recording), notice: 'Created!'
     else
