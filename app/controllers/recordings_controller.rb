@@ -19,6 +19,7 @@ class RecordingsController < ApplicationController
 
   def create
     @recording = Recording.new(recording_params)
+    @recording.program = @program
     if @recording.save
       redirect_to recording_path(@recording), notice: 'Created!'
     else
@@ -55,6 +56,7 @@ class RecordingsController < ApplicationController
   def recording_params
     params.require(:recording).permit(
       :file_name,
+      :file_type,
       :recorded_at,
       :presenter_id,
       :cohort_id,
