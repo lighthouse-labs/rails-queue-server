@@ -13,6 +13,19 @@ window.bindRatyElements = =>
     score: ->
       $(@).data('score')
 
+  # Make editable raty divs
+  $('div.raty-editor').raty
+    hints: ['Terrible', 'Bad', 'OK', 'Good', 'Awesome'],
+    starOn: "<%= asset_path('duck-on.png') %>",
+    starOff: "<%= asset_path('duck-off.png') %>",
+    starHalf: "<%= asset_path('duck-half.png') %>",
+    half        : false,
+    halfShow    : false
+    score: ->
+      $(@).data('score')
+    click: (score, evt) ->
+      $(this).find('input').attr('value', score)
+
 $ ->
 
   bindValidation = ->
@@ -25,19 +38,6 @@ $ ->
         error_message = $('<strong id="error_message">**Please provide a rating**</strong><br>')
         error_message.css('color', 'tomato')
         error_message.prependTo '.modal-body'
-
-    # Make editable raty divs
-    $('div.raty-editor').raty
-      hints: ['Terrible', 'Bad', 'OK', 'Good', 'Awesome'],
-      starOn: "<%= asset_path('duck-on.png') %>",
-      starOff: "<%= asset_path('duck-off.png') %>",
-      starHalf: "<%= asset_path('duck-half.png') %>",
-      half        : false,
-      halfShow    : false
-      score: ->
-        $(@).data('score')
-      click: (score, evt) ->
-        $(this).find('input').attr('value', score)
 
   $(document).on 'show.bs.modal', '#feedback_modal', (event) ->
     button = $(event.relatedTarget)
@@ -63,6 +63,8 @@ $ ->
         bindRatyElements()
         bindValidation()
 
+  $(document).on 'show.bs.modal', '#new-activity-submission-modal', (event) ->
+    bindValidation()
 
   $(document).on 'hidden.bs.modal', '#feedback_modal', (event) ->
     $(this).find('form')[0].reset()
