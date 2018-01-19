@@ -36,6 +36,16 @@ module ApplicationHelper
     "#{hours}:#{minutes}"
   end
 
+  def seconds_to_formatted_time(secs)
+    secs /= 60
+    [[60, :minutes], [24, :hours], [1000, :days]].map{ |count, name|
+      if secs > 0
+        secs, n = secs.divmod(count)
+        "#{n.to_i} #{name}"
+      end
+    }.compact.reverse.join(' ')
+  end
+
   def avatar_for(user)
     if user.custom_avatar?
       user.custom_avatar.url(:thumb)

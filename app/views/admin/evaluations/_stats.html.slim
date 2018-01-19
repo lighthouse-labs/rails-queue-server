@@ -2,6 +2,20 @@
 
   .stat.panel.panel-default
     .panel-body
+      | &nbsp;
+      - total_seconds = @evaluations.map{ |e| e.duration }.reduce(:+)
+      = seconds_to_formatted_time(total_seconds)
+    span Total Marking Time
+
+  .stat.panel.panel-default
+    .panel-body
+      | &nbsp;
+      - average_seconds = @evaluations.map{ |e| e.duration }.reduce(:+) / @evaluations.count
+      = seconds_to_formatted_time(average_seconds)
+    span Average Marking Time
+
+  .stat.panel.panel-default
+    .panel-body
       h3
         | &nbsp;
         span title='Queued' data-toggle='tooltip'
