@@ -17,8 +17,8 @@ class Admin::StudentsController < Admin::BaseController
   def update
     if @student.update(student_params)
       prep_form
-      render :edit
       flash[:notice] = "Updated"
+      render :edit
     else
       prep_form
       render :edit
