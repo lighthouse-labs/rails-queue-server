@@ -8,6 +8,9 @@
       = image_tag avatar_for(@student), class: 'avatar'
       .student-info-holder
         = student_presenter.name
+        - if admin?
+          = link_to 'Impersonate', impersonate_session_path(id: @student.id), method: :put, class: 'btn btn-warning btn-xs user-impersonate-button';
+        br
         = student_presenter.cohort_name_link
         br
         = student_presenter.cohort_date_link
@@ -53,5 +56,3 @@
           = student_presenter.tech_interview_table
         .tab-pane#prep_submissions role="tabpanel"
           = student_presenter.prep_table
-
- 
