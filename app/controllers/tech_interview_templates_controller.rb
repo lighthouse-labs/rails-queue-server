@@ -11,6 +11,7 @@ class TechInterviewTemplatesController < ApplicationController
         session[:cohort_id] = @cohort.id
         flash[:notice] = "You have switched to #{@cohort.name}"
       end
+      redirect_to tech_interview_template_path params[:id]
     end
 
     @interview_template = TechInterviewTemplate.find params[:id]

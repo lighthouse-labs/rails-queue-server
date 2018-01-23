@@ -3,6 +3,8 @@ module ActivitiesHelper
   def get_activity_path(activity)
     if activity.prep?
       prep_activity_path(:prep, activity)
+    elsif activity.teachers_only?
+      teacher_resource_path(activity)
     else
       day_activity_path(activity.day, activity)
     end
@@ -49,7 +51,8 @@ module ActivitiesHelper
       autolink:            true,
       space_after_headers: true,
       fenced_code_blocks:  true,
-      tables:              true
+      tables:              true,
+      strikethrough:       true
     }
     @markdown ||= Redcarpet::Markdown.new(renderer, options)
     @markdown.render(content)

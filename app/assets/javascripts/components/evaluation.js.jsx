@@ -21,6 +21,14 @@ var Evaluation = React.createClass({
     }
   },
 
+  renderResubmissionLabel: function(){
+    if (this.props.evaluation.resubmission) {
+      return(
+        <span className="label label-danger">Resubmission</span>
+      )
+    }
+  },
+
   renderProject: function(){
     var evaluation = this.props.evaluation;
 
@@ -30,8 +38,9 @@ var Evaluation = React.createClass({
           <p>
             <b>Project:&nbsp;</b>
             <a href={"projects/" + evaluation.project.slug}>
-              {evaluation.project.name}
+              {evaluation.project.name} &nbsp;
             </a>
+            { this.renderResubmissionLabel() }
           </p>
           <p>
             <b>Submission URL:&nbsp;</b>

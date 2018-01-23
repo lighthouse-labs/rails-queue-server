@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171214003341) do
+ActiveRecord::Schema.define(version: 20180108233143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -268,6 +268,8 @@ ActiveRecord::Schema.define(version: 20171214003341) do
     t.text     "evaluation_guide"
     t.text     "evaluation_checklist"
     t.jsonb    "result"
+    t.boolean  "resubmission"
+    t.datetime "due"
     t.index ["cohort_id"], name: "index_evaluations_on_cohort_id", using: :btree
     t.index ["evaluation_rubric"], name: "index_evaluations_on_evaluation_rubric", using: :gin
     t.index ["result"], name: "index_evaluations_on_result", using: :gin
@@ -445,6 +447,7 @@ ActiveRecord::Schema.define(version: 20171214003341) do
     t.integer  "program_id"
     t.string   "title"
     t.string   "presenter_name"
+    t.string   "file_type"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -467,6 +470,7 @@ ActiveRecord::Schema.define(version: 20171214003341) do
     t.json     "evaluation_rubric"
     t.text     "evaluation_guide"
     t.text     "evaluation_checklist"
+    t.text     "teacher_notes"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end

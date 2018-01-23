@@ -24,19 +24,26 @@ class CurriculumDay
     return @to_s if @to_s
     w = determine_w
 
+    # prefix with 0 if needs to be double digit and isn't
+    week = double_digit_week? && w < 10 ? "0#{w}" : w
+
     @to_s = if on_break?(day_number)
               "w#{week}e"
             elsif day_number <= 0
               # day_number may be negative if cohort hasn't yet started
-              "w1d1"
+              "w#{'0' if double_digit_week?}1d1"
             elsif w > program.weeks
               "w#{program.weeks}e"
             elsif @date.sunday? || @date.saturday?
-              "w#{w}e"
+              "w#{week}e"
             else
               d = determine_d
-              "w#{w}d#{d}"
-    end
+              "w#{week}d#{d}"
+            end
+  end
+
+  def double_digit_week?
+    program.weeks >= 10
   end
 
   def week
@@ -88,6 +95,14 @@ class CurriculumDay
 
   def prev_day
     CurriculumDay.new(@date.to_date.prev_day, @cohort)
+  end
+
+  def start_of_week
+    CurriculumDay.new(@date.to_date.monday, @cohort)
+  end
+
+  def end_of_week
+    CurriculumDay.new(@date.to_date.sunday, @cohort)
   end
 
   def determine_week_without_breaks(day_num)

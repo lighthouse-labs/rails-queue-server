@@ -7,7 +7,7 @@
 
     .form-group
       label Cohort
-      = select_tag :cohort_id, options_from_collection_for_select(Cohort.all.order('start_date DESC').limit(10), "id", "name", params[:cohort_id]), prompt: 'All Cohorts', class: "form-control admin-feedback-dropdown"
+      = select_tag :cohort_id, options_from_collection_for_select(Cohort.all.order('created_at').reverse, "id", "name", params[:cohort_id]), prompt: 'All Cohorts', class: "form-control admin-feedback-dropdown"
 
     .form-group
       label for="start_date"

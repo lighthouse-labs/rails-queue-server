@@ -21,7 +21,11 @@ module DaysHelper
   end
 
   def completed_students(activity)
-    completed_students = activity.activity_submissions.proper.where(cohort_id: cohort.id)
+    if activity.is_a?(QuizActivity)
+      completed_students = QuizSubmission.all.where(quiz_id: activity.quiz_id, cohort_id: cohort.id).map{ |qs| qs.user_id }.uniq
+    else
+      completed_students = activity.activity_submissions.proper.where(cohort_id: cohort.id)
+    end
     "#{completed_students.count}/#{total_cohort_students}"
   end
 

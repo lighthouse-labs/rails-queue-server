@@ -1,5 +1,38 @@
 # Change Log
 
+## [2018.01.22.0930](https://github.com/lighthouse-labs/compass/tree/2018.01.22.0930) (2018-01-19)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.12.19.1530...2018.01.22.0930)
+
+**Merged pull requests:**
+
+- Fix Student/Project Association on Teacher Evaluations Page [\#495](https://github.com/lighthouse-labs/compass/pull/495) ([ahache](https://github.com/ahache))
+- Update Calendar Date Constructor to Use 10 Week Strings [\#493](https://github.com/lighthouse-labs/compass/pull/493) ([ahache](https://github.com/ahache))
+- Adjust Cohort Dropdown in Admin/Assistances to Show All Cohorts [\#486](https://github.com/lighthouse-labs/compass/pull/486) ([ahache](https://github.com/ahache))
+- Show Satellite Mentors in Teacher Holder for Satellite Students [\#484](https://github.com/lighthouse-labs/compass/pull/484) ([ahache](https://github.com/ahache))
+- Disable Multiple Activity Submissions [\#479](https://github.com/lighthouse-labs/compass/pull/479) ([ahache](https://github.com/ahache))
+- Add Count of Quiz Completion in Days View [\#478](https://github.com/lighthouse-labs/compass/pull/478) ([ahache](https://github.com/ahache))
+- Update Redcarpet Gem and Add Support for Markdown Strikethrough [\#477](https://github.com/lighthouse-labs/compass/pull/477) ([ahache](https://github.com/ahache))
+- Update Dev Seeds to 10 Week Program [\#476](https://github.com/lighthouse-labs/compass/pull/476) ([ahache](https://github.com/ahache))
+- Allow YouTube Lecture Recordings to be Embedded in Compass [\#474](https://github.com/lighthouse-labs/compass/pull/474) ([ahache](https://github.com/ahache))
+- Projects now have teacher notes [\#470](https://github.com/lighthouse-labs/compass/pull/470) ([kvirani](https://github.com/kvirani))
+- NewRelic Monitoring [\#462](https://github.com/lighthouse-labs/compass/pull/462) ([kvirani](https://github.com/kvirani))
+- Clear Reason Text in Modal After AR Submission [\#453](https://github.com/lighthouse-labs/compass/pull/453) ([ahache](https://github.com/ahache))
+- Remove Deprecated CRUD Activity Code and Routes [\#452](https://github.com/lighthouse-labs/compass/pull/452) ([ahache](https://github.com/ahache))
+- Change Activity Feedback Dropdown to Raty Scale [\#450](https://github.com/lighthouse-labs/compass/pull/450) ([ahache](https://github.com/ahache))
+- Switch Daily Progress to Weekly Progress in Admin Cohort Dashboard [\#447](https://github.com/lighthouse-labs/compass/pull/447) ([ahache](https://github.com/ahache))
+- Correct Logic for Displaying Tech Interviews in Queue [\#446](https://github.com/lighthouse-labs/compass/pull/446) ([ahache](https://github.com/ahache))
+- Fix Seed Data Generation [\#443](https://github.com/lighthouse-labs/compass/pull/443) ([ahache](https://github.com/ahache))
+- Update Compass Icon Link for Prep Users [\#440](https://github.com/lighthouse-labs/compass/pull/440) ([ahache](https://github.com/ahache))
+
+## [2017.12.19.1530](https://github.com/lighthouse-labs/compass/tree/2017.12.19.1530) (2017-12-19)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.12.14.0930...2017.12.19.1530)
+
+**Merged pull requests:**
+
+- 10 Weeks - Bug Fix - Using Double Digit Days for Programs \> 9 wks [\#466](https://github.com/lighthouse-labs/compass/pull/466) ([jmatsuba](https://github.com/jmatsuba))
+- 10 Week - Section Importer [\#464](https://github.com/lighthouse-labs/compass/pull/464) ([kvirani](https://github.com/kvirani))
+- Reorder Project Evaluations Based on Due Date and Student Strength [\#455](https://github.com/lighthouse-labs/compass/pull/455) ([ahache](https://github.com/ahache))
+
 ## [2017.12.14.0930](https://github.com/lighthouse-labs/compass/tree/2017.12.14.0930) (2017-12-14)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.11.24.1300...2017.12.14.0930)
 
@@ -11,7 +44,7 @@
 - Bugfix for Curriculum Unlocking Logic for Cohorts over New Years [\#439](https://github.com/lighthouse-labs/compass/pull/439) ([jmatsuba](https://github.com/jmatsuba))
 - Temporary Removal of Tech Interview Section of Queue [\#438](https://github.com/lighthouse-labs/compass/pull/438) ([ahache](https://github.com/ahache))
 - 10 Week - Disable Queue on Certain Days for a Cohort [\#434](https://github.com/lighthouse-labs/compass/pull/434) ([jmatsuba](https://github.com/jmatsuba))
-- Remove Zero Padded Days for 10 Week Programs [\#410](https://github.com/lighthouse-labs/compass/pull/410) ([ahache](https://github.com/ahache))
+- 10 Weeks - Remove Zero Padded Days for 10 Week Programs [\#410](https://github.com/lighthouse-labs/compass/pull/410) ([ahache](https://github.com/ahache))
 - 10 Weeks - Support Holiday Breaks in Cohort [\#398](https://github.com/lighthouse-labs/compass/pull/398) ([jmatsuba](https://github.com/jmatsuba))
 
 ## [2017.11.24.1300](https://github.com/lighthouse-labs/compass/tree/2017.11.24.1300) (2017-11-24)
