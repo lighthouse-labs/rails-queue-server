@@ -40,17 +40,17 @@ class Cohort < ApplicationRecord
   scope :chronological, -> { order(start_date: :asc) }
   scope :most_recent_first, -> { order(start_date: :desc) }
   scope :starts_between, ->(from, to) { where("cohorts.start_date >= ? AND cohorts.start_date <= ?", from, to) }
-  scope :is_active, -> { starts_between(Date.current - 8.weeks, Date.current) }
+  scope :is_active, -> { starts_between(Date.current - Program.first.weeks.weeks, Date.current) }
   scope :active_or_upcoming, -> { upcoming.or(Cohort.is_active) }
-  scope :is_finished, -> { where('cohorts.start_date < ?', (Date.current - 8.weeks)) }
+  scope :is_finished, -> { where('cohorts.start_date < ?', (Date.current - Program.first.weeks.weeks)) }
   scope :started_before, ->(date) { where('cohorts.start_date <= ?', date) }
   scope :started_after, ->(date) { where('cohorts.start_date >= ?', date) }
 
   # assumes monday start date =/ - KV
   # last day of instruction, friday of the last week - JM
   def end_date
-    weeks = curriculum_break ? (program.weeks - 1) + curriculum_break.num_weeks : program.weeks - 1
-    start_date.advance(weeks: weeks, days: 4)
+    advance_weeks = curriculum_break ? (program.weeks - 1) + curriculum_break.num_weeks : program.weeks - 1
+    start_date.advance(weeks: advance_weeks, days: 4)
   end
 
   def upcoming?
