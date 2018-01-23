@@ -4,6 +4,9 @@ class Student < User
   has_many :feedbacks
   has_many :evaluations
 
+  validates :unlocked_until_day, format: { with: TWO_DIGIT_WEEK_DAY_REGEX, allow_blank: true, message: 'Invalid Day Format' }, if: :use_double_digit_week?
+  validates :unlocked_until_day, format: { with: DAY_REGEX, allow_blank: true, message: 'Invalid Day Format'  }, unless: :use_double_digit_week?
+
   scope :in_active_cohort, -> { joins(:cohort).merge(Cohort.is_active) }
   scope :has_open_requests, -> {
     joins(:assistance_requests)
