@@ -205,6 +205,10 @@ class User < ApplicationRecord
     activities
   end
 
+  def use_double_digit_week?
+    Program.first.weeks >= 10
+  end
+
   class << self
 
     def authenticate_via_github(auth)

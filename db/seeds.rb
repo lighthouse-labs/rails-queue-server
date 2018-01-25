@@ -1,7 +1,7 @@
 Rails.logger.info "SEEDING"
 
 # Real shit
-@program = Program.find_or_create_by(name: "Web Immersive") do |p|
+@program = Program.find_or_create_by(name: "Bootcamp") do |p|
   p.weeks = 10
   p.days_per_week = 5
   p.weekends = true
@@ -12,9 +12,13 @@ end
 
 # Note: assumed that you (your github profile) will have access to this curriculum content repo
 #       and have set your GITHUB_ADMIN_OAUTH_TOKEN in the .env file
+
+# repo_name = "iOS-Curriculum"
+repo_name = "2016-web-curriculum-activities"
+
 @repo = ContentRepository.find_or_create_by!(
   github_username: "lighthouse-labs",
-  github_repo: "2016-web-curriculum-activities"
+  github_repo: repo_name
 )
 
 require Rails.root.join('db/seeds/outcomes/sync').to_s

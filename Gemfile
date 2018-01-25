@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.4.3'
 
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 gem 'sass-rails', '~> 5.0'
@@ -67,6 +67,8 @@ gem 'slack-poster'
 gem 'aws-sdk-core'
 
 gem 'faker'
+
+gem 'youtube_addy'
 
 ## charting / data analytics stuff
 gem 'groupdate'

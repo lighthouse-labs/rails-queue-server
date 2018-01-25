@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180103190253) do
+ActiveRecord::Schema.define(version: 20180108233143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -447,6 +447,7 @@ ActiveRecord::Schema.define(version: 20180103190253) do
     t.integer  "program_id"
     t.string   "title"
     t.string   "presenter_name"
+    t.string   "file_type"
   end
 
   create_table "sections", force: :cascade do |t|

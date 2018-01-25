@@ -6,9 +6,9 @@
 - to_date_core_stats     = to_date_activity_stats[:core]
 - to_date_stretch_stats  = to_date_activity_stats[:stretch]
 
-- today_activity_stats = service.bootcamp_activity_stats(for_day: today)
-- today_core_stats     = today_activity_stats[:core]
-- today_stretch_stats  = today_activity_stats[:stretch]
+- weekly_activity_stats = service.bootcamp_activity_stats(for_week: today)
+- weekly_core_stats     = weekly_activity_stats[:core]
+- weekly_stretch_stats  = weekly_activity_stats[:stretch]
 
 - css_class = ''
 
@@ -56,13 +56,13 @@ tr.student-row class=css_class
         span.sr-only = "#{ratio}% Complete"
 
   - if @cohort.active?
-    td data-value=today_core_stats[:completed]
-      - ratio = today_core_stats[:ratio].round(0).to_i
-      = "#{today_core_stats[:completed]} / #{today_core_stats[:total]} (#{ratio}%)"
+    td data-value=weekly_core_stats[:completed]
+      - ratio = weekly_core_stats[:ratio].round(0).to_i
+      = "#{weekly_core_stats[:completed]} / #{weekly_core_stats[:total]} (#{ratio}%)"
       br
       small
         | Stretch:&nbsp;
-        = "#{today_stretch_stats[:completed]} / #{today_stretch_stats[:total]} (#{today_stretch_stats[:ratio].round(0)}%)"
+        = "#{weekly_stretch_stats[:completed]} / #{weekly_stretch_stats[:total]} (#{weekly_stretch_stats[:ratio].round(0)}%)"
       .progress
         .progress-bar class=progress_bar_class(ratio) role='progressbar' aria-valuenow=ratio aria-valuemin='0' aria-valuemax='100' style="width:#{ratio}%"
           span.sr-only = "#{ratio}% Complete"
