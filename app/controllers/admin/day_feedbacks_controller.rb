@@ -1,6 +1,6 @@
 class Admin::DayFeedbacksController < Admin::BaseController
 
-  FILTER_BY_OPTIONS = [:mood, :day, :location_id, :archived?, :start_date, :end_date].freeze
+  FILTER_BY_OPTIONS = [:mood, :day, :location_id, :archived?, :start_date, :end_date, :cohort].freeze
   DEFAULT_PER = 20
 
   before_action :load_dayfeedback, only: [:archive, :unarchive, :update]
