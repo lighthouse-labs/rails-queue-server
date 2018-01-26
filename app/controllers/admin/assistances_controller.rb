@@ -27,7 +27,7 @@ class Admin::AssistancesController < Admin::BaseController
   end
 
   def filter_by_location
-    @assistances = @assistances.joins(:cohort).where('cohorts.location_id' => params[:location]) if params[:location].present?
+    @assistances = @assistances.joins(:assistee).where('users.location_id' => params[:location]) if params[:location].present?
   end
 
   def filter_by_cohort
