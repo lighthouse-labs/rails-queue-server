@@ -17,17 +17,27 @@ class Content::SetArchive
 
     db_items = model.where(archived: [nil, false]).map{ |m| {id: m.id, uuid: m.uuid} }
 
+    archived_db_items = model.where(archived: true).map{ |m| {id: m.id, uuid: m.uuid} }
+
     db_items.each do |db_item|
-      if not_in_repo_data(repo_uuids, db_item[:uuid])
+      if !in_repo_data(repo_uuids, db_item[:uuid])
         archived_object = model.find_by(id: db_item[:id])
         archived_object.archived = true
         context.fail!("Failed to Set Archive for #{model.name}, id: #{db_item[:id]}") unless archived_object.save
       end
     end
+
+    archived_db_items.each do |db_item|
+      if in_repo_data(repo_uuids, db_item[:uuid])
+        archived_object = model.find_by(id: db_item[:id])
+        archived_object.archived = false
+        context.fail!("Failed to Set Archive for #{model.name}, id: #{db_item[:id]}") unless archived_object.save
+      end
+    end
   end
 
-  def not_in_repo_data(repo_uuids, uuid)
-    !repo_uuids.include?(uuid)
+  def in_repo_data(repo_uuids, db_uuid)
+    repo_uuids.include?(db_uuid)
   end
 
 end

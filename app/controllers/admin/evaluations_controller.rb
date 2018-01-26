@@ -2,7 +2,7 @@ class Admin::EvaluationsController < ApplicationController
 
   def index
     @evaluations = Evaluation.page(params[:page]).newest_first
-    @project_names = Project.pluck(:name, :id)
+    @project_names = Project.active.pluck(:name, :id)
     @locations = Location.pluck(:name, :id)
     apply_filters
   end
