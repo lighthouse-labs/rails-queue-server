@@ -15,14 +15,19 @@ class Content::SetArchive
       repo_uuids.push data['uuid']
     end
 
-    model_data = model.where(archived: [nil, false]).map{ |m| [m.id, m.uuid] }
+    db_items = model.where(archived: [nil, false]).map{ |m| {id: m.id, uuid: m.uuid} }
 
-    model_data.each do |db_item|
-      if !repo_uuids.include?(db_item[1])
-        archived_object = model.find_by(id: db_item[0])
+    db_items.each do |db_item|
+      if not_in_repo_data(repo_uuids, db_item[:uuid])
+        archived_object = model.find_by(id: db_item[:id])
         archived_object.archived = true
-        context.fail!("Failed to Set Archive for #{model.name}, id: #{db_item[0]}") if !archived_object.save
+        context.fail!("Failed to Set Archive for #{model.name}, id: #{db_item[:id]}") unless archived_object.save
       end
     end
   end
+
+  def not_in_repo_data(repo_uuids, uuid)
+    !repo_uuids.include?(uuid)
+  end
+
 end
