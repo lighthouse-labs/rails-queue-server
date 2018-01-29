@@ -102,7 +102,7 @@ class TechInterviewsController < ApplicationController
   def require_interview
     @tech_interview = TechInterview.find params[:id]
     @interview_template ||= @tech_interview.tech_interview_template
-    @questions = @interview_template.questions.active.sequencial
+    @questions = @interview_template.questions.active.sequential
   end
 
   def only_incomplete
