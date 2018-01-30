@@ -3,15 +3,13 @@
   .stat.panel.panel-default
     .panel-body
       | &nbsp;
-      - total_seconds = @evaluations.map{ |e| e.duration }.reduce(:+)
-      = seconds_to_formatted_time(total_seconds)
+      = total_marking_time(@evaluations)
     span Total Marking Time
 
   .stat.panel.panel-default
     .panel-body
       | &nbsp;
-      - average_seconds = @evaluations.map{ |e| e.duration }.reduce(:+) / @evaluations.count
-      = seconds_to_formatted_time(average_seconds)
+      = average_marking_time(@evaluations)
     span Average Marking Time
 
   .stat.panel.panel-default

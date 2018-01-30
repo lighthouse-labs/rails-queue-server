@@ -37,10 +37,11 @@ module ApplicationHelper
   end
 
   def seconds_to_formatted_time(secs)
-    secs /= 60
+    return "#{secs.to_i} seconds" if secs < 60
+    mins = secs / 60
     [[60, :minutes], [24, :hours], [1000, :days]].map{ |count, name|
-      if secs > 0
-        secs, n = secs.divmod(count)
+      if mins > 0
+        mins, n = mins.divmod(count)
         "#{n.to_i} #{name}"
       end
     }.compact.reverse.join(' ')
