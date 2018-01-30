@@ -1,5 +1,19 @@
 # Change Log
 
+## [2018.01.29.1130](https://github.com/lighthouse-labs/compass/tree/2018.01.29.1130) (2018-01-29)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.01.22.0930...2018.01.29.1130)
+
+**Merged pull requests:**
+
+- Fixed Ordering of Tech Interview Questions [\#514](https://github.com/lighthouse-labs/compass/pull/514) ([jmatsuba](https://github.com/jmatsuba))
+- Add Cohort Filter to Admin Day Feedback Page [\#509](https://github.com/lighthouse-labs/compass/pull/509) ([ahache](https://github.com/ahache))
+- Fix Location Filter for Admin Assistances [\#508](https://github.com/lighthouse-labs/compass/pull/508) ([ahache](https://github.com/ahache))
+- Admin - Minor UI fixes [\#505](https://github.com/lighthouse-labs/compass/pull/505) ([jmatsuba](https://github.com/jmatsuba))
+- Admin::Cohorts Fix Active Cohort Selection [\#503](https://github.com/lighthouse-labs/compass/pull/503) ([jmatsuba](https://github.com/jmatsuba))
+- Activity Helper Fix for Teacher Resources [\#501](https://github.com/lighthouse-labs/compass/pull/501) ([jmatsuba](https://github.com/jmatsuba))
+- Validate Curriculum Day String on Admin Student Edit [\#498](https://github.com/lighthouse-labs/compass/pull/498) ([ahache](https://github.com/ahache))
+- Update ruby and rails to latest minor versions [\#463](https://github.com/lighthouse-labs/compass/pull/463) ([kvirani](https://github.com/kvirani))
+
 ## [2018.01.22.0930](https://github.com/lighthouse-labs/compass/tree/2018.01.22.0930) (2018-01-19)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.12.19.1530...2018.01.22.0930)
 
