@@ -13,17 +13,11 @@ h3.date-heading {
   user-select: none;
 
   .btn-yesterday {
-    @include button-variant($btn-default-color, $brand-secondary, $btn-primary-hover-bg, $btn-primary-active-bg);
   }
   .btn-today {
-    @include button-variant($btn-default-color, $brand-warning, $btn-warning-hover-bg, $btn-warning-active-bg);
   }
   .btn-incomplete-activites {
-    @include button-variant($btn-default-color, $brand-info, $btn-info-hover-bg, $btn-info-active-bg);
-    width: 174px;
-    @media (min-width: $screen-md-min) {
-      margin-top: 4px;
-    }
+
   }
 }
 
@@ -35,7 +29,7 @@ nav.side-nav {
 
 .nav-week {
   @extend .pagination;
-  @extend .pagination-minimal;
+
   display: inline-block;
   margin: 0 4px 4px 0;
   ul {

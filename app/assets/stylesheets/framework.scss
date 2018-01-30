@@ -1,16 +1,17 @@
-@import "flat-ui-pro/variables";
-@import "flat_ui_variable_overrides";
 @import "bootstrap";
 @import "font-awesome";
-@import "flat-ui-pro";
-@import "flat_ui_overrides";
 @import "jquery-ui/datepicker";
 @import "chosen";
 @import "prism";
 @import "bootstrap-sortable";
 
-// Fix issue with .select form flat-ui CC
 
-div.form-group.select {
-  display: block;
-}
+
+$btn-success-hover-bg: green;
+$btn-danger-hover-bg: green;
+$brand-secondary: green;
+$btn-primary-hover-bg: green;
+$btn-primary-active-bg: green;
+$peter-river: green;
+$clouds: green;
+$green-sea: green;

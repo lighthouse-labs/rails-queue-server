@@ -52,33 +52,7 @@ header > nav {
     }
   }
 
-  .navbar-btn {
-    &.btn-warning {
-      background-color: $brand-warning;
-      &:hover,
-      &:focus {
-        background-color: #dab10d;
-      }
-    }
 
-    &.btn-success {
-      background-color: $brand-success;
-      &:hover,
-      &:focus {
-        background-color: $btn-success-hover-bg;
-        color: white;
-      }
-    }
-
-    &.btn-danger {
-      background-color: $brand-danger;
-      &:hover,
-      &:focus {
-        background-color: $btn-danger-hover-bg;
-        color: white;
-      }
-    }
-  }
   #assistance-request-module {
     margin-left: 10px;
     margin-right: -10px;

@@ -10,23 +10,17 @@
     display: inline-block;
   }
   .btn-previous {
-    @include button-variant($btn-default-color, $brand-secondary, $btn-primary-hover-bg, $btn-primary-active-bg);
     margin-right: 10px;
   }
   .btn-next {
-    @include button-variant($btn-default-color, $brand-secondary, $btn-primary-hover-bg, $btn-primary-active-bg);
   }
   .btn-edit {
-    @include button-variant($btn-default-color, $brand-warning, $btn-warning-hover-bg, $btn-warning-active-bg);
   }
   .btn-revisions {
-    @include button-variant($btn-default-color, $brand-warning, $btn-warning-hover-bg, $btn-warning-active-bg);
   }
   .btn-new-message {
-    @include button-variant($btn-default-color, $brand-danger, $btn-danger-hover-bg, $btn-danger-active-bg);
   }
   .btn-new-recording {
-    @include button-variant($btn-default-color, $brand-danger, $btn-danger-hover-bg, $btn-danger-active-bg);
   }
   .btn-edit,
   .btn-revisions,
@@ -51,13 +45,10 @@
     float: right;
   }
   .btn-activity-complete-status {
-    @include button-variant($btn-default-color, $brand-success, $btn-success-hover-bg, $btn-success-active-bg);
   }
   .btn-activity-complete-status-no-code-review {
-   @include button-variant($btn-default-color, $brand-info, $btn-info-hover-bg, $btn-info-active-bg);
   }
   .btn-activity-incomplete-status {
-    @include button-variant($btn-default-color, $brand-danger, $btn-danger-hover-bg, $btn-danger-active-bg);
   }
   .fa-1 {
     font-size: 1.7em;
