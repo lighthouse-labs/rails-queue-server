@@ -30,6 +30,13 @@ module ApplicationHelper
   # Ex: integer_time_to_s(930) # => "9:30"
   def integer_time_to_s(int_time)
     return nil if int_time.blank?
+
+    location_time = ActiveSupport::TimeZone[current_user.location.timezone].formatted_offset(false).to_i
+    cohort_time = ActiveSupport::TimeZone[current_user.cohort.location.timezone].formatted_offset(false).to_i
+    time_offset = location_time - cohort_time
+
+    int_time += time_offset
+
     hours = int_time / 100
     minutes = int_time % 100
     minutes = "00" if minutes == 0
