@@ -1,13 +1,7 @@
 @import "bootstrap";
+@import "flat_ui_stubs";
 @import "font-awesome";
 @import "jquery-ui/datepicker";
 @import "chosen";
 @import "prism";
 @import "bootstrap-sortable";
-
-
-//NEEDED to prop up flat ui extraction
-$brand-secondary: #1abc9c;
-$peter-river: #3498db;
-$clouds: #ecf0f1;
-$green-sea: #16a085;
