@@ -533,6 +533,7 @@ ActiveRecord::Schema.define(version: 20180108233143) do
     t.text     "teacher_notes"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.boolean  "archived"
     t.index ["content_repository_id"], name: "index_tech_interview_templates_on_content_repository_id", using: :btree
   end
 

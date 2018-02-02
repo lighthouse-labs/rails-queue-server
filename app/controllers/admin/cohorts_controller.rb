@@ -46,7 +46,7 @@ class Admin::CohortsController < Admin::BaseController
   def show
     @active_students = @cohort.students.active.includes(:location).references(:location).order('locations.name')
     @other_students  = @cohort.rolled_out_students.to_a + @cohort.students.deactivated.to_a
-    @interview_templates = TechInterviewTemplate.all
+    @interview_templates = TechInterviewTemplate.active
     @projects = Project.active
   end
 
