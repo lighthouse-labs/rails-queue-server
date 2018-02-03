@@ -15,6 +15,7 @@ class Content::LoadPrepSections
     sections = YAML.load_file(File.join(@repo_dir, 'prep.yml'))['sections']
 
     Content::ValidateUuids.call(collection: sections)
+    Content::SetArchive.call(repo_data: sections, model: Prep)
     sections.each do |section_attributes|
       @records.push build_prep_section(section_attributes)
     end

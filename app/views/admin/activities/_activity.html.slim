@@ -15,10 +15,10 @@ tr
     - if activity.prep?
       | Prep
       br
-      small = activity.section.name
+      small = activity.section.name 
     - else
       = activity.day.try :upcase
-      - if activity.section
+      - if activity.section && !activity.section.archived?
         br
         small
           | Project:&nbsp;
