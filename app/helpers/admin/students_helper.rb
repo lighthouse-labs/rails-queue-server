@@ -12,4 +12,8 @@ module Admin::StudentsHelper
     end
   end
 
+  def day_placeholder(user)
+    user.use_double_digit_week? ? "wxxdx or wxxe" : "wxdx or wxe"
+  end
+
 end

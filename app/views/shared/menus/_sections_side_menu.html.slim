@@ -2,21 +2,22 @@ h1 = title
 
 .panel-group.prep-menu id="accordion" role="tablist" aria-multiselectable="true"
   - sections.each_with_index do |section, i|
-    - active = @activity && section.activities.include?(@activity)
+    - if !section.archived?
+      - active = @activity && section.activities.include?(@activity)
 
-    .panel class="panel-default #{'selected' if active}"
-      .panel-heading role="tab" id="#{section.slug}"
-        = link_to "#collapse_#{section.slug}", data: { toggle: 'collapse', parent: '#accordion'}, aria: { controls: "collapse_#{section.slug}", expanded: active } do
-            = section.name
-            | &nbsp;(
-            - if section.core_duration_in_hours == section.total_duration_in_hours
-              = "#{number_with_precision section.core_duration_in_hours, precision: 0}h"
-            - else
-              = "#{number_with_precision section.core_duration_in_hours, precision: 0}-#{number_with_precision section.total_duration_in_hours, precision: 0}h"
-            | )
-      div class="panel-collapse collapse #{'in' if active}" id="collapse_#{section.slug}" role="tabpanel" aria-labelledby="#{section.slug}"
-        .panel-body
-          = render "shared/menus/section_activities", section: section
+      .panel class="panel-default #{'selected' if active}"
+        .panel-heading role="tab" id="#{section.slug}"
+          = link_to "#collapse_#{section.slug}", data: { toggle: 'collapse', parent: '#accordion'}, aria: { controls: "collapse_#{section.slug}", expanded: active } do
+              = section.name
+              | &nbsp;(
+              - if section.core_duration_in_hours == section.total_duration_in_hours
+                = "#{number_with_precision section.core_duration_in_hours, precision: 0}h"
+              - else
+                = "#{number_with_precision section.core_duration_in_hours, precision: 0}-#{number_with_precision section.total_duration_in_hours, precision: 0}h"
+              | )
+        div class="panel-collapse collapse #{'in' if active}" id="collapse_#{section.slug}" role="tabpanel" aria-labelledby="#{section.slug}"
+          .panel-body
+            = render "shared/menus/section_activities", section: section
 
 - if title == "Prep Work"
   = render "layouts/jump_to_activity", grouped_activities: prep_activities_uuid_for_select

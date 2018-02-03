@@ -25,6 +25,9 @@
       = select_tag :archived?, options_for_select([["Archived", "true"], ["Unarchived", "false"]], params[:archived?]), prompt: 'All Statuses', class: "form-control admin-feedback-dropdown"
 
     .form-group
-      = text_field_tag 'day', params[:day], placeholder: 'Day e.g. w1d2 or w1', class: "form-control admin-feedback-text-box"
+      = select_tag :cohort_id, options_from_collection_for_select(Cohort.all.order('created_at').reverse, "id", "name", params[:cohort_id]), prompt: 'All Cohorts', class: "form-control admin-feedback-dropdown"
+
+    .form-group
+      = text_field_tag 'day', params[:day], placeholder: 'Day e.g. w01d2 or w01', class: "form-control admin-feedback-text-box"
 
     = submit_tag 'Filter', class: 'btn btn-success admin-feedback-button'

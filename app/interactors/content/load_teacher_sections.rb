@@ -18,6 +18,7 @@ class Content::LoadTeacherSections
     sections = YAML.load_file(File.join(dir, 'sections.yml'))['sections']
 
     Content::ValidateUuids.call(collection: sections)
+    Content::SetArchive.call(repo_data: sections, model: TeacherSection)
     sections.each do |section_attributes|
       @records.push build_teacher_section(section_attributes)
     end

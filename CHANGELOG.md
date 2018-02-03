@@ -1,5 +1,43 @@
 # Change Log
 
+## [2018.01.29.1130](https://github.com/lighthouse-labs/compass/tree/2018.01.29.1130) (2018-01-29)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.01.22.0930...2018.01.29.1130)
+
+**Merged pull requests:**
+
+- Fixed Ordering of Tech Interview Questions [\#514](https://github.com/lighthouse-labs/compass/pull/514) ([jmatsuba](https://github.com/jmatsuba))
+- Add Cohort Filter to Admin Day Feedback Page [\#509](https://github.com/lighthouse-labs/compass/pull/509) ([ahache](https://github.com/ahache))
+- Fix Location Filter for Admin Assistances [\#508](https://github.com/lighthouse-labs/compass/pull/508) ([ahache](https://github.com/ahache))
+- Admin - Minor UI fixes [\#505](https://github.com/lighthouse-labs/compass/pull/505) ([jmatsuba](https://github.com/jmatsuba))
+- Admin::Cohorts Fix Active Cohort Selection [\#503](https://github.com/lighthouse-labs/compass/pull/503) ([jmatsuba](https://github.com/jmatsuba))
+- Activity Helper Fix for Teacher Resources [\#501](https://github.com/lighthouse-labs/compass/pull/501) ([jmatsuba](https://github.com/jmatsuba))
+- Validate Curriculum Day String on Admin Student Edit [\#498](https://github.com/lighthouse-labs/compass/pull/498) ([ahache](https://github.com/ahache))
+- Update ruby and rails to latest minor versions [\#463](https://github.com/lighthouse-labs/compass/pull/463) ([kvirani](https://github.com/kvirani))
+
+## [2018.01.22.0930](https://github.com/lighthouse-labs/compass/tree/2018.01.22.0930) (2018-01-19)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.12.19.1530...2018.01.22.0930)
+
+**Merged pull requests:**
+
+- Fix Student/Project Association on Teacher Evaluations Page [\#495](https://github.com/lighthouse-labs/compass/pull/495) ([ahache](https://github.com/ahache))
+- Update Calendar Date Constructor to Use 10 Week Strings [\#493](https://github.com/lighthouse-labs/compass/pull/493) ([ahache](https://github.com/ahache))
+- Adjust Cohort Dropdown in Admin/Assistances to Show All Cohorts [\#486](https://github.com/lighthouse-labs/compass/pull/486) ([ahache](https://github.com/ahache))
+- Show Satellite Mentors in Teacher Holder for Satellite Students [\#484](https://github.com/lighthouse-labs/compass/pull/484) ([ahache](https://github.com/ahache))
+- Disable Multiple Activity Submissions [\#479](https://github.com/lighthouse-labs/compass/pull/479) ([ahache](https://github.com/ahache))
+- Add Count of Quiz Completion in Days View [\#478](https://github.com/lighthouse-labs/compass/pull/478) ([ahache](https://github.com/ahache))
+- Update Redcarpet Gem and Add Support for Markdown Strikethrough [\#477](https://github.com/lighthouse-labs/compass/pull/477) ([ahache](https://github.com/ahache))
+- Update Dev Seeds to 10 Week Program [\#476](https://github.com/lighthouse-labs/compass/pull/476) ([ahache](https://github.com/ahache))
+- Allow YouTube Lecture Recordings to be Embedded in Compass [\#474](https://github.com/lighthouse-labs/compass/pull/474) ([ahache](https://github.com/ahache))
+- Projects now have teacher notes [\#470](https://github.com/lighthouse-labs/compass/pull/470) ([kvirani](https://github.com/kvirani))
+- NewRelic Monitoring [\#462](https://github.com/lighthouse-labs/compass/pull/462) ([kvirani](https://github.com/kvirani))
+- Clear Reason Text in Modal After AR Submission [\#453](https://github.com/lighthouse-labs/compass/pull/453) ([ahache](https://github.com/ahache))
+- Remove Deprecated CRUD Activity Code and Routes [\#452](https://github.com/lighthouse-labs/compass/pull/452) ([ahache](https://github.com/ahache))
+- Change Activity Feedback Dropdown to Raty Scale [\#450](https://github.com/lighthouse-labs/compass/pull/450) ([ahache](https://github.com/ahache))
+- Switch Daily Progress to Weekly Progress in Admin Cohort Dashboard [\#447](https://github.com/lighthouse-labs/compass/pull/447) ([ahache](https://github.com/ahache))
+- Correct Logic for Displaying Tech Interviews in Queue [\#446](https://github.com/lighthouse-labs/compass/pull/446) ([ahache](https://github.com/ahache))
+- Fix Seed Data Generation [\#443](https://github.com/lighthouse-labs/compass/pull/443) ([ahache](https://github.com/ahache))
+- Update Compass Icon Link for Prep Users [\#440](https://github.com/lighthouse-labs/compass/pull/440) ([ahache](https://github.com/ahache))
+
 ## [2017.12.19.1530](https://github.com/lighthouse-labs/compass/tree/2017.12.19.1530) (2017-12-19)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.12.14.0930...2017.12.19.1530)
 

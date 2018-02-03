@@ -3,6 +3,7 @@
 #  - KV
 
 if Rails.env.development?
+  require_relative "stock_photos.rb"
 
   locations = [@location_van, @location_to]
 
@@ -12,7 +13,7 @@ if Rails.env.development?
   cohort_van_junior ||= Cohort.create! name: "Junior Cohort Van", location: @location_van, start_date: Time.now.monday - 14.days, program: @program, code: "vanj"
 
   cohort_van_senior = Cohort.find_by(code: 'vans')
-  cohort_van_senior ||= Cohort.create! name: "Senior Cohort Van", location: @location_van, start_date: Time.now.monday - 42.days, program: @program, code: "vans"  
+  cohort_van_senior ||= Cohort.create! name: "Senior Cohort Van", location: @location_van, start_date: Time.now.monday - 42.days, program: @program, code: "vans"
 
   cohort_tor = Cohort.find_by(code: 'toto')
   cohort_tor ||= Cohort.create! name: "Current Cohort Tor", location: @location_to, start_date: Time.now.monday - 14.days, program: @program, code: "toto"
@@ -37,7 +38,7 @@ if Rails.env.development?
       quirky_fact:            Faker::Lorem.sentence,
       phone_number:           Faker::PhoneNumber.phone_number,
       github_username:        Faker::Internet.user_name,
-      avatar_url:             Faker::LoremPixel.image("#{50+x}x#{50+x}"),
+      avatar_url:             @avatars.sample,
       location:               locations.sample
     )
   end
@@ -52,7 +53,7 @@ if Rails.env.development?
         cohort:                 cohort,
         phone_number:           Faker::PhoneNumber.phone_number,
         github_username:        Faker::Internet.user_name,
-        avatar_url:             Faker::LoremPixel.image("#{50+i}x#{50+i}"),
+        avatar_url:             @avatars.sample,
         location:               i < 10 ? cohort.location : @location_cal,
         uid:                    1000 + i,
         token:                  2000 + i,
@@ -111,14 +112,14 @@ if Rails.env.development?
 
   # Needed for project evals
   rubric = {
-    "project_organization"=>{"name"=>"Project Organization","order"=>10,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
-    "version_control"=>{"name"=>"Version Control","order"=>20,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
-    "functional_requirements"=>{"name"=>"Functional Requirements","order"=>30,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
-    "user_experience"=>{"name"=>"User Experience","order"=>40,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
-    "code_structure"=>{"name"=>"Code Style","order"=>50,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
-    "commenting"=>{"name"=>"Commenting","order"=>60,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
-    "code_best_practices"=>{"name"=>"JavaScript, HTML and CSS Best Practices","order"=>70,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
-    "code_modularity"=>{"name"=>"Code Modularity and Reusability","order"=>80,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}, 
+    "project_organization"=>{"name"=>"Project Organization","order"=>10,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}},
+    "version_control"=>{"name"=>"Version Control","order"=>20,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}},
+    "functional_requirements"=>{"name"=>"Functional Requirements","order"=>30,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}},
+    "user_experience"=>{"name"=>"User Experience","order"=>40,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}},
+    "code_structure"=>{"name"=>"Code Style","order"=>50,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}},
+    "commenting"=>{"name"=>"Commenting","order"=>60,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}},
+    "code_best_practices"=>{"name"=>"JavaScript, HTML and CSS Best Practices","order"=>70,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}},
+    "code_modularity"=>{"name"=>"Code Modularity and Reusability","order"=>80,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}},
     "solution_techniques"=>{"name"=>"Solution Techniques","order"=>90,"rankings"=>{"exceptional"=>Faker::Lorem.sentence,"acceptable"=>Faker::Lorem.sentence,"needs_work"=>Faker::Lorem.sentence,"unsatisfactory"=>Faker::Lorem.sentence}}
   }
 
@@ -143,14 +144,14 @@ if Rails.env.development?
         evaluation_checklist: Faker::Lorem.sentence,
         evaluation_guide: Faker::Lorem.sentence,
         last_sha1: Faker::Number.number(10),
-        result: {"commenting": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
-                "code_structure": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
-                "code_modularity": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
-                "user_experience": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
-                "version_control": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
-                "code_best_practices": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
-                "solution_techniques": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
-                "project_organization": {"score": score.sample,"feedback": Faker::Lorem.sentence}, 
+        result: {"commenting": {"score": score.sample,"feedback": Faker::Lorem.sentence},
+                "code_structure": {"score": score.sample,"feedback": Faker::Lorem.sentence},
+                "code_modularity": {"score": score.sample,"feedback": Faker::Lorem.sentence},
+                "user_experience": {"score": score.sample,"feedback": Faker::Lorem.sentence},
+                "version_control": {"score": score.sample,"feedback": Faker::Lorem.sentence},
+                "code_best_practices": {"score": score.sample,"feedback": Faker::Lorem.sentence},
+                "solution_techniques": {"score": score.sample,"feedback": Faker::Lorem.sentence},
+                "project_organization": {"score": score.sample,"feedback": Faker::Lorem.sentence},
                 "functional_requirements": {"score": score.sample,"feedback": Faker::Lorem.sentence}},
         state: 'accepted'
       )

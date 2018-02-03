@@ -1,5 +1,6 @@
-= form.input :rating, collection: [['5 - Perfect', 5], ['4 - Great', 4], ['3 - Good', 3], ['2 - Problematic', 2], ['1 - Useless', 1]], allow_blank: true, label: 'Rate this activity overall (optional)'
-= form.input :sentiment, collection: [['Negative', -1], ['Neutral', 0], ['Positive', 1]], label: 'Positive or negative feedback? (optional)', allow_blank: true
+= form.label 'Rate this activity overall (optional)'
+.raty-editor name="feedback[rating]" data-score=form.object.rating value=""
+  = form.hidden_field :rating
 = form.input :detail, placeholder: 'The more you can give us the better!'
 = form.submit 'Submit Feedback', class: 'btn btn-tiny btn-primary'
 

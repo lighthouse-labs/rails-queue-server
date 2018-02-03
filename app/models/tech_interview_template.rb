@@ -10,6 +10,8 @@ class TechInterviewTemplate < ApplicationRecord
   validates :week, presence: true
   validates :uuid, presence: true
 
+  scope :active, -> { where(archived: [false, nil]) }
+
   def pending_interview_for(student)
     tech_interviews.interviewing(student).order(updated_at: :desc).queued.first
   end

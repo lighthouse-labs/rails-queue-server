@@ -11,7 +11,7 @@ class PrepsController < ApplicationController
   private
 
   def redirect_to_first_activity
-    @prep = params[:id].present? ? Prep.find_by!(slug: params[:id]) : Prep.first
+    @prep = params[:id].present? ? Prep.active.find_by!(slug: params[:id]) : Prep.active.first
     @activity = @prep.activities.chronological.active.first
     redirect_to prep_activity_path(@prep, @activity)
   end

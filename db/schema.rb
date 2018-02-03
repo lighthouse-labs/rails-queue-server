@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180103190253) do
+ActiveRecord::Schema.define(version: 20180108233143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -447,6 +447,7 @@ ActiveRecord::Schema.define(version: 20180103190253) do
     t.integer  "program_id"
     t.string   "title"
     t.string   "presenter_name"
+    t.string   "file_type"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -470,6 +471,7 @@ ActiveRecord::Schema.define(version: 20180103190253) do
     t.text     "evaluation_guide"
     t.text     "evaluation_checklist"
     t.text     "teacher_notes"
+    t.boolean  "archived"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end
@@ -531,6 +533,7 @@ ActiveRecord::Schema.define(version: 20180103190253) do
     t.text     "teacher_notes"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.boolean  "archived"
     t.index ["content_repository_id"], name: "index_tech_interview_templates_on_content_repository_id", using: :btree
   end
 

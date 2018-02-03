@@ -14,6 +14,8 @@ class Content::LoadInterviews
   def call
     interview_data = load_all_interview_data
     Content::ValidateUuids.call(collection: interview_data)
+    Content::SetArchive.call(repo_data: interview_data, model: TechInterviewTemplate)
+    Content::SetArchive.call(repo_data: interview_data, model: TechInterviewQuestion)
     build_records(interview_data)
   end
 

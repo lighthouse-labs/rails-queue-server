@@ -9,7 +9,7 @@
     = render 'action_bar', activity_presenter: activity_presenter
     hr
 
-    - if @activity.section && @activity.section.is_a?(Project)
+    - if @activity.section && @activity.section.is_a?(Project) && !@activity.section.archived?
       h4 This activity should help you progress with a project:
       = render @activity.section
 
@@ -74,10 +74,11 @@
                 div
                   = "Guest presenter: #{recording.presenter_name}"
               div
-                a href=recording.s3_url title="Right click > Save Link As..."
-                  span.fa.fa-file-video-o
-                  |  Download file
-                = ' &bull; '.html_safe
+                - if recording.s3_url
+                  a href=recording.s3_url title="Right click > Save Link As..."
+                    span.fa.fa-file-video-o
+                    |  Download file
+                  = ' &bull; '.html_safe
                 = link_to 'Watch now &raquo;'.html_safe, recording
 
     - if teacher? && @program.lecture_tips? && @activity.is_a?(Lecture)

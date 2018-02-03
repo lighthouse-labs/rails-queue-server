@@ -4,6 +4,7 @@ class TechInterviewQuestion < ApplicationRecord
   belongs_to :outcome
 
   scope :active, -> { where(archived: false) }
+  scope :sequential, ->  { order(:sequence) }
 
   validates :tech_interview_template, presence: true
   validates :uuid, presence: true

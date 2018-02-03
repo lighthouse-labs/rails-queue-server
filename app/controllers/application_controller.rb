@@ -84,7 +84,6 @@ class ApplicationController < ActionController::Base
 
     if current_user
       location = current_user.location
-      location = current_user.cohort.location if current_user.is_a?(Student)
       Teacher.where(on_duty: true, location: location)
     else
       []
