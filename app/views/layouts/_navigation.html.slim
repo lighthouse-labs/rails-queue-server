@@ -163,9 +163,9 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
               = link_to 'Your Tech Interviews', teacher_tech_interviews_path, class: 'dropdown-item'
 
         - if teacher? && !impersonating?
-          li.new-issue
+          li.new-issue style="margin-right: 10px;"
             div class="btn-group" data-toggle="tooltip" data-placement="left" title="Report curriculum or compass issues (thanks!)"
-              button type="button" class="navbar-btn btn btn-warning dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 | + Issue&nbsp;
                 span class="caret"
 
@@ -177,8 +177,8 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             li.teacher-duty
               span
                 - attrs = { data: { toggle: 'tooltip', placement: 'bottom' }, title: "Your Location: #{current_user.location.try(:name) || 'N/A'}" }
-                = link_to "Go on duty", '#', { class: "on-duty-link navbar-btn btn btn-sm btn-success", hidden: current_user.on_duty?, onclick: "ga('send', 'event', 'go-on-duty', 'click');"}.merge(attrs)
-                = link_to "Go off duty", '#', { class: "off-duty-link navbar-btn btn btn-sm btn-danger", hidden: !current_user.on_duty?, onclick: "ga('send', 'event', 'go-off-duty', 'click');"}.merge(attrs)
+                = link_to "Go on duty", '#', { class: "on-duty-link btn btn-outline-success", hidden: current_user.on_duty?, onclick: "ga('send', 'event', 'go-on-duty', 'click');"}.merge(attrs)
+                = link_to "Go off duty", '#', { class: "off-duty-link  btn btn-outline-danger", hidden: !current_user.on_duty?, onclick: "ga('send', 'event', 'go-off-duty', 'click');"}.merge(attrs)
 
         // Queue Menu Item for Students
         - if impersonating? && (current_user.try(:active_student?) || (@program.prep_assistance? && current_user.try(:enrolled_and_prepping?)))
