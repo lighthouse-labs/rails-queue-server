@@ -41,7 +41,7 @@ header > nav {
     > li > a {
       @include media-breakpoint-up(xs) {
         padding: 15px 5px;
-        font-size: 0.74em;
+        // font-size: 0.74em;
 
         &.logo {
           font-size: 1.4em;
