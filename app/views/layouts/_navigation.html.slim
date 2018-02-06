@@ -1,7 +1,7 @@
 
 
 
-nav.navbar.navbar-expand-md.navbar-dark.bg-dark role="navigation" data-turbolinks-permanent="true"
+nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data-turbolinks-permanent="true"
   - if current_user
     - home = current_user.prospect? ? prep_index_path : day_path('today')
   - else
