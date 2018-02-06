@@ -3,7 +3,7 @@ body {
   min-height: 100%;
 }
 body {
-  padding-top: 70px;
+  padding-top: 80px;
 }
 .non-tablet-label {
   @include media-breakpoint-between(sm, md) {
@@ -40,8 +40,8 @@ header > nav {
 
     > li > a {
       @include media-breakpoint-up(xs) {
-        padding: 15px 5px;
-        font-size: 0.74em;
+        // padding: 15px 5px;
+        // font-size: 0.74em;
 
         &.logo {
           font-size: 1.4em;
