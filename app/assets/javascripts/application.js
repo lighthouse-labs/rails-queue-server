@@ -15,6 +15,7 @@
 //= require select2
 //= require turbolinks
 //= require jquery-ui/autocomplete
+//= require popper
 //= require bootstrap-sprockets
 //= require chosen.jquery.min
 //= require default

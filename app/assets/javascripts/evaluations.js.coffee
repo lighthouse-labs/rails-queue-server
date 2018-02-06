@@ -3,10 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'turbolinks:load', ->
-  $('body.project-evals-edit .actions').affix(
-    offset:
-      top: 800
-  )
+  # $('body.project-evals-edit .actions').affix(
+  #   offset:
+  #     top: 800
+  # )
 
   autosize($('body.project-evals-edit-new textarea'))
 
@@ -70,9 +70,9 @@ $ ->
       $('input.btn-evaluation[value="Accept"]').removeClass('hide')
       $('input.btn-evaluation[value="Reject"]').addClass('hide')
 
-$(document).on 'turbolinks:load', ->
-  $('body.project-evals-show .actions').affix(
-    offset:
-      top: 300
-      bottom: 200
-  )
+# $(document).on 'turbolinks:load', ->
+#   $('body.project-evals-show .actions').affix(
+#     offset:
+#       top: 300
+#       bottom: 200
+#   )
