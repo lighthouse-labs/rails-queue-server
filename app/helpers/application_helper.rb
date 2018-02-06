@@ -29,18 +29,26 @@ module ApplicationHelper
   # Display an integer time as a string
   # Ex: integer_time_to_s(930) # => "9:30"
   def integer_time_to_s(int_time)
-    return nil if int_time.blank?
+    return nil if int_time.blank? || current_user.nil?
 
-    location_time = ActiveSupport::TimeZone[current_user.location.timezone].formatted_offset(false).to_i
-    cohort_time = ActiveSupport::TimeZone[current_user.cohort.location.timezone].formatted_offset(false).to_i
-    time_offset = location_time - cohort_time
-
-    int_time += time_offset
+    if different_time_zone?
+      location_time = ActiveSupport::TimeZone[current_user.location.timezone].formatted_offset(false).to_i
+      cohort_time = ActiveSupport::TimeZone[current_user.cohort.location.timezone].formatted_offset(false).to_i
+      time_offset = location_time - cohort_time
+      int_time += time_offset
+    end
 
     hours = int_time / 100
     minutes = int_time % 100
     minutes = "00" if minutes == 0
     "#{hours}:#{minutes}"
+  end
+
+  def different_time_zone?
+    # very defensive b/c at one time user validation was not enforced and location timezone is not required.
+    return false if current_user.cohort.nil? || current_user.location.nil?
+    return false if current_user.location.timezone.nil? || current_user.cohort.location.timezone.nil?
+    current_user.location.timezone != current_user.cohort.location.timezone
   end
 
   def seconds_to_formatted_time(secs)
