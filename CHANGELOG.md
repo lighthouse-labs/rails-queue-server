@@ -1,5 +1,14 @@
 # Change Log
 
+## [2018.02.06.1145](https://github.com/lighthouse-labs/compass/tree/2018.02.06.1145) (2018-02-06)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.01.29.1130...2018.02.06.1145)
+
+**Merged pull requests:**
+
+- Correcting time for satellite cohorts in different time zones [\#516](https://github.com/lighthouse-labs/compass/pull/516) ([ahache](https://github.com/ahache))
+- Improvements to Admin/Project-Evaluations Page [\#497](https://github.com/lighthouse-labs/compass/pull/497) ([ahache](https://github.com/ahache))
+- Auto Archive Deleted Curriculum Data on Deploy [\#433](https://github.com/lighthouse-labs/compass/pull/433) ([ahache](https://github.com/ahache))
+
 ## [2018.01.29.1130](https://github.com/lighthouse-labs/compass/tree/2018.01.29.1130) (2018-01-29)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.01.22.0930...2018.01.29.1130)
 
