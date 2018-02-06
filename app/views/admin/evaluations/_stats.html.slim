@@ -2,6 +2,18 @@
 
   .stat.panel.panel-default
     .panel-body
+      | &nbsp;
+      = total_marking_time(@evaluations)
+    span Total Marking Time
+
+  .stat.panel.panel-default
+    .panel-body
+      | &nbsp;
+      = average_marking_time(@evaluations)
+    span Average Marking Time
+
+  .stat.panel.panel-default
+    .panel-body
       h3
         | &nbsp;
         span title='Queued' data-toggle='tooltip'

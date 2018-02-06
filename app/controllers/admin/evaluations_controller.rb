@@ -1,8 +1,11 @@
 class Admin::EvaluationsController < ApplicationController
 
+  DEFAULT_PER = 100
+
   def index
-    @evaluations = Evaluation.page(params[:page]).newest_first
-    @project_names = Project.active.pluck(:name, :id)
+    page = params[:page] || 1
+    @evaluations = Evaluation.all.page(page).per(DEFAULT_PER).newest_first
+    @project_names = Project.pluck(:name, :id)
     @locations = Location.pluck(:name, :id)
     apply_filters
   end
@@ -15,6 +18,7 @@ class Admin::EvaluationsController < ApplicationController
     filter_by_end_date
     filter_by_location
     filter_by_keywords
+    filter_by_cohort
     exclude_incomplete
     exclude_cancelled
     exclude_autocomplete
@@ -47,6 +51,10 @@ class Admin::EvaluationsController < ApplicationController
     else
       @evaluations = @evaluations.student_location(Location.find(params[:location_id]))
     end
+  end
+
+  def filter_by_cohort
+    @evaluations = @evaluations.where(cohort: params[:cohort_id]) if params[:cohort_id].present?
   end
 
   def filter_by_keywords
