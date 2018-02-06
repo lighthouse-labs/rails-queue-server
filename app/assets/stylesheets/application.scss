@@ -1,5 +1,5 @@
 @import "framework";
-// @import "layout";
+@import "layout";
 @import "layout2";
 // @import "navigation";
 // @import "side_nav";
@@ -16,7 +16,7 @@
 // @import "day_information";
 // @import "teachers";
 // @import "incomplete_activities";
-// @import "reconnect_holder";
+@import "reconnect_holder";
 // @import "search";
 // @import "students";
 // @import "prep";

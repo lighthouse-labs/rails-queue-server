@@ -6,7 +6,7 @@ body {
   padding-top: 70px;
 }
 .non-tablet-label {
-  @media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
+  @include media-breakpoint-between(sm, md) {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -39,7 +39,7 @@ header > nav {
     }
 
     > li > a {
-      @media (min-width: $screen-xs-max) {
+      @include media-breakpoint-up(xs) {
         padding: 15px 5px;
         font-size: 0.74em;
 
@@ -130,7 +130,7 @@ main {
   }
 }
 
-@media (min-width: $screen-lg-min) {
+@include media-breakpoint-up(lg) {
   .teacher-holder {
     border-bottom: none;
     padding-bottom: 0px;
