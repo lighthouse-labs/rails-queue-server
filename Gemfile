@@ -7,6 +7,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 
 gem 'jquery-rails'
+gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-ui-rails'
 
 gem "select2-rails"
@@ -28,9 +29,8 @@ gem 'ace-rails-ap'
 
 gem 'simple_form'
 gem 'slim-rails'
-gem 'bootstrap-sass', '~> 3.3.5'
 gem 'font-awesome-rails'
-gem 'compass-rails'
+# gem 'compass-rails'
 
 gem 'interactor-rails'
 
