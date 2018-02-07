@@ -1,6 +1,6 @@
-.panel.panel-default
-  .panel-heading Outcomes
-  .panel-body.list-group
+.card
+  .card-header Outcomes
+  .card-block.list-group
     - all_outcomes = []
     - project.activities.active.chronological.each do |activity|
       - activity.outcomes.each do |outcome|

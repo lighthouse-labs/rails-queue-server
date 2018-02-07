@@ -1,13 +1,13 @@
 .row
   .col-sm-12
 
-    .panel.panel-default.evals
-      .panel-heading
-        h3.panel-title My Submissions
+    .card.evals
+      .card-header
+        h3.card-title My Submissions
 
       - evals = @project.evaluations_for(current_user)
       - if evals.blank?
-        .panel-body
+        .card-block
           | The status of your previous submissions to this project are displayed here. However, you have not submitted this project yet.
       - else
         .table-responsive
