@@ -182,8 +182,8 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
 
         // Queue Menu Item for Students
         - if impersonating? && (current_user.try(:active_student?) || (@program.prep_assistance? && current_user.try(:enrolled_and_prepping?)))
-              button.btn.btn-sm.navbar-btn.btn-primary.disabled
-               | Disabled while Impersonating
+            button.btn.btn-sm.btn-primary.disabled
+              | Disabled while Impersonating
         - elsif @program.prep_assistance? && current_user.try(:enrolled_and_prepping?)
           li#assistance-request-module
             span#create-assistance-request
