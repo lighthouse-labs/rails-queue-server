@@ -8,15 +8,15 @@
     strong Interviewer:
     | &nbsp;
     = link_to(@result.interviewer.full_name, @result.interviewer)
-  .panel.panel-default.question-result
-    .panel-heading
-      h3.panel-title Overall Feedback
-    .panel-body
+  .card.question-result
+    .card-header
+      h3.card-title Overall Feedback
+    .card-block
        == markdown (@result.feedback.to_s)
-  .panel.panel-default.question-result.scoring
-    .panel-heading
-      h3.panel-title Scoring
-    .panel-body
+  .card.question-result.scoring
+    .card-header
+      h3.card-title Scoring
+    .card-block
       ol
        li Didn't get it.
        li Got it with some help, or close.
@@ -24,16 +24,16 @@
        li Answered ideal answer and took it a step further (bonus).
   - @result.results.each.with_index do |result, index|
     br
-    .panel.panel-default.question-result
-      .panel-heading
-        h3.panel-title.tech.score
+    .card.question-result
+      .card-header
+        h3.card-title.tech.score
           | Question #{index + 1}
           - if result.skipped?
             span.label.label-default Skipped
           - else
             span.label class=integer_l_score_label_class(result.score)
               = "#{result.score} / 4"
-      .panel-body
+      .card-block
         strong The Question
         br
         == markdown(result.question.to_s)

@@ -3,16 +3,16 @@
   == markdown(@interview_template.teacher_notes.to_s)
 
 ul.nav.nav-tabs role="tablist"
-  li role="presentation" class="active"
-    a href="#questions" aria-controls="questions" role="tab" data-toggle="tab"
+  li.nav-item role="presentation"
+    a.nav-link.active href="#questions" aria-controls="questions" role="tab" data-toggle="tab"
       | Questions
-  li role="presentation"
-    a href="#students"  aria-controls="students" role="tab" data-toggle="tab"
+  li.nav-item role="presentation"
+    a.nav-link href="#students"  aria-controls="students" role="tab" data-toggle="tab"
       | Students
 
 .tab-content
 
-  #questions.tab-pane role="tabpanel" class="active"
+  #questions.tab-pane.active role="tabpanel"
     h3 Questions
     == render 'questions'
 
