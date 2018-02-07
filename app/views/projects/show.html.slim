@@ -17,45 +17,45 @@
 hr
 
 ul.nav.nav-tabs role="tablist" id="studentTab"
-  li role="presentation" class="active"
-    a href="#project" aria-controls="project" role="tab" data-toggle="tab"
+  li.nav-item role="presentation"
+    a.nav-link.active href="#project" aria-controls="project" role="tab" data-toggle="tab"
       | Description
   - if teacher?
-    li role="presentation"
-      a href="#teacher-notes" aria-controls="teacher-notes" role="tab" data-toggle="tab"
+    li.nav-item role="presentation"
+      a.nav-link href="#teacher-notes" aria-controls="teacher-notes" role="tab" data-toggle="tab"
         | Teacher Notes
   - if @project.evaluation_rubric?
-    li role="presentation"
-      a href="#eval-rubric" aria-controls="eval-rubric" role="tab" data-toggle="tab"
+    li.nav-item role="presentation"
+      a.nav-link href="#eval-rubric" aria-controls="eval-rubric" role="tab" data-toggle="tab"
         | Eval Rubric
   - if teacher? && @project.evaluation_guide?
-    li role="presentation"
-      a href="#eval-guide"  aria-controls="eval-guide" role="tab" data-toggle="tab"
+    li.nav-item role="presentation"
+      a.nav-link href="#eval-guide"  aria-controls="eval-guide" role="tab" data-toggle="tab"
         | Eval Guide
   - if teacher? && @project.evaluation_checklist?
-    li role="presentation"
-      a href="#eval-checklist"  aria-controls="eval-checklist" role="tab" data-toggle="tab"
+    li.nav-item role="presentation"
+      a.nav-link href="#eval-checklist"  aria-controls="eval-checklist" role="tab" data-toggle="tab"
         | Eval Checklist
   - if teacher?
-    li role="presentation"
-      a href="#students"  aria-controls="students" role="tab" data-toggle="tab"
+    li.nav-item role="presentation"
+      a.nav-link href="#students"  aria-controls="students" role="tab" data-toggle="tab"
         | Students
 
 .tab-content
 
-  #project.tab-pane role="tabpanel" class="active"
+  #project.tab-pane.active role="tabpanel"
     h3 Project Description
     .instructions
       == markdown(@project.description)
 
   - if @project.evaluation_rubric?
-    #eval-rubric.tab-pane role="tabpanel" class="active"
+    #eval-rubric.tab-pane role="tabpanel"
       h3 Evaluation Rubric
       .instructions
         == render 'rubric', project: @project
 
   - if teacher?
-    #teacher-notes.tab-pane role="tabpanel" class="active"
+    #teacher-notes.tab-pane role="tabpanel"
       .instructions
         - if @project.teacher_notes?
           == markdown(@project.teacher_notes)
@@ -66,12 +66,12 @@ ul.nav.nav-tabs role="tablist" id="studentTab"
             p To add some please create a <code>teacher_notes.md</code> file in appropriate project folder in the curriculum repo.
 
   - if teacher? && @project.evaluation_guide?
-    #eval-guide.tab-pane role="tabpanel" class="active"
+    #eval-guide.tab-pane role="tabpanel"
       .instructions
         == markdown(@project.evaluation_guide)
 
   - if teacher? && @project.evaluation_checklist?
-    #eval-checklist.tab-pane role="tabpanel" class="active"
+    #eval-checklist.tab-pane role="tabpanel"
       .instructions
         == markdown(@project.evaluation_checklist)
 
