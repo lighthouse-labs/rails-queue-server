@@ -22,8 +22,13 @@
         = render 'activity_feedbacks/form', form: f
 
 
-.card.text-white.bg-secondary style="margin-top:30px;"
-  h5#feedback-form.card-header All Feedback (Teachers only)
+.card.border-secondary style="margin-top:30px;"
+  h5#feedback-form.card-header Previous Feedback
   .card-body
+    - if teacher?
+      h5.card-title All Student Feedback
+    - else
+      h5.card-title Your Feedback
+
     .card-text
       = render 'activity_feedbacks/list'

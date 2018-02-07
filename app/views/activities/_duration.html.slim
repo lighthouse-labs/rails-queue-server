@@ -1,7 +1,8 @@
 .input-group.duration
-  .input-group-addon
-    i.fa.fa-clock-o
-    | &nbsp;Duration
+  .input-group-prepend
+    span.input-group-text
+      i.fa.fa-clock-o
+      | &nbsp;Duration
   .form-control
     - if weekend? || @activity.display_duration? || @activity.display_vague_duration?
       = duration(@activity).gsub('<br>', ' ')
