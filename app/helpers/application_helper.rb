@@ -84,47 +84,47 @@ module ApplicationHelper
   end
 
   def l_score_label_class(val)
-    return 'label-default' if val.nil?
+    return 'badge-default' if val.nil?
     val = val.to_f
 
     if val < 2.1
-      'label-danger'
+      'badge-danger'
     elsif val < 2.4
-      'label-warning'
+      'badge-warning'
     elsif val < 2.8
-      'label-info'
+      'badge-info'
     elsif val <= 4.0
-      'label-success'
+      'badge-success'
     else
-      'label-default'
+      'badge-default'
     end
   end
 
   def integer_l_score_label_class(val)
-    return 'label-default' if val.nil?
+    return 'badge-default' if val.nil?
 
     if val < 2
-      'label-danger'
+      'badge-danger'
     elsif val < 3
-      'label-warning'
+      'badge-warning'
     elsif val < 4
-      'label-info'
+      'badge-info'
     elsif val == 4
-      'label-success'
+      'badge-success'
     end
   end
 
   def project_eval_status_label_class(eval)
     if eval.in_state?(:pending)
-      'label-warning'
+      'badge-warning'
     elsif eval.in_state?(:in_progress)
-      'label-info'
+      'badge-info'
     elsif eval.in_state?(:rejected)
-      'label-danger'
+      'badge-danger'
     elsif eval.in_state?(:accepted) || eval.in_state?(:auto_accepted)
-      'label-success'
+      'badge-success'
     else
-      'label-default'
+      'badge-default'
     end
   end
 

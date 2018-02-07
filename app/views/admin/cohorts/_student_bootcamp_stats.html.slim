@@ -42,7 +42,7 @@ tr.student-row class=css_class
     span title="Assistances" data-toggle="tooltip" = assistance_stats[:assistances]
     br
     - avg = assistance_stats[:average_score].round(2)
-    span.label class=l_score_label_class(avg) = "L: #{avg}"
+    span.badge class=l_score_label_class(avg) = "L: #{avg}"
 
   td data-value=to_date_core_stats[:completed]
     - ratio = to_date_core_stats[:ratio].round(0).to_i
