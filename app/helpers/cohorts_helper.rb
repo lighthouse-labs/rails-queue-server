@@ -10,11 +10,11 @@ module CohortsHelper
 
   def cohort_status(cohort)
     if cohort.active?
-      content_tag :span, 'Active', class: 'label label-success'
+      content_tag :span, 'Active', class: 'badge badge-success'
     elsif cohort.finished?
-      content_tag :span, 'Finished', class: 'label label-danger'
+      content_tag :span, 'Finished', class: 'badge badge-danger'
     else
-      content_tag :span, 'Upcoming', class: 'label label-info'
+      content_tag :span, 'Upcoming', class: 'badge badge-info'
     end
   end
 
