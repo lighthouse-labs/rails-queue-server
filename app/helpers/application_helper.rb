@@ -84,7 +84,7 @@ module ApplicationHelper
   end
 
   def l_score_label_class(val)
-    return 'badge-default' if val.nil?
+    return 'badge-secondary' if val.nil?
     val = val.to_f
 
     if val < 2.1
@@ -96,12 +96,12 @@ module ApplicationHelper
     elsif val <= 4.0
       'badge-success'
     else
-      'badge-default'
+      'badge-secondary'
     end
   end
 
   def integer_l_score_label_class(val)
-    return 'badge-default' if val.nil?
+    return 'badge-secondary' if val.nil?
 
     if val < 2
       'badge-danger'
@@ -124,7 +124,7 @@ module ApplicationHelper
     elsif eval.in_state?(:accepted) || eval.in_state?(:auto_accepted)
       'badge-success'
     else
-      'badge-default'
+      'badge-secondary'
     end
   end
 

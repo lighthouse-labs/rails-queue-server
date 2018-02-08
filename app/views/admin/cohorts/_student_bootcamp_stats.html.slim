@@ -27,14 +27,14 @@ tr.student-row class=css_class
       = render 'shared/student_info', student: student
       - if student.rolled_in?(@cohort)
         br
-        .label.label-warning Rolled-in
+        .badge.badge-warning Rolled-in
       - elsif student.rolled_out?(@cohort)
         br
-        .label.label-warning Rolled-out
+        .badge.badge-warning Rolled-out
 
       - if student.deactivated?
         br
-        .label.label-danger Dropped
+        .badge.badge-danger Dropped
 
   td data-value=assistance_stats[:requests]
     span title="Requests" data-toggle="tooltip" = assistance_stats[:requests]
@@ -90,17 +90,17 @@ tr.student-row class=css_class
           - total_score += interview.average_score.round(1)
           - count += 1
         = link_to interview do
-          span.tech-interview.label class=l_score_label_class(interview.average_score) title=(interview.average_score || "??") data-toggle="tooltip"
+          span.tech-interview.badge class=l_score_label_class(interview.average_score) title=(interview.average_score || "??") data-toggle="tooltip"
             = "W#{interview_template.week}"
       - else
-        span.tech-interview.label.label-default title="Not Completed" data-toggle="tooltip"
+        span.tech-interview.badge.badge-secondary title="Not Completed" data-toggle="tooltip"
           = "W#{interview_template.week}"
 
     - if count > 0
       - avg = (total_score.to_f / count).round(2)
       br
       br
-      span.label class=l_score_label_class(avg) = "L: #{avg}"
+      span.badge class=l_score_label_class(avg) = "L: #{avg}"
 
   td
     - @projects.each_with_index do |project, i|
@@ -108,11 +108,11 @@ tr.student-row class=css_class
         = link_to [project, eval] do
           - title = "#{project.name}: #{eval.status}"
           - title << " (score: #{eval.final_score} / 4)" if eval.final_score? && eval.final_score > 1
-          span.code-review.label class=project_eval_status_label_class(eval) title=title data-toggle='tooltip'
+          span.code-review.badge class=project_eval_status_label_class(eval) title=title data-toggle='tooltip'
             | P#{i+1}
             - if eval.final_score? && eval.final_score > 1
               = " (#{eval.final_score})"
       - else
           - title = "#{project.name}: Not Submitted"
-          span.code-review.label.label-default title=title data-toggle='tooltip'
+          span.code-review.badge.badge-secondary title=title data-toggle='tooltip'
             | P#{i+1}
