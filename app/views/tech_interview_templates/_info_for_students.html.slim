@@ -1,8 +1,8 @@
 | Status:&nbsp;
 - if @result && @result.in_progress?
-  .label.label-info In Progress
+  .badge.badge-info In Progress
 - elsif @result && @result.completed?
-  .label.label-success Completed
+  .badge.badge-success Completed
   .alert.alert-warning Please do not share your results with your peers who may not have done their tech interview yet.
   p
     strong Interviewer:
@@ -29,9 +29,9 @@
         h3.card-title.tech.score
           | Question #{index + 1}
           - if result.skipped?
-            span.label.label-default Skipped
+            span.badge.badge-secondary Skipped
           - else
-            span.label class=integer_l_score_label_class(result.score)
+            span.badge class=integer_l_score_label_class(result.score)
               = "#{result.score} / 4"
       .card-block
         strong The Question
@@ -41,7 +41,7 @@
         br
         == markdown(result.notes.to_s)
 - else
-  .label.label-warning Pending
+  .badge.badge-warning Pending
 - unless @result
   .alert.alert-info
     p Your interview results will be shown here.

@@ -23,9 +23,9 @@
           dt Status
           dd
             - if @evaluation.in_state?(:rejected) || @evaluation.in_state?(:cancelled)
-              span.label.label-danger.label-md = @evaluation.status
+              span.badge.badge-danger.badge-md = @evaluation.status
             - else
-              span.label.label-info.label-md = @evaluation.status
+              span.badge.badge-info.badge-md = @evaluation.status
 
           dt Project
           dd = link_to @project.name, @project

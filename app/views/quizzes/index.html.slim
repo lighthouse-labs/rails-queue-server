@@ -19,6 +19,6 @@ article.page-content
                 - @quizzes.each do |quiz|
                   tr
                     td = link_to "#{quiz.id}: #{quiz.name}", quiz
-                    td.text-right = link_to quiz.quiz_submissions.count, new_quiz_quiz_submission_url(quiz), class: 'label label-primary', title: 'Submissions | New Submission'
+                    td.text-right = link_to quiz.quiz_submissions.count, new_quiz_quiz_submission_url(quiz), class: 'label badge-primary', title: 'Submissions | New Submission'
       / .col-md-6
       /   = render partial: 'form'

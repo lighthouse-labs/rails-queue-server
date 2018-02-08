@@ -23,13 +23,13 @@ table.table.students
         td
           - if tech_interview && tech_interview.completed?
 
-            span.label title="Questions" data-toggle="tooltip" class=l_score_label_class(tech_interview.average_score)
+            span.badge title="Questions" data-toggle="tooltip" class=l_score_label_class(tech_interview.average_score)
               strong = tech_interview.average_score? ? tech_interview.average_score.round(1) : '?'
             = " + "
-            span.label title="Articulation" data-toggle="tooltip" class=l_score_label_class(tech_interview.articulation_score)
+            span.badge title="Articulation" data-toggle="tooltip" class=l_score_label_class(tech_interview.articulation_score)
               = tech_interview.articulation_score
             = " + "
-            span.label title="Knowledge" data-toggle="tooltip" class=l_score_label_class(tech_interview.knowledge_score)
+            span.badge title="Knowledge" data-toggle="tooltip" class=l_score_label_class(tech_interview.knowledge_score)
               = tech_interview.knowledge_score
 
             br

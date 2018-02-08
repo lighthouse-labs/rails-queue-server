@@ -4,28 +4,28 @@
 - interview_template ||= interview.tech_interview_template if interview
 
 - if interview && interview.completed?
-  span.label.label-success Completed
+  span.badge.badge-success Completed
   br
   small
     = time_ago_in_words(interview.completed_at)
     | &nbsp;ago
 - elsif interview && interview.in_progress?
-  span.label.label-warning In Progress
+  span.badge.badge-warning In Progress
   br
   small
     = time_ago_in_words(interview.started_at)
     | &nbsp;ago
 - elsif interview && interview.queued?
-  span.label.label-warning In Queue
+  span.badge.badge-warning In Queue
   br
   small
     = time_ago_in_words(interview.created_at)
     | &nbsp;ago
 - elsif cohort.week > interview_template.week
-  span.label.label-danger Overdue
+  span.badge.badge-danger Overdue
 - elsif cohort.week == interview_template.week
-  span.label.label-info This Week
+  span.badge.badge-info This Week
 - elsif cohort.week + 1 == interview_template.week
-  span.label.label-info Next Week
+  span.badge.badge-info Next Week
 - else
-    span.label.label-info Pending
+    span.badge.badge-info Pending

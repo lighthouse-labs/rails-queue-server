@@ -66,7 +66,7 @@
         - feedback_required = result['score'] == '1' || result['score'] == '2'
         = label_tag :feedback, "Feedback about #{properties['name']} (Markdown format)", class: 'feedback-label'
         = text_area_tag "evaluation[result][#{criteria}][feedback]", result['feedback'], class: 'form-control', required: feedback_required
-        span.required-notice.label.label-default class=(feedback_required ? '' : 'hidden') Note: Feedback text is required since rating is below acceptable
+        span.required-notice.badge.badge-secondary class=(feedback_required ? '' : 'hidden') Note: Feedback text is required since rating is below acceptable
 
 .form-group
   h4 Overall Feedback

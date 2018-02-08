@@ -38,17 +38,17 @@ dl.dl-horizontal
 
     dt Question Score
     dd
-      span.label class=l_score_label_class(@tech_interview.average_score)
+      span.badge class=l_score_label_class(@tech_interview.average_score)
         = @tech_interview.average_score? ? @tech_interview.average_score.round(1) : '?'
 
     dt Knowledge Score
     dd
-      span.label class=l_score_label_class(@tech_interview.knowledge_score)
+      span.badge class=l_score_label_class(@tech_interview.knowledge_score)
         = @tech_interview.knowledge_score
 
     dt Articulation Score
     dd
-      span.label class=l_score_label_class(@tech_interview.articulation_score)
+      span.badge class=l_score_label_class(@tech_interview.articulation_score)
         = @tech_interview.articulation_score
 
     hr

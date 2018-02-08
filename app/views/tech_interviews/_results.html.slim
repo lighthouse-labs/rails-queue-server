@@ -5,9 +5,9 @@
       h3.panel-title
         | Question #{result.sequence}
         - if result.skipped?
-          span.label.label-default Skipped
+          span.badge.badge-secondary Skipped
         - else
-          span.label class=integer_l_score_label_class(result.score)
+          span.badge class=integer_l_score_label_class(result.score)
             = "#{result.score} / 4"
 
     .panel-body

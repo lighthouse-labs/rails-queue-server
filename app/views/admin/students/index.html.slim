@@ -54,9 +54,9 @@ header.page-header
                 td
                   - if student.cohort && student.rolled_in?(student.cohort)
                     div
-                      .label.label-warning Rolled In
+                      .badge.badge-warning Rolled In
                   div
-                    .label.label-danger.label-deactivated class=(student.deactivated? ? '' : 'hide') Dropped
+                    .badge.badge-danger.badge-light class=(student.deactivated? ? '' : 'hide') Dropped
                 td
                   .btn-collection
                     - if student.deactivated?

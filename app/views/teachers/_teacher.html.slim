@@ -18,7 +18,7 @@
         = teacher.location.name
         br
         - if current_user.location && teacher.location != current_user.location
-          span.label.label-info Remote
+          span.badge.badge-info Remote
 
     td
       = simple_format teacher_presenter.bio

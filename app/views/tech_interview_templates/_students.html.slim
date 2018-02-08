@@ -30,19 +30,19 @@ table.table.students
               br
               = mail_to interview.interviewer.email, interview.interviewer.email, class: 'email'
               br
-                span.label.label-primary = interview.interviewer.location.name
+                span.badge.badge-primary = interview.interviewer.location.name
           - elsif !interview
             = link_to 'Start!', new_tech_interview_template_interview_path(@interview_template, interviewee_id: student.id), class: 'btn btn-primary btn-sm'
         td
           - if interview && interview.completed?
 
-            span.label title="Questions" data-toggle="tooltip" class=l_score_label_class(interview.average_score)
+            span.badge title="Questions" data-toggle="tooltip" class=l_score_label_class(interview.average_score)
               strong = interview.average_score? ? interview.average_score.round(1) : '?'
             = " + "
-            span.label title="Articulation" data-toggle="tooltip" class=l_score_label_class(interview.articulation_score)
+            span.badge title="Articulation" data-toggle="tooltip" class=l_score_label_class(interview.articulation_score)
               = interview.articulation_score
             = " + "
-            span.label title="Knowledge" data-toggle="tooltip" class=l_score_label_class(interview.knowledge_score)
+            span.badge title="Knowledge" data-toggle="tooltip" class=l_score_label_class(interview.knowledge_score)
               = interview.knowledge_score
 
             br

@@ -1,25 +1,25 @@
 - if project_evaluation
   - if project_evaluation.status == "Accepted"
-    span.label.label-success title= "#{time_ago_in_words(project_evaluation.completed_at)} ago" data-toggle="tooltip"
+    span.badge.badge-success title= "#{time_ago_in_words(project_evaluation.completed_at)} ago" data-toggle="tooltip"
       = "Accepted"
   - elsif project_evaluation.status == "Auto Accepted"
-    span.label.label-success title= "#{time_ago_in_words(project_evaluation.completed_at)} ago" data-toggle="tooltip"
+    span.badge.badge-success title= "#{time_ago_in_words(project_evaluation.completed_at)} ago" data-toggle="tooltip"
       = "Auto-Accepted"
   - elsif project_evaluation.status == "In Progress"
-    span.label.label-warning title= "#{time_ago_in_words(project_evaluation.created_at)} ago" data-toggle="tooltip"
+    span.badge.badge-warning title= "#{time_ago_in_words(project_evaluation.created_at)} ago" data-toggle="tooltip"
       = "In Progress"
   - elsif project_evaluation.status == "Pending"
-    span.label.label-warning title= "#{time_ago_in_words(project_evaluation.created_at)} ago" data-toggle="tooltip"
+    span.badge.badge-warning title= "#{time_ago_in_words(project_evaluation.created_at)} ago" data-toggle="tooltip"
       = "In Queue"
   - elsif project_evaluation.status == "Cancelled"
-    span.label.label-warning title= "#{time_ago_in_words(project_evaluation.cancelled_at)} ago" data-toggle="tooltip"
+    span.badge.badge-warning title= "#{time_ago_in_words(project_evaluation.cancelled_at)} ago" data-toggle="tooltip"
       = "Cancelled"
   - elsif project_evaluation.status == "Rejected"
-    span.label.label-danger title="#{time_ago_in_words(project_evaluation.completed_at)} ago" data-toggle="tooltip"
+    span.badge.badge-danger title="#{time_ago_in_words(project_evaluation.completed_at)} ago" data-toggle="tooltip"
       = "Rejected"
     br
     small
       = time_ago_in_words(project_evaluation.completed_at)
       | &nbsp;ago
 - else
-  span.label.label-warning Not Submitted
+  span.badge.badge-warning Not Submitted

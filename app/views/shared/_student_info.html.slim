@@ -14,10 +14,10 @@
   = mail_to(student.email, student.email, target: '_blank', class: 'email')
 br
 - if student.location && student.remote?
-  span.label.label-danger = student.location.name
+  span.badge.badge-danger = student.location.name
 - elsif student.location
-  span.label.label-primary = student.location.name
+  span.badge.badge-primary = student.location.name
 br
 - if defined? show_cohort
   = link_to admin_cohort_path(student.cohort.id)
-    span.label.label-info = student.cohort.name
+    span.badge.badge-info = student.cohort.name
