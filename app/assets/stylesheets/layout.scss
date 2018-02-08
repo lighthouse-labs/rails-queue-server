@@ -6,7 +6,7 @@ body {
   padding-top: 80px;
 }
 .non-tablet-label {
-  @include media-breakpoint-between(sm, md) {
+  @include media-breakpoint-between(md, lg) {
     position: absolute;
     width: 1px;
     height: 1px;

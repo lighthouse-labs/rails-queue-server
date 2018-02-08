@@ -11,57 +11,71 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
     span.navbar-toggler-icon
   .collapse.navbar-collapse#navbarCollapse
     ul.navbar-nav.mr-auto
-      li.nav-item
-      - unless active_student? || alumni?
+      - if teacher? || admin? || alumni? || active_student?
+        li class="nav-item dropdown"
+          a class="nav-link dropdown-toggle" href="#" id="nav-program-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            i.fa.fa-fw.fa-flag
+            span.non-tablet-label
+              | Program
+          div class="dropdown-menu" aria-labelledby="nav-program-dropdown"
+
+            - if teacher? || active_student? || alumni?
+              = link_to day_path('today'), class: 'dropdown-item', title: 'Schedule'
+                i.fa.fa-fw.fa-calendar
+                | Schedule
+
+            - if @program.try :has_projects?
+              = link_to projects_path, class: 'dropdown-item', title: 'Projects'
+                i.fa.fa-fw.fa-pencil-square-o
+                | Projects
+
+            - if @program.try :has_interviews?
+              = link_to tech_interview_templates_path, class: 'dropdown-item', title: 'Tech Interviews'
+                i.fa.fa-fw.fa-comments
+                | Interviews
+
+            = link_to prep_index_path, class: 'dropdown-item', title: 'Prep Work'
+              i.fa.fa-fw.fa-paper-plane-o
+              | Prep Work
+
+            - if teacher? || admin?
+              .dropdown-divider
+              = link_to teacher_resources_path, class: 'dropdown-item', title: 'Teacher Resources'
+                i.fa.fa-fw.fa-balance-scale
+                | Teacher Resources
+
+              - if @program.try :has_code_reviews?
+                = link_to :code_reviews, class: 'dropdown-item', title: 'Code Reviews'
+                  i.fa.fa-fw.fa-eye
+                  | Code Reviews
+
+
+      - else
         li.nav-item
           = link_to prep_index_path, class:"nav-link", title: 'Prep Work'
             i.fa.fa-fw.fa-paper-plane-o
             span.non-tablet-label
               | Prep
-      - if teacher? || admin?
-        li.nav-item
-          = link_to teacher_resources_path, class:"nav-link", title: 'Training'
-            i.fa.fa-fw.fa-paper-plane-o
-            span.non-tablet-label
-              | Training
+
       - if current_user && !current_user.completed_registration?
         li.nav-item
           = link_to edit_profile_path, class:"nav-link", title: 'Complete Signup'
             i.fa.fa-fw.fa-sign-in
             span.non-tablet-label
               | Complete Signup
-      - if teacher? || active_student? || alumni?
-        li.nav-item
-          = link_to day_path('today'), class:"nav-link", title: 'Schedule'
-            i.fa.fa-fw.fa-calendar
+
+      - if teacher?
+        li.nav-item.dropdown
+          = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Students'
+            i.fa.fa-fw.fa-id-card
             span.non-tablet-label
-              | Schedule
-        - if @program.try :has_projects?
-          li.nav-item
-            = link_to projects_path, class:"nav-link", title: 'Projects'
-              i.fa.fa-fw.fa-pencil-square-o
-              span.non-tablet-label
-                | Projects
-
-        - if @program.try :has_interviews?
-          li.nav-item
-            = link_to tech_interview_templates_path, class:"nav-link", title: 'Tech Interviews'
-              i.fa.fa-fw.fa-comments
-              span.non-tablet-label
-                | Interviews
-
-        - if teacher?
-          li.nav-item.dropdown
-            = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Students'
-              i.fa.fa-fw.fa-group
-              span.non-tablet-label
-                | Students
-            .dropdown-menu
-              - dropdown_cohorts.each do |location, cohorts|
-                .divider-title = location.name
-                .dropdown-divider
-                - cohorts.each do |c|
-                  = link_to cohort_link(c), cohort_students_path(c), class: "dropdown-item #{'active' if cohort == c}"
+              | Students
+          .dropdown-menu
+            - dropdown_cohorts.each do |location, cohorts|
+              .divider-title = location.name
+              .dropdown-divider
+              - cohorts.each do |c|
+                = link_to cohort_link(c), cohort_students_path(c), class: "dropdown-item #{'active' if cohort == c}"
 
       - if teacher?
         li.nav-item
@@ -69,25 +83,13 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             i.fa.fa-fw.fa-life-ring
             span.non-tablet-label
               | Teachers
-        - if @program.try :has_queue?
-          li.nav-item
-            = link_to :assistance_requests, class:"nav-link", title: 'Request Queue'
-              i.fa.fa-fw.fa-list-ol
-              span.non-tablet-label
-                | Queue
-        - if @program.try :has_code_reviews?
-          li.nav-item
-            = link_to :code_reviews, class:"nav-link", title: 'Code Reviews'
-              i.fa.fa-fw.fa-eye
-              span.non-tablet-label Code Reviews
+
         - if admin?
           li.nav-item.dropdown
             = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Admin'
               i.fa.fa-fw.fa-lock
               span.non-tablet-label
                 | Admin
-              / b.caret
-            / span.dropdown-arrow
             .dropdown-menu
               = link_to 'Cohorts', admin_cohorts_path, class: 'dropdown-item'
               = link_to 'Assistances', admin_assistances_path, class: 'dropdown-item'
@@ -115,10 +117,12 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             i.fa.fa-fw.fa-search
             span.non-tablet-label
               | Search
+
       - if teacher? && !dropdown_cohorts.empty?
         li.dropdown.cohort
           = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Cohort' do
-            = cohort.name
+            i.fa.fa-fw.fa-group
+            span.non-tablet-label = cohort.name
           .dropdown-menu
             - dropdown_cohorts.each do |location, cohorts|
               .divider-title = location.name
@@ -127,6 +131,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
                 = link_to c.name, [:switch_to, c], method: :put, class: "dropdown-item #{'active' if c == cohort}"
             .dropdown-divider
             = link_to 'Other...', teacher_cohort_switcher_index_path, class: 'dropdown-item'
+
       - if current_user
         - if active_student?
           li.nav-item
@@ -137,9 +142,9 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
 
         li.dropdown.nav-item.current-user
           = link_to '#', class: 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown' do
-            = teacher? ? current_user.initials : current_user.first_name
-            / b.caret
-          / span.dropdown-arrow
+            i.fa.fa-fw.fa-cogs
+            span.non-tablet-label
+              = teacher? ? current_user.initials : current_user.first_name
           .dropdown-menu
             = link_to 'Edit Profile', edit_profile_path, class: 'dropdown-item'
             - if active_student? || alumni?
@@ -148,6 +153,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
               = link_to 'Teachers', teachers_path(location_id: current_user.location_id), class: 'dropdown-item'
             = link_to 'Sign Out', session_path, :method => :delete, class: "sign-out-link dropdown-item"
             - if teacher?
+              .dropdown-divider
               = link_to 'Your Evaluations', teacher_evaluations_path, class: 'dropdown-item'
               = link_to 'Your Assistances', teacher_assistances_path, class: 'dropdown-item'
               = link_to 'Your Tech Interviews', teacher_tech_interviews_path, class: 'dropdown-item'
@@ -156,19 +162,32 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
           li.new-issue style="margin-right: 10px;"
             div class="btn-group" data-toggle="tooltip" data-placement="left" title="Report curriculum or compass issues (thanks!)"
               button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                | + Issue&nbsp;
-                span class="caret"
+                i.fa.fa-fw.fa-exclamation
+                span.non-tablet-label
+                  | Issue
 
               .dropdown-menu
                 - if repo = ContentRepository.first
                   a.dropdown-item href="https://github.com/#{repo.full_name}/issues" target="_blank" + Curriculum Issue
                 a.dropdown-item href="https://github.com/lighthouse-labs/compass/issues" target="_blank" + Compass Issue
           - if @program.try :has_queue?
+
             li.teacher-duty
               span
                 - attrs = { data: { toggle: 'tooltip', placement: 'bottom' }, title: "Your Location: #{current_user.location.try(:name) || 'N/A'}" }
-                = link_to "Go on duty", '#', { class: "on-duty-link btn btn-outline-success", hidden: current_user.on_duty?, onclick: "ga('send', 'event', 'go-on-duty', 'click');"}.merge(attrs)
-                = link_to "Go off duty", '#', { class: "off-duty-link  btn btn-outline-danger", hidden: !current_user.on_duty?, onclick: "ga('send', 'event', 'go-off-duty', 'click');"}.merge(attrs)
+                = link_to '#', { class: "on-duty-link btn btn-outline-success", hidden: current_user.on_duty?, onclick: "ga('send', 'event', 'go-on-duty', 'click');"}.merge(attrs) do
+                  i.fa.fa-fw.fa-bullhorn
+                  span.non-tablet-label Go on Duty
+                = link_to '#', { class: "off-duty-link  btn btn-outline-danger", hidden: !current_user.on_duty?, onclick: "ga('send', 'event', 'go-off-duty', 'click');"}.merge(attrs) do
+                  i.fa.fa-fw.fa-bullhorn
+                  span.non-tablet-label Go off duty
+
+
+            li style="margin-left: 10px;"
+              = link_to :assistance_requests, class: "btn btn-outline-primary", title: 'Request Queue'
+                i.fa.fa-fw.fa-list-ol
+                span.non-tablet-label
+                  | Queue
 
         // Queue Menu Item for Students
         - if impersonating? && (current_user.try(:active_student?) || (@program.prep_assistance? && current_user.try(:enrolled_and_prepping?)))

@@ -1,48 +1,48 @@
 @import "framework";
 @import "layout";
 @import "navigation";
-// @import "side_nav";
-// @import "forms";
+@import "side_schedule";
+@import "forms";
 @import "days";
 @import "activities2";
-// @import "recordings";
-// @import "activity_messages";
-// @import "file_field";
-// @import "assistance_requests";
+@import "recordings";
+@import "activity_messages";
+@import "file_field";
+@import "assistance_requests";
 // @import "day_feedbacks";
 // @import "april1";
 @import "feedbacks";
-// @import "day_information";
+@import "day_information";
 @import "teachers";
-// @import "incomplete_activities";
+@import "incomplete_activities";
 @import "reconnect_holder";
 @import "search";
 @import "students";
 // @import "prep";
-// @import "ace_editors";
-// @import "profile";
-// @import "students";
-// @import "code_reviews";
-// @import "quiz_submissions";
-// @import "quizzes";
+@import "ace_editors";
+@import "profile";
+@import "students";
+@import "code_reviews";
+@import "quiz_submissions";
+@import "quizzes";
 @import "teacher/students";
 @import "students";
 
 @import "projects";
 @import "tech_interview_templates";
-// @import "markdown-instructions";
-// @import "evaluations";
+@import "markdown-instructions";
+@import "evaluations";
 @import "tech_interviews";
 
 
 // Admin
 
-// @import "admin/students";
+@import "admin/students";
 // @import "admin/learning_objectives";
 // @import "admin/breadcrumb-adjustments";
 // @import "admin/autocomplete-modal-styling";
 @import "admin/outcomes";
-// @import 'admin/teacher_stats';
+@import 'admin/teacher_stats';
 @import 'admin/cohorts';
-// @import 'admin/users';
+@import 'admin/users';
 @import 'admin/stats';
