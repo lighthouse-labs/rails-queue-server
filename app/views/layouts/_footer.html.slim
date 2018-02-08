@@ -1,8 +1,7 @@
-.navbar.navbar-default.navbar-static-bottom
 - if current_user && impersonating?
-  nav.navbar.navbar-default.navbar-fixed-bottom.navbar-text
+  nav.navbar.navbar-light.bg-light.fixed-bottom.navbar-text
     .container.text-center
-      | You are now impersonating 
+      | You are now impersonating
       b #{current_user.full_name}
       | &nbsp;&nbsp;
       = link_to 'Stop Impersonating', revert_admin_session_path, method: :put, class: 'btn btn-primary btn-xs'

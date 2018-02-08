@@ -49,7 +49,7 @@ class SessionsController < ApplicationController
       flash[:alert] = 'You cannot impersonate an admin'
       return redirect_to admin_users_path
     elsif impersonated_user.is_a?(Student)
-      session[:cohort_id] = impersonated_user.cohort.id
+      session[:cohort_id] = impersonated_user.cohort_id
     end
     session[:user_id] = impersonated_user.id
     session[:impersonating_user_id] = current_user.id
