@@ -1,23 +1,21 @@
-.nav-calendar
-  - (1..@program.weeks).each do |week_number|
-    / quick hack: prefix with 0 if program is 10 weeks or more (double digit) - KV
-    - w = @program.weeks >= 10 && week_number < 10 ? "0#{week_number}" : week_number
-    .nav-week
-      ul
-        li.previous.week-number
-          a href="#" onclick="return false;"
-            | W
-            = w
+- (1..@program.weeks).each do |week_number|
+  - w = @program.weeks >= 10 && week_number < 10 ? "0#{week_number}" : week_number
+  table.side-schedule.table.table-bordered.table-sm.table-rounded
+    tbody
+      tr
+        td.week = "W#{w}"
         - (1..@program.days_per_week).each do |d|
-          li.day-number class=day_status_css("w#{w}d#{d}") = link_to(d, day_path("w#{w}d#{d}"))
+          - day = "w#{w}d#{d}"
+          td.day class=day_status_css(day)
+            = link_to("#{d}", day_path(day), class: "#{'disabled' unless current_user.can_access_day?(day)}")
+
         - if @program.weekends?
-          li.day-number class=day_status_css("w#{w}e") = link_to('e', day_path("w#{w}e"))
-  .day-nav-links
-    - unless today == 'w1d1'
-      = link_to 'Yesterday', day_path('yesterday'), class: 'btn btn-yesterday'
-      | &nbsp;
-    = link_to 'Today', day_path('today'), class: 'btn btn-today'
-    / - if student?
-    /   - unless today == 'w1d1'
-    /     | &nbsp;
-    /     = link_to 'Incomplete Activities', '/incomplete_activities' ,class: 'btn btn-incomplete-activites'
+          - day = "w#{w}e"
+          td.day class=day_status_css(day)
+            = link_to('we', day_path("w#{w}e"), class: "#{'disabled' unless current_user.can_access_day?(day)}")
+
+.day-nav-links
+  - unless today == 'w1d1'
+    = link_to 'Yesterday', day_path('yesterday'), class: 'btn btn-outline-secondary btn-yesterday'
+    | &nbsp;
+  = link_to 'Today', day_path('today'), class: 'btn btn-outline-primary btn-today'
