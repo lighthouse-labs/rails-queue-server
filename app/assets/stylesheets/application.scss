@@ -11,13 +11,13 @@
 // @import "assistance_requests";
 // @import "day_feedbacks";
 // @import "april1";
-// @import "feedbacks";
+@import "feedbacks";
 // @import "day_information";
-// @import "teachers";
+@import "teachers";
 // @import "incomplete_activities";
 @import "reconnect_holder";
 @import "search";
-// @import "students";
+@import "students";
 // @import "prep";
 // @import "ace_editors";
 // @import "profile";
@@ -25,7 +25,7 @@
 // @import "code_reviews";
 // @import "quiz_submissions";
 // @import "quizzes";
-// @import "teacher/students";
+@import "teacher/students";
 @import "students";
 
 @import "projects";
@@ -41,7 +41,7 @@
 // @import "admin/learning_objectives";
 // @import "admin/breadcrumb-adjustments";
 // @import "admin/autocomplete-modal-styling";
-// @import "admin/outcomes";
+@import "admin/outcomes";
 // @import 'admin/teacher_stats';
 @import 'admin/cohorts';
 // @import 'admin/users';
