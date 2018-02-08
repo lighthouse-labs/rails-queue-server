@@ -56,13 +56,10 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
               i.fa.fa-fw.fa-group
               span.non-tablet-label
                 | Students
-              / b.caret
-            / span.dropdown-arrow
             .dropdown-menu
               - dropdown_cohorts.each do |location, cohorts|
+                .divider-title = location.name
                 .dropdown-divider
-                .dropdown-item
-                  = location.name
                 - cohorts.each do |c|
                   = link_to cohort_link(c), cohort_students_path(c), class: "dropdown-item #{'active' if cohort == c}"
 
