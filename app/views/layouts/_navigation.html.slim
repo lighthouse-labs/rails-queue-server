@@ -90,8 +90,6 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
               i.fa.fa-fw.fa-lock
               span.non-tablet-label
                 | Admin
-              / b.caret
-            / span.dropdown-arrow
             .dropdown-menu
               = link_to 'Cohorts', admin_cohorts_path, class: 'dropdown-item'
               = link_to 'Assistances', admin_assistances_path, class: 'dropdown-item'
@@ -147,8 +145,6 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             i.fa.fa-fw.fa-cogs
             span.non-tablet-label
               = teacher? ? current_user.initials : current_user.first_name
-            / b.caret
-          / span.dropdown-arrow
           .dropdown-menu
             = link_to 'Edit Profile', edit_profile_path, class: 'dropdown-item'
             - if active_student? || alumni?
