@@ -5,19 +5,20 @@
 header.page-header
   h1 Manage Users
 
-.well
-  = render 'filters'
+.card.mb-3
+  .card-header
+    = render 'filters'
 
 
 .row
   .col-sm-12
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title
+    .card
+      .card-header
+        h3.card-title.m-0
           | Users
           = " (#{@users.total_count} / #{User.count} results)"
 
-      .panel-body
+      .card-block
         table.table.users
           thead
             tr
@@ -31,5 +32,5 @@ header.page-header
           tbody
             = render partial: 'user', collection: @users
 
-      .panel-footer
+      .card-footer
         = paginate @users, window: 2
