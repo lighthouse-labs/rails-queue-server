@@ -2,7 +2,7 @@
   - if @activity_submission.github_url?
     input.form-control.pull-left#activity_view value="#{@activity_submission.github_url}"
     | &nbsp;
-  = link_to activity_activity_submission_path(@activity), method: :delete, class:'btn btn-activity-incomplete-status'
+  = link_to activity_activity_submission_path(@activity), method: :delete, class:'btn btn-outline-danger btn-activity-incomplete-status'
     i.fa.fa-times
     | &nbsp;Cancel Submission
 - else
