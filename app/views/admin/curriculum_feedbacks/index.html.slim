@@ -3,33 +3,35 @@
 header.page-header
   h1 Curriculum Feedback
 
-= render 'search_form'
+.card
+  .card-header
+    = render 'search_form'
 br
 
 - if @feedbacks.any? && params[:charts] == 'Enable'
   .row
     .col-sm-12
-      .panel.panel-default
-        .panel-heading
-          h3.panel-title Average Rating By Month
+      .card
+        .card-header
+          h3.card-title Average Rating By Month
 
-        .panel-body
+        .card-block
           = bar_chart @monthly_chart_data, min: 1, max: 5, label: "Average"
 
   - if @bootcamp_data_by_curriculum_day.present?
     .row
       .col-sm-12
-        .panel.panel-default
-          .panel-heading
-            h3.panel-title Average Rating By Curriculum Day
+        .card
+          .card-header
+            h3.card-title Average Rating By Curriculum Day
 
-          .panel-body
+          .card-block
             = column_chart @bootcamp_data_by_curriculum_day, min: 1, max: 5, label: "Average Rating", height: "500px;"
 .row
   .col-sm-12
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title List of Curriculum Feedback (#{@paginated_feedbacks.total_count})
+    .card
+      .card-header
+        h3.card-title List of Curriculum Feedback (#{@paginated_feedbacks.total_count})
 
       .table-responsive
         table.table.table-feedbacks
@@ -60,6 +62,6 @@ br
                             article.read-more = activity_feedback_presenter.detail
                       td
 
-= paginate @paginated_feedbacks, :window => 2
+= paginate @paginated_feedbacks, :window => 2, theme: 'bootstrap4'
 = link_to "Download CSV", admin_curriculum_feedbacks_path(safe_params.merge(format: "csv")), :class => "btn btn-success download-csv-button", :method => :get
 = link_to "Download XLS", admin_curriculum_feedbacks_path(safe_params.merge(format: "xls")), :class => "btn btn-success download-xls-button", :method => :get
