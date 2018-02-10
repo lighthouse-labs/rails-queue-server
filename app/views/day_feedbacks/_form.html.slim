@@ -3,7 +3,7 @@
     legend Use this form to provide your overall sentiment about #{@day.today? ? 'TODAY' : @day.to_s.upcase}. Neither curriculum-specific nor teacher-specific feedback should be placed here. Think instead about how today went as a whole in terms of the experience (the mood, the energy, the space, mentor support and availability, the space itself, etc).
     only
     - if @day_feedback && @day_feedback.errors.any?
-      .alert.alert-error
+      .alert.alert-danger
         strong Please fix the following issues:
         ul
           - @day_feedback.errors.full_messages.each do |msg|

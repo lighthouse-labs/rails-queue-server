@@ -26,7 +26,7 @@
         br
         == properties['rankings']['needs_work']
 
-      .alert.alert-error class="#{'active' if result['score'] == '1'}"
+      .alert.alert-danger class="#{'active' if result['score'] == '1'}"
         strong Unsatisfactory
         br
         == properties['rankings']['unsatisfactory']
