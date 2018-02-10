@@ -191,16 +191,16 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
 
         // Queue Menu Item for Students
         - if impersonating? && (current_user.try(:active_student?) || (@program.prep_assistance? && current_user.try(:enrolled_and_prepping?)))
-            button.btn.btn-sm.btn-primary.disabled
+            button.btn.btn-primary.disabled
               | Disabled while Impersonating
         - elsif @program.prep_assistance? && current_user.try(:enrolled_and_prepping?)
           li#assistance-request-module
             span#create-assistance-request
-              = link_to 'Request Assistance', prep_assistance_requests_path(activity_id: @activity), method: :post, class: "btn btn-sm navbar-btn btn-primary"
+              = link_to 'Request Assistance', prep_assistance_requests_path(activity_id: @activity), method: :post, class: "btn navbar-btn btn-primary"
         - elsif current_user.try(:active_student?) && current_user.cohort.active_queue?
           li#assistance-request-module
             span#cancel-assistance-request hidden=!(current_user.waiting_for_assistance? || current_user.being_assisted?)
-              = link_to '#', class: 'navbar-btn btn btn-sm btn-warning cancel-request-assistance-button', :'data-toggle' => 'tooltip', :'data-placement' => 'bottom', title: 'Cancel this Assistance Request' do
+              = link_to '#', class: 'navbar-btn btn btn-outline-warning cancel-request-assistance-button', :'data-toggle' => 'tooltip', :'data-placement' => 'bottom', title: 'Cancel this Assistance Request' do
                 - if current_user.being_assisted?
                   = "#{current_user.current_assistor.try(:full_name) || 'TA'} assisting"
                 - elsif current_user.waiting_for_assistance?
@@ -208,7 +208,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
                 - else
                   = 'Waiting for Assistance'
             span#create-assistance-request hidden=(current_user.waiting_for_assistance? || current_user.being_assisted?)
-              button.btn.btn-sm.navbar-btn.btn-primary data-toggle="modal" data-target="#assistance-request-reason-modal" onclick="ga('send', 'event', 'request-assistance', 'click', 'student-requested-assistance');"
+              button.btn.navbar-btn.btn-primary data-toggle="modal" data-target="#assistance-request-reason-modal" onclick="ga('send', 'event', 'request-assistance', 'click', 'student-requested-assistance');"
                 - if current_user.location.try(:satellite?)
                   | Request Remote Assistance
                 - else
