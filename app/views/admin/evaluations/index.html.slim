@@ -5,16 +5,17 @@
 header.page-header
   h1 Project Evaluations
 
-.well
-  = render 'filters'
+.card.mb-3
+  .card-header
+    = render 'filters'
 
 = render 'stats'
 
 .row
   .col-sm-12
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title
+    .card
+      .card-header
+        h3.card-title
           | Evaluations
           = " (#{@evaluations.count} / #{@evaluations.total_count} results)"
 
@@ -33,4 +34,4 @@ header.page-header
           tfoot
             tr
               th colspan="6"
-                = paginate @evaluations, window: 2
+                = paginate @evaluations, window: 2, theme: 'bootstrap4'
