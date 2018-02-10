@@ -23,6 +23,7 @@ gem 'bcrypt'
 gem 'puma', '~> 3.0'
 
 gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
 # gem 'readmorejs-rails'
 gem 'best_in_place', github: 'bernat/best_in_place'
 gem 'ace-rails-ap'

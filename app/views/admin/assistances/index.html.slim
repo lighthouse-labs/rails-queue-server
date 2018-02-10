@@ -5,16 +5,17 @@
 header.page-header
   h1 Assistances
 
-.well
-  = render 'filters'
+.card.mb-3
+  .card-header
+    = render 'filters'
 
 = render 'stats'
 
 .row
   .col-sm-12
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title
+    .card
+      .card-header
+        h3.card-title
           | Assistances
           = " (#{@assistances.count} / #{Assistance.count} results)"
 
@@ -35,4 +36,4 @@ header.page-header
           tfoot
             tr
               th colspan="6"
-                = paginate @assistances, window: 2
+                = paginate @assistances, window: 2, theme: 'bootstrap4'

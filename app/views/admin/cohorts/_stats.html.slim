@@ -1,6 +1,6 @@
 .summary-stats
   .stat.card
-    .card-body
+    .card-block
       h3
         i.fa.fa-clock-o
         | &nbsp;
@@ -8,7 +8,7 @@
       span Start Date
 
   .stat.card
-    .card-body
+    .card-block
       h3
         i.fa.fa-clock-o
         | &nbsp;
@@ -16,7 +16,7 @@
       span End Date
 
   .stat.card
-    .card-body
+    .card-block
       h3
         i.fa.fa-bell-o
         | &nbsp;
@@ -30,7 +30,7 @@
 
   - if cohort.upcoming?
     .stat.card
-      .card-body
+      .card-block
         h3
           i.fa.fa-hourglass-end
           | &nbsp;
@@ -39,7 +39,7 @@
   - elsif cohort.active?
 
     .stat.card
-      .card-body
+      .card-block
         h3
           i.fa.fa-calendar
           | &nbsp;
@@ -47,7 +47,7 @@
         span Current Day
 
     .stat.card
-      .card-body
+      .card-block
         h3
           i.fa.fa-hourglass-end
           | &nbsp;
@@ -56,7 +56,7 @@
         span Ends In
   - else
     .stat.card
-      .card-body
+      .card-block
         h3
           i.fa.fa-hourglass-end
           | &nbsp;
@@ -64,7 +64,7 @@
         span Finished
 
   .stat.card
-    .card-body
+    .card-block
       h3
         i.fa.fa-graduation-cap
         | &nbsp;
@@ -76,7 +76,7 @@
       span All Students
 
   .stat.card
-    .card-body
+    .card-block
       h3
         i.fa.fa-bomb
         | &nbsp;
@@ -88,7 +88,7 @@
       span Exited Students
 
   .stat.card
-    .card-body
+    .card-block
       h3
         i.fa.fa-desktop
         | &nbsp;

@@ -1,8 +1,8 @@
 - @interview_template.questions.active.sequential.each do |question|
 
-  .card
+  .card.mb-3
     .card-header
-      h3.card-title Question #{question.sequence}
+      h4.card-title.mb-0 Question #{question.sequence}
 
     .card-body
       == markdown(question.question.to_s)
