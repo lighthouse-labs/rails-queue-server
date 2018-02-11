@@ -1,5 +1,5 @@
 - if form.object.errors.full_messages.any?
-  .alert.alert-error
+  .alert.alert-danger
     strong Please correct the following errors:
     - form.object.errors.full_messages.each do |msg|
       li = msg

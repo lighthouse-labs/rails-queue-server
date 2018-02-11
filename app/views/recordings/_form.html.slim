@@ -1,7 +1,7 @@
 = simple_form_for @recording, html: { id: 'recording-form', class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
 
   - if f.object.errors.full_messages.any?
-    .alert.alert-error
+    .alert.alert-danger
       strong Please correct the following errors:
       - f.object.errors.full_messages.each do |msg|
         li = msg
