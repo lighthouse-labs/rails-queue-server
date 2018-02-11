@@ -11,12 +11,12 @@
   .card.question-result
     .card-header
       h3.card-title Overall Feedback
-    .card-block
+    .card-body
        == markdown (@result.feedback.to_s)
   .card.question-result.scoring
     .card-header
       h3.card-title Scoring
-    .card-block
+    .card-body
       ol
        li Didn't get it.
        li Got it with some help, or close.
@@ -33,7 +33,7 @@
           - else
             span.badge class=integer_l_score_label_class(result.score)
               = "#{result.score} / 4"
-      .card-block
+      .card-body
         strong The Question
         br
         == markdown(result.question.to_s)

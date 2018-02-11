@@ -15,7 +15,7 @@ br
         .card-header
           h3.card-title Average Rating By Month
 
-        .card-block
+        .card-body
           = bar_chart @monthly_chart_data, min: 1, max: 5, label: "Average"
 
   - if @bootcamp_data_by_curriculum_day.present?
@@ -25,7 +25,7 @@ br
           .card-header
             h3.card-title Average Rating By Curriculum Day
 
-          .card-block
+          .card-body
             = column_chart @bootcamp_data_by_curriculum_day, min: 1, max: 5, label: "Average Rating", height: "500px;"
 .row
   .col-sm-12

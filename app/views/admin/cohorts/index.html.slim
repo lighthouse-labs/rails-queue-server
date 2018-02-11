@@ -20,7 +20,7 @@ h3.my-3
         .card-header
           = link_to [:admin, cohort] do
             h3.card-title = cohort.name
-        .card-block.p-2
+        .card-body.p-2
           = render 'stats', cohort: cohort
           div
             = link_to 'Dashboard', [:admin, cohort], class: 'btn btn-primary'
@@ -34,7 +34,7 @@ h3.my-3
     .card
       .card-header
         h3.card-title Other Cohorts
-      .card-block
+      .card-body
         table.table
           thead
             tr
