@@ -84,31 +84,33 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             span.non-tablet-label
               | Teachers
 
-        - if admin?
-          li.nav-item.dropdown
-            = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Admin'
-              i.fa.fa-fw.fa-lock
-              span.non-tablet-label
-                | Admin
-            .dropdown-menu
-              = link_to 'Cohorts', admin_cohorts_path, class: 'dropdown-item'
-              = link_to 'Assistances', admin_assistances_path, class: 'dropdown-item'
-              = link_to 'Curriculum Feedback', admin_curriculum_feedbacks_path, class: 'dropdown-item'
-              = link_to 'Teacher Feedback', admin_teacher_feedbacks_path, class: 'dropdown-item'
-              = link_to 'Day Feedback', admin_day_feedbacks_path, class: 'dropdown-item'
-              = link_to 'Teacher Stats', admin_teacher_stats_path, class: 'dropdown-item'
-              = link_to 'Learning Outcomes', admin_categories_path, class: 'dropdown-item'
-              = link_to 'Activities', admin_activities_path, class: 'dropdown-item'
-              = link_to 'Project Evaluations', admin_evaluations_path, class: 'dropdown-item'
-              = link_to 'Prep Stats', admin_prep_stats_path, class: 'dropdown-item'
-              = link_to 'Users', admin_users_path, class: 'dropdown-item'
-
       - if active_student? || alumni?
         li.nav-item
           = link_to incomplete_activities_path, title: 'Incomplete Activities', class:"nav-link"
             i.fa.fa-fw.fa-exclamation-triangle
             span.non-tablet-label
               | Incomplete Activities (#{current_user.incomplete_activities.core.count})
+
+
+      - if admin?
+        li.nav-item.dropdown
+          = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Admin'
+            i.fa.fa-fw.fa-lock
+            span.non-tablet-label
+              | Admin
+          .dropdown-menu
+            = link_to 'Cohorts', admin_cohorts_path, class: 'dropdown-item'
+            = link_to 'Assistances', admin_assistances_path, class: 'dropdown-item'
+            = link_to 'Curriculum Feedback', admin_curriculum_feedbacks_path, class: 'dropdown-item'
+            = link_to 'Teacher Feedback', admin_teacher_feedbacks_path, class: 'dropdown-item'
+            = link_to 'Day Feedback', admin_day_feedbacks_path, class: 'dropdown-item'
+            = link_to 'Teacher Stats', admin_teacher_stats_path, class: 'dropdown-item'
+            = link_to 'Learning Outcomes', admin_categories_path, class: 'dropdown-item'
+            = link_to 'Activities', admin_activities_path, class: 'dropdown-item'
+            = link_to 'Project Evaluations', admin_evaluations_path, class: 'dropdown-item'
+            = link_to 'Prep Stats', admin_prep_stats_path, class: 'dropdown-item'
+            = link_to 'Users', admin_users_path, class: 'dropdown-item'
+
 
     ul.navbar-nav.ml-auto
       - if teacher? || active_student? || alumni?
@@ -240,6 +242,6 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
           .form-group
             = select_tag(:activity_id, assistance_activities_grouped_by_day_for_select, prompt: 'Which activity?', class: 'form-control')
         .modal-footer
-          button.btn.btn-default type='button' data-dismiss='modal'
+          button.btn.btn-outline-danger type='button' data-dismiss='modal'
             | Cancel
           = submit_tag 'Request Assistance', class: 'btn btn-primary request-assistance-button', data: {dismiss: 'modal'}
