@@ -1,7 +1,7 @@
 - last_evaluation = project.last_evaluation(current_user) if student?
 
-.panel.panel-default.project-nav.text-center
-  .panel-heading
+.card.project-nav.text-center
+  .card-header
     = link_to project.name, project
     / - if student? && last_evaluation
     /   p.status = last_evaluation.status

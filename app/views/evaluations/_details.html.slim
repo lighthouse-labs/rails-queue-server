@@ -1,64 +1,71 @@
-.row
+.row.mb-4
   .col-sm-12
 
-    .panel.panel-default.evals
-      .panel-heading
-        h3.panel-title Details
+    .card.evals
+      .card-header
+        h3.card-title.mb-0 Details
 
-      .panel-body
-        dl.dl-horizontal
+      .card-body             
 
-          dt Student
-          dd
-            .student-info
-              = render 'shared/student_info', student: @evaluation.student
+        dl.col
+          .row
+            dt.col Student
+            dd.col
+              .student-info
+                = render 'shared/student_info', student: @evaluation.student
+          .row
+            dt.col Code
+            dd.col
+              = link_to @evaluation.github_url, target: '_blank' do
+                i.fa.fa-github
+                | &nbsp;
+                = shortened_github_url(@evaluation.github_url)
 
-          dt Code
-          dd
-            = link_to @evaluation.github_url, target: '_blank' do
-              i.fa.fa-github
-              | &nbsp;
-              = shortened_github_url(@evaluation.github_url)
+          .row
+            dt.col Status
+            dd.col
+              - if @evaluation.in_state?(:rejected) || @evaluation.in_state?(:cancelled)
+                span.badge.badge-danger.badge-md = @evaluation.status
+              - else
+                span.badge.badge-info.badge-md = @evaluation.status
 
-          dt Status
-          dd
-            - if @evaluation.in_state?(:rejected) || @evaluation.in_state?(:cancelled)
-              span.badge.badge-danger.badge-md = @evaluation.status
-            - else
-              span.badge.badge-info.badge-md = @evaluation.status
-
-          dt Project
-          dd = link_to @project.name, @project
+          .row
+            dt.col Project
+            dd.col = link_to @project.name, @project
 
 
           - if @evaluation.teacher
-            dt Evaluator
-            dd
-              = link_to @evaluation.teacher.full_name, @evaluation.teacher
+            .row
+              dt.col Evaluator
+              dd.col
+                = link_to @evaluation.teacher.full_name, @evaluation.teacher
 
-          dt Cohort
-          dd = link_to @evaluation.student.cohort.name, cohort_students_path(@evaluation.student.cohort)
+          .row
+            dt.col Cohort
+            dd.col = link_to @evaluation.student.cohort.name, cohort_students_path(@evaluation.student.cohort)
 
-          dt Submitted
-          dd
-            = @evaluation.created_at.to_s(:short_friendly)
-            = " (#{time_ago_in_words(@evaluation.created_at)} ago)"
+          .row
+            dt.col Submitted
+            dd.col
+              = @evaluation.created_at.to_s(:short_friendly)
+              = " (#{time_ago_in_words(@evaluation.created_at)} ago)"
 
           - if teacher? && (@evaluation.in_state?(:pending) || @evaluation.in_state?(:in_progress))
-            dt Mark
-            dd
-              - if @evaluation.in_state?(:pending)
-                = link_to "Start Marking", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success", method: :put
-              - elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
-                = link_to "Continue Marking", edit_project_evaluation_path(@project, @evaluation), class: "btn btn-success"
+            .row
+              dt.col Mark
+              dd.col
+                - if @evaluation.in_state?(:pending)
+                  = link_to "Start Marking", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success", method: :put
+                - elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
+                  = link_to "Continue Marking", edit_project_evaluation_path(@project, @evaluation), class: "btn btn-success"
 
-.row
+.row.mb-4
   .col-sm-12
-    .panel.panel-default.evals
-      .panel-heading
-        h3.panel-title Student Notes
+    .card.evals
+      .card-header
+        h3.card-title.mb-0 Student Notes
 
-      .panel-body
+      .card-body
         = simple_format @evaluation.student_notes
 
 - if @all_completed_evaluations.any?

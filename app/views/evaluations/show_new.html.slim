@@ -5,27 +5,27 @@
 - content_for :side_nav do
   = render('shared/menus/project_side_menu', project: @evaluation.project)
 
-h3 = "#{@evaluation.student.full_name}'s #{@project.name} (Eval)"
+h3.project_eval_header = "#{@evaluation.student.full_name}'s #{@project.name} (Eval)"
 
 == render 'details'
 
 ul.nav.nav-tabs role="tablist" id="studentTab"
   - if @evaluation.completed?
-    li role="presentation" class="active"
-      a href="#details" aria-controls="project" role="tab" data-toggle="tab"
+    li.nav-item role="presentation" class="active"
+      a.nav-link href="#details" aria-controls="project" role="tab" data-toggle="tab"
         | Evaluation Details
-  li role="presentation" class=(@evaluation.completed? ? '' : 'active')
-    a href="#project" aria-controls="project" role="tab" data-toggle="tab"
+  li.nav-item role="presentation" class=(@evaluation.completed? ? '' : 'active')
+    a.nav-link href="#project" aria-controls="project" role="tab" data-toggle="tab"
       | Project Description
 
 .tab-content
 
   - if @evaluation.completed?
-    #details.tab-pane role="tabpanel" class="active"
+    #details.tab-pane.card.mt-3.p-2 role="tabpanel" class="active"
       h3 Evaluation Details
       == render 'result_details', view_only: true
 
-  #project.tab-pane role="tabpanel" class=(@evaluation.completed? ? '' : 'active')
+  #project.tab-pane.card.mt-3.p-2 role="tabpanel" class=(@evaluation.completed? ? '' : 'active')
     h3 Project Description
     .instructions
       == markdown(@project.description)
