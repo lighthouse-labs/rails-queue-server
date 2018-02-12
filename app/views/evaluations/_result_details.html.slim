@@ -1,15 +1,15 @@
-.panel.panel-default
-  .panel-heading Overall Feedback
-  .panel-body
+.card.mb-3
+  .card-header Overall Feedback
+  .card-body
     == markdown(@evaluation.teacher_notes.to_s)
 
 - @evaluation.sorted_rubric.each do |criteria, properties|
 
   - result = (@evaluation.result || {})[criteria] || {}
 
-  .panel.panel-default.evaluation-results
-    .panel-heading = properties['name']
-    .panel-body
+  .card.mb-3.evaluation-results
+    .card-header = properties['name']
+    .card-body
 
       .alert.alert-success class="#{'active' if result['score'] == '4'}"
         strong Exceptional
@@ -32,5 +32,7 @@
         == properties['rankings']['unsatisfactory']
 
       - if result['feedback'].present?
-        h5 = "Feedback about #{properties['name']}"
-        == markdown(result['feedback'].to_s)
+        .card
+          h5.card-header = "Feedback about #{properties['name']}"
+          .card-body
+            == markdown(result['feedback'].to_s)

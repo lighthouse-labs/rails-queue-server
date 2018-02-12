@@ -2,31 +2,33 @@
 
 - provide :body_class, 'project-evals-edit-new'
 
-.col-md-3
-  = image_tag avatar_for(@evaluation.student), class: "evaluation-avatar"
-  p.text-center = @evaluation.student.full_name
-  p.text-center = @evaluation.student.cohort.code
+.row
+  .col-md-3
+    = image_tag avatar_for(@evaluation.student), class: "evaluation-avatar"
+    h4.text-center.mt-2 = @evaluation.student.full_name
+    p.text-center = @evaluation.student.cohort.name
 
-.col-md-9
+  .col-md-9
 
-  h3 = "#{@evaluation.student.full_name}'s #{@project.name} (Eval)"
+    h3 = "#{@evaluation.student.full_name}'s #{@project.name} (Eval)"
 
-  = form_for @evaluation, url: project_evaluation_path, method: :put do |f|
+    = form_for @evaluation, url: project_evaluation_path, method: :put do |f|
 
-    .actions-container
-      .well.actions
-        - if @evaluation.markable?
-          - if @evaluation.grabbable_by?(current_user)
-            = link_to "Re-assign to me", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success btn-evaluation", method: :put, data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Take over this evaluation and make me the evaluator.'
+      .actions-container
+        .card.actions.mb-3
+          .card-header
+            - if @evaluation.markable?
+              - if @evaluation.grabbable_by?(current_user)
+                = link_to "Re-assign to me", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success btn-evaluation", method: :put, data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Take over this evaluation and make me the evaluator.'
 
-          = link_to 'Cancel && Re-queue', cancel_marking_project_evaluation_path(@project, @evaluation), class: 'btn btn-warning btn-evaluation', method: :put, data: { confirm: 'Sure? You will no longer be the evaluator. It will go back on the queue', toggle: 'tooltip', placement: 'bottom' }, title: 'Un-assign myself as the evaluator and put it back into the queue. My bad.'
+              = link_to 'Cancel && Re-queue', cancel_marking_project_evaluation_path(@project, @evaluation), class: 'btn btn-warning btn-evaluation', method: :put, data: { confirm: 'Sure? You will no longer be the evaluator. It will go back on the queue', toggle: 'tooltip', placement: 'bottom' }, title: 'Un-assign myself as the evaluator and put it back into the queue. My bad.'
 
-    == render 'details'
+      == render 'details'
 
-    == render 'project_details', f: f
+      == render 'project_details', f: f
 
-    .form-actions
-      = f.submit 'Submit Evaluation', class: 'btn btn-primary btn-large'
+      .form-actions
+        = f.submit 'Submit Evaluation', class: 'btn btn-primary btn-large'
 
-    br
-    br
+      br
+      br

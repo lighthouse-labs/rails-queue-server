@@ -14,7 +14,7 @@ ul.nav.nav-tabs role="tablist" id="studentTab"
     li.nav-item role="presentation" class="active"
       a.nav-link href="#details" aria-controls="project" role="tab" data-toggle="tab"
         | Evaluation Details
-  li.nav-item role="presentation" class=(@evaluation.completed? ? '' : 'active')
+  li.nav-item.active role="presentation" class=(@evaluation.completed? ? '' : 'active')
     a.nav-link href="#project" aria-controls="project" role="tab" data-toggle="tab"
       | Project Description
 

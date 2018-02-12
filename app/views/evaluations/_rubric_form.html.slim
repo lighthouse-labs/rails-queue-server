@@ -28,11 +28,9 @@
 
   - result = (@evaluation.result || {})[criteria] || {}
 
-  .panel.panel-default data-affects-outcome=(criteria != 'version_control' ? '1' : nil)
-
-    .panel-heading = properties['name']
-
-    .panel-body
+  .card.mb-4 data-affects-outcome=(criteria != 'version_control' ? '1' : nil)
+    .card-header = properties['name']
+    .card-body
 
       div data-toggle="buttons"
         label.btn.btn-togglable.btn-success class="#{'active' if result['score'] == '4'}"
@@ -66,7 +64,7 @@
         - feedback_required = result['score'] == '1' || result['score'] == '2'
         = label_tag :feedback, "Feedback about #{properties['name']} (Markdown format)", class: 'feedback-label'
         = text_area_tag "evaluation[result][#{criteria}][feedback]", result['feedback'], class: 'form-control', required: feedback_required
-        span.required-notice.badge.badge-secondary class=(feedback_required ? '' : 'hidden') Note: Feedback text is required since rating is below acceptable
+        span.required-notice.badge.badge-secondary class=(feedback_required ? '' : 'invisible') Note: Feedback text is required since rating is below acceptable
 
 .form-group
   h4 Overall Feedback
