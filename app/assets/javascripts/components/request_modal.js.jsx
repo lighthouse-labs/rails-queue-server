@@ -78,11 +78,11 @@ var RequestModal = React.createClass({
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <button type="button" className="close">
+              <h4 className="modal-title">Log Assistance</h4>
+              <button type="button" className="close" onClick={this.close}>
                 <span aria-hidden="true">&times;</span>
                 <span className="sr-only">Close</span>
               </button>
-              <h4 className="modal-title">Log Assistance</h4>
             </div>
             <div className="modal-body">
 

@@ -222,13 +222,13 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
   .modal-dialog
     .modal-content
       .modal-header
+        h4.modal-title
+          | Bring in the big guns
         button.close type='button' data-dismiss='modal'
           span aria-hidden='true'
             | &times;
           span.sr-only
             | Close
-        h4.modal-title
-          | Bring in the big guns
       = form_tag '/assistance_requests', method: 'post', remote: true, id: 'assistance-request-form'
         .modal-body
           label
