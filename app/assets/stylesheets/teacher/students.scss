@@ -37,13 +37,14 @@
         margin: 0;
       }
     }
-    .btn.btn-default {
+    .btn.btn-secondary {
       position: absolute;
       top: 5px;
       right: 20px;
     }
     .nav-tabs {
       padding-top: 10px;
+      margin-top: 10px;
     }
     .stats-holder {
       .stats {
@@ -106,5 +107,9 @@
     p:not(.title) {
       font-size: 95%;
     }
+  }
+
+  .student-results {
+    margin-top: 1rem;
   }
 }

@@ -26,12 +26,12 @@ class StudentPresenter < UserPresenter
   def day_button
     if student.cohort.try(:upcoming?)
       days = (student.cohort.start_date - Date.current).to_i
-      link_to "#{days} days to start", '#', class: "btn btn-default"
+      link_to "#{days} days to start", '#', class: "btn btn-secondary"
     elsif student.cohort.try(:active?)
       day = CurriculumDay.new(Date.current, student.cohort).to_s.upcase
-      link_to day.to_s, day_path('today'), class: "btn btn-default"
+      link_to day.to_s, day_path('today'), class: "btn btn-secondary"
     elsif student.cohort.try(:finished?)
-      link_to "Alumni", '#', class: "btn btn-default"
+      link_to "Alumni", '#', class: "btn btn-secondary"
     end
   end
 
