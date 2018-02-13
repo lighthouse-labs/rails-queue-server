@@ -4,17 +4,17 @@
 
 h4.pull-left Day Feedback (#{@day_feedbacks.count}):
 .pull-right.stats.total-feedbacks
-  i class='happy fa fa-smile-o fa-2x' title="Happy feedback"
+  i class='happy fa fa-smile-o fa-3x' title="Happy feedback"
   sup.total-feedbacks.happy title="Happy total"
     = @day_feedbacks.count_for_mood(:happy)
   sub.percentage-feedback-happy title="Happy %"
     = number_to_percentage(@day_feedbacks.percentage_of_mood(:happy), precision: 0)
-  i class='ok fa fa-circle-thin fa-2x' title="OK feedback"
+  i class='ok fa fa-circle-thin fa-3x' title="OK feedback"
   sup.total-feedbacks.ok title="Ok total"
     = @day_feedbacks.count_for_mood(:ok)
   sub.percentage-feedback-ok title="Ok %"
     = number_to_percentage(@day_feedbacks.percentage_of_mood(:ok), precision: 0)
-  i class='sad fa fa-frown-o fa-2x' title="Sad feedback"
+  i class='sad fa fa-frown-o fa-3x' title="Sad feedback"
   sup.total-feedbacks.sad title="Sad total"
     = @day_feedbacks.count_for_mood(:sad)
   sub.percentage-feedback-sad title="Sad %"
@@ -52,18 +52,18 @@ table.table.table-feedbacks
                 article.read-more = best_in_place [:admin, dayfeedback], :notes, :as => :textarea, :place_holder => "Click here to add notes", :inner_class => "in-place-edit-text-area", :html_attrs => { :onfocus  => "$(this).css('outline','none');", :style => 'background: transparent; border: none; width:283px; height:100px;' }
           td data-id='#{dayfeedback.id}'
             - if !day_feedback_presenter.archived_at
-              .btn.btn-primary.btn-xs.archive-button
+              .btn.btn-primary.btn-sm.archive-button
                 | Archive
-              .btn.btn-warning.btn-xs.unarchive-button.hidden-button
+              .btn.btn-warning.btn-sm.unarchive-button.hidden-button
                 | Unarchive
-              .btn.btn-danger.btn-xs.archive-confirm-button
+              .btn.btn-danger.btn-sm.archive-confirm-button
                 | Confirm
             - else
-              .btn.btn-warning.btn-xs.unarchive-button
+              .btn.btn-warning.btn-sm.unarchive-button
                 | Unarchive
-              .btn.btn-primary.btn-xs.archive-button.hidden-button
+              .btn.btn-primary.btn-sm.archive-button.hidden-button
                 | Archive
-              .btn.btn-danger.btn-xs.archive-confirm-button
+              .btn.btn-danger.btn-sm.archive-confirm-button
                 | Confirm
 
 = paginate @paginated_day_feedbacks, :window => 2, theme: 'bootstrap4'
