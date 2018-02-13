@@ -21,10 +21,12 @@ module ActivitiesHelper
   end
 
   def assistance_activities_grouped_by_day_for_select
-    grouped_options_for_select(
-      current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :id).group_by { |d| d[1] },
-      @activity.try(:id)
-    )
+    if current_user
+      grouped_options_for_select(
+        current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :id).group_by { |d| d[1] },
+        @activity.try(:id)
+      )
+    end
   end
 
   def bootcamp_activities_uuid_for_select
