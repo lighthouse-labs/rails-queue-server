@@ -34,7 +34,7 @@ class CodeReviewsController < ApplicationController
     code_review_request.save!
     code_review_request.start_assistance(current_user)
     code_review = code_review_request.reload.assistance
-    code_review.end(params[:assistance][:notes], params[:assistance][:rating].to_i, params[:assistance][:student_notes])
+    code_review.end(params[:assistance][:notes], false, params[:assistance][:rating].to_i, params[:assistance][:student_notes])
 
     redirect_to :back
   end
