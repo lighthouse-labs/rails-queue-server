@@ -5,7 +5,7 @@
 header.page-header
   h1 #{@tech_interview.interviewee.full_name}'s Week #{@interview_template.week} Tech Interview
 
-.card
+.card.mb-4
   .card-header
     .h3.mb-0 Results
   .card-body
@@ -54,14 +54,18 @@ header.page-header
           span.badge class=l_score_label_class(@tech_interview.articulation_score)
             = @tech_interview.articulation_score
 
-h3 Feedback
-== markdown(@tech_interview.feedback.to_s)
+.card.mb-4
+  .card-header
+    .h3.mb-0 Feedback
+  .card-body
+    == markdown(@tech_interview.feedback.to_s)
 
-h3 Internal Notes
-== markdown(@tech_interview.internal_notes.to_s)
+.card.mb-4
+  .card-header
+    .h3.mb-0 Internal Notes
+  .card-body
+    == markdown(@tech_interview.internal_notes.to_s)
 
-
-h3 Results
 
 == render 'results'
 
