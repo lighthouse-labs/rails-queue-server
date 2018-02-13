@@ -26,9 +26,9 @@ header.page-header
         strong Satellite Location
         p Since this is a satellite location, teachers from #{@supporting_location.name} provide support. They are also listed below.
 
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title
+    .card
+      .card-header
+        h3.card-title.mb-0
           = @teachers.size
           | &nbsp;Teachers&nbsp;
           - if @location
