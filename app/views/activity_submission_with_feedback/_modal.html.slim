@@ -25,4 +25,4 @@
         window.location.href = next_path
       ).on "ajax:error", (e, xhr, status, error) ->
         console.log status, error
-        $("#new_activity_submission_with_optional_feedback .remote-form-errors").removeClass('hidden').find('.error-messages').html xhr.responseText
+        $("#new_activity_submission_with_optional_feedback .remote-form-errors").removeClass('d-none').find('.error-messages').html xhr.responseText
