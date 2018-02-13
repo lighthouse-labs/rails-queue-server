@@ -21,11 +21,11 @@ ul.nav.nav-tabs role="tablist" id="studentTab"
 .tab-content
 
   - if @evaluation.completed?
-    #details.tab-pane.card.mt-3.p-2 role="tabpanel" class="active"
+    #details.tab-pane.mt-3.p-2 role="tabpanel" class="active"
       h3 Evaluation Details
       == render 'result_details', view_only: true
 
-  #project.tab-pane.card.mt-3.p-2 role="tabpanel" class=(@evaluation.completed? ? '' : 'active')
+  #project.tab-pane.mt-3.p-2 role="tabpanel" class=(@evaluation.completed? ? '' : 'active')
     h3 Project Description
     .instructions
       == markdown(@project.description)

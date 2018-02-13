@@ -11,6 +11,12 @@
             = "#{result.score} / 4"
 
     .card-body
+      - if result.notes?
+        .card.mb-2
+          .card-header
+            h5 Teacher Notes
+            == markdown(result.notes.to_s)
+
       == markdown(result.question)
 
       h5 Expected Answer
@@ -21,8 +27,3 @@
         h5 Question Notes
         == markdown(question.answer)
 
-      - if result.notes?
-        .card
-          .card-header
-            h5 Teacher Notes
-            == markdown(result.notes.to_s)
