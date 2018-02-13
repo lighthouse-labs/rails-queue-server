@@ -66,6 +66,6 @@ table.table.table-feedbacks
               .btn.btn-danger.btn-xs.archive-confirm-button
                 | Confirm
 
-= paginate @paginated_day_feedbacks, :window => 2
+= paginate @paginated_day_feedbacks, :window => 2, theme: 'bootstrap4'
 = link_to "Download CSV", admin_day_feedbacks_path(params.merge(format: "csv").permit(:mood, :title, :text)), :class => "btn btn-success download-csv-button", :method => :get
 = link_to "Download XLS", admin_day_feedbacks_path(params.merge(format: "xls").permit(:mood, :title, :text)), :class => "btn btn-success download-xls-button", :method => :get
