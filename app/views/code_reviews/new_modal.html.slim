@@ -25,5 +25,5 @@
       | Rating
      = f.select :rating, [['L1 | Struggling', 1], ['L2 | Slightly behind', 2], ['L3 | On track', 3], ['L4 | Excellent (Needs stretch)', 4]], {selected: 3}, class: 'form-control'
   .modal-footer
-    button.btn.btn-default type="button" data-dismiss="modal" Close
+    button.btn.btn-secondary type="button" data-dismiss="modal" Close
     = f.submit "Submit", class: "btn btn-success", id: "new-code-review-submit-button"

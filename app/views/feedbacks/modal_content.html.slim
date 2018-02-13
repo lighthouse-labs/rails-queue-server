@@ -2,7 +2,7 @@
 
   .modal-header
     button type="button" class="close" data-dismiss="modal" aria-label="Close"
-      span aria-hidden="true" 
+      span aria-hidden="true"
         | &times;
     h4.modal-title Enter your feedback
 
@@ -19,5 +19,5 @@
     | NOTE: This data is not sent to any teachers nor directly accessible by them.
 
   .modal-footer
-    button.btn.btn-default type="button" data-dismiss="modal" Close
+    button.btn.btn-secondary type="button" data-dismiss="modal" Close
     = f.submit "Save", class: "btn btn-success", id: "modal-submit-button"
