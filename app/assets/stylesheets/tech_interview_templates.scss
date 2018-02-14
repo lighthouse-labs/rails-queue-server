@@ -5,10 +5,14 @@
 
 .tech-interview-template {
 
+  display: block;
   border-radius: 6px;
+  color: $brand-primary;
 
   &:hover {
     box-shadow: 0 0 0 2px $brand-secondary;
+    text-decoration: none;
+
     .name {
       color: $brand-primary;
     }

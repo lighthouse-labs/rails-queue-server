@@ -1,32 +1,28 @@
 - interview_template = tech_interview_template
 
-= link_to interview_template do
-  .tech-interview-template
-    .info
-      .icon.icon-type title='Tech Interview'
-        i.fa.fa-comments
-      .time.time-duration
-        | W
-        = interview_template.week
-      .name
-        | Week&nbsp;
-        = interview_template.week
-        | &nbsp;Tech Interview
-      .status
-        - if student?
-          = render 'tech_interview_templates/student_interview_status', student: current_user, interview_template: interview_template
-        - elsif teacher? || admin?
-          - completed = cohort.tech_interviews.completed.where(tech_interview_template: interview_template).count
-          - total = cohort.students.active.count
-          - ratio = total > 0 ? (completed.to_f / total.to_f) * 100 : 0
-          .progress title="#{completed} / #{total} (#{ratio.round}%) Complete" data-toggle="tooltip"
-            .progress-bar class=progress_bar_class(ratio) role='progressbar' aria-valuenow=ratio aria-valuemin='0' aria-valuemax='100' style="width:#{ratio}%"
-              span.sr-only = "#{ratio}% Complete"
-          / | #{completed} / #{total}
+= link_to interview_template, class: 'tech-interview-template' do
+  .info
+    .icon.icon-type title='Tech Interview'
+      i.fa.fa-comments
+    .time.time-duration
+      | W
+      = interview_template.week
+    .name
+      | Week&nbsp;
+      = interview_template.week
+      | &nbsp;Tech Interview
+    .status
+      - if student?
+        = render 'tech_interview_templates/student_interview_status', student: current_user, interview_template: interview_template
+      - elsif teacher? || admin?
+        - completed = cohort.tech_interviews.completed.where(tech_interview_template: interview_template).count
+        - total = cohort.students.active.count
+        - ratio = total > 0 ? (completed.to_f / total.to_f) * 100 : 0
+        .progress title="#{completed} / #{total} (#{ratio.round}%) Complete" data-toggle="tooltip"
+          .progress-bar class=progress_bar_class(ratio) role='progressbar' aria-valuenow=ratio aria-valuemin='0' aria-valuemax='100' style="width:#{ratio}%"
+            span.sr-only = "#{ratio}% Complete"
+        / | #{completed} / #{total}
 
-
-    .details
-      .blurb.clearfix
-        p = truncate(interview_template.description, length: 200)
-
-
+  .details
+    .blurb.clearfix
+      p = truncate(interview_template.description, length: 200)

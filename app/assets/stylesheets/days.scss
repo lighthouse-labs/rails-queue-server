@@ -32,7 +32,14 @@
   }
 }
 
+a.activity {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .activity {
+  display: block;
   background-color: $clouds;
   border-radius: 6px;
   color: $brand-primary;
