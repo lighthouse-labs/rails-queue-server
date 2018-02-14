@@ -36,9 +36,9 @@ html
         = render "layouts/reconnect_holder"
       .row
         - if content_for?(:side_nav)
-          nav.side-nav.col-3
+          nav.side-nav.col-lg-3.col-md-4
             == yield :side_nav
-          .content.col-9
+          .content.col-lg-9.col-md-8
             == yield
         - else
           .content.col-12
