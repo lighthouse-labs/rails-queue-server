@@ -80,17 +80,17 @@
   .icon-completion  {
     right: 0;
     .fa-check-square-o {
-      color: $green-sea;
+      color: $brand-secondary;
     }
     .completed-activities {
-      color: $green-sea;
+      color: $brand-secondary;
       font-size: .6em;
     }
   }
   .icon-calendar-description-button {
     right: 0;
     .fa-chevron-down {
-      color: $green-sea;
+      color: $brand-secondary;
     }
     .fa-chevron-down:hover {
       color: $gray-light;
@@ -120,21 +120,21 @@
     opacity: 0.8;
   }
   .calendar-event-location {
-    color: $green-sea;
+    color: $brand-secondary;
     font-size: 16px;
   }
   .calendar-event-name {
-    color: $green-sea;
+    color: $brand-secondary;
     font-size: 24px;
     padding: 28px 0;
   }
   .calendar-event-name-with-location {
-    color: $green-sea;
+    color: $brand-secondary;
     font-size: 24px;
     padding: 20px 0;
   }
   .time {
-    color: $brand-secondary;
+    color: $brand-primary;
     font-size: 14px;
     left: 70px;
     line-height: 20px;
@@ -160,7 +160,7 @@
   border-radius: 0px 0px 6px 6px;
 }
 .description-details {
-  color: $green-sea;
+  color: $brand-secondary;
 
   margin-left: 140px;
   padding: 10px 55px 10px 0px;

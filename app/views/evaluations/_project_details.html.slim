@@ -12,29 +12,30 @@ ul.nav.nav-tabs role="tablist" id="studentTab"
     li.nav-item role="presentation"
       a.nav-link href="#eval-checklist"  aria-controls="eval-checklist" role="tab" data-toggle="tab"
         | Evaluation Checklist
+
   - if @project.evaluation_guide?
     li.nav-item role="presentation"
       a.nav-link href="#eval-guide"  aria-controls="eval-guide" role="tab" data-toggle="tab"
         | Evaluation Guide
 
-.tab-content
+.tab-content.mt-4
 
   - if @evaluation.evaluation_rubric?
     #eval-rubric.tab-pane role="tabpanel" class="active"
       h3.my-2 Rubric Form
       == render 'rubric_form', f: f
 
-  #description.tab-pane role="tabpanel" class=(@evaluation.evaluation_rubric? ? '' : 'active')
+  #description.project-detail.tab-pane role="tabpanel" class=(@evaluation.evaluation_rubric? ? '' : 'active')
     h3 Project Description
     .instructions
       == markdown(@project.description)
 
   - if @evaluation.evaluation_guide?
-    #eval-guide.tab-pane role="tabpanel"
+    #eval-guide.project-detail.tab-pane role="tabpanel"
       .instructions
         == markdown(@evaluation.evaluation_guide)
 
   - if @evaluation.evaluation_checklist?
-    #eval-checklist.tab-pane role="tabpanel"
+    #eval-checklist.project-detail.tab-pane role="tabpanel"
       .instructions
         == markdown(@evaluation.evaluation_checklist)
