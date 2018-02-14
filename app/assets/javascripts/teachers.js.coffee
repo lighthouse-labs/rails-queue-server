@@ -36,18 +36,17 @@ $ ->
   $('.remove-mentor-button').click (e) ->
     that = this
     $(this).attr('disabled', true)
-    id = $(this).siblings('.teacher-mentor-status').data 'id'
+    id = $('.teacher-mentor-status').data 'id'
     removeMentorship(id, ->
-      $(that).css('display', 'none')
+      $(that).addClass('d-none')
       $(that).attr('disabled', false)
-      $(that).siblings('.make-mentor-button').css('display', 'inline-block')
-      )
+      $('.make-mentor-button').removeClass('d-none'))
 
   $('.make-mentor-button').click (e) ->
     that = this
     $(this).attr('disabled', true)
-    id = $(this).siblings('.teacher-mentor-status').data 'id'
+    id = $('.teacher-mentor-status').data 'id'
     addMentorship(id, ->
-      $(that).css('display', 'none')
+      $(that).addClass('d-none')
       $(that).attr('disabled', false)
-      $(that).siblings('.remove-mentor-button').css('display', 'inline-block'))
+      $('.remove-mentor-button').removeClass('d-none'))

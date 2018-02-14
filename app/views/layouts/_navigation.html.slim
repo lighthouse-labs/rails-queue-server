@@ -148,7 +148,6 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
           .dropdown-menu
             = link_to 'Edit Profile', edit_profile_path, class: 'dropdown-item'
             - if active_student? || alumni?
-              = link_to 'Prep Work', prep_index_path, class: 'dropdown-item'
               = link_to 'Classmates', students_path, class: 'dropdown-item'
               = link_to 'Teachers', teachers_path(location_id: current_user.location_id), class: 'dropdown-item'
             = link_to 'Sign Out', session_path, :method => :delete, class: "sign-out-link dropdown-item"
