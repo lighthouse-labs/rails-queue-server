@@ -8,23 +8,28 @@ h1
 
 h3 Assistances
 
-dl.dl-horizontal
-  dt Total Assistances
-  dd#total-assistance-count
-  dt Average L Score
-  dd#average-l-score
+dl.col-md-4
+  .row
+    dt.col.pl-0 Total Assistances
+    dd.col#total-assistance-count
+  .row
+    dt.col.pl-0 Average L Score
+    dd.col#average-l-score
 
 #assistances-chart.chart*{ 'data-url' => assistance_admin_teacher_stat_path(@teacher, format: :json) }
 
 h3 Feedback
 
-dl.dl-horizontal
-  dt Mentor Feedback
-  dd#overall-mentor-feedback
-  dt Lecture Feedback
-  dd#overall-lecture-feedback
-  dt Direct Feedback
-  dd#overall-direct-feedback
+dl.col-md-4
+  .row
+    dt.col.pl-0 Mentor Feedback
+    dd#overall-mentor-feedback
+  .row
+    dt.col.pl-0 Lecture Feedback
+    dd#overall-lecture-feedback
+  .row
+    dt.col.pl-0 Direct Feedback
+    dd#overall-direct-feedback
 
 = link_to 'Feedback Data', admin_teacher_feedbacks_path(teacher_id: @teacher, teacher_location_id: @teacher.location)
 
