@@ -34,25 +34,25 @@
 
       div data-toggle="buttons"
         label.btn.btn-togglable.btn-success class="#{'active' if result['score'] == '4'}"
-          input type="radio" name="evaluation[result][#{criteria}][score]" value="4" autocomplete="off" required="required" checked=('checked' if result['score'] == '4') disabled=view_only
+          input.d-none type="radio" name="evaluation[result][#{criteria}][score]" value="4" autocomplete="off" required="required" checked=('checked' if result['score'] == '4') disabled=view_only
             strong Exceptional
             br
             == properties['rankings']['exceptional']
 
         label.btn.btn-togglable.btn-info class="#{'active' if result['score'] == '3'}"
-          input type="radio" name="evaluation[result][#{criteria}][score]" value="3" autocomplete="off" required="required" checked=('checked' if result['score'] == '3') disabled=view_only
+          input.d-none type="radio" name="evaluation[result][#{criteria}][score]" value="3" autocomplete="off" required="required" checked=('checked' if result['score'] == '3') disabled=view_only
             strong Acceptable
             br
             == properties['rankings']['acceptable']
 
         label.btn.btn-togglable.btn-warning class="#{'active' if result['score'] == '2'}"
-          input type="radio" name="evaluation[result][#{criteria}][score]" value="2" autocomplete="off" required="required"  checked=('checked' if result['score'] == '2') disabled=view_only
+          input.d-none type="radio" name="evaluation[result][#{criteria}][score]" value="2" autocomplete="off" required="required"  checked=('checked' if result['score'] == '2') disabled=view_only
             strong Needs Work
             br
             == properties['rankings']['needs_work']
 
         label class="btn-togglable btn btn-danger" class="#{'active' if result['score'] == '1'}"
-          input type="radio" name="evaluation[result][#{criteria}][score]" value="1" autocomplete="off" required="required" checked=('checked' if result['score'] == '1') disabled=view_only
+          input.d-none type="radio" name="evaluation[result][#{criteria}][score]" value="1" autocomplete="off" required="required" checked=('checked' if result['score'] == '1') disabled=view_only
             strong Unsatisfactory
             br
             == properties['rankings']['unsatisfactory']
