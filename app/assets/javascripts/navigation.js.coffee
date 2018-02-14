@@ -31,14 +31,3 @@ $ ->
 
   $(document).on 'click', '.sign-out-link', (e) ->
     window.App.teacherChannel.offDuty()
-
-  $(document).on 'click', '#search-activities-button', (e) ->
-    $('#search-form').slideToggle(250, 'swing', focusOnSearchField)
-
-  focusOnSearchField = ->
-    inputField = $('#search-form').find('.search-input-field').find('input')
-    if !(inputField.is(':hidden'))
-      inputField.focus()
-
-  if window.location.pathname == '/search_activities'
-    $('#search-form').toggle()

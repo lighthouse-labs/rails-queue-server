@@ -28,7 +28,6 @@ html
     - fluid = (yield(:container) == 'fluid')
     main role="main" class=(fluid ? 'container-fluid' : 'container')
       == render 'layouts/messages'
-      == render 'layouts/search'
 
       - unless disable_cable?
         - if current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student) && current_user.active_student?)
