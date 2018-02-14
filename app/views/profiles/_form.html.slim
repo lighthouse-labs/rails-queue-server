@@ -32,7 +32,7 @@
   - if teacher?
     = f.input :company_name, label: 'Company Name'
     = f.input :company_url, wrapper: :horizontal_input_group, label: 'Company URL'
-      .input-group-text
+      .input-group-text.protocol-holder
         | http://
       = f.input_field :company_url, class: "form-control"
     = f.input :bio, as: :text, input_html: { maxlength: 1000 }
