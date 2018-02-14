@@ -2,11 +2,11 @@ h3.incomplete-activities-title
   | Incomplete Activities
 
 ul.nav.nav-tabs
-  li class="active"
-    a href="#core" data-toggle="tab"
+  li.nav-item
+    a.nav-link.active href="#core" data-toggle="tab"
       | Core (#{@activities.core.count})
-  li
-    a href="#stretch" data-toggle="tab"
+  li.nav-item
+    a.nav-link href="#stretch" data-toggle="tab"
       | Stretch (#{@activities.stretch.count})
 
 .tab-content.partial-tabs
