@@ -13,6 +13,7 @@ hr
   = f.input :cohort_id, collection: @cohorts
   = f.input :type, collection: ['Teacher', 'Student']
 
-  .actions.well
-    = f.submit 'Update', class: 'btn btn-primary', style: 'margin-right: 10px;'
-    = link_to '&laquo; Cancel'.html_safe, [:admin, :students]
+  .actions.card
+    .card-header
+      = f.submit 'Update', class: 'btn btn-primary', style: 'margin-right: 10px;'
+      = link_to '&laquo; Cancel'.html_safe, [:admin, :students]

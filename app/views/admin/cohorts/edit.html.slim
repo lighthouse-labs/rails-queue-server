@@ -3,13 +3,14 @@
 header.page-header
   h1 Edit Cohort: #{@cohort.name}
 
-.well
-  = link_to 'Dashboard', [:admin, @cohort], class: 'btn btn-primary'
-  | &nbsp;
-  = link_to 'Students', admin_students_path(cohort_id: @cohort), class: 'btn btn-info'
-  | &nbsp;
-  = link_to [:admin, :cohorts], class: 'btn btn-info pull-right' do
-    | &laquo; Cohort List
+.card
+  .card-header
+    = link_to 'Dashboard', [:admin, @cohort], class: 'btn btn-primary'
+    | &nbsp;
+    = link_to 'Students', admin_students_path(cohort_id: @cohort), class: 'btn btn-info'
+    | &nbsp;
+    = link_to [:admin, :cohorts], class: 'btn btn-info pull-right' do
+      | &laquo; Cohort List
 
 
 = render 'admin/cohorts/stats', cohort: @cohort
@@ -19,25 +20,27 @@ header.page-header
 
   = render f
 
-  .actions.well
-    = f.submit 'Update', class: 'btn btn-primary', style: 'margin-right: 10px;'
-    = link_to '&laquo; Cancel'.html_safe, [:admin, :cohorts]
+  .actions.card.mb-3
+    .card-header
+      = f.submit 'Update', class: 'btn btn-primary', style: 'margin-right: 10px;'
+      = link_to '&laquo; Cancel'.html_safe, [:admin, :cohorts]
 
-  .curriculum-break.well
-    h5 Cohort Break
-    - if @cohort.curriculum_break
-      p
-        strong Reason:
-        = @cohort.curriculum_break.reason
-      p
-        strong Starts On:
-        = @cohort.curriculum_break.starts_on
-      p
-        strong Number of Weeks:
-        = @cohort.curriculum_break.num_weeks
-      = link_to "Edit", edit_admin_cohort_curriculum_break_path(@cohort, @cohort.curriculum_break), class: 'btn btn-primary'
-      | &nbsp;
-      = link_to "Delete", admin_cohort_curriculum_break_path(@cohort, @cohort.curriculum_break), data: { confrim: "You sure? :|" }, method: 'delete', class: 'btn btn-danger'
-    - else
-      p There are no breaks in this cohort
-      = link_to "Add a Break", new_admin_cohort_curriculum_break_path(@cohort), class: 'btn btn-primary'
+  .curriculum-break.card
+    .card-header
+      h5 Cohort Break
+      - if @cohort.curriculum_break
+        p
+          strong Reason:
+          = @cohort.curriculum_break.reason
+        p
+          strong Starts On:
+          = @cohort.curriculum_break.starts_on
+        p
+          strong Number of Weeks:
+          = @cohort.curriculum_break.num_weeks
+        = link_to "Edit", edit_admin_cohort_curriculum_break_path(@cohort, @cohort.curriculum_break), class: 'btn btn-primary'
+        | &nbsp;
+        = link_to "Delete", admin_cohort_curriculum_break_path(@cohort, @cohort.curriculum_break), data: { confrim: "You sure? :|" }, method: 'delete', class: 'btn btn-danger'
+      - else
+        p There are no breaks in this cohort
+        = link_to "Add a Break", new_admin_cohort_curriculum_break_path(@cohort), class: 'btn btn-primary'

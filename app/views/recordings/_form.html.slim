@@ -18,6 +18,7 @@
 
   = f.hidden_field :activity_id
 
-  .actions.well
-    = f.submit 'Save', class: 'btn btn-primary'
-    = link_to ' &laquo; Cancel'.html_safe, @recording.new_record? ? recording_redirect_path(@recording.activity) : recording_path(@recording)
+  .actions.card
+    .card-header
+      = f.submit 'Save', class: 'btn btn-primary'
+      = link_to ' &laquo; Cancel'.html_safe, @recording.new_record? ? recording_redirect_path(@recording.activity) : recording_path(@recording)

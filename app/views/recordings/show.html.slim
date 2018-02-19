@@ -4,9 +4,10 @@ article.recording
   h1
     = recording_title(@recording)
   - if teacher?
-    .actions.well
-      = link_to 'Edit', edit_recording_path(@recording)
-      = link_to 'Delete', @recording, method: :delete, class: 'delete-recording-btn'
+    .actions.card
+      .card-header
+        = link_to 'Edit', edit_recording_path(@recording)
+        = link_to 'Delete', @recording, method: :delete, class: 'delete-recording-btn'
   - if @recording.activity
     p
       = 'Day: '

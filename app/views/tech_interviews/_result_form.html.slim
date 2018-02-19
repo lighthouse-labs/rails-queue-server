@@ -13,37 +13,37 @@
     br
     == markdown(question.question.to_s)
 
-    .well.hide-for-student
+    .card.hide-for-student
+      .card-header
+        .form-group
+          = form.label :notes
+          = form.text_area :notes, placeholder: 'Notes / Feedback for Student (Will be sent to student!)', class: 'form-control'
 
-      .form-group
-        = form.label :notes
-        = form.text_area :notes, placeholder: 'Notes / Feedback for Student (Will be sent to student!)', class: 'form-control'
+        .form-group
+          = form.label :score do
+            | Outcome
+            sup *
+          = form.select :score, [ \
+              ['Skipped', ''], \
+              ["1: Didn't get it.",1], \
+              ["2: Got it with some help, or close.", 2], \
+              ["3: Answered ideal answer without help or prompting.", 3], \
+              ["4: Answered ideal answer and took it a step further (bonus).", 4] \
+            ], {}, {class: 'form-control'}
 
-      .form-group
-        = form.label :score do
-          | Outcome
-          sup *
-        = form.select :score, [ \
-            ['Skipped', ''], \
-            ["1: Didn't get it.",1], \
-            ["2: Got it with some help, or close.", 2], \
-            ["3: Answered ideal answer without help or prompting.", 3], \
-            ["4: Answered ideal answer and took it a step further (bonus).", 4] \
-          ], {}, {class: 'form-control'}
-
-      small
-        em
-          sup *
-          | If you don't provide a score, it will consider the question skipped.
+        small
+          em
+            sup *
+            | If you don't provide a score, it will consider the question skipped.
 
 
-      hr
-      strong Expected Answer(s)
-      br
-      == markdown(question.answer.to_s)
-
-      - if question.notes?
+        hr
+        strong Expected Answer(s)
         br
-        strong Notes
-        br
-        == markdown(question.notes)
+        == markdown(question.answer.to_s)
+
+        - if question.notes?
+          br
+          strong Notes
+          br
+          == markdown(question.notes)
