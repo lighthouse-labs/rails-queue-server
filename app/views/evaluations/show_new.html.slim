@@ -11,11 +11,11 @@ h3.project_eval_header = "#{@evaluation.student.full_name}'s #{@project.name} (E
 
 ul.nav.nav-tabs role="tablist" id="studentTab"
   - if @evaluation.completed?
-    li.nav-item role="presentation" class="active"
-      a.nav-link href="#details" aria-controls="project" role="tab" data-toggle="tab"
+    li.nav-item role="presentation"
+      a.nav-link.active href="#details" aria-controls="project" role="tab" data-toggle="tab"
         | Evaluation Details
-  li.nav-item role="presentation" class=(@evaluation.completed? ? '' : 'active')
-    a.nav-link href="#project" aria-controls="project" role="tab" data-toggle="tab"
+  li.nav-item role="presentation"
+    a.nav-link href="#project" aria-controls="project" role="tab" data-toggle="tab" class=(@evaluation.completed? ? '' : 'active')
       | Project Description
 
 .tab-content
