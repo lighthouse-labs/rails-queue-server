@@ -145,7 +145,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             i.fa.fa-fw.fa-cogs
             span.non-tablet-label
               = teacher? ? current_user.initials : current_user.first_name
-          .dropdown-menu
+          .dropdown-menu.dropdown-menu-right
             = link_to 'Edit Profile', edit_profile_path, class: 'dropdown-item'
             - if active_student? || alumni?
               = link_to 'Classmates', students_path, class: 'dropdown-item'
