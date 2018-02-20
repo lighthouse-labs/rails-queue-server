@@ -136,6 +136,7 @@ LaserShark::Application.routes.draw do
   # Wallboard
   namespace :wallboard do
     resources :assistances, only: [:index]
+    resources :teachers, only: [:index]
   end
 
   # TEACHER

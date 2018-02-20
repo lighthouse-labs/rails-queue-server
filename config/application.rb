@@ -39,6 +39,7 @@ module LaserShark
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # TODO: Configure this properly for dev mode
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
