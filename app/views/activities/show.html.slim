@@ -9,7 +9,7 @@
     = render 'action_bar', activity_presenter: activity_presenter
     hr
 
-    - if @activity.section && @activity.section.is_a?(Project)
+    - if @activity.section && @activity.section.is_a?(Project) && !@activity.section.archived?
       h4 This activity should help you progress with a project:
       = render @activity.section
 

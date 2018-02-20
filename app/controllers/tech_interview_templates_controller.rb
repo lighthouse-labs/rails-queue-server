@@ -1,7 +1,7 @@
 class TechInterviewTemplatesController < ApplicationController
 
   def index
-    @interview_templates = TechInterviewTemplate.all
+    @interview_templates = TechInterviewTemplate.active
   end
 
   def show

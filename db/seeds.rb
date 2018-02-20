@@ -6,9 +6,9 @@ Rails.logger.info "SEEDING"
   p.days_per_week = 5
   p.weekends = true
 end
-@location_van = Location.find_or_create_by!(name: "Vancouver")
-@location_to = Location.find_or_create_by!(name: "Toronto")
-@location_cal = Location.find_or_create_by!(name: "Calgary")
+@location_van = Location.find_or_create_by!(name: "Vancouver", timezone: "Pacific Time (US & Canada)")
+@location_to = Location.find_or_create_by!(name: "Toronto", timezone: "Eastern Time (US & Canada)")
+@location_cal = Location.find_or_create_by!(name: "Calgary", timezone: "Mountain Time (US & Canada)")
 
 # Note: assumed that you (your github profile) will have access to this curriculum content repo
 #       and have set your GITHUB_ADMIN_OAUTH_TOKEN in the .env file

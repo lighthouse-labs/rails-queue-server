@@ -3,12 +3,10 @@ class ProjectsController < ApplicationController
   before_action :find_project, only: [:show]
 
   def index
-    @projects = Project.all
+    @projects = Project.active
   end
 
-  def show
-    @project = find_project
-  end
+  def show; end
 
   private
 

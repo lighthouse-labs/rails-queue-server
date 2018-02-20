@@ -8,7 +8,7 @@
       th
 
   tbody
-    - TechInterviewTemplate.all.each do | interview_template |
+    - TechInterviewTemplate.active.each do | interview_template |
       - interview = interview_template.interview_for(student)
       tr
         td
