@@ -6,6 +6,9 @@ class Section < ApplicationRecord
 
   default_scope { order(order: :asc) }
 
+  scope :archived,  -> { where(archived: true) }
+  scope :active,    -> { where(archived: [false, nil]) }
+
   validates :slug, presence: true, uniqueness: true
 
   def to_param

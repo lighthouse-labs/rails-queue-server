@@ -21,6 +21,10 @@
       = select_tag :location_id, options_for_select(@locations.unshift('All'), params[:location_id]), class: "form-control admin-project-dropdown"
 
     .form-group
+      label Cohort
+      = select_tag :cohort_id, options_from_collection_for_select(Cohort.all.order('created_at').reverse, "id", "name", params[:cohort_id]), prompt: 'All Cohorts', class: "form-control admin-project-dropdown"
+
+    .form-group
       label Incomplete
       = select_tag :incomplete, options_for_select(['Include', 'Only', 'Exclude'], params[:incomplete]), class: "form-control admin-project-dropdown"
     
