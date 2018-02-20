@@ -73,13 +73,13 @@ module ApplicationHelper
 
   def progress_bar_class(percent)
     if percent >= 96
-      'progress-bar-success'
+      'bg-success'
     elsif percent > 70
-      'progress-bar-info'
+      'bg-info'
     elsif percent > 50
-      'progress-bar-warning'
+      'bg-warning'
     else
-      'progress-bar-danger'
+      'bg-danger'
     end
   end
 
