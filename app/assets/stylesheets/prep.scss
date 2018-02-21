@@ -13,7 +13,7 @@
   #mocha-report {
 
     h1 {
-      font-size: 30px;
+      font-size: 20px;
     }
 
     ul {
@@ -26,13 +26,19 @@
         display: none;
       }
 
-      .pass {
-        color: $link-color;
+      .test.pass {
+        color: $brand-success;
+      }
+
+      .test.fail {
+        h2 {
+          color: $brand-danger;
+        }
       }
 
       .error {
         font-size: 9px;
-        color: red;
+        color: $brand-secondary;
         height: 31px;
         overflow: hidden;
       }
