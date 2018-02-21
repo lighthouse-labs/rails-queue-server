@@ -5,10 +5,14 @@
 
 .tech-interview-template {
 
+  display: block;
   border-radius: 6px;
+  color: $brand-primary;
 
   &:hover {
     box-shadow: 0 0 0 2px $brand-secondary;
+    text-decoration: none;
+
     .name {
       color: $brand-primary;
     }
@@ -54,7 +58,7 @@
     }
 
     .time {
-      color: $brand-secondary;
+      color: $brand-primary;
       font-size: 14px;
       left: 70px;
       line-height: 40px;
@@ -92,7 +96,7 @@
 
 
 .panel-heading.panel-title.tech.score {
-  .label {
+  .badge {
     float: right;
   }
 }

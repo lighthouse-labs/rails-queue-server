@@ -13,11 +13,11 @@ header.page-header
         = link_to 'Edit Profile', edit_profile_path
 
     ul.nav.nav-pills
-      li role="presentation" class=(params[:location_id].blank? ? 'active' : '')
-        = link_to 'All Locations', teachers_path
+      li.nav-item role="presentation"
+        = link_to 'All Locations', teachers_path, class: "nav-link #{'active' if params[:location_id].blank?}"
       - @locations.each do |location|
-        li role="presentation" class=(location.id.to_s == params[:location_id] ? 'active' : '')
-          = link_to location.name, params.permit(:location_id).merge(location_id: location.id)
+        li.nav-item role="presentation"
+          = link_to location.name, params.permit(:location_id).merge(location_id: location.id), class: "nav-link #{'active' if location.id.to_s == params[:location_id]}"
 
     hr
 
@@ -26,9 +26,9 @@ header.page-header
         strong Satellite Location
         p Since this is a satellite location, teachers from #{@supporting_location.name} provide support. They are also listed below.
 
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title
+    .card
+      .card-header
+        h3.card-title.mb-0
           = @teachers.size
           | &nbsp;Teachers&nbsp;
           - if @location

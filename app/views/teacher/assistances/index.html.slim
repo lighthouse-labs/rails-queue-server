@@ -4,12 +4,12 @@ h2 = "Assistances by #{@current_user.full_name}"
 
 table.table.table-hover
   thead
-    th.col-sm-3 Student Info
-    th.col-sm-2 Activity Name
-    th.col-sm-1 Rating
-    th.col-sm-2 Date
-    th.col-sm-3 Your Notes
-    th.col-sm-3 Student's Notes
+    th.w-25 Student Info
+    th.w-25 Activity Name
+    th Rating
+    th.w-25 Date
+    th Your Notes
+    th Student's Notes
   tbody
     - @assistances.each do |assistance|
       tr

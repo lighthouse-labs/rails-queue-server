@@ -13,9 +13,9 @@ $ ->
       $btn.text $btn.data('active-text')
       $('.hide-for-student').addClass 'active'
 
-$(document).on 'turbolinks:load', ->
-  $('body.tech-interview-on .actions').affix(
-    offset:
-      top: 300
-      bottom: 200
-  )
+# $(document).on 'turbolinks:load', ->
+  # $('body.tech-interview-on .actions').affix(
+  #   offset:
+  #     top: 300
+  #     bottom: 200
+  # )

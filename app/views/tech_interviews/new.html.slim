@@ -16,11 +16,12 @@ blockquote
 .alert.alert-info
   == markdown(@interview_template.teacher_notes.to_s)
 
-.well.actions
-  = link_to 'START', tech_interview_template_interviews_path(@interview_template, interviewee_id: @interviewee.id), method: :post, class: 'btn btn-success'
-  | &nbsp;
-  = link_to '&laquo; Nevermind'.html_safe, :back, class: 'btn btn-danger'
+.card.actions
+  .card-header
+    = link_to 'START', tech_interview_template_interviews_path(@interview_template, interviewee_id: @interviewee.id), method: :post, class: 'btn btn-success'
+    | &nbsp;
+    = link_to '&laquo; Nevermind'.html_safe, :back, class: 'btn btn-danger'
 
-h3 Questions
+h3.my-3 Questions
 
 == render 'tech_interview_templates/questions'

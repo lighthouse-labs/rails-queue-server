@@ -3,10 +3,10 @@ body {
   min-height: 100%;
 }
 body {
-  padding-top: 70px;
+  padding-top: 80px;
 }
 .non-tablet-label {
-  @media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
+  @include media-breakpoint-between(md, lg) {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -39,9 +39,9 @@ header > nav {
     }
 
     > li > a {
-      @media (min-width: $screen-xs-max) {
-        padding: 15px 5px;
-        font-size: 0.74em;
+      @include media-breakpoint-up(xs) {
+        // padding: 15px 5px;
+        // font-size: 0.74em;
 
         &.logo {
           font-size: 1.4em;
@@ -52,33 +52,6 @@ header > nav {
     }
   }
 
-  .navbar-btn {
-    &.btn-warning {
-      background-color: $brand-warning;
-      &:hover,
-      &:focus {
-        background-color: #dab10d;
-      }
-    }
-
-    &.btn-success {
-      background-color: $brand-success;
-      &:hover,
-      &:focus {
-        background-color: $btn-success-hover-bg;
-        color: white;
-      }
-    }
-
-    &.btn-danger {
-      background-color: $brand-danger;
-      &:hover,
-      &:focus {
-        background-color: $btn-danger-hover-bg;
-        color: white;
-      }
-    }
-  }
   #assistance-request-module {
     margin-left: 10px;
     margin-right: -10px;
@@ -157,7 +130,7 @@ main {
   }
 }
 
-@media (min-width: $screen-lg-min) {
+@include media-breakpoint-up(lg) {
   .teacher-holder {
     border-bottom: none;
     padding-bottom: 0px;

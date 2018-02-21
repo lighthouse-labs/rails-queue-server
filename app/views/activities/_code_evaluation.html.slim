@@ -6,27 +6,31 @@
 - show_results = !@last_submission || (@last_submission && !@last_submission.finalized?)
 
 - if show_results
-  div id="results"
-    #linter.hidden
-      h3 Lint Results
-      ul
+  .card.bg-light.my-4
+    h5.card-header Results
+    .card-body
+      #results
+        #linter.d-none
+          h5.card-title Lint Results
+          ul
 
-    #test_holder.hidden
-      h3 Test Results
-      #mocha
+        #test_holder.d-none
+          h5.card-title Test Results
+          #mocha
 
+.card.bg-light.my-4
+  h5.card-header
+    | Your Code
+    = " (Completed)" if @last_submission.try(:finalized)
+  .card-body
+    code#code_content.d-none = @last_submission ? @last_submission.eval_results["code"] : activity.initial_code
+    #prep_test_editor.editor data-finalized="#{@last_submission.try(:finalized)}"
+    = hidden_field_tag :test_content, activity.test_code
 
-h3
-  | Your Code
-  = " (Completed)" if @last_submission.try(:finalized)
+    - if show_results
+      button.run-test.btn.btn-success.btn-block data-url=activity_activity_submission_path(@activity) Evaluate
 
-code#code_content.hidden = @last_submission ? @last_submission.eval_results["code"] : activity.initial_code
-#prep_test_editor.editor data-finalized="#{@last_submission.try(:finalized)}"
-= hidden_field_tag :test_content, activity.test_code
-
-- if show_results
-  button.run-test.btn.btn-success.btn-block data-url=activity_activity_submission_path(@activity) Evaluate
-
-h3 Console Output
-
-#console
+.card.bg-light.my-4
+  h5.card-header Console Output
+  .card-body
+    #console

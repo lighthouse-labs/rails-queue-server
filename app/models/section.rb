@@ -20,6 +20,11 @@ class Section < ApplicationRecord
     @core_duration_in_hours ||= (activities.active.core.sum(:duration) / 60.0) * 1.1
   end
 
+  def stretch_duration_in_hours
+    # add 10% for buffer
+    @stretch_duration_in_hours ||= (activities.active.stretch.sum(:duration) / 60.0) * 1.1
+  end
+
   def total_duration_in_hours
     # add 10% for buffer
     @total_duration_in_hours ||= (activities.active.sum(:duration) / 60.0) * 1.1

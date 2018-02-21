@@ -1,10 +1,10 @@
 - @interview_template.questions.active.sequential.each do |question|
 
-  .panel.panel-default
-    .panel-heading
-      h3.panel-title Question #{question.sequence}
+  .card.my-3
+    .card-header
+      h4.card-title.mb-0 Question #{question.sequence}
 
-    .panel-body
+    .card-body
       == markdown(question.question.to_s)
 
       h5 Expected Answer

@@ -1,22 +1,22 @@
 .summary-stats
-  .stat.panel.panel-default
-    .panel-body
+  .stat.card
+    .card-body
       h3
         i.fa.fa-clock-o
         | &nbsp;
         = cohort.start_date.to_s(:short_friendly)
       span Start Date
 
-  .stat.panel.panel-default
-    .panel-body
+  .stat.card
+    .card-body
       h3
         i.fa.fa-clock-o
         | &nbsp;
         = cohort.end_date.to_s(:short_friendly)
       span End Date
 
-  .stat.panel.panel-default
-    .panel-body
+  .stat.card
+    .card-body
       h3
         i.fa.fa-bell-o
         | &nbsp;
@@ -29,8 +29,8 @@
       span Status
 
   - if cohort.upcoming?
-    .stat.panel.panel-default
-      .panel-body
+    .stat.card
+      .card-body
         h3
           i.fa.fa-hourglass-end
           | &nbsp;
@@ -38,16 +38,16 @@
         span Starts In
   - elsif cohort.active?
 
-    .stat.panel.panel-default
-      .panel-body
+    .stat.card
+      .card-body
         h3
           i.fa.fa-calendar
           | &nbsp;
           = CurriculumDay.new(Date.current, cohort).to_s.upcase
         span Current Day
 
-    .stat.panel.panel-default
-      .panel-body
+    .stat.card
+      .card-body
         h3
           i.fa.fa-hourglass-end
           | &nbsp;
@@ -55,16 +55,16 @@
           = "#{(cohort.end_date - Date.current).to_i}d"
         span Ends In
   - else
-    .stat.panel.panel-default
-      .panel-body
+    .stat.card
+      .card-body
         h3
           i.fa.fa-hourglass-end
           | &nbsp;
           = distance_of_time_in_words(cohort.end_date, Date.current)
         span Finished
 
-  .stat.panel.panel-default
-    .panel-body
+  .stat.card
+    .card-body
       h3
         i.fa.fa-graduation-cap
         | &nbsp;
@@ -75,8 +75,8 @@
           = cohort.students.active.count
       span All Students
 
-  .stat.panel.panel-default
-    .panel-body
+  .stat.card
+    .card-body
       h3
         i.fa.fa-bomb
         | &nbsp;
@@ -87,8 +87,8 @@
           = cohort.rolled_out_students.count
       span Exited Students
 
-  .stat.panel.panel-default
-    .panel-body
+  .stat.card
+    .card-body
       h3
         i.fa.fa-desktop
         | &nbsp;

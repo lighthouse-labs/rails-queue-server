@@ -3,10 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'turbolinks:load', ->
-  $('body.project-evals-edit .actions').affix(
-    offset:
-      top: 800
-  )
+  # $('body.project-evals-edit .actions').affix(
+  #   offset:
+  #     top: 800
+  # )
 
   autosize($('body.project-evals-edit-new textarea'))
 
@@ -26,13 +26,13 @@ $ ->
   checkFeedbackRequired = () ->
     $this = $(this)
     val   = $this.val()
-    $panel = $this.closest('.panel')
+    $card = $this.closest('.card')
     if (val == '1' || val == '2')
-      $panel.find('textarea').attr('required', 'required')
-      $panel.find('span.required-notice').removeClass('hidden')
+      $card.find('textarea').attr('required', 'required')
+      $card.find('span.required-notice').removeClass('invisible')
     else
-      $panel.find('textarea').removeAttr('required')
-      $panel.find('span.required-notice').addClass('hidden')
+      $card.find('textarea').removeAttr('required')
+      $card.find('span.required-notice').addClass('invisible')
 
   checkIfRejecting = () ->
     rejecting = false
@@ -40,13 +40,13 @@ $ ->
 
     $('body.project-evals-edit-new input[type="radio"]:checked').each (i, elm) ->
       $elm = $(elm)
-      if $elm.val() == '1' && $elm.closest('.panel').data('affects-outcome') == 1
+      if $elm.val() == '1' && $elm.closest('.card').data('affects-outcome') == 1
         rejecting = true
 
     if rejecting
-      $notice.removeClass 'hidden'
+      $notice.removeClass 'invisible'
     else
-      $notice.addClass 'hidden'
+      $notice.addClass 'invisible'
 
   $(document).on 'change', 'body.project-evals-edit-new input[type="radio"]', saveEval
   $(document).on 'change', 'body.project-evals-edit-new input[type="radio"]', checkFeedbackRequired
@@ -70,9 +70,9 @@ $ ->
       $('input.btn-evaluation[value="Accept"]').removeClass('hide')
       $('input.btn-evaluation[value="Reject"]').addClass('hide')
 
-$(document).on 'turbolinks:load', ->
-  $('body.project-evals-show .actions').affix(
-    offset:
-      top: 300
-      bottom: 200
-  )
+# $(document).on 'turbolinks:load', ->
+#   $('body.project-evals-show .actions').affix(
+#     offset:
+#       top: 300
+#       bottom: 200
+#   )

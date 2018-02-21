@@ -7,6 +7,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 
 gem 'jquery-rails'
+gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-ui-rails'
 
 gem "select2-rails"
@@ -22,15 +23,15 @@ gem 'bcrypt'
 gem 'puma', '~> 3.0'
 
 gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
 # gem 'readmorejs-rails'
 gem 'best_in_place', github: 'bernat/best_in_place'
 gem 'ace-rails-ap'
 
 gem 'simple_form'
 gem 'slim-rails'
-gem 'bootstrap-sass', '~> 3.3.5'
 gem 'font-awesome-rails'
-gem 'compass-rails'
+# gem 'compass-rails'
 
 gem 'interactor-rails'
 

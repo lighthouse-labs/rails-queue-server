@@ -15,8 +15,8 @@
 //= require select2
 //= require turbolinks
 //= require jquery-ui/autocomplete
+//= require popper
 //= require bootstrap-sprockets
-//= require flat-ui-pro
 //= require chosen.jquery.min
 //= require default
 //= require ace-rails-ap

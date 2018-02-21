@@ -11,81 +11,16 @@ h3.date-heading {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
 
-  .btn-yesterday {
-    @include button-variant($btn-default-color, $brand-secondary, $btn-primary-hover-bg, $btn-primary-active-bg);
-  }
-  .btn-today {
-    @include button-variant($btn-default-color, $brand-warning, $btn-warning-hover-bg, $btn-warning-active-bg);
-  }
-  .btn-incomplete-activites {
-    @include button-variant($btn-default-color, $brand-info, $btn-info-hover-bg, $btn-info-active-bg);
-    width: 174px;
-    @media (min-width: $screen-md-min) {
-      margin-top: 4px;
-    }
+.btn-incomplete-activites {
+  width: 174px;
+  @media (min-width: $screen-md-min) {
+    margin-top: 4px;
   }
 }
 
-nav.side-nav {
-  .day-nav-links {
-    margin-top: 12px;
-  }
-}
-
-.nav-week {
-  @extend .pagination;
-  @extend .pagination-minimal;
-  display: inline-block;
-  margin: 0 4px 4px 0;
-  ul {
-    display: inline-block;
-    padding-right: 6px;
-    li.week-number a {
-      padding: 12px 8px;
-      color: #34495e;
-      font-weight: bold;
-      &:hover, &:active, &:visited {
-        background-color: #d6eaf8;
-        cursor: default;
-      }
-    }
-    li.day-number {
-
-      a {
-        // That's right, I did !important. I know, I know - KV
-        border-width: 3px !important;
-      }
-
-      &:last-child a {
-        border-radius: 50%;
-      }
-      &.unlocked:not(.active) a {
-        background-color: $brand-secondary;
-        color: $brand-secondary;
-        &:hover {
-          color: white;
-        }
-      }
-      &.today:not(.active) a {
-        background-color: $peter-river;
-        color: $peter-river;
-        &:hover {
-          border-color: $peter-river;
-        }
-      }
-      &.disabled a {
-        color: $gray;
-        background-color: $gray;
-        cursor: default;
-        &:hover {
-          border-color: $gray-light;
-        }
-      }
-      &.active a {
-        border-color: white;
-        margin: 7px 2px 6px
-      }
-    }
-  }
-}
+/* Styling for the calendar is located in flat ui stubs as it relied on flat ui
+heavily and we yanked it out. So a compiled version of the css for the calendar
+nav css is proping up the calendar until it is replaced.
+*/

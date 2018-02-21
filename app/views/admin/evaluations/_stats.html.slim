@@ -1,19 +1,19 @@
 .summary-stats
 
-  .stat.panel.panel-default
-    .panel-body
+  .stat.card
+    .card-body
       | &nbsp;
       = total_marking_time(@evaluations)
     span Total Marking Time
 
-  .stat.panel.panel-default
-    .panel-body
+  .stat.card
+    .card-body
       | &nbsp;
       = average_marking_time(@evaluations)
     span Average Marking Time
 
-  .stat.panel.panel-default
-    .panel-body
+  .stat.card
+    .card-body
       h3
         | &nbsp;
         span title='Queued' data-toggle='tooltip'
@@ -35,8 +35,8 @@
           = @evaluations.auto_accepted.count
       span Status
 
-  .stat.panel.panel-default
-    .panel-body
+  .stat.card
+    .card-body
       h3
         i.fa.fa-star
         | &nbsp;

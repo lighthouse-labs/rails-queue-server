@@ -39,12 +39,21 @@
   box-shadow: 2px 4px 10px #AAA;
 }
 
-.project-bio {
+.project_eval_header {
+  margin-top: 30px;
+}
 
+a.project-bio {
+
+  display: block;
   border-radius: 6px;
+  color: $brand-primary;
 
   &:hover {
     box-shadow: 0 0 0 2px $brand-secondary;
+    text-decoration: none;
+
+
     .name {
       color: $brand-primary;
     }
@@ -104,7 +113,7 @@
     }
 
     .time {
-      color: $brand-secondary;
+      color: $brand-primary;
       font-size: 14px;
       left: 70px;
       line-height: 20px;

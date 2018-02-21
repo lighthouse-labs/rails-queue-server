@@ -1,20 +1,23 @@
 .actions
   .form-group
-    .form-inline
-      .left-actions
+    .form-inline style="justify-content: space-between"
+      div
         - if teacher? && !@activity.teachers_only?
           button.btn.btn-activity.btn-info data-toggle="collapse" data-target="#student-progress"
             = activity_presenter.submissions_text
-
+          | &nbsp;
           = activity_presenter.details_button
+          | &nbsp;
           - if !@activity.prep?
-            = link_to '+ Video', new_activity_recording_path(@activity), class: 'btn btn-new-recording'
-            = link_to '+ Message', new_activity_message_path(@activity), class: 'btn btn-new-message'
+            = link_to '+ Video', new_activity_recording_path(@activity), class: 'btn btn-secondary btn-new-recording'
+            | &nbsp;
+            = link_to '+ Message', new_activity_message_path(@activity), class: 'btn btn-primary btn-new-message'
 
         - else
           = render 'completion_status'
 
-      = render 'duration', presenter: activity_presenter  if @activity.duration?
+      div
+        = render 'duration', presenter: activity_presenter  if @activity.duration?
 
   = activity_presenter.next_button
   = activity_presenter.previous_button

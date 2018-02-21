@@ -14,18 +14,19 @@
   = form_for @evaluation_form, url: project_evaluation_path, method: :put do |f|
 
     .actions-container
-      .well.actions
-        - if @evaluation.markable?
-          - if @evaluation.markable_by?(current_user)
-            .form-group
-              = f.select :final_score, [['1 - Reject: Incomplete and/or not taking the expected approach', 1], ['2 - Fair: Mostly complete and/or has room for various fixes', 2], ['3 - Good: Fully complete but may have some minor improvement potential', 3], ['4 - Above & Beyond: Fully complete, well crafted and achieves some or all of the stretch goals', 4]], { prompt: 'Select a Final Outcome Score' }, {required: 'required', class: 'form-control', style: 'max-width: 100%' }
-            = f.submit "Reject", class: "btn btn-danger btn-evaluation hide", data: { confirm: "Reject this submission? Student will be e-mailed details (and be sad)", toggle: 'tooltip', placement: 'bottom' }, title: "This evaluation did not meet the conditions. Student will need to fix the issues you've identified and re-submit a new evaluation. Student will be e-mailed the notes that you've filled out in the text-area below."
-            = f.submit "Accept", class: "btn btn-success btn-evaluation hide", data: { confirm: "Accept this submission? Student will be e-mailed details (and be pleased!)", toggle: 'tooltip', placement: 'bottom' }, title: "This evaluation totally met the expectations (code style and functionality) and requires no further evaluation. Student will be e-mailed the notes that you've filled out.", style: 'margin-left: 0px'
+      .actions.card
+        .card-header
+          - if @evaluation.markable?
+            - if @evaluation.markable_by?(current_user)
+              .form-group
+                = f.select :final_score, [['1 - Reject: Incomplete and/or not taking the expected approach', 1], ['2 - Fair: Mostly complete and/or has room for various fixes', 2], ['3 - Good: Fully complete but may have some minor improvement potential', 3], ['4 - Above & Beyond: Fully complete, well crafted and achieves some or all of the stretch goals', 4]], { prompt: 'Select a Final Outcome Score' }, {required: 'required', class: 'form-control', style: 'max-width: 100%' }
+              = f.submit "Reject", class: "btn btn-danger btn-evaluation hide", data: { confirm: "Reject this submission? Student will be e-mailed details (and be sad)", toggle: 'tooltip', placement: 'bottom' }, title: "This evaluation did not meet the conditions. Student will need to fix the issues you've identified and re-submit a new evaluation. Student will be e-mailed the notes that you've filled out in the text-area below."
+              = f.submit "Accept", class: "btn btn-success btn-evaluation hide", data: { confirm: "Accept this submission? Student will be e-mailed details (and be pleased!)", toggle: 'tooltip', placement: 'bottom' }, title: "This evaluation totally met the expectations (code style and functionality) and requires no further evaluation. Student will be e-mailed the notes that you've filled out.", style: 'margin-left: 0px'
 
-          - elsif @evaluation.grabbable_by?(current_user)
-            = link_to "Re-assign to me", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success btn-evaluation", method: :put, data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Take over this evaluation and make me the evaluator.'
+            - elsif @evaluation.grabbable_by?(current_user)
+              = link_to "Re-assign to me", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success btn-evaluation", method: :put, data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Take over this evaluation and make me the evaluator.'
 
-          = link_to 'Re-queue', cancel_marking_project_evaluation_path(@project, @evaluation), class: 'btn btn-warning btn-evaluation', method: :put, data: { confirm: 'Sure? You will no longer be the evaluator. It will go back on the queue', toggle: 'tooltip', placement: 'bottom' }, title: 'Un-assign myself as the evaluator and put it back into the queue. My bad.'
+            = link_to 'Re-queue', cancel_marking_project_evaluation_path(@project, @evaluation), class: 'btn btn-warning btn-evaluation', method: :put, data: { confirm: 'Sure? You will no longer be the evaluator. It will go back on the queue', toggle: 'tooltip', placement: 'bottom' }, title: 'Un-assign myself as the evaluator and put it back into the queue. My bad.'
 
     == render 'details'
 

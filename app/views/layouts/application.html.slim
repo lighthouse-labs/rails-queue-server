@@ -28,21 +28,20 @@ html
     - fluid = (yield(:container) == 'fluid')
     main role="main" class=(fluid ? 'container-fluid' : 'container')
       == render 'layouts/messages'
-      == render 'layouts/search'
 
       - unless disable_cable?
         - if current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student) && current_user.active_student?)
           = render "layouts/teachers_holder"
         = render "layouts/reconnect_holder"
-
-      - if content_for?(:side_nav)
-        nav.side-nav.col-md-3
-          == yield :side_nav
-        .content.col-md-9
-          == yield
-      - else
-        .content.col-md-12
-          == yield
+      .row
+        - if content_for?(:side_nav)
+          nav.side-nav.col-lg-3.col-md-4
+            == yield :side_nav
+          .content.col-lg-9.col-md-8
+            == yield
+        - else
+          .content.col-12
+            == yield
     footer
       == render 'layouts/footer'
 

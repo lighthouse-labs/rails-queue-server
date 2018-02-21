@@ -5,62 +5,67 @@
 header.page-header
   h1 #{@tech_interview.interviewee.full_name}'s Week #{@interview_template.week} Tech Interview
 
-.well
-  = render 'actions', interview: @tech_interview
-
-dl.dl-horizontal
-  dt Status
-  dd = render 'tech_interview_templates/student_interview_status', interview: @tech_interview
-
-  dt Queued
-  dd = @tech_interview.created_at.to_s(:date_and_time)
-
-  dt Cohort
-  dd = @tech_interview.cohort.name
-
-  - if teacher = @tech_interview.interviewer
-    dt Interviewer
-    dd = link_to(teacher.full_name, teacher)
-
-  - if @tech_interview.started?
-    dt Started
-    dd
-      = @tech_interview.started_at.to_s(:date_and_time)
-      small
-        = " (#{@tech_interview.day})"
-
-  - if @tech_interview.completed?
-
-    dt Completed
-    dd = @tech_interview.completed_at.to_s(:date_and_time)
-
-    hr
-
-    dt Question Score
-    dd
-      span.label class=l_score_label_class(@tech_interview.average_score)
-        = @tech_interview.average_score? ? @tech_interview.average_score.round(1) : '?'
-
-    dt Knowledge Score
-    dd
-      span.label class=l_score_label_class(@tech_interview.knowledge_score)
-        = @tech_interview.knowledge_score
-
-    dt Articulation Score
-    dd
-      span.label class=l_score_label_class(@tech_interview.articulation_score)
-        = @tech_interview.articulation_score
+.card.mb-4
+  .card-header
+    .h3.mb-0 Results
+  .card-body
+    dl.col-4
+      .row
+        dt.col Status
+        dd.col = render 'tech_interview_templates/student_interview_status', interview: @tech_interview
+      .row
+        dt.col Queued
+        dd.col = @tech_interview.created_at.to_s(:date_and_time)
+      .row
+        dt.col Cohort
+        dd.col = @tech_interview.cohort.name
+      - if teacher = @tech_interview.interviewer
+        .row
+          dt.col Interviewer
+          dd.col = link_to(teacher.full_name, teacher)
+      - if @tech_interview.started?
+        .row
+          dt.col Started
+          dd.col
+            = @tech_interview.started_at.to_s(:date_and_time)
+            small
+              = " (#{@tech_interview.day})"
+      - if @tech_interview.completed?
+        .row
+          dt.col Completed
+          dd.col = @tech_interview.completed_at.to_s(:date_and_time)
 
     hr
 
-h3 Feedback
-== markdown(@tech_interview.feedback.to_s)
+    dl.col-4
+      .row
+        dt.col Question Score
+        dd.col
+          span.badge class=l_score_label_class(@tech_interview.average_score)
+            = @tech_interview.average_score? ? @tech_interview.average_score.round(1) : '?'
+      .row
+        dt.col Knowledge Score
+        dd.col
+          span.badge class=l_score_label_class(@tech_interview.knowledge_score)
+            = @tech_interview.knowledge_score
+      .row
+        dt.col Articulation Score
+        dd.col
+          span.badge class=l_score_label_class(@tech_interview.articulation_score)
+            = @tech_interview.articulation_score
 
-h3 Internal Notes
-== markdown(@tech_interview.internal_notes.to_s)
+.card.mb-4
+  .card-header
+    .h3.mb-0 Feedback
+  .card-body
+    == markdown(@tech_interview.feedback.to_s)
 
+.card.mb-4
+  .card-header
+    .h3.mb-0 Internal Notes
+  .card-body
+    == markdown(@tech_interview.internal_notes.to_s)
 
-h3 Results
 
 == render 'results'
 

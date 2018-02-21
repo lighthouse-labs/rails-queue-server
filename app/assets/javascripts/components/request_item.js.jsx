@@ -7,7 +7,7 @@ var RequestItem = React.createClass({
       return (
         <small>
           - {student.location.name}
-          { student.remote ? <span className="label label-info">Remote</span> : null }
+          { student.remote ? <span className="badge badge-info">Remote</span> : null }
         </small>
       )
   },

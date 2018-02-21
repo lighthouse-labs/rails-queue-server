@@ -1,7 +1,8 @@
 .input-group.duration
-  .input-group-addon
-    i.fa.fa-check-circle
-    | &nbsp;Status
+  .input-group-prepend
+    span.input-group-text
+      i.fa.fa-check-circle
+      | &nbsp;Status
   .form-control
     - if current_user.completed_activity?(@activity)
       | Complete

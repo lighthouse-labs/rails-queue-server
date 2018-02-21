@@ -34,7 +34,7 @@ class EvaluationPresenter < BasePresenter
   end
 
   def teacher_location
-    content_tag(:span, evaluation.teacher.location.name, class: 'label label-primary')
+    content_tag(:span, evaluation.teacher.location.name, class: 'badge badge-primary')
   end
 
   def project(include_link = nil)
@@ -79,7 +79,7 @@ class EvaluationPresenter < BasePresenter
 
   def eval_options_hash(title, value)
     {
-      :class         => 'label ' + project_score_label_class(value),
+      :class         => 'badge ' + project_score_label_class(value),
       :title         => title,
       :"data-toggle" => 'tooltip'
     }

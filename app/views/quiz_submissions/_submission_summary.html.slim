@@ -1,11 +1,11 @@
 h3.text-center
   | Result
   br
-  span.label.label-primary
+  span.badge.badge-primary
     = submission_score(submission)
 
 - if submission.other_submissions_by_user.any?
   h5.text-center Previous Attempts
   ul.attempts
     - submission.other_submissions_by_user.each do |attempt|
-      li.label.label-primary= link_to submission_score(attempt), quiz_submission_path(attempt.id), class: "attempt"
+      li.badge.badge-primary= link_to submission_score(attempt), quiz_submission_path(attempt.id), class: "attempt"

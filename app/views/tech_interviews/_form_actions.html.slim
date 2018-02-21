@@ -1,11 +1,11 @@
-.interview-details.clearfix style="margin-bottom: 10px;"
+.interview-details.clearfix.mb-3
   .student-info.pull-left
     = render 'shared/student_info', student: @tech_interview.interviewee
 
 - if @tech_interview.in_progress?
   .alert.alert-info
     strong Tech Interview In Progress
-    p
+    p.mb-0
       strong Interviewer:
       | &nbsp;
       = @tech_interview.interviewer.full_name
@@ -14,15 +14,16 @@
 / http://stackoverflow.com/questions/20652581/bootstrap-affix-nav-causes-div-below-to-jump-up
 
 .actions-container
-  .well.actions
-    - if !next_step
-      = link_to '&raquo; Back'.html_safe, [:edit, @tech_interview], class: "btn btn-warning", data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back to Questions form'
-    = render 'actions', interview: @tech_interview, skip_resume: true
-    | &nbsp;
-    - if next_step
-      = form.submit 'Next Step', class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: "Click this once you've gone through the questions and filled out the form in full. There's one more step after this where you can update this information again and also provide some final analysis and internal notes"
+  .card.actions
+    .card-header
+      - if !next_step
+        = link_to '&raquo; Back'.html_safe, [:edit, @tech_interview], class: "btn btn-warning", data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back to Questions form'
+      = render 'actions', interview: @tech_interview, skip_resume: true
       | &nbsp;
-    - else
-      = form.submit 'Finished', class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom', confirm: "Totally done?" }, title: 'This will submit and complete the tech interview. Student will be e-mailed the Overall Feedback only.'
-      | &nbsp;
-    a.btn.btn-info.ask-question data-default-text="Show To Student" data-active-text="Restore Details" data-toggle="tooltip" data-placement="bottom" title="Toggle hiding/showing answers and notes for each question" Show To Student
+      - if next_step
+        = form.submit 'Next Step', class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: "Click this once you've gone through the questions and filled out the form in full. There's one more step after this where you can update this information again and also provide some final analysis and internal notes"
+        | &nbsp;
+      - else
+        = form.submit 'Finished', class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom', confirm: "Totally done?" }, title: 'This will submit and complete the tech interview. Student will be e-mailed the Overall Feedback only.'
+        | &nbsp;
+      a.btn.btn-info.ask-question data-default-text="Show To Student" data-active-text="Restore Details" data-toggle="tooltip" data-placement="bottom" title="Toggle hiding/showing answers and notes for each question" Show To Student

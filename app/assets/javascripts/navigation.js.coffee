@@ -19,26 +19,15 @@ $ ->
     e.preventDefault()
     window.App.teacherChannel.onDuty()
 
-    $('.on-duty-link').addClass('hidden')
-    $('.off-duty-link').removeClass('hidden')
+    $('.on-duty-link').attr('hidden', true)
+    $('.off-duty-link').removeAttr('hidden')
 
   $(document).on 'click', '.off-duty-link', (e) ->
     e.preventDefault()
     window.App.teacherChannel.offDuty()
 
-    $('.off-duty-link').addClass('hidden')
-    $('.on-duty-link').removeClass('hidden')
+    $('.off-duty-link').attr('hidden', true)
+    $('.on-duty-link').removeAttr('hidden')
 
   $(document).on 'click', '.sign-out-link', (e) ->
     window.App.teacherChannel.offDuty()
-
-  $(document).on 'click', '#search-activities-button', (e) ->
-    $('#search-form').slideToggle(250, 'swing', focusOnSearchField)
-
-  focusOnSearchField = ->
-    inputField = $('#search-form').find('.search-input-field').find('input')
-    if !(inputField.is(':hidden'))
-      inputField.focus()
-
-  if window.location.pathname == '/search_activities'
-    $('#search-form').toggle()

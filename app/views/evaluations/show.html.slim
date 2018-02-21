@@ -15,7 +15,7 @@ h3 Project Details
 
 == render 'projects/outcomes', project: @evaluation.project
 
-.panel.panel-default
-  .panel-heading Overall Feedback (From Evaluator)
-  .panel-body
+.card
+  .card-header Overall Feedback (From Evaluator)
+  .card-body
     == markdown @evaluation.teacher_notes

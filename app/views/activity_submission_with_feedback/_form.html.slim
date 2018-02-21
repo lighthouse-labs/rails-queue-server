@@ -1,6 +1,6 @@
 .modal-body
 
-  .alert.alert-error.remote-form-errors.hidden
+  .alert.alert-danger.remote-form-errors.d-none
     strong Please correct the following errors:
     br
     .error-messages
@@ -25,7 +25,7 @@
     = form.input :detail, as: :text, placeholder: 'The more you can give us the better!'
 
 .modal-footer
-  button.btn.btn-default type='button' data-dismiss='modal'
+  button.btn.btn-secondary type='button' data-dismiss='modal'
     | Cancel
   = button_tag 'Submit', class: 'btn btn-primary', onclick: 'disableAndSubmit();'
 

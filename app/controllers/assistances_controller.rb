@@ -10,15 +10,6 @@ class AssistancesController < ApplicationController
     @assistance = Assistance.new(assistor: current_user, assistee: @student)
   end
 
-  def create
-    @assistance_request = AssistanceRequest.new(requestor: @student, reason: "Offline assistance requested")
-    @assistance_request.save!
-    @assistance_request.start_assistance(current_user)
-    @assistance = @assistance_request.reload.assistance
-    @assistance.end(params[:assistance][:notes], params[:assistance][:rating].to_i)
-    redirect_to :back
-  end
-
   private
 
   def teacher_required

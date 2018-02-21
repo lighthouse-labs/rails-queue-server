@@ -9,27 +9,30 @@
           | &nbsp;
           | Compass Quiz
 
-      h2 = @quiz.name
+      h2.mb-3 = @quiz.name
 
-      .well
-        = render 'quizzes/about'
+      .card
+        .card-header
+          = render 'quizzes/about'
 
       = form_for [@quiz, @quiz_submission], url: [@quiz, @quiz_submission, activity_id: params[:activity_id]] do |f|
         = f.hidden_field :quiz_id
         - @quiz.questions.each_with_index do |question, question_index|
-          .submission-question
-            h3.text-primary = "Question ##{question_index + 1}"
-            p == markdown(question.question)
-            .submission-answer
-              h4.text-muted = "Possible Answers"
-              .list-group
-                - question.options.each_with_index do |option, option_index|
-                  .list-group-item
-                    .list-group-item-heading
-                      = label_tag do
-                        = radio_button_tag "quiz_submission[answers_attributes][#{question_index}][option_id]", option.id, @quiz_submission.option_selected?(option)
-                        = " Option #{option_index + 1}"
-                    .list-group-item-text
-                      p == markdown(option.answer)
+          .submission-question.card
+            .card-header
+              h3.text-primary = "Question ##{question_index + 1}"
+            .card-body
+              p == markdown(question.question)
+              .submission-answer
+                h4.text-muted = "Possible Answers"
+                .list-group
+                  - question.options.each_with_index do |option, option_index|
+                    .list-group-item
+                      .list-group-item-heading
+                        = label_tag do
+                          = radio_button_tag "quiz_submission[answers_attributes][#{question_index}][option_id]", option.id, @quiz_submission.option_selected?(option)
+                          = " Option #{option_index + 1}"
+                      .list-group-item-text
+                        p == markdown(option.answer)
         .form-group.text-center
           = f.submit 'Submit', class: 'btn btn-lg btn-primary'

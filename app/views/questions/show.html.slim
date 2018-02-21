@@ -11,9 +11,9 @@ article.page-content
       / p
       /   = 'This question is '
       /   - if @question.active?
-      /     span.label.label-info active
+      /     span.badge.badge-info active
       /   - else
-      /     span.label.label-warning inactive
+      /     span.badge.badge-warning inactive
       /   = ' and has appeared in '
       /   = link_to quizzes_path do
       /     b = @question.quizzes.count
@@ -37,7 +37,7 @@ article.page-content
           .panel-heading.text-right.clearfix
             b.pull-left = "Option #{index + 1} "
             - if option.correct?
-              span.label.label-success correct answer
+              span.badge.badge-success correct answer
             .small = "Selected #{option.answers.joins(:quiz_submission).where(quiz_submissions: { initial: true }).count} times"
           .panel-body
             == markdown(option.answer)

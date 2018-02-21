@@ -5,35 +5,36 @@
 header.page-header
   h1 All Cohorts
 
-.actions.well
-  = link_to 'New Cohort', [:new, :admin, :cohort], class: 'btn btn-default'
+.actions.card
+  .card-header
+    = link_to 'New Cohort', [:new, :admin, :cohort], class: 'btn btn-primary'
 
-h3
+h3.my-3
   | Your Active Cohorts
   small
     = " (In #{@cohort_location.name})"
 - @active_cohorts.each do |cohort|
   .row
     .col-sm-12
-      .panel.panel-default
-        .panel-heading
+      .card.mb-3
+        .card-header
           = link_to [:admin, cohort] do
-            h3.panel-title = cohort.name
-        .panel-body
+            h3.card-title = cohort.name
+        .card-body.p-2
           = render 'stats', cohort: cohort
           div
-            = link_to 'Dashboard', [:admin, cohort], class: 'btn btn-sm btn-primary'
+            = link_to 'Dashboard', [:admin, cohort], class: 'btn btn-primary'
             | &nbsp;
-            = link_to 'Students', admin_students_path(cohort_id: cohort), class: 'btn btn-xs btn-info'
+            = link_to 'Students', admin_students_path(cohort_id: cohort), class: 'btn btn-sm btn-info'
             | &nbsp;
-            = link_to 'Edit', edit_admin_cohort_path(cohort), class: 'btn btn-xs btn-warning'
+            = link_to 'Edit', edit_admin_cohort_path(cohort), class: 'btn btn-sm btn-warning'
 
 .row
   .col-sm-12
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title Other Cohorts
-      .panel-body
+    .card
+      .card-header
+        h3.card-title Other Cohorts
+      .card-body
         table.table
           thead
             tr

@@ -143,21 +143,23 @@
   display: inline-block;
  }
 
- .admin-edit-day-feedback-notes-text-area {
+.admin-edit-day-feedback-notes-text-area {
   border: none;
- }
+}
 
- .download-csv-button, .download-xls-button {
+.download-csv-button, .download-xls-button {
   float: right;
   display: inline-block;
   a {
     color: white;
   }
- }
- .download-csv-button {
+}
+
+.download-csv-button {
   margin: 13px 0;
- }
- .download-xls-button {
+}
+
+.download-xls-button {
   margin-top: 13px;
   margin-right: 5px;
- }
+}

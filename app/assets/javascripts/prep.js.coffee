@@ -226,7 +226,7 @@ $(document).on 'turbolinks:load', ->
     test_content = $('#test_content').val()
     eval(test_content)
 
-    $('#test_holder').removeClass('hidden')
+    $('#test_holder').removeClass('d-none')
 
     if firstRun
       beforeEach () ->
@@ -253,9 +253,9 @@ $(document).on 'turbolinks:load', ->
         $li.append($span).append($div)
         $('#linter ul').append($li)
 
-      $('#linter').removeClass('hidden')
+      $('#linter').removeClass('d-none')
     else
-      $('#linter').addClass('hidden')
+      $('#linter').addClass('d-none')
 
     results
 
@@ -293,7 +293,7 @@ $(document).on 'turbolinks:load', ->
     catch err
       $('#mocha').text("Your code has produced an error: ")
       console.log err
-      $('#test_holder').removeClass('hidden')
+      $('#test_holder').removeClass('d-none')
 
   if($('#prep_test_editor').length > 0)
     testEditor = ace.edit("prep_test_editor")

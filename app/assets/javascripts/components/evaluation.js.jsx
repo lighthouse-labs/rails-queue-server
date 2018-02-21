@@ -24,7 +24,7 @@ var Evaluation = React.createClass({
   renderResubmissionLabel: function(){
     if (this.props.evaluation.resubmission) {
       return(
-        <span className="label label-danger">Resubmission</span>
+        <span className="badge badge-danger">Resubmission</span>
       )
     }
   },

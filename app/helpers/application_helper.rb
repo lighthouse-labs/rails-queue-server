@@ -99,58 +99,58 @@ module ApplicationHelper
 
   def progress_bar_class(percent)
     if percent >= 96
-      'progress-bar-success'
+      'bg-success'
     elsif percent > 70
-      'progress-bar-info'
+      'bg-info'
     elsif percent > 50
-      'progress-bar-warning'
+      'bg-warning'
     else
-      'progress-bar-danger'
+      'bg-danger'
     end
   end
 
   def l_score_label_class(val)
-    return 'label-default' if val.nil?
+    return 'badge-secondary' if val.nil?
     val = val.to_f
 
     if val < 2.1
-      'label-danger'
+      'badge-danger'
     elsif val < 2.4
-      'label-warning'
+      'badge-warning'
     elsif val < 2.8
-      'label-info'
+      'badge-info'
     elsif val <= 4.0
-      'label-success'
+      'badge-success'
     else
-      'label-default'
+      'badge-secondary'
     end
   end
 
   def integer_l_score_label_class(val)
-    return 'label-default' if val.nil?
+    return 'badge-secondary' if val.nil?
 
     if val < 2
-      'label-danger'
+      'badge-danger'
     elsif val < 3
-      'label-warning'
+      'badge-warning'
     elsif val < 4
-      'label-info'
+      'badge-info'
     elsif val == 4
-      'label-success'
+      'badge-success'
     end
   end
 
   def project_eval_status_label_class(eval)
     if eval.in_state?(:pending)
-      'label-warning'
+      'badge-warning'
     elsif eval.in_state?(:in_progress)
-      'label-info'
+      'badge-info'
     elsif eval.in_state?(:rejected)
-      'label-danger'
+      'badge-danger'
     elsif eval.in_state?(:accepted) || eval.in_state?(:auto_accepted)
-      'label-success'
+      'badge-success'
     else
-      'label-default'
+      'badge-secondary'
     end
   end
 

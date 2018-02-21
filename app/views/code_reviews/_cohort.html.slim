@@ -19,11 +19,11 @@ h2
             .student-info
               = render 'shared/student_info', student: student
               br
-              span.score.label.label-info
+              span.score.badge.badge-info
                 = "#{student.code_reviews_l_score}"
           td
             - student.completed_code_review_requests.order("created_at ASC").each do |code_review|
 
               = completed_review_button(code_review)
 
-            .btn.btn-default.btn-sm.new-code-review-button  data-toggle="modal" data-backdrop="static" data-target="#new_code_review_modal" data-student-id="#{student.id}" + New
+            .btn.btn-secondary.btn-sm.new-code-review-button  data-toggle="modal" data-backdrop="static" data-target="#new_code_review_modal" data-student-id="#{student.id}" + New

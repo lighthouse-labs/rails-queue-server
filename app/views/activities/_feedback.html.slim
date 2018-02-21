@@ -1,23 +1,34 @@
-hr
+.card.bg-light style="margin-top: 40px;"
+  h5#feedback-form.card-header Submit Feedback
+  .card-body
+    h5.card-title
+      | Feedback for this #{(@activity.type || 'Activity').titleize}
+    .card-text
+      p
+        | Your feedback is critical for us to iterate and improve upon our curriculum. In fact, you can even give us feedback for this and other activities multiple times! It is <em>not anonymous</em> but it <em>is confidential</em> meaning only teachers and admins can view it, not other students.
 
-h3
-  span#feedback-form.anchor
-  | Feedback for this #{(@activity.type || 'Activity').titleize}
+      - if @activity.prep? && @program.prep_assistance?
+        p
+          strong NEED HELP?
+          | &nbsp;
+          | Do not use this mechanism to ask for help if you are stuck.
+          | &nbsp;
+          = link_to 'Our Private Discourse Forum', 'http://web-prep-help.lighthouselabs.ca/', target: '_blank'
+          | &nbsp;
+          | is a perfect place for you to get help from us and from your peers. That said, only registered bootcamp students have access to this private forum.
 
-p
-  | Your feedback is critical for us to iterate and improve upon our curriculum. In fact, you can even give us feedback for this and other activities multiple times! It is <em>not anonymous</em> but it <em>is confidential</em> meaning only teachers and admins can view it, not other students.
-- if @activity.prep? && @program.prep_assistance?
-  p
-    strong NEED HELP?
-    | &nbsp;
-    | Do not use this mechanism to ask for help if you are stuck.
-    | &nbsp;
-    = link_to 'Our Private Discourse Forum', 'http://web-prep-help.lighthouselabs.ca/', target: '_blank'
-    | &nbsp;
-    | is a perfect place for you to get help from us and from your peers. That said, only registered bootcamp students have access to this private forum.
+      hr
+      = simple_form_for [@activity.becomes(Activity), ActivityFeedback.new], remote: true do |f|
+        = render 'activity_feedbacks/form', form: f
 
-.well
-  = simple_form_for [@activity.becomes(Activity), ActivityFeedback.new], remote: true do |f|
-    = render 'activity_feedbacks/form', form: f
 
-= render 'activity_feedbacks/list'
+.card style="margin-top:30px;"
+  h5#feedback-form.card-header Previous Feedback
+  .card-body
+    - if teacher?
+      h5.card-title All Student Feedback
+    - else
+      h5.card-title Your Feedback
+
+    .card-text
+      = render 'activity_feedbacks/list'

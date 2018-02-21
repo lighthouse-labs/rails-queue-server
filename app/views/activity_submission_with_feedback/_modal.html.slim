@@ -2,17 +2,17 @@
   .modal-dialog
     .modal-content
       .modal-header
-        button.close type='button' data-dismiss='modal'
-          span aria-hidden='true'
-            | &times;
-          span.sr-only
-            | Close
         - if @activity.evaluates_code?
           h4.modal-title
             | Success!
         - else
           h4.modal-title
             | Mark Completed
+        button.close type='button' data-dismiss='modal'
+          span aria-hidden='true'
+            | &times;
+          span.sr-only
+            | Close
       = simple_form_for ActivitySubmissionWithOptionalFeedback.new, url: activity_submission_with_feedback_path(@activity), method: :post, remote: true do |f|
           = render 'activity_submission_with_feedback/form', form: f
 
@@ -25,4 +25,4 @@
         window.location.href = next_path
       ).on "ajax:error", (e, xhr, status, error) ->
         console.log status, error
-        $("#new_activity_submission_with_optional_feedback .remote-form-errors").removeClass('hidden').find('.error-messages').html xhr.responseText
+        $("#new_activity_submission_with_optional_feedback .remote-form-errors").removeClass('d-none').find('.error-messages').html xhr.responseText

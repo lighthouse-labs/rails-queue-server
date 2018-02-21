@@ -9,3 +9,19 @@
 .invalid-image-selection, .valid-image-selection {
   display: none;
 }
+
+.avatar-button-group {
+  padding-left: 22px;
+}
+
+.profile-edit-fields label {
+  text-align: right;
+  @include media-breakpoint-down(md) { 
+    text-align: left;
+  }
+}
+
+.protocol-holder {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}

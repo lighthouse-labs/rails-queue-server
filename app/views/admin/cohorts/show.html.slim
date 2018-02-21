@@ -8,13 +8,14 @@ header.page-header
     = @cohort.name
     = " (#{cohort.location.name})"
 
-.well
-  = link_to 'Manage Students', admin_students_path(cohort_id: @cohort), class: 'btn btn-primary'
-  | &nbsp;
-  = link_to 'Edit', [:edit, :admin, @cohort], class: 'btn btn-warning'
-  | &nbsp;
-  = link_to [:admin, :cohorts], class: 'btn btn-info pull-right' do
-    | &laquo; Cohort List
+.card.mb-3
+  .card-header
+    = link_to 'Manage Students', admin_students_path(cohort_id: @cohort), class: 'btn btn-primary'
+    | &nbsp;
+    = link_to 'Edit', [:edit, :admin, @cohort], class: 'btn btn-warning'
+    | &nbsp;
+    = link_to [:admin, :cohorts], class: 'btn btn-info pull-right' do
+      | &laquo; Cohort List
 
 = render 'stats', cohort: @cohort
 
@@ -28,10 +29,10 @@ header.page-header
 
 .row
   .col-sm-12
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title Prep Stats
-      .panel-body
+    .card
+      .card-header
+        h3.card-title Prep Stats
+      .card-body
         .table-responsive
           table.table.students.sortable
             thead

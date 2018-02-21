@@ -25,7 +25,7 @@ tr
       - if student.cohort
         = pluralize(service.days_registered_before_start, 'day')
         | &nbsp;prior to start
-      - else 
+      - else
         = pluralize((Time.current.to_date - student.created_at.to_date).to_i, 'day')
         | &nbsp;ago
 
@@ -45,7 +45,7 @@ tr
           = pluralize((Time.current.to_date - service.prep_started_at.to_date).to_i, 'day')
           | &nbsp;ago
     - else
-      span.label.label-warning Not Started
+      span.badge.badge-warning Not Started
 
   td data-value=total_stats[:completed]
     = "#{total_stats[:completed]} / #{total_stats[:total]} (#{total_stats[:ratio].round(0)}%)"

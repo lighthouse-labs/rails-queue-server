@@ -1,0 +1,16 @@
+.activity-details {
+  .actions {
+    .next-activity, .previous-activity {
+      label {
+        width: 105px;
+        font-weight: bold;
+        font-size: 1.12em;
+        line-height: 1.12em;
+        color: gray;
+      }
+      a {
+        font-weight: bold;
+      }
+    }
+  }
+}

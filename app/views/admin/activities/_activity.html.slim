@@ -28,7 +28,7 @@ tr
     - if activity.average_rating?
       = activity.average_rating.round(1)
     - else
-      span.label.label-warning N/A
+      span.badge.badge-warning N/A
 
     br
     small
@@ -43,7 +43,7 @@ tr
       - else
         = "#{activity.average_time_spent}m"
     - else
-      span.label.label-warning N/A
+      span.badge.badge-warning N/A
 
     br
     small
@@ -61,13 +61,14 @@ tr
       - else
         = "#{activity.duration}m"
     - else
-      span.label.label-warning N/A
+      span.badge.badge-warning N/A
 
   td data-value=activity.created_at.to_i
     = activity.created_at.strftime("%b %d %Y")
 
   td
     - if activity.archived?
-      span.label.label-danger title="Archived" A
+      span.badge.badge-danger title="Archived" A
     - if activity.stretch?
-      span.label.label-warning title="Stretch" S
+      span.badge.badge-warning title="Stretch" S
+

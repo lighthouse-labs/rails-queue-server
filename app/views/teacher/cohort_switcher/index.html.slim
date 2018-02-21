@@ -5,8 +5,9 @@
 header.page-header
   h1 Cohort Switcher
 
-.well
-  = render 'filters'
+.card.mb-2
+  .card-header
+    = render 'filters'
 
 .row
   .col-sm-12
@@ -29,4 +30,4 @@ header.page-header
           tfoot
             tr
               th colspan="6"
-                = paginate @cohorts, window: 2
+                = paginate @cohorts, window: 2, theme: 'bootstrap4'
