@@ -121,6 +121,5 @@
                 = link_to activity_message_path(@activity, msg), method: :delete, confirm: 'Sure ,lad?', class: 'delete'
                   i.fa.fa-times
 
-  = render 'submission_bar', activity_presenter: activity_presenter
   = render 'feedback' if @activity.allow_feedback?
-
+  = render 'submission_bar', activity_presenter: activity_presenter
