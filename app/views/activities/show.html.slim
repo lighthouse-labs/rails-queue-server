@@ -52,34 +52,29 @@
         h3
           | Videos
         - @activity.recordings.each do |recording|
-          .recording-item
-            .col-sm-2.text-center
-              = link_to recording do
-                - if recording.presenter
-                  img src=avatar_for(recording.presenter)
-                - else
-                  span.fa.fa-4x.fa-video-camera
-            .col-sm-10
-              h4.recording-title
-                = link_to recording_title(recording), recording
-              div
+          .card.mb-3
+            img.card-img-top.w-25.h-25 src=avatar_for(recording.presenter)
+            .card-body
+              h4.card-title
+                = recording_title(recording)
+              .card-text
                 = "Added: #{format_date_time(recording.created_at)}"
                 - if recording.recorded_at
                   = ' &bull; '.html_safe
                   = "Recorded: #{format_date_time(recording.recorded_at)}"
-              - if recording.presenter
+                - if recording.presenter
+                  div
+                    = "Presented by: #{recording.presenter.full_name}"
+                - if recording.presenter_name && !recording.presenter_name.empty?
+                  div
+                    = "Guest presenter: #{recording.presenter_name}"
                 div
-                  = "Presented by: #{recording.presenter.full_name}"
-              - if recording.presenter_name && !recording.presenter_name.empty?
-                div
-                  = "Guest presenter: #{recording.presenter_name}"
-              div
-                - if recording.s3_url
-                  a href=recording.s3_url title="Right click > Save Link As..."
-                    span.fa.fa-file-video-o
-                    |  Download file
-                  = ' &bull; '.html_safe
-                = link_to 'Watch now &raquo;'.html_safe, recording
+                  - if recording.s3_url
+                    a href=recording.s3_url title="Right click > Save Link As..."
+                      span.fa.fa-file-video-o
+                      |  Download file
+                    = ' &bull; '.html_safe
+                  = link_to 'Watch now &raquo;'.html_safe, recording
 
     - if teacher? && @program.lecture_tips? && @activity.is_a?(Lecture)
       .lecture-tips
