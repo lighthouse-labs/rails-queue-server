@@ -1,4 +1,4 @@
-class Admin::PrepStatsController < ApplicationController
+class Admin::PrepStatsController < Admin::BaseController
 
   DEFAULT_PER = 5
 

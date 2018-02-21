@@ -1,4 +1,4 @@
-class Admin::EvaluationsController < ApplicationController
+class Admin::EvaluationsController < Admin::BaseController
 
   DEFAULT_PER = 100
 
