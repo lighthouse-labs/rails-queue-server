@@ -72,10 +72,10 @@ class ActivityPresenter < BasePresenter
 
   def submission_form
     if allow_completion?
+      next_path = activity.next ? get_activity_path(activity.next) : get_next_index_path(activity)
       if activity.evaluates_code?
-        render "code_activity_submission_form"
+        render "code_activity_submission_form", next_path: next_path
       else
-        next_path = activity.next ? get_activity_path(activity.next) : get_next_index_path(activity)
         render "activity_submission_form", next_path: next_path
       end
     end
