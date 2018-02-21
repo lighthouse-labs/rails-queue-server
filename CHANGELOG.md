@@ -1,5 +1,16 @@
 # Change Log
 
+## [2018.02.21.1330](https://github.com/lighthouse-labs/compass/tree/2018.02.21.1330) (2018-02-21)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.02.06.1145...2018.02.21.1330)
+
+**Merged pull requests:**
+
+- Restructure Lecture Recording List to Use BS4 Cards [\#542](https://github.com/lighthouse-labs/compass/pull/542) ([ahache](https://github.com/ahache))
+- Replace all mentions of `compass.dev` with `compass.local` [\#541](https://github.com/lighthouse-labs/compass/pull/541) ([daegren](https://github.com/daegren))
+- HTTP to HTTPS in YouTube Recording iframe  [\#540](https://github.com/lighthouse-labs/compass/pull/540) ([ahache](https://github.com/ahache))
+- Compass UI: Removed Flat UI and Upgraded to Bootstrap 4 [\#537](https://github.com/lighthouse-labs/compass/pull/537) ([jmatsuba](https://github.com/jmatsuba))
+- Fixed 2 Admin sections were open to anyone \(security issue\) [\#534](https://github.com/lighthouse-labs/compass/pull/534) ([kvirani](https://github.com/kvirani))
+
 ## [2018.02.06.1145](https://github.com/lighthouse-labs/compass/tree/2018.02.06.1145) (2018-02-06)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.01.29.1130...2018.02.06.1145)
 
