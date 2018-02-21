@@ -45,9 +45,9 @@ Follow these steps in order please:
 5. Setup new DNS Alias for `localhost`:
   * From your terminal, type in `sudo nano /etc/hosts` (Mac/Linux Only)
   * Note: if you are using a VM (Vagrant, etc), this should be done on your host (main) machine, not your virtual machine
-  * Add the following entry as a new line at the end of the `/etc/hosts` file: `127.0.0.1 compass.dev`.
-  * Make sure the HOST env var is set correctly in `.env` (`HOST=compass.dev:4000`)
-  * Now you can go to the URL `http://compass.dev:4000/` instead of `http://localhost:4000/` for when you are working on this app.
+  * Add the following entry as a new line at the end of the `/etc/hosts` file: `127.0.0.1 compass.local`.
+  * Make sure the HOST env var is set correctly in `.env` (`HOST=compass.local:4000`)
+  * Now you can go to the URL `http://compass.local:4000/` instead of `http://localhost:4000/` for when you are working on this app.
 6. Create a [Developer level Oauth Application on Github](https://github.com/settings/developers)
   * Screenshot: http://d.pr/i/182yT/1rXSKzEe
   * Set the two client keys as GITHUB_KEY and GITHUB_SECRET in the env file
@@ -61,7 +61,7 @@ Follow these steps in order please:
   * The seed script will download the (private) curriculum repo in order to ingest the content. This means your github auth should be set appropriately, otherwise it will have access issues and fail.
 9. Start the server, using `bin/serve`
 10. Create an admin+teacher account for yourself. First sign up as a teacher using this URL:
-  * <http://compass.dev:4000/i/ggg> (teacher invite code URL)
+  * <http://compass.local:4000/i/ggg> (teacher invite code URL)
   * Once you've authenticated successfully, `rails c` in and update the user (using `u = User.last`, set `u.admin = true`, then `u.save`)
 11. It is recommended that you create/use another, fake github account to represent a student that can be logged in at the same time (in private browsing mode)
   * you can use our (`compass-test-student` GH account, account info available in intern docs)
@@ -71,7 +71,7 @@ Follow these steps in order please:
 User (student/teacher) Authentication can only happen through Github. Much like how Facebook has Apps that you need if you want to allow users to login through Facebook, we need to create an "app" on Github).
 
 1. Create a Github application on your Github profile (for your dev environment): <https://github.com/settings/applications/new>
-2. Specify `http://compass.dev:4000/auth/github/callback` as the Callback URL (when they ask you)
+2. Specify `http://compass.local:4000/auth/github/callback` as the Callback URL (when they ask you)
 3. After the app is created, it gives you some keys. Add the OAuth client ID and client secret as `GITHUB_KEY` and `GITHUB_SECRET` to your `.env` file
 4. Kill and Restart your local server (`guard` or `rails s` or whatever) if running
 
