@@ -58,24 +58,29 @@ class CurriculumDay
     date <=> other.date
   end
 
-  def unlocked_until_day
+  def unlocked_until_day(timezone)
     if program.curriculum_unlocking == 'weekly'
-      unlocked_date = date.sunday
+      unlocked_date = sunday_night?(timezone) ? date.sunday + 6.days : date.sunday
+      # unlocked_date = date.sunday + 1.week if sunday_night?(timezone)
       CurriculumDay.new(unlocked_date, @cohort)
     else
       self
     end
   end
 
-  def unlocked?
+  def unlocked?(timezone)
     # return true if @date == 'setup'
     # return true if unlock_weekend_on_friday
     return false unless @cohort
     return false if @cohort.start_date > Date.current
     if program.curriculum_unlocking == 'weekly'
-      (date.cweek <= today.date.cweek && date.year <= today.date.year) || date.year < today.date.year
       # 53rd week can roll over into the new year, preventing access from remaining days of that week.
       # if Jan 1st is a thursday, it will prevent access until the week ends.
+      # 
+      # Allowing access on Sunday night as well.
+      next_weekend = CurriculumDay.new(DateTime.now.sunday + 6.days, @cohort) 
+      (date.cweek <= today.date.cweek && date.year <= today.date.year) || date.year < today.date.year ||
+        (sunday_night?(timezone) && (self<=>(next_weekend)).to_i < 1)
     else # assume daily
       date <= today.date
     end
@@ -226,6 +231,15 @@ class CurriculumDay
     # and for some_cohort a Break starts on week 2, the date returned should be
     # adjusted for the break
     @curriculum_break && (day_number >= @curriculum_break.starts_on_day_number)
+  end
+
+  def sunday_night?(timezone)
+    user_timezone_offset = ActiveSupport::TimeZone[timezone].formatted_offset
+    user_current_time = Time.now.getlocal(user_timezone_offset)
+    day_of_week = user_current_time.strftime("%A")
+    hour = user_current_time.strftime("%H").to_i
+    ## Sunday after 8PM, users local time
+    day_of_week == 'Friday' && hour >= 8
   end
 
 end
