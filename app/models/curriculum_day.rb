@@ -239,7 +239,7 @@ class CurriculumDay
     day_of_week = user_current_time.strftime("%A")
     hour = user_current_time.strftime("%H").to_i
     ## Sunday after 8PM, users local time
-    day_of_week == 'Friday' && hour >= 8
+    day_of_week == 'Sunday' && hour >= 20
   end
 
 end
