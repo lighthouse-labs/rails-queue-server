@@ -1,6 +1,6 @@
 class Admin::DayFeedbacksController < Admin::BaseController
 
-  FILTER_BY_OPTIONS = [:mood, :day, :location_id, :archived?, :start_date, :end_date, :cohort].freeze
+  FILTER_BY_OPTIONS = [:mood, :day, :location_id, :archived?, :start_date, :end_date].freeze
   DEFAULT_PER = 20
 
   before_action :load_dayfeedback, only: [:archive, :unarchive, :update]
@@ -12,6 +12,7 @@ class Admin::DayFeedbacksController < Admin::BaseController
     end
 
     @day_feedbacks = DayFeedback.filter_by(filter_by_params)
+    @day_feedbacks = @day_feedbacks.from_cohort(Cohort.find(params[:cohort_id])) if params[:cohort_id].present?
 
     @paginated_day_feedbacks = @day_feedbacks.reverse_chronological_order
                                              .page(params[:page])
