@@ -2,6 +2,22 @@
   .stat.card
     .card-body
       h3
+        i.fa.fa-comments
+        | &nbsp;
+        = @total
+      span Total Assistances
+
+  .stat.card
+    .card-body
+      h3
+        i.fa.fa-calculator
+        | &nbsp;
+        = seconds_to_formatted_time(@average_time_in_queue)
+      span Average Time in Queue
+
+  .stat.card
+    .card-body
+      h3
         i.fa.fa-star
         | &nbsp;
         = @avg_l_score
