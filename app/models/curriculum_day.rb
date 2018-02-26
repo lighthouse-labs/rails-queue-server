@@ -61,7 +61,6 @@ class CurriculumDay
   def unlocked_until_day(timezone)
     if program.curriculum_unlocking == 'weekly'
       unlocked_date = sunday_night?(timezone) ? date.sunday + 6.days : date.sunday
-      # unlocked_date = date.sunday + 1.week if sunday_night?(timezone)
       CurriculumDay.new(unlocked_date, @cohort)
     else
       self
