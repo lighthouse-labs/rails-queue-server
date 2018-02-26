@@ -5,7 +5,7 @@
       .form-group
         .form-inline
           .left-actions
-            - if @activity.is_a?(QuizActivity) || @activity.is_a?(PinnedNote) || @activity.evaluates_code?
+            - if @activity.is_a?(QuizActivity) || @activity.is_a?(PinnedNote)
               - next_path = @activity.next ? get_activity_path(@activity.next) : get_next_index_path(@activity)
               = link_to next_path, class: 'btn btn-primary btn-activity-complete-status-no-code-review'
                 i.fa.fa-caret-right
