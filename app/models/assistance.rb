@@ -29,6 +29,7 @@ class Assistance < ApplicationRecord
   before_create :set_start_at
   before_create :set_activity
   after_save :update_student_average
+  after_save :set_request_start_time
 
   scope :currently_active, -> {
     joins(:assistance_request)
@@ -102,6 +103,10 @@ class Assistance < ApplicationRecord
   def update_student_average
     assistee.cohort_assistance_average = assistee.assistances.completed.where(cohort_id: assistee.cohort_id).where.not(rating: nil).average(:rating).to_f.round(2)
     assistee.save!
+  end
+
+  def set_request_start_time
+    AssistanceRequest.find_by(assistance_id: id).assistance_start_at = start_at
   end
 
   def post_to_slack(channel)
