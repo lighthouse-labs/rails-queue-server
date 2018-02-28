@@ -15,7 +15,6 @@ class AssistanceRequest < ApplicationRecord
   before_create :set_day
   before_create :limit_one_per_user
   before_create :set_start_at
-  # before_update :set_assistance_start_at
 
   # bc codereviews and direct assistances create requests (?!)
   # this is the least intrusive solution for now, until we get rid of that logic (if ever) - KV
@@ -92,7 +91,7 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def time_in_queue
-    assistance_start_at - created_at
+    assistance_start_at.present? ? assistance_start_at - created_at : 0
   end
 
   private
@@ -107,10 +106,6 @@ class AssistanceRequest < ApplicationRecord
 
   def set_start_at
     self.start_at ||= Time.current
-  end
-
-  def set_assistance_start_at
-    self.assistance_start_at = assistance_id.present? ? Assistance.find(assistance_id).start_at : nil
   end
 
   def limit_one_per_user
