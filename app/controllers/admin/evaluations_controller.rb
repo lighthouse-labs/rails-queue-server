@@ -35,7 +35,7 @@ class Admin::EvaluationsController < Admin::BaseController
   end
 
   def filter_by_end_date
-    params[:end_date] = if params[:end_date]
+    params[:end_date] = if params[:end_date].present?
                           Date.parse(params[:end_date])
                         else
                           Date.current
