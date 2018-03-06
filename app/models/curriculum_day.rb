@@ -78,11 +78,22 @@ class CurriculumDay
       # 
       # Allowing access on Sunday night as well.
       next_weekend = CurriculumDay.new(DateTime.now.sunday + 6.days, @cohort) 
-      (date.cweek <= today.date.cweek && date.year <= today.date.year) || date.year < today.date.year ||
-        (sunday_night?(timezone) && (self<=>(next_weekend)).to_i < 1)
+      new_year_split_week? || last_year? || sunday_night_and_next_week?(timezone, next_weekend)
     else # assume daily
       date <= today.date
     end
+  end
+
+  def new_year_split_week?
+    date.cweek <= today.date.cweek && date.year <= today.date.year
+  end
+
+  def last_year?
+    date.year < today.date.year
+  end
+
+  def sunday_night_and_next_week?(timezone, next_weekend)
+    (sunday_night?(timezone) && (self<=>(next_weekend)).to_i < 1)
   end
 
   def today?
