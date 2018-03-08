@@ -1,13 +1,14 @@
 # Change Log
 
-## [Unreleased](https://github.com/lighthouse-labs/compass/tree/HEAD)
-
-[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.02.27.0900...HEAD)
+## [2018.03.08.1345](https://github.com/lighthouse-labs/compass/tree/2018.03.08.1345) (2018-03-08)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.02.27.0900...2018.03.08.1345)
 
 **Merged pull requests:**
 
+- Created CSV output for admin teacher feedbacks [\#557](https://github.com/lighthouse-labs/compass/pull/557) ([ahache](https://github.com/ahache))
 - Admin Project Evaluations - Factor in Submission Date [\#551](https://github.com/lighthouse-labs/compass/pull/551) ([ahache](https://github.com/ahache))
 - Fix Date Range Selectors for Admin Evaluations [\#549](https://github.com/lighthouse-labs/compass/pull/549) ([ahache](https://github.com/ahache))
+- Unlock Curriculum at 8pm on Sunday [\#545](https://github.com/lighthouse-labs/compass/pull/545) ([ahache](https://github.com/ahache))
 
 ## [2018.02.27.0900](https://github.com/lighthouse-labs/compass/tree/2018.02.27.0900) (2018-02-26)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.02.21.1330...2018.02.27.0900)
