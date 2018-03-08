@@ -60,4 +60,5 @@ br
                         em
                           article.read-more = teacher_feedback_presenter.notes
                     td
-
+                    
+= link_to "Download CSV", admin_teacher_feedbacks_path({format: :csv}.merge(safe_params)), class: "btn btn-success"
