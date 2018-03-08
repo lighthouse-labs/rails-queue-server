@@ -8,7 +8,7 @@ module DaysHelper
 
     classes.push('table-success') if d.to_s == day.to_s
     classes.push('table-primary') if d.today?
-    classes.push('unlocked') if d.unlocked?
+    classes.push('unlocked') if d.unlocked?(current_user.location.timezone)
     classes
   end
 
