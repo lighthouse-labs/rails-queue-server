@@ -75,7 +75,6 @@ if Rails.env.development?
           assistor_id:         teacher.id,
           start_at:            start_time,
           assistance_start_at: start_time + rand(1..20).minutes,
-          assistance_end_at:   start_time + rand(21..80).minutes,
           type:                nil,
           assistance:          Assistance.create(
             assistor: teacher,

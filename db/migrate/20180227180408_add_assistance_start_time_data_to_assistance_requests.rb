@@ -6,8 +6,10 @@ class AddAssistanceStartTimeDataToAssistanceRequests < ActiveRecord::Migration[5
         ar.save!
       end
     end
+    remove_column :assistance_requests, :assistance_end_at
   end
   def down
     AssistanceRequest.update_all(assistance_start_at: nil)
+    add_column :assistance_requests, :assistance_end_at, :datetime
   end
 end
