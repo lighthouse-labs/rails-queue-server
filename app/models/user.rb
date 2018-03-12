@@ -109,7 +109,7 @@ class User < ApplicationRecord
 
   def unlocked?(day)
     # for special students we can unlock future material using `unlocked_until_day` field
-    (unlocked_until_day? && day.to_s <= unlocked_until_day) || day.unlocked?
+    (unlocked_until_day? && day.to_s <= unlocked_until_day) || day.unlocked?(location.timezone)
   end
 
   def can_access_day?(day)
@@ -199,7 +199,7 @@ class User < ApplicationRecord
   def visible_bootcamp_activities
     activities = Activity.bootcamp.active.order(day: :asc, sequence: :asc)
     if cohort
-      day = CurriculumDay.new(Date.current, cohort).unlocked_until_day
+      day = CurriculumDay.new(Date.current, cohort).unlocked_until_day(location.timezone)
       activities = activities.where("day <= ?", day.to_s)
     end
     activities

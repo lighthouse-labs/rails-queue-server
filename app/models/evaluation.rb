@@ -57,7 +57,7 @@ class Evaluation < ApplicationRecord
 
   scope :for_project, ->(project) { where(project_id: project.id) }
   scope :for_student, ->(student) { where(student_id: student.id) }
-  scope :after_date, ->(date) { where("evaluations.completed_at > ?", date) }
+  scope :after_date, ->(date) { where("evaluations.created_at > ?", date) }
   scope :before_date, ->(date) { where("evaluations.completed_at < ?", date) }
   scope :exclude_autocomplete, -> { where.not(state: 'auto_accepted') }
 

@@ -87,17 +87,10 @@ class Feedback < ApplicationRecord
   end
 
   def self.to_csv
-    student_attributes = %w[first_name last_name]
-    feedbackable_attributes = %w[name day type]
-    feedback_attributes = %w[rating created_at]
-    location_attributes = ['name']
-    CSV.generate do |csv|
-      csv << ['Student First Name', 'Student Last Name', 'Activity Name', 'Activity Day', 'Activity Type', 'Rating', 'Created Date', 'Location']
-      all.find_each do |feedback|
-        csv << (feedback.student.attributes.values_at(*student_attributes) +
-                feedback.feedbackable.attributes.values_at(*feedbackable_attributes) +
-                feedback.attributes.values_at(*feedback_attributes) +
-                feedback.student.cohort.location.attributes.values_at(*location_attributes))
+    CSV.generate(headers: true) do |csv|
+      csv << ['Name', 'Email', 'Date', 'Type', 'Notes', 'Rating']
+      all.each do |feedback|
+        csv << [feedback.teacher.full_name, feedback.teacher.email, feedback.created_at, feedback.feedbackable_type, feedback.notes, feedback.rating]
       end
     end
   end

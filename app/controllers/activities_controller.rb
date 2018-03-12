@@ -58,7 +58,8 @@ class ActivitiesController < ApplicationController
 
   def filter_by_permissions
     if current_user.is_a?(Student)
-      curriculum_day = current_user.cohort.curriculum_day.unlocked_until_day.to_s
+      timezone = current_user.location.timezone
+      curriculum_day = current_user.cohort.curriculum_day.unlocked_until_day(timezone).to_s
       @activities = @activities.until_day(curriculum_day)
     else
       @activities
