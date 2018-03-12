@@ -66,7 +66,7 @@ class Admin::AssistancesController < Admin::BaseController
   def average_time_in_queue(assistances)
     # Don't count ARs < 1 second
     # They are generated ARs when a teacher registers an assistance without student being in queue
-    time_in_queue_arr = assistances.map |a| do
+    time_in_queue_arr = assistances.map do |a|
       ar = AssistanceRequest.find_by(assistance_id: a)
       ar ? ar.time_in_queue : 0
     end
