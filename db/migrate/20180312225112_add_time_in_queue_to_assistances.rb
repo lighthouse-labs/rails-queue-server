@@ -6,10 +6,11 @@ class AddTimeInQueueToAssistances < ActiveRecord::Migration[5.0]
       assistance.save
       puts "updated assistance id: #{assistance.id}"
     end
+    remove_column :assistance_requests, :assistance_start_at
   end
 
   def down
     remove_column :assistances, :secs_in_queue
+    add_column :assistance_requests, :assistance_start_at, :datetime
   end
-
 end

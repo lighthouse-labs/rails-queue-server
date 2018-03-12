@@ -118,7 +118,6 @@ ActiveRecord::Schema.define(version: 20180312225112) do
     t.integer  "requestor_id"
     t.integer  "assistor_id"
     t.datetime "start_at"
-    t.datetime "assistance_start_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "assistance_id"
