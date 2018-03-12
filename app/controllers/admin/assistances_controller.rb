@@ -11,7 +11,7 @@ class Admin::AssistancesController < Admin::BaseController
     @avg_l_score = @assistances.where.not(rating: nil).average(:rating).to_f.round(1)
     @distinct_students = @assistances.pluck(:assistee_id).uniq.count
     @distinct_teachers = @assistances.pluck(:assistor_id).uniq.count
-    @total = @assistances.count
+    @assistance_count = @assistances.count
     @average_time_in_queue = average_time_in_queue(@assistances)
 
     @assistances = @assistances.page(params[:page]).per(DEFAULT_PER)
@@ -67,8 +67,8 @@ class Admin::AssistancesController < Admin::BaseController
   def average_time_in_queue(assistances)
     # Don't count ARs < 1 second
     # They are generated ARs when a teacher registers an assistance without student being in queue
-    ar_tiq = assistances.map{ |a| AssistanceRequest.find_by(assistance_id: a).time_in_queue }.select{ |tiq| tiq > 1 }    
-    (ar_tiq.sum.to_f / ar_tiq.size).floor
+    time_in_queue_arr = assistances.map{ |a| AssistanceRequest.find_by(assistance_id: a).time_in_queue }.select{ |tiq| tiq > 1 }    
+    (time_in_queue_arr.sum.to_f / time_in_queue_arr.size).floor
   end
 
 end

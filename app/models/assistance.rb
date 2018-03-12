@@ -106,7 +106,7 @@ class Assistance < ApplicationRecord
   end
 
   def set_request_assistance_start_at
-    ar = AssistanceRequest.find_by(assistance_id: id)
+    ar = assistance_request
     ar.assistance_start_at = start_at
     ar.save!
   end
