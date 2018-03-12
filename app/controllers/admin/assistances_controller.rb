@@ -1,6 +1,6 @@
 class Admin::AssistancesController < Admin::BaseController
 
-  DEFAULT_PER = 10
+  DEFAULT_PER = 100
 
   def index
     @assistances = Assistance.order(created_at: :desc)
