@@ -2,15 +2,17 @@
 
   .stat.card
     .card-body
-      | &nbsp;
-      = total_marking_time(@evaluations)
-    span Total Marking Time
+      h5
+        | &nbsp;
+        = total_marking_time(@evaluations)
+      span Total Marking Time
 
   .stat.card
     .card-body
-      | &nbsp;
-      = average_marking_time(@evaluations)
-    span Average Marking Time
+      h5
+        | &nbsp;
+        = average_marking_time(@evaluations)
+      span Average Marking Time
 
   .stat.card
     .card-body

@@ -8,10 +8,21 @@ class Admin::TeacherFeedbacksController < Admin::BaseController
     params[:end_date] ||= Date.current.end_of_month.to_s
 
     @feedbacks = Feedback.teacher_feedbacks.filter_by(filter_by_params)
-    @completed_feedbacks = Feedback.teacher_feedbacks.completed.filter_by(filter_by_params).group_by(&:teacher)
+    @feedbacks_csv = @feedbacks.completed
+    @completed_feedbacks = @feedbacks_csv.group_by(&:teacher)
+
+    respond_to do |format|
+      format.html
+      format.csv { render text: @feedbacks_csv.to_csv }
+    end
   end
 
   private
+
+  def safe_params
+    params.except(:host, :port, :protocol).permit!
+  end
+  helper_method :safe_params
 
   def filter_by_params
     params.slice(*FILTER_BY_OPTIONS).select { |_k, v| v.present? }

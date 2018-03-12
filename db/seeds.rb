@@ -5,6 +5,7 @@ Rails.logger.info "SEEDING"
   p.weeks = 10
   p.days_per_week = 5
   p.weekends = true
+  p.curriculum_unlocking = 'weekly'
 end
 @location_van = Location.find_or_create_by!(name: "Vancouver", timezone: "Pacific Time (US & Canada)")
 @location_to = Location.find_or_create_by!(name: "Toronto", timezone: "Eastern Time (US & Canada)")

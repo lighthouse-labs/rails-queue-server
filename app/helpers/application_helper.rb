@@ -63,9 +63,9 @@ module ApplicationHelper
   end
 
   def avatar_for(user)
-    if user.custom_avatar?
+    if user && user.custom_avatar?
       user.custom_avatar.url(:thumb)
-    elsif user.avatar_url
+    elsif user && user.avatar_url
       user.avatar_url
     else
       image_path('duck-on.png')

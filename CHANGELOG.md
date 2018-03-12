@@ -1,5 +1,23 @@
 # Change Log
 
+## [2018.03.08.1345](https://github.com/lighthouse-labs/compass/tree/2018.03.08.1345) (2018-03-08)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.02.27.0900...2018.03.08.1345)
+
+**Merged pull requests:**
+
+- Created CSV output for admin teacher feedbacks [\#557](https://github.com/lighthouse-labs/compass/pull/557) ([ahache](https://github.com/ahache))
+- Admin Project Evaluations - Factor in Submission Date [\#551](https://github.com/lighthouse-labs/compass/pull/551) ([ahache](https://github.com/ahache))
+- Fix Date Range Selectors for Admin Evaluations [\#549](https://github.com/lighthouse-labs/compass/pull/549) ([ahache](https://github.com/ahache))
+- Unlock Curriculum at 8pm on Sunday [\#545](https://github.com/lighthouse-labs/compass/pull/545) ([ahache](https://github.com/ahache))
+
+## [2018.02.27.0900](https://github.com/lighthouse-labs/compass/tree/2018.02.27.0900) (2018-02-26)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.02.21.1330...2018.02.27.0900)
+
+**Merged pull requests:**
+
+- Fix Admin Day Feedbacks Cohort Filter [\#544](https://github.com/lighthouse-labs/compass/pull/544) ([ahache](https://github.com/ahache))
+- Restore Feedback Modal for Prep Code Submission Activities [\#543](https://github.com/lighthouse-labs/compass/pull/543) ([ahache](https://github.com/ahache))
+
 ## [2018.02.21.1330](https://github.com/lighthouse-labs/compass/tree/2018.02.21.1330) (2018-02-21)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.02.06.1145...2018.02.21.1330)
 
