@@ -9,10 +9,10 @@ class CreateAssistanceInstances < ActiveRecord::Migration
       t.text :notes
 
       t.timestamps
-    end
-
-    # remove_column :assistance_requests, :assistor_id
-    # remove_column :assistance_requests, :assistance_start_at
-    # remove_column :assistance_requests, :assistance_end_at
-  end
-end
+    end 
+ 
+    # remove_column :assistance_requests, :assistor_id 
+    # remove_column :assistance_requests, :assistance_start_at 
+    # remove_column :assistance_requests, :assistance_end_at 
+  end 
+end 

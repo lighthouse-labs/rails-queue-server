@@ -54,10 +54,10 @@ module ApplicationHelper
   def seconds_to_formatted_time(secs)
     return "#{secs.to_i} seconds" if secs < 60
     mins = secs / 60
-    [[60, :minutes], [24, :hours], [1000, :days]].map{ |count, name|
+    [[60, :minute], [24, :hour], [1000, :day]].map{ |count, name|
       if mins > 0
         mins, n = mins.divmod(count)
-        "#{n.to_i} #{name}"
+        n == 1 ? "#{n.to_i} #{name}" : "#{n.to_i} #{name}s"
       end
     }.compact.reverse.join(' ')
   end

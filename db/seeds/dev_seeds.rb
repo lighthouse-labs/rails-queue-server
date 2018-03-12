@@ -74,19 +74,23 @@ if Rails.env.development?
           requestor:           student,
           assistor_id:         teacher.id,
           start_at:            start_time,
-          assistance_start_at: start_time + rand(1..20).minutes,
-          assistance_end_at:   start_time + rand(21..80).minutes,
           type:                nil,
-          assistance:          Assistance.create(
-            assistor: teacher,
-            assistee: student,
-            start_at: start_time + rand(1..20).minutes,
-            end_at:   start_time + rand(21..40).minutes,
-            notes:    Faker::Lorem.sentence,
-            rating:   [1, 2, 3, 4].sample
-          ),
           reason:              Faker::Lorem.sentence
         )
+
+        ar.created_at = start_time
+        ar.save
+
+        Assistance.create(
+          assistance_request: ar,
+          assistor: teacher,
+          assistee: student,
+          start_at: start_time + rand(1..20).minutes,
+          end_at:   start_time + rand(21..40).minutes,
+          notes:    Faker::Lorem.sentence,
+          rating:   [1, 2, 3, 4].sample
+        )
+
         # create a student feedback on this AssistanceRequest
         Feedback.create!(
           student:      student,

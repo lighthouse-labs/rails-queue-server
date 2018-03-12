@@ -3,7 +3,7 @@ class Admin::AssistancesController < Admin::BaseController
   DEFAULT_PER = 100
 
   def index
-    @assistances = Assistance.order(created_at: :desc).page(params[:page]).per(DEFAULT_PER)
+    @assistances = Assistance.order(created_at: :desc)
 
     apply_filters
 
@@ -11,6 +11,10 @@ class Admin::AssistancesController < Admin::BaseController
     @avg_l_score = @assistances.where.not(rating: nil).average(:rating).to_f.round(1)
     @distinct_students = @assistances.pluck(:assistee_id).uniq.count
     @distinct_teachers = @assistances.pluck(:assistor_id).uniq.count
+    @assistance_count = @assistances.count
+    @average_time_in_queue = average_time_in_queue(@assistances)
+
+    @assistances = @assistances.page(params[:page]).per(DEFAULT_PER)
   end
 
   private
@@ -58,6 +62,14 @@ class Admin::AssistancesController < Admin::BaseController
 
   def filter_by_flagged
     @assistances = @assistances.where(flag: true) if params[:flagged].present?
+  end
+
+  def average_time_in_queue(assistances)
+    # Don't count ARs < 1 second
+    # They are generated ARs when a teacher registers an assistance without student being in queue
+    time_in_queue_arr = assistances.map{ |a| AssistanceRequest.find_by(assistance_id: a).time_in_queue }.select{ |tiq| tiq > 1 } 
+    return 0 if time_in_queue_arr.empty? 
+    (time_in_queue_arr.sum.to_f / time_in_queue_arr.size).floor
   end
 
 end
