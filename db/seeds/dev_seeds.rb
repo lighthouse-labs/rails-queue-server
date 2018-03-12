@@ -78,6 +78,9 @@ if Rails.env.development?
           reason:              Faker::Lorem.sentence
         )
 
+        ar.created_at = start_time
+        ar.save
+
         Assistance.create(
           assistance_request: ar,
           assistor: teacher,
