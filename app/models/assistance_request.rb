@@ -90,10 +90,6 @@ class AssistanceRequest < ApplicationRecord
     self.class.open_requests.where(type: nil).requestor_cohort_in_locations([requestor.cohort.location.name]).where('assistance_requests.id < ?', id).count + 1 if open?
   end
 
-  def time_in_queue
-    assistance_start_at.present? ? assistance_start_at - created_at : 0
-  end
-
   private
 
   def set_cohort
