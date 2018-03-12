@@ -2,7 +2,7 @@ class AddAssistanceStartTimeDataToAssistanceRequests < ActiveRecord::Migration[5
   def up
     puts "starting migration we have#{AssistanceRequest.all.count} records to handle"
     AssistanceRequest.find_each(batch_size: 100) do |ar|
-      puts "starting batch with id: #{ar.id}"
+      puts "id: #{ar.id}"
       if ar.assistance_id.present?
         assistance = Assistance.find(ar.assistance_id)
         ar.assistance_start_at = assistance.start_at if assistance
