@@ -109,8 +109,9 @@ class Assistance < ApplicationRecord
   end
 
   def set_secs_in_queue
-    if assistance_request && start_at
-      self.secs_in_queue = start_at - assistance_request.created_at
+    ar = assistance_request
+    if ar && start_at
+      self.secs_in_queue = start_at - ar.created_at
       ar.save!
     end
   end
