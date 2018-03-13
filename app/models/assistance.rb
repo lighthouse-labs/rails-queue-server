@@ -29,13 +29,14 @@ class Assistance < ApplicationRecord
   before_create :set_start_at
   before_create :set_activity
   after_save :update_student_average
-  after_save :set_request_assistance_start_at
+  before_create :set_secs_in_queue
 
   scope :currently_active, -> {
     joins(:assistance_request)
       .where("assistance_requests.canceled_at IS NULL AND assistances.end_at IS NULL")
   }
   scope :completed, -> { where('assistances.end_at IS NOT NULL') }
+  scope :has_assistance_request, -> { joins(:assistance_request) }
   scope :order_by_start, -> { order(:start_at) }
   scope :assisted_by, ->(user) { where(assistor: user) }
   scope :assisting, ->(user) { where(assistee: user) }
@@ -101,14 +102,17 @@ class Assistance < ApplicationRecord
   end
 
   def update_student_average
-    assistee.cohort_assistance_average = assistee.assistances.completed.where(cohort_id: assistee.cohort_id).where.not(rating: nil).average(:rating).to_f.round(2)
-    assistee.save!
+    if assistee
+      assistee.cohort_assistance_average = assistee.assistances.completed.where(cohort_id: assistee.cohort_id).where.not(rating: nil).average(:rating).to_f.round(2)
+      assistee.save!
+    end
   end
 
-  def set_request_assistance_start_at
-    ar = assistance_request
-    ar.assistance_start_at = start_at
-    ar.save!
+  def set_secs_in_queue
+    if assistance_request && start_at
+      self.secs_in_queue = start_at - assistance_request.created_at
+      ar.save!
+    end
   end
 
   def post_to_slack(channel)
