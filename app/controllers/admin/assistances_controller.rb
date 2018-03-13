@@ -12,7 +12,7 @@ class Admin::AssistancesController < Admin::BaseController
     @distinct_students = @assistances.pluck(:assistee_id).uniq.count
     @distinct_teachers = @assistances.pluck(:assistor_id).uniq.count
     @assistance_count = @assistances.count
-    @average_time_in_queue = @assistances.average(:secs_in_queue)
+    @average_secs_in_queue = @assistances.average(:secs_in_queue)
     @assistances = @assistances.page(params[:page]).per(DEFAULT_PER)
   end
 
