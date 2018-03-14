@@ -10,9 +10,6 @@ class Admin::CohortsController < Admin::BaseController
     @cohort_location = @cohort_location.supported_by_location if @cohort_location.supported_by_location
 
     @active_cohorts = Cohort.is_active.where(location_id: @cohort_location)
-
-    # exclude from @cohorts
-    @cohorts = @cohorts.where.not(id: @active_cohorts.select(:id))
   end
 
   def new
