@@ -44,6 +44,12 @@ hr
     dt class="col-sm-3" Content File Path
     dd class="col-sm-9" #{@activity.content_file_path || "N/A"}
 
+    dt class="col-sm-3" Created
+    dd class="col-sm-9" #{@activity.created_at.strftime("%Y/%m/%d %I:%M%p") || "N/A"}
+
+    dt class="col-sm-3" Updated
+    dd class="col-sm-9" #{@activity.updated_at.strftime("%Y/%m/%d %I:%M%p") || "N/A"}
+
 = simple_form_for @activity, as: :activity, url: @form_url,
   html: { id: 'activity-form', class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
 
