@@ -32,7 +32,7 @@
       = select_tag :user_id, options_from_collection_for_select(User.order(:first_name), :id, :full_name, params[:user_id]), prompt: 'All Users', class: "form-control admin-feedback-dropdown"
 
     .form-group
-      = text_field_tag 'day', params[:day], placeholder: 'Day e.g. w1d2 or w1', class: "form-control admin-feedback-text-box"
+      = text_field_tag 'day', params[:day], placeholder: 'Day e.g. w01d2 or w01', class: "form-control admin-feedback-text-box"
 
 
     = submit_tag 'Filter', class: 'btn btn-success admin-feedback-button'
