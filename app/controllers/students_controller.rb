@@ -8,7 +8,7 @@ class StudentsController < Teacher::BaseController
   before_action :restrict_for_limited_cohort
 
   def index
-    @students = @cohort.students.active.order(location_id: :asc, last_name: :asc)
+    @students = @cohort.students.active.order(location_id: :asc, first_name: :asc)
   end
 
   private
