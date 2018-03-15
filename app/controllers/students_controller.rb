@@ -35,7 +35,8 @@ class StudentsController < Teacher::BaseController
 
   def load_cohort
     @cohort = if teacher?
-                Cohort.find(params[:cohort_id])
+                cohort_id = params[:cohort_id].present? ? params[:cohort_id] : cohort
+                Cohort.find(cohort_id)
               else
                 current_user.cohort
               end
