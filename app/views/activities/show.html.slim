@@ -16,9 +16,10 @@
     = activity_presenter.display_outcomes
 
     - if @activity.stretch?
+      - text = @activity.day? ? "day" : "prep course"
       .alert.alert-info
         strong STRETCH ACTIVITY
-        p This activity is marked as stretch. We strongly suggest you come back to it if/when you've completed all the core exercises for the day.
+        p This activity is marked as stretch. We strongly suggest you come back to it if/when you've completed all the core exercises for the #{text}.
 
     - if @activity.archived?
       .alert.alert-danger
