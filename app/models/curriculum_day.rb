@@ -123,7 +123,7 @@ class CurriculumDay
   def determine_week_without_breaks(day_num)
     # has to be public, calling it from CurriculumBreak, ya i know, this is not ideal
     w = (day_num / 7) + 1
-    w > program.weeks ? program.weeks : w.to_i
+    w > program.weeks ? program.weeks + 1 : w.to_i
   end
 
   private
@@ -214,7 +214,7 @@ class CurriculumDay
     if on_break?(day_num)
       @curriculum_break.right_before_break_week_number
     elsif past_end_week_of_cohort?(w)
-      program.weeks
+      program.weeks + 1
     elsif post_break_yet_active_week_number?(w)
       w - @curriculum_break.num_weeks
     else
