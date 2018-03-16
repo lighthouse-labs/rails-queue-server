@@ -8,7 +8,7 @@ class StudentsController < Teacher::BaseController
   before_action :restrict_for_limited_cohort
 
   def index
-    @students = @cohort.students.active
+    @students = @cohort.students.active.order(location_id: :asc, first_name: :asc)
   end
 
   private
@@ -35,7 +35,8 @@ class StudentsController < Teacher::BaseController
 
   def load_cohort
     @cohort = if teacher?
-                Cohort.find(params[:cohort_id])
+                cohort_id = params[:cohort_id].present? ? params[:cohort_id] : cohort
+                Cohort.find(cohort_id)
               else
                 current_user.cohort
               end
