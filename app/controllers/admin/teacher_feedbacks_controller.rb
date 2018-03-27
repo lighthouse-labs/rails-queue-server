@@ -28,8 +28,4 @@ class Admin::TeacherFeedbacksController < Admin::BaseController
     params.slice(*FILTER_BY_OPTIONS).select { |_k, v| v.present? }
   end
 
-  def avg_ratings ratings, max
-    avg = ratings.inject(0){|sum,feedback| sum + feedback.rating}
-    (avg.to_f / ratings.length.to_f).round(2)
-  end
 end
