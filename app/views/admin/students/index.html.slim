@@ -26,7 +26,7 @@ header.page-header
   .col-sm-12
     .panel.panel-default
       .panel-heading
-        h3.panel-title = "#{@students.size} Students"
+        h3.panel-title = "#{@students.count} / #{Student.count} Students"
 
       .panel-body
         table.table
@@ -92,6 +92,9 @@ header.page-header
                     - if student.cohort.active? || student.cohort.upcoming?
                       = link_to 'Revert to Prep', admin_student_path(student), class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' }
 
+      .card-footer
+        = paginate @students, window: 2, theme: 'bootstrap4'
+
 .modal.fade id="student-actions-modal"
   .modal-dialog
     .modal-content
@@ -99,4 +102,3 @@ header.page-header
 .modal.fade id="student-rollover-modal"
   .modal-dialog
     .modal-content
-
