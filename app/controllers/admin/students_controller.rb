@@ -3,7 +3,7 @@ class Admin::StudentsController < Admin::BaseController
   before_action :load_student, only: [:update, :edit, :destroy, :modal_content, :toggle_tech_interviews]
   before_action :prep_form, only: [:index, :edit]
 
-  DEFAULT_PER = 25
+  DEFAULT_PER = 50
 
   def index
     if params[:cohort_id]
