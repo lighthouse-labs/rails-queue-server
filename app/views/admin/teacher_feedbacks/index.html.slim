@@ -41,7 +41,7 @@ br
       .row.teacher_feedbacks_section
         .col-md-2
           = link_to teacher_presenter.full_name, admin_teacher_stat_path(teacher_presenter.teacher)
-        .col-md-
+        .col-md-3
           - lecture_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Lecture' }
           | Lecture Avg Rating:&nbsp;
           = ((lecture_feedbacks.inject(0){|sum,feedback| sum + feedback.rating}.to_f)/lecture_feedbacks.length).round(2)
