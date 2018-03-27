@@ -23,16 +23,13 @@ br
       td.admin-teacher-stat = @feedbacks.pending.expired.count
       td.admin-teacher-stat
         - lecture_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'Lecture' }
-        = ((lecture_feedbacks.inject(0){|sum,feedback| sum + feedback.rating}.to_f)/lecture_feedbacks.length).round(2)
-        | /5
+        = avg_ratings_or_na lecture_feedbacks, 5
       td.admin-teacher-stat
         - assistance_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'Assistance' }
-        = ((assistance_feedbacks.inject(0){|sum,feedback| sum + feedback.rating}.to_f)/assistance_feedbacks.length).round(2)
-        | /5
+        = avg_ratings_or_na assistance_feedbacks, 5
       td.admin-teacher-stat
         - tech_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'TechInterview' }
-        = ((tech_feedbacks.inject(0){|sum,feedback| sum + feedback.rating}.to_f)/tech_feedbacks.length).round(2)
-        | /5
+        = avg_ratings_or_na tech_feedbacks, 5
 br
 
 - @completed_feedbacks.each do |teacher, feedbacks|
@@ -44,18 +41,15 @@ br
         .col-md-3
           - lecture_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Lecture' }
           | Lecture Avg Rating:&nbsp;
-          = ((lecture_feedbacks.inject(0){|sum,feedback| sum + feedback.rating}.to_f)/lecture_feedbacks.length).round(2)
-          | /5
+          = avg_ratings_or_na lecture_feedbacks, 5
         .col-md-3
           - assistance_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Assistance' }
           | Assistance Avg Rating:&nbsp;
-          = ((assistance_feedbacks.inject(0){|sum,feedback| sum + feedback.rating}.to_f)/assistance_feedbacks.length).round(2)
-          | /5
+          = avg_ratings_or_na assistance_feedbacks, 5
         .col-md-3
           - tech_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'TechInterview' }
           | Tech Int Avg Rating:&nbsp;
-          = ((tech_feedbacks.inject(0){|sum,feedback| sum + feedback.rating}.to_f)/tech_feedbacks.length).round(2)
-          | /5
+          = avg_ratings_or_na tech_feedbacks, 5
       .row
         table.table
           thead
