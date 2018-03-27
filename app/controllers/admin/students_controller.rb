@@ -8,9 +8,11 @@ class Admin::StudentsController < Admin::BaseController
   def index
     if params[:cohort_id]
       @current_cohort = Cohort.find(params[:cohort_id])
-      @students = @current_cohort.students.order(first_name: :asc).page(params[:page]).per(DEFAULT_PER)
+      @students = @current_cohort.students.order(first_name: :asc)
+      @paginated_students = @students.page(params[:page]).per(DEFAULT_PER)
     else
-      @students = Student.all.page(params[:page]).per(DEFAULT_PER)
+      @students = Student.all
+      @paginated_students = @students.page(params[:page]).per(DEFAULT_PER)
     end
   end
 
