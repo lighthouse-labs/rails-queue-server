@@ -96,7 +96,7 @@ class Activity < ApplicationRecord
 
     activities = Activity.active.chronological.where('activities.sequence > ?', sequence)
 
-    if prep?
+    if prep? || teachers_only?
       activities = activities.where(section: section)
     elsif day?
       activities = activities.where(day: day)
@@ -109,7 +109,7 @@ class Activity < ApplicationRecord
     return @prev if @prev
     activities = Activity.active.chronological.where('activities.sequence < ?', sequence)
 
-    if prep?
+    if prep? || teachers_only?
       activities = activities.where(section: section)
     elsif day?
       activities = activities.where(day: day)
