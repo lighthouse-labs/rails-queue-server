@@ -52,6 +52,9 @@ module ApplicationHelper
   end
 
   def seconds_to_formatted_time(secs)
+    if secs == nil
+      return "0 seconds"
+    end
     return "#{secs.to_i} seconds" if secs < 60
     mins = secs / 60
     [[60, :minute], [24, :hour], [1000, :day]].map{ |count, name|
