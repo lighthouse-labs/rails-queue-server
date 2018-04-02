@@ -52,8 +52,10 @@
       .recordings
         h3
           | Videos
+        button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseVideo" aria-expanded="false" aria-controls="collapseVideo"
+          | Click to see lecture videos
         - @activity.recordings.each do |recording|
-          .card.mb-3
+          .card.mb-3 class="collapse" id="collapseVideo"
             img.card-img-top.w-25.h-25 src=avatar_for(recording.presenter)
             .card-body
               h4.card-title
