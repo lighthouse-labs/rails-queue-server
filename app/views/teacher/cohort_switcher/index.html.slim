@@ -26,8 +26,8 @@ header.page-header
               th
 
           tbody
-            == render collection: @cohorts, partial: 'cohort'
+            == render collection: @filtered_cohorts, partial: 'cohort'
           tfoot
             tr
               th colspan="6"
-                = paginate @cohorts, window: 2, theme: 'bootstrap4'
+                = paginate @filtered_cohorts, window: 2, theme: 'bootstrap4'
