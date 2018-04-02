@@ -3,12 +3,16 @@ class Admin::StudentsController < Admin::BaseController
   before_action :load_student, only: [:update, :edit, :destroy, :modal_content, :toggle_tech_interviews]
   before_action :prep_form, only: [:index, :edit]
 
+  DEFAULT_PER = 50
+
   def index
     if params[:cohort_id]
       @current_cohort = Cohort.find(params[:cohort_id])
-      @students = @current_cohort.students.order(first_name: :asc)
+      @students = @current_cohort.students.order(first_name: :asc).page(params[:page]).per(DEFAULT_PER)
+      @student_count = @current_cohort.students.count
     else
-      @students = Student.all
+      @students = Student.all.page(params[:page]).per(DEFAULT_PER)
+      @student_count = Student.count
     end
   end
 
