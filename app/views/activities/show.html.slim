@@ -52,26 +52,22 @@
       .recordings
         h3
           | Videos
-        button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseVideo" aria-expanded="false" aria-controls="collapseVideo"
-          | Click to see lecture videos
-        - @activity.recordings.each do |recording|
-          .card.mb-3 class="collapse" id="collapseVideo"
-            img.card-img-top.w-25.h-25 src=avatar_for(recording.presenter)
-            .card-body
-              h4.card-title
-                = recording_title(recording)
-              .card-text
-                = "Added: #{format_date_time(recording.created_at)}"
-                - if recording.recorded_at
-                  = ' &bull; '.html_safe
-                  = "Recorded: #{format_date_time(recording.recorded_at)}"
-                - if recording.presenter
-                  div
-                    = "Presented by: #{recording.presenter.full_name}"
-                - if recording.presenter_name && !recording.presenter_name.empty?
-                  div
-                    = "Guest presenter: #{recording.presenter_name}"
-                div
+        div.card-deck
+          - @activity.recordings.each do |recording|
+            .card.mb-1
+              .card-body
+                / img.card-img-left.w-25.h-25 src=avatar_for(recording.presenter)
+                h6.card-title
+                  - if recording.presenter
+                    = "#{recording.presenter.full_name}: "
+                  = recording_title(recording)
+                  - if recording.presenter_name && !recording.presenter_name.empty?
+                        = "Guest presenter: #{recording.presenter_name}"
+                .card-text
+                  / = "Added: #{format_date_time(recording.created_at)}"
+                  - if recording.recorded_at
+                    = "Recorded: #{format_date_time(recording.recorded_at)}"
+                    = ' &bull; '.html_safe
                   - if recording.s3_url
                     a href=recording.s3_url title="Right click > Save Link As..."
                       span.fa.fa-file-video-o
