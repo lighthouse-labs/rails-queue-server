@@ -52,28 +52,50 @@
       .recordings
         h3
           | Videos
-        div.card-deck
-          - @activity.recordings.each do |recording|
-            .card.mb-1
-              .card-body
-                / img.card-img-left.w-25.h-25 src=avatar_for(recording.presenter)
-                h6.card-title
-                  - if recording.presenter
-                    = "#{recording.presenter.full_name}: "
-                  = recording_title(recording)
-                  - if recording.presenter_name && !recording.presenter_name.empty?
-                        = "Guest presenter: #{recording.presenter_name}"
-                .card-text
-                  / = "Added: #{format_date_time(recording.created_at)}"
-                  - if recording.recorded_at
-                    = "Recorded: #{format_date_time(recording.recorded_at)}"
-                    = ' &bull; '.html_safe
-                  - if recording.s3_url
-                    a href=recording.s3_url title="Right click > Save Link As..."
-                      span.fa.fa-file-video-o
-                      |  Download file
-                    = ' &bull; '.html_safe
-                  = link_to 'Watch now &raquo;'.html_safe, recording
+        - @rec_array = @activity.recordings.to_a
+        - while @rec_array.count > 0 do
+          div.container
+            div.row
+              div.col-6
+                .card.mb-3
+                  .card-body
+                    h6.card-title
+                      - if @rec_array[0].presenter
+                        = "#{@rec_array[0].presenter.full_name}: "
+                      - if @rec_array[0].presenter_name && !@rec_array[0].presenter_name.empty?
+                            = "#{@rec_array[0].presenter_name}: "
+                      = recording_title(@rec_array[0])
+
+                    .card-text
+                      - if @rec_array[0].recorded_at
+                        = "Recorded: #{format_date_time(@rec_array[0].recorded_at)}"
+                        = ' &bull; '.html_safe
+                      - if @rec_array[0].s3_url
+                        a href=@rec_array[0].s3_url title="Right click > Save Link As..."
+                          span.fa.fa-file-video-o
+                          |  Download file
+                        = ' &bull; '.html_safe
+                      = link_to 'Watch now &raquo;'.html_safe, @rec_array[0]
+              div.col-6
+                .card.mb-1
+                  .card-body
+                    h6.card-title
+                      - if @rec_array[1].presenter
+                        = "#{@rec_array[1].presenter.full_name}: "
+                      = recording_title(@rec_array[1])
+                      - if @rec_array[1].presenter_name && !@rec_array[1].presenter_name.empty?
+                            = "#{@rec_array[1].presenter_name}: "
+                    .card-text
+                      - if @rec_array[1].recorded_at
+                        = "Recorded: #{format_date_time(@rec_array[1].recorded_at)}"
+                        = ' &bull; '.html_safe
+                      - if @rec_array[1].s3_url
+                        a href=@rec_array[1].s3_url title="Right click > Save Link As..."
+                          span.fa.fa-file-video-o
+                          |  Download file
+                        = ' &bull; '.html_safe
+                      = link_to 'Watch now &raquo;'.html_safe, @rec_array[1]
+          - @rec_array.shift(2)
 
     - if teacher? && @program.lecture_tips? && @activity.is_a?(Lecture)
       .lecture-tips
