@@ -61,7 +61,9 @@
                   .card-body
                     h6.card-title
                       - if @rec_array[0].presenter
-                        = "#{@rec_array[0].presenter.full_name}: "
+                        = link_to teacher_path(@rec_array[0].presenter)
+                          = @rec_array[0].presenter.full_name
+                        =": "
                       - if @rec_array[0].presenter_name && !@rec_array[0].presenter_name.empty?
                         = "#{@rec_array[0].presenter_name}: "
                       = recording_title(@rec_array[0])
@@ -76,11 +78,13 @@
                         = ' &bull; '.html_safe
                       = link_to 'Watch now &raquo;'.html_safe, @rec_array[0]
               div.col-6
-                .card.mb-1
+                .card.mb-3
                   .card-body
                     h6.card-title
                       - if @rec_array[1].presenter
-                        = "#{@rec_array[1].presenter.full_name}: "
+                        = link_to teacher_path(@rec_array[1].presenter)
+                          = @rec_array[1].presenter.full_name
+                        =": "
                       - if @rec_array[1].presenter_name && !@rec_array[1].presenter_name.empty?
                         = "#{@rec_array[1].presenter_name}: "
                       = recording_title(@rec_array[1])
