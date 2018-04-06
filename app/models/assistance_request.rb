@@ -48,6 +48,13 @@ class AssistanceRequest < ApplicationRecord
         .references(:requestor, :cohort, :location)
     end
   }
+  scope :requestor_in_locations, ->(locations) {
+    if locations.is_a?(Array) && !locations.empty?
+      includes(requestor: :location)
+        .where(locations: { name: locations })
+        .references(:requestor, :location)
+    end
+  }
   scope :oldest_requests_first, -> { order(start_at: :asc) }
   scope :newest_requests_first, -> { order(start_at: :desc) }
   scope :requested_by, ->(user) { where(requestor: user) }

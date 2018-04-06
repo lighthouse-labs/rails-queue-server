@@ -307,7 +307,10 @@ var RequestQueue = React.createClass({
   },
 
   inLocation: function(assistanceRequest) {
-    return assistanceRequest.requestor.cohort.location.id === this.state.location.id;
+    var locationMatch = assistanceRequest.requestor.cohort.local_assistance_queue ?
+    assistanceRequest.requestor.location.id === this.state.location.id :
+    assistanceRequest.requestor.cohort.location.id === this.state.location.id;
+    return locationMatch;
   },
 
   getRequestIndex: function(assistanceRequest) {

@@ -15,7 +15,7 @@ class AssistanceRequestsController < ApplicationController
 
   def queue
     my_active_assistances = Assistance.assisted_by(current_user).currently_active
-    requests = AssistanceRequest.where(type: nil).open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
+    requests = AssistanceRequest.where(type: nil).open_requests.oldest_requests_first.requestor_in_locations([params[:location]])
     code_reviews = CodeReviewRequest.open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
     my_active_evaluations = Evaluation.where(teacher: current_user).where(state: "in_progress").newest_active_evaluations_first
     evaluations = if current_user.location.try(:satellite?)
@@ -28,7 +28,7 @@ class AssistanceRequestsController < ApplicationController
     all_students = Student.in_active_cohort.active.order_by_last_assisted_at
 
     cohort_id_week_hash = Location.find_by(name: params[:location]).cohorts.is_active.map{ |c| [c.id, c.week] }.to_h
-    cohorts = Cohort.where(id: cohort_id_week_hash.keys)    
+    cohorts = Cohort.where(id: cohort_id_week_hash.keys)
     tech_interview_templates = TechInterviewTemplate.where(week: cohort_id_week_hash.values)
 
     # For satellite mentors, show them their local students under All Students
