@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180313133128) do
+ActiveRecord::Schema.define(version: 20180406171718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,7 +178,8 @@ ActiveRecord::Schema.define(version: 20180313133128) do
     t.integer  "location_id"
     t.boolean  "limited"
     t.string   "weekdays"
-    t.text     "disable_queue_days",  default: [], null: false, array: true
+    t.text     "disable_queue_days",     default: [], null: false, array: true
+    t.boolean  "local_assistance_queue"
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
   end
 
