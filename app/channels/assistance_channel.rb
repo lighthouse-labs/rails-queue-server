@@ -31,14 +31,15 @@ class AssistanceChannel < ApplicationCable::Channel
   def cancel_assistance_request(data)
     ar = AssistanceRequest.find data["request_id"]
     if ar && ar.cancel
-      location_name = Location.find(ar.assistor_location_id).name || 'Vancouver'
+      # location_name = Location.find(ar.assistor_location_id).name || 'Vancouver'
+      location_name = "test"
       a = ar.requestor.cohort.location.name
       binding.pry
       ActionCable.server.broadcast "assistance-#{location_name}", type:   "CancelAssistanceRequest",
                                                                                       object: AssistanceRequestSerializer.new(ar, root: false).as_json
 
       UserChannel.broadcast_to ar.requestor, type: "AssistanceEnded"
-      update_students_in_queue(ar.requestor.cohort.location.name)
+      update_students_in_queue(location_name)
     end
   end
 
