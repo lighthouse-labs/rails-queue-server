@@ -15,6 +15,7 @@ class AssistanceRequest < ApplicationRecord
   before_create :set_day
   before_create :limit_one_per_user
   before_create :set_start_at
+  before_create :set_assistor_location_id
 
   # bc codereviews and direct assistances create requests (?!)
   # this is the least intrusive solution for now, until we get rid of that logic (if ever) - KV
@@ -48,13 +49,7 @@ class AssistanceRequest < ApplicationRecord
         .references(:requestor, :cohort, :location)
     end
   }
-  scope :requestor_in_locations, ->(locations) {
-    if locations.is_a?(Array) && !locations.empty?
-      includes(requestor: :location)
-        .where(locations: { name: locations })
-        .references(:requestor, :location)
-    end
-  }
+  scope :for_location, ->(location) { where(assistor_location_id: location.id) }
   scope :oldest_requests_first, -> { order(start_at: :asc) }
   scope :newest_requests_first, -> { order(start_at: :desc) }
   scope :requested_by, ->(user) { where(requestor: user) }
@@ -116,6 +111,12 @@ class AssistanceRequest < ApplicationRecord
       errors.add :base, 'Limit one open/in progress request per user'
       false
     end
+  end
+
+  def set_assistor_location_id
+    self.assistor_location_id = requestor.cohort.local_assistance_queue ?
+      requestor.location_id :
+      requestor.cohort.location_id
   end
 
 end

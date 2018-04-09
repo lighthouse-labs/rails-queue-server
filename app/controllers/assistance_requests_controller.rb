@@ -15,7 +15,8 @@ class AssistanceRequestsController < ApplicationController
 
   def queue
     my_active_assistances = Assistance.assisted_by(current_user).currently_active
-    requests = AssistanceRequest.where(type: nil).open_requests.oldest_requests_first.requestor_in_locations([params[:location]])
+    assistor_location = Location.find_by(name: params[:location]) || Location.first
+    requests = AssistanceRequest.where(type: nil).open_requests.oldest_requests_first.for_location(assistor_location)
     code_reviews = CodeReviewRequest.open_requests.oldest_requests_first.requestor_cohort_in_locations([params[:location]])
     my_active_evaluations = Evaluation.where(teacher: current_user).where(state: "in_progress").newest_active_evaluations_first
     evaluations = if current_user.location.try(:satellite?)
