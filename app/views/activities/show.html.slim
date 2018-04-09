@@ -77,26 +77,27 @@
                         = ' &bull; '.html_safe
                       = link_to 'Watch now &raquo;'.html_safe, @recordings_arr[0]
               div.col-6
-                .card.mb-3
-                  .card-body
-                    h6.card-title
-                      - if @recordings_arr[1].presenter
-                        = link_to teacher_path(@recordings_arr[1].presenter)
-                          = @recordings_arr[1].presenter.full_name
-                        =": "
-                      - if @recordings_arr[1].presenter_name && !@recordings_arr[1].presenter_name.empty?
-                        = "#{@recordings_arr[1].presenter_name}: "
-                      = recording_title(@recordings_arr[1])
-                    .card-text
-                      - if @recordings_arr[1].recorded_at
-                        = "Recorded: #{format_date_time(@recordings_arr[1].recorded_at)}"
-                        = ' &bull; '.html_safe
-                      - if @recordings_arr[1].s3_url
-                        a href=@recordings_arr[1].s3_url title="Right click > Save Link As..."
-                          span.fa.fa-file-video-o
-                          |  Download file
-                        = ' &bull; '.html_safe
-                      = link_to 'Watch now &raquo;'.html_safe, @recordings_arr[1]
+                - if @recordings_arr[1]
+                  .card.mb-3
+                    .card-body
+                      h6.card-title
+                        - if @recordings_arr[1].presenter
+                          = link_to teacher_path(@recordings_arr[1].presenter)
+                            = @recordings_arr[1].presenter.full_name
+                          =": "
+                        - if @recordings_arr[1].presenter_name && !@recordings_arr[1].presenter_name.empty?
+                          = "#{@recordings_arr[1].presenter_name}: "
+                        = recording_title(@recordings_arr[1])
+                      .card-text
+                        - if @recordings_arr[1].recorded_at
+                          = "Recorded: #{format_date_time(@recordings_arr[1].recorded_at)}"
+                          = ' &bull; '.html_safe
+                        - if @recordings_arr[1].s3_url
+                          a href=@recordings_arr[1].s3_url title="Right click > Save Link As..."
+                            span.fa.fa-file-video-o
+                            |  Download file
+                          = ' &bull; '.html_safe
+                        = link_to 'Watch now &raquo;'.html_safe, @recordings_arr[1]
           - @recordings_arr.shift(2)
 
     - if teacher? && @program.lecture_tips? && @activity.is_a?(Lecture)
