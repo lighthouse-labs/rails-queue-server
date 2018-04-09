@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180406171718) do
+ActiveRecord::Schema.define(version: 20180409175256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,8 +129,10 @@ ActiveRecord::Schema.define(version: 20180406171718) do
     t.integer  "original_activity_submission_id"
     t.integer  "cohort_id"
     t.string   "day"
+    t.integer  "assistor_location_id"
     t.index ["activity_id"], name: "index_assistance_requests_on_activity_id", using: :btree
     t.index ["activity_submission_id"], name: "index_assistance_requests_on_activity_submission_id", using: :btree
+    t.index ["assistor_location_id"], name: "index_assistance_requests_on_assistor_location_id", using: :btree
     t.index ["cohort_id"], name: "index_assistance_requests_on_cohort_id", using: :btree
   end
 
