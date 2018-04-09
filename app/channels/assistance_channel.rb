@@ -36,7 +36,7 @@ class AssistanceChannel < ApplicationCable::Channel
       a = ar.requestor.cohort.location.name
       binding.pry
       ActionCable.server.broadcast "assistance-#{location_name}", type:   "CancelAssistanceRequest",
-                                                                                      object: AssistanceRequestSerializer.new(ar, root: false).as_json
+                                                                  object: AssistanceRequestSerializer.new(ar, root: false).as_json
 
       UserChannel.broadcast_to ar.requestor, type: "AssistanceEnded"
       update_students_in_queue(location_name)
