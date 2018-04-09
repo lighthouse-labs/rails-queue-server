@@ -7,13 +7,14 @@ class AssistanceChannel < ApplicationCable::Channel
   def start_assisting(data)
     ar = AssistanceRequest.find(data["request_id"])
     if ar.start_assistance(current_user)
-      ActionCable.server.broadcast "assistance-#{ar.requestor.cohort.location.name}", type:   "AssistanceStarted",
-                                                                                      object: AssistanceSerializer.new(ar.reload.assistance, root: false).as_json
+      location_name = Location.find(ar.assistor_location_id).name || 'Vancouver'
+      ActionCable.server.broadcast "assistance-#{location_name}", type:   "AssistanceStarted",
+                                                                  object: AssistanceSerializer.new(ar.reload.assistance, root: false).as_json
 
       UserChannel.broadcast_to ar.requestor, type: "AssistanceStarted", object: UserSerializer.new(current_user).as_json
 
       teacher_busy(current_user)
-      update_students_in_queue(ar.requestor.cohort.location.name)
+      update_students_in_queue(location_name)
     end
   end
 
@@ -21,8 +22,9 @@ class AssistanceChannel < ApplicationCable::Channel
     assistance = Assistance.find data["assistance_id"]
     assistance.end(data["notes"], data["notify"], data["rating"].to_i)
 
-    ActionCable.server.broadcast "assistance-#{assistance.assistance_request.requestor.cohort.location.name}", type:   "AssistanceEnded",
-                                                                                                               object: AssistanceSerializer.new(assistance, root: false).as_json
+    location_name = Location.find(assistance.assistance_request.assistor_location_id).name || 'Vancouver'
+    ActionCable.server.broadcast "assistance-#{location_name}", type:   "AssistanceEnded",
+                                                                object: AssistanceSerializer.new(assistance, root: false).as_json
 
     UserChannel.broadcast_to assistance.assistance_request.requestor, type: "AssistanceEnded"
     teacher_available(current_user)
@@ -31,10 +33,7 @@ class AssistanceChannel < ApplicationCable::Channel
   def cancel_assistance_request(data)
     ar = AssistanceRequest.find data["request_id"]
     if ar && ar.cancel
-      # location_name = Location.find(ar.assistor_location_id).name || 'Vancouver'
-      location_name = "test"
-      a = ar.requestor.cohort.location.name
-      binding.pry
+      location_name = Location.find(ar.assistor_location_id).name || 'Vancouver'
       ActionCable.server.broadcast "assistance-#{location_name}", type:   "CancelAssistanceRequest",
                                                                   object: AssistanceRequestSerializer.new(ar, root: false).as_json
 
@@ -45,12 +44,16 @@ class AssistanceChannel < ApplicationCable::Channel
 
   def stop_assisting(data)
     assistance = Assistance.find data["assistance_id"]
+    student = Student.find(assistance.assistee_id)
     if assistance && assistance.destroy
-      ActionCable.server.broadcast "assistance-#{assistance.assistance_request.requestor.cohort.location.name}", type:   "StoppedAssisting",
-                                                                                                                 object: AssistanceSerializer.new(assistance).as_json
+      location_name = Location.find(assistance.assistance_request.assistor_location_id).name || 'Vancouver'
+      ActionCable.server.broadcast "assistance-#{location_name}", type:   "StoppedAssisting",
+                                                                  object: AssistanceSerializer.new(assistance).as_json
 
+      UserChannel.broadcast_to student, type: "AssistanceRequested",
+                                        object: student.position_in_queue
       teacher_available(current_user)
-      update_students_in_queue(assistance.assistance_request.requestor.cohort.location.name)
+      update_students_in_queue(location_name)
     end
   end
 
