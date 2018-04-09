@@ -89,7 +89,8 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def position_in_queue
-    self.class.open_requests.where(type: nil).requestor_cohort_in_locations([requestor.cohort.location.name]).where('assistance_requests.id < ?', id).count + 1 if open?
+    assistor_location = Location.find(self.assistor_location_id)
+    self.class.open_requests.where(type: nil).for_location(assistor_location).where('assistance_requests.id < ?', id).count + 1 if open?
   end
 
   private
