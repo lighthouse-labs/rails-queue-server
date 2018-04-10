@@ -9,6 +9,8 @@ class Project < Section
   validates :name, :description, presence: true
 
   scope :evaluated, -> { where(evaluated: true) }
+  scope :core,      -> { where(stretch: [nil, false]) }
+  scope :stretch,   -> { where(stretch: true) }
 
   before_validation :set_slug
 

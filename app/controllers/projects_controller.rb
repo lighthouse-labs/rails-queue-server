@@ -3,7 +3,8 @@ class ProjectsController < ApplicationController
   before_action :find_project, only: [:show]
 
   def index
-    @projects = Project.active
+    @projects = Project.active.core
+    @stretch_projects = Project.active.stretch
   end
 
   def show; end
