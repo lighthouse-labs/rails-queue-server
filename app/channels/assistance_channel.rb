@@ -64,9 +64,6 @@ class AssistanceChannel < ApplicationCable::Channel
       assistance_request.start_assistance(current_user)
       assistance = assistance_request.reload.assistance
       assistance.end(data["notes"], data["notify"], data["rating"])
-
-      ActionCable.server.broadcast "assistance-#{assistance_request.requestor.cohort.location.name}", type:   "OffineAssistanceCreated",
-                                                                                                      object: UserSerializer.new(student).as_json
     end
   end
 
