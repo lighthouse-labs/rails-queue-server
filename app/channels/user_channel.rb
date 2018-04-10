@@ -32,7 +32,7 @@ class UserChannel < ApplicationCable::Channel
       UserChannel.broadcast_to current_user, type: "AssistanceEnded"
 
       teacher_available(ar.assistance.assistor) if ar.assistance
-      update_students_in_queue(ar.requestor.cohort.location.name)
+      update_students_in_queue(ar.requestor.cohort.location)
     end
   end
 

@@ -4,6 +4,7 @@ class AssistanceRequest < ApplicationRecord
   belongs_to :assistance, dependent: :delete
   belongs_to :activity
   belongs_to :cohort # substitute for lack of enrollment record - KV
+  belongs_to :assistor_location, class_name: Location
 
   # also leads to activity, but not as 'safe' (nullable)
   # used for code review requests only (set in CodeReviewRequest class) - KV

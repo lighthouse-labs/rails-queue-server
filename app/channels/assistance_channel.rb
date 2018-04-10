@@ -14,7 +14,7 @@ class AssistanceChannel < ApplicationCable::Channel
       UserChannel.broadcast_to ar.requestor, type: "AssistanceStarted", object: UserSerializer.new(current_user).as_json
 
       teacher_busy(current_user)
-      update_students_in_queue(location_name)
+      update_students_in_queue(ar.assistor_location)
     end
   end
 
@@ -38,7 +38,7 @@ class AssistanceChannel < ApplicationCable::Channel
                                                                   object: AssistanceRequestSerializer.new(ar, root: false).as_json
 
       UserChannel.broadcast_to ar.requestor, type: "AssistanceEnded"
-      update_students_in_queue(location_name)
+      update_students_in_queue(ar.assistor_location)
     end
   end
 
@@ -53,7 +53,7 @@ class AssistanceChannel < ApplicationCable::Channel
       UserChannel.broadcast_to student, type: "AssistanceRequested",
                                         object: student.position_in_queue
       teacher_available(current_user)
-      update_students_in_queue(location_name)
+      update_students_in_queue(assistance.assistance_request.assistor_location)
     end
   end
 
