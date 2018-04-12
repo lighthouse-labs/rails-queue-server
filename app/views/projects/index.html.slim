@@ -8,10 +8,16 @@ p
 
 .row
   .col-md-9.projects
-    h3 There are #{@projects.size} projects
+    h3 There #{@projects.size > 1 ? 'are' : 'is'} #{pluralize @projects.size, 'core project'}
     hr
 
     = render @projects
+
+    - if @stretch_projects
+      h3 There #{@stretch_projects.size > 1 ? 'are' : 'is'} also #{pluralize @stretch_projects.size, 'stretch project'}
+      hr
+
+      = render @stretch_projects
   .col-md-3.card
     .card-header
       h4 Evaluation

@@ -10,6 +10,9 @@
       = project.end_day
     .name
       = project.name
+      | &nbsp;
+      - if project.stretch?
+        span.stretch = '(Stretch)'
     .status
       - if student?
         - project_evaluation = project.last_evaluation(current_user)
