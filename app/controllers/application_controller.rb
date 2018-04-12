@@ -82,8 +82,11 @@ class ApplicationController < ActionController::Base
   def teachers_on_duty
     return [] if current_user && !current_user.is_a?(Teacher) && !current_user.is_a?(Student)
 
-    if current_user
+    if current_user && current_user.is_a?(Student) && current_user.cohort.local_assistance_queue || current_user.is_a?(Teacher)
       location = current_user.location
+      Teacher.where(on_duty: true, location: location)
+    elsif current_user && !current_user.cohort.local_assistance_queue? && current_user.is_a?(Student)
+      location = current_user.cohort.location
       Teacher.where(on_duty: true, location: location)
     else
       []
