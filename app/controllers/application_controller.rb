@@ -80,18 +80,15 @@ class ApplicationController < ActionController::Base
   helper_method :impersonating?
 
   def teachers_on_duty
-    if !current_user
-      []
-    elsif !(current_user.is_a?(Teacher) || current_user.is_a?(Student))
-      []
-    else
-      using_cohort_location = current_user.is_a?(Student) && !current_user.cohort.local_assistance_queue?
+    return [] unless current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student))
 
-      location = using_cohort_location ?
-        current_user.cohort.location : current_user.location
+    using_cohort_location = current_user.is_a?(Student) && !current_user.cohort.local_assistance_queue?
 
-      Teacher.where(on_duty: true, location: location)
-    end
+    location = using_cohort_location ?
+      current_user.cohort.location : current_user.location
+
+    Teacher.where(on_duty: true, location: location)
+
   end
   helper_method :teachers_on_duty
 
