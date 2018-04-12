@@ -22,7 +22,7 @@ class CurriculumBreak < ApplicationRecord
 
   def right_before_break_week_number
     # any valid CurriculumDay for this cohort will work, as we just want access this method
-    cd = CurriculumDay.new("w1d1", cohort)
+    cd = CurriculumDay.new("w01d1", cohort)
     cd.determine_week_without_breaks(day_number_before_break)
   end
 
