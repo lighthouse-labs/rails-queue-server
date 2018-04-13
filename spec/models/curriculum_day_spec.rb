@@ -62,16 +62,16 @@ describe CurriculumDay, type: :model do
       describe "when on the first day" do
         subject { CurriculumDay.new(Date.new(2018, 04, 02), cohort) }
 
-        it "is 'w01d1'" do
-          expect(subject.to_s).to eq('w01d1')
+        it "is 'w1d1'" do
+          expect(subject.to_s).to eq('w1d1')
         end
       end
 
       describe "any time before the first day" do
         subject { CurriculumDay.new(Date.new(2018, 03, 23), cohort) }
 
-        it "is 'w01d1'" do
-          expect(subject.to_s).to eq('w01d1')
+        it "is 'w1d1'" do
+          expect(subject.to_s).to eq('w1d1')
         end
       end
 
