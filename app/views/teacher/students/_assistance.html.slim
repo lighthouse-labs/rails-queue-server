@@ -1,0 +1,32 @@
+- present assistance do |assistance_presenter|
+  tr
+
+    td.details data-value=assistance.assistor.first_name
+      - present assistance.assistor  do |teacher_presenter|
+        = link_to teacher_path(assistance.assistor) do
+          = teacher_presenter.image_for_index_page
+          strong = teacher_presenter.full_name
+
+        ul.list-inline.social-icons
+          = teacher_presenter.email_info
+          = teacher_presenter.github_info
+          = teacher_presenter.twitter_info
+          = teacher_presenter.slack_info
+          = teacher_presenter.skype_info
+
+    td.details data-value=assistance.created_at
+      = assistance_presenter.formatted_date
+
+    td.details data-value=(assistance.activity ? assistance.activity : "activity_id")
+      = assistance_presenter.activity
+
+    td.details data-value=assistance.rating
+      span.badge class=l_score_label_class(assistance.rating) = "L: #{assistance.rating}"
+
+    td
+      small
+        em
+          article.read-more = assistance.notes
+
+    td.details data-value=assistance.end_at
+      = assistance_presenter.duration
