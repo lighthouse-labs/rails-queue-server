@@ -32,7 +32,7 @@ class Content::SetArchive
       if !in_curric_repo_data(db_item[:uuid])
         archived_object = @model.find_by(id: db_item[:id])
         archived_object.archived = true
-        context.fail!("Failed to Set Archive for #{@model.name}, id: #{db_item[:id]}") unless archived_object.save
+        context.fail!(error: "Failed to Set Archive for #{@model.name}, id: #{db_item[:id]}") unless archived_object.save
       end
     end
 
@@ -40,7 +40,7 @@ class Content::SetArchive
       if in_curric_repo_data(db_item[:uuid])
         archived_object = @model.find_by(id: db_item[:id])
         archived_object.archived = false
-        context.fail!("Failed to Set Archive for #{@model.name}, id: #{db_item[:id]}") unless archived_object.save
+        context.fail!(error: "Failed to Set Archive for #{@model.name}, id: #{db_item[:id]}") unless archived_object.save
       end
     end
   end

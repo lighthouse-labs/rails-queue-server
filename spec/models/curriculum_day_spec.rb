@@ -9,10 +9,10 @@ describe CurriculumDay, type: :model do
 
   describe '#date' do
 
-    context "when initialized as a w1d1 type string" do
-      describe "where we are on 'w1d3'" do
+    context "when initialized as a w01d1 type string" do
+      describe "where we are on 'w01d3'" do
         subject(:curriculum_day) do
-          CurriculumDay.new('w1d3', cohort)
+          CurriculumDay.new('w01d3', cohort)
         end
 
         it "is 3 days into the cohorts start date" do
@@ -32,7 +32,7 @@ describe CurriculumDay, type: :model do
     end
 
     context "when initialized as a Date" do
-      describe "where we are on w1d2" do
+      describe "where we are on w01d2" do
         subject(:curriculum_day) do
           CurriculumDay.new(Date.new(2018, 04, 03), cohort)
         end
@@ -62,16 +62,16 @@ describe CurriculumDay, type: :model do
       describe "when on the first day" do
         subject { CurriculumDay.new(Date.new(2018, 04, 02), cohort) }
 
-        it "is 'w1d1'" do
-          expect(subject.to_s).to eq('w1d1')
+        it "is 'w01d1'" do
+          expect(subject.to_s).to eq('w01d1')
         end
       end
 
       describe "any time before the first day" do
         subject { CurriculumDay.new(Date.new(2018, 03, 23), cohort) }
 
-        it "is 'w1d1'" do
-          expect(subject.to_s).to eq('w1d1')
+        it "is 'w01d1'" do
+          expect(subject.to_s).to eq('w01d1')
         end
       end
 

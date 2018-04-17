@@ -5,7 +5,7 @@
       .card-header
         h3.card-title.mb-0 Details
 
-      .card-body             
+      .card-body
 
         dl.col
           .row
@@ -51,13 +51,14 @@
               = " (#{time_ago_in_words(@evaluation.created_at)} ago)"
 
           - if teacher? && (@evaluation.in_state?(:pending) || @evaluation.in_state?(:in_progress))
-            .row
-              dt.col Mark
-              dd.col
-                - if @evaluation.in_state?(:pending)
-                  = link_to "Start Marking", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success", method: :put
-                - elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
-                  = link_to "Continue Marking", edit_project_evaluation_path(@project, @evaluation), class: "btn btn-success"
+            - unless current_page?(edit_project_evaluation_path)
+              .row
+                dt.col Mark
+                dd.col
+                  - if @evaluation.in_state?(:pending)
+                    = link_to "Start Marking", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success", method: :put
+                  - elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
+                    = link_to "Continue Marking", edit_project_evaluation_path(@project, @evaluation), class: "btn btn-success"
 
 .row.mb-4
   .col-sm-12
@@ -70,5 +71,3 @@
 
 - if @all_completed_evaluations.any?
   == render 'completed_evals'
-
-

@@ -16,7 +16,7 @@ class ActivitySubmissionWithFeedbackController < ApplicationController
       flash[:notice] = "Congrats on completing activity '#{@activity.name}'!"
       render nothing: true, status: 200
     else
-      @errors = result.errors unless @success
+      @errors = result.errors
       render layout: false, status: 400 # bad request
     end
   end

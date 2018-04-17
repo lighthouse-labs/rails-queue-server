@@ -1,5 +1,43 @@
 # Change Log
 
+## [2018.04.09.1515](https://github.com/lighthouse-labs/compass/tree/2018.04.09.1515) (2018-04-09)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.03.14.1345...2018.04.09.1515)
+
+**Merged pull requests:**
+
+- Lecture Video Cards On Activity Pages Now Smaller [\#588](https://github.com/lighthouse-labs/compass/pull/588) ([krsnachandra](https://github.com/krsnachandra))
+- Teachers Can Mark Teacher Resources as Completed [\#587](https://github.com/lighthouse-labs/compass/pull/587) ([krsnachandra](https://github.com/krsnachandra))
+- Make Seconds\_to\_formatted\_time More Robust [\#586](https://github.com/lighthouse-labs/compass/pull/586) ([krsnachandra](https://github.com/krsnachandra))
+- Next and Previous on Teacher Resources Are Now Correct [\#585](https://github.com/lighthouse-labs/compass/pull/585) ([krsnachandra](https://github.com/krsnachandra))
+- Continue Marking Button No Longer On Eval Page [\#584](https://github.com/lighthouse-labs/compass/pull/584) ([krsnachandra](https://github.com/krsnachandra))
+- Separate Ratings for Lectures, Assistances, and Tech Interviews [\#583](https://github.com/lighthouse-labs/compass/pull/583) ([krsnachandra](https://github.com/krsnachandra))
+- Admin/students results are now paginated [\#582](https://github.com/lighthouse-labs/compass/pull/582) ([krsnachandra](https://github.com/krsnachandra))
+- Alumni Will No Longer See Day Feedback Form [\#581](https://github.com/lighthouse-labs/compass/pull/581) ([krsnachandra](https://github.com/krsnachandra))
+- Cohort Switcher Filters No Longer Filter Topnav Dropdowns [\#580](https://github.com/lighthouse-labs/compass/pull/580) ([krsnachandra](https://github.com/krsnachandra))
+- Set Alumni Current Day to Last Day of Program [\#577](https://github.com/lighthouse-labs/compass/pull/577) ([ahache](https://github.com/ahache))
+- Ordered /Students by City and First Name [\#576](https://github.com/lighthouse-labs/compass/pull/576) ([krsnachandra](https://github.com/krsnachandra))
+- Stretch Note is Now Customized for Prep or Bootcamp Exercises [\#573](https://github.com/lighthouse-labs/compass/pull/573) ([krsnachandra](https://github.com/krsnachandra))
+
+## [2018.03.14.1345](https://github.com/lighthouse-labs/compass/tree/2018.03.14.1345) (2018-03-14)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.03.13.0645...2018.03.14.1345)
+
+**Merged pull requests:**
+
+- Updated Placeholder Text for Day Filter on Admin Curriculum Feedback page [\#572](https://github.com/lighthouse-labs/compass/pull/572) ([krsnachandra](https://github.com/krsnachandra))
+- Admin: Cohort Index, now shows all cohorts [\#571](https://github.com/lighthouse-labs/compass/pull/571) ([krsnachandra](https://github.com/krsnachandra))
+- Admin/cohorts\#index page - corrected the Dashboard link for the  [\#569](https://github.com/lighthouse-labs/compass/pull/569) ([krsnachandra](https://github.com/krsnachandra))
+- Add Created and Updated Fields to Activities Edit Page [\#567](https://github.com/lighthouse-labs/compass/pull/567) ([krsnachandra](https://github.com/krsnachandra))
+
+## [2018.03.13.0645](https://github.com/lighthouse-labs/compass/tree/2018.03.13.0645) (2018-03-13)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.03.08.1345...2018.03.13.0645)
+
+**Merged pull requests:**
+
+- Removing a Unused column on AssistancesRequest table [\#564](https://github.com/lighthouse-labs/compass/pull/564) ([jmatsuba](https://github.com/jmatsuba))
+- Admin::Assistances - Refactored Average Time In Queue [\#563](https://github.com/lighthouse-labs/compass/pull/563) ([jmatsuba](https://github.com/jmatsuba))
+- Fix for Admin::Evaluations date filter [\#560](https://github.com/lighthouse-labs/compass/pull/560) ([ahache](https://github.com/ahache))
+- Add Stats to Admin Assistances [\#546](https://github.com/lighthouse-labs/compass/pull/546) ([ahache](https://github.com/ahache))
+
 ## [2018.03.08.1345](https://github.com/lighthouse-labs/compass/tree/2018.03.08.1345) (2018-03-08)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.02.27.0900...2018.03.08.1345)
 

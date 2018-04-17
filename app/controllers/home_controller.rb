@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 
   def show
     if current_user
-      if current_user.can_access_day?('w1d1')
+      if current_user.can_access_day?('w01d1')
         redirect_to day_path('today')
       else
         redirect_to prep_index_path
