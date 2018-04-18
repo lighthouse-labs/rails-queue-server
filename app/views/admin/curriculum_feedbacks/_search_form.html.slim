@@ -16,6 +16,7 @@
 
     .form-group
       = select_tag :charts, options_for_select(['Enable'], params[:charts]), prompt: 'Hide Charts', class: "form-control admin-feedback-dropdown"
+
     .form-group
       | Ratings: &nbsp;
       - rates = [0, 1, 2, 3, 4, 5]
