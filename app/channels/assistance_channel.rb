@@ -7,7 +7,7 @@ class AssistanceChannel < ApplicationCable::Channel
   def start_assisting(data)
     ar = AssistanceRequest.find(data["request_id"])
     if ar.start_assistance(current_user)
-      location_name = Location.find(ar.assistor_location_id).name || 'Vancouver'
+      location_name = ar.assistor_location.name
       ActionCable.server.broadcast "assistance-#{location_name}", type:   "AssistanceStarted",
                                                                   object: AssistanceSerializer.new(ar.reload.assistance, root: false).as_json
 
@@ -22,7 +22,7 @@ class AssistanceChannel < ApplicationCable::Channel
     assistance = Assistance.find data["assistance_id"]
     assistance.end(data["notes"], data["notify"], data["rating"].to_i)
 
-    location_name = Location.find(assistance.assistance_request.assistor_location_id).name || 'Vancouver'
+    location_name = assistance.assistance_request.assistor_location.name
     ActionCable.server.broadcast "assistance-#{location_name}", type:   "AssistanceEnded",
                                                                 object: AssistanceSerializer.new(assistance, root: false).as_json
 
@@ -44,9 +44,9 @@ class AssistanceChannel < ApplicationCable::Channel
 
   def stop_assisting(data)
     assistance = Assistance.find data["assistance_id"]
-    student = Student.find(assistance.assistee_id)
+    student = assistance.assistee
     if assistance && assistance.destroy
-      location_name = Location.find(assistance.assistance_request.assistor_location_id).name || 'Vancouver'
+      location_name = assistance.assistance_request.assistor_location.name
       ActionCable.server.broadcast "assistance-#{location_name}", type:   "StoppedAssisting",
                                                                   object: AssistanceSerializer.new(assistance).as_json
 
