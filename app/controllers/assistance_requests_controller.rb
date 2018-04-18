@@ -4,7 +4,7 @@ class AssistanceRequestsController < ApplicationController
   before_action :teacher_required, only: [:index, :destroy, :start_assistance, :end_assistance, :queue]
 
   def index
-    @all_locations = Location.where("id IN (?)", Cohort.all.map(&:location_id).uniq).map { |l| LocationSerializer.new(l, root: false).as_json }
+    @all_locations = Location.all.map { |l| LocationSerializer.new(l, root: false).as_json }
 
     render component: "RequestQueue",
            props:     {
