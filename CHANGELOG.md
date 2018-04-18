@@ -1,5 +1,16 @@
 # Change Log
 
+## [2018.04.17.0745](https://github.com/lighthouse-labs/compass/tree/2018.04.17.0745) (2018-04-17)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.04.09.1515...2018.04.17.0745)
+
+**Merged pull requests:**
+
+- Notes in Prep Course Can be Completed [\#597](https://github.com/lighthouse-labs/compass/pull/597) ([krsnachandra](https://github.com/krsnachandra))
+- Searched w1d1 and Updated to w01d1 [\#596](https://github.com/lighthouse-labs/compass/pull/596) ([krsnachandra](https://github.com/krsnachandra))
+- On Day 1 the Incomplete Counter Is At Zero [\#595](https://github.com/lighthouse-labs/compass/pull/595) ([krsnachandra](https://github.com/krsnachandra))
+- Stretch project support \(PSP support\) [\#591](https://github.com/lighthouse-labs/compass/pull/591) ([kvirani](https://github.com/kvirani))
+- Accidentally found a bug in the error condition [\#590](https://github.com/lighthouse-labs/compass/pull/590) ([kvirani](https://github.com/kvirani))
+
 ## [2018.04.09.1515](https://github.com/lighthouse-labs/compass/tree/2018.04.09.1515) (2018-04-09)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.03.14.1345...2018.04.09.1515)
 
