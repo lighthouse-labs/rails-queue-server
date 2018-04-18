@@ -17,12 +17,13 @@
     .form-group
       = select_tag :charts, options_for_select(['Enable'], params[:charts]), prompt: 'Hide Charts', class: "form-control admin-feedback-dropdown"
     .form-group
-      | Ratings:
+      | Ratings: &nbsp;
       - rates = [0, 1, 2, 3, 4, 5]
       - rates.each do |rate|
-        = rate
-        = check_box_tag 'ratings[]', rate, checked: true
-
+        .form-check
+        = check_box_tag 'ratings[]', rate, true, class: 'form-check-input', id: "ratings_#{rate}"
+        label.form-check-label[for="ratings_#{rate}"]
+          = rate
 
   .form-row
     .form-group
