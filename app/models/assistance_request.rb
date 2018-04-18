@@ -10,13 +10,15 @@ class AssistanceRequest < ApplicationRecord
   # used for code review requests only (set in CodeReviewRequest class) - KV
   belongs_to :activity_submission
 
+  before_validation :set_assistor_location_id, on: :create
+
   validates :requestor, presence: true
+  validates :assistor_location_id, presence: true
 
   before_create :set_cohort
   before_create :set_day
   before_create :limit_one_per_user
   before_create :set_start_at
-  before_create :set_assistor_location_id
 
   # bc codereviews and direct assistances create requests (?!)
   # this is the least intrusive solution for now, until we get rid of that logic (if ever) - KV
