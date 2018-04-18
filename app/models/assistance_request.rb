@@ -52,7 +52,7 @@ class AssistanceRequest < ApplicationRecord
         .references(:requestor, :cohort, :location)
     end
   }
-  scope :for_location, ->(location) { where(assistor_location_id: location.id) }
+  scope :for_location, ->(location) { where(assistor_location_id: location) }
   scope :oldest_requests_first, -> { order(start_at: :asc) }
   scope :newest_requests_first, -> { order(start_at: :desc) }
   scope :requested_by, ->(user) { where(requestor: user) }
@@ -92,8 +92,7 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def position_in_queue
-    assistor_location = Location.find(self.assistor_location_id)
-    self.class.open_requests.where(type: nil).for_location(assistor_location).where('assistance_requests.id < ?', id).count + 1 if open?
+    self.class.open_requests.where(type: nil).for_location(self.assistor_location).where('assistance_requests.id < ?', id).count + 1 if open?
   end
 
   private
