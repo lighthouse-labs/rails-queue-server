@@ -6,34 +6,50 @@ h4 Teacher Feedback
     = render 'form'
 br
 
-.alert.alert-info.col-md-7
+.alert.alert-info.col-md-10
   table.table
     thead
       th.admin-teacher-stat-heading Total
       th.admin-teacher-stat-heading Completed
       th.admin-teacher-stat-heading Pending
       th.admin-teacher-stat-heading Expired
-      th.admin-teacher-stat-heading Avg. Rating
+      th.admin-teacher-stat-heading Lecture Avg Rating
+      th.admin-teacher-stat-heading Assistance Avg Rating
+      th.admin-teacher-stat-heading Tech Interview Avg Rating
     tbody
       td.admin-teacher-stat = @feedbacks.count
       td.admin-teacher-stat = @feedbacks.completed.count
       td.admin-teacher-stat = @feedbacks.pending.not_expired.count
       td.admin-teacher-stat = @feedbacks.pending.expired.count
       td.admin-teacher-stat
-        = ((@feedbacks.completed.inject(0){|sum,feedback| sum + feedback.rating}.to_f)/@feedbacks.completed.length).round(2)
-        | /5
+        - lecture_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'Activity' }
+        = avg_ratings_or_na(lecture_feedbacks, 5)
+      td.admin-teacher-stat
+        - assistance_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'Assistance' }
+        = avg_ratings_or_na(assistance_feedbacks, 5)
+      td.admin-teacher-stat
+        - tech_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'TechInterview' }
+        = avg_ratings_or_na(tech_feedbacks, 5)
 br
 
 - @completed_feedbacks.each do |teacher, feedbacks|
   - unless teacher.nil?
     - present teacher do |teacher_presenter|
       .row.teacher_feedbacks_section
-        .col-md-3
+        .col-md-2
           = link_to teacher_presenter.full_name, admin_teacher_stat_path(teacher_presenter.teacher)
         .col-md-3
-          | Average Rating:&nbsp;
-          = ((feedbacks.inject(0){|sum,feedback| sum + feedback.rating}.to_f)/feedbacks.length).round(2)
-          | /5
+          - lecture_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Activity' }
+          | Lecture Avg Rating:&nbsp;
+          = avg_ratings_or_na(lecture_feedbacks, 5)
+        .col-md-3
+          - assistance_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Assistance' }
+          | Assistance Avg Rating:&nbsp;
+          = avg_ratings_or_na(assistance_feedbacks, 5)
+        .col-md-3
+          - tech_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'TechInterview' }
+          | Tech Int Avg Rating:&nbsp;
+          = avg_ratings_or_na(tech_feedbacks, 5)
       .row
         table.table
           thead
@@ -60,5 +76,5 @@ br
                         em
                           article.read-more = teacher_feedback_presenter.notes
                     td
-                    
+
 = link_to "Download CSV", admin_teacher_feedbacks_path({format: :csv}.merge(safe_params)), class: "btn btn-success"

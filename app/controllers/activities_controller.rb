@@ -39,6 +39,7 @@ class ActivitiesController < ApplicationController
     elsif cohort # no messages if student or just User and no cohort is assigned
       @messages = @activity.messages.for_cohort(cohort)
     end
+    @recordings_arr = @activity.recordings.to_a
   end
 
   def autocomplete
