@@ -45,7 +45,7 @@ br
         .col-md-2
           |Avg Ratings:
         .col-md-2
-          - lecture_feedbacks = feedbacks.find_all{ |feedback| feedback.activity.type === 'Lecture' }
+          - lecture_feedbacks = feedbacks.lecture
           | Lectures:&nbsp;
           = avg_ratings_or_na(lecture_feedbacks, 5)
         .col-md-2
