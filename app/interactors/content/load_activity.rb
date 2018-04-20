@@ -120,8 +120,6 @@ class Content::LoadActivity
           'Reading'
         when 'practice'
           'Task'
-        when 'breakout'
-          'Lecture'
         else
           # make sure this is a valid Activity type, and if so, roll with it
           t.strip.gsub(/\s+/, '_').classify
