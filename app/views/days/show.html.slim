@@ -18,7 +18,8 @@
         - @outcomes.each do |outcome|
           li = outcome.text
 
-- lecture_activities, work_activities = @activities.partition { |a| a.is_a?(Lecture) || a.is_a?(Breakout) || a.is_a?(Test) }
+- lecture_activities, work_activities = @activities.partition { |a| a.is_a?(Lecture) || a.is_a?(Test) }
+- breakout_activities, work_activities = work_activities.partition { |a| a.is_a?(Breakout) }
 - initial_notes = []
 - while work_activities.first.is_a?(PinnedNote) do
   - initial_notes << work_activities.shift
@@ -28,8 +29,13 @@
   hr
 
 - if lecture_activities.any?
-  h3 Lectures & Breakouts
+  h3 Lecture
   = render partial: 'activities/activity', collection: lecture_activities
+  hr
+
+- if breakout_activities.any?
+  h3 Breakout
+  = render partial: 'activities/activity', collection: breakout_activities
   hr
 
 - if @project
