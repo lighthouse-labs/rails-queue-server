@@ -45,11 +45,14 @@ br
         .col-md-2
           |Avg Ratings:
         .col-md-2
-          - lecture_feedbacks = feedbacks.lecture
+          / - lecture_feedbacks = feedbacks.completed.lecture
+          / feedbacks is an array so the above doesn't work
+          - lecture_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Activity' }
           | Lectures:&nbsp;
           = avg_ratings_or_na(lecture_feedbacks, 5)
         .col-md-2
-          - breakout_feedbacks = feedbacks.find_all{ |feedback| feedback.activity.type === 'Breakout' }
+          / - breakout_feedbacks = feedbacks.find_all{ |feedback| feedback.activity.type === 'Breakout' }
+          - breakout_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Activity' }
           | Breakouts:&nbsp;
           = avg_ratings_or_na(breakout_feedbacks, 5)
         .col-md-2
