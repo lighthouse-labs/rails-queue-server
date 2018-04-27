@@ -52,6 +52,7 @@ class ActivityFeedback < ApplicationRecord
       includes(:activity).where(activities: { day: [nil, ''] }).references(:activity)
     end
   }
+  scope :filter_by_ratings, ->(ratings) { where(rating: ratings) }
 
   default_scope -> { order(created_at: :desc) }
 

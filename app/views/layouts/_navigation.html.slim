@@ -193,9 +193,10 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             button.btn.btn-primary.disabled
               | Disabled while Impersonating
         - elsif @program.prep_assistance? && current_user.try(:enrolled_and_prepping?)
-          li#assistance-request-module
-            span#create-assistance-request
-              = link_to 'Request Assistance', prep_assistance_requests_path(activity_id: @activity), method: :post, class: "btn navbar-btn btn-primary"
+          li
+            span
+              a.btn.navbar-btn.btn-primary href="http://web-prep-help.lighthouselabs.ca/" target="_blank"
+                | Need Help?
         - elsif current_user.try(:active_student?) && current_user.cohort.active_queue?
           li#assistance-request-module
             span#cancel-assistance-request class = (!(current_user.waiting_for_assistance? || current_user.being_assisted?) ? 'd-none' : '')
