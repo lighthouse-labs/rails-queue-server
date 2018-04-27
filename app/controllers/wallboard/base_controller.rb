@@ -1,6 +1,6 @@
 class Wallboard::BaseController < ActionController::Base
   before_action :verify_token
-  
+
   private
 
   def location
@@ -22,6 +22,6 @@ class Wallboard::BaseController < ActionController::Base
   end
 
   def auth_token
-    Rails.application.secrets.wallboard_access_token
+    ENV['WALLBOARD_TOKEN']
   end
 end
