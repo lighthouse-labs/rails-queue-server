@@ -14,7 +14,7 @@ class UserChannel < ApplicationCable::Channel
     )
     ar.save
 
-    location_name = Location.find(ar.assistor_location_id).name || 'Vancouver'
+    location_name = ar.assistor_location.name || 'Vancouver'
     ActionCable.server.broadcast "assistance-#{location_name}", type:   "AssistanceRequest",
                                                                 object: AssistanceRequestSerializer.new(ar, root: false).as_json
 
@@ -25,7 +25,7 @@ class UserChannel < ApplicationCable::Channel
   def cancel_assistance
     ar = current_user.assistance_requests.where(type: nil).open_or_in_progress_requests.newest_requests_first.first
     if ar && ar.cancel
-      location_name = Location.find(ar.assistor_location_id).name || 'Vancouver'
+      location_name = ar.assistor_location.name || 'Vancouver'
       ActionCable.server.broadcast "assistance-#{location_name}", type:   "CancelAssistanceRequest",
                                                                   object: AssistanceRequestSerializer.new(ar, root: false).as_json
 
