@@ -1,8 +1,8 @@
 class AssignAssistorLocationIdToAssistanceRequests < ActiveRecord::Migration[5.0]
   def up
     AssistanceRequest.find_each(batch_size: 200) do |ar|
-      location = ar.requestor&.cohort&.location
-      ar.update_column(:assistor_location_id, location&.id)
+      location_id = ar.requestor&.cohort&.location_id
+      ar.update_column(:assistor_location_id, location_id)
     end
   end
   def down
