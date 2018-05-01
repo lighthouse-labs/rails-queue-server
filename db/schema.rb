@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410221914) do
+ActiveRecord::Schema.define(version: 20180501222404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,8 +129,10 @@ ActiveRecord::Schema.define(version: 20180410221914) do
     t.integer  "original_activity_submission_id"
     t.integer  "cohort_id"
     t.string   "day"
+    t.integer  "assistor_location_id"
     t.index ["activity_id"], name: "index_assistance_requests_on_activity_id", using: :btree
     t.index ["activity_submission_id"], name: "index_assistance_requests_on_activity_submission_id", using: :btree
+    t.index ["assistor_location_id"], name: "index_assistance_requests_on_assistor_location_id", using: :btree
     t.index ["cohort_id"], name: "index_assistance_requests_on_cohort_id", using: :btree
   end
 
@@ -178,7 +180,8 @@ ActiveRecord::Schema.define(version: 20180410221914) do
     t.integer  "location_id"
     t.boolean  "limited"
     t.string   "weekdays"
-    t.text     "disable_queue_days",  default: [], null: false, array: true
+    t.text     "disable_queue_days",     default: [], null: false, array: true
+    t.boolean  "local_assistance_queue"
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
   end
 
@@ -308,6 +311,7 @@ ActiveRecord::Schema.define(version: 20180410221914) do
     t.string   "feedback_email"
     t.string   "slack_channel"
     t.string   "slack_username"
+    t.boolean  "active",                   default: true
     t.index ["supported_by_location_id"], name: "index_locations_on_supported_by_location_id", using: :btree
   end
 
