@@ -80,7 +80,7 @@ class User < ApplicationRecord
   end
 
   def enrolled_and_prepping?
-    false
+    cohort && cohort.upcoming?
   end
 
   def active_student?

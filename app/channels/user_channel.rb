@@ -14,8 +14,9 @@ class UserChannel < ApplicationCable::Channel
     )
     ar.save
 
-    ActionCable.server.broadcast "assistance-#{current_user.cohort.location.name}", type:   "AssistanceRequest",
-                                                                                    object: AssistanceRequestSerializer.new(ar, root: false).as_json
+    location_name = ar.assistor_location.name || 'Vancouver'
+    ActionCable.server.broadcast "assistance-#{location_name}", type:   "AssistanceRequest",
+                                                                object: AssistanceRequestSerializer.new(ar, root: false).as_json
 
     UserChannel.broadcast_to current_user, type:   "AssistanceRequested",
                                            object: current_user.position_in_queue
@@ -24,13 +25,14 @@ class UserChannel < ApplicationCable::Channel
   def cancel_assistance
     ar = current_user.assistance_requests.where(type: nil).open_or_in_progress_requests.newest_requests_first.first
     if ar && ar.cancel
-      ActionCable.server.broadcast "assistance-#{current_user.cohort.location.name}", type:   "CancelAssistanceRequest",
-                                                                                      object: AssistanceRequestSerializer.new(ar, root: false).as_json
+      location_name = ar.assistor_location.name || 'Vancouver'
+      ActionCable.server.broadcast "assistance-#{location_name}", type:   "CancelAssistanceRequest",
+                                                                  object: AssistanceRequestSerializer.new(ar, root: false).as_json
 
       UserChannel.broadcast_to current_user, type: "AssistanceEnded"
 
       teacher_available(ar.assistance.assistor) if ar.assistance
-      update_students_in_queue(ar.requestor.cohort.location.name)
+      update_students_in_queue(ar.requestor.cohort.location)
     end
   end
 

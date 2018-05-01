@@ -18,7 +18,8 @@ class AssistanceRequestAndTechInterviewDestroyer
     Rails.logger.info "#{assistance_requests.count} entries found."
     assistance_requests.each do |ar|
       ar.cancel
-      ActionCable.server.broadcast "assistance-#{ar.requestor.cohort.location.name}",
+      # FIXME: DRY up notification, it should be elsewhere CM
+      ActionCable.server.broadcast "assistance-#{ar.assistor_location}",
                                    type:   "CancelAssistanceRequest",
                                    object: AssistanceRequestSerializer.new(ar, root: false).as_json
       UserChannel.broadcast_to ar.requestor, type: "AssistanceEnded"
