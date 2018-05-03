@@ -1,5 +1,15 @@
 # Change Log
 
+## [2018.05.03.0730](https://github.com/lighthouse-labs/compass/tree/2018.05.03.0730) (2018-05-01)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.04.17.0745...2018.05.03.0730)
+
+**Merged pull requests:**
+
+- Prep Students Help Button Links to Prep Forum [\#606](https://github.com/lighthouse-labs/compass/pull/606) ([krsnachandra](https://github.com/krsnachandra))
+- Fixed Teacher Feedback Date Range Filter [\#604](https://github.com/lighthouse-labs/compass/pull/604) ([krsnachandra](https://github.com/krsnachandra))
+- Curriculum Feedback Search Now Has Ratings Filters [\#602](https://github.com/lighthouse-labs/compass/pull/602) ([krsnachandra](https://github.com/krsnachandra))
+- Satellite Cohorts Can Request Assistance From Local Mentors [\#594](https://github.com/lighthouse-labs/compass/pull/594) ([krsnachandra](https://github.com/krsnachandra))
+
 ## [2018.04.17.0745](https://github.com/lighthouse-labs/compass/tree/2018.04.17.0745) (2018-04-17)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.04.09.1515...2018.04.17.0745)
 
