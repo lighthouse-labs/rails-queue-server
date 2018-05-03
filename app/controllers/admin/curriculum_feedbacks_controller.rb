@@ -1,6 +1,6 @@
 class Admin::CurriculumFeedbacksController < Admin::BaseController
 
-  FILTER_BY_OPTIONS = [:program, :user_id, :user_location_id, :cohort_id, :start_date, :end_date, :day, :type].freeze
+  FILTER_BY_OPTIONS = [:program, :user_id, :user_location_id, :cohort_id, :start_date, :end_date, :day, :type, :ratings].freeze
   DEFAULT_PER = 10
 
   def index

@@ -13,6 +13,11 @@ class Student < User
       .where(assistance_requests: { type: nil, canceled_at: nil, assistance_id: nil })
       .references(:assistance_requests)
   }
+  scope :has_open_requests_in_location, ->(location) {
+    joins(:assistance_requests)
+      .where(assistance_requests: { type: nil, canceled_at: nil, assistance_id: nil, assistor_location_id: location })
+      .references(:assistance_requests)
+  }
   scope :remote, -> { joins(:cohort).where('users.location_id IS NOT NULL AND cohorts.location_id <> users.location_id') }
 
   def prospect?
@@ -29,10 +34,6 @@ class Student < User
 
   def remote?
     location && cohort && location != cohort.location
-  end
-
-  def enrolled_and_prepping?
-    cohort && cohort.upcoming?
   end
 
   def active_student?
