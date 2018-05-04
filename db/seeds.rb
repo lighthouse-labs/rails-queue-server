@@ -6,6 +6,10 @@ Rails.logger.info "SEEDING"
   p.days_per_week = 5
   p.weekends = true
   p.curriculum_unlocking = 'weekly'
+  p.has_projects = true
+  p.has_interviews = true
+  p.has_code_reviews = true
+  p.has_queue = true
 end
 @location_van = Location.find_or_create_by!(name: "Vancouver", timezone: "Pacific Time (US & Canada)")
 @location_to = Location.find_or_create_by!(name: "Toronto", timezone: "Eastern Time (US & Canada)")
@@ -15,6 +19,7 @@ end
 #       and have set your GITHUB_ADMIN_OAUTH_TOKEN in the .env file
 
 # repo_name = "iOS-Curriculum"
+# repo_name = "web-pt-frontend-curriculum"
 repo_name = "2016-web-curriculum-activities"
 
 @repo = ContentRepository.find_or_create_by!(

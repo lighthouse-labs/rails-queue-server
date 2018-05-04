@@ -43,6 +43,7 @@ class Content::LoadActivities
           Dir.entries(File.join(filepath, content_file)).sort.each do |archived_content_file|
             next if archived_content_file.starts_with?('.')
             next unless archived_content_file.ends_with?('.md')
+            @current_filename = archived_content_file
             activity_data.push extract_activity_file_data(root_path, "#{data_dir}/_Archived", archived_content_file)
           end
         end
