@@ -18,11 +18,4 @@
 
 - content_for :end_of_body
   javascript:
-    next_path = "#{next_path}"
-  coffee:
-    $ ->
-      $("#new_activity_submission_with_optional_feedback").on("ajax:success", (e, data, status, xhr) ->
-        window.location.href = next_path
-      ).on "ajax:error", (e, xhr, status, error) ->
-        console.log status, error
-        $("#new_activity_submission_with_optional_feedback .remote-form-errors").removeClass('d-none').find('.error-messages').html xhr.responseText
+    nextPath = "#{next_path}"
