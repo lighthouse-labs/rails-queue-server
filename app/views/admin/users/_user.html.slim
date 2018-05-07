@@ -50,3 +50,8 @@
             | Reactivate
         - if !user.admin?
           = link_to 'Impersonate', impersonate_session_path(id: user.id), method: :put, class: 'btn btn-warning btn-xs user-impersonate-button'
+        - if !user.type
+          .btn.btn-primary.btn-xs.assign-cohort-button
+            | Assign To Cohort
+          .btn.btn-primary.btn-xs.revert-to-prep-button.hidden-button
+            | Revert To Prep

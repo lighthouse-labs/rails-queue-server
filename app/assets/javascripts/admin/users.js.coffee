@@ -9,6 +9,17 @@ $ ->
       url: '/admin/users/' + id + '/deactivate'
       type: 'POST'
 
+  assignCohort = (id, code) ->
+    $.ajax
+      url: '/admin/users/' + id + '/assign_cohort?code=' + code
+      type: 'POST'
+
+  revertToPrep = (id) ->
+    $.ajax
+      url: '/admin/students/' + id
+      type: 'DELETE'
+      data: { confirm: 'Are you sure?' }
+
   $(document).on 'click', '.user-reactivate-button', (e) ->
     id = $(this).parents('td').parents('tr').data 'id'
     reactivateUser(id)
@@ -22,3 +33,16 @@ $ ->
     $(this).addClass('hidden-button')
     $(this).siblings('.user-reactivate-button').removeClass('hidden-button')
     $(this).closest('tr').find('.badge-light').removeClass('hide')
+
+  $(document).on 'click', '.assign-cohort-button', (e) ->
+    id = $(this).parents('td').parents('tr').data 'id'
+    code = 'vanj'
+    assignCohort(id, code)
+    $(this).addClass('hidden-button')
+    $(this).siblings('.revert-to-prep-button').removeClass('hidden-button')
+
+  $(document).on 'click', '.revert-to-prep-button', (e) ->
+    id = $(this).parents('td').parents('tr').data 'id'
+    revertToPrep(id)
+    $(this).addClass('hidden-button')
+    $(this).siblings('.assign-cohort-button').removeClass('hidden-button')
