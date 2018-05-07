@@ -31,7 +31,7 @@ class Admin::StudentsController < Admin::BaseController
 
   def destroy
     @student.revert_to_prep
-    redirect_to admin_students_path
+    redirect_back fallback_location: admin_students_path
   end
 
   def modal_content
