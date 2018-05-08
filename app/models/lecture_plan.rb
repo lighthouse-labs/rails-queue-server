@@ -1,4 +1,4 @@
-class Lecture < Activity
+class LecturePlan < Activity
 
   def allow_feedback?
     false

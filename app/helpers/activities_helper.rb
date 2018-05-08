@@ -136,7 +136,7 @@ module ActivitiesHelper
       'fa fa-flash'
     when "pinnednote"
       'fa fa-sticky-note'
-    when "lecture", "breakout"
+    when "lectureplan", "breakout"
       'fa fa-group'
     when "homework"
       'fa fa-moon-o'
@@ -157,7 +157,7 @@ module ActivitiesHelper
     %w[
       Assignment
       Task
-      Lecture
+      LecturePlan
       Homework
       Video
       Test

@@ -49,9 +49,9 @@ class Activity < ApplicationRecord
   scope :active,    -> { where(archived: [false, nil]) }
   scope :archived,  -> { where(archived: true) }
 
-  scope :assistance_worthy, -> { where.not(type: %w[Lecture Breakout PinnedNote]) }
+  scope :assistance_worthy, -> { where.not(type: %w[LecturePlan Breakout PinnedNote]) }
 
-  scope :countable_as_submission, -> { where.not(type: %w[QuizActivity PinnedNote Lecture Breakout Test]) }
+  scope :countable_as_submission, -> { where.not(type: %w[QuizActivity PinnedNote LecturePlan Breakout Test]) }
 
   scope :core,    -> { where(stretch: [nil, false]) }
   scope :stretch, -> { where(stretch: true) }
@@ -123,7 +123,7 @@ class Activity < ApplicationRecord
   end
 
   # if it has it, display it
-  # overwritten by some subclasses like Test, Lecture, Breakout, etc
+  # overwritten by some subclasses like Test, LecturePlan, Breakout, etc
   def display_duration?
     duration? || average_time_spent?
   end

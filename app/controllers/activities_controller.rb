@@ -95,9 +95,9 @@ class ActivitiesController < ApplicationController
     params[:lectures] ||= 'Exclude'
     @activities = case params[:lectures]
                   when 'Only'
-                    @activities.where(type: %w[Lecture Breakout])
+                    @activities.where(type: %w[LecturePlan Breakout])
                   when 'Exclude'
-                    @activities.where.not(type: %w[Lecture Breakout])
+                    @activities.where.not(type: %w[LecturePlan Breakout])
                   else
                     @activities
     end
