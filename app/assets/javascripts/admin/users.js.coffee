@@ -23,7 +23,6 @@ $ ->
     $.ajax
       url: '/admin/students/' + id
       type: 'DELETE'
-      data: { confirm: 'Are you sure?' }
 
   $(document).on 'click', '.user-reactivate-button', (e) ->
     id = $(this).parents('td').parents('tr').data 'id'
