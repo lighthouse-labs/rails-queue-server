@@ -39,24 +39,25 @@
     td
       .btn-collection
         - if user.deactivated?
-          .btn.btn-primary.btn-xs.user-reactivate-button
-            | Reactivate
-          .btn.btn-danger.btn-xs.user-deactivate-button.hidden-button
-            | Deactivate
+          .btn.btn-outline-primary.btn-xs.user-reactivate-button data-toggle='tooltip' title='Reactivate'
+            i.fa.fa-heartbeat
+          .btn.btn-outline-danger.btn-xs.user-deactivate-button.hidden-button  data-toggle='tooltip' title='Deactivate'
+            i.fa.fa-bolt
         - else
-          .btn.btn-danger.btn-xs.user-deactivate-button
-            | Deactivate
-          .btn.btn-primary.btn-xs.user-reactivate-button.hidden-button
-            | Reactivate
+          .btn.btn-outline-danger.btn-xs.user-deactivate-button data-toggle='tooltip' title='Deactivate'
+            i.fa.fa-bolt
+          .btn.btn-outline-primary.btn-xs.user-reactivate-button.hidden-button data-toggle='tooltip' title='Reactivate'
+            i.fa.fa-heartbeat
         - if !user.admin?
-          = link_to 'Impersonate', impersonate_session_path(id: user.id), method: :put, class: 'btn btn-warning btn-xs user-impersonate-button'
+          .btn.btn-outline-primary.btn-xs.user-impersonate-button data-toggle='tooltip' title='Impersonate'
+            i.fa.fa-user
         - if !user.type
-          .btn.btn-primary.btn-xs.assign-cohort-button
-            | Enroll in Cohort
-          .btn.btn-primary.btn-xs.revert-to-prep-button.hidden-button
-            | Revert to Prep
+          .btn.btn-outline-info.btn-xs.assign-cohort-button data-toggle='tooltip' title='Enroll in Cohort'
+            i.fa.fa-angle-double-right
+          .btn.btn-outline-info.btn-xs.revert-to-prep-button.hidden-button data-toggle='tooltip' title='Revert to Prep'
+            i.fa.fa-angle-double-left
         - if user.type === 'Student' && user.cohort.upcoming?
-          .btn.btn-primary.btn-xs.revert-to-prep-button
-            | Revert to Prep
-          .btn.btn-primary.btn-xs.assign-cohort-button.hidden-button
-            | Enroll in Cohort
+          .btn.btn-outline-info.btn-xs.revert-to-prep-button data-toggle='tooltip' title='Revert to Prep'
+            i.fa.fa-angle-double-left
+          .btn.btn-outline-info.btn-xs.assign-cohort-button.hidden-button data-toggle='tooltip' title='Enroll in Cohort'
+            i.fa.fa-angle-double-right
