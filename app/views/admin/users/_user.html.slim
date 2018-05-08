@@ -39,25 +39,30 @@
     td
       .btn-collection
         - if user.deactivated?
-          .btn.btn-outline-primary.btn-xs.user-reactivate-button data-toggle='tooltip' title='Reactivate'
+          .btn.btn-outline-primary.btn-sm.user-reactivate-button data-toggle='tooltip' title='Reactivate'
             i.fa.fa-heartbeat
-          .btn.btn-outline-danger.btn-xs.user-deactivate-button.hidden-button  data-toggle='tooltip' title='Deactivate'
+          .btn.btn-outline-danger.btn-sm.user-deactivate-button.hidden-button  data-toggle='tooltip' title='Deactivate'
             i.fa.fa-bolt
         - else
-          .btn.btn-outline-danger.btn-xs.user-deactivate-button data-toggle='tooltip' title='Deactivate'
+          .btn.btn-outline-danger.btn-sm.user-deactivate-button data-toggle='tooltip' title='Deactivate'
             i.fa.fa-bolt
-          .btn.btn-outline-primary.btn-xs.user-reactivate-button.hidden-button data-toggle='tooltip' title='Reactivate'
+          .btn.btn-outline-primary.btn-sm.user-reactivate-button.hidden-button data-toggle='tooltip' title='Reactivate'
             i.fa.fa-heartbeat
         - if !user.admin?
-          .btn.btn-outline-primary.btn-xs.user-impersonate-button data-toggle='tooltip' title='Impersonate'
+          .btn.btn-outline-primary.btn-sm.user-impersonate-button data-toggle='tooltip' title='Impersonate'
             i.fa.fa-user
         - if !user.type
-          .btn.btn-outline-info.btn-xs.assign-cohort-button data-toggle='tooltip' title='Enroll in Cohort'
-            i.fa.fa-angle-double-right
-          .btn.btn-outline-info.btn-xs.revert-to-prep-button.hidden-button data-toggle='tooltip' title='Revert to Prep'
-            i.fa.fa-angle-double-left
+          div.form-group.form-inline
+            select.form-control.form-control-sm.cohort
+              - cohorts.upcoming.each do |cohort|
+                option value='#{cohort.code}'
+                  = cohort.name
+            .btn.btn-outline-info.btn-sm.assign-cohort-button data-toggle='tooltip' title='Enroll in Cohort'
+              i.fa.fa-angle-double-right
+            .btn.btn-outline-info.btn-sm.revert-to-prep-button.hidden-button data-toggle='tooltip' title='Revert to Prep'
+              i.fa.fa-angle-double-left
         - if user.type === 'Student' && user.cohort.upcoming?
-          .btn.btn-outline-info.btn-xs.revert-to-prep-button data-toggle='tooltip' title='Revert to Prep'
+          .btn.btn-outline-info.btn-sm.revert-to-prep-button data-toggle='tooltip' title='Revert to Prep'
             i.fa.fa-angle-double-left
-          .btn.btn-outline-info.btn-xs.assign-cohort-button.hidden-button data-toggle='tooltip' title='Enroll in Cohort'
+          .btn.btn-outline-info.btn-sm.assign-cohort-button.hidden-button data-toggle='tooltip' title='Enroll in Cohort'
             i.fa.fa-angle-double-right

@@ -45,9 +45,10 @@ $ ->
 
   $(document).on 'click', '.assign-cohort-button', (e) ->
     id = $(this).parents('td').parents('tr').data 'id'
-    code = 'vanf'
+    code = $(this).siblings('.cohort').val()
     assignCohort(id, code)
     $(this).addClass('hidden-button')
+    $(this).siblings('.cohort').addClass('hidden-button')
     $(this).siblings('.revert-to-prep-button').removeClass('hidden-button')
 
   $(document).on 'click', '.revert-to-prep-button', (e) ->
