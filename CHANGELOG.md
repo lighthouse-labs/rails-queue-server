@@ -1,5 +1,14 @@
 # Change Log
 
+## [2018.05.09.0715](https://github.com/lighthouse-labs/compass/tree/2018.05.09.0715) (2018-05-07)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.03.0730...2018.05.09.0715)
+
+**Merged pull requests:**
+
+- Added Links Header to admin/cohorts\#show Prep Stats Table [\#619](https://github.com/lighthouse-labs/compass/pull/619) ([krsnachandra](https://github.com/krsnachandra))
+- Deploy Error Message Improvements & Seed Enhancement [\#617](https://github.com/lighthouse-labs/compass/pull/617) ([jmatsuba](https://github.com/jmatsuba))
+- The site feels faster [\#615](https://github.com/lighthouse-labs/compass/pull/615) ([kvirani](https://github.com/kvirani))
+
 ## [2018.05.03.0730](https://github.com/lighthouse-labs/compass/tree/2018.05.03.0730) (2018-05-01)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.04.17.0745...2018.05.03.0730)
 
