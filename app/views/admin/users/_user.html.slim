@@ -51,7 +51,7 @@
         - if !user.admin?
           .btn.btn-outline-primary.btn-sm.user-impersonate-button data-toggle='tooltip' title='Impersonate'
             i.fa.fa-user
-        - if !user.type
+        - if user.prospect?
           div.form-group.form-inline
             select.form-control.form-control-sm.cohort
               - cohorts.upcoming.each do |cohort|
@@ -61,7 +61,7 @@
               i.fa.fa-angle-double-right
             .btn.btn-outline-info.btn-sm.revert-to-prep-button.hidden-button data-toggle='tooltip' title='Revert to Prep'
               i.fa.fa-angle-double-left
-        - if user.type === 'Student' && user.cohort.upcoming?
+        - if user.enrolled_and_prepping?
           .btn.btn-outline-info.btn-sm.revert-to-prep-button data-toggle='tooltip' title='Revert to Prep'
             i.fa.fa-angle-double-left
           .btn.btn-outline-info.btn-sm.assign-cohort-button.hidden-button data-toggle='tooltip' title='Enroll in Cohort'
