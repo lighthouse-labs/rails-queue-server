@@ -36,7 +36,7 @@ class Admin::TeacherFeedbacksController < Admin::BaseController
   end
 
   def filter_by_teacher
-    @feedbacks = @feedbacks.where(params[:teacher_id]) if params[:teacher_id].present?
+    @feedbacks = @feedbacks.where("feedbacks.teacher_id = :teacher_id", teacher_id: params[:teacher_id]) if params[:teacher_id].present?
   end
 
   def safe_params
