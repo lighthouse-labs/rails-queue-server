@@ -53,5 +53,3 @@ $ ->
   $(document).on 'click', '.revert-to-prep-button', (e) ->
     id = $(this).parents('td').parents('tr').data 'id'
     revertToPrep(id)
-    $(this).addClass('hidden-button')
-    $(this).siblings('.assign-cohort-button').removeClass('hidden-button')
