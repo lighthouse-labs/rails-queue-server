@@ -40,6 +40,10 @@ LaserShark::Application.routes.draw do
     resources :activities, only: [:index, :show, :edit]
   end
 
+  resources :workbooks, only: [:index, :show] do
+    resources :activities, only: [:show]
+  end
+
   resources :teacher_resources, only: [:index, :show] do
     resources :activities, only: [:show]
   end
