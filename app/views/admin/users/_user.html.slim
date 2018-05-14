@@ -57,12 +57,11 @@
               - cohorts.upcoming.each do |cohort|
                 option value='#{cohort.code}'
                   = cohort.name
-            .btn.btn-outline-info.btn-sm.assign-cohort-button data-toggle='tooltip' title='Enroll in Cohort'
-              i.fa.fa-angle-double-right
+            span.assign-cohort-button title='Enrol in Cohort' data-toggle='tooltip'
+              .btn.btn-outline-info.btn-sm data-toggle='modal' data-target='#enrolmentModal'
+                i.fa.fa-angle-double-right
             .btn.btn-outline-info.btn-sm.revert-to-prep-button.hidden-button data-toggle='tooltip' title='Revert to Prep'
               i.fa.fa-angle-double-left
         - if user.enrolled_and_prepping?
           .btn.btn-outline-info.btn-sm.revert-to-prep-button data-toggle='tooltip' title='Revert to Prep'
             i.fa.fa-angle-double-left
-          .btn.btn-outline-info.btn-sm.assign-cohort-button.hidden-button data-toggle='tooltip' title='Enroll in Cohort'
-            i.fa.fa-angle-double-right

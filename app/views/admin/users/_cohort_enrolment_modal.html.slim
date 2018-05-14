@@ -1,0 +1,19 @@
+.modal.fade id="enrolmentModal" tabindex="-1" role="dialog" aria-labelledby="enrolmentModalLabel" aria-hidden="true"
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        h5.modal-title id="enrolmentModalLabel"
+          | Enrol Sigrid The Fake in:
+        button.btn.close type="button" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true"
+          | &times;
+      .modal-body
+        .list-group
+        - cohorts.all.each do |cohort|
+          a.list-group-item.list-group-item-action
+            = cohort.name
+      .modal-footer
+        button.btn.btn-secondary data-dismiss="modal"
+          | Close
+        button.btn.btn-primary
+          | Enrol
