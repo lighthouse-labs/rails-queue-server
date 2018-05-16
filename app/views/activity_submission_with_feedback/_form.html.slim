@@ -1,4 +1,4 @@
-.modal-body
+.modal-body.container
 
   .alert.alert-danger.remote-form-errors.d-none
     strong Please correct the following errors:
@@ -20,8 +20,10 @@
 
     p Tell us how you found this #{(@activity.type || 'Activity').titleize}
 
-    .raty-editor name="feedback[rating]" data-score=form.object.rating value=""
-      = form.hidden_field :rating, id: "modal-average-rating"
+    .row
+      .raty-editor.col-6 name="feedback[rating]" data-score=form.object.rating value=""
+        = form.hidden_field :rating, id: "modal-average-rating"
+      .col.hint
     = form.input :detail, as: :text, placeholder: 'The more you can give us the better!'
 
 .modal-footer

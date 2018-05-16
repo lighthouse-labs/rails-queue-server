@@ -2,6 +2,6 @@
 .row
   .raty-editor.col-4 name="feedback[rating]" data-score=form.object.rating value=""
     = form.hidden_field :rating
-  .col id="hint"
+  .col.hint
 = form.input :detail, placeholder: 'The more you can give us the better!'
 = form.submit 'Submit Feedback', class: 'btn btn-tiny btn-primary'

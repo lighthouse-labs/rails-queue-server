@@ -21,7 +21,7 @@ window.bindRatyElements = =>
     starHalf: "<%= asset_path('duck-half.png') %>",
     half        : false,
     halfShow    : false,
-    target: '#hint',
+    target: -> $(this).siblings('.hint'),
     targetKeep: true,
     targetType: 'hint',
     score: ->
