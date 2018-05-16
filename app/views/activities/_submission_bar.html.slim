@@ -4,10 +4,19 @@ section.activity-details
     .form-group
       .form-inline
         .left-actions
-          - if @activity.is_a?(QuizActivity) || @activity.is_a?(PinnedNote)
-            - next_path = @activity.next ? get_activity_path(@activity.next) : get_next_index_path(@activity)
+          - next_path = @activity.next ? get_activity_path(@activity.next) : get_next_index_path(@activity)
+          - if @activity.is_a?(QuizActivity) || (@activity.is_a?(PinnedNote) && @activity.activity_submissions.where(user: current_user).any?)
             = link_to next_path, class: 'btn btn-primary btn-activity-complete-status-no-code-review'
               i.fa.fa-caret-right
               | &nbsp;Next
+          - elsif @activity.is_a?(PinnedNote)
+            = simple_form_for ActivitySubmissionWithOptionalFeedback.new, url: activity_submission_with_feedback_path(@activity), method: :post, remote: true do |form|
+              = form.hidden_field :time_spent, value: 1
+              button.btn.btn-primary.btn-activity-complete-status-no-code-review
+                i.fa.fa-caret-right
+                | &nbsp;Next
+            - content_for :end_of_body
+              javascript:
+                nextPath = "#{next_path}"
           - else
             = activity_presenter.submission_form

@@ -4,12 +4,16 @@ class AssistanceRequest < ApplicationRecord
   belongs_to :assistance, dependent: :delete
   belongs_to :activity
   belongs_to :cohort # substitute for lack of enrollment record - KV
+  belongs_to :assistor_location, class_name: Location
 
   # also leads to activity, but not as 'safe' (nullable)
   # used for code review requests only (set in CodeReviewRequest class) - KV
   belongs_to :activity_submission
 
+  before_validation :set_assistor_location_id, on: :create
+
   validates :requestor, presence: true
+  validates :assistor_location_id, presence: true
 
   before_create :set_cohort
   before_create :set_day
@@ -48,6 +52,7 @@ class AssistanceRequest < ApplicationRecord
         .references(:requestor, :cohort, :location)
     end
   }
+  scope :for_location, ->(location) { where(assistor_location_id: location) }
   scope :oldest_requests_first, -> { order(start_at: :asc) }
   scope :newest_requests_first, -> { order(start_at: :desc) }
   scope :requested_by, ->(user) { where(requestor: user) }
@@ -87,7 +92,7 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def position_in_queue
-    self.class.open_requests.where(type: nil).requestor_cohort_in_locations([requestor.cohort.location.name]).where('assistance_requests.id < ?', id).count + 1 if open?
+    self.class.open_requests.where(type: nil).for_location(self.assistor_location).where('assistance_requests.id < ?', id).count + 1 if open?
   end
 
   private
@@ -109,6 +114,12 @@ class AssistanceRequest < ApplicationRecord
       errors.add :base, 'Limit one open/in progress request per user'
       false
     end
+  end
+
+  def set_assistor_location_id
+    self.assistor_location_id = requestor.cohort.local_assistance_queue? ?
+      requestor.location_id :
+      requestor.cohort.location_id
   end
 
 end
