@@ -1,12 +1,14 @@
 class Wallboard::AssistancesController < Wallboard::BaseController
   def index
-    assistances = AssistanceRequest.where(type: nil)
+    location = Location.find_by(name: location_params)
+
+    assistance_requests = AssistanceRequest.where(type: nil)
       .open_requests
       .oldest_requests_first
-      .requestor_cohort_in_locations([location_params])
+      .for_location(location)
       .map { |ar| AssistanceRequestSerializer.new(ar, root: false).as_json  }
 
-    render json: { assistances: assistances }
+    render json: { assistance_requests: assistance_requests }
   end
 
   def assistances_params
