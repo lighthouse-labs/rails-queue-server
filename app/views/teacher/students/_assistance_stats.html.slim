@@ -1,5 +1,5 @@
 .table-responsive
-  table.table.sortable
+  table.table
     thead
       tr
         th Assistance Requests
@@ -12,3 +12,24 @@
           td = assistances
           td = "#{avg_assistance_length} mins"
           td = "#{avg}/4"
+
+div.container
+  hr.mt-0
+  h5
+    | Recent Assistances
+.table-responsive
+  table.table.students
+    thead
+      tr
+        th Teacher Info
+        th Date
+        th Activity
+        th Score
+        th Teacher Notes
+        th Duration
+    tbody
+      == render collection: @assistances, partial: 'assistance'
+    tfoot
+      tr
+        th colspan="6"
+          = paginate @assistances, window: 2, theme: 'bootstrap4'
