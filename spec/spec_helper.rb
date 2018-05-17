@@ -37,6 +37,23 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  # https://github.com/rspec/rspec-rails/issues/1076#issuecomment-74706632
+  # Code below allows us to stub current_user in helper specs like application_helper_spec.rb - KV
+  RSpec.configure do |config|
+    config.before(:each, type: :helper) do
+      config.mock_with :rspec do |mocks|
+        mocks.verify_partial_doubles = false
+      end
+    end
+
+    config.after(:each, type: :helper) do
+      config.mock_with :rspec do |mocks|
+        mocks.verify_partial_doubles = true
+      end
+    end
+  end
+
+
   # This option will default to `:apply_to_host_groups` in RSpec 4 (and will
   # have no way to turn it off -- the option exists only for backwards
   # compatibility in RSpec 3). It causes shared context metadata to be
