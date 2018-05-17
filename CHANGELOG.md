@@ -1,5 +1,13 @@
 # Change Log
 
+## [2018.05.17.0710](https://github.com/lighthouse-labs/compass/tree/2018.05.17.0710) (2018-05-16)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.09.0715...2018.05.17.0710)
+
+**Merged pull requests:**
+
+- Fix date calculation bug for Blockchain program support [\#639](https://github.com/lighthouse-labs/compass/pull/639) ([kvirani](https://github.com/kvirani))
+- hotfix for turbolinks in the code that I moved around [\#634](https://github.com/lighthouse-labs/compass/pull/634) ([kvirani](https://github.com/kvirani))
+
 ## [2018.05.09.0715](https://github.com/lighthouse-labs/compass/tree/2018.05.09.0715) (2018-05-07)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.03.0730...2018.05.09.0715)
 
