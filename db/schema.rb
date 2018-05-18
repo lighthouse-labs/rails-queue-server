@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180501222404) do
+ActiveRecord::Schema.define(version: 20180518181757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20180501222404) do
     t.float    "average_rating"
     t.integer  "average_time_spent"
     t.boolean  "homework"
+    t.boolean  "milestone"
     t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
     t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
     t.index ["sequence"], name: "index_activities_on_sequence", using: :btree
