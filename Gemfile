@@ -15,6 +15,8 @@ gem "select2-rails"
 gem 'turbolinks', '~> 5'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
+gem 'rack-cors'
+
 gem 'react-rails'
 gem 'active_model_serializers'
 

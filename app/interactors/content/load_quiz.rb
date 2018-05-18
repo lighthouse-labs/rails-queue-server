@@ -13,6 +13,7 @@ class Content::LoadQuiz
     d = @data
     uuid = d['uuid']
     abort("\n\n---\nHALT! Quiz UUID required") if uuid.blank?
+    abort("\n\n---\nHALT! Quizes need questions investigate activity with this uuid #{d['uuid']}") if d['questions'] == nil
 
     quiz = Quiz.find_or_initialize_by(uuid: uuid)
     quiz.assign_attributes(name: d['name'],

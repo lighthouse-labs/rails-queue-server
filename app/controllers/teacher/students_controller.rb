@@ -8,8 +8,8 @@ class Teacher::StudentsController < Teacher::BaseController
 
   def show
     @projects = Project.all
-    @evaluations = Evaluation.where(student_id: @student.id)
-    @assistances = Assistance.where(assistee_id: @student.id).order(created_at: :desc).page(params[:page]).per(DEFAULT_PER)
+    @evaluations = @student.evaluations
+    @assistances = @student.assistances.order(created_at: :desc).page(params[:page]).per(DEFAULT_PER)
   end
 
   private

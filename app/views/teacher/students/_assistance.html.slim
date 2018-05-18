@@ -1,7 +1,7 @@
 - present assistance do |assistance_presenter|
   tr
 
-    td.details data-value=assistance.assistor.first_name
+    td.details
       - present assistance.assistor  do |teacher_presenter|
         = link_to teacher_path(assistance.assistor) do
           = teacher_presenter.image_for_index_page
@@ -14,13 +14,13 @@
           = teacher_presenter.slack_info
           = teacher_presenter.skype_info
 
-    td.details data-value=assistance.created_at
+    td.details
       = assistance_presenter.formatted_date
 
-    td.details data-value=(assistance.activity ? assistance.activity : "activity_id")
+    td.details
       = assistance_presenter.activity
 
-    td.details data-value=assistance.rating
+    td.details
       span.badge class=l_score_label_class(assistance.rating) = "L: #{assistance.rating}"
 
     td
@@ -28,5 +28,5 @@
         em
           article.read-more = assistance.notes
 
-    td.details data-value=assistance.end_at
+    td.details
       = assistance_presenter.duration

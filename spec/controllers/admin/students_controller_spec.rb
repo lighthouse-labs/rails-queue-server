@@ -14,6 +14,7 @@ describe Admin::StudentsController do
     end
 
     it 'renders index template' do
+      students = create_list(:student, 5)
       get :index
       expect(response).to render_template :index
     end

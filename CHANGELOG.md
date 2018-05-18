@@ -1,5 +1,32 @@
 # Change Log
 
+## [2018.05.17.0710](https://github.com/lighthouse-labs/compass/tree/2018.05.17.0710) (2018-05-16)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.09.0715...2018.05.17.0710)
+
+**Merged pull requests:**
+
+- Fix date calculation bug for Blockchain program support [\#639](https://github.com/lighthouse-labs/compass/pull/639) ([kvirani](https://github.com/kvirani))
+- hotfix for turbolinks in the code that I moved around [\#634](https://github.com/lighthouse-labs/compass/pull/634) ([kvirani](https://github.com/kvirani))
+
+## [2018.05.09.0715](https://github.com/lighthouse-labs/compass/tree/2018.05.09.0715) (2018-05-07)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.03.0730...2018.05.09.0715)
+
+**Merged pull requests:**
+
+- Added Links Header to admin/cohorts\#show Prep Stats Table [\#619](https://github.com/lighthouse-labs/compass/pull/619) ([krsnachandra](https://github.com/krsnachandra))
+- Deploy Error Message Improvements & Seed Enhancement [\#617](https://github.com/lighthouse-labs/compass/pull/617) ([jmatsuba](https://github.com/jmatsuba))
+- The site feels faster [\#615](https://github.com/lighthouse-labs/compass/pull/615) ([kvirani](https://github.com/kvirani))
+
+## [2018.05.03.0730](https://github.com/lighthouse-labs/compass/tree/2018.05.03.0730) (2018-05-01)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.04.17.0745...2018.05.03.0730)
+
+**Merged pull requests:**
+
+- Prep Students Help Button Links to Prep Forum [\#606](https://github.com/lighthouse-labs/compass/pull/606) ([krsnachandra](https://github.com/krsnachandra))
+- Fixed Teacher Feedback Date Range Filter [\#604](https://github.com/lighthouse-labs/compass/pull/604) ([krsnachandra](https://github.com/krsnachandra))
+- Curriculum Feedback Search Now Has Ratings Filters [\#602](https://github.com/lighthouse-labs/compass/pull/602) ([krsnachandra](https://github.com/krsnachandra))
+- Satellite Cohorts Can Request Assistance From Local Mentors [\#594](https://github.com/lighthouse-labs/compass/pull/594) ([krsnachandra](https://github.com/krsnachandra))
+
 ## [2018.04.17.0745](https://github.com/lighthouse-labs/compass/tree/2018.04.17.0745) (2018-04-17)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.04.09.1515...2018.04.17.0745)
 

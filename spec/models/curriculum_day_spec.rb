@@ -9,6 +9,19 @@ describe CurriculumDay, type: :model do
 
   describe '#date' do
 
+    context "for part time programs with weekends" do
+
+      let(:program) { create :program, days_per_week: 2, weekends: true }
+      let(:cohort) { create :cohort, start_date: start_date, program: program, weekdays: '1,3' }
+
+      describe 'when initialized as a weekend ("w01e")' do
+        subject(:curriculum_day) { CurriculumDay.new('w01e', cohort) }
+        it 'it picks the correct saturday date for weekends' do
+          expect(curriculum_day.date).to eq(Date.new(2018, 04, 07)) # saturday
+        end
+      end
+    end
+
     context "when initialized as a w01d1 type string" do
       describe "where we are on 'w01d3'" do
         subject(:curriculum_day) do
@@ -62,16 +75,16 @@ describe CurriculumDay, type: :model do
       describe "when on the first day" do
         subject { CurriculumDay.new(Date.new(2018, 04, 02), cohort) }
 
-        it "is 'w01d1'" do
-          expect(subject.to_s).to eq('w01d1')
+        it "is 'w1d1'" do
+          expect(subject.to_s).to eq('w1d1')
         end
       end
 
       describe "any time before the first day" do
         subject { CurriculumDay.new(Date.new(2018, 03, 23), cohort) }
 
-        it "is 'w01d1'" do
-          expect(subject.to_s).to eq('w01d1')
+        it "is 'w1d1'" do
+          expect(subject.to_s).to eq('w1d1')
         end
       end
 
