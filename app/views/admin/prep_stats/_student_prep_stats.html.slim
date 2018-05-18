@@ -8,15 +8,20 @@ tr
   td.details data-value=student.last_name
     .student-info
       = render 'shared/student_info', student: student
+      - present student, UserPresenter do |presenter|
+        ul.list-inline.social-icons
+          = presenter.email_info
+          = presenter.github_info
+          = presenter.twitter_info
+          = presenter.slack_info
+          = presenter.skype_info
 
-  - present student, UserPresenter do |presenter|
-    td
-      ul.list-inline.social-icons
-        = presenter.email_info
-        = presenter.github_info
-        = presenter.twitter_info
-        = presenter.slack_info
-        = presenter.skype_info
+  td
+    - @milestones.each do |milestone|
+      - if student.activity_submissions.pluck(:activity_id).include?(milestone.id)
+        = link_to '<i class="fa fa-flag"></i>'.html_safe, prep_activity_path(prep_id: 'prep', id: milestone.id), method: :get, :title => milestone.name, rel: 'tooltip'
+      - else
+        = link_to '<i class="fa fa-flag-o"></i>'.html_safe, prep_activity_path(prep_id: 'prep', id: milestone.id), method: :get, :title => milestone.name, rel: 'tooltip'
 
   td data-value=student.created_at.to_i
     = student.created_at.to_s(:friendly)
