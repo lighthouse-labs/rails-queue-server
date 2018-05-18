@@ -55,6 +55,7 @@ class Activity < ApplicationRecord
 
   scope :core,    -> { where(stretch: [nil, false]) }
   scope :stretch, -> { where(stretch: true) }
+  scope :milestone, -> { where(milestone: true) }
 
   scope :prep, -> {
     joins(:section).where(sections: { type: 'Prep' })
