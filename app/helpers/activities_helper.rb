@@ -158,6 +158,7 @@ module ActivitiesHelper
       Assignment
       Task
       Lecture
+      Breakout
       Homework
       Video
       Test

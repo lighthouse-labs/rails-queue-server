@@ -123,7 +123,7 @@ class Content::LoadActivity
         else
           # make sure this is a valid Activity type, and if so, roll with it
           t.strip.gsub(/\s+/, '_').classify
-    end
+        end
 
     # Note: assumes all models are eager loaded
     # this is done in deploy.rb (main interactor) via:
