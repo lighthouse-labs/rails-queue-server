@@ -20,43 +20,36 @@
       = student_presenter.day_button
       ul.nav.nav-tabs role="tablist"
         li.nav-item role="presentation"
-          a.nav-link.active href="#bootcamp_stats" aria-controls="" role="tab" data-toggle="tab" Bootcamp
+          a.nav-link.active href="#assistance_stats" aria-controls="" role="tab" data-toggle="tab" Assistances
+        li.nav-item role="presentation"
+          a.nav-link href="#bootcamp_stats" aria-controls="" role="tab" data-toggle="tab" Bootcamp
         li.nav-item role="presentation"
           a.nav-link href="#prep_stats" aria-controls="" role="tab" data-toggle="tab" Prep
         li.nav-item role="presentation"
-          a.nav-link href="#assistance_stats" aria-controls="" role="tab" data-toggle="tab" Assistances
+          a.nav-link href="#outcomes" aria-controls="" role="tab" data-toggle="tab" Outcomes
+        li.nav-item role="presentation"
+          a.nav-link href="#evaluations" aria-controls="" role="tab" data-toggle="tab" Project Evaluations
+        li.nav-item role="presentation"
+          a.nav-link href="#bootcamp_submissions" aria-controls="" role="tab" data-toggle="tab" Tech Interviews
+
       .stats-holder
         .tab-content
-          .tab-pane.active#bootcamp_stats role="tabpanel"
+          .tab-pane.active#assistance_stats role="tabpanel"
+            = student_presenter.assistance_stats
+          .tab-pane#bootcamp_stats role="tabpanel"
             = student_presenter.activity_stats
             = student_presenter.quiz_stats
           .tab-pane#prep_stats role="tabpanel"
             = student_presenter.prep_activity_stats
             = student_presenter.prep_quiz_stats
-          .tab-pane#assistance_stats role="tabpanel"
-            = student_presenter.assistance_stats
-
-    .student-results
-      ul.nav.nav-tabs role="tablist"
-        li.nav-item role="presentation"
-          a.nav-link.active href="#outcomes" aria-controls="" role="tab" data-toggle="tab" Outcomes
-        li.nav-item role="presentation"
-          a.nav-link href="#evaluations" aria-controls="" role="tab" data-toggle="tab" Project Evaluations
-        li.nav-item role="presentation"
-          a.nav-link href="#bootcamp_submissions" aria-controls="" role="tab" data-toggle="tab" Tech Interviews
-        li.nav-item role="presentation"
-          a.nav-link href="#prep_submissions" aria-controls="" role="tab" data-toggle="tab" Prep
-
-      .tab-content
-        .tab-pane.active#outcomes role="tabpanel"
-          .card.p-3
-            = student_presenter.outcomes_table
-        .tab-pane#evaluations role="tabpanel"
-          .card.p-3
-            = render "project_evaluations", evaluations: @evaluations
-        .tab-pane#bootcamp_submissions role="tabpanel"
-          .card.p-3
-            = student_presenter.tech_interview_table
-        .tab-pane#prep_submissions role="tabpanel"
-          .card.p-3
-            = student_presenter.prep_table
+            .card.p-3
+              = student_presenter.prep_table
+          .tab-pane#outcomes role="tabpanel"
+            .card.p-3
+              = student_presenter.outcomes_table
+          .tab-pane#evaluations role="tabpanel"
+            .card.p-3
+              = render "project_evaluations", evaluations: @evaluations
+          .tab-pane#bootcamp_submissions role="tabpanel"
+            .card.p-3
+              = student_presenter.tech_interview_table

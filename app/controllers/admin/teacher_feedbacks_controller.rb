@@ -1,13 +1,11 @@
 class Admin::TeacherFeedbacksController < Admin::BaseController
 
-  FILTER_BY_OPTIONS = [:teacher_id, :teacher_location_id, :start_date, :end_date].freeze
-
   def index
-    params[:teacher_location_id] ||= current_user.location.id.to_s
-    params[:start_date] ||= Date.current.beginning_of_month.to_s
-    params[:end_date] ||= Date.current.end_of_month.to_s
 
-    @feedbacks = Feedback.teacher_feedbacks.filter_by(filter_by_params)
+    @feedbacks = Feedback.teacher_feedbacks
+
+    apply_filters
+
     @feedbacks_csv = @feedbacks.completed
     @completed_feedbacks = @feedbacks_csv.group_by(&:teacher)
 
@@ -19,13 +17,36 @@ class Admin::TeacherFeedbacksController < Admin::BaseController
 
   private
 
+  def apply_filters
+    filter_by_start_date
+    filter_by_end_date
+    filter_by_location
+    filter_by_teacher
+  end
+
+  def filter_by_start_date
+    params[:start_date] = Date.current.beginning_of_month.to_s if params[:start_date].blank?
+    start_datetime = Time.zone.parse(params[:start_date])
+    @feedbacks = @feedbacks.where("feedbacks.updated_at > :date", date: start_datetime)
+  end
+
+  def filter_by_end_date
+    params[:end_date] = Date.current.end_of_month.to_s if params[:end_date].blank?
+    end_datetime = Time.zone.parse(params[:end_date]).end_of_day
+    @feedbacks = @feedbacks.where("feedbacks.updated_at < :date", date: end_datetime)
+  end
+
+  def filter_by_location
+    @feedbacks = @feedbacks.filter_by_teacher_location(params[:teacher_location_id]) if params[:teacher_location_id].present?
+  end
+
+  def filter_by_teacher
+    @feedbacks = @feedbacks.where("feedbacks.teacher_id = :teacher_id", teacher_id: params[:teacher_id]) if params[:teacher_id].present?
+  end
+
   def safe_params
     params.except(:host, :port, :protocol).permit!
   end
   helper_method :safe_params
-
-  def filter_by_params
-    params.slice(*FILTER_BY_OPTIONS).select { |_k, v| v.present? }
-  end
 
 end
