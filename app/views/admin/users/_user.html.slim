@@ -52,16 +52,10 @@
           .btn.btn-outline-primary.btn-sm.user-impersonate-button data-toggle='tooltip' title='Impersonate'
             i.fa.fa-user
         - if user.prospect?
-          div.form-group.form-inline
-            select.form-control.form-control-sm.cohort
-              - cohorts.upcoming.each do |cohort|
-                option value='#{cohort.code}'
-                  = cohort.name
-            span.assign-cohort-button title='Enrol in Cohort' data-toggle='tooltip'
-              .btn.btn-outline-info.btn-sm data-toggle='modal' data-target='#enrolmentModal'
-                i.fa.fa-angle-double-right
-            .btn.btn-outline-info.btn-sm.revert-to-prep-button.hidden-button data-toggle='tooltip' title='Revert to Prep'
-              i.fa.fa-angle-double-left
+          span.assign-cohort-button title='Enrol in Cohort' data-toggle='tooltip'
+            .btn.btn-outline-info.btn-sm data-toggle='modal' data-target="#enrolmentModal#{user.id}"
+              i.fa.fa-angle-double-right
+          = render partial: 'cohort_enrolment_modal', locals: {user: user}
         - if user.enrolled_and_prepping?
           .btn.btn-outline-info.btn-sm.revert-to-prep-button data-toggle='tooltip' title='Revert to Prep'
             i.fa.fa-angle-double-left

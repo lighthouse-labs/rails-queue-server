@@ -14,11 +14,6 @@ $ ->
       url: '/session/impersonate?id=' + id
       type: 'PUT'
 
-  assignCohort = (id, code) ->
-    $.ajax
-      url: '/admin/users/' + id + '/assign_cohort?code=' + code
-      type: 'POST'
-
   revertToPrep = (id) ->
     $.ajax
       url: '/admin/students/' + id
@@ -41,14 +36,6 @@ $ ->
   $(document).on 'click', '.user-impersonate-button', (e) ->
     id = $(this).parents('td').parents('tr').data 'id'
     impersonate(id)
-
-  $(document).on 'click', '.assign-cohort-button', (e) ->
-    id = $(this).parents('td').parents('tr').data 'id'
-    code = $(this).siblings('.cohort').val()
-    assignCohort(id, code)
-    $(this).addClass('hidden-button')
-    $(this).siblings('.cohort').addClass('hidden-button')
-    $(this).siblings('.revert-to-prep-button').removeClass('hidden-button')
 
   $(document).on 'click', '.revert-to-prep-button', (e) ->
     id = $(this).parents('td').parents('tr').data 'id'

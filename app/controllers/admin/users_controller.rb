@@ -23,6 +23,9 @@ class Admin::UsersController < Admin::BaseController
     user = User.find(params[:id])
     cohort = Cohort.find_by(code: params[:code])
     AssignAsStudentToCohort.call(cohort: cohort, user: user)
+    if(params[:redirect])
+      redirect_to params[:redirect]
+    end
   end
 
   private

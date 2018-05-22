@@ -1,19 +1,20 @@
-.modal.fade id="enrolmentModal" tabindex="-1" role="dialog" aria-labelledby="enrolmentModalLabel" aria-hidden="true"
+.modal.fade id="enrolmentModal#{user.id}" tabindex="-1" role="dialog" aria-labelledby="enrolmentModalLabel" aria-hidden="true"
   .modal-dialog role="document"
     .modal-content
       .modal-header
         h5.modal-title id="enrolmentModalLabel"
-          | Enrol Sigrid The Fake in:
+          = "Enrol #{user.first_name} #{user.last_name} in:"
         button.btn.close type="button" data-dismiss="modal" aria-label="Close"
           span aria-hidden="true"
           | &times;
-      .modal-body
-        .list-group
-        - cohorts.all.each do |cohort|
-          a.list-group-item.list-group-item-action
-            = cohort.name
-      .modal-footer
-        button.btn.btn-secondary data-dismiss="modal"
-          | Close
-        button.btn.btn-primary
-          | Enrol
+      = form_tag(assign_cohort_admin_user_path(user, redirect: admin_users_path()), method: :post) do
+        .modal-body
+          .list-group data-user-id="#{user.id}"
+          - cohorts.upcoming.most_recent_first.each.with_index do |cohort, i|
+            .form-check
+              = radio_button_tag('code', cohort.code, i == 0, id: "user_#{user.id}_cohort_#{cohort.code}", class: 'form-check-input')
+              = label_tag("user_#{user.id}_cohort_#{cohort.code}", cohort.name, class: 'form-check-label')
+        .modal-footer
+          button.btn.btn-secondary data-dismiss="modal"
+            | Close
+          = submit_tag('Enrol', class: 'btn btn-primary')
