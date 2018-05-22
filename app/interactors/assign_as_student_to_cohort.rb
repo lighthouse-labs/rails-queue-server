@@ -6,7 +6,9 @@ class AssignAsStudentToCohort
     @user = context.user
     @user.cohort = context.cohort
     @user.type = 'Student'
-    @user.save!(validate: false)
+    unless @user.save(validate: false)
+      context.fail!(error: 'Unexpected Error: Failed to update user')
+    end
   end
 
 end

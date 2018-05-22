@@ -153,8 +153,12 @@ class ApplicationController < ActionController::Base
       elsif teacher?
         flash[:alert] = "This code is valid to register as a student for #{cohort.name}. You are a teacher already so no change made for you."
       else
-        AssignAsStudentToCohort.call(cohort: cohort, user: current_user)
-        flash[:notice] = "Welcome, you have student access to the cohort: #{cohort.name}!"
+        response = AssignAsStudentToCohort.call(cohort: cohort, user: current_user)
+        if response.success?
+          flash[:notice] = "Welcome, you have student access to the cohort: #{cohort.name}!"
+        else
+          flash[:alert] = response.error
+        end
       end
     else
       flash[:alert] = "Sorry, invalid code"

@@ -22,7 +22,12 @@ class Admin::UsersController < Admin::BaseController
   def assign_cohort
     user = User.find(params[:id])
     cohort = Cohort.find_by(code: params[:code])
-    AssignAsStudentToCohort.call(cohort: cohort, user: user)
+    response = AssignAsStudentToCohort.call(cohort: cohort, user: user)
+    if response.success?
+      flash[:notice] = "#{user.full_name} is now in cohort #{cohort.name}"
+    else
+      flash[:alert] = response.error
+    end
     if(params[:redirect])
       redirect_to params[:redirect]
     end
