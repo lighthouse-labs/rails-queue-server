@@ -7,13 +7,14 @@
         button.btn.close type="button" data-dismiss="modal" aria-label="Close"
           span aria-hidden="true"
           | &times;
-      = form_tag(assign_cohort_admin_user_path(user, redirect: admin_users_path()), method: :post) do
+      = form_tag(assign_cohort_admin_user_path(user, redirect: request.fullpath, method: :post)) do
         .modal-body
           .list-group data-user-id="#{user.id}"
           - cohorts.upcoming.most_recent_first.each.with_index do |cohort, i|
             .form-check
-              = radio_button_tag('code', cohort.code, i == 0, id: "user_#{user.id}_cohort_#{cohort.code}", class: 'form-check-input')
-              = label_tag("user_#{user.id}_cohort_#{cohort.code}", cohort.name, class: 'form-check-label')
+              - id = "user_#{user.id}_cohort_#{cohort.code}"
+              = radio_button_tag('code', cohort.code, i == 0, id: id, class: 'form-check-input')
+              = label_tag(id, cohort.name, class: 'form-check-label')
         .modal-footer
           button.btn.btn-secondary data-dismiss="modal"
             | Close
