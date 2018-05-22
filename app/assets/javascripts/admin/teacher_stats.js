@@ -11,11 +11,13 @@ $(document).on('turbolinks:load', function() {
   // Feedback Charts
   var mentorFeedbackContainer  = $('#mentor-feedback-chart');
   var lectureFeedbackContainer = $('#lecture-feedback-chart');
+  var breakoutFeedbackContainer = $('#breakout-feedback-chart');
 
   $.getJSON($('#feedback-charts').data('url'), function (data) {
 
     $('#overall-mentor-feedback').text(data.mentor.average + ' (' + data.mentor.total + ' total)');
     $('#overall-lecture-feedback').text(data.lecture.average + ' (' + data.lecture.total + ' total)');
+    $('#overall-breakout-feedback').text(data.breakout.average + ' (' + data.breakout.total + ' total)');
     $('#overall-direct-feedback').text(data.direct.average + ' (' + data.direct.total + ' total)');
 
     mentorFeedbackContainer.highcharts({

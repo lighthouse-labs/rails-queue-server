@@ -2,7 +2,7 @@ class TeacherFeedbackStatsSerializer < ActiveModel::Serializer
 
   root false
 
-  attributes :direct, :lecture, :mentor
+  attributes :direct, :lecture, :breakout, :mentor
 
   def direct
     {
@@ -17,6 +17,15 @@ class TeacherFeedbackStatsSerializer < ActiveModel::Serializer
       total:    teacher_lecture_feedbacks.count,
       teacher:  group_by_date(teacher_lecture_feedbacks),
       everyone: group_by_date(all_lecture_feedbacks)
+    }
+  end
+
+  def breakout
+    {
+      average:  teacher_breakout_feedbacks.average_rating,
+      total:    teacher_breakout_feedbacks.count,
+      teacher:  group_by_date(teacher_breakout_feedbacks),
+      everyone: group_by_date(all_breakout_feedbacks)
     }
   end
 
@@ -39,6 +48,10 @@ class TeacherFeedbackStatsSerializer < ActiveModel::Serializer
     teacher_feedbacks.lecture
   end
 
+  def teacher_breakout_feedbacks
+    teacher_feedbacks.breakout
+  end
+
   def teacher_mentor_feedbacks
     teacher_feedbacks.assistance
   end
@@ -53,6 +66,10 @@ class TeacherFeedbackStatsSerializer < ActiveModel::Serializer
 
   def all_lecture_feedbacks
     all_feedbacks.lecture
+  end
+
+  def all_breakout_feedbacks
+    all_feedbacks.breakout
   end
 
   def all_mentor_feedbacks
