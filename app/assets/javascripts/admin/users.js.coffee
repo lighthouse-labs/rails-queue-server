@@ -9,11 +9,6 @@ $ ->
       url: '/admin/users/' + id + '/deactivate'
       type: 'POST'
 
-  impersonate = (id) ->
-    $.ajax
-      url: '/session/impersonate?id=' + id
-      type: 'PUT'
-
   revertToPrep = (id) ->
     $.ajax
       url: '/admin/students/' + id
@@ -32,10 +27,6 @@ $ ->
     $(this).addClass('hidden-button')
     $(this).siblings('.user-reactivate-button').removeClass('hidden-button')
     $(this).closest('tr').find('.badge-light').removeClass('hide')
-
-  $(document).on 'click', '.user-impersonate-button', (e) ->
-    id = $(this).parents('td').parents('tr').data 'id'
-    impersonate(id)
 
   $(document).on 'click', '.revert-to-prep-button', (e) ->
     id = $(this).parents('td').parents('tr').data 'id'
