@@ -19,7 +19,8 @@ class Feedback < ApplicationRecord
       .where("day LIKE ?", day.downcase + "%")
       .references(:activity)
   }
-  scope :lecture, -> { teacher_feedbacks.where(feedbackable_type: ['Activity']) }
+  scope :lecture, -> { teacher_feedbacks.joins(:activity).where(activities: {type: 'Lecture'}).references(:activities) }
+  scope :breakout, -> { teacher_feedbacks.joins(:activity).where(activities: {type: 'Breakout'}).references(:activities) }
   scope :assistance, -> { where(feedbackable_type: 'Assistance') }
   scope :direct, -> { where(feedbackable_type: nil) }
 

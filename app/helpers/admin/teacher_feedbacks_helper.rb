@@ -6,7 +6,7 @@ module Admin::TeacherFeedbacksHelper
 
   def avg_ratings_or_na(ratings, max)
     if ratings.any?
-      "#{avg_ratings(ratings)} / #{max}"
+      "#{avg_ratings(ratings)}/#{max}"
     else
       "N/A"
     end
