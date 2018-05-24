@@ -10,6 +10,10 @@ class CohortPresenter < BasePresenter
     end
   end
 
+  def cohort_students
+    link_to 'Students', cohort_students_path(cohort_id: cohort), class: 'btn btn-xs btn-info'
+  end
+
   def cohort_switcher
     link_to 'Select', [:switch_to, cohort], method: :put, class: 'btn btn-primary btn-xs'
   end
