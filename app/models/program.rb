@@ -13,4 +13,8 @@ class Program < ApplicationRecord
     days_per_week < 5
   end
 
+  def curriculum_team_email
+    'curriculum@team.com'
+  end
+
 end

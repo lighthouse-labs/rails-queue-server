@@ -1,0 +1,12 @@
+<h1>Weekly Digest of Negative Curriculum Feedback</h1>
+
+<p>
+  test data HOST: <%= link_to @host, @host %>
+</p>
+
+<p>
+  <% @feedbacks.each do |feedback| %>
+    Rating: <%= feedback.rating %><br>
+    Details: <%= feedback.notes %><br>
+  <% end %>
+</p>
