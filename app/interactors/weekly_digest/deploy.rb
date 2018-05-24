@@ -3,7 +3,7 @@ class WeeklyDigest::Deploy
   include Interactor
 
   before do
-    @feedbacks = context.feedbacks
+    @feedbacks = Feedback.limit(2) # temporary placeholder data
   end
 
   def call
