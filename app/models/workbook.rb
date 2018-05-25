@@ -13,6 +13,9 @@ class Workbook < ApplicationRecord
 
   ## SCOPES
 
+  scope :unlocks_on_day, ->(day) { where(unlock_on_day: day.to_s) }
+  scope :until_day, ->(day) { where("workbooks.unlock_on_day <= ?", day.to_s) }
+  scope :prep, -> { where(unlock_on_day: [nil, '']) }
   scope :active, -> { where(archived: [false, nil]) }
 
   ## INSTANCE METHODS

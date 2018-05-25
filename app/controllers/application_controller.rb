@@ -134,6 +134,20 @@ class ApplicationController < ActionController::Base
   end
   helper_method :preps
 
+  def available_workbooks
+    return @available_workbooks if @available_workbooks
+    @available_workbooks = Workbook.active
+    if current_user.is_a?(Student)
+      timezone = current_user.location.timezone
+      curriculum_day = current_user.cohort.curriculum_day.unlocked_until_day(timezone).to_s
+      @available_workbooks = @available_workbooks.until_day(curriculum_day)
+    elsif current_user.prospect?
+      @available_workbooks = @available_workbooks.prep
+    end
+    @available_workbooks
+  end
+  helper_method :available_workbooks
+
   def teacher_resources
     @teacher_resources ||= TeacherSection.all
   end

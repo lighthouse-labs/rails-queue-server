@@ -1,0 +1,29 @@
+h1 = @workbook.name
+
+#accordion
+  - @workbook.work_modules.each_with_index do |work_module, i|
+    - unless work_module.archived?
+      - active = @activity && work_module.activities.include?(@activity)
+      .card class="card-default #{'selected' if active}"
+        .card-header id=work_module.slug
+          = link_to( "#collapse_#{work_module.slug}", { data: { target: "\#collapse_#{work_module.slug}", toggle: 'collapse' }, aria: { controls: "collapse_#{work_module.slug}", expanded: active }}) do
+            = work_module.name
+
+        .collapse class="#{'show' if active}" id="collapse_#{work_module.slug}" aria-labelledby=work_module.slug data-parent='#accordion'
+          .card-body style="padding: 0px"
+
+            .card-body style="background-color: #e3f2fd;"
+              dl class="row" style="margin-bottom: 0px;"
+                dt class="col-sm-5"
+                  small Core:
+                dd class="col-sm-7" style="margin-bottom: 0px;"
+                  - num = number_with_precision work_module.core_duration_in_hours, precision: 0
+                  small = pluralize(num, 'hour')
+                dt class="col-sm-5"
+                  small Stretch:
+                dd class="col-sm-7" style="margin-bottom: 0px;"
+                  - num = number_with_precision work_module.stretch_duration_in_hours, precision: 0
+                  small = pluralize(num, 'hour')
+
+            = render "workbooks/work_module_activities", work_module: work_module
+

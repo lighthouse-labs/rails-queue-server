@@ -2,7 +2,11 @@
 
 - present @activity do |activity_presenter|
 
-  = activity_presenter.render_sidenav
+  - if @workbook
+    - content_for :side_nav
+      = render 'workbooks/side_menu'
+  - else
+    = activity_presenter.render_sidenav
 
   section.activity-details
     h1 = activity_presenter.name

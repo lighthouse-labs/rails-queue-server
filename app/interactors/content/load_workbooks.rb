@@ -81,7 +81,7 @@ class Content::LoadWorkbooks
     attrs = {
       name:                 attributes['name'],
       slug:                 attributes['slug'],
-      # description:          attributes['description'],
+      unlock_on_day:        attributes['unlock_on_day'],
       content_file_path:    attributes['file_path'],
       content_repository:   @repo
     }
