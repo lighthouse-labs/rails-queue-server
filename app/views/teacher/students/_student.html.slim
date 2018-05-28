@@ -1,0 +1,29 @@
+- present student, UserPresenter do |presenter|
+  tr data-id='#{student.id}'
+    td.student-info
+      = presenter.user_info
+    td
+      ul.list-inline.social-icons
+        = presenter.email_info
+        = presenter.github_info
+        = presenter.twitter_info
+        = presenter.slack_info
+        = presenter.skype_info
+    td
+      - if student.cohort
+        = link_to student.cohort.name, [:admin, student.cohort]
+      - else
+        = 'N/A'
+      - if student.initial_cohort
+        br
+        = link_to student.initial_cohort.name, [:admin, student.initial_cohort]
+        | &nbsp;
+        small = "(Initially)"
+    td
+      = "#{time_ago_in_words(student.created_at)} ago"
+    td
+      div
+        - if student.active?
+          .badge.badge-success Active
+        - else
+          .badge.badge-danger.badge-light class=(student.deactivated? ? '' : 'hide') Deactivated

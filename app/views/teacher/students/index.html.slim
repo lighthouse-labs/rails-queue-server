@@ -1,0 +1,26 @@
+header.page-header
+  h1 Search for a Student
+
+.card.mb-3
+  .card-header
+    = render 'filters'
+
+.row
+  .col-sm-12
+    .card
+      .card-header
+        h3.card-title.m-0
+          | Students
+          / = " (#{@users.total_count} / #{User.count} results)"
+
+      .card-body
+        table.table.users
+          thead
+            tr
+              th Name
+              th Links
+              th Cohort
+              th Created
+              th Status
+          tbody
+            = render partial: 'student', collection: @students

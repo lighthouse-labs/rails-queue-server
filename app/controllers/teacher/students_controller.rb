@@ -4,7 +4,9 @@ class Teacher::StudentsController < Teacher::BaseController
 
   DEFAULT_PER = 10
 
-  def index; end
+  def index
+    @students = Student.all
+  end
 
   def show
     @projects = Project.all
