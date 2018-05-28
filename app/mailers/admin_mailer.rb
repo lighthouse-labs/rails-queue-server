@@ -25,10 +25,10 @@ class AdminMailer < ActionMailer::Base
     )
   end
 
-  def weekly_digest(feedbacks)
+  def weekly_digest(feedbacks, email)
     @feedbacks = feedbacks
     @host = ENV['HOST']
-    to = Program.first.curriculum_team_email
+    to = email
 
     mail subject: 'Weekly Digest of Negative Curriculum Feedback', to: to
   end
