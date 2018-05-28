@@ -11,7 +11,7 @@ header.page-header
       .card-header
         h3.card-title.m-0
           | Students
-          = " (#{@students.count} results)"
+          = " (showing #{@students.count} results)"
 
       .card-body
         table.table.students
@@ -20,7 +20,6 @@ header.page-header
               th Name
               th Links
               th Cohort
-              th Created
               th Status
           tbody
             = render partial: 'student', collection: @students
