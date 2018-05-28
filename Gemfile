@@ -73,6 +73,8 @@ gem 'faker'
 
 gem 'youtube_addy'
 
+gem 'whenever', require: false
+
 ## charting / data analytics stuff
 gem 'groupdate'
 gem 'chartkick'
