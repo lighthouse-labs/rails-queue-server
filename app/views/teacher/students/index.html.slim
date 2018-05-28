@@ -11,10 +11,10 @@ header.page-header
       .card-header
         h3.card-title.m-0
           | Students
-          / = " (#{@users.total_count} / #{User.count} results)"
+          = " (#{@students.count} results)"
 
       .card-body
-        table.table.users
+        table.table.students
           thead
             tr
               th Name

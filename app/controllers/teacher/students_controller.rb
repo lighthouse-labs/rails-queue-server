@@ -6,6 +6,7 @@ class Teacher::StudentsController < Teacher::BaseController
 
   def index
     @students = Student.all
+    filter_by_keywords
   end
 
   def show
@@ -18,6 +19,10 @@ class Teacher::StudentsController < Teacher::BaseController
 
   def load_student
     @student = Student.find(params[:id])
+  end
+
+  def filter_by_keywords
+    @students = @students.by_keywords(params[:keywords]) if params[:keywords].present?
   end
 
 end
