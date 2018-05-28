@@ -131,6 +131,9 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
                 = link_to c.name, [:switch_to, c], method: :put, class: "dropdown-item #{'active' if c == cohort}"
             .dropdown-divider
             = link_to 'Other...', teacher_cohort_switcher_index_path, class: 'dropdown-item'
+            .dropdown-divider
+            = link_to 'Student Search', teacher_students_path, class: 'dropdown-item'
+
 
       - if current_user
         - if active_student?
