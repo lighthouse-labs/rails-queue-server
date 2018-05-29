@@ -21,7 +21,7 @@
     p Tell us how you found this #{(@activity.type || 'Activity').titleize}
 
     .row
-      .raty-editor.col-6 name="feedback[rating]" data-score=form.object.rating value=""
+      .raty-editor.col-6 name="feedback[rating]" data-score=form.object.rating
         = form.hidden_field :rating, id: "modal-average-rating"
       .col.hint
     = form.input :detail, as: :text, placeholder: 'The more you can give us the better!'
