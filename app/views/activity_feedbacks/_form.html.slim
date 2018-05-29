@@ -1,7 +1,7 @@
 = form.label 'Rate this activity overall (optional)'
-.row
-  .raty-editor.col-4 name="feedback[rating]" data-score=form.object.rating
+div
+  .raty-editor name="feedback[rating]" data-score=form.object.rating
     = form.hidden_field :rating
-  .col.hint
+  .hint
 = form.input :detail, placeholder: 'The more you can give us the better!'
 = form.submit 'Submit Feedback', class: 'btn btn-tiny btn-primary'
