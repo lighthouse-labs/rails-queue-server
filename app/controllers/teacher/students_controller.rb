@@ -7,7 +7,7 @@ class Teacher::StudentsController < Teacher::BaseController
   def index
     @students = Student.all
     filter_by_keywords
-    flash[:notice] = @notice
+    flash.now[:notice] = @notice
   end
 
   def show
