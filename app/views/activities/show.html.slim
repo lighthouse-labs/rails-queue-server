@@ -104,7 +104,7 @@
                         = link_to 'Watch now &raquo;'.html_safe, @recordings_arr[1]
           - @recordings_arr.shift(2)
 
-    - if teacher? && @program.lecture_tips? && @activity.is_a?(Lecture)
+    - if teacher? && @program.lecture_tips? && (@activity.is_a?(Lecture) || @activity.is_a?(Breakout))
       .lecture-tips
         h3 = "Lecture Tips / Reminders"
         == markdown @program.lecture_tips
