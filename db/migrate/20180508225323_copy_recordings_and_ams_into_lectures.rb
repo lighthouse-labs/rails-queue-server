@@ -1,26 +1,22 @@
 class CopyRecordingsAndAmsIntoLectures < ActiveRecord::Migration[5.0]
+
   def up
-
     cnt = 0
-    ActivityMessage.order(id: :desc).find_each(batch_size: 100) do |msg|
 
+    ActivityMessage.order(id: :desc).find_each(batch_size: 100) do |msg|
       if rec = find_rec(msg)
-        cnt += 1
         if move_over(msg, rec)
+          cnt += 1
           say ":) Successfully Moved over #{msg.id} and #{rec.id}"
           msg.update_columns(archived: true)
           rec.update_columns(archived: true)
         else
-          say "X Failed to move over #{msg.id} for activity #{msg.activity_id}"
+          say "X Failed to move over #{msg.id} for activity #{msg.activity_id}. "
         end
-      else
-        say "X Failed to find rec for msg #{msg.id} for activity #{msg.activity_id}"
       end
     end
 
-    say "_-----------------------------_"
-    say cnt.inspect
-
+    say "#{cnt} Lecture records created."
   end
 
   def down
@@ -39,7 +35,7 @@ class CopyRecordingsAndAmsIntoLectures < ActiveRecord::Migration[5.0]
       presenter_name: rec.presenter_name,
       file_type: rec.file_type,
       subject: msg.subject,
-      body: msg.body,
+      body: scrubbed_body(msg),
       day:  msg.day,
       teacher_notes: msg.teacher_notes
     }
@@ -59,5 +55,12 @@ class CopyRecordingsAndAmsIntoLectures < ActiveRecord::Migration[5.0]
       cohort_id:    msg.cohort_id,
       activity_id:  msg.activity_id
     )
+  end
+
+  # match the final sentence which has a URL that shouldn't be in there
+  # Eg: https://web.compass.lighthouselabs.ca/days/w04d1/activities/211
+  # It's a reference back to the activity. Should be in the email template not in the body
+  def scrubbed_body(msg)
+    msg.body.gsub(/https\:\/\/[a-z\.\-]+compass\.lighthouselabs\.ca\/days\/w[0-9]+d[1-5]\/activities\/[0-9]+\Z/, '')
   end
 end
