@@ -4,6 +4,6 @@
 
     .form-group
       label Search
-      = text_field_tag :keywords, params[:keywords], placeholder: 'e.g. John Smith', class: "form-control"
+      = text_field_tag :keywords, params[:keywords], placeholder: 'First and/or last name (e.g. John Smith)', class: "form-control"
 
-    = submit_tag 'Search', class: 'btn btn-success activity-search-button'
+    = submit_tag 'Search', class: 'btn btn-success student-search-button'
