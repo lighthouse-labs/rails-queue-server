@@ -7,7 +7,7 @@ class Teacher::StudentsController < Teacher::BaseController
   def index
     @students = Student.all
     filter_by_keywords
-    flash[:alert] = @alert
+    flash[:notice] = @notice
   end
 
   def show
@@ -27,7 +27,7 @@ class Teacher::StudentsController < Teacher::BaseController
       students = @students.by_keywords(params[:keywords])
       @students = students.limit(10)
       if students.count > 10
-        @alert = "More than 10 results. Consider narrowing down your query."
+        @notice = "More than 10 results. Consider narrowing down your query."
       end
     else
       @students = Student.limit(0)
