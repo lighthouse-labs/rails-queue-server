@@ -56,4 +56,4 @@
               i.fa.fa-angle-double-right
           = render partial: 'cohort_enrolment_modal', locals: {user: user}
         - if user.enrolled_and_prepping?
-          = link_to fa_icon('angle-double-left'), admin_student_path(id: user.id), method: :delete, class: 'btn btn-outline-info btn-sm revert-to-prep-button', title: 'Revert to Prep', 'data-toggle' => 'tooltip'
+          = link_to fa_icon('angle-double-left'), admin_student_path(user), method: :delete, class: 'btn btn-outline-info btn-sm revert-to-prep-button', title: 'Revert to Prep', 'data-toggle' => 'tooltip'
