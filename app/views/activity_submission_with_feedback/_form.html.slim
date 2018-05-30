@@ -20,8 +20,10 @@
 
     p Tell us how you found this #{(@activity.type || 'Activity').titleize}
 
-    .raty-editor name="feedback[rating]" data-score=form.object.rating value=""
-      = form.hidden_field :rating, id: "modal-average-rating"
+    div
+      .raty-editor name="feedback[rating]" data-score=form.object.rating
+        = form.hidden_field :rating, id: "modal-average-rating"
+      .hint
     = form.input :detail, as: :text, placeholder: 'The more you can give us the better!'
 
 .modal-footer
