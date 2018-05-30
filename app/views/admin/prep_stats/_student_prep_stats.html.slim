@@ -18,11 +18,11 @@ tr
 
   td
     .milestone-flags-container id=('milestones-complete' if milestones_complete?(student))
-      - @milestones.each do |milestone|
-        - if student.activity_submissions.pluck(:activity_id).include?(milestone.id)
-          = link_to '<i class="fa fa-flag"></i>'.html_safe, prep_activity_path(prep_id: 'prep', id: milestone.id), method: :get, :title => "#{milestone.name} - completed", rel: 'tooltip'
+      - @milestones.each do |activity|
+        - if student.completed_activity?(activity)
+          = link_to '<i class="fa fa-flag"></i>'.html_safe, activity_by_uuid_path(activity.uuid), method: :get, :title => "#{activity.name} - completed", rel: 'tooltip'
         - else
-          = link_to '<i class="fa fa-flag-o"></i>'.html_safe, prep_activity_path(prep_id: 'prep', id: milestone.id), method: :get, :title => "#{milestone.name} - incomplete", rel: 'tooltip'
+          = link_to '<i class="fa fa-flag-o"></i>'.html_safe, activity_by_uuid_path(activity.uuid), method: :get, :title => "#{activity.name} - incomplete", rel: 'tooltip'
 
   td data-value=student.created_at.to_i
     = student.created_at.to_s(:friendly)
