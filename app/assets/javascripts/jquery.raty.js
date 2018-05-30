@@ -4,7 +4,7 @@
  * The MIT License
  *
  * @author  : Washington Botelho
- * @doc     : http://wbotelhos.com/raty
+ * @doc     : http://wbotelhos.com/raty or https://github.com/wbotelhos/raty
  * @version : 2.7.0
  *
  */
