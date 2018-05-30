@@ -15,4 +15,5 @@ class Breakout < Activity
     false
   end
 
+
 end

@@ -11,11 +11,71 @@ $(document).on('turbolinks:load', function() {
   // Feedback Charts
   var mentorFeedbackContainer  = $('#mentor-feedback-chart');
   var lectureFeedbackContainer = $('#lecture-feedback-chart');
+  var breakoutFeedbackContainer = $('#breakout-feedback-chart');
+
+  function highChartsTimeSplineOptions(options) {
+    return(Object.assign(options, {
+      chart: {
+        zoomType: 'x',
+        type: 'spline'
+      },
+      subtitle: {
+        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+      },
+      xAxis: {
+        type: 'datetime',
+        dateTimeLabelFormats: { // don't display the dummy year
+          day: '%e. %b',
+          week: '%e. %b',
+          month: '%b \'%y',
+          year: '%Y'
+        },
+        title: {
+          text: 'Date'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Average Feedback Score'
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      plotOptions: {
+        area: {
+          fillColor: {
+            linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 1
+            },
+            stops: [
+              [0, Highcharts.getOptions().colors[0]],
+              [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+            ]
+          },
+          marker: {
+            radius: 2
+          },
+          lineWidth: 1,
+          states: {
+            hover: {
+              lineWidth: 3
+            }
+          },
+          threshold: null
+        }
+      },
+    }));
+  }
 
   $.getJSON($('#feedback-charts').data('url'), function (data) {
 
     $('#overall-mentor-feedback').text(data.mentor.average + ' (' + data.mentor.total + ' total)');
     $('#overall-lecture-feedback').text(data.lecture.average + ' (' + data.lecture.total + ' total)');
+    $('#overall-breakout-feedback').text(data.breakout.average + ' (' + data.breakout.total + ' total)');
     $('#overall-direct-feedback').text(data.direct.average + ' (' + data.direct.total + ' total)');
 
     mentorFeedbackContainer.highcharts({
@@ -92,64 +152,7 @@ $(document).on('turbolinks:load', function() {
       ]
     });
 
-    lectureFeedbackContainer.highcharts({
-      chart: {
-        zoomType: 'x',
-        type: 'spline'
-      },
-      title: {
-        text: 'Lecture Feedback (Daily)'
-      },
-      subtitle: {
-        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-      },
-      xAxis: {
-        type: 'datetime',
-        dateTimeLabelFormats: { // don't display the dummy year
-          day: '%e. %b',
-          week: '%e. %b',
-          month: '%b \'%y',
-          year: '%Y'
-        },
-        title: {
-          text: 'Date'
-        }
-      },
-      yAxis: {
-        title: {
-          text: 'Average Feedback Score'
-        }
-      },
-      legend: {
-        enabled: false
-      },
-      plotOptions: {
-        area: {
-          fillColor: {
-            linearGradient: {
-                x1: 0,
-                y1: 0,
-                x2: 0,
-                y2: 1
-            },
-            stops: [
-              [0, Highcharts.getOptions().colors[0]],
-              [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-            ]
-          },
-          marker: {
-            radius: 2
-          },
-          lineWidth: 1,
-          states: {
-            hover: {
-              lineWidth: 3
-            }
-          },
-          threshold: null
-        }
-      },
-
+    lectureFeedbackContainer.highcharts(highChartsTimeSplineOptions({
       series: [
         {
           name: 'Teacher Lecture Feedback',
@@ -163,8 +166,31 @@ $(document).on('turbolinks:load', function() {
           lineWidth: 1,
           color: 'gray'
         }
-      ]
-    });
+      ],
+      title: {
+        text: 'Lecture Feedback (Daily)'
+      }
+    }));
+
+    breakoutFeedbackContainer.highcharts(highChartsTimeSplineOptions({
+      series: [
+        {
+          name: 'Teacher Breakout Feedback',
+          data: mapData(data.breakout.teacher),
+          color: 'blue'
+        },
+        {
+          name: 'Overall Breakout Feedback',
+          data: mapData(data.breakout.everyone),
+          dashStyle: 'LongDash',
+          lineWidth: 1,
+          color: 'gray'
+        }
+      ],
+      title: {
+        text: 'Breakout Feedback (Daily)'
+      }
+    }));
 
   });
 
