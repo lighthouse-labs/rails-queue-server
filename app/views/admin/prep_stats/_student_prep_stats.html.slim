@@ -17,7 +17,7 @@ tr
           = presenter.skype_info
 
   td
-    .milestone-flags-container id=('milestones-complete' if milestones_complete?(student))
+    .milestone-flags-container id=('milestones-complete' if milestones_complete?(student, @milestone_ids))
       - @milestones.each do |activity|
         - if student.completed_activity?(activity)
           = link_to '<i class="fa fa-flag"></i>'.html_safe, activity_by_uuid_path(activity.uuid), method: :get, :title => "#{activity.name} - completed", rel: 'tooltip'

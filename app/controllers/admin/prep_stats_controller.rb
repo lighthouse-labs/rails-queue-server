@@ -7,6 +7,7 @@ class Admin::PrepStatsController < Admin::BaseController
     @users = @users.by_keywords(params[:keywords]) if params[:keywords].present?
     @users = @users.page(params[:page]).per(DEFAULT_PER)
     @milestones = Activity.prep.milestone
+    @milestone_ids = @milestones.order(id: :asc).pluck(:id)
   end
 
 end
