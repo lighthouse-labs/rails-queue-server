@@ -28,9 +28,7 @@ class Admin::UsersController < Admin::BaseController
     else
       flash[:alert] = response.error
     end
-    if(params[:redirect])
-      redirect_to params[:redirect]
-    end
+    redirect_back fallback_location: admin_users_path
   end
 
   private
