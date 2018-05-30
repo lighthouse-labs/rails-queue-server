@@ -2,8 +2,11 @@ class AssignAsStudentToCohort
 
   include Interactor
 
-  def call
+  before do
     @user = context.user
+  end
+
+  def call
     @user.cohort = context.cohort
     @user.type = 'Student'
     unless @user.save(validate: false)
