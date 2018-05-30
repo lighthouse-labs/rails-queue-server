@@ -156,6 +156,10 @@ class Activity < ApplicationRecord
     section && section.is_a?(TeacherSection)
   end
 
+  def has_lectures?
+    false
+  end
+
   # Also could be overwritten by sub classes
   def create_outcome_results?
     evaluates_code?

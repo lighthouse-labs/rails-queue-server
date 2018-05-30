@@ -110,6 +110,7 @@ LaserShark::Application.routes.draw do
     resources :messages, controller: 'activity_messages'
     resources :recordings, only: [:new, :create]
     resources :activity_feedbacks, only: [:create]
+    resources :lectures, except: [:index]
   end
 
   resources :cohorts, only: [] do

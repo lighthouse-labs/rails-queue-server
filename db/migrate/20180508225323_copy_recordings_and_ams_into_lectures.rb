@@ -37,7 +37,9 @@ class CopyRecordingsAndAmsIntoLectures < ActiveRecord::Migration[5.0]
       subject: msg.subject,
       body: scrubbed_body(msg),
       day:  msg.day,
-      teacher_notes: msg.teacher_notes
+      teacher_notes: msg.teacher_notes,
+      created_at: msg.created_at,
+      updated_at: msg.updated_at
     }
     if rec.file_name? && rec.file_name.starts_with?('https://')
       attrs[:youtube_url] = rec.file_name

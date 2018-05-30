@@ -1,0 +1,39 @@
+.lecture.card.mb-4 class=('my-cohort' if cohort && lecture.cohort == cohort)
+  .card-header.clearfix
+    h5.float-md-left
+      = lecture.subject
+      | &nbsp;
+      small
+        | by&nbsp;
+        = lecture.presenter.full_name
+    .float-md-right.d-none.d-sm-none
+      = image_tag lecture.presenter.avatar_url, class: 'avatar'
+
+  .card-body
+    .row
+      .col-md-3
+        = link_to activity_lecture_path(@activity, lecture)
+          = lecture_thumbnail(lecture)
+        br
+        br
+        small
+          = time_ago_in_words lecture.created_at
+          | &nbsp;ago
+        br
+        small
+          = lecture.presenter.location.name
+
+      .col-md-9
+        .content-container
+          .content
+            == markdown(lecture.body)
+          .fade-mask
+
+        a href="#" class="btn btn-primary"
+          | Read More
+
+  - if teacher? && lecture.teacher_notes?
+    .card-footer.text-muted
+      h5 Teacher (Internal) Notes
+      == markdown lecture.teacher_notes
+

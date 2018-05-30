@@ -111,34 +111,11 @@
       .instructions
         == markdown @activity.teacher_notes
 
-    - if @messages.present?
+    - if @lectures.present?
       hr
-      h3 = "Messages"
-      .messages
-        - @messages.each do |msg|
-          .message
-            .heading
-              = image_tag(avatar_for(msg.user), size: '50x50')
-              h4 = msg.subject
-              .when
-                = msg.created_at.to_formatted_s(:friendly)
-                - if teacher?
-                  br
-                  = msg.cohort.name
-
-            .contents
-              == markdown msg.body
-              - if teacher? && msg.teacher_notes?
-                .teacher-notes
-                  h5 Teacher (Internal) Notes
-                  == markdown msg.teacher_notes
-
-            - if (teacher? && current_user == msg.user) || admin?
-              .actions
-                = link_to edit_activity_message_path(@activity, msg), class: 'edit'
-                  i.fa.fa-edit
-                = link_to activity_message_path(@activity, msg), method: :delete, confirm: 'Sure ,lad?', class: 'delete'
-                  i.fa.fa-times
+      h3 = "Lectures"
+      .lectures
+        = render @lectures
 
   = render 'feedback' if @activity.allow_feedback?
   = render 'submission_bar', activity_presenter: activity_presenter

@@ -34,11 +34,8 @@ class ActivitiesController < ApplicationController
     @activity_feedbacks = @activity.activity_feedbacks
     @activity_feedbacks = @activity_feedbacks.where(user: current_user) unless teacher?
 
-    if teacher?
-      @messages = @activity.messages
-    elsif cohort # no messages if student or just User and no cohort is assigned
-      @messages = @activity.messages.for_cohort(cohort)
-    end
+    @lectures = @activity.lectures if @activity.has_lectures?
+
     @recordings_arr = @activity.recordings.to_a
   end
 
