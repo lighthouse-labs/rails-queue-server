@@ -7,8 +7,12 @@
 }
 
 .raty-editor {
-  width: 200px;
-  height: 40px;
+  display: inline;
+}
+
+.hint {
+  display: inline;
+  padding-left: 15px;
 }
 
 .feedbacks-avatar {

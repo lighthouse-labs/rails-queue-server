@@ -14,6 +14,7 @@ br
       th.admin-teacher-stat-heading Pending
       th.admin-teacher-stat-heading Expired
       th.admin-teacher-stat-heading Lecture Avg Rating
+      th.admin-teacher-stat-heading Breakout Avg Rating
       th.admin-teacher-stat-heading Assistance Avg Rating
       th.admin-teacher-stat-heading Tech Interview Avg Rating
     tbody
@@ -22,8 +23,11 @@ br
       td.admin-teacher-stat = @feedbacks.pending.not_expired.count
       td.admin-teacher-stat = @feedbacks.pending.expired.count
       td.admin-teacher-stat
-        - lecture_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'Activity' }
+        - lecture_feedbacks = @feedbacks.completed.lecture
         = avg_ratings_or_na(lecture_feedbacks, 5)
+      td.admin-teacher-stat
+        - breakout_feedbacks = @feedbacks.completed.breakout
+        = avg_ratings_or_na(breakout_feedbacks, 5)
       td.admin-teacher-stat
         - assistance_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'Assistance' }
         = avg_ratings_or_na(assistance_feedbacks, 5)
@@ -38,17 +42,26 @@ br
       .row.teacher_feedbacks_section
         .col-md-2
           = link_to teacher_presenter.full_name, admin_teacher_stat_path(teacher_presenter.teacher)
-        .col-md-3
-          - lecture_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Activity' }
-          | Lecture Avg Rating:&nbsp;
+        .col-md-2
+          |Avg Ratings:
+        .col-md-2
+          / - lecture_feedbacks = feedbacks.completed.lecture
+          / feedbacks is an array so the above doesn't work
+          - lecture_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Activity' && !feedback.feedbackable.is_a?(Breakout) }
+          | Lectures:&nbsp;
           = avg_ratings_or_na(lecture_feedbacks, 5)
-        .col-md-3
+        .col-md-2
+          / - breakout_feedbacks = feedbacks.find_all{ |feedback| feedback.activity.type === 'Breakout' }
+          - breakout_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Activity' && feedback.feedbackable.is_a?(Breakout) }
+          | Breakouts:&nbsp;
+          = avg_ratings_or_na(breakout_feedbacks, 5)
+        .col-md-2
           - assistance_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Assistance' }
-          | Assistance Avg Rating:&nbsp;
+          | Assistances:&nbsp;
           = avg_ratings_or_na(assistance_feedbacks, 5)
-        .col-md-3
+        .col-md-2
           - tech_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'TechInterview' }
-          | Tech Int Avg Rating:&nbsp;
+          | Tech Interviews:&nbsp;
           = avg_ratings_or_na(tech_feedbacks, 5)
       .row
         table.table
