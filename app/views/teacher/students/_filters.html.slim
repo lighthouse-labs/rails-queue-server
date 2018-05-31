@@ -2,7 +2,7 @@
 
   .form-row
 
-    .form-group
+    .form-group data-toggle="tooltip" title='Search for name, email, github username, phone number, etc.' data-placement="bottom"
       label Search
       = text_field_tag :keywords, params[:keywords], placeholder: 'First and/or last name (e.g. John Smith)', class: "form-control"
 
