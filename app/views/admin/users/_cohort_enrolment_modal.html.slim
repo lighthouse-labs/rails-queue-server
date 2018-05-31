@@ -7,7 +7,7 @@
         button.btn.close type="button" data-dismiss="modal" aria-label="Close"
           span aria-hidden="true"
           | &times;
-      = form_tag(assign_cohort_admin_user_path(user, method: :post)) do
+      = form_tag(enrol_in_cohort_admin_user_path(user, method: :post)) do
         .modal-body
           .list-group data-user-id="#{user.id}"
           - cohorts.upcoming.most_recent_first.each.with_index do |cohort, i|

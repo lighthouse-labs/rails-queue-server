@@ -19,7 +19,7 @@ class Admin::UsersController < Admin::BaseController
     render nothing: true
   end
 
-  def assign_cohort
+  def enrol_in_cohort
     user = User.find(params[:id])
     cohort = Cohort.find_by(code: params[:code])
     response = AssignAsStudentToCohort.call(cohort: cohort, user: user)
