@@ -8,18 +8,31 @@ header.page-header
 .row
   .col-sm-12
     .card
-      .card-header
-        h3.card-title.m-0
-          | Students
-          = " (showing #{@students.count} results)"
 
-      .card-body
-        table.table.students
-          thead
-            tr
-              th Name
-              th Email
-              th Phone
-              th
-          tbody
-            = render partial: 'student', collection: @students
+      - if @students.count > 0
+        .card-header
+          h3.card-title.m-0
+            | Students
+            = " (showing #{@students.count} results)"
+
+        .card-body
+          table.table.students
+            thead
+              tr
+                th Name
+                th Email
+                th Phone
+                th
+            tbody
+              = render partial: 'student', collection: @students
+
+      - elsif params.present?
+        .card-body
+          p
+            | No students found.
+          p
+            | Search for a student by first name, last name, email, phone number, github username, or slack username.
+
+      - else
+        .card-body
+          | Search for a student by first name, last name, email, phone number, github username, or slack username.
