@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe AssistanceRequest do
-
   let(:location) { create(:location) }
   let(:cohort) { create(:cohort, local_assistance_queue: true, location: location) }
   let(:requestor) { create(:student, location: location, cohort: cohort) }

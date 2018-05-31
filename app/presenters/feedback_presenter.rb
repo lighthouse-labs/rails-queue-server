@@ -87,7 +87,7 @@ class FeedbackPresenter < BasePresenter
   def assistance_request_reason
     if feedback.feedbackable_type == "Assistance"
       assistance_request = AssistanceRequest.find_by(assistance_id: feedback.feedbackable_id)
-      assistance_request.reason if assistance_request
+      assistance_request&.reason
     else
       'N/A'
     end

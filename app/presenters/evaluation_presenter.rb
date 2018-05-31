@@ -79,9 +79,9 @@ class EvaluationPresenter < BasePresenter
 
   def eval_options_hash(title, value)
     {
-      :class         => 'badge ' + project_score_label_class(value),
-      :title         => title,
-      :"data-toggle" => 'tooltip'
+      class:         'badge ' + project_score_label_class(value),
+      title:         title,
+      "data-toggle": 'tooltip'
     }
   end
 

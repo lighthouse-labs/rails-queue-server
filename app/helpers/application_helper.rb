@@ -55,12 +55,12 @@ module ApplicationHelper
     return "0 seconds" if secs.nil?
     return "#{secs.to_i} seconds" if secs < 60
     mins = secs / 60
-    [[60, :minute], [24, :hour], [1000, :day]].map{ |count, name|
+    [[60, :minute], [24, :hour], [1000, :day]].map do |count, name|
       if mins > 0
         mins, n = mins.divmod(count)
         n == 1 ? "#{n.to_i} #{name}" : "#{n.to_i} #{name}s"
       end
-    }.compact.reverse.join(' ')
+    end.compact.reverse.join(' ')
   end
 
   def avatar_for(user)

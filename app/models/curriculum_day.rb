@@ -93,7 +93,7 @@ class CurriculumDay
   end
 
   def unlocked_based_on_sunday_night?(timezone, next_weekend)
-    (sunday_night?(timezone) && (self<=>(next_weekend)).to_i < 1)
+    (sunday_night?(timezone) && (self <=> next_weekend).to_i < 1)
   end
 
   def today?

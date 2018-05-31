@@ -50,7 +50,7 @@ class AssistanceChannel < ApplicationCable::Channel
       ActionCable.server.broadcast "assistance-#{location_name}", type:   "StoppedAssisting",
                                                                   object: AssistanceSerializer.new(assistance).as_json
 
-      UserChannel.broadcast_to student, type: "AssistanceRequested",
+      UserChannel.broadcast_to student, type:   "AssistanceRequested",
                                         object: student.position_in_queue
       teacher_available(current_user)
       update_students_in_queue(assistance.assistance_request.assistor_location)

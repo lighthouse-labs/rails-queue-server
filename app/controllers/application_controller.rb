@@ -88,7 +88,6 @@ class ApplicationController < ActionController::Base
       current_user.cohort.location : current_user.location
 
     Teacher.where(on_duty: true, location: location)
-
   end
   helper_method :teachers_on_duty
 

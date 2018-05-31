@@ -9,9 +9,9 @@ class Wallboard::TeachersController < Wallboard::BaseController
     end
 
     teachers = Teacher.filter_by_location(location.id)
-      .where(on_duty: true)
-      .order(:id)
-      .map { |u| TeacherSerializer.new(u, root: false) }
+                      .where(on_duty: true)
+                      .order(:id)
+                      .map { |u| TeacherSerializer.new(u, root: false) }
 
     render json: { teachers: teachers }
   end

@@ -17,6 +17,5 @@ describe Admin::CohortsController do
       get :index
       expect(assigns(:cohorts)).to match_array(@cohorts)
     end
-
   end
 end
