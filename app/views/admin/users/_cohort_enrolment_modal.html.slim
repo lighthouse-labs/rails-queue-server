@@ -1,9 +1,9 @@
-.modal.fade id="enrolmentModal#{user.id}" tabindex="-1" role="dialog" aria-labelledby="enrolmentModalLabel" aria-hidden="true"
+.modal.fade id="enrolment-modal-#{user.id}" tabindex="-1" role="dialog" aria-labelledby="enrolment-modal-label" aria-hidden="true"
   .modal-dialog role="document"
     .modal-content
       .modal-header
-        h5.modal-title id="enrolmentModalLabel"
-          = "Enrol #{user.first_name} #{user.last_name} in:"
+        h5.modal-title id="enrolment-modal-label"
+          = "Enrol #{user.full_name} in:"
         button.btn.close type="button" data-dismiss="modal" aria-label="Close"
           span aria-hidden="true"
           | &times;
