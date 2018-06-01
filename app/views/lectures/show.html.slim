@@ -1,0 +1,8 @@
+- title "#{@lecture.subject}"
+
+- content_for :side_nav do
+  == render 'layouts/side_nav'
+
+- present @lecture do |lecture_presenter|
+
+  
