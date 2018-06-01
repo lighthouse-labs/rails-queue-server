@@ -29,8 +29,7 @@
             == markdown(lecture.body)
           .fade-mask
 
-        a href="#" class="btn btn-primary"
-          | Read More
+        = link_to 'Read More', activity_lecture_path(@activity, lecture), class: "btn btn-primary"
 
   - if teacher? && lecture.teacher_notes?
     .card-footer.text-muted
