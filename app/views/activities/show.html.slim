@@ -48,7 +48,7 @@
 
     = render "code_evaluation", activity: @activity if !teacher? && @activity.evaluates_code?
 
-    - if teacher? && @program.lecture_tips? && @activity.is_a?(LecturePlan)
+    - if teacher? && @program.lecture_tips? && @activity.has_lectures?
       .lecture-tips
         h3 = "Lecture Tips / Reminders"
         == markdown @program.lecture_tips
