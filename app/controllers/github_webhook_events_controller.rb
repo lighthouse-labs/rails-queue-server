@@ -8,7 +8,7 @@ class GithubWebhookEventsController < ApplicationController
 
   def create
     response = Content::HandleGithubWebhookPayload.call(payload: @payload)
-    render text: "Thanks, Github", status: 200
+    render text: "Thanks, Github", status: :ok
   end
 
   private
@@ -17,7 +17,7 @@ class GithubWebhookEventsController < ApplicationController
     request.body.rewind
     @payload = request.body.read
     signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['GITHUB_WEBHOOK_SECRET'], @payload)
-    render text: "Not a valid secret", status: 401 unless valid_sig?(signature)
+    render text: "Not a valid secret", status: :unauthorized unless valid_sig?(signature)
   end
 
   def valid_sig?(signature)

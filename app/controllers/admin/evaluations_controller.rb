@@ -30,7 +30,7 @@ class Admin::EvaluationsController < Admin::BaseController
   end
 
   def filter_by_start_date
-    params[:start_date] = Date.current.beginning_of_month if params[:start_date].nil? || params[:start_date].empty?
+    params[:start_date] = Date.current.beginning_of_month if params[:start_date].blank?
     @evaluations = @evaluations.after_date(params[:start_date])
   end
 

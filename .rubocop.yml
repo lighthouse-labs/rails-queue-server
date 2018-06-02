@@ -5,6 +5,7 @@ Rails:
   Enabled: true
 
 AllCops:
+  TargetRubyVersion: 2.4.3
   Exclude:
     - 'Gemfile'  # for now
     - 'Gemfile.lock' # for now

@@ -93,7 +93,7 @@ class CurriculumDay
   end
 
   def unlocked_based_on_sunday_night?(timezone, next_weekend)
-    (sunday_night?(timezone) && (self<=>(next_weekend)).to_i < 1)
+    (sunday_night?(timezone) && (self <=> next_weekend).to_i < 1)
   end
 
   def today?
@@ -200,9 +200,7 @@ class CurriculumDay
     end
 
     @date = date # date needs to be set for day_number to be correct
-    if adjust_date_calculation_for_break?(day_number)
-      @date = date.advance(weeks: @curriculum_break.num_weeks)
-    end
+    @date = date.advance(weeks: @curriculum_break.num_weeks) if adjust_date_calculation_for_break?(day_number)
   end
 
   def determine_w
@@ -230,7 +228,7 @@ class CurriculumDay
   end
 
   def on_break?(day_number)
-    @curriculum_break && @curriculum_break.active_on_day_number?(day_number)
+    @curriculum_break&.active_on_day_number?(day_number)
   end
 
   def past_end_week_of_cohort?(week_number)

@@ -28,6 +28,9 @@ dl.col-md-4
     dt.col.pl-0 Lecture Feedback
     dd#overall-lecture-feedback
   .row
+    dt.col.pl-0 Breakout Feedback
+    dd#overall-breakout-feedback
+  .row
     dt.col.pl-0 Direct Feedback
     dd#overall-direct-feedback
 
@@ -36,5 +39,6 @@ dl.col-md-4
 #feedback-charts*{ 'data-url' => feedback_admin_teacher_stat_path(@teacher, format: :json) }
   #mentor-feedback-chart.chart
   #lecture-feedback-chart.chart
+  #breakout-feedback-chart.chart
 
 - content_for :pre_admin_js, javascript_include_tag('https://code.highcharts.com/highcharts.js')

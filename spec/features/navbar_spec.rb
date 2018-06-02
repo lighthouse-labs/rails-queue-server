@@ -17,7 +17,6 @@ describe 'Navbar', type: :feature, js: true do
 
   context "when the student is logged in" do
     describe "valid links in the navbar" do
-
       let(:cohort) { create :cohort }
       let(:student) { create :student, cohort: cohort, uid: GITHUB_OAUTH_HASH['uid'] }
       before :each do

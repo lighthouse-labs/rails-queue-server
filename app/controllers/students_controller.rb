@@ -30,12 +30,12 @@ class StudentsController < Teacher::BaseController
   # disallow teachres and studenst alike to view this list.
   #  - KV Aug 29, 2016
   def restrict_for_limited_cohort
-    redirect_to(:root, alert: 'Not allowed') if @cohort && @cohort.limited?
+    redirect_to(:root, alert: 'Not allowed') if @cohort&.limited?
   end
 
   def load_cohort
     @cohort = if teacher?
-                cohort_id = params[:cohort_id].present? ? params[:cohort_id] : cohort
+                cohort_id = params[:cohort_id].presence || cohort
                 Cohort.find(cohort_id)
               else
                 current_user.cohort
