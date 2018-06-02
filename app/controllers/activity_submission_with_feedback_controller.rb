@@ -26,7 +26,6 @@ class ActivitySubmissionWithFeedbackController < ApplicationController
   def submission_params
     params.require(:activity_submission_with_optional_feedback).permit(
       :time_spent,
-      :note,
       :github_url,
       :detail,    # feedback
       :rating     # feedback
