@@ -12,6 +12,8 @@ class WorkModuleItem < ApplicationRecord
 
   ## SCOPES
 
-  scope :active, -> { where(archived: [false, nil]) }
+  scope :active,  -> { where(archived: [false, nil]) }
+  scope :core,    -> { where(stretch: [false, nil]) }
+  scope :stretch, -> { where(stretch: true) }
 
 end

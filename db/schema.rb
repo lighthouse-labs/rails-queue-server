@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180525003255) do
+ActiveRecord::Schema.define(version: 20180601004248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -626,6 +626,7 @@ ActiveRecord::Schema.define(version: 20180525003255) do
     t.boolean  "archived"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.boolean  "stretch"
     t.index ["activity_id"], name: "index_work_module_items_on_activity_id", using: :btree
     t.index ["uuid"], name: "index_work_module_items_on_uuid", unique: true, using: :btree
     t.index ["work_module_id"], name: "index_work_module_items_on_work_module_id", using: :btree

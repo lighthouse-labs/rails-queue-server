@@ -14,16 +14,18 @@ h1 = @workbook.name
 
             .card-body style="background-color: #e3f2fd;"
               dl class="row" style="margin-bottom: 0px;"
-                dt class="col-sm-5"
-                  small Core:
-                dd class="col-sm-7" style="margin-bottom: 0px;"
-                  - num = number_with_precision work_module.core_duration_in_hours, precision: 0
-                  small = pluralize(num, 'hour')
-                dt class="col-sm-5"
-                  small Stretch:
-                dd class="col-sm-7" style="margin-bottom: 0px;"
-                  - num = number_with_precision work_module.stretch_duration_in_hours, precision: 0
-                  small = pluralize(num, 'hour')
+                - if work_module.core_duration_in_hours > 0
+                  dt class="col-sm-5"
+                    small Core:
+                  dd class="col-sm-7" style="margin-bottom: 0px;"
+                    - num = number_with_precision work_module.core_duration_in_hours, precision: 0
+                    small = pluralize(num, 'hour')
+                - if work_module.stretch_duration_in_hours > 0
+                  dt class="col-sm-5"
+                    small Stretch:
+                  dd class="col-sm-7" style="margin-bottom: 0px;"
+                    - num = number_with_precision work_module.stretch_duration_in_hours, precision: 0
+                    small = pluralize(num, 'hour')
 
             = render "workbooks/work_module_activities", work_module: work_module
 

@@ -16,12 +16,28 @@ class Content::LoadActivities
     activity_data  = load_all_activity_data
     activity_data += load_all_activity_data('Training') if Dir.exist?(File.join(@repo_dir, 'Training').to_s)
     activity_data += load_all_activity_data('Sections', true) if Dir.exist?(File.join(@repo_dir, 'Sections').to_s)
+    activity_data += load_workbook_activities if Dir.exist?(File.join(@repo_dir, '_Workbooks').to_s)
     Content::ValidateUuids.call(collection: activity_data)
     Content::SetArchive.call(repo_data: activity_data, model: Activity)
     build_records(activity_data)
   end
 
   private
+
+  def load_workbook_activities
+    subdir = '_Workbooks'
+    root_path = File.join(@repo_dir, subdir)
+    data = []
+
+    Dir.entries(root_path).sort.each do |data_dir|
+      filepath = File.join(root_path, data_dir)
+      next if data_dir.starts_with?('.')
+      path = File.join(subdir, data_dir, 'activities').to_s
+      data += load_all_activity_data(path, false) if File.directory?(filepath)
+    end
+
+    data
+  end
 
   # The sequence_from_file_name is a hack for week5 content
   # For those activities, we want the sequence field to be populated from the file name

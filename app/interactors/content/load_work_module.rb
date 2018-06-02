@@ -27,24 +27,26 @@ class Content::LoadWorkModule
 
   def load_work_module_items(work_module, data)
     items = data['items']
+
     items.each do |item_attributes|
       load_work_module_item(work_module, item_attributes)
     end
   end
 
   def load_work_module_item(work_module, item_data)
-    activity = scan_for_record_by_uuid(item_data['activity'])
-    context.fail!(error: "Activity not found: #{item_data['uuid']} for work module #{work_module.uuid}") unless activity
+    activity = scan_for_record_by_uuid(item_data['activity'], Activity)
 
-    item = work_module.work_module_items.find_or_initialize_by(uuid: item_data['uuid'])
-    item.activity = activity
-    item.order = item_data['order']
-    item.archived = item_data['archived']
-    @records << item
+    if activity
+      item = work_module.work_module_items.find_or_initialize_by(uuid: item_data['uuid'])
+      item.activity = activity
+      item.order = item_data['order']
+      item.archived = item_data['archived']
+      @records << item
+    end
   end
 
-  def scan_for_record_by_uuid(uuid)
-    @records.detect { |r| r.uuid == uuid }
+  def scan_for_record_by_uuid(uuid, klass = nil)
+    @records.detect { |r| r.uuid == uuid && (klass.nil? || r.is_a?(klass)) }
   end
 
   # There's intentionally no AR mass assignment
