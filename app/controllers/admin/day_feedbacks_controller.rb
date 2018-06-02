@@ -7,9 +7,7 @@ class Admin::DayFeedbacksController < Admin::BaseController
 
   def index
     # => A location wasn't provided, use the current_user's location as the default
-    if params[:location_id].nil?
-      params[:location_id] = current_user.location.id.to_s
-    end
+    params[:location_id] = current_user.location.id.to_s if params[:location_id].nil?
 
     @day_feedbacks = DayFeedback.filter_by(filter_by_params)
     @day_feedbacks = @day_feedbacks.from_cohort(Cohort.find(params[:cohort_id])) if params[:cohort_id].present?

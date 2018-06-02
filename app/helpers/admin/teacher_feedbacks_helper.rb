@@ -1,6 +1,7 @@
 module Admin::TeacherFeedbacksHelper
+
   def avg_ratings(ratings)
-    avg = ratings.inject(0){|sum,feedback| sum + feedback.rating}
+    avg = ratings.inject(0) { |sum, feedback| sum + feedback.rating }
     (avg.to_f / ratings.length.to_f).round(2)
   end
 
@@ -11,4 +12,5 @@ module Admin::TeacherFeedbacksHelper
       "N/A"
     end
   end
+
 end

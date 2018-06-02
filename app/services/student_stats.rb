@@ -21,9 +21,7 @@ class StudentStats
   end
 
   def days_idle_before_prep
-    if prep_started?
-      (prep_started_at.to_date - @student.created_at.to_date).to_i
-    end
+    (prep_started_at.to_date - @student.created_at.to_date).to_i if prep_started?
   end
 
   def days_registered_before_start

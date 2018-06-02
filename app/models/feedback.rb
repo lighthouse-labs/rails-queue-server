@@ -19,8 +19,8 @@ class Feedback < ApplicationRecord
       .where("day LIKE ?", day.downcase + "%")
       .references(:activity)
   }
-  scope :lecture, -> { teacher_feedbacks.joins(:activity).where(activities: {type: 'Lecture'}).references(:activities) }
-  scope :breakout, -> { teacher_feedbacks.joins(:activity).where(activities: {type: 'Breakout'}).references(:activities) }
+  scope :lecture, -> { teacher_feedbacks.joins(:activity).where(activities: { type: 'Lecture' }).references(:activities) }
+  scope :breakout, -> { teacher_feedbacks.joins(:activity).where(activities: { type: 'Breakout' }).references(:activities) }
   scope :assistance, -> { where(feedbackable_type: 'Assistance') }
   scope :direct, -> { where(feedbackable_type: nil) }
 
@@ -89,8 +89,8 @@ class Feedback < ApplicationRecord
 
   def self.to_csv
     CSV.generate(headers: true) do |csv|
-      csv << ['Name', 'Email', 'Date', 'Type', 'Notes', 'Rating']
-      all.each do |feedback|
+      csv << %w[Name Email Date Type Notes Rating]
+      all.find_each do |feedback|
         csv << [feedback.teacher.full_name, feedback.teacher.email, feedback.created_at, feedback.feedbackable_type, feedback.notes, feedback.rating]
       end
     end
