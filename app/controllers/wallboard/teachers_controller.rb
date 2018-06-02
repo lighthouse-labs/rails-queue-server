@@ -4,7 +4,7 @@ class Wallboard::TeachersController < Wallboard::BaseController
     location = Location.find_by(name: teachers_params)
 
     unless location
-      render json: { error: "Unable to find location #{teachers_params}" }, status: 422
+      render json: { error: "Unable to find location #{teachers_params}" }, status: :unprocessable_entity
       return
     end
 

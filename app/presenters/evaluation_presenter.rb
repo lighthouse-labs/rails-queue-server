@@ -14,7 +14,7 @@ class EvaluationPresenter < BasePresenter
   end
 
   def teacher_info
-    if evaluation && evaluation.teacher
+    if evaluation&.teacher
       teacher_info = teacher_avatar
       teacher_info += teacher_name
       teacher_info += tag("br")
@@ -106,9 +106,7 @@ class EvaluationPresenter < BasePresenter
       options = eval_options_hash(res.humanize, detail['score'])
       value = content_tag(:strong, detail['score'].to_s)
       result += content_tag(:span, value, options, false)
-      unless index + 1 == evaluation.result.count
-        result += content_tag(:small, nbsp_escape_false + "+ ")
-      end
+      result += content_tag(:small, nbsp_escape_false + "+ ") unless index + 1 == evaluation.result.count
     end
     result
   end

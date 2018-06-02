@@ -41,9 +41,7 @@ class Recording < ApplicationRecord
   private
 
   def ensure_program_has_recordings_bucket
-    unless program.recordings_bucket
-      errors.add :program, 'associated program must specify recordings bucket'
-    end
+    errors.add :program, 'associated program must specify recordings bucket' unless program.recordings_bucket
   end
 
   def s3_object_key

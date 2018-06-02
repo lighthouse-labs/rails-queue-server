@@ -37,11 +37,11 @@ class Student < User
   end
 
   def active_student?
-    cohort && cohort.active?
+    cohort&.active?
   end
 
   def alumni?
-    cohort && cohort.finished?
+    cohort&.finished?
   end
 
   def revert_to_prep

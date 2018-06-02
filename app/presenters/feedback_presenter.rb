@@ -77,11 +77,7 @@ class FeedbackPresenter < BasePresenter
   end
 
   def teacher
-    if feedback.teacher.present?
-      feedback.teacher
-    else
-      'N/A'
-    end
+    feedback.teacher.presence || 'N/A'
   end
 
   def assistance_request_reason
