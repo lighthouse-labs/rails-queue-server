@@ -42,9 +42,9 @@ class Teacher::CohortSwitcherController < Teacher::BaseController
     else
       location = Location.find params[:location_id]
       @filtered_cohorts = if location.supported_by_location
-                   @filtered_cohorts.where(location_id: location.supported_by_location.id)
-                 else
-                   @filtered_cohorts.where(location_id: location.id)
+                            @filtered_cohorts.where(location_id: location.supported_by_location.id)
+                          else
+                            @filtered_cohorts.where(location_id: location.id)
                  end
     end
   end
@@ -52,17 +52,17 @@ class Teacher::CohortSwitcherController < Teacher::BaseController
   def filter_by_status
     params[:status] ||= 'Active/Finished'
     @filtered_cohorts = case params[:status]
-               when 'Upcoming'
-                 @filtered_cohorts.upcoming
-               when 'Active'
-                 @filtered_cohorts.is_active
-               when 'Active/Finished'
-                 @filtered_cohorts.started_before(Date.current)
-               when 'Finished'
-                 @filtered_cohorts.is_finished
-               else
-                 @filtered_cohorts
-               end
+                        when 'Upcoming'
+                          @filtered_cohorts.upcoming
+                        when 'Active'
+                          @filtered_cohorts.is_active
+                        when 'Active/Finished'
+                          @filtered_cohorts.started_before(Date.current)
+                        when 'Finished'
+                          @filtered_cohorts.is_finished
+                        else
+                          @filtered_cohorts
+                        end
   end
 
   def filter_by_keywords

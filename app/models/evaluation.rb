@@ -77,7 +77,7 @@ class Evaluation < ApplicationRecord
   before_create :set_due_date
 
   def self.filter_by(params, cohort, project)
-    if params["evals"] && params["evals"].include?("All Evals")
+    if params["evals"]&.include?("All Evals")
       filter_by_all_evals(cohort, project)
     else
       filter_by_most_recent(cohort, project)

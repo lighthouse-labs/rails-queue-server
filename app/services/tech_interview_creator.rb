@@ -43,9 +43,7 @@ class TechInterviewCreator
   def handle_existing_interview(cohort, location, interview)
     Rails.logger.info "Existing W#{interview.week} interview found for #{location.name}: #{interview.id}"
 
-    if should_slack?(interview)
-      slack_alert interview, generate_slack_message(cohort, location, interview)
-    end
+    slack_alert interview, generate_slack_message(cohort, location, interview) if should_slack?(interview)
   end
 
   def should_slack?(interview)

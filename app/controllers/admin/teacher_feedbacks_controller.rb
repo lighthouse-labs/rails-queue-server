@@ -1,7 +1,6 @@
 class Admin::TeacherFeedbacksController < Admin::BaseController
 
   def index
-
     @feedbacks = Feedback.teacher_feedbacks
 
     apply_filters

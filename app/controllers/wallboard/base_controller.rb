@@ -1,4 +1,5 @@
 class Wallboard::BaseController < ActionController::Base
+
   before_action :verify_token
 
   private
@@ -12,9 +13,7 @@ class Wallboard::BaseController < ActionController::Base
   end
 
   def verify_token
-    unless get_token == "Bearer #{auth_token}"
-      render json: {error: 'Unauthorized'}, status: 401
-    end
+    render json: { error: 'Unauthorized' }, status: :unauthorized unless get_token == "Bearer #{auth_token}"
   end
 
   def get_token
@@ -24,4 +23,5 @@ class Wallboard::BaseController < ActionController::Base
   def auth_token
     ENV['WALLBOARD_TOKEN']
   end
+
 end
