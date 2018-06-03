@@ -26,24 +26,22 @@ class Content::LoadWorkbooks
     data_dir = '_Workbooks'
     dir = File.join(@repo_dir, data_dir)
 
-    seq = 1
     Dir.entries(dir).sort.each do |content_file|
       next if content_file.starts_with?('.')
       # only expect directories for workbooks (new format)
       full_path = File.join(@repo_dir, data_dir, content_file)
       next unless File.directory?(full_path)
-      workbook_data.push handle_workbook_directory(@repo_dir, data_dir, content_file, seq)
-      seq += 1
+      workbook_data.push handle_workbook_directory(@repo_dir, data_dir, content_file)
     end
 
     workbook_data.compact
   end
 
-  def handle_workbook_directory(repo_dir, data_dir, dir_name, sequence)
+  def handle_workbook_directory(repo_dir, data_dir, dir_name)
     dir_path = File.join(repo_dir, data_dir, dir_name)
     attrs    = YAML.load_file(File.join(dir_path, '_config.yml'))
 
-    attrs['file_path']     = File.join('data', data_dir, dir_name).to_s
+    attrs['file_path'] = File.join('data', data_dir, dir_name).to_s
     attrs
   end
 
@@ -55,12 +53,12 @@ class Content::LoadWorkbooks
 
       modules.each do |module_attributes|
         Content::LoadWorkModule.call(
-          repo: @repo,
-          log: @log,
+          repo:     @repo,
+          log:      @log,
           repo_dir: @repo_dir,
-          records: @records,
+          records:  @records,
           workbook: workbook,
-          data: module_attributes
+          data:     module_attributes
         )
       end
     end
@@ -79,11 +77,11 @@ class Content::LoadWorkbooks
     uuid = attributes.delete 'uuid'
 
     attrs = {
-      name:                 attributes['name'],
-      slug:                 attributes['slug'],
-      unlock_on_day:        attributes['unlock_on_day'],
-      content_file_path:    attributes['file_path'],
-      content_repository:   @repo
+      name:               attributes['name'],
+      slug:               attributes['slug'],
+      unlock_on_day:      attributes['unlock_on_day'],
+      content_file_path:  attributes['file_path'],
+      content_repository: @repo
     }
 
     workbook = Workbook.find_or_initialize_by(uuid: uuid)

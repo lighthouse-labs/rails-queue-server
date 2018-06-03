@@ -36,6 +36,8 @@ class WorkModule < ApplicationRecord
     @stretch_duration_in_hours ||= work_module_items.active.stretch.inject(0) do |sum, item|
       if item.activity&.active?
         sum += item.activity.average_time_spent || item.activity.duration || 0
+      else
+        sum
       end
     end / 60.0
   end
@@ -45,6 +47,8 @@ class WorkModule < ApplicationRecord
     @total_duration_in_hours ||= work_module_items.active.inject(0) do |sum, item|
       if item.activity&.active?
         sum += item.activity.average_time_spent || item.activity.duration || 0
+      else
+        sum
       end
     end / 60.0
   end

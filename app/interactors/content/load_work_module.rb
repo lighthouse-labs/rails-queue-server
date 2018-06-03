@@ -53,10 +53,10 @@ class Content::LoadWorkModule
   #   it would be problematic from a maintenance workflow standpoint - KV
   def build_attributes(d)
     attrs = {
-      workbook:           @workbook,
-      name:               d['name'],
-      slug:               d['slug'],
-      archived:           d['archived'],
+      workbook: @workbook,
+      name:     d['name'],
+      slug:     d['slug'],
+      archived: d['archived']
     }
     # if sequence is not specified, do not change the existing one
     attrs[:order] = d['order'] if d['order']
