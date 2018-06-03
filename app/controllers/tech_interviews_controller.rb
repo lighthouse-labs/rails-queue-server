@@ -106,15 +106,11 @@ class TechInterviewsController < ApplicationController
   end
 
   def only_incomplete
-    if @tech_interview.completed?
-      redirect_to @tech_interview, alert: 'Already Completed!'
-    end
+    redirect_to @tech_interview, alert: 'Already Completed!' if @tech_interview.completed?
   end
 
   def only_queued
-    unless @tech_interview.queued?
-      redirect_to :back, alert: 'No longer in the queue!'
-    end
+    redirect_to :back, alert: 'No longer in the queue!' unless @tech_interview.queued?
   end
 
   def only_in_progress

@@ -77,17 +77,13 @@ class FeedbackPresenter < BasePresenter
   end
 
   def teacher
-    if feedback.teacher.present?
-      feedback.teacher
-    else
-      'N/A'
-    end
+    feedback.teacher.presence || 'N/A'
   end
 
   def assistance_request_reason
     if feedback.feedbackable_type == "Assistance"
       assistance_request = AssistanceRequest.find_by(assistance_id: feedback.feedbackable_id)
-      assistance_request.reason if assistance_request
+      assistance_request&.reason
     else
       'N/A'
     end

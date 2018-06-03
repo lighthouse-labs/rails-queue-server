@@ -126,7 +126,7 @@ class Assistance < ApplicationRecord
     begin
       poster = Slack::Poster.new('lighthouse', ENV['SLACK_TOKEN'], options)
       poster.send_message("*Assisted #{assistee.full_name} for #{((end_at - start_at) / 60).to_i} minutes*:\n #{notes}")
-    rescue
+    rescue StandardError
     end
   end
 

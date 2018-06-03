@@ -184,7 +184,7 @@ class ActivitiesController < ApplicationController
   def load_edit_url
     @form_url = if params[:day_number]
                   day_activity_path(params[:day_number], @activity)
-                elsif @section && @section.is_a?(Prep)
+                elsif @section&.is_a?(Prep)
                   prep_activity_path(@section, @activity)
       # elsif @section && @section.is_a?(Project)
       # project_activity_path <= Not yet supported - KV

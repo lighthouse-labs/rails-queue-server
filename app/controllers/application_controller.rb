@@ -50,12 +50,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def teacher?
-    current_user && current_user.is_a?(Teacher)
+    current_user&.is_a?(Teacher)
   end
   helper_method :teacher?
 
   def student?
-    current_user && current_user.is_a?(Student)
+    current_user&.is_a?(Student)
   end
   helper_method :student?
 
@@ -88,7 +88,6 @@ class ApplicationController < ActionController::Base
       current_user.cohort.location : current_user.location
 
     Teacher.where(on_duty: true, location: location)
-
   end
   helper_method :teachers_on_duty
 
@@ -191,7 +190,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_timezone
-    if cohort && cohort.location
+    if cohort&.location
       # all locations are assumed to have timezone
       Time.zone = cohort.location.timezone
     end

@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20180601004248) do
     t.float    "average_rating"
     t.integer  "average_time_spent"
     t.boolean  "homework"
+    t.boolean  "milestone"
     t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
     t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
     t.index ["sequence"], name: "index_activities_on_sequence", using: :btree

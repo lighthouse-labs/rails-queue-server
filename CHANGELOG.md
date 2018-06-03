@@ -1,5 +1,18 @@
 # Change Log
 
+## [2018.06.02.1730](https://github.com/lighthouse-labs/compass/tree/2018.06.02.1730) (2018-06-03)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.18.0800...2018.06.02.1730)
+
+**Merged pull requests:**
+
+- Rubocop auto fix \(+ only a few manual tweaks\) [\#658](https://github.com/lighthouse-labs/compass/pull/658) ([kvirani](https://github.com/kvirani))
+- Removed Note Field on Mark Completed Modal [\#656](https://github.com/lighthouse-labs/compass/pull/656) ([krsnachandra](https://github.com/krsnachandra))
+- Added Students Button to Teacher Cohort-Switcher [\#648](https://github.com/lighthouse-labs/compass/pull/648) ([krsnachandra](https://github.com/krsnachandra))
+- Separated Breakout Stats From Lecture Stats for Admins [\#646](https://github.com/lighthouse-labs/compass/pull/646) ([krsnachandra](https://github.com/krsnachandra))
+- Support For Milestone Prep Activities [\#644](https://github.com/lighthouse-labs/compass/pull/644) ([krsnachandra](https://github.com/krsnachandra))
+- Bootsnap Added For Boot Time Performance [\#642](https://github.com/lighthouse-labs/compass/pull/642) ([krsnachandra](https://github.com/krsnachandra))
+- Activity Feedback Ducks Now Labelled [\#637](https://github.com/lighthouse-labs/compass/pull/637) ([krsnachandra](https://github.com/krsnachandra))
+
 ## [2018.05.18.0800](https://github.com/lighthouse-labs/compass/tree/2018.05.18.0800) (2018-05-18)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.17.0710...2018.05.18.0800)
 

@@ -28,7 +28,7 @@ class AssistanceRequestsController < ApplicationController
     interviews = TechInterview.oldest_first.queued.interviewee_location(current_user.location)
     all_students = Student.in_active_cohort.active.order_by_last_assisted_at
 
-    cohort_id_week_hash = Location.find_by(name: params[:location]).cohorts.is_active.map{ |c| [c.id, c.week] }.to_h
+    cohort_id_week_hash = Location.find_by(name: params[:location]).cohorts.is_active.map { |c| [c.id, c.week] }.to_h
     cohorts = Cohort.where(id: cohort_id_week_hash.keys)
     tech_interview_templates = TechInterviewTemplate.where(week: cohort_id_week_hash.values)
 
@@ -39,16 +39,16 @@ class AssistanceRequestsController < ApplicationController
                      all_students.cohort_in_locations([params[:location]])
                    end
 
-    render json: RequestQueueSerializer.new(assistances:                my_active_assistances,
-                                            requests:                   requests,
-                                            code_reviews:               code_reviews,
-                                            active_evaluations:         my_active_evaluations,
-                                            evaluations:                evaluations,
-                                            active_tech_interviews:     my_active_interviews,
-                                            tech_interviews:            interviews,
-                                            students:                   all_students,
-                                            tech_interview_templates:   tech_interview_templates,
-                                            cohorts:                    cohorts).as_json
+    render json: RequestQueueSerializer.new(assistances:              my_active_assistances,
+                                            requests:                 requests,
+                                            code_reviews:             code_reviews,
+                                            active_evaluations:       my_active_evaluations,
+                                            evaluations:              evaluations,
+                                            active_tech_interviews:   my_active_interviews,
+                                            tech_interviews:          interviews,
+                                            students:                 all_students,
+                                            tech_interview_templates: tech_interview_templates,
+                                            cohorts:                  cohorts).as_json
   end
 
   def status
