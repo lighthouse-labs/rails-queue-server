@@ -18,6 +18,17 @@ class Workbook < ApplicationRecord
   scope :prep, -> { where(unlock_on_day: [nil, '']) }
   scope :active, -> { where(archived: [false, nil]) }
 
+  ## CLASS METHODS (SCOPES)
+
+  def self.available_to(user)
+    workbooks = Workbook.active
+    if user.is_a?(Student)
+      workbooks.until_day(user.curriculum_day)
+    elsif user.prospect?
+      workbooks.prep
+    end
+  end
+
   ## INSTANCE METHODS
 
   def to_param

@@ -13,7 +13,7 @@ class WorkbooksController < ApplicationController
   private
 
   def require_workbook
-    @workbook = Workbook.active.find_by(slug: params[:id])
+    @workbook = Workbook.available_to(current_user).find_by!(slug: params[:id])
   end
 
   def redirect_to_first_activity

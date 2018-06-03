@@ -51,7 +51,7 @@ class ActivitiesController < ApplicationController
   private
 
   def load_workbook
-    @workbook ||= Workbook.find_by(slug: params[:workbook_id]) if params[:workbook_id].present?
+    @workbook ||= Workbook.available_to(current_user).find_by!(slug: params[:workbook_id]) if params[:workbook_id].present?
   end
 
   def apply_filters
