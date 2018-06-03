@@ -65,14 +65,6 @@ class Content::LoadWorkbooks
     nil
   end
 
-  # def reorder_hash(hash)
-  #   ordered = []
-  #   hash.each do |k, data|
-  #     ordered[data['order'].to_i] = [k, data]
-  #   end
-  #   ordered.compact.to_h
-  # end
-
   def build_workbook(attributes)
     uuid = attributes.delete 'uuid'
 
@@ -80,6 +72,7 @@ class Content::LoadWorkbooks
       name:               attributes['name'],
       slug:               attributes['slug'],
       unlock_on_day:      attributes['unlock_on_day'],
+      public:             attributes['public'],
       content_file_path:  attributes['file_path'],
       content_repository: @repo
     }

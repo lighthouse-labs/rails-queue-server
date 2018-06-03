@@ -13,6 +13,7 @@ class Workbook < ApplicationRecord
 
   ## SCOPES
 
+  scope :publicly_available, -> { where(public: true) }
   scope :unlocks_on_day, ->(day) { where(unlock_on_day: day.to_s) }
   scope :until_day, ->(day) { where("workbooks.unlock_on_day <= ?", day.to_s) }
   scope :prep, -> { where(unlock_on_day: [nil, '']) }
@@ -22,7 +23,9 @@ class Workbook < ApplicationRecord
 
   def self.available_to(user)
     workbooks = Workbook.active
-    if user.is_a?(Student)
+    if user.nil?
+      workbooks.publicly_available
+    elsif user.is_a?(Student)
       workbooks.until_day(user.curriculum_day)
     elsif user.prospect?
       workbooks.prep
