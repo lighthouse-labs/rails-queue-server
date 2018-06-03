@@ -6,8 +6,8 @@ class Admin::PrepStatsController < Admin::BaseController
     @users = User.active.order(id: :desc)
     @users = @users.by_keywords(params[:keywords]) if params[:keywords].present?
     @users = @users.page(params[:page]).per(DEFAULT_PER)
-    @milestones = Activity.prep.milestone
-    @milestone_ids = @milestones.order(id: :asc).pluck(:id)
+    @milestones = Activity.active.prep.milestone.chronological_for_project
+    @milestone_count = @milestones.count
   end
 
 end

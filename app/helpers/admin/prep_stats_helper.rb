@@ -1,8 +1,8 @@
 module Admin::PrepStatsHelper
 
-  def milestones_complete?(student, milestone_ids)
-    complete_milestones = student.activity_submissions.proper.order(activity_id: :asc).pluck(:activity_id).uniq & milestone_ids
-    return complete_milestones === milestone_ids
+  # has the student completed all the milestone activities?
+  def milestones_complete?(student, milestone_activities, milestone_count)
+    student.activity_submissions.proper.where(activity_id: milestone_activities.select(:id)).count == milestone_count
   end
 
 end
