@@ -4,5 +4,23 @@
   == render 'layouts/side_nav'
 
 - present @lecture do |lecture_presenter|
+  .lecture-show
+    h1
+      = @lecture.subject 
+    h2
+      = " by " + @lecture.presenter_name
 
-  
+    - if lecture_presenter.youtube_code
+      .card
+        .card-body.video-wrapper
+          iframe frameborder="0" src="https://www.youtube.com/embed/#{lecture_presenter.youtube_code}" gesture="media" allow="encrypted-media" allowfullscreen
+
+    - if @lecture.teacher_notes
+      .card
+        .card-body.teacher-notes
+          = "Teacher Notes: " + @lecture.teacher_notes
+    
+    - if @lecture.body
+      .card
+        .card-body.body
+          == markdown @lecture.body
