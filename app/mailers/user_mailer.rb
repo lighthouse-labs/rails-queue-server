@@ -12,6 +12,14 @@ class UserMailer < ActionMailer::Base
           bcc:     students.pluck(:email)
   end
 
+  def new_lecture(lecture)
+    @lecture = lecture
+    students = @lecture.cohort.students.active
+    mail  subject: "#{@lecture.day.upcase} Lecture: #{@lecture.subject}",
+          to:      @lecture.cohort.teacher_email_group || ENV['INSTRUCTOR_EMAIL_GROUP'] || ENV['EMAIL_SENDER'],
+          bcc:     students.pluck(:email)
+  end
+
   def new_code_review_message(code_review)
     @message = code_review.student_notes
 
