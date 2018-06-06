@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe AssistanceRequest do
-
   let(:location) { create(:location) }
   let(:cohort) { create(:cohort, local_assistance_queue: true, location: location) }
   let(:requestor) { create(:student, location: location, cohort: cohort) }
@@ -24,7 +23,7 @@ describe AssistanceRequest do
   end
 
   it 'should save if the assistance request reason is longer than 255 characters' do
-    ar = build(:assistance_request, reason: (0...300).map { (65 + rand(26)).chr }.join)
+    ar = build(:assistance_request, reason: (0...300).map { rand(65..90).chr }.join)
     expect { ar.save! }.to_not raise_error
   end
 
@@ -105,11 +104,11 @@ describe AssistanceRequest do
       expect(ar1.position_in_queue).to eq(1)
       expect(ar2.position_in_queue).to eq(2)
       expect(ar3.position_in_queue).to eq(3)
-      ar1.update_attributes(assistance: create(:assistance))
+      ar1.update(assistance: create(:assistance))
       expect(ar1.position_in_queue).to be_nil
       expect(ar2.position_in_queue).to eq(1)
       expect(ar3.position_in_queue).to eq(2)
-      ar3.update_attributes(assistance: create(:assistance))
+      ar3.update(assistance: create(:assistance))
       expect(ar2.position_in_queue).to eq(1)
       expect(ar3.position_in_queue).to be_nil
     end

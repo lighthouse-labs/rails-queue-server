@@ -35,14 +35,12 @@ class QuizSubmission < ApplicationRecord
   def option_selected?(option)
     @memo ||= {}
     option_id = option.is_a?(Option) ? option.id : option
-    unless @memo.key?(option_id)
-      @memo[option_id] = answers.map(&:option_id).include?(option_id)
-    end
+    @memo[option_id] = answers.map(&:option_id).include?(option_id) unless @memo.key?(option_id)
     @memo[option_id]
   end
 
   def score
-    answers.inject(0) { |sum, answer| answer.option && answer.option.correct ? sum + 1 : sum }
+    answers.inject(0) { |sum, answer| answer.option&.correct ? sum + 1 : sum }
   end
 
   def self.average_correct
@@ -67,9 +65,7 @@ class QuizSubmission < ApplicationRecord
   end
 
   def set_cohort
-    if user.try(:cohort_id) && quiz.try(:bootcamp?)
-      self.cohort_id = user.cohort_id
-    end
+    self.cohort_id = user.cohort_id if user.try(:cohort_id) && quiz.try(:bootcamp?)
   end
 
 end

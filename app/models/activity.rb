@@ -56,6 +56,7 @@ class Activity < ApplicationRecord
 
   scope :core,    -> { where(stretch: [nil, false]) }
   scope :stretch, -> { where(stretch: true) }
+  scope :milestone, -> { where(milestone: true) }
 
   scope :prep, -> {
     joins(:section).where(sections: { type: 'Prep' })
@@ -142,11 +143,11 @@ class Activity < ApplicationRecord
   end
 
   def prep?
-    section && section.is_a?(Prep)
+    section&.is_a?(Prep)
   end
 
   def project?
-    section && section.is_a?(Project)
+    section&.is_a?(Project)
   end
 
   def bootcamp?
@@ -154,7 +155,7 @@ class Activity < ApplicationRecord
   end
 
   def teachers_only?
-    section && section.is_a?(TeacherSection)
+    section&.is_a?(TeacherSection)
   end
 
   def has_lectures?

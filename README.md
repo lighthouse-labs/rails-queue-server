@@ -1,6 +1,7 @@
 Compass - by Lighthouse Labs
 =========
 
+[![Build Status](https://semaphoreci.com/api/v1/projects/cc21e629-c80a-4f2e-b372-0ef4226c2e09/2002019/badge.svg)](https://semaphoreci.com/lighthouse-labs/compass)
 [![Code Climate](https://codeclimate.com/repos/5908c5f748708a0264000096/badges/2aace388b2ded83be3a6/gpa.svg)](https://codeclimate.com/repos/5908c5f748708a0264000096/feed)
 [![Test Coverage](https://codeclimate.com/repos/5908c5f748708a0264000096/badges/2aace388b2ded83be3a6/coverage.svg)](https://codeclimate.com/repos/5908c5f748708a0264000096/coverage)
 [![Issue Count](https://codeclimate.com/repos/5908c5f748708a0264000096/badges/2aace388b2ded83be3a6/issue_count.svg)](https://codeclimate.com/repos/5908c5f748708a0264000096/feed)

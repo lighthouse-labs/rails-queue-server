@@ -4,4 +4,5 @@ class TeacherSerializer < UserSerializer
              :bio,
              :quirky_fact,
              :slack
+
 end
