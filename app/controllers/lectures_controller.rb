@@ -20,12 +20,19 @@ class LecturesController < ApplicationController
   end
 
   def create
-    @lecture = @activity.lectures.new(lecture_params.merge(day: @activity.day, presenter_name: current_user.full_name))
-    if @lecture.save
+
+    lecture_complete = Lecture::Complete.call(
+      activity: @activity,
+      lecture_params: lecture_params,
+      presenter: User.find(lecture_params[:presenter_id])
+    )
+
+    if lecture_complete.success?
       redirect_to activity_lecture_path(@activity, @lecture), notice: 'Created! Students notified via e-mail.'
     else
       render :new # edit
     end
+    
   end
 
   private
