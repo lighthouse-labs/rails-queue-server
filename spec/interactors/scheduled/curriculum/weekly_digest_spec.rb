@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe WeeklyDigest do
+describe Scheduled::Curriculum::WeeklyDigest do
   program = Program.find_or_create_by(name: "Bootcamp") do |p|
     p.weeks = 10
     p.days_per_week = 5
@@ -10,9 +10,10 @@ describe WeeklyDigest do
     p.has_interviews = true
     p.has_code_reviews = true
     p.has_queue = true
+    p.curriculum_team_email = "curriculum@team.com"
   end
 
-  subject(:context) { WeeklyDigest.call(program: program) }
+  subject(:context) { Scheduled::Curriculum::WeeklyDigest.call(program: program) }
 
   describe ".call" do
 
