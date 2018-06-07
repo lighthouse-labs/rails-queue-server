@@ -1,0 +1,19 @@
+= link_to workbook, class: 'project-bio' do
+  .info
+    .icon.icon-type title='Workbook'
+      i.fa.fa-book
+    .time.time-duration
+      = workbook.total_duration
+    .name
+      = workbook.name
+    .status
+      - if false
+        - completed = project.evaluations.where(state: ["accepted", "auto_accepted"]).where(cohort: cohort).count
+        - total = cohort.students.active.count
+        - ratio = total > 0 ? (completed.to_f / total.to_f) * 100 : 0
+        .progress title="#{completed} / #{total} (#{ratio.round}%) Complete" data-toggle="tooltip"
+          .progress-bar class=progress_bar_class(ratio) role='progressbar' aria-valuenow=ratio aria-valuemin='0' aria-valuemax='100' style="width:#{ratio}%"
+            span.sr-only = "#{ratio}% Complete"
+  .details
+    .blurb.clearfix
+      p = workbook.description

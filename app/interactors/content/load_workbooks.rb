@@ -40,6 +40,8 @@ class Content::LoadWorkbooks
   def handle_workbook_directory(repo_dir, data_dir, dir_name)
     dir_path = File.join(repo_dir, data_dir, dir_name)
     attrs    = YAML.load_file(File.join(dir_path, '_config.yml'))
+    desc_file = File.join(dir_path, 'description.md')
+    attrs['description'] = File.open(desc_file).read if File.exist?(desc_file)
 
     attrs['file_path'] = File.join('data', data_dir, dir_name).to_s
     attrs
@@ -73,6 +75,7 @@ class Content::LoadWorkbooks
       slug:               attributes['slug'],
       unlock_on_day:      attributes['unlock_on_day'],
       public:             attributes['public'],
+      description:        attributes['description'],
       content_file_path:  attributes['file_path'],
       content_repository: @repo
     }

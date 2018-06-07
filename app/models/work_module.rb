@@ -1,12 +1,12 @@
 class WorkModule < ApplicationRecord
 
-  default_scope { order(order: :asc) }
+  default_scope { order(sequence: :asc) }
 
   ## ASSOCIATIONS
 
   belongs_to :workbook
-  has_many :work_module_items, -> { order(order: :asc) }
-  has_many :activities, { through: :work_module_items }, -> { order(work_module_items: { order: :asc }) }
+  has_many :work_module_items, -> { order(sequence: :asc) }
+  has_many :activities, { through: :work_module_items }, -> { order(work_module_items: { sequence: :asc }) }
 
   ## VALIDATIONS
 

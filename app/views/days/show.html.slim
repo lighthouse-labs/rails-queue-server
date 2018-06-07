@@ -55,8 +55,16 @@
 
 - if @stretch_project
   h3 Stretch Project
-  p There is a stretch project that you can tackle as well, but only if you feel very comfortable with the core and stretch material already covered. [Link to about stretch projects maybe?]
+  p There is a stretch project that you can tackle as well, but only if you feel very comfortable with the core and stretch material already covered.
   = render @stretch_project
+
+- if @workbooks.any?
+  h3 Workbooks
+  p
+    | There
+    = @workbooks.size > 1 ? " are a few workbooks which unlock " : " is a workbook which unlocks "
+    | for you today. Workbooks are additional content  organized into work modules in a very similar manner to the Web and iOS Bootcamp prep courses.
+  = render @workbooks
 
 - if ENV['GOOGLE_API_KEY'] && current_user.location.try(:calendar?)
   hr

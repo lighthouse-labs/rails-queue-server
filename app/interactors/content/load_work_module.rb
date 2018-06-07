@@ -16,7 +16,7 @@ class Content::LoadWorkModule
 
     work_module = WorkModule.find_or_initialize_by(uuid: uuid)
     work_module.assign_attributes(build_attributes(d))
-    work_module.order ||= 99
+    work_module.sequence ||= 99
 
     @records.push work_module
 
@@ -39,7 +39,7 @@ class Content::LoadWorkModule
     if activity
       item = work_module.work_module_items.find_or_initialize_by(uuid: item_data['uuid'])
       item.activity = activity
-      item.order = item_data['order']
+      item.sequence = item_data['order']
       item.archived = item_data['archived']
       @records << item
     end
@@ -59,7 +59,7 @@ class Content::LoadWorkModule
       archived: d['archived']
     }
     # if sequence is not specified, do not change the existing one
-    attrs[:order] = d['order'] if d['order']
+    attrs[:sequence] = d['order'] if d['order']
     attrs
   end
 

@@ -4,6 +4,8 @@ class Workbook < ApplicationRecord
 
   belongs_to :content_repository
   has_many :work_modules
+  has_many :work_module_items, through: :work_modules
+  has_many :activities, through: :work_module_items
 
   ## VALIDATIONS
 
@@ -36,6 +38,10 @@ class Workbook < ApplicationRecord
 
   def to_param
     slug
+  end
+
+  def total_duration
+    activities.active.sum(:duration)
   end
 
 end
