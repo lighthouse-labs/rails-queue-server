@@ -9,7 +9,7 @@ class Scheduled::Curriculum::WeeklyDigest
 
   def call
     feedbacks = ActivityFeedback.last_seven_days.with_details.filter_by_ratings([1, 2, 3]).reverse_chronological_order.filter_by_program(@program.id).group_by(&:activity)
-    AdminMailer.weekly_digest(feedbacks, @email).deliver
+    AdminMailer.weekly_digest(feedbacks, @program, @email).deliver
   end
 
 end

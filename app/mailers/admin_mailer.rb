@@ -25,9 +25,10 @@ class AdminMailer < ActionMailer::Base
     )
   end
 
-  def weekly_digest(feedbacks, email)
+  def weekly_digest(feedbacks, program, email)
     @feedbacks = feedbacks
-    mail subject: 'Weekly Digest of Negative Curriculum Feedback', to: email
+    date = Date.current.to_s(:db)
+    mail subject: "Negative Curriculum Feedback (#{program.name}) - Week of #{date}", to: email
   end
 
 end
