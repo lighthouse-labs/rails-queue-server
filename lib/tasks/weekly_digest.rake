@@ -5,7 +5,7 @@ namespace :weekly_digest do
   task deploy: :environment do
     programs = Program.all
     programs.each do |program|
-      WeeklyDigest.call(program: program)
+      Scheduled::Curriculum::WeeklyDigest.call(program: program)
     end
   end
 
