@@ -1,5 +1,12 @@
 # Change Log
 
+## [2018.06.06.1615](https://github.com/lighthouse-labs/compass/tree/2018.06.06.1615) (2018-06-06)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.06.02.1730...2018.06.06.1615)
+
+**Merged pull requests:**
+
+- Student Feedback Submission Fixed [\#664](https://github.com/lighthouse-labs/compass/pull/664) ([krsnachandra](https://github.com/krsnachandra))
+
 ## [2018.06.02.1730](https://github.com/lighthouse-labs/compass/tree/2018.06.02.1730) (2018-06-03)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.18.0800...2018.06.02.1730)
 
