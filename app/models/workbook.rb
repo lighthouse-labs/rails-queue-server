@@ -31,6 +31,8 @@ class Workbook < ApplicationRecord
       workbooks.until_day(user.curriculum_day)
     elsif user.prospect?
       workbooks.prep
+    else
+      workbooks
     end
   end
 
