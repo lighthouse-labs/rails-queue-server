@@ -36,7 +36,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
               i.fa.fa-fw.fa-paper-plane-o
               | Prep Work
 
-            - if available_workbooks.any?
+            - if available_workbooks.present?
               .dropdown-divider
               - available_workbooks.each do |workbook|
                 = link_to workbook, class: 'dropdown-item', title: workbook.name
