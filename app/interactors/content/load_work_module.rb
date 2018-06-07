@@ -37,10 +37,11 @@ class Content::LoadWorkModule
     activity = scan_for_record_by_uuid(item_data['activity'], Activity)
 
     if activity
-      item = work_module.work_module_items.find_or_initialize_by(uuid: item_data['uuid'])
-      item.activity = activity
-      item.sequence = item_data['order']
-      item.archived = item_data['archived']
+      item = WorkModuleItem.find_or_initialize_by(uuid: item_data['uuid'])
+      item.work_module = work_module
+      item.activity    = activity
+      item.sequence    = item_data['order']
+      item.archived    = item_data['archived']
       @records << item
     end
   end
