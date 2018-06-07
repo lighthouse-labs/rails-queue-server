@@ -1,5 +1,7 @@
 class WorkModuleItem < ApplicationRecord
 
+  default_scope { order(sequence: :asc) }
+
   ## ASSOCIATIONS
 
   belongs_to :work_module

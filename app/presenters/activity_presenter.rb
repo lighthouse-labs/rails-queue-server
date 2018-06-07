@@ -42,25 +42,28 @@ class ActivityPresenter < BasePresenter
     end
   end
 
-  def previous_button
-    if activity.previous
+  def previous_button(workbook = nil)
+    other_activity = previous_activity(workbook)
+
+    if other_activity
       content_tag :div, class: 'previous-activity' do
         (
           content_tag(:label, 'Previous:') +
-          content_tag(:i, nil, class: icon_for(activity.previous)) + ' ' +
-          link_to(descriptive_activity_name(activity.previous), get_activity_path(activity.previous))
+          content_tag(:i, nil, class: icon_for(other_activity)) + ' ' +
+          link_to(descriptive_activity_name(other_activity), get_activity_path(other_activity, workbook))
         ).html_safe
       end
     end
   end
 
-  def next_button
-    if activity.next
+  def next_button(workbook = nil)
+    other_activity = next_activity(workbook)
+    if other_activity
       content_tag :div, class: 'next-activity' do
         (
           content_tag(:label, 'Next:') +
-          content_tag(:i, nil, class: icon_for(activity.next)) + ' ' +
-          link_to(descriptive_activity_name(activity.next), get_activity_path(activity.next))
+          content_tag(:i, nil, class: icon_for(other_activity)) + ' ' +
+          link_to(descriptive_activity_name(other_activity), get_activity_path(other_activity, workbook))
         ).html_safe
       end
     end
@@ -70,9 +73,10 @@ class ActivityPresenter < BasePresenter
     activity.allow_submissions? ? "Submissions" : "Completions"
   end
 
-  def submission_form
+  def submission_form(workbook = nil)
     if allow_completion?
-      next_path = activity.next ? get_activity_path(activity.next) : get_next_index_path(activity)
+      next_activity = next_activity(workbook)
+      next_path = next_activity ? get_activity_path(next_activity, workbook) : get_next_index_path(activity, workbook)
       if activity.evaluates_code?
         render "code_activity_submission_form", next_path: next_path
       else
@@ -99,6 +103,14 @@ class ActivityPresenter < BasePresenter
   end
 
   protected
+
+  def next_activity(workbook = nil)
+    workbook ? workbook.next_activity(activity) : activity.next
+  end
+
+  def previous_activity(workbook = nil)
+    workbook ? workbook.previous_activity(activity) : activity.previous
+  end
 
   def project?
     activity.project?
