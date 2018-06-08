@@ -7,7 +7,5 @@ FactoryGirl.define do
     technical_rating 1
     style_rating 1
     notes "MyText"
-    review_id 1
-    review_type "MyString"
   end
 end
