@@ -1,5 +1,54 @@
 # Change Log
 
+## [2018.06.06.1615](https://github.com/lighthouse-labs/compass/tree/2018.06.06.1615) (2018-06-06)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.06.02.1730...2018.06.06.1615)
+
+**Merged pull requests:**
+
+- Student Feedback Submission Fixed [\#664](https://github.com/lighthouse-labs/compass/pull/664) ([krsnachandra](https://github.com/krsnachandra))
+
+## [2018.06.02.1730](https://github.com/lighthouse-labs/compass/tree/2018.06.02.1730) (2018-06-03)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.18.0800...2018.06.02.1730)
+
+**Merged pull requests:**
+
+- Rubocop auto fix \(+ only a few manual tweaks\) [\#658](https://github.com/lighthouse-labs/compass/pull/658) ([kvirani](https://github.com/kvirani))
+- Removed Note Field on Mark Completed Modal [\#656](https://github.com/lighthouse-labs/compass/pull/656) ([krsnachandra](https://github.com/krsnachandra))
+- Added Students Button to Teacher Cohort-Switcher [\#648](https://github.com/lighthouse-labs/compass/pull/648) ([krsnachandra](https://github.com/krsnachandra))
+- Separated Breakout Stats From Lecture Stats for Admins [\#646](https://github.com/lighthouse-labs/compass/pull/646) ([krsnachandra](https://github.com/krsnachandra))
+- Support For Milestone Prep Activities [\#644](https://github.com/lighthouse-labs/compass/pull/644) ([krsnachandra](https://github.com/krsnachandra))
+- Bootsnap Added For Boot Time Performance [\#642](https://github.com/lighthouse-labs/compass/pull/642) ([krsnachandra](https://github.com/krsnachandra))
+- Activity Feedback Ducks Now Labelled [\#637](https://github.com/lighthouse-labs/compass/pull/637) ([krsnachandra](https://github.com/krsnachandra))
+
+## [2018.05.18.0800](https://github.com/lighthouse-labs/compass/tree/2018.05.18.0800) (2018-05-18)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.17.0710...2018.05.18.0800)
+
+**Merged pull requests:**
+
+- Admin Teacher Feedbacks Fixed Teacher Filter [\#633](https://github.com/lighthouse-labs/compass/pull/633) ([krsnachandra](https://github.com/krsnachandra))
+- Added Filter by Location Logic for Admin Teacher Feedbacks [\#632](https://github.com/lighthouse-labs/compass/pull/632) ([krsnachandra](https://github.com/krsnachandra))
+- Fix Rspec Failing Tests [\#627](https://github.com/lighthouse-labs/compass/pull/627) ([krsnachandra](https://github.com/krsnachandra))
+- Endpoints to support the Wallboard application [\#618](https://github.com/lighthouse-labs/compass/pull/618) ([daegren](https://github.com/daegren))
+- Average Assistance Length Now Correct on Student Profile [\#599](https://github.com/lighthouse-labs/compass/pull/599) ([krsnachandra](https://github.com/krsnachandra))
+- Assistances Show on Student Profile \(Teacher View\) [\#598](https://github.com/lighthouse-labs/compass/pull/598) ([krsnachandra](https://github.com/krsnachandra))
+
+## [2018.05.17.0710](https://github.com/lighthouse-labs/compass/tree/2018.05.17.0710) (2018-05-16)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.09.0715...2018.05.17.0710)
+
+**Merged pull requests:**
+
+- Fix date calculation bug for Blockchain program support [\#639](https://github.com/lighthouse-labs/compass/pull/639) ([kvirani](https://github.com/kvirani))
+- hotfix for turbolinks in the code that I moved around [\#634](https://github.com/lighthouse-labs/compass/pull/634) ([kvirani](https://github.com/kvirani))
+
+## [2018.05.09.0715](https://github.com/lighthouse-labs/compass/tree/2018.05.09.0715) (2018-05-07)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.03.0730...2018.05.09.0715)
+
+**Merged pull requests:**
+
+- Added Links Header to admin/cohorts\#show Prep Stats Table [\#619](https://github.com/lighthouse-labs/compass/pull/619) ([krsnachandra](https://github.com/krsnachandra))
+- Deploy Error Message Improvements & Seed Enhancement [\#617](https://github.com/lighthouse-labs/compass/pull/617) ([jmatsuba](https://github.com/jmatsuba))
+- The site feels faster [\#615](https://github.com/lighthouse-labs/compass/pull/615) ([kvirani](https://github.com/kvirani))
+
 ## [2018.05.03.0730](https://github.com/lighthouse-labs/compass/tree/2018.05.03.0730) (2018-05-01)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.04.17.0745...2018.05.03.0730)
 

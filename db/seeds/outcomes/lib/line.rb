@@ -68,8 +68,8 @@ class Line
             elsif row[1] == "S" then :skill
             end
     @name = row[3..9].map { |v| str_or_nil(v) }.detect { |v| v }
-    @taxonomy = (row[10].to_sym if row[10])
-    @importance = (row[11].to_sym if row[11])
+    @taxonomy = row[10]&.to_sym
+    @importance = row[11]&.to_sym
     @depth = row[3..9].map.with_index { |x, i| i if x }.detect { |v| v }
   end
 

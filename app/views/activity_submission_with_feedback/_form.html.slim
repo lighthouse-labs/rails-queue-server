@@ -10,7 +10,6 @@
     = form.input :github_url, placeholder: "From the browser's address bar. Eg: https://github.com/lighthouse-labs/ios-prep-book"
 
   = form.input :time_spent, as: :integer, label: 'Time spent in minutes', placeholder: 'How long did it take you? Your best approximation (in minutes) please!'
-  = form.input :note, as: :text, placeholder: 'A quick note that is visible only to you and to teachers'
 
   - if @activity.allow_feedback?
     h3
@@ -20,8 +19,10 @@
 
     p Tell us how you found this #{(@activity.type || 'Activity').titleize}
 
-    .raty-editor name="feedback[rating]" data-score=form.object.rating value=""
-      = form.hidden_field :rating, id: "modal-average-rating"
+    div
+      .raty-editor name="feedback[rating]" data-score=form.object.rating
+        = form.hidden_field :rating, id: "modal-average-rating"
+      .hint
     = form.input :detail, as: :text, placeholder: 'The more you can give us the better!'
 
 .modal-footer

@@ -93,7 +93,7 @@ class CurriculumDay
   end
 
   def unlocked_based_on_sunday_night?(timezone, next_weekend)
-    (sunday_night?(timezone) && (self<=>(next_weekend)).to_i < 1)
+    (sunday_night?(timezone) && (self <=> next_weekend).to_i < 1)
   end
 
   def today?
@@ -185,17 +185,22 @@ class CurriculumDay
     if days_per_week == 5
       date = date.advance(days: dow - 1)
     else
-      # dow of 2 (d2) may be Tuesday ... but could also be Thursday if we don't have 5 day weeks
-      # This would happen if weekdays = [2, 4]
-      # In the example above, d1 = Tuesday, d2 = Thursday
-      d = weekdays[dow - 1].to_i
-      date = date.advance(days: d - 1)
+      if dow == 6
+        # It's a weekend.
+        # Need to advance (from Monday) by 5 days (ie dow - 1) to get to Saturday.
+        date = date.advance(days: 5)
+      else
+        # It's not a weekend AND this is not a 5d program. We have to do something a bit more clever
+        # dow of 2 (d2) may be Tuesday ... but could also be Thursday if we don't have 5 day weeks
+        # This would happen if weekdays = [2, 4]
+        # In the example above, d1 = Tuesday, d2 = Thursday
+        d = weekdays[dow - 1].to_i
+        date = date.advance(days: d - 1)
+      end
     end
 
     @date = date # date needs to be set for day_number to be correct
-    if adjust_date_calculation_for_break?(day_number)
-      @date = date.advance(weeks: @curriculum_break.num_weeks)
-    end
+    @date = date.advance(weeks: @curriculum_break.num_weeks) if adjust_date_calculation_for_break?(day_number)
   end
 
   def determine_w
@@ -223,7 +228,7 @@ class CurriculumDay
   end
 
   def on_break?(day_number)
-    @curriculum_break && @curriculum_break.active_on_day_number?(day_number)
+    @curriculum_break&.active_on_day_number?(day_number)
   end
 
   def past_end_week_of_cohort?(week_number)

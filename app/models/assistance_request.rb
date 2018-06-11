@@ -92,7 +92,7 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def position_in_queue
-    self.class.open_requests.where(type: nil).for_location(self.assistor_location).where('assistance_requests.id < ?', id).count + 1 if open?
+    self.class.open_requests.where(type: nil).for_location(assistor_location).where('assistance_requests.id < ?', id).count + 1 if open?
   end
 
   private

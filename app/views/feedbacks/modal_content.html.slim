@@ -11,7 +11,9 @@
     br
     .raty-editor name="feedback[rating]" data-score=f.object.rating value=""
       = f.hidden_field :rating, id: "modal-average-rating"
-
+    .hint
+    br
+    
     | (Optional) Please enter some additional feedback:
     br
     = f.text_area :notes

@@ -1,7 +1,6 @@
 class Admin::TeacherFeedbacksController < Admin::BaseController
 
   def index
-
     @feedbacks = Feedback.teacher_feedbacks
 
     apply_filters
@@ -20,23 +19,28 @@ class Admin::TeacherFeedbacksController < Admin::BaseController
   def apply_filters
     filter_by_start_date
     filter_by_end_date
+    filter_by_location
     filter_by_teacher
   end
 
   def filter_by_start_date
     params[:start_date] = Date.current.beginning_of_month.to_s if params[:start_date].blank?
     start_datetime = Time.zone.parse(params[:start_date])
-    @feedbacks = @feedbacks.where("updated_at > :date", date: start_datetime)
+    @feedbacks = @feedbacks.where("feedbacks.updated_at > :date", date: start_datetime)
   end
 
   def filter_by_end_date
     params[:end_date] = Date.current.end_of_month.to_s if params[:end_date].blank?
     end_datetime = Time.zone.parse(params[:end_date]).end_of_day
-    @feedbacks = @feedbacks.where("updated_at < :date", date: end_datetime)
+    @feedbacks = @feedbacks.where("feedbacks.updated_at < :date", date: end_datetime)
+  end
+
+  def filter_by_location
+    @feedbacks = @feedbacks.filter_by_teacher_location(params[:teacher_location_id]) if params[:teacher_location_id].present?
   end
 
   def filter_by_teacher
-    @feedbacks = @feedbacks.where(params[:teacher_id]) if params[:teacher_id].present?
+    @feedbacks = @feedbacks.where("feedbacks.teacher_id = :teacher_id", teacher_id: params[:teacher_id]) if params[:teacher_id].present?
   end
 
   def safe_params

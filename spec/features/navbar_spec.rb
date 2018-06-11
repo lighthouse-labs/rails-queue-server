@@ -17,7 +17,6 @@ describe 'Navbar', type: :feature, js: true do
 
   context "when the student is logged in" do
     describe "valid links in the navbar" do
-
       let(:cohort) { create :cohort }
       let(:student) { create :student, cohort: cohort, uid: GITHUB_OAUTH_HASH['uid'] }
       before :each do
@@ -35,16 +34,19 @@ describe 'Navbar', type: :feature, js: true do
       end
 
       it 'should properly navigate to "Schedule"' do
+        find_link("Program").click
         find_link("Schedule").click
         expect(page).to have_css("h1", text: "Schedule")
       end
 
       it 'should properly navigate to "Projects"' do
+        find_link("Program").click
         find_link("Projects").click
         expect(page).to have_css("h1", text: "Projects")
       end
 
       it 'should properly navigate to "Interviews"' do
+        find_link("Program").click
         find_link("Interviews").click
         expect(page).to have_css("h1", text: "Interviews")
       end

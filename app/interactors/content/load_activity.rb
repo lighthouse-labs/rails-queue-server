@@ -58,7 +58,8 @@ class Content::LoadActivity
       media_filename:     d['media_filename'],
       outcomes:           outcomes(d['outcomes']),
       test_code:          d['test_code'],
-      initial_code:       d['initial_code']
+      initial_code:       d['initial_code'],
+      milestone:          d['milestone']
     }
     # if sequence is not specified, do not change the existing one
     attrs[:sequence] = d['sequence'] if d['sequence']
@@ -120,12 +121,10 @@ class Content::LoadActivity
           'Reading'
         when 'practice'
           'Task'
-        when 'breakout'
-          'Lecture'
         else
           # make sure this is a valid Activity type, and if so, roll with it
           t.strip.gsub(/\s+/, '_').classify
-    end
+        end
 
     # Note: assumes all models are eager loaded
     # this is done in deploy.rb (main interactor) via:

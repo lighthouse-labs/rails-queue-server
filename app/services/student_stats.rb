@@ -21,9 +21,7 @@ class StudentStats
   end
 
   def days_idle_before_prep
-    if prep_started?
-      (prep_started_at.to_date - @student.created_at.to_date).to_i
-    end
+    (prep_started_at.to_date - @student.created_at.to_date).to_i if prep_started?
   end
 
   def days_registered_before_start
@@ -90,7 +88,7 @@ class StudentStats
     @bootcamp_assistance_stats = {
       requests:           @student.assistance_requests.genuine.where(cohort_id: cohort_id).count,
       assistances:        @student.assistances.completed.where(cohort_id: cohort_id).count,
-      assistances_length: @student.assistances.completed.average("start_at - end_at").to_i,
+      assistances_length: @student.assistances.completed.average_length.to_i,
       average_score:      @student.assistances.completed.where(cohort_id: cohort_id).where.not(rating: nil).average(:rating).to_f.round(2)
     }
   end

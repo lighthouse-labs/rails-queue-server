@@ -23,7 +23,7 @@ class ActivitySubmissionsController < ApplicationController
 
   def destroy
     activity_submission = @activity.activity_submissions.find_by(user: current_user)
-    activity_submission.destroy if activity_submission
+    activity_submission&.destroy
 
     redirect_to :back
   end
