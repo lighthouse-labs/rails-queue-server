@@ -32,15 +32,12 @@ pre#notes_content style="display:none" = @lecture.teacher_notes
       notesEditor.setTheme("ace/theme/monokai");
       notesEditor.getSession().setMode("ace/mode/markdown");
       notesEditor.setValue($('#notes_content').text())
-      var presenter = $(lecture_presenter_id);
-      presenter.setValue($('#presenter_name').text())
 
       $('form').submit(function(evt) {
         evt.preventDefault();
 
         $('#lecture_body').val(bodyEditor.getValue());
         $('#lecture_teacher_notes').val(notesEditor.getValue());
-        $('#presenter_name').val(presenter_name.getValue());
         this.submit();
       });
     }
