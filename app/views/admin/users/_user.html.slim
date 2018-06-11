@@ -54,6 +54,7 @@
           span.assign-cohort-button title='Enrol in Cohort' data-toggle='tooltip'
             .btn.btn-outline-info.btn-sm data-toggle='modal' data-target="#enrolment-modal-#{user.id}"
               i.fa.fa-angle-double-right
-          = render partial: 'cohort_enrolment_modal', locals: {user: user}
+          - content_for :end_of_body do
+            = render partial: 'cohort_enrolment_modal', locals: {user: user}
         - if user.enrolled_and_prepping?
           = link_to fa_icon('angle-double-left'), admin_student_path(user), method: :delete, class: 'btn btn-outline-info btn-sm revert-to-prep-button', title: 'Revert to Prep', 'data-toggle' => 'tooltip'
