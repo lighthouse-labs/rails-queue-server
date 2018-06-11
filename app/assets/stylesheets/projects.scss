@@ -43,6 +43,7 @@
   margin-top: 30px;
 }
 
+// Heads up: Workbooks also use this class. Didn't dupe this for workbooks
 a.project-bio {
 
   display: block;
@@ -123,6 +124,10 @@ a.project-bio {
       text-align: center;
       top: 50%;
       width: 50px;
+
+      &.centered {
+        margin-top: -30px;
+      }
     }
     .time-duration {
       font-size: 0.6em;

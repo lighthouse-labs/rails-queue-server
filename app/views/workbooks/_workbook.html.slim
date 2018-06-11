@@ -2,8 +2,9 @@
   .info
     .icon.icon-type title='Workbook'
       i.fa.fa-book
-    .time.time-duration
-      = workbook.total_duration
+    .time.centered
+      = workbook.total_duration.round
+      | &nbsp;hrs
     .name
       = workbook.name
   .details
