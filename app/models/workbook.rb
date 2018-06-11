@@ -36,6 +36,16 @@ class Workbook < ApplicationRecord
     end
   end
 
+  ## INSTANCE METHODS
+
+  def to_param
+    slug
+  end
+
+  def total_duration
+    @total_duration ||= work_module_items.active.calc_total_duration
+  end
+
   def next_activity(activity)
     current_item = work_module_items.active.find_by(activity_id: activity)
     next_item = current_item.work_module.work_module_items.active.find_by('work_module_items.sequence > ?', current_item.sequence) ||
@@ -50,14 +60,5 @@ class Workbook < ApplicationRecord
     prev_item&.activity
   end
 
-  ## INSTANCE METHODS
-
-  def to_param
-    slug
-  end
-
-  def total_duration
-    activities.active.sum(:duration)
-  end
 
 end
