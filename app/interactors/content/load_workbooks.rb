@@ -27,7 +27,7 @@ class Content::LoadWorkbooks
     dir = File.join(@repo_dir, data_dir)
 
     # _Workbooks is an optional directory that we don't expect to exist in all content repos
-    return [] unless File.exists? dir
+    return [] unless File.exist? dir
 
     Dir.entries(dir).sort.each do |content_file|
       next if content_file.starts_with?('.')

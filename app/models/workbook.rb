@@ -39,14 +39,14 @@ class Workbook < ApplicationRecord
   def next_activity(activity)
     current_item = work_module_items.active.where(activity_id: activity).first
     next_item = current_item.work_module.work_module_items.active.where('work_module_items.sequence > ?', current_item.sequence).first ||
-      work_modules.active.where('work_modules.sequence > ?', current_item.work_module.sequence).first&.work_module_items&.active&.first
+                work_modules.active.where('work_modules.sequence > ?', current_item.work_module.sequence).first&.work_module_items&.active&.first
     next_item&.activity
   end
 
   def previous_activity(activity)
     current_item = work_module_items.where(activity_id: activity).first
     prev_item = current_item.work_module.work_module_items.active.where('work_module_items.sequence < ?', current_item.sequence).last ||
-      work_modules.active.where('work_modules.sequence < ?', current_item.work_module.sequence).last&.work_module_items&.active&.last
+                work_modules.active.where('work_modules.sequence < ?', current_item.work_module.sequence).last&.work_module_items&.active&.last
     prev_item&.activity
   end
 

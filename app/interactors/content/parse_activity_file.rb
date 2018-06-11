@@ -50,9 +50,7 @@ class Content::ParseActivityFile
     curric_day = day_from_file || day_from_folder_name(data_dir) # eg: w1d3 or w4e
     return nil if curric_day.nil? || curric_day.match(DAY_REGEX).nil?
     activity_week = /\d+/.match(curric_day).to_s.to_i
-    if @program.weeks > 9 && activity_week < 10
-      curric_day.insert(1,"0")
-    end
+    curric_day.insert(1, "0") if @program.weeks > 9 && activity_week < 10
     curric_day
   end
 
