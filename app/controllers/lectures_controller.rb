@@ -27,9 +27,6 @@ class LecturesController < ApplicationController
       presenter: User.find(lecture_params[:presenter_id])
     )
 
-    p "________________"
-    p @lecture  
-
     if @lecture.success?
       redirect_to activity_lecture_path(@activity, @lecture.lecture), notice: 'Created! Students notified via e-mail.'
     else

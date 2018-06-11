@@ -1,6 +1,7 @@
 = form.input :subject, label: 'Subject', placeholder: "Lecture topic (don't include 'WxDy')"
-= form.input :file_name, label: 'Lecture Video', placeholder: 'YouTube Link'
+= form.input :youtube_url, label: 'Lecture Video', placeholder: 'YouTube Link'
 = form.association :presenter, collection: Teacher.all.order(:last_name, :first_name), label_method: :full_name, selected: current_user
+= form.input :presenter_name, as: :hidden
 = form.input :cohort_id, collection: ([@cohort] + Cohort.most_recent_first.all).uniq, prompt: 'Select a cohort'
 
 label Body
@@ -31,12 +32,15 @@ pre#notes_content style="display:none" = @lecture.teacher_notes
       notesEditor.setTheme("ace/theme/monokai");
       notesEditor.getSession().setMode("ace/mode/markdown");
       notesEditor.setValue($('#notes_content').text())
+      var presenter = $(lecture_presenter_id);
+      presenter.setValue($('#presenter_name').text())
 
       $('form').submit(function(evt) {
         evt.preventDefault();
 
         $('#lecture_body').val(bodyEditor.getValue());
         $('#lecture_teacher_notes').val(notesEditor.getValue());
+        $('#presenter_name').val(presenter_name.getValue());
         this.submit();
       });
     }
