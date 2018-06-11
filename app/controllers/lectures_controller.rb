@@ -21,18 +21,34 @@ class LecturesController < ApplicationController
 
   def create
 
-    lecture_complete = Lecture::Complete.call(
+    @lecture = Lecture::Complete.call(
       activity: @activity,
       lecture_params: lecture_params,
       presenter: User.find(lecture_params[:presenter_id])
     )
 
-    if lecture_complete.success?
-      redirect_to activity_lecture_path(@activity, @lecture), notice: 'Created! Students notified via e-mail.'
+    p "________________"
+    p @lecture  
+
+    if @lecture.success?
+      redirect_to activity_lecture_path(@activity, @lecture.lecture), notice: 'Created! Students notified via e-mail.'
     else
       render :new # edit
     end
     
+  end
+
+  def edit
+    @lecture = Lecture.find(params[:id])
+  end
+
+  def update
+    @lecture = Lecture.find(params[:id])
+    if @lecture.update(lecture_params)
+      redirect_to activity_lecture_path(@lecture), notice: 'Updated!'
+    else
+      render :edit
+    end
   end
 
   private

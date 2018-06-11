@@ -10,12 +10,15 @@
     h2
       = " by " + @lecture.presenter_name
 
+    - if teacher?
+      = link_to 'Edit', edit_activity_lecture_path(@lecture)
+
     - if @lecture.youtube_url.present?
       .card
         .card-body.video-wrapper
           iframe frameborder="0" src="https://www.youtube.com/embed/#{lecture_presenter.youtube_code}" gesture="media" allow="encrypted-media" allowfullscreen
 
-    - if @lecture.teacher_notes
+    - if teacher? && @lecture.teacher_notes.present?
       .card
         .card-body.teacher-notes
           = "Teacher Notes: " + @lecture.teacher_notes

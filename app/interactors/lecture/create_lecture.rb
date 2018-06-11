@@ -12,7 +12,7 @@ class Lecture::CreateLecture
     @lecture = @activity.lectures.new(@lecture_params.merge(day: @activity.day, presenter_name: @presenter_name))
 
     if @lecture.save
-      Lecture::EmailLectureToStudents.call(lecture: @lecture)
+      context.lecture = @lecture
     else
       context.fail!(error: @lecture.errors.full_messages.first)
     end
