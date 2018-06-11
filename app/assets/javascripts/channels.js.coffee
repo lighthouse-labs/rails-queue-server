@@ -20,7 +20,7 @@ $ ->
     connected: ->
       if $('.reconnect-holder').is(':visible')
         $('.reconnect-holder').hide()
-        eventClass = navigator.onLine ? 'reconnect-online' : 'reconnect-online'
+        eventClass = navigator.onLine ? 'reconnect-online' : 'reconnect-offline'
         if typeof ga is 'function'
           ga('send', 'event', 'queue-connection', eventClass)
 
@@ -35,7 +35,7 @@ $ ->
       handler.processResponse()
 
     disconnected: ->
-      eventClass = navigator.onLine ? 'disconnect-online' : 'disconnect-online'
+      eventClass = navigator.onLine ? 'disconnect-online' : 'disconnect-offline'
       if typeof ga is 'function'
         ga('send', 'event', 'queue-connection', eventClass)
       $('.reconnect-holder').delay(500).show(0)
