@@ -21,7 +21,7 @@ class Admin::UsersController < Admin::BaseController
 
   def enrol_in_cohort
     user = User.find(params[:id])
-    cohort = Cohort.find_by(code: params[:code])
+    cohort = Cohort.find_by!(code: params[:code])
     response = AssignAsStudentToCohort.call(cohort: cohort, user: user)
     if response.success?
       flash[:notice] = "#{user.full_name} is now in cohort #{cohort.name}"
