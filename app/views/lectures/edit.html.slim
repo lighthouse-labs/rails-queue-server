@@ -1,5 +1,8 @@
 - title "Edit Lecture: #{@lecture.subject}"
 
+- content_for :side_nav do
+  == render 'layouts/side_nav'
+
 h1
   = "Edit Lecture: #{@lecture.subject}"
 - if @lecture.activity
