@@ -44,7 +44,6 @@ class ActivityPresenter < BasePresenter
 
   def previous_button(workbook = nil)
     other_activity = previous_activity(workbook)
-
     if other_activity
       content_tag :div, class: 'previous-activity' do
         (

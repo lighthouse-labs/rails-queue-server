@@ -5,7 +5,7 @@ class WorkModule < ApplicationRecord
   ## ASSOCIATIONS
 
   belongs_to :workbook
-  has_many :work_module_items, -> { order(sequence: :asc) }
+  has_many :work_module_items, { inverse_of: :work_module, dependent: :destroy }, -> { order(sequence: :asc) }
   has_many :activities, { through: :work_module_items }, -> { order(work_module_items: { sequence: :asc }) }
 
   ## VALIDATIONS
