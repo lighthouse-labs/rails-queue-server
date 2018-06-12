@@ -19,8 +19,8 @@
       div
         = render 'duration', presenter: activity_presenter  if @activity.duration?
 
-  = activity_presenter.next_button(@workbook)
-  = activity_presenter.previous_button(@workbook)
+  = activity_presenter.next_button
+  = activity_presenter.previous_button
 
 - if @activity.gist_url?
   .actions

@@ -5,7 +5,7 @@ class ActivityPresenter < BasePresenter
   def name
     result = ""
     result += content_tag(:i, nil, class: icon_for(activity))
-    result += " #{activity.name} #{'(Stretch) ' if activity.stretch?}"
+    result += " #{activity.name} #{'(Stretch) ' if stretch?}"
     result += content_tag(:small, activity_type(activity)) if activity.type?
 
     if project?
@@ -20,7 +20,11 @@ class ActivityPresenter < BasePresenter
   end
 
   def render_sidenav
-    if prep?
+    if workbook
+      content_for :side_nav do
+        render 'workbooks/side_menu'
+      end
+    elsif prep?
       content_for :side_nav do
         render('shared/menus/sections_side_menu', title: 'Prep Work', sections: preps)
       end
@@ -42,7 +46,7 @@ class ActivityPresenter < BasePresenter
     end
   end
 
-  def previous_button(workbook = nil)
+  def previous_button
     other_activity = previous_activity(workbook)
     if other_activity
       content_tag :div, class: 'previous-activity' do
@@ -55,7 +59,7 @@ class ActivityPresenter < BasePresenter
     end
   end
 
-  def next_button(workbook = nil)
+  def next_button
     other_activity = next_activity(workbook)
     if other_activity
       content_tag :div, class: 'next-activity' do
@@ -72,7 +76,7 @@ class ActivityPresenter < BasePresenter
     activity.allow_submissions? ? "Submissions" : "Completions"
   end
 
-  def submission_form(workbook = nil)
+  def submission_form
     if allow_completion?
       next_activity = next_activity(workbook)
       next_path = next_activity ? get_activity_path(next_activity, workbook) : get_next_index_path(activity, workbook)
@@ -111,6 +115,14 @@ class ActivityPresenter < BasePresenter
     workbook ? workbook.previous_activity(activity) : activity.previous
   end
 
+  def stretch?
+    if workbook
+      workbook.stretch_activity?(activity)
+    else
+      activity.stretch?
+    end
+  end
+
   def project?
     activity.project?
   end
@@ -138,6 +150,10 @@ class ActivityPresenter < BasePresenter
   end
 
   private
+
+  def workbook
+    @options[:workbook]
+  end
 
   def allow_completion?
     !activity.is_a?(QuizActivity)

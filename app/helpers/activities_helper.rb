@@ -1,5 +1,13 @@
 module ActivitiesHelper
 
+  def stretch_activity?(activity, workbook=nil)
+    if workbook
+      workbook.stretch_activity?(activity)
+    else
+      activity.stretch?
+    end
+  end
+
   def get_activity_path(activity, workbook = nil)
     if workbook
       workbook_activity_path(workbook, activity)
@@ -70,7 +78,7 @@ module ActivitiesHelper
 
   def descriptive_activity_name(activity)
     name = activity.name
-    name << ' (Stretch)' if activity.stretch?
+    name << ' (Stretch)' if stretch_activity?(activity, @workbook)
     name << ' [Archived]' if activity.archived?
     name
   end

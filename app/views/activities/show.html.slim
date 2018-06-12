@@ -1,12 +1,8 @@
 - title "#{@activity.name}"
 
-- present @activity do |activity_presenter|
+- present @activity, ActivityPresenter, { workbook: @workbook } do |activity_presenter|
 
-  - if @workbook
-    - content_for :side_nav
-      = render 'workbooks/side_menu'
-  - else
-    = activity_presenter.render_sidenav
+  = activity_presenter.render_sidenav
 
   section.activity-details
     h1 = activity_presenter.name
@@ -19,7 +15,7 @@
 
     = activity_presenter.display_outcomes
 
-    - if @activity.stretch?
+    - if stretch_activity?(@activity, @workbook)
       - text = @activity.day? ? "day" : "prep course"
       .alert.alert-info
         strong STRETCH ACTIVITY

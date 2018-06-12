@@ -42,19 +42,27 @@ class Workbook < ApplicationRecord
     slug
   end
 
+  def stretch_activity?(activity)
+    item_for_activity(activity)&.stretch?
+  end
+
+  def item_for_activity(activity)
+    work_module_items.active.find_by(activity_id: activity)
+  end
+
   def total_duration
     @total_duration ||= work_module_items.active.calc_total_duration
   end
 
   def next_activity(activity)
-    current_item = work_module_items.active.find_by(activity_id: activity)
+    current_item = item_for_activity(activity)
     next_item = current_item.work_module.work_module_items.active.find_by('work_module_items.sequence > ?', current_item.sequence) ||
                 work_modules.active.find_by('work_modules.sequence > ?', current_item.work_module.sequence)&.work_module_items&.active&.first
     next_item&.activity
   end
 
   def previous_activity(activity)
-    current_item = work_module_items.find_by(activity_id: activity)
+    current_item = item_for_activity(activity)
     prev_item = current_item.work_module.work_module_items.active.where('work_module_items.sequence < ?', current_item.sequence).last ||
                 work_modules.active.where('work_modules.sequence < ?', current_item.work_module.sequence).last&.work_module_items&.active&.last
     prev_item&.activity
