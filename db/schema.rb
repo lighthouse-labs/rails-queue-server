@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180601004248) do
+ActiveRecord::Schema.define(version: 20180612171346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20180601004248) do
     t.text     "teacher_notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "archived"
     t.index ["activity_id"], name: "index_activity_messages_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_activity_messages_on_cohort_id", using: :btree
     t.index ["day"], name: "index_activity_messages_on_day", using: :btree
@@ -300,6 +301,25 @@ ActiveRecord::Schema.define(version: 20180601004248) do
     t.index ["item_id"], name: "index_item_outcomes_on_item_id", using: :btree
   end
 
+  create_table "lectures", force: :cascade do |t|
+    t.integer  "presenter_id"
+    t.integer  "cohort_id"
+    t.integer  "activity_id"
+    t.string   "day",            limit: 5
+    t.string   "subject",        limit: 1000
+    t.string   "presenter_name"
+    t.text     "body"
+    t.text     "teacher_notes"
+    t.string   "youtube_url",    limit: 500
+    t.string   "file_name"
+    t.string   "file_type"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["activity_id"], name: "index_lectures_on_activity_id", using: :btree
+    t.index ["cohort_id"], name: "index_lectures_on_cohort_id", using: :btree
+    t.index ["presenter_id"], name: "index_lectures_on_presenter_id", using: :btree
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -313,6 +333,7 @@ ActiveRecord::Schema.define(version: 20180601004248) do
     t.string   "slack_channel"
     t.string   "slack_username"
     t.boolean  "active",                   default: true
+    t.string   "flagged_assistance_email"
     t.index ["supported_by_location_id"], name: "index_locations_on_supported_by_location_id", using: :btree
   end
 
@@ -394,6 +415,7 @@ ActiveRecord::Schema.define(version: 20180601004248) do
     t.boolean  "prep_assistance"
     t.boolean  "has_queue",                       default: true
     t.text     "disable_queue_days",              default: [],   null: false, array: true
+    t.string   "curriculum_team_email"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -452,6 +474,7 @@ ActiveRecord::Schema.define(version: 20180601004248) do
     t.string   "title"
     t.string   "presenter_name"
     t.string   "file_type"
+    t.boolean  "archived"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -670,6 +693,8 @@ ActiveRecord::Schema.define(version: 20180601004248) do
   add_foreign_key "answers", "quiz_submissions"
   add_foreign_key "curriculum_breaks", "cohorts"
   add_foreign_key "deployments", "content_repositories"
+  add_foreign_key "lectures", "activities"
+  add_foreign_key "lectures", "cohorts"
   add_foreign_key "options", "questions"
   add_foreign_key "outcome_results", "outcomes"
   add_foreign_key "outcome_results", "users"
