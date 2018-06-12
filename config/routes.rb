@@ -173,6 +173,7 @@ LaserShark::Application.routes.draw do
       member do
         post :reactivate
         post :deactivate
+        post :enrol_in_cohort
       end
     end
     resources :cohorts, except: [:destroy] do
