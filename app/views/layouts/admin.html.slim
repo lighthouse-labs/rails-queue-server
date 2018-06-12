@@ -20,3 +20,5 @@ html
     main role="main" class=(fluid ? 'container-fluid' : 'container')
       == render 'layouts/messages'
       == yield
+    == yield :end_of_body
+
