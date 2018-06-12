@@ -45,6 +45,8 @@ class Admin::CohortsController < Admin::BaseController
     @other_students  = @cohort.rolled_out_students.to_a + @cohort.students.deactivated.to_a
     @interview_templates = TechInterviewTemplate.active
     @projects = Project.active
+    @milestones = Activity.active.prep.milestone.chronological_for_project
+    @milestone_count = @milestones.count
   end
 
   private

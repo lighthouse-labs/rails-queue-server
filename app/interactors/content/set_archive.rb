@@ -23,25 +23,23 @@ class Content::SetArchive
   end
 
   def get_db_items
-    @db_items = @model.where(archived: [nil, false]).map{ |m| {id: m.id, uuid: m.uuid} }
-    @archived_db_items = @model.where(archived: true).map{ |m| {id: m.id, uuid: m.uuid} }
+    @db_items = @model.where(archived: [nil, false]).map { |m| { id: m.id, uuid: m.uuid } }
+    @archived_db_items = @model.where(archived: true).map { |m| { id: m.id, uuid: m.uuid } }
   end
 
   def set_archive
     @db_items.each do |db_item|
-      if !in_curric_repo_data(db_item[:uuid])
-        archived_object = @model.find_by(id: db_item[:id])
-        archived_object.archived = true
-        context.fail!(error: "Failed to Set Archive for #{@model.name}, id: #{db_item[:id]}") unless archived_object.save
-      end
+      next if in_curric_repo_data(db_item[:uuid])
+      archived_object = @model.find_by(id: db_item[:id])
+      archived_object.archived = true
+      context.fail!(error: "Failed to Set Archive for #{@model.name}, id: #{db_item[:id]}") unless archived_object.save
     end
 
     @archived_db_items.each do |db_item|
-      if in_curric_repo_data(db_item[:uuid])
-        archived_object = @model.find_by(id: db_item[:id])
-        archived_object.archived = false
-        context.fail!(error: "Failed to Set Archive for #{@model.name}, id: #{db_item[:id]}") unless archived_object.save
-      end
+      next unless in_curric_repo_data(db_item[:uuid])
+      archived_object = @model.find_by(id: db_item[:id])
+      archived_object.archived = false
+      context.fail!(error: "Failed to Set Archive for #{@model.name}, id: #{db_item[:id]}") unless archived_object.save
     end
   end
 

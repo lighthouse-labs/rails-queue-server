@@ -1,0 +1,13 @@
+.milestone-flags-container {
+  max-width: 100px;
+
+  i {
+    padding: 0px 1px 0px 1px;
+  }
+
+  &.milestones-complete i {
+    color: green;
+  }
+
+}
+
