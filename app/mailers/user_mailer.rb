@@ -101,7 +101,7 @@ class UserMailer < ActionMailer::Base
     @date = assistance.end_at
 
     location = @student.location.education_manager_location.name.upcase
-    email = ENV["EM_#{location}_EMAIL"] || 'rosy@lighthouselabs.ca'
+    email = @student.location.flagged_assistance_email || 'rosy@lighthouselabs.ca'
 
     mail  subject: "Flagged Assistance Notification",
           to:      email
