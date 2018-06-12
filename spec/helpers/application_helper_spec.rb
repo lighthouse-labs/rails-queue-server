@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe ApplicationHelper, type: :helper do
-
   let(:calgary) { create :location, timezone: 'Mountain Time (US & Canada)', name: 'Calgary' }
   let(:student) { build :student }
   let(:satellite_student) { build :student, location: calgary }

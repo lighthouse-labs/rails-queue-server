@@ -19,6 +19,18 @@ class Admin::UsersController < Admin::BaseController
     render nothing: true
   end
 
+  def enrol_in_cohort
+    user = User.find(params[:id])
+    cohort = Cohort.find_by!(code: params[:code])
+    response = AssignAsStudentToCohort.call(cohort: cohort, user: user)
+    if response.success?
+      flash[:notice] = "#{user.full_name} is now in cohort #{cohort.name}"
+    else
+      flash[:alert] = response.error
+    end
+    redirect_back fallback_location: admin_users_path
+  end
+
   private
 
   def load_user

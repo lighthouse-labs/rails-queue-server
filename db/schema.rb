@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180501222404) do
+ActiveRecord::Schema.define(version: 20180601004248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20180501222404) do
     t.float    "average_rating"
     t.integer  "average_time_spent"
     t.boolean  "homework"
+    t.boolean  "milestone"
     t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
     t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
     t.index ["sequence"], name: "index_activities_on_sequence", using: :btree
@@ -618,6 +619,50 @@ ActiveRecord::Schema.define(version: 20180501222404) do
     t.index ["initial_cohort_id"], name: "index_users_on_initial_cohort_id", using: :btree
   end
 
+  create_table "work_module_items", force: :cascade do |t|
+    t.string   "uuid",           null: false
+    t.integer  "work_module_id"
+    t.integer  "activity_id"
+    t.integer  "order"
+    t.boolean  "archived"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.boolean  "stretch"
+    t.index ["activity_id"], name: "index_work_module_items_on_activity_id", using: :btree
+    t.index ["uuid"], name: "index_work_module_items_on_uuid", unique: true, using: :btree
+    t.index ["work_module_id"], name: "index_work_module_items_on_work_module_id", using: :btree
+  end
+
+  create_table "work_modules", force: :cascade do |t|
+    t.string   "uuid",              null: false
+    t.string   "name",              null: false
+    t.string   "slug"
+    t.integer  "workbook_id"
+    t.integer  "order"
+    t.boolean  "archived"
+    t.string   "content_file_path"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["slug"], name: "index_work_modules_on_slug", unique: true, using: :btree
+    t.index ["uuid"], name: "index_work_modules_on_uuid", unique: true, using: :btree
+    t.index ["workbook_id"], name: "index_work_modules_on_workbook_id", using: :btree
+  end
+
+  create_table "workbooks", force: :cascade do |t|
+    t.string   "uuid",                            null: false
+    t.string   "name",                            null: false
+    t.string   "slug"
+    t.string   "content_file_path"
+    t.integer  "content_repository_id"
+    t.boolean  "archived"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "unlock_on_day",         limit: 5
+    t.index ["content_repository_id"], name: "index_workbooks_on_content_repository_id", using: :btree
+    t.index ["slug"], name: "index_workbooks_on_slug", unique: true, using: :btree
+    t.index ["uuid"], name: "index_workbooks_on_uuid", unique: true, using: :btree
+  end
+
   add_foreign_key "activities", "quizzes"
   add_foreign_key "activity_feedbacks", "activities"
   add_foreign_key "activity_feedbacks", "users"
@@ -641,4 +686,8 @@ ActiveRecord::Schema.define(version: 20180501222404) do
   add_foreign_key "tech_interviews", "tech_interview_templates"
   add_foreign_key "user_activity_outcomes", "item_outcomes", column: "activity_outcome_id"
   add_foreign_key "user_activity_outcomes", "users"
+  add_foreign_key "work_module_items", "activities"
+  add_foreign_key "work_module_items", "work_modules"
+  add_foreign_key "work_modules", "workbooks"
+  add_foreign_key "workbooks", "content_repositories"
 end

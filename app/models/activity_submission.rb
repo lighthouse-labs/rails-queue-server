@@ -113,9 +113,7 @@ class ActivitySubmission < ApplicationRecord
   end
 
   def set_cohort
-    if activity.try(:bootcamp?) && user.try(:cohort_id)
-      self.cohort_id = user.cohort_id
-    end
+    self.cohort_id = user.cohort_id if activity.try(:bootcamp?) && user.try(:cohort_id)
   end
 
   def formatted_code_evaluation_results
@@ -127,7 +125,7 @@ class ActivitySubmission < ApplicationRecord
   end
 
   def github_url_required?
-    activity && activity.allow_submissions? && !activity.evaluates_code?
+    activity&.allow_submissions? && !activity.evaluates_code?
   end
 
   def should_code_review?

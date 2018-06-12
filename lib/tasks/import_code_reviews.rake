@@ -29,9 +29,7 @@ namespace :import do
       teacher = Teacher.filter_by_location(Location.find_by(name: 'Toronto').id).find_by('lower(first_name) = ?', teacher_first_name.to_s.downcase)
       unless teacher
         teacher = Teacher.filter_by_location(Location.find_by(name: 'Toronto').id).find_by('lower(last_name) = ?', teacher_last_name.to_s.downcase)
-        unless teacher
-          teacher = Teacher.find(@TEACHER_IDS[teacher_first_name.downcase.to_sym])
-        end
+        teacher ||= Teacher.find(@TEACHER_IDS[teacher_first_name.downcase.to_sym])
       end
       teacher
     end
@@ -56,7 +54,7 @@ namespace :import do
       student = Student.find_by(email: student_email)
       unless student
         student = Student.find_by(first_name: student_first_name, last_name: student_last_name)
-        student = Student.find(@STUDENT_IDS[student_first_name.downcase.to_sym]) unless student
+        student ||= Student.find(@STUDENT_IDS[student_first_name.downcase.to_sym])
       end
       student
     end
@@ -65,8 +63,8 @@ namespace :import do
       code_review_request = CodeReviewRequest.create(requestor: student, assistor_id: teacher.id, activity_submission: activity_submission)
       assistance = Assistance.create(assistor: teacher, assistee: student, assistance_request: code_review_request, rating: rating.to_i.floor, imported: true)
       code_review_date = Date.strptime(date, "%m/%d/%Y")
-      code_review_request.update_attributes(created_at: code_review_date, updated_at: code_review_date)
-      assistance.update_attributes(created_at: code_review_date, updated_at: code_review_date)
+      code_review_request.update(created_at: code_review_date, updated_at: code_review_date)
+      assistance.update(created_at: code_review_date, updated_at: code_review_date)
     end
 
     CSV.foreach(Rails.public_path.join('tor-web.csv')) do |row|
