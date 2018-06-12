@@ -61,8 +61,8 @@ if Rails.env.development?
       github_username:        Faker::Internet.unique.user_name,
       avatar_url:             @avatars.sample,
       location:               @location_van,
-      uid:                    11000 + i,
-      token:                  12000 + i,
+      uid:                    11_000 + i,
+      token:                  12_000 + i,
       completed_registration: true
     )
   end

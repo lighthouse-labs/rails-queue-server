@@ -9,9 +9,7 @@ class AssignAsStudentToCohort
   def call
     @user.cohort = context.cohort
     @user.type = 'Student'
-    unless @user.save(validate: false)
-      context.fail!(error: 'Unexpected Error: Failed to update user')
-    end
+    context.fail!(error: 'Unexpected Error: Failed to update user') unless @user.save(validate: false)
   end
 
 end
