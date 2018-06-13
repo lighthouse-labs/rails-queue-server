@@ -1,0 +1,9 @@
+= form_tag teacher_students_path, class: 'form-inline', method: 'get' do
+
+  .form-row
+
+    .form-group
+      label Search
+      = text_field_tag :keywords, params[:keywords], placeholder: 'Keywords like name, github handle, slack handle, email, etc.', class: "form-control"
+
+    = submit_tag 'Search', class: 'btn btn-success student-search-button'
