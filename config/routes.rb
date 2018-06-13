@@ -146,7 +146,7 @@ LaserShark::Application.routes.draw do
 
   # TEACHER
   namespace :teacher do
-    resources :students, only: [:show]
+    resources :students, only: [:show, :index]
     resources :evaluations, only: [:index]
     resources :assistances, only: [:index]
     resources :tech_interviews, only: [:index]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180603162149) do
+ActiveRecord::Schema.define(version: 20180612171346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -313,6 +313,7 @@ ActiveRecord::Schema.define(version: 20180603162149) do
     t.string   "slack_channel"
     t.string   "slack_username"
     t.boolean  "active",                   default: true
+    t.string   "flagged_assistance_email"
     t.index ["supported_by_location_id"], name: "index_locations_on_supported_by_location_id", using: :btree
   end
 
