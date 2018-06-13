@@ -5,12 +5,14 @@ class Teacher::StudentsController < Teacher::BaseController
   DEFAULT_PER = 10
 
   def index
+    @on_student_search = true
     @students = Student.all
     filter_by_keywords
     flash.now[:notice] = @notice
   end
 
   def show
+    @on_student_search = true
     @projects = Project.all
     @evaluations = @student.evaluations
     @assistances = @student.assistances.order(created_at: :desc).page(params[:page]).per(DEFAULT_PER)
