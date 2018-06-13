@@ -7,8 +7,6 @@ p.lead
   | All curriculum feedback rated &le; 3 from the last 7 days
 
 - if @feedbacks_by_activity.any?
-  callout.primary
-    | There are no feedbacks to report on!
 
   - @feedbacks_by_activity.each do |activity, feedbacks|
     h3
@@ -20,7 +18,6 @@ p.lead
           = "#{feedback.rating}/5: "
           = feedback.detail
           button.button.tiny href=activity_by_uuid_url(activity.uuid, anchor: "curriculum-feedback-#{feedback.id}") View
-
 
 - else
   callout.primary
