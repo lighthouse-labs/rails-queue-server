@@ -1,0 +1,27 @@
+- content_for :right_side_heading
+  = @program.name
+
+h1 Hello, Curriculum Team
+
+p.lead
+  | All curriculum feedback rated &le; 3 from the last 7 days
+
+- if @feedbacks_by_activity.any?
+  callout.primary
+    | There are no feedbacks to report on!
+
+  - @feedbacks_by_activity.each do |activity, feedbacks|
+    h3
+      = link_to activity.name, activity_by_uuid_url(activity.uuid, anchor: 'feedback-form')
+
+    - feedbacks.each do |feedback|
+      callout
+        p
+          = "#{feedback.rating}/5: "
+          = feedback.detail
+          button.button.tiny href=activity_by_uuid_url(activity.uuid, anchor: "curriculum-feedback-#{feedback.id}") View
+
+
+- else
+  callout.primary
+    | There are no feedbacks to report on!

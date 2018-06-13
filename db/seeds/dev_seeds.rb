@@ -67,6 +67,17 @@ if Rails.env.development?
     )
   end
 
+  # Prep course curriculum feedback
+
+  20.times do |n|
+    ActivityFeedback.create!(
+      user: User.all.order('random()').first,
+      activity: Activity.prep.active.order('random()').first,
+      rating: rand(1..5),
+      detail: Faker::Lorem.paragraph
+    )
+  end
+
   Cohort.all.each do |cohort|
     x = cohort == Cohort.find_by(code: 'vanj') ? 20 : 10
     x.times do |i|

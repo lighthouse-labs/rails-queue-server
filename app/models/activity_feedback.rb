@@ -17,9 +17,9 @@ class ActivityFeedback < ApplicationRecord
       .where("activities.day LIKE ?", day.downcase + "%")
       .references(:activity)
   }
-  scope :filter_by_program, ->(program_id) {
+  scope :filter_by_program, ->(program) {
     includes(user: { cohort: :program })
-      .where(programs: { id: program_id })
+      .where(programs: { id: program })
       .references(:user, :cohort, :program)
   }
   scope :filter_by_user_location, ->(location_id) {
