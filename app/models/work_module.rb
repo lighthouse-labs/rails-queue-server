@@ -35,5 +35,4 @@ class WorkModule < ApplicationRecord
     @total_duration_in_hours ||= work_module_items.active.calc_total_duration
   end
 
-
 end

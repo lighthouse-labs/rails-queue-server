@@ -68,5 +68,4 @@ class Workbook < ApplicationRecord
     prev_item&.activity
   end
 
-
 end

@@ -1,6 +1,6 @@
 module ActivitiesHelper
 
-  def stretch_activity?(activity, workbook=nil)
+  def stretch_activity?(activity, workbook = nil)
     if workbook
       workbook.stretch_activity?(activity)
     else

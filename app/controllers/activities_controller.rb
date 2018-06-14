@@ -133,7 +133,6 @@ class ActivitiesController < ApplicationController
                   Activity.find(params[:id])
                 end
 
-
     # If a workbook is provided, the activity should be in there, otherwise problem.
     raise ActiveRecord::RecordNotFound if @workbook && !@workbook.item_for_activity(@activity)
 
