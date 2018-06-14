@@ -78,6 +78,7 @@ class Content::LoadWorkbooks
       slug:               attributes['slug'],
       unlock_on_day:      attributes['unlock_on_day'],
       public:             attributes['public'],
+      archived:           attributes['archived'],
       description:        attributes['description'],
       content_file_path:  attributes['file_path'],
       content_repository: @repo

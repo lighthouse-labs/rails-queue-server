@@ -133,6 +133,10 @@ class ActivitiesController < ApplicationController
                   Activity.find(params[:id])
                 end
 
+
+    # If a workbook is provided, the activity should be in there, otherwise problem.
+    raise ActiveRecord::RecordNotFound if @workbook && !@workbook.item_for_activity(@activity)
+
     # for workbooks use their unlock_on_day b/c the activity itself may have another future date
     params[:day_number]          ||= @workbook.unlock_on_day if @workbook
     params[:day_number]          ||= @activity.day
