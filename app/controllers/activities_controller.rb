@@ -143,7 +143,6 @@ class ActivitiesController < ApplicationController
     params[:teacher_resource_id] ||= @activity.section_id if @activity.teachers_only?
     params[:prep_id]             ||= @activity.section_id if @activity.prep?
     params[:project_id]          ||= @activity.section_id if @activity.project?
-    # @activity = @activity.becomes(Activity)
   end
 
   def check_if_day_unlocked
