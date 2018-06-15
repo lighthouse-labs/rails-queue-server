@@ -7,7 +7,7 @@ html[xmlns='http://www.w3.org/1999/xhtml']
     = stylesheet_link_tag "foundation_emails"
 
   body
-    wrapper.header bgcolor="#8a8a8a"
+    wrapper.header
       container
         row.collapse
           columns small="6" valign="middle"
