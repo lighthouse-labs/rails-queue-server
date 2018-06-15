@@ -8,6 +8,7 @@ class LecturesController < ApplicationController
 
   def show
     @lecture = Lecture.find(params[:id])
+    @activity = Activity.find(@lecture.activity_id)
   end
 
   def new
@@ -24,7 +25,7 @@ class LecturesController < ApplicationController
     @lecture = Lecture::Complete.call(
       activity: @activity,
       lecture_params: lecture_params,
-      presenter: User.find(lecture_params[:presenter_id])
+      presenter: Teacher.find(lecture_params[:presenter_id])
     )
 
     if @lecture.success?
@@ -41,10 +42,21 @@ class LecturesController < ApplicationController
 
   def update
     @lecture = Lecture.find(params[:id])
-    if @lecture.update(lecture_params)
+    presenter_name = Teacher.find(lecture_params[:presenter_id]).full_name
+    if @lecture.update(lecture_params.merge(presenter_name: presenter_name))
       redirect_to activity_lecture_path(@lecture), notice: 'Updated!'
     else
       render :edit
+    end
+  end
+
+  def destroy
+    @lecture = Lecture.find(params[:id])
+    path = activity_path(@activity)
+    if @lecture.destroy
+      redirect_to path, notice: 'Lecture deleted'
+    else
+      redirect_to path, alert: 'Unable to delete lecture'
     end
   end
 

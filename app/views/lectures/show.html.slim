@@ -12,11 +12,12 @@
 
     - if teacher?
       = link_to 'Edit', edit_activity_lecture_path(@lecture)
+      = link_to 'Delete', activity_lecture_path(@activity, @lecture), method: :delete, class: 'delete-lecture-btn'
 
     - if @lecture.youtube_url.present?
       .card
         .card-body.video-wrapper
-          iframe frameborder="0" src="https://www.youtube.com/embed/#{lecture_presenter.youtube_code}" gesture="media" allow="encrypted-media" allowfullscreen
+          iframe frameborder="0" src="https://www.youtube.com/embed/#{lecture_presenter.youtube_code}" allow="encrypted-media" allowfullscreen
 
     - if teacher? && @lecture.teacher_notes.present?
       .card
