@@ -1,5 +1,24 @@
 # Change Log
 
+## [2018.06.13.1345](https://github.com/lighthouse-labs/compass/tree/2018.06.13.1345) (2018-06-13)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.06.06.1615...2018.06.13.1345)
+
+**Merged pull requests:**
+
+- Admin/assistances no longer errors when location AND keywords are used in search [\#674](https://github.com/lighthouse-labs/compass/pull/674) ([kvirani](https://github.com/kvirani))
+- Don't break avatar images when users change roles [\#673](https://github.com/lighthouse-labs/compass/pull/673) ([krsnachandra](https://github.com/krsnachandra))
+- Flagged Assistance Notification Email Updated [\#671](https://github.com/lighthouse-labs/compass/pull/671) ([krsnachandra](https://github.com/krsnachandra))
+- FIX typos in the event names for actioncable disconnection [\#655](https://github.com/lighthouse-labs/compass/pull/655) ([kvirani](https://github.com/kvirani))
+- Ability for Teachers to Search Students by Name [\#650](https://github.com/lighthouse-labs/compass/pull/650) ([krsnachandra](https://github.com/krsnachandra))
+- Admissions Can Enrol a Student in a Cohort [\#620](https://github.com/lighthouse-labs/compass/pull/620) ([krsnachandra](https://github.com/krsnachandra))
+
+## [2018.06.06.1615](https://github.com/lighthouse-labs/compass/tree/2018.06.06.1615) (2018-06-06)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.06.02.1730...2018.06.06.1615)
+
+**Merged pull requests:**
+
+- Student Feedback Submission Fixed [\#664](https://github.com/lighthouse-labs/compass/pull/664) ([krsnachandra](https://github.com/krsnachandra))
+
 ## [2018.06.02.1730](https://github.com/lighthouse-labs/compass/tree/2018.06.02.1730) (2018-06-03)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.18.0800...2018.06.02.1730)
 

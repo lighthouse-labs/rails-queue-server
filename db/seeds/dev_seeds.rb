@@ -23,8 +23,11 @@ if Rails.env.development?
   cohort_van_finished = Cohort.find_by(code: 'vanc')
   cohort_van_finished ||= Cohort.create!(name: "Previous Cohort Van", location: @location_van, start_date: Time.now.monday - 77.days, program: @program, code: "vanc", weekdays: @weekdays)
 
-  cohort_van_future = Cohort.find_by(code: 'vanf')
-  cohort_van_future ||= Cohort.create!(name: "Future Cohort Van", location: @location_van, start_date: Time.now.monday + 14.days, program: @program, code: "vanf", weekdays: @weekdays)
+  cohort_van_upcoming = Cohort.find_by(code: 'vanf')
+  cohort_van_upcoming ||= Cohort.create!(name: "Upcoming Cohort Van", location: @location_van, start_date: Time.now.monday + 77.days, program: @program, code: "vanf", weekdays: @weekdays)
+
+  cohort_tor_upcoming = Cohort.find_by(code: 'to-future')
+  cohort_tor_upcoming ||= Cohort.create!(name: "Upcoming Cohort Tor", location: @location_van, start_date: Time.now.monday + 77.days, program: @program, code: "to-future", weekdays: @weekdays)
 
   User.where(last_name: 'The Fake').destroy_all
 
@@ -33,7 +36,7 @@ if Rails.env.development?
     @teachers << Teacher.create!(
       first_name:             Faker::Name.first_name,
       last_name:              'The Fake',
-      email:                  Faker::Internet.email,
+      email:                  Faker::Internet.unique.email,
       uid:                    1000 + x,
       token:                  2000 + x,
       completed_registration: true,
@@ -42,9 +45,25 @@ if Rails.env.development?
       specialties:            Faker::Lorem.sentence,
       quirky_fact:            Faker::Lorem.sentence,
       phone_number:           Faker::PhoneNumber.phone_number,
-      github_username:        Faker::Internet.user_name,
+      github_username:        Faker::Internet.unique.user_name,
       avatar_url:             @avatars.sample,
       location:               locations.sample
+    )
+  end
+
+  # Prep course users that have signed up and completed registration
+  10.times do |i|
+    User.create!(
+      first_name:             Faker::Name.first_name,
+      last_name:              "The Fake",
+      email:                  Faker::Internet.unique.email,
+      phone_number:           Faker::PhoneNumber.phone_number,
+      github_username:        Faker::Internet.unique.user_name,
+      avatar_url:             @avatars.sample,
+      location:               @location_van,
+      uid:                    11_000 + i,
+      token:                  12_000 + i,
+      completed_registration: true
     )
   end
 
@@ -54,10 +73,10 @@ if Rails.env.development?
       student = Student.create!(
         first_name:             Faker::Name.first_name,
         last_name:              "The Fake",
-        email:                  Faker::Internet.email,
+        email:                  Faker::Internet.unique.email,
         cohort:                 cohort,
         phone_number:           Faker::PhoneNumber.phone_number,
-        github_username:        Faker::Internet.user_name,
+        github_username:        Faker::Internet.unique.user_name,
         avatar_url:             @avatars.sample,
         location:               i < 10 ? cohort.location : @location_cal,
         uid:                    1000 + i,

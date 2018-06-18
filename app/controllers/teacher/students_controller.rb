@@ -4,9 +4,15 @@ class Teacher::StudentsController < Teacher::BaseController
 
   DEFAULT_PER = 10
 
-  def index; end
+  def index
+    @on_student_search = true
+    @students = Student.all
+    filter_by_keywords
+    flash.now[:notice] = @notice
+  end
 
   def show
+    @on_student_search = true
     @projects = Project.all
     @evaluations = @student.evaluations
     @assistances = @student.assistances.order(created_at: :desc).page(params[:page]).per(DEFAULT_PER)
@@ -16,6 +22,18 @@ class Teacher::StudentsController < Teacher::BaseController
 
   def load_student
     @student = Student.find(params[:id])
+  end
+
+  def filter_by_keywords
+    if params[:keywords].present?
+      students = @students.by_keywords(params[:keywords])
+      @students = students.limit(10)
+      if students.count > 10
+        @notice = "More than 10 results. Consider narrowing down your query."
+      end
+    else
+      @students = Student.limit(0)
+    end
   end
 
 end

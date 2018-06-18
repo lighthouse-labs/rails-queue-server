@@ -143,13 +143,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :pending_feedbacks
 
-  def assign_as_student_to_cohort(cohort)
-    current_user.cohort = cohort
-    current_user.type = 'Student'
-    current_user.save!(validate: false)
-    flash[:notice] = "Welcome, you have student access to the cohort: #{cohort.name}!"
-  end
-
   def apply_invitation_code(code)
     if ENV['TEACHER_INVITE_CODE'] == code
       make_teacher
@@ -159,7 +152,12 @@ class ApplicationController < ActionController::Base
       elsif teacher?
         flash[:alert] = "This code is valid to register as a student for #{cohort.name}. You are a teacher already so no change made for you."
       else
-        assign_as_student_to_cohort(cohort)
+        response = AssignAsStudentToCohort.call(cohort: cohort, user: current_user)
+        if response.success?
+          flash[:notice] = "Welcome, you have student access to the cohort: #{cohort.name}!"
+        else
+          flash[:alert] = response.error
+        end
       end
     else
       flash[:alert] = "Sorry, invalid code"
