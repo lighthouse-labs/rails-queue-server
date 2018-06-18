@@ -31,20 +31,22 @@ class LecturesController < ApplicationController
     if @lecture.success?
       redirect_to activity_lecture_path(@activity, @lecture.lecture), notice: 'Created! Students notified via e-mail.'
     else
-      render :new # edit
+      render :edit
     end
     
   end
 
   def edit
     @lecture = Lecture.find(params[:id])
+    @activity = Activity.find(params[:activity_id])
   end
 
   def update
     @lecture = Lecture.find(params[:id])
+    @activity = Activity.find(params[:activity_id])
     presenter_name = Teacher.find(lecture_params[:presenter_id]).full_name
     if @lecture.update(lecture_params.merge(presenter_name: presenter_name))
-      redirect_to activity_lecture_path(@lecture), notice: 'Updated!'
+      redirect_to activity_lecture_path(@activity, @lecture), notice: 'Updated!'
     else
       render :edit
     end

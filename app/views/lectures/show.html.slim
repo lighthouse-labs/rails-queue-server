@@ -11,8 +11,11 @@
       = " by " + @lecture.presenter_name
 
     - if teacher?
-      = link_to 'Edit', edit_activity_lecture_path(@lecture)
-      = link_to 'Delete', activity_lecture_path(@activity, @lecture), method: :delete, class: 'delete-lecture-btn'
+      = link_to edit_activity_lecture_path(@activity, @lecture), class: 'edit text-warning', title: "Edit", data: {toggle: "tooltip"}
+        i.fa.fa-edit
+      | &nbsp;
+      = link_to activity_lecture_path(@activity, @lecture), method: :delete, confirm: 'Are you sure?', class: 'delete text-danger', title: "Delete", data: {toggle: "tooltip"}
+        i.fa.fa-times
 
     - if @lecture.youtube_url.present?
       .card
@@ -22,7 +25,8 @@
     - if teacher? && @lecture.teacher_notes.present?
       .card
         .card-body.teacher-notes
-          = "Teacher Notes: " + @lecture.teacher_notes
+          h5 Teacher (Internal) Notes 
+          == markdown @lecture.teacher_notes
     
     - if @lecture.body
       .card
