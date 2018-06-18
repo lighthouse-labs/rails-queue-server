@@ -10,10 +10,10 @@
       = image_tag lecture.presenter.avatar_url, class: 'avatar'
     - if teacher?
       .actions.float-right
-        = link_to edit_activity_lecture_path(@activity, lecture), class: 'edit text-warning', title: "Edit", data: {toggle: "tooltip"}
+        = link_to edit_activity_lecture_path(@activity, lecture), class: 'btn btn-outline-warning btn-sm', title: "Edit", data: {toggle: "tooltip"}
           i.fa.fa-edit
-          | &nbsp;
-        = link_to activity_lecture_path(@activity, lecture), method: :delete, confirm: 'Are you sure?', class: 'delete text-danger', title: "Delete", data: {toggle: "tooltip"}
+        | &nbsp;
+        = link_to activity_lecture_path(@activity, lecture), method: :delete, class: 'btn btn-outline-danger btn-sm', title: "Delete", data: {toggle: "tooltip", confirm: 'Are you sure?'}
           i.fa.fa-times
 
   .card-body
