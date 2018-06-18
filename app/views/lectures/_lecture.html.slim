@@ -36,3 +36,9 @@
       h5 Teacher (Internal) Notes
       == markdown lecture.teacher_notes
 
+      .actions
+        = link_to edit_activity_lecture_path(@activity, lecture), class: 'edit', title: "Edit", data: {toggle: "tooltip"}
+          i.fa.fa-edit
+        = link_to activity_lecture_path(@activity, lecture), method: :delete, confirm: 'Are you sure?', class: 'delete', title: "Delete", data: {toggle: "tooltip"}
+          i.fa.fa-times
+
