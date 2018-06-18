@@ -1,6 +1,6 @@
 class LecturePlan < Activity
 
-  has_many :lectures, ->{ order(created_at: :desc) }, foreign_key: :activity_id
+  has_many :lectures, -> { order(created_at: :desc) }, foreign_key: :activity_id
 
   # This means we can call .lectures (assoc) on this instance
   def has_lectures?

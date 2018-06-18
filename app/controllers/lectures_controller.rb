@@ -21,11 +21,10 @@ class LecturesController < ApplicationController
   end
 
   def create
-
     @lecture = Lecture::Complete.call(
-      activity: @activity,
+      activity:       @activity,
       lecture_params: lecture_params,
-      presenter: Teacher.find(lecture_params[:presenter_id])
+      presenter:      Teacher.find(lecture_params[:presenter_id])
     )
 
     if @lecture.success?
@@ -33,7 +32,6 @@ class LecturesController < ApplicationController
     else
       render :edit
     end
-    
   end
 
   def edit

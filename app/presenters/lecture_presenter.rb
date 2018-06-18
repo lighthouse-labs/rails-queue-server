@@ -6,5 +6,4 @@ class LecturePresenter < BasePresenter
     YouTubeAddy.extract_video_id(lecture.youtube_url)
   end
 
-
 end
