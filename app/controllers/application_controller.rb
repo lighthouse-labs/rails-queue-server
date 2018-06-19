@@ -133,6 +133,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :preps
 
+  def available_workbooks
+    @available_workbooks ||= Workbook.available_to(current_user)
+  end
+  helper_method :available_workbooks
+
   def teacher_resources
     @teacher_resources ||= TeacherSection.all
   end

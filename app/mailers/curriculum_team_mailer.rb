@@ -10,4 +10,5 @@ class CurriculumTeamMailer < ActionMailer::Base
     subject = "Negative Curriculum Feedback (#{program.name}) - Week of #{date}"
     mail subject: subject, to: program.curriculum_team_email
   end
+
 end

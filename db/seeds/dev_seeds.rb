@@ -69,12 +69,12 @@ if Rails.env.development?
 
   # Prep course curriculum feedback
 
-  20.times do |n|
+  20.times do |_n|
     ActivityFeedback.create!(
-      user: User.all.order('random()').first,
+      user:     User.all.order('random()').first,
       activity: Activity.prep.active.order('random()').first,
-      rating: rand(1..5),
-      detail: Faker::Lorem.paragraph
+      rating:   rand(1..5),
+      detail:   Faker::Lorem.paragraph
     )
   end
 

@@ -5,6 +5,7 @@ class DaysController < ApplicationController
   def show
     @activities = Activity.chronological.active.for_day(day).includes(:outcomes, :activity_submissions)
 
+    @workbooks = Workbook.active.unlocks_on_day(day)
     @project = Project.active.core.where("? between start_day AND end_day", day.to_s).first
     @stretch_project = Project.active.stretch.where("? between start_day AND end_day", day.to_s).first
 
