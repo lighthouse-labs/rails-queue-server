@@ -20,20 +20,20 @@ describe Scheduled::Curriculum::WeeklyDigest do
     let(:activity_d) { create :activity }
 
     # Feedback against activity_a (broad spectrum)
-    let!(:great_feedback_a)  { create :activity_feedback, activity: activity_a, rating: 5 }
-    let!(:medium_feedback_a) { create :activity_feedback, activity: activity_a, rating: 3 }
-    let!(:low_feedback_a)    { create :activity_feedback, activity: activity_a, rating: 2 }
-    let!(:poor_feedback_a)   { create :activity_feedback, activity: activity_a, rating: 1 }
+    let!(:great_feedback_a)  { create :activity_feedback, activity: activity_a, rating: 5, created_at: 1.days.ago }
+    let!(:medium_feedback_a) { create :activity_feedback, activity: activity_a, rating: 3, created_at: 1.days.ago }
+    let!(:low_feedback_a)    { create :activity_feedback, activity: activity_a, rating: 2, created_at: 1.days.ago }
+    let!(:poor_feedback_a)   { create :activity_feedback, activity: activity_a, rating: 1, created_at: 1.days.ago }
 
     let!(:old_poor_feedback_a) { create :activity_feedback, activity: activity_a, rating: 1, created_at: 8.days.ago }
 
     # Feedback against activity_b (mixed feedback)
-    let!(:poor_feedback_b) { create :activity_feedback, activity: activity_b, rating: 1 }
-    let!(:good_feedback_b) { create :activity_feedback, activity: activity_b, rating: 4 }
-    let!(:poor_feedback_without_details_b) { create :activity_feedback, activity: activity_b, rating: 1, detail: '' }
+    let!(:poor_feedback_b) { create :activity_feedback, activity: activity_b, rating: 1, created_at: 1.days.ago }
+    let!(:good_feedback_b) { create :activity_feedback, activity: activity_b, rating: 4, created_at: 1.days.ago }
+    let!(:poor_feedback_without_details_b) { create :activity_feedback, activity: activity_b, rating: 1, detail: '', created_at: 1.days.ago }
 
     # Feedback against activity_c (only positive)
-    let!(:good_feedback_c) { create :activity_feedback, activity: activity_c, rating: 4 }
+    let!(:good_feedback_c) { create :activity_feedback, activity: activity_c, rating: 4, created_at: 1.days.ago }
 
     it 'sends email to the curriculum team' do
       expect(CurriculumTeamMailer).to receive(:weekly_digest).once.with(an_instance_of(Hash), program).and_call_original
