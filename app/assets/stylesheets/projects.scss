@@ -43,8 +43,7 @@
   margin-top: 30px;
 }
 
-// Heads up: Workbooks also use this class. Didn't dupe this for workbooks
-a.project-bio {
+a.project-bio, a.workbook-bio {
 
   display: block;
   border-radius: 6px;
