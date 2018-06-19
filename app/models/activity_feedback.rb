@@ -9,7 +9,7 @@ class ActivityFeedback < ApplicationRecord
 
   scope :reverse_chronological_order, -> { order("activity_feedbacks.updated_at DESC") }
   scope :rated, -> { where.not(rating: nil) }
-  scope :last_seven_days, -> { where("activity_feedbacks.created_at > ?", Time.current - 7.days) }
+  scope :last_seven_days, -> { where("activity_feedbacks.created_at > ?", Time.current.beginning_of_day - 7.days).where("activity_feedbacks.created_at < ?", Date.yesterday.end_of_day) }
   scope :with_details, -> { where.not(detail: [nil, '']) }
   scope :filter_by_user, ->(user_id) { where("user_id = ?", user_id) }
   scope :filter_by_day, ->(day) {
