@@ -4,4 +4,4 @@ Inky.configure do |config|
 end
 
 # For some reason, their docs don't ask for this ?
-Rails.application.config.assets.precompile += %w(foundation_emails.css)
+Rails.application.config.assets.precompile += %w[foundation_emails.css]

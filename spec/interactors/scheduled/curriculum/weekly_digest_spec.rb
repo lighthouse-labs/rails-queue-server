@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe Scheduled::Curriculum::WeeklyDigest do
-
   let(:program) { create :program }
   subject(:context) { Scheduled::Curriculum::WeeklyDigest.call(program: program) }
 
@@ -36,15 +35,12 @@ describe Scheduled::Curriculum::WeeklyDigest do
     # Feedback against activity_c (only positive)
     let!(:good_feedback_c) { create :activity_feedback, activity: activity_c, rating: 4 }
 
-
     it 'sends email to the curriculum team' do
       expect(CurriculumTeamMailer).to receive(:weekly_digest).once.with(an_instance_of(Hash), program).and_call_original
       context
     end
 
-
     context 'context.feedbacks' do
-
       it "excludes activities that have only positive ratings" do
         expect(context.feedbacks).to_not include(activity_c)
       end
@@ -84,7 +80,6 @@ describe Scheduled::Curriculum::WeeklyDigest do
       it "excludes feedback without detail" do
         expect(context.feedbacks[activity_b]).to_not include(poor_feedback_without_details_b)
       end
-
     end
   end
 end
