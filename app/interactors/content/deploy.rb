@@ -30,6 +30,7 @@ class Content::Deploy
       load_section_records(repo_dir, records)
       load_activity_records(repo_dir, records)
       load_interview_records(repo_dir, records)
+      load_workbook_records(repo_dir, records)
 
       @results = persist_changes(records)
     end
@@ -52,6 +53,10 @@ class Content::Deploy
 
   def load_prep_records(repo_dir, records)
     Content::LoadPrepSections.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
+  end
+
+  def load_workbook_records(repo_dir, records)
+    Content::LoadWorkbooks.call(log: @log, repo_dir: repo_dir, records: records, repo: @repo)
   end
 
   def load_project_records(repo_dir, records)

@@ -76,6 +76,10 @@ class Activity < ApplicationRecord
   # to avoid callback on .update via instruction download
   attr_accessor :fetching_remote_content
 
+  def active?
+    !archived?
+  end
+
   # Given the start_time and duration, return the end_time
   def end_time
     hours = start_time / 100

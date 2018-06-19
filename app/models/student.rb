@@ -48,6 +48,10 @@ class Student < User
     update(type: nil, cohort: nil)
   end
 
+  def curriculum_day
+    cohort.curriculum_day.unlocked_until_day(location.timezone).to_s
+  end
+
   def completed_code_review_requests
     assistance_requests.where(type: 'CodeReviewRequest').where.not(assistance_requests: { assistance_id: nil }).where(cohort_id: cohort_id).includes(:assistance)
   end

@@ -1,6 +1,6 @@
 - title "#{@activity.name}"
 
-- present @activity do |activity_presenter|
+- present @activity, ActivityPresenter, { workbook: @workbook } do |activity_presenter|
 
   = activity_presenter.render_sidenav
 
@@ -15,7 +15,7 @@
 
     = activity_presenter.display_outcomes
 
-    - if @activity.stretch?
+    - if stretch_activity?(@activity, @workbook)
       - text = @activity.day? ? "day" : "prep course"
       .alert.alert-info
         strong STRETCH ACTIVITY
