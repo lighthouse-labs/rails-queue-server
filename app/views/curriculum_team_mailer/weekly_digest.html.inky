@@ -19,7 +19,7 @@ p.lead
           strong
             = "#{feedback.rating}/5: "
           = feedback.detail
-          button.button.small href=activity_by_uuid_url(activity.uuid, anchor: "curriculum-feedback-#{feedback.id}") View
+          button.button.small.radius href=activity_by_uuid_url(activity.uuid, anchor: "curriculum-feedback-#{feedback.id}") View
 
 - else
   callout.primary
