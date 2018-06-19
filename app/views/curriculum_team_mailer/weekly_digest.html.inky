@@ -9,15 +9,17 @@ p.lead
 - if @feedbacks_by_activity.any?
 
   - @feedbacks_by_activity.each do |activity, feedbacks|
+    hr
     h3
       = link_to activity.name, activity_by_uuid_url(activity.uuid, anchor: 'feedback-form')
 
     - feedbacks.each do |feedback|
       callout
         p
-          = "#{feedback.rating}/5: "
+          strong
+            = "#{feedback.rating}/5: "
           = feedback.detail
-          button.button.tiny href=activity_by_uuid_url(activity.uuid, anchor: "curriculum-feedback-#{feedback.id}") View
+          button.button.small href=activity_by_uuid_url(activity.uuid, anchor: "curriculum-feedback-#{feedback.id}") View
 
 - else
   callout.primary

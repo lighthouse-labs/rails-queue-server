@@ -1,5 +1,18 @@
 @import "foundation-emails";
 
+hr {
+  border: 1px solid #2199e8;
+  margin: 1em 0;
+}
+
+.callout {
+  border-collapse: separate;
+}
+
+.callout-inner {
+  border-radius: 10px;
+}
+
 .header {
   background: #2c1b6b;
 }
