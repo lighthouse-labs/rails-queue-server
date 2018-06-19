@@ -40,7 +40,7 @@ describe Scheduled::Curriculum::WeeklyDigest do
       context
     end
 
-    context 'context.feedbacks' do
+    describe 'context.feedbacks' do
       it "excludes activities that have only positive ratings" do
         expect(context.feedbacks).to_not include(activity_c)
       end
