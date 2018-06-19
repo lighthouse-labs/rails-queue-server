@@ -28,9 +28,7 @@ class Teacher::StudentsController < Teacher::BaseController
     if params[:keywords].present?
       students = @students.by_keywords(params[:keywords])
       @students = students.limit(10)
-      if students.count > 10
-        @notice = "More than 10 results. Consider narrowing down your query."
-      end
+      @notice = "More than 10 results. Consider narrowing down your query." if students.count > 10
     else
       @students = Student.limit(0)
     end
