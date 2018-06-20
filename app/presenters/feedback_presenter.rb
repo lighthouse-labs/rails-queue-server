@@ -9,7 +9,7 @@ class FeedbackPresenter < BasePresenter
   end
 
   def upcased_day
-    if feedback.try(:feedbackable)
+    if feedback.try(:feedbackable) && feedback.feedbackable.try(:day) 
       feedback.feedbackable.day.upcase
     elsif feedback.student.present?
       CurriculumDay.new(feedback.created_at.to_date, feedback.student.cohort).to_s.upcase
@@ -22,6 +22,8 @@ class FeedbackPresenter < BasePresenter
   def feedbackable_name
     if feedback.try(:feedbackable) && feedback.feedbackable.try(:name)
       feedback.feedbackable.name
+    elsif feedback.try(:feedbackable) && feedback.feedbackable.try(:project)
+      feedback.feedbackable.project.name
     elsif feedback.try(:feedbackable)
       'N/A'
     else
