@@ -9,7 +9,7 @@ module LecturesHelper
   end
 
   def youtube_lecture_thumbnail(youtube_url)
-    image_tag("https://img.youtube.com/vi/0WYwaXS0CR0/2.jpg", style: 'width: 100%')
+    image_tag("https://img.youtube.com/vi/#{YouTubeAddy.extract_video_id(youtube_url)}/2.jpg", style: 'width: 100%')
   end
 
   def no_video_lecture_thumbnail

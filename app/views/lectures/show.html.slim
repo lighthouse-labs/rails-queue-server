@@ -1,0 +1,39 @@
+- title "#{@lecture.subject}"
+
+- content_for :side_nav do
+  == render 'layouts/side_nav'
+
+- present @lecture do |lecture_presenter|
+  .lecture-show
+    h1
+      = @lecture.subject 
+    h2
+      = " by " + @lecture.presenter_name
+
+    .actions-container
+      .card
+        .card-header
+          .btn-collection
+            - if teacher?
+              = link_to edit_activity_lecture_path(@activity, @lecture), class: 'btn btn-outline-warning btn-sm', title: "Edit"
+                i.fa.fa-edit
+                | &nbsp; Edit
+              = link_to activity_lecture_path(@activity, @lecture), method: :delete, class: 'btn btn-outline-danger btn-sm', title: "Delete", data: {confirm: 'Are you sure?'}
+                i.fa.fa-times
+                | &nbsp; Delete
+
+    - if @lecture.youtube_url.present?
+      .card
+        .card-body.video-wrapper
+          iframe frameborder="0" src="https://www.youtube.com/embed/#{lecture_presenter.youtube_code}" allow="encrypted-media" allowfullscreen
+
+    - if teacher? && @lecture.teacher_notes.present?
+      .card
+        .card-body.teacher-notes
+          h5 Teacher (Internal) Notes 
+          == markdown @lecture.teacher_notes
+    
+    - if @lecture.body
+      .card
+        .card-body.body
+          == markdown @lecture.body

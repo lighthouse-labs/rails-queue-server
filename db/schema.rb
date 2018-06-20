@@ -333,7 +333,6 @@ ActiveRecord::Schema.define(version: 20180612171346) do
     t.string   "slack_channel"
     t.string   "slack_username"
     t.boolean  "active",                   default: true
-    t.string   "flagged_assistance_email"
     t.index ["supported_by_location_id"], name: "index_locations_on_supported_by_location_id", using: :btree
   end
 
@@ -415,6 +414,7 @@ ActiveRecord::Schema.define(version: 20180612171346) do
     t.boolean  "prep_assistance"
     t.boolean  "has_queue",                       default: true
     t.text     "disable_queue_days",              default: [],   null: false, array: true
+    t.string   "curriculum_team_email"
   end
 
   create_table "questions", force: :cascade do |t|

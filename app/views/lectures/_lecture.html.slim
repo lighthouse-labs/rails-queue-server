@@ -1,5 +1,5 @@
 .lecture.card.mb-4 class=('my-cohort' if cohort && lecture.cohort == cohort)
-  .card-header.clearfix
+  .card-header
     h5.float-md-left
       = lecture.subject
       | &nbsp;
@@ -8,6 +8,13 @@
         = lecture.presenter.full_name
     .float-md-right.d-none.d-sm-none
       = image_tag lecture.presenter.avatar_url, class: 'avatar'
+    - if teacher?
+      .actions.float-right
+        = link_to edit_activity_lecture_path(@activity, lecture), class: 'btn btn-outline-warning btn-sm', title: "Edit", data: {toggle: "tooltip"}
+          i.fa.fa-edit
+        | &nbsp;
+        = link_to activity_lecture_path(@activity, lecture), method: :delete, class: 'btn btn-outline-danger btn-sm', title: "Delete", data: {toggle: "tooltip", confirm: 'Are you sure?'}
+          i.fa.fa-times
 
   .card-body
     .row
@@ -29,11 +36,9 @@
             == markdown(lecture.body)
           .fade-mask
 
-        a href="#" class="btn btn-primary"
-          | Read More
+        = link_to 'Read More', activity_lecture_path(@activity, lecture), class: "btn btn-primary"
 
   - if teacher? && lecture.teacher_notes?
     .card-footer.text-muted
       h5 Teacher (Internal) Notes
       == markdown lecture.teacher_notes
-

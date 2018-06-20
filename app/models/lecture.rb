@@ -17,7 +17,7 @@ class Lecture < ApplicationRecord
   validates :body, presence: true
 
   def manageable_by?(user)
-    user.admin? || (user == self.presenter)
+    user.admin? || (user == presenter)
   end
 
 end

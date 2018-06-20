@@ -9,6 +9,7 @@ class Activity < ApplicationRecord
   has_many :assistance_requests
   has_many :messages, -> { order(created_at: :desc) }, class_name: 'ActivityMessage'
   has_many :recordings, -> { order(created_at: :desc) }
+  has_many :lectures, -> { order(created_at: :desc) }
   has_many :feedbacks, as: :feedbackable
   has_many :activity_feedbacks, dependent: :destroy # new, to replace the above
 
