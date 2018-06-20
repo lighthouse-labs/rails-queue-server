@@ -1,0 +1,8 @@
+/ - content_for :side_nav do
+/   == render 'layouts/side_nav'
+
+- if @lectures.present?
+  hr
+  h3 = "Lectures"
+  .lectures
+    = render @lectures

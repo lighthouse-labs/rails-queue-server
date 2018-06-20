@@ -7,6 +7,7 @@ class Lecture < ApplicationRecord
   belongs_to :activity
 
   scope :for_cohort, ->(cohort) { where(cohort_id: cohort.id) }
+  scope :most_recent_first, -> { order("lectures.created_at ASC") }
 
   validates :activity, presence: true
   validates :cohort, presence: true

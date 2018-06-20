@@ -2,9 +2,13 @@ class LecturesController < ApplicationController
 
   include CourseCalendar
 
-  before_action :retrieve_activity
+  before_action :retrieve_activity, except: [:index]
   before_action :teacher_required, only: [:edit, :update, :destroy, :new, :create]
   before_action :check_if_day_unlocked, only: [:show]
+
+  def index
+    @lectures = Lecture.all.most_recent_first
+  end
 
   def show
     @lecture = Lecture.find(params[:id])
