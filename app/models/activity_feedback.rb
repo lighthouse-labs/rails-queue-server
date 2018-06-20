@@ -55,9 +55,7 @@ class ActivityFeedback < ApplicationRecord
   }
   scope :filter_by_ratings, ->(ratings) { where(rating: ratings) }
 
-  from = Date.current.advance(days: -7).beginning_of_day
-  to = Date.yesterday.end_of_day
-  scope :last_seven_days, -> { where(created_at: from..to) }
+  scope :seven_days, ->(from, to) { where(created_at: from..to) }
 
   default_scope -> { order(created_at: :desc) }
 
