@@ -1,7 +1,17 @@
 module ActivitiesHelper
 
-  def get_activity_path(activity)
-    if activity.prep?
+  def stretch_activity?(activity, workbook = nil)
+    if workbook
+      workbook.stretch_activity?(activity)
+    else
+      activity.stretch?
+    end
+  end
+
+  def get_activity_path(activity, workbook = nil)
+    if workbook
+      workbook_activity_path(workbook, activity)
+    elsif activity.prep?
       prep_activity_path(:prep, activity)
     elsif activity.teachers_only?
       activity_path(activity)
@@ -10,8 +20,10 @@ module ActivitiesHelper
     end
   end
 
-  def get_next_index_path(activity)
-    if activity.section && activity.section.type == "Prep"
+  def get_next_index_path(activity, workbook = nil)
+    if workbook
+      workbook_path(workbook)
+    elsif activity.section && activity.section.type == "Prep"
       prep_index_path
     elsif activity.day
       day_path(activity.day)
@@ -66,7 +78,7 @@ module ActivitiesHelper
 
   def descriptive_activity_name(activity)
     name = activity.name
-    name << ' (Stretch)' if activity.stretch?
+    name << ' (Stretch)' if stretch_activity?(activity, @workbook)
     name << ' [Archived]' if activity.archived?
     name
   end

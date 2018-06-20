@@ -10,7 +10,6 @@
     = form.input :github_url, placeholder: "From the browser's address bar. Eg: https://github.com/lighthouse-labs/ios-prep-book"
 
   = form.input :time_spent, as: :integer, label: 'Time spent in minutes', placeholder: 'How long did it take you? Your best approximation (in minutes) please!'
-  = form.input :note, as: :text, placeholder: 'A quick note that is visible only to you and to teachers'
 
   - if @activity.allow_feedback?
     h3

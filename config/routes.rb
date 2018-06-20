@@ -40,6 +40,10 @@ LaserShark::Application.routes.draw do
     resources :activities, only: [:index, :show, :edit]
   end
 
+  resources :workbooks, only: [:index, :show] do
+    resources :activities, only: [:show]
+  end
+
   resources :teacher_resources, only: [:index, :show] do
     resources :activities, only: [:show]
   end
@@ -143,7 +147,7 @@ LaserShark::Application.routes.draw do
 
   # TEACHER
   namespace :teacher do
-    resources :students, only: [:show]
+    resources :students, only: [:show, :index]
     resources :evaluations, only: [:index]
     resources :assistances, only: [:index]
     resources :tech_interviews, only: [:index]
@@ -170,6 +174,7 @@ LaserShark::Application.routes.draw do
       member do
         post :reactivate
         post :deactivate
+        post :enrol_in_cohort
       end
     end
     resources :cohorts, except: [:destroy] do

@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'Authentication', type: :feature do
-
   let(:program) { create :program }
   let(:cohort) { create :cohort, program: program }
 

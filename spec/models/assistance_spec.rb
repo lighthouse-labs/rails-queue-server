@@ -59,7 +59,7 @@ describe Assistance do
     end
 
     it 'should not change the assistee\'s code review percent their code review percent is nil' do
-      @assistance.assistee.update_attributes(code_review_percent: nil)
+      @assistance.assistee.update(code_review_percent: nil)
       code_review_percent = @assistance.assistee.code_review_percent
       rating = Assistance::RATING_BASELINE + 1
       @assistance.end('test', rating)

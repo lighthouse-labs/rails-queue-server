@@ -35,6 +35,15 @@ class Assistance < ApplicationRecord
     joins(:assistance_request)
       .where("assistance_requests.canceled_at IS NULL AND assistances.end_at IS NULL")
   }
+  # Why not just a simpler joins syntax?
+  # See https://github.com/lighthouse-labs/compass/issues/672
+  # If we use pg_search_scope's by_keywords scope then the join table has a diff unexpected name and the expected "users" relation simply doesn't work (SQL Error results)
+  # If we DON'T use pg_searh_scope (ie no keywords) then AR works as expected and the join table is called "users"
+  # Therefore we are being VERY explicit on relation name/alias when joinig with users, since it's also joined by pg_search which then causes errors.
+  scope :with_user_location_id, ->(location_id) {
+    joins('INNER JOIN users AS "assistees" ON assistees.id = assistances.assistee_id')
+      .where(assistees: { location_id: location_id })
+  }
   scope :completed, -> { where('assistances.end_at IS NOT NULL') }
   scope :has_assistance_request, -> { joins(:assistance_request) }
   scope :order_by_start, -> { order(:start_at) }
@@ -126,7 +135,7 @@ class Assistance < ApplicationRecord
     begin
       poster = Slack::Poster.new('lighthouse', ENV['SLACK_TOKEN'], options)
       poster.send_message("*Assisted #{assistee.full_name} for #{((end_at - start_at) / 60).to_i} minutes*:\n #{notes}")
-    rescue
+    rescue StandardError
     end
   end
 

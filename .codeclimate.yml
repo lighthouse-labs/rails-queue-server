@@ -1,0 +1,40 @@
+---
+version: "2"
+plugins:
+  brakeman:
+    enabled: true
+  bundler-audit:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+      - javascript
+      - python
+      - php
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+  rubocop:
+    enabled: true
+
+exclude_patterns:
+- config/
+- db/
+- spec/
+- test/
+- vendor/
+- deploy/
+- bin/
+# - 'db/schema.rb'
+# - 'db/migrate/*'
+# - 'db/seeds.rb'
+# - 'config/application.rb'
+# - 'config/environment.rb'
+# - 'config/database.yml'
+# - 'config/environments/**/*'
+# - 'test/**/*'
+# - 'spec/rails_helper.rb'
+# - 'spec/spec_helper.rb'

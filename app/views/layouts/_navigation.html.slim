@@ -36,6 +36,13 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
               i.fa.fa-fw.fa-paper-plane-o
               | Prep Work
 
+            - if available_workbooks.present?
+              .dropdown-divider
+              - available_workbooks.each do |workbook|
+                = link_to workbook, class: 'dropdown-item', title: workbook.name
+                  i.fa.fa-fw.fa-book
+                  = workbook.name
+
             - if teacher? || admin?
               .dropdown-divider
               = link_to teacher_resources_path, class: 'dropdown-item', title: 'Teacher Resources'
@@ -68,12 +75,15 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             i.fa.fa-fw.fa-id-card
             span.non-tablet-label
               | Students
-          .dropdown-menu
+          .dropdown-menu.scrollable-menu
+            = link_to 'Search', teacher_students_path, class: "dropdown-item #{'active' if @on_student_search}"
+            .dropdown-divider
             - dropdown_cohorts.each do |location, cohorts|
               .divider-title = location.name
               .dropdown-divider
               - cohorts.each do |c|
                 = link_to cohort_link(c), cohort_students_path(c), class: "dropdown-item #{'active' if cohort == c}"
+
 
       - if teacher?
         li.nav-item
@@ -123,7 +133,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
           = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Cohort' do
             i.fa.fa-fw.fa-group
             span.non-tablet-label = cohort.name
-          .dropdown-menu
+          .dropdown-menu.scrollable-menu
             - dropdown_cohorts.each do |location, cohorts|
               .divider-title = location.name
               .dropdown-divider
@@ -131,6 +141,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
                 = link_to c.name, [:switch_to, c], method: :put, class: "dropdown-item #{'active' if c == cohort}"
             .dropdown-divider
             = link_to 'Other...', teacher_cohort_switcher_index_path, class: 'dropdown-item'
+
 
       - if current_user
         - if active_student?

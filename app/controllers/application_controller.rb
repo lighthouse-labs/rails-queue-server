@@ -50,12 +50,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def teacher?
-    current_user && current_user.is_a?(Teacher)
+    current_user&.is_a?(Teacher)
   end
   helper_method :teacher?
 
   def student?
-    current_user && current_user.is_a?(Student)
+    current_user&.is_a?(Student)
   end
   helper_method :student?
 
@@ -88,7 +88,6 @@ class ApplicationController < ActionController::Base
       current_user.cohort.location : current_user.location
 
     Teacher.where(on_duty: true, location: location)
-
   end
   helper_method :teachers_on_duty
 
@@ -134,6 +133,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :preps
 
+  def available_workbooks
+    @available_workbooks ||= Workbook.available_to(current_user)
+  end
+  helper_method :available_workbooks
+
   def teacher_resources
     @teacher_resources ||= TeacherSection.all
   end
@@ -144,13 +148,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :pending_feedbacks
 
-  def assign_as_student_to_cohort(cohort)
-    current_user.cohort = cohort
-    current_user.type = 'Student'
-    current_user.save!(validate: false)
-    flash[:notice] = "Welcome, you have student access to the cohort: #{cohort.name}!"
-  end
-
   def apply_invitation_code(code)
     if ENV['TEACHER_INVITE_CODE'] == code
       make_teacher
@@ -160,7 +157,12 @@ class ApplicationController < ActionController::Base
       elsif teacher?
         flash[:alert] = "This code is valid to register as a student for #{cohort.name}. You are a teacher already so no change made for you."
       else
-        assign_as_student_to_cohort(cohort)
+        response = AssignAsStudentToCohort.call(cohort: cohort, user: current_user)
+        if response.success?
+          flash[:notice] = "Welcome, you have student access to the cohort: #{cohort.name}!"
+        else
+          flash[:alert] = response.error
+        end
       end
     else
       flash[:alert] = "Sorry, invalid code"
@@ -177,7 +179,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_timezone
-    if cohort && cohort.location
+    if cohort&.location
       # all locations are assumed to have timezone
       Time.zone = cohort.location.timezone
     end

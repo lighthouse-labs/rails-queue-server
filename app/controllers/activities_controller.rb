@@ -1,6 +1,7 @@
 class ActivitiesController < ApplicationController
 
   # must be before the course calendar inclusion now
+  before_action :load_workbook, only: [:show]
   before_action :require_activity, only: [:show, :edit, :update]
 
   include CourseCalendar # concern
@@ -45,6 +46,10 @@ class ActivitiesController < ApplicationController
   end
 
   private
+
+  def load_workbook
+    @workbook ||= Workbook.available_to(current_user).find_by!(slug: params[:workbook_id]) if params[:workbook_id].present?
+  end
 
   def apply_filters
     filter_by_permissions
@@ -124,15 +129,21 @@ class ActivitiesController < ApplicationController
                 else
                   Activity.find(params[:id])
                 end
+
+    # If a workbook is provided, the activity should be in there, otherwise problem.
+    raise ActiveRecord::RecordNotFound if @workbook && !@workbook.item_for_activity(@activity)
+
+    # for workbooks use their unlock_on_day b/c the activity itself may have another future date
+    params[:day_number]          ||= @workbook.unlock_on_day if @workbook
     params[:day_number]          ||= @activity.day
     params[:teacher_resource_id] ||= @activity.section_id if @activity.teachers_only?
     params[:prep_id]             ||= @activity.section_id if @activity.prep?
     params[:project_id]          ||= @activity.section_id if @activity.project?
-    # @activity = @activity.becomes(Activity)
   end
 
   def check_if_day_unlocked
-    if student?
+    # when viewing workbook, we don't consider the activity.day for access
+    if student? && !@workbook
       redirect_to day_path('today'), alert: 'Not allowed' unless @activity.day == params[:day_number]
     end
   end
@@ -172,7 +183,7 @@ class ActivitiesController < ApplicationController
   def load_edit_url
     @form_url = if params[:day_number]
                   day_activity_path(params[:day_number], @activity)
-                elsif @section && @section.is_a?(Prep)
+                elsif @section&.is_a?(Prep)
                   prep_activity_path(@section, @activity)
       # elsif @section && @section.is_a?(Project)
       # project_activity_path <= Not yet supported - KV

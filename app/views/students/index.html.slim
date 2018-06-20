@@ -11,7 +11,7 @@ table.table
 
   tbody
     - @students.each do |student|
-      - present student, UserPresenter do |student_presenter|
+      - present student, StudentPresenter do |student_presenter|
         tr
           td.student-info
               = render 'shared/student_info', student: student

@@ -5,7 +5,7 @@ class Student < User
   has_many :evaluations
 
   validates :unlocked_until_day, format: { with: TWO_DIGIT_WEEK_DAY_REGEX, allow_blank: true, message: 'Invalid Day Format' }, if: :use_double_digit_week?
-  validates :unlocked_until_day, format: { with: DAY_REGEX, allow_blank: true, message: 'Invalid Day Format'  }, unless: :use_double_digit_week?
+  validates :unlocked_until_day, format: { with: DAY_REGEX, allow_blank: true, message: 'Invalid Day Format' }, unless: :use_double_digit_week?
 
   scope :in_active_cohort, -> { joins(:cohort).merge(Cohort.is_active) }
   scope :has_open_requests, -> {
@@ -37,15 +37,19 @@ class Student < User
   end
 
   def active_student?
-    cohort && cohort.active?
+    cohort&.active?
   end
 
   def alumni?
-    cohort && cohort.finished?
+    cohort&.finished?
   end
 
   def revert_to_prep
     update(type: nil, cohort: nil)
+  end
+
+  def curriculum_day
+    cohort.curriculum_day.unlocked_until_day(location.timezone).to_s
   end
 
   def completed_code_review_requests
@@ -56,7 +60,7 @@ class Student < User
     completed_code_reviews = completed_code_review_requests
     if !completed_code_reviews.empty?
       # exclude nil values from ratings.
-      ratings = completed_code_reviews.map(&:assistance).map { |e| e.rating if e }.reject(&:nil?)
+      ratings = completed_code_reviews.map(&:assistance).map { |e| e&.rating }.reject(&:nil?)
       ((ratings.inject(0) { |sum, rating| sum += rating }) / ratings.length.to_f).round(1)
     else
       'N/A'

@@ -16,6 +16,12 @@
   padding: 6px 9px;
 }
 
+.scrollable-menu {
+  height: auto;
+  max-height: 400px;
+  overflow-x: hidden;
+}
+
 h1.day-heading.prep-heading {
   margin-bottom: 20px;
 }
