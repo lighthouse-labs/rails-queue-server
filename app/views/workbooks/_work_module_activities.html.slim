@@ -1,0 +1,12 @@
+.list-group.list-group-flush
+  - work_module.work_module_items.active.each do |item|
+    - activity = item.activity
+    = link_to workbook_activity_path(@workbook, activity.id), class: "list-group-item list-group-item-action #{'active' if @activity && @activity.eql?(activity)} #{'stretch' if item.stretch?}" do
+        i class=(icon_for(activity)) title=activity_type(activity)
+        = " #{activity.name}"
+        - if item.stretch?
+          i.fa.fa-rocket data-toggle='tooltip' title='Stretch'
+
+        - if current_user.completed_activity?(activity)
+          | &nbsp;
+          i.fa.fa-check data-toggle='tooltip' title='Completed :)'

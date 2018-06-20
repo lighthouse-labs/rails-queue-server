@@ -645,7 +645,7 @@ ActiveRecord::Schema.define(version: 20180607174754) do
     t.string   "uuid",           null: false
     t.integer  "work_module_id"
     t.integer  "activity_id"
-    t.integer  "order"
+    t.integer  "sequence"
     t.boolean  "archived"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
@@ -660,7 +660,7 @@ ActiveRecord::Schema.define(version: 20180607174754) do
     t.string   "name",              null: false
     t.string   "slug"
     t.integer  "workbook_id"
-    t.integer  "order"
+    t.integer  "sequence"
     t.boolean  "archived"
     t.string   "content_file_path"
     t.datetime "created_at",        null: false
@@ -680,6 +680,8 @@ ActiveRecord::Schema.define(version: 20180607174754) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.string   "unlock_on_day",         limit: 5
+    t.boolean  "public"
+    t.text     "description"
     t.index ["content_repository_id"], name: "index_workbooks_on_content_repository_id", using: :btree
     t.index ["slug"], name: "index_workbooks_on_slug", unique: true, using: :btree
     t.index ["uuid"], name: "index_workbooks_on_uuid", unique: true, using: :btree
