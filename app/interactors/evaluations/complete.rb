@@ -5,6 +5,7 @@ class Evaluations::Complete
   organize  Evaluations::ValidateCompleteness,
             Evaluations::UpdateResult,
             Evaluations::Finish,
-            Evaluations::SendEmail
+            Evaluations::SendEmail,
+            Evaluations::CreateFeedbackStub
 
 end
