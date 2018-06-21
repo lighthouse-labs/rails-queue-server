@@ -6,34 +6,43 @@
 - present @lecture do |lecture_presenter|
   .lecture-show
     h1
-      = @lecture.subject 
+      = @lecture.subject
     h2
-      = " by " + @lecture.presenter_name
+      = "Lecture by " + @lecture.presenter.full_name
 
     .actions-container
-      .card
+      .card.mb-2
         .card-header
           .btn-collection
+            = link_to activity_path(@activity), class: 'btn btn-info btn-sm', title: 'Back'
+              | &laquo; Lecture Plan
+
             - if teacher?
-              = link_to edit_activity_lecture_path(@activity, @lecture), class: 'btn btn-outline-warning btn-sm', title: "Edit"
-                i.fa.fa-edit
-                | &nbsp; Edit
-              = link_to activity_lecture_path(@activity, @lecture), method: :delete, class: 'btn btn-outline-danger btn-sm', title: "Delete", data: {confirm: 'Are you sure?'}
-                i.fa.fa-times
-                | &nbsp; Delete
+              .float-right
+                = link_to edit_activity_lecture_path(@activity, @lecture), class: 'btn btn-warning btn-sm', title: "Edit"
+                  i.fa.fa-edit
+                  | &nbsp; Edit
+                = link_to activity_lecture_path(@activity, @lecture), method: :delete, class: 'btn btn-danger btn-sm', title: "Delete", data: {confirm: 'Are you sure?'}
+                  i.fa.fa-times
+                  | &nbsp; Delete
 
     - if @lecture.youtube_url.present?
-      .card
+      .card.mb-2
+        .card-header
+          h5 Recording
         .card-body.video-wrapper
           iframe frameborder="0" src="https://www.youtube.com/embed/#{lecture_presenter.youtube_code}" allow="encrypted-media" allowfullscreen
 
-    - if teacher? && @lecture.teacher_notes.present?
-      .card
+    - if teacher? && @lecture.teacher_notes?
+      .card.mb-2
+        .card-header
+          h5 Internal Teacher Notes
         .card-body.teacher-notes
-          h5 Teacher (Internal) Notes 
           == markdown @lecture.teacher_notes
-    
-    - if @lecture.body
+
+    - if @lecture.body?
       .card
+        .card-header
+          h5 Lecture Notes
         .card-body.body
           == markdown @lecture.body

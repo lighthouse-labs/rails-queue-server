@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180612171346) do
+ActiveRecord::Schema.define(version: 20180620235023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,16 +305,15 @@ ActiveRecord::Schema.define(version: 20180612171346) do
     t.integer  "presenter_id"
     t.integer  "cohort_id"
     t.integer  "activity_id"
-    t.string   "day",            limit: 5
-    t.string   "subject",        limit: 1000
-    t.string   "presenter_name"
+    t.string   "day",           limit: 5
+    t.string   "subject",       limit: 1000
     t.text     "body"
     t.text     "teacher_notes"
-    t.string   "youtube_url",    limit: 500
+    t.string   "youtube_url",   limit: 500
     t.string   "file_name"
     t.string   "file_type"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.index ["activity_id"], name: "index_lectures_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_lectures_on_cohort_id", using: :btree
     t.index ["presenter_id"], name: "index_lectures_on_presenter_id", using: :btree
@@ -333,6 +332,7 @@ ActiveRecord::Schema.define(version: 20180612171346) do
     t.string   "slack_channel"
     t.string   "slack_username"
     t.boolean  "active",                   default: true
+    t.string   "flagged_assistance_email"
     t.index ["supported_by_location_id"], name: "index_locations_on_supported_by_location_id", using: :btree
   end
 
@@ -414,7 +414,6 @@ ActiveRecord::Schema.define(version: 20180612171346) do
     t.boolean  "prep_assistance"
     t.boolean  "has_queue",                       default: true
     t.text     "disable_queue_days",              default: [],   null: false, array: true
-    t.string   "curriculum_team_email"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -680,8 +679,8 @@ ActiveRecord::Schema.define(version: 20180612171346) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.string   "unlock_on_day",         limit: 5
-    t.boolean  "public"
     t.text     "description"
+    t.boolean  "public"
     t.index ["content_repository_id"], name: "index_workbooks_on_content_repository_id", using: :btree
     t.index ["slug"], name: "index_workbooks_on_slug", unique: true, using: :btree
     t.index ["uuid"], name: "index_workbooks_on_uuid", unique: true, using: :btree

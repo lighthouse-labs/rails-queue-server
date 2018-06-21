@@ -1,34 +1,29 @@
-.lecture.card.mb-4 class=('my-cohort' if cohort && lecture.cohort == cohort)
+.lecture.card.mb-4
   .card-header
+    = image_tag avatar_for(lecture.presenter), class: 'mr-2 float-md-left d-none d-md-block teacher-avatar'
     h5.float-md-left
       = lecture.subject
-      | &nbsp;
+      br
       small
-        | by&nbsp;
         = lecture.presenter.full_name
+        = " (#{lecture.presenter.location.name})"
+        br
+        = time_ago_in_words lecture.created_at
+        | &nbsp;ago&nbsp;
+        - if cohort && lecture.cohort == cohort
+          - if student?
+            span.badge.badge-info Your Cohort
+          - else
+            span.badge.badge-info Selected Cohort
+
     .float-md-right.d-none.d-sm-none
       = image_tag lecture.presenter.avatar_url, class: 'avatar'
-    - if teacher?
-      .actions.float-right
-        = link_to edit_activity_lecture_path(@activity, lecture), class: 'btn btn-outline-warning btn-sm', title: "Edit", data: {toggle: "tooltip"}
-          i.fa.fa-edit
-        | &nbsp;
-        = link_to activity_lecture_path(@activity, lecture), method: :delete, class: 'btn btn-outline-danger btn-sm', title: "Delete", data: {toggle: "tooltip", confirm: 'Are you sure?'}
-          i.fa.fa-times
 
   .card-body
     .row
       .col-md-3
         = link_to activity_lecture_path(@activity, lecture)
           = lecture_thumbnail(lecture)
-        br
-        br
-        small
-          = time_ago_in_words lecture.created_at
-          | &nbsp;ago
-        br
-        small
-          = lecture.presenter.location.name
 
       .col-md-9
         .content-container
@@ -36,7 +31,8 @@
             == markdown(lecture.body)
           .fade-mask
 
-        = link_to 'Read More', activity_lecture_path(@activity, lecture), class: "btn btn-primary"
+        = link_to activity_lecture_path(@activity, lecture), class: "btn btn-primary"
+          | View &raquo;
 
   - if teacher? && lecture.teacher_notes?
     .card-footer.text-muted

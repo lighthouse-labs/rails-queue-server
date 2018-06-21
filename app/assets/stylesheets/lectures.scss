@@ -26,6 +26,7 @@ section.activity-details {
         // Adapted from
         // http://www.webdevbydoing.com/how-to-make-text-fade-out-at-the-bottom-or-top/
         .fade-mask {
+          pointer-events: none;
           height: 300px;
           width: 100%;
           position: absolute;
