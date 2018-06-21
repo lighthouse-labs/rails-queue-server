@@ -6,34 +6,38 @@ h4 Teacher Feedback
     = render 'form'
 br
 
-.alert.alert-info.col-md-10
+.alert.alert-info.col-md-12
   table.table
     thead
       th.admin-teacher-stat-heading Total
       th.admin-teacher-stat-heading Completed
       th.admin-teacher-stat-heading Pending
       th.admin-teacher-stat-heading Expired
-      th.admin-teacher-stat-heading Lecture Avg Rating
-      th.admin-teacher-stat-heading Breakout Avg Rating
-      th.admin-teacher-stat-heading Assistance Avg Rating
-      th.admin-teacher-stat-heading Tech Interview Avg Rating
+      th.admin-teacher-stat-heading Lecture
+      th.admin-teacher-stat-heading Breakout
+      th.admin-teacher-stat-heading Assistance
+      th.admin-teacher-stat-heading Tech Interview
+      th.admin-teacher-stat-heading Project Eval
     tbody
       td.admin-teacher-stat = @feedbacks.count
       td.admin-teacher-stat = @feedbacks.completed.count
       td.admin-teacher-stat = @feedbacks.pending.not_expired.count
       td.admin-teacher-stat = @feedbacks.pending.expired.count
-      td.admin-teacher-stat
+      td.admin-teacher-stat data-toggle="tooltip" data-placement="bottom" title="Average Rating"
         - lecture_feedbacks = @feedbacks.completed.lecture
         = avg_ratings_or_na(lecture_feedbacks, 5)
-      td.admin-teacher-stat
+      td.admin-teacher-stat data-toggle="tooltip" data-placement="bottom" title="Average Rating"
         - breakout_feedbacks = @feedbacks.completed.breakout
         = avg_ratings_or_na(breakout_feedbacks, 5)
-      td.admin-teacher-stat
+      td.admin-teacher-stat data-toggle="tooltip" data-placement="bottom" title="Average Rating"
         - assistance_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'Assistance' }
         = avg_ratings_or_na(assistance_feedbacks, 5)
-      td.admin-teacher-stat
+      td.admin-teacher-stat data-toggle="tooltip" data-placement="bottom" title="Average Rating"
         - tech_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'TechInterview' }
         = avg_ratings_or_na(tech_feedbacks, 5)
+      td.admin-teacher-stat data-toggle="tooltip" data-placement="bottom" title="Average Rating"
+        - project_eval_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'Evaluation' }
+        = avg_ratings_or_na(project_eval_feedbacks, 5)
 br
 
 - @completed_feedbacks.each do |teacher, feedbacks|
@@ -42,27 +46,29 @@ br
       .row.teacher_feedbacks_section
         .col-md-2
           = link_to teacher_presenter.full_name, admin_teacher_stat_path(teacher_presenter.teacher)
-        .col-md-2
-          |Avg Ratings:
-        .col-md-2
+        .col-md-2 data-toggle="tooltip" data-placement="top" title="Average Rating"
           / - lecture_feedbacks = feedbacks.completed.lecture
           / feedbacks is an array so the above doesn't work
           - lecture_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Activity' && !feedback.feedbackable.is_a?(Breakout) }
           | Lectures:&nbsp;
           = avg_ratings_or_na(lecture_feedbacks, 5)
-        .col-md-2
+        .col-md-2 data-toggle="tooltip" data-placement="top" title="Average Rating"
           / - breakout_feedbacks = feedbacks.find_all{ |feedback| feedback.activity.type === 'Breakout' }
           - breakout_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Activity' && feedback.feedbackable.is_a?(Breakout) }
           | Breakouts:&nbsp;
           = avg_ratings_or_na(breakout_feedbacks, 5)
-        .col-md-2
+        .col-md-2 data-toggle="tooltip" data-placement="top" title="Average Rating"
           - assistance_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Assistance' }
           | Assistances:&nbsp;
           = avg_ratings_or_na(assistance_feedbacks, 5)
-        .col-md-2
+        .col-md-2 data-toggle="tooltip" data-placement="top" title="Average Rating"
           - tech_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'TechInterview' }
           | Tech Interviews:&nbsp;
           = avg_ratings_or_na(tech_feedbacks, 5)
+        .col-md-2 data-toggle="tooltip" data-placement="top" title="Average Rating"
+          - project_eval_feedbacks = feedbacks.find_all{ |feedback| feedback.feedbackable_type === 'Evaluation' }
+          | Project Evals:&nbsp;
+          = avg_ratings_or_na(project_eval_feedbacks, 5)
       .row
         table.table
           thead
