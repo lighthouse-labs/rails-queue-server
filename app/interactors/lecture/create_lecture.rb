@@ -5,11 +5,11 @@ class Lecture::CreateLecture
   before do
     @activity = context.activity
     @lecture_params = context.lecture_params
-    @presenter_name = context.presenter.full_name
   end
 
   def call
-    @lecture = @activity.lectures.new(@lecture_params.merge(day: @activity.day, presenter_name: @presenter_name))
+    day = @activity.day
+    @lecture = @activity.lectures.new(@lecture_params.merge(day: day))
 
     if @lecture.save
       context.lecture = @lecture

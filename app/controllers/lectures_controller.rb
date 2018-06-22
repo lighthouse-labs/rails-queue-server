@@ -16,12 +16,11 @@ class LecturesController < ApplicationController
   end
 
   def new
-    @lecture = if params[:activity_id]
-                 Activity.find(params[:activity_id]).lectures.new
-               else
-                 Lecture.new
-               end
-    @lecture.cohort = @cohort
+    @lecture = Lecture.new(
+      presenter: current_user,
+      cohort:    @cohort
+    )
+    @lecture.activity = Activity.find(params[:activity_id]) if params[:activity_id].present?
   end
 
   def create
@@ -46,8 +45,7 @@ class LecturesController < ApplicationController
   def update
     @lecture = Lecture.find(params[:id])
     @activity = Activity.find(params[:activity_id])
-    presenter_name = Teacher.find(lecture_params[:presenter_id]).full_name
-    if @lecture.update(lecture_params.merge(presenter_name: presenter_name))
+    if @lecture.update(lecture_params)
       redirect_to activity_lecture_path(@activity, @lecture), notice: 'Updated!'
     else
       render :edit
@@ -87,7 +85,6 @@ class LecturesController < ApplicationController
       :activity_id,
       :day,
       :subject,
-      :presenter_name,
       :body,
       :teacher_notes,
       :youtube_url

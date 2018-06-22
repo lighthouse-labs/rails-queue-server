@@ -147,7 +147,6 @@ if Rails.env.development?
         presenter:      teacher,
         day:            activity.day,
         subject:        activity.name,
-        presenter_name: teacher.full_name,
         # when the next version of Faker is released use Faker::Markdown.sandwich(5, 4) for the body
         body:           Faker::Markdown.headers + Faker::Markdown.ordered_list + Faker::Markdown.block_code + Faker::Lorem.paragraphs(1).to_s,
         teacher_notes:  Faker::Lorem.sentence,
