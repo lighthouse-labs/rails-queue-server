@@ -2,24 +2,24 @@
   .form-row
 
     .form-group
-      label Day
-      = text_field_tag :day, params[:day], placeholder: 'e.g. w01d3', class: "form-control lectures-text-box"
-
-    .form-group
-      label Teacher
-      = select_tag :teacher_id, options_from_collection_for_select(Teacher.all.order('first_name'), "id", "full_name", params[:teacher_id]), prompt: 'All Teachers', class: "form-control lectures-dropdown"
+      label Cohort
+      = select_tag :cohort_id, options_from_collection_for_select(Cohort.all.order('created_at').reverse, "id", "name", params[:cohort_id]), prompt: 'All Cohorts', class: "form-control lectures-dropdown"
 
     .form-group
       label Subject/Lecture Notes
       = text_field_tag :keywords, params[:keywords], placeholder: 'e.g. jQuery, AJAX, callbacks', class: "form-control lectures-text-box"
 
     .form-group
-      label Location
-      = select_tag :location, options_from_collection_for_select(Location.all.order('name'), "id", "name", params[:location] || "All"), prompt: 'All Locations', class: "form-control lectures-dropdown"
+      label Teacher
+      = select_tag :teacher_id, options_from_collection_for_select(Teacher.all.order('first_name'), "id", "full_name", params[:teacher_id]), prompt: 'All Teachers', class: "form-control lectures-dropdown"
 
     .form-group
-      label Cohort
-      = select_tag :cohort_id, options_from_collection_for_select(Cohort.all.order('created_at').reverse, "id", "name", params[:cohort_id]), prompt: 'All Cohorts', class: "form-control lectures-dropdown"
+      label Day
+      = text_field_tag :day, params[:day], placeholder: 'e.g. w01d3', class: "form-control lectures-text-box"
+
+    .form-group
+      label Location
+      = select_tag :location, options_from_collection_for_select(Location.all.order('name'), "id", "name", params[:location] || "All"), prompt: 'All Locations', class: "form-control lectures-dropdown"
 
     .form-group
       label for="start_date"
@@ -31,4 +31,4 @@
         |End:
       input type='date' class='form-control lectures-date-select' name='end_date' id='end_date' value=params[:end_date]
 
-    = submit_tag 'Filter', class: 'btn btn-success lectures-button'
+    = submit_tag 'Search', class: 'btn btn-success lectures-button'
