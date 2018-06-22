@@ -1,8 +1,16 @@
+- title "Lecture Search"
+
 / - content_for :side_nav do
 /   == render 'layouts/side_nav'
 
+.card.mb-3
+  .card-header
+    = render 'filters'
+
 - if @lectures.present?
   hr
-  h3 = "Lectures"
+  h3 = "Lecture Search (#{@count} lectures found)"
   .lectures
     = render @lectures
+
+= paginate @lectures, window: 2, theme: 'bootstrap4'

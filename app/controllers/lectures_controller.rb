@@ -6,8 +6,13 @@ class LecturesController < ApplicationController
   before_action :teacher_required, only: [:edit, :update, :destroy, :new, :create]
   before_action :check_if_day_unlocked, only: [:show]
 
+  DEFAULT_PER = 20
+
   def index
     @lectures = Lecture.all.most_recent_first
+    apply_filters
+    @count = @lectures.count
+    @lectures = @lectures.page(params[:page]).per(DEFAULT_PER)
   end
 
   def show
@@ -89,6 +94,46 @@ class LecturesController < ApplicationController
       :teacher_notes,
       :youtube_url
     )
+  end
+
+  def apply_filters
+    filter_by_location
+    filter_by_cohort
+    filter_by_start_date
+    filter_by_end_date
+    filter_by_day
+    filter_by_presenter
+    filter_by_keywords
+  end
+
+  def filter_by_location
+    @lectures = @lectures.filter_by_presenter_location(params[:location]) if params[:location].present?
+  end
+
+  def filter_by_cohort
+    @lectures = @lectures.where(cohort: params[:cohort_id]) if params[:cohort_id].present?
+  end
+
+  def filter_by_start_date
+    @lectures = @lectures.where("created_at > :date", date: params[:start_date]) if params[:start_date].present?
+  end
+
+  def filter_by_end_date
+    params[:end_date] = Date.current.end_of_month.to_s if params[:end_date].blank?
+    end_datetime = Time.zone.parse(params[:end_date]).end_of_day
+    @lectures = @lectures.where("created_at < :date", date: end_datetime)
+  end
+
+  def filter_by_day
+    @lectures = @lectures.where(day: params[:day]) if params[:day].present?
+  end
+
+  def filter_by_presenter
+    @lectures = @lectures.where(presenter: params[:teacher_id]) if params[:teacher_id].present?
+  end
+
+  def filter_by_keywords
+    @lectures = @lectures.by_keywords(params[:keywords]) if params[:keywords].present?
   end
 
 end
