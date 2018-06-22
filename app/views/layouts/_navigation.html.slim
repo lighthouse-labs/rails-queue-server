@@ -35,6 +35,11 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             = link_to prep_index_path, class: 'dropdown-item', title: 'Prep Work'
               i.fa.fa-fw.fa-paper-plane-o
               | Prep Work
+              
+            - if teacher? || active_student? || alumni?
+              = link_to lectures_path, class: 'dropdown-item', title: 'Lectures'
+                i.fa.fa-fw.fa-tv
+                | Lectures
 
             - if available_workbooks.present?
               .dropdown-divider
