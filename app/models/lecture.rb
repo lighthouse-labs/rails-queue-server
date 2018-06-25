@@ -20,6 +20,7 @@ class Lecture < ApplicationRecord
 
   scope :for_cohort, ->(cohort) { where(cohort_id: cohort.id) }
   scope :most_recent_first, -> { order("lectures.created_at ASC") }
+  scope :for_teacher, ->(teacher) { where(presenter: teacher) }
   scope :filter_by_presenter_location, ->(location_id) {
     includes(presenter: :location)
       .where(locations: { id: location_id })

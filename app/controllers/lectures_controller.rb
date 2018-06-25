@@ -10,6 +10,11 @@ class LecturesController < ApplicationController
 
   def index
     @lectures = Lecture.all.most_recent_first
+    if current_user && teacher?
+      @lectures = @lectures.for_teacher(current_user)
+    elsif current_user && student?
+      @lectures = @lectures.for_cohort(current_user.cohort)
+    end
     apply_filters
     @count = @lectures.count
     @lectures = @lectures.page(params[:page]).per(DEFAULT_PER)
@@ -97,8 +102,8 @@ class LecturesController < ApplicationController
   end
 
   def apply_filters
+    filter_by_lecture_scope
     filter_by_location
-    filter_by_cohort
     filter_by_start_date
     filter_by_end_date
     filter_by_day
@@ -110,8 +115,14 @@ class LecturesController < ApplicationController
     @lectures = @lectures.filter_by_presenter_location(params[:location]) if params[:location].present?
   end
 
-  def filter_by_cohort
-    @lectures = @lectures.where(cohort: params[:cohort_id]) if params[:cohort_id].present?
+  def filter_by_lecture_scope
+    if params[:all_lectures].present?
+      @lectures = Lecture.all.most_recent_first
+    elsif params[:my_cohort].present?
+      @lectures = @lectures.for_cohort(current_user.cohort)
+    elsif params[:my_lectures].present?
+      @lectures = @lectures.for_teacher(current_user)
+    end
   end
 
   def filter_by_start_date
