@@ -31,7 +31,7 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
   end
 
   def block_quote(quote)
-    %(<blockquote class="blockquote">#{quote}</blockquote>)
+    "<blockquote>#{quote}</blockquote>"
   end
 
   def preprocess(doc)
