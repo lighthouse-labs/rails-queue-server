@@ -11,7 +11,7 @@
       = "Lecture by " + @lecture.presenter.full_name
 
     .actions-container
-      .card.mb-2
+      .card.mb-4
         .card-header
           .btn-collection
             = link_to activity_path(@activity), class: 'btn btn-info btn-sm', title: 'Back'
@@ -27,22 +27,39 @@
                   | &nbsp; Delete
 
     - if @lecture.youtube_url.present?
-      .card.mb-2
+      .card.mb-4
         .card-header
           h5 Recording
         .card-body.video-wrapper
           iframe frameborder="0" src="https://www.youtube.com/embed/#{lecture_presenter.youtube_code}" allow="encrypted-media" allowfullscreen
 
     - if teacher? && @lecture.teacher_notes?
-      .card.mb-2
+      .card.mb-4
         .card-header
           h5 Internal Teacher Notes
         .card-body.teacher-notes
           == markdown @lecture.teacher_notes
 
     - if @lecture.body?
-      .card
+      .card.mb-4
         .card-header
           h5 Lecture Notes
         .card-body.body
           == markdown @lecture.body
+
+    .card.mb-4
+      .card-header
+        h5 Other Details
+      .card-body
+        dl.row
+          dt.col-sm-3 Cohort
+          dd.col-sm-9 = @cohort.name
+
+          dt.col-sm-3 Day
+          dd.col-sm-9 = @lecture.day
+
+          dt.col-sm-3 Created
+          dd.col-sm-9 = @cohort.created_at.to_s(:friendly)
+
+          dt.col-sm-3 Presenter
+          dd.col-sm-9 = link_to @lecture.presenter.full_name, teacher_path(@lecture.presenter)

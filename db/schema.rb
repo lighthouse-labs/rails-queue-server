@@ -312,8 +312,9 @@ ActiveRecord::Schema.define(version: 20180620235023) do
     t.string   "youtube_url",   limit: 500
     t.string   "file_name"
     t.string   "file_type"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.boolean  "legacy",                     default: false
     t.index ["activity_id"], name: "index_lectures_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_lectures_on_cohort_id", using: :btree
     t.index ["presenter_id"], name: "index_lectures_on_presenter_id", using: :btree

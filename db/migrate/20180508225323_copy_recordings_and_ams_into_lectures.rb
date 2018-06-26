@@ -1,21 +1,24 @@
 class CopyRecordingsAndAmsIntoLectures < ActiveRecord::Migration[5.0]
 
   def up
+
+    add_column :lectures, :legacy, :boolean, nil: false, default: false
+
     cnt = 0
 
     ActivityMessage.order(id: :desc).find_each(batch_size: 100) do |msg|
-      if rec = find_rec(msg)
-        if move_over(msg, rec)
-          cnt += 1
-          say ":) Successfully Moved over #{msg.id} and #{rec.id}"
-          msg.update_columns(archived: true)
-          rec.update_columns(archived: true)
-        else
-          say "X Failed to move over #{msg.id} for activity #{msg.activity_id}. "
-        end
+      rec = find_rec(msg) # nilable: there isn't a recording for every lecture note
+      if move_over(msg, rec)
+        cnt += 1
+        say ":) Successfully Moved over #{msg.id} (recording: #{rec&.id})"
+        msg.update_columns(archived: true)
+        rec.update_columns(archived: true) if rec
+      else
+        say "X Failed to move over #{msg.id} for activity #{msg.activity_id}. "
       end
     end
 
+    say "#{ActivityMessage.count} messages encountered."
     say "#{cnt} Lecture records created."
   end
 
@@ -27,13 +30,13 @@ class CopyRecordingsAndAmsIntoLectures < ActiveRecord::Migration[5.0]
 
   private
 
-  def move_over(msg, rec)
+  def move_over(msg, rec = nil)
     attrs = {
+      legacy: true,
       presenter: msg.user,
       cohort: msg.cohort,
       activity: msg.activity,
-      presenter_name: rec.presenter_name,
-      file_type: rec.file_type,
+      file_type: rec&.file_type,
       subject: msg.subject,
       body: scrubbed_body(msg),
       day:  msg.day,
@@ -41,9 +44,9 @@ class CopyRecordingsAndAmsIntoLectures < ActiveRecord::Migration[5.0]
       created_at: msg.created_at,
       updated_at: msg.updated_at
     }
-    if rec.file_name? && rec.file_name.starts_with?('https://')
+    if rec&.file_name? && rec&.file_name.starts_with?('https://')
       attrs[:youtube_url] = rec.file_name
-    else
+    elsif rec
       attrs[:file_name] = rec.file_name
     end
     l = Lecture.new(attrs)
