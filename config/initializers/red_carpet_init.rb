@@ -30,10 +30,6 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
     "</pre>"
   end
 
-  def block_quote(quote)
-    "<blockquote>#{quote}</blockquote>"
-  end
-
   def preprocess(doc)
     # raise full_document.inspect
     regex = Regexp.new(/(^\?\?\?([a-zA-Z-]+)\s+(.*?)\s+^\?\?\?)/m)
