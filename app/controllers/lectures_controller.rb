@@ -113,10 +113,6 @@ class LecturesController < ApplicationController
     # filter_by_unlocked_days
   end
 
-  def filter_by_location
-    @lectures = @lectures.filter_by_presenter_location(params[:location]) if params[:location].present?
-  end
-
   def filter_by_lecture_scope
     if params[:all_lectures].present?
       @lectures = Lecture.all.most_recent_first
@@ -127,21 +123,8 @@ class LecturesController < ApplicationController
     end
   end
 
-  def filter_by_unlocked_days
-  end
-
-  def filter_by_advanced_topics
-    @lectures = @lectures.advanced_topics if params[:advanced].present?
-  end
-
-  def filter_by_start_date
-    @lectures = @lectures.where("created_at > :date", date: params[:start_date]) if params[:start_date].present?
-  end
-
-  def filter_by_end_date
-    params[:end_date] = Date.current.end_of_month.to_s if params[:end_date].blank?
-    end_datetime = Time.zone.parse(params[:end_date]).end_of_day
-    @lectures = @lectures.where("created_at < :date", date: end_datetime)
+  def filter_by_location
+    @lectures = @lectures.filter_by_presenter_location(params[:location]) if params[:location].present?
   end
 
   def filter_by_day
@@ -154,6 +137,23 @@ class LecturesController < ApplicationController
 
   def filter_by_keywords
     @lectures = @lectures.by_keywords(params[:keywords]) if params[:keywords].present?
+  end
+
+  def filter_by_advanced_topics
+    @lectures = @lectures.advanced_topics if params[:advanced].present?
+  end
+
+  def filter_by_start_date
+    @lectures = @lectures.where("lectures.created_at > :date", date: params[:start_date]) if params[:start_date].present?
+  end
+
+  def filter_by_end_date
+    params[:end_date] = Date.current.end_of_month.to_s if params[:end_date].blank?
+    end_datetime = Time.zone.parse(params[:end_date]).end_of_day
+    @lectures = @lectures.where("lectures.created_at < :date", date: end_datetime)
+  end
+
+  def filter_by_unlocked_days
   end
 
 end

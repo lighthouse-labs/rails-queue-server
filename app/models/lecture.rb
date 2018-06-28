@@ -4,7 +4,7 @@ class Lecture < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
 
-  belongs_to :presenter, class_name: User
+  belongs_to :presenter, class_name: Teacher
   belongs_to :cohort
   belongs_to :activity
 
@@ -21,9 +21,9 @@ class Lecture < ApplicationRecord
   scope :for_cohort, ->(cohort) { where(cohort_id: cohort.id) }
   scope :most_recent_first, -> { order("lectures.created_at ASC") }
   scope :for_teacher, ->(teacher) { where(presenter: teacher) }
-  scope :filter_by_presenter_location, ->(location_id) {
-    includes(presenter: :location)
-      .where(locations: { id: location_id })
+  scope :filter_by_presenter_location, ->(location) {
+    joins(presenter: :location)
+      .where(users: { location_id: location })
       .references(:teacher, :location)
   }
   scope :advanced_topics, -> { where(activity: LecturePlan.advanced_topic) }
