@@ -26,6 +26,10 @@
       label Day
       = text_field_tag :day, params[:day], placeholder: 'e.g. w01d3', class: "form-control lectures-text-box"
 
+    .form-group.form-check
+      label Advanced Topics Only
+      = check_box_tag :advanced, params[:advanced], class: "form-control lectures-check-box", checked: "false"
+
     .form-group.extra-search-option.hidden
       label Location
       = select_tag :location, options_from_collection_for_select(Location.all.order('name'), "id", "name", params[:location] || "All"), prompt: 'All Locations', class: "form-control lectures-dropdown"

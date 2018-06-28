@@ -104,11 +104,13 @@ class LecturesController < ApplicationController
   def apply_filters
     filter_by_lecture_scope
     filter_by_location
-    filter_by_start_date
-    filter_by_end_date
     filter_by_day
     filter_by_presenter
     filter_by_keywords
+    filter_by_advanced_topics
+    filter_by_start_date
+    filter_by_end_date
+    # filter_by_unlocked_days
   end
 
   def filter_by_location
@@ -123,6 +125,13 @@ class LecturesController < ApplicationController
     elsif params[:my_lectures].present?
       @lectures = @lectures.for_teacher(current_user)
     end
+  end
+
+  def filter_by_unlocked_days
+  end
+
+  def filter_by_advanced_topics
+    @lectures = @lectures.advanced_topics if params[:advanced].present?
   end
 
   def filter_by_start_date

@@ -26,6 +26,7 @@ class Lecture < ApplicationRecord
       .where(locations: { id: location_id })
       .references(:teacher, :location)
   }
+  scope :advanced_topics, -> { where(activity: LecturePlan.advanced_topic) }
 
   validates :activity, presence: true
   validates :cohort, presence: true
