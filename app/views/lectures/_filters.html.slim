@@ -6,13 +6,21 @@
         label.btn.btn-secondary.active
           input#my-lectures autocomplete="off" checked="" name="my_lectures" type="radio"
             | My Lectures
-      - elsif current_user && student?
+      - elsif current_user && active_student?
         label.btn.btn-secondary.active 
           input#my-cohort autocomplete="off" checked="" name="my_cohort" type="radio"
             | My Cohort
-      label.btn.btn-secondary
-        input#all-lectures autocomplete="off" name="all_lectures" type="radio"
-          | All Lectures
+      - if current_user && alumni?
+        label.btn.btn-secondary 
+          input#my-cohort autocomplete="off" name="my_cohort" type="radio"
+            | My Cohort
+        label.btn.btn-secondary.active
+          input#all-lectures autocomplete="off" checked="" name="all_lectures" type="radio"
+            | All Lectures
+      - elsif current_user && (teacher? || student?)
+        label.btn.btn-secondary
+          input#all-lectures autocomplete="off" name="all_lectures" type="radio"
+            | All Lectures
 
     .form-group
       label Subject/Lecture Notes

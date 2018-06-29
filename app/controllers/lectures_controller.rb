@@ -12,7 +12,7 @@ class LecturesController < ApplicationController
     @lectures = Lecture.all.most_recent_first
     if current_user && teacher?
       @lectures = @lectures.for_teacher(current_user)
-    elsif current_user && student?
+    elsif current_user && active_student?
       @lectures = @lectures.for_cohort(current_user.cohort)
     end
     apply_filters
@@ -165,7 +165,7 @@ class LecturesController < ApplicationController
                       "w09d1", "w09d2", "w09d3", "w09d4", "w09d5", 
                       "w10d1", "w10d2", "w10d3", "w10d4", "w10d5" ]
 
-    if current_user && student?
+    if current_user && active_student?
       this_day = CurriculumDay.new(Date.current, current_user.cohort).to_s
       # go to Friday to show lectures whose days are unlocked
       this_day[4] = "5"
