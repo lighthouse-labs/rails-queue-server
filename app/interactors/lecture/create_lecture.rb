@@ -8,14 +8,10 @@ class Lecture::CreateLecture
   end
 
   def call
-    day = @activity.day
-    @lecture = @activity.lectures.new(@lecture_params.merge(day: day))
+    context.lecture = @lecture = @activity.lectures.new(@lecture_params)
+    @lecture.day = @activity.day
 
-    if @lecture.save
-      context.lecture = @lecture
-    else
-      context.fail!(error: @lecture.errors.full_messages.first)
-    end
+    context.fail!(error: @lecture.errors.full_messages.first) unless @lecture.save
   end
 
 end

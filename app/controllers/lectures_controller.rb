@@ -3,6 +3,7 @@ class LecturesController < ApplicationController
   include CourseCalendar
 
   before_action :retrieve_activity, except: [:index]
+  before_action :require_lecture, only: [:edit, :update, :destroy, :show]
   before_action :teacher_required, only: [:edit, :update, :destroy, :new, :create]
   before_action :check_if_day_unlocked, only: [:show]
 
@@ -21,40 +22,37 @@ class LecturesController < ApplicationController
   end
 
   def show
-    @lecture = Lecture.find(params[:id])
-    @activity = Activity.find(@lecture.activity_id)
   end
 
   def new
     @lecture = Lecture.new(
       presenter: current_user,
-      cohort:    @cohort
+      cohort:    @cohort,
+      subject: @activity.name
     )
-    @lecture.activity = Activity.find(params[:activity_id]) if params[:activity_id].present?
   end
 
   def create
-    @lecture = Lecture::Complete.call(
+    @teacher = Teacher.find(lecture_params[:presenter_id]) if lecture_params[:presenter_id].present?
+    result = Lecture::Complete.call(
       activity:       @activity,
       lecture_params: lecture_params,
-      presenter:      Teacher.find(lecture_params[:presenter_id])
+      presenter:      @teacher
     )
+    @lecture = result.lecture
 
-    if @lecture.success?
-      redirect_to activity_lecture_path(@activity, @lecture.lecture), notice: 'Created! Students notified via e-mail.'
+    if result.success?
+      redirect_to activity_lecture_path(@activity, @lecture), notice: "Created! #{@cohort.name} students notified via e-mail."
     else
-      render :edit
+      render :new
     end
   end
 
   def edit
-    @lecture = Lecture.find(params[:id])
-    @activity = Activity.find(params[:activity_id])
+    @lecture = @activity.lectures.find(params[:id])
   end
 
   def update
-    @lecture = Lecture.find(params[:id])
-    @activity = Activity.find(params[:activity_id])
     if @lecture.update(lecture_params)
       redirect_to activity_lecture_path(@activity, @lecture), notice: 'Updated!'
     else
@@ -63,7 +61,6 @@ class LecturesController < ApplicationController
   end
 
   def destroy
-    @lecture = Lecture.find(params[:id])
     path = activity_path(@activity)
     if @lecture.destroy
       redirect_to path, notice: 'Lecture deleted'
@@ -76,6 +73,10 @@ class LecturesController < ApplicationController
 
   def retrieve_activity
     @activity = Activity.find(params[:activity_id])
+  end
+
+  def require_lecture
+    @lecture = @activity.lectures.find(params[:id])
   end
 
   def teacher_required

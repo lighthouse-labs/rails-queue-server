@@ -30,6 +30,7 @@ class Lecture < ApplicationRecord
 
   validates :activity, presence: true
   validates :cohort, presence: true
+  validates :presenter, presence: true
   validates :subject, presence: true, length: { maximum: 100 }
   validates :day, presence: true, format: { with: DAY_REGEX, allow_blank: true }
   validates :body, presence: true

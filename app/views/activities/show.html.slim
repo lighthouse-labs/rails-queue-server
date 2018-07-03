@@ -59,11 +59,14 @@
       .instructions
         == markdown @activity.teacher_notes
 
+    = render 'feedback' if @activity.allow_feedback?
+    = render 'submission_bar', activity_presenter: activity_presenter
+
     - if @lectures.present?
       hr
       h3 = "Lectures"
       .lectures
         = render @lectures
 
-  = render 'feedback' if @activity.allow_feedback?
-  = render 'submission_bar', activity_presenter: activity_presenter
+
+
