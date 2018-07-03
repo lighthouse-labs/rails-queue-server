@@ -110,6 +110,7 @@ class LecturesController < ApplicationController
     filter_by_advanced_topics
     filter_by_start_date
     filter_by_end_date
+    filter_by_video
     filter_by_unlocked_days
   end
 
@@ -151,6 +152,10 @@ class LecturesController < ApplicationController
     params[:end_date] = Date.current.end_of_month.to_s if params[:end_date].blank?
     end_datetime = Time.zone.parse(params[:end_date]).end_of_day
     @lectures = @lectures.where("lectures.created_at < :date", date: end_datetime)
+  end
+
+  def filter_by_video
+    @lectures = @lectures.where.not(youtube_url: nil) if params[:video].present?
   end
 
   def filter_by_unlocked_days
