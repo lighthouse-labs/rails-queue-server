@@ -22,7 +22,7 @@
       - rates = [0, 1, 2, 3, 4, 5]
       - rates.each do |rate|
         .form-check
-        = check_box_tag 'ratings[]', rate, true, class: 'form-check-input', id: "ratings_#{rate}"
+        = check_box_tag 'ratings[]', rate, @ratings.include?(rate.to_s), class: 'form-check-input', id: "ratings_#{rate}"
         label.form-check-label[for="ratings_#{rate}"]
           = rate
 
