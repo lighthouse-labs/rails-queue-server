@@ -52,7 +52,14 @@ class ActivityFeedback < ApplicationRecord
       includes(:activity).where(activities: { day: [nil, ''] }).references(:activity)
     end
   }
-  scope :filter_by_ratings, ->(ratings) { where(rating: ratings) }
+  scope :filter_by_ratings, ->(ratings) { where(rating: [ratings, nil]) }
+  scope :filter_by_legacy, ->(mode) {
+    if mode === 'only'
+      where(legacy_note: true)
+    elsif mode === 'exclude'
+      where(legacy_note: [nil, false])
+    end
+  }
 
   default_scope -> { order(created_at: :desc) }
 
@@ -94,10 +101,6 @@ class ActivityFeedback < ApplicationRecord
     else
       result.pending
     end
-  end
-
-  def self.average_rating
-    average(:rating).to_f.round(2)
   end
 
   def self.to_csv
