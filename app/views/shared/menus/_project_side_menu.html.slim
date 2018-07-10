@@ -7,8 +7,9 @@
     /   p.status = last_evaluation.status
   ul.list-group.project-activities
     - project.activities.chronological_for_project.active.each do |activity|
+      - stretch = activity.stretch? ? ' (Stretch)' : ''
       li class = (@activity ? "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}" : "list-group-item")
-        = link_to activity.name, day_activity_path(activity.day, activity)
+        = link_to activity.name + stretch, day_activity_path(activity.day, activity)
         = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)
 
     - if student?
