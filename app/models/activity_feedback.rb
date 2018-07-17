@@ -9,15 +9,16 @@ class ActivityFeedback < ApplicationRecord
 
   scope :reverse_chronological_order, -> { order("activity_feedbacks.updated_at DESC") }
   scope :rated, -> { where.not(rating: nil) }
+  scope :with_details, -> { where.not(detail: [nil, '']) }
   scope :filter_by_user, ->(user_id) { where("user_id = ?", user_id) }
   scope :filter_by_day, ->(day) {
     includes(:activity)
       .where("activities.day LIKE ?", day.downcase + "%")
       .references(:activity)
   }
-  scope :filter_by_program, ->(program_id) {
+  scope :filter_by_program, ->(program) {
     includes(user: { cohort: :program })
-      .where(programs: { id: program_id })
+      .where(programs: { id: program })
       .references(:user, :cohort, :program)
   }
   scope :filter_by_user_location, ->(location_id) {
@@ -59,6 +60,8 @@ class ActivityFeedback < ApplicationRecord
       where(rating: ratings)
     end
   }
+
+  scope :seven_days, ->(from, to) { where(created_at: from..to) }
 
   default_scope -> { order(created_at: :desc) }
 

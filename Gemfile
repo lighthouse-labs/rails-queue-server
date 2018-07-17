@@ -43,6 +43,8 @@ gem 'logging'
 
 gem 'redis'
 
+gem 'inky-rb', require: 'inky'
+gem 'premailer-rails'
 gem 'email_validator'
 
 gem 'redcarpet'
