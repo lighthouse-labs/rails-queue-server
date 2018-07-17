@@ -17,7 +17,7 @@ header.page-header
       .card-header
         h3.card-title
           | Activities
-          = " (#{@activities.count} / #{Activity.count} results)"
+          = " (#{@activities.count} / #{@activities_count} results)"
 
       .table-responsive
         table.table.students.sortable
@@ -34,3 +34,7 @@ header.page-header
               th Status
           tbody
             == render collection: @activities, partial: 'activity'
+          tfoot
+            tr
+              th colspan="6"
+                = paginate @activities, window: 2, theme: 'bootstrap4'
