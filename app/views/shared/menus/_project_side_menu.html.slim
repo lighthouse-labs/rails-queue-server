@@ -3,13 +3,13 @@
 .card.project-nav.text-center
   .card-header
     = link_to project.name, project
-    / - if student? && last_evaluation
-    /   p.status = last_evaluation.status
   ul.list-group.project-activities
     - project.activities.chronological_for_project.active.each do |activity|
-      - stretch = activity.stretch? ? ' (Stretch)' : ''
       li class = (@activity ? "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}" : "list-group-item")
-        = link_to activity.name + stretch, day_activity_path(activity.day, activity)
+        = link_to day_activity_path(activity.day, activity)
+          = activity.name
+          - if activity.stretch?
+            i.fa.fa-rocket data-toggle='tooltip' title='Stretch'
         = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)
 
     - if student?
