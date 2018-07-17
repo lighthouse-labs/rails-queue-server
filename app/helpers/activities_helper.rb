@@ -134,6 +134,10 @@ module ActivitiesHelper
     end
   end
 
+  def completable(activity)
+    !activity_type(activity).in?(['Lecture', 'Breakout'])
+  end
+
   def icon_for(activity)
     case activity.type.to_s.downcase
     when "assignment"

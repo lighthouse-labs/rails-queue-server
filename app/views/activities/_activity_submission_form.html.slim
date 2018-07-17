@@ -5,7 +5,7 @@
   = link_to activity_activity_submission_path(@activity), method: :delete, class:'btn btn-outline-danger btn-activity-incomplete-status'
     i.fa.fa-times
     | &nbsp;Cancel Submission
-- elsif !activity_type(@activity).in?(['Lecture', 'Breakout'])
+- elsif completable(@activity)
   = link_to '#', class: 'btn btn-primary btn-activity-complete-status-no-code-review', data: { toggle: 'modal', target: '#new-activity-submission-modal' }
     i.fa.fa-check
     | &nbsp;Mark Completed
