@@ -8,4 +8,8 @@ class Lecture < Activity
     false
   end
 
+  def completable?
+    false
+  end
+
 end
