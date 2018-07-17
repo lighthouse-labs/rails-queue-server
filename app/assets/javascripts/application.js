@@ -69,4 +69,4 @@
 //= require projects
 //= require google_analytics
 //= require side_nav_search
-//= require lectures
+//= require more_search_filters
