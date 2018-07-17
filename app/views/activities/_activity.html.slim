@@ -32,12 +32,12 @@
 
     - if activity.completable?
       .icon.icon-completion
-        -if student?
+        - if student?
           - if current_user.completed_activity?(activity)
             i.fa.fa-check-square-o
           - else
             i.fa.fa-square-o
-        -if teacher?
+        - elsif teacher?
           .completed-activities
             = completed_students(activity)
 
