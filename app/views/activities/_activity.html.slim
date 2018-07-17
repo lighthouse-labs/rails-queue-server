@@ -30,15 +30,16 @@
         br
         = integer_time_to_s activity.end_time
 
-    .icon.icon-completion
-      -if student?
-        - if current_user.completed_activity?(activity)
-          i.fa.fa-check-square-o
-        - else
-          i.fa.fa-square-o
-      -if teacher?
-        .completed-activities
-          = completed_students(activity)
+    - if completable(activity)
+      .icon.icon-completion
+        -if student?
+          - if current_user.completed_activity?(activity)
+            i.fa.fa-check-square-o
+          - else
+            i.fa.fa-square-o
+        -if teacher?
+          .completed-activities
+            = completed_students(activity)
 
     .name
       = activity.name
