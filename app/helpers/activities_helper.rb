@@ -134,7 +134,6 @@ module ActivitiesHelper
     end
   end
 
-
   def icon_for(activity)
     case activity.type.to_s.downcase
     when "assignment"
