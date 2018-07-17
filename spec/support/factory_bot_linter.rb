@@ -1,10 +1,10 @@
 RSpec.configure do |config|
-  # additional factory_girl configuration
+  # additional factory_bot configuration
   config.before(:suite) do
     begin
-      puts 'Running FactoryGirl Linter ...'
+      puts 'Running FactoryBot Linter ...'
       DatabaseCleaner.start
-      FactoryGirl.lint
+      FactoryBot.lint
       puts 'Done with Linter'
     ensure
       DatabaseCleaner.clean

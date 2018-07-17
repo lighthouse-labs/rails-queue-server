@@ -20,9 +20,9 @@ require 'database_cleaner'
 # For single tests, don't run the factory girl linter
 # TODO: Turn me on
 # unless RSpec.configuration.inclusion_filter.rules.any?
-#   require Rails.root.join('spec/support/factory_girl_linter')
+#   require Rails.root.join('spec/support/factory_bot_linter')
 # end
-require Rails.root.join('spec/support/factory_girl_syntax')
+require Rails.root.join('spec/support/factory_bot_syntax')
 
 require Rails.root.join('spec/support/oauth')
 require Rails.root.join('spec/support/user_account_helpers')
@@ -44,7 +44,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   # For now, we don't test views separately.
   config.include RSpec::Rails::ViewRendering
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include EmailSpec::Helpers
   config.include EmailSpec::Matchers
 
