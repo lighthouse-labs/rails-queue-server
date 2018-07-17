@@ -106,7 +106,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'dotenv-rails'
   gem 'spring-commands-rspec'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.6'
   gem 'rspec-collection_matchers'
   gem 'rails-controller-testing'

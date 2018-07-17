@@ -8,6 +8,7 @@ class Evaluation < ApplicationRecord
   belongs_to :cohort # multiple cohorts per student sometimes
 
   has_many :evaluation_transitions, autosave: false
+  has_one :feedback, as: :feedbackable, dependent: :destroy
 
   include PgSearch
   pg_search_scope :by_keywords,
@@ -75,6 +76,10 @@ class Evaluation < ApplicationRecord
   before_create :take_snapshot_of_eval_criteria
   before_create :set_resubmission
   before_create :set_due_date
+
+  def allow_feedback?
+    true
+  end
 
   def self.filter_by(params, cohort, project)
     if params["evals"]&.include?("All Evals")

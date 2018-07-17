@@ -53,7 +53,13 @@ class ActivityFeedback < ApplicationRecord
       includes(:activity).where(activities: { day: [nil, ''] }).references(:activity)
     end
   }
-  scope :filter_by_ratings, ->(ratings) { where(rating: ratings) }
+  scope :filter_by_ratings, ->(ratings) {
+    if ratings.include?("0")
+      where(rating: ratings + [nil])
+    else
+      where(rating: ratings)
+    end
+  }
 
   scope :seven_days, ->(from, to) { where(created_at: from..to) }
 

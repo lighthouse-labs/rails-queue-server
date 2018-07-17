@@ -75,7 +75,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             i.fa.fa-fw.fa-id-card
             span.non-tablet-label
               | Students
-          .dropdown-menu
+          .dropdown-menu.scrollable-menu
             = link_to 'Search', teacher_students_path, class: "dropdown-item #{'active' if @on_student_search}"
             .dropdown-divider
             - dropdown_cohorts.each do |location, cohorts|
@@ -133,7 +133,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
           = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Cohort' do
             i.fa.fa-fw.fa-group
             span.non-tablet-label = cohort.name
-          .dropdown-menu
+          .dropdown-menu.scrollable-menu
             - dropdown_cohorts.each do |location, cohorts|
               .divider-title = location.name
               .dropdown-divider
