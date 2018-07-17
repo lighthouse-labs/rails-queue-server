@@ -12,7 +12,7 @@ describe 'Authentication', type: :feature do
 
   context "with new user profile" do
     it 'creates a user record based on Github OAuth Response Hash' do
-      FactoryGirl.create :user # => 1
+      FactoryBot.create :user # => 1
       visit github_session_path
       expect(User.count).to eq(2)
     end
@@ -35,7 +35,7 @@ describe 'Authentication', type: :feature do
   end
 
   context "with existing registered user" do
-    let!(:user) { FactoryGirl.create :user_for_auth }
+    let!(:user) { FactoryBot.create :user_for_auth }
 
     it "does not create a new user record" do
       pending('breaks because it redirects to first prep activitity route, and we have not created any activities')
@@ -52,8 +52,8 @@ describe 'Authentication', type: :feature do
   end
 
   context "with existing unregistered user" do
-    let!(:user) { FactoryGirl.create :unregistered_user, uid: "uid", token: "token" }
-    pending('-- In the current implementation, unregistered users skip activerecord validation, FactoryGirl cannot do this')
+    let!(:user) { FactoryBot.create :unregistered_user, uid: "uid", token: "token" }
+    pending('-- In the current implementation, unregistered users skip activerecord validation, FactoryBot cannot do this')
 
     xit "does not create a new user record" do
       visit github_session_path

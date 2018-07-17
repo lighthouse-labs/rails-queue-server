@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :quiz do
     day "MyString"
     uuid "MyString"
