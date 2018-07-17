@@ -1,6 +1,6 @@
 class AddLegacyNotesToActivityFeedbacks < ActiveRecord::Migration[5.0]
   def up
-    new_fbs = 0
+    new_feedbacks_count = 0
     ActivitySubmission.where.not(note: nil).find_each(batch_size: 100) do |submission|
       activity_feedback = ActivityFeedback.create(activity: submission.activity, 
                                                   user: submission.user, 
@@ -9,11 +9,9 @@ class AddLegacyNotesToActivityFeedbacks < ActiveRecord::Migration[5.0]
                                                   created_at: submission.created_at, 
                                                   updated_at: submission.updated_at)
       activity_feedback.save
-      new_fbs += 1
+      new_feedbacks_count += 1
     end
-    p new_fbs
+    say 'There were ' + new_feedbacks_count.to_s + ' legacy feedbacks created.'
   end
-  
-  def down
-  end
+
 end
