@@ -30,7 +30,7 @@
         br
         = integer_time_to_s activity.end_time
 
-    - if completable(activity)
+    - if activity.completable?
       .icon.icon-completion
         -if student?
           - if current_user.completed_activity?(activity)
