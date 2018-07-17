@@ -5,7 +5,8 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
 
   def index
     @feedbacks = ActivityFeedback.filter_by(filter_by_params).reorder(order)
-    @rating = @feedbacks.average_rating
+    @ratings = params[:ratings]
+    @avg_rating = @feedbacks.average_rating
     @paginated_feedbacks = @feedbacks.page(params[:page]).per(DEFAULT_PER)
 
     if params[:charts] == 'Enable'
