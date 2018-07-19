@@ -3,7 +3,12 @@ class StudentPresenter < UserPresenter
   presents :student
 
   def name
-    content_tag :h3, "#{student.full_name} (#{student.pronoun})", class: 'student-details-name'
+    if student.pronoun.blank?
+      name = student.full_name
+    else
+      name = "#{student.full_name} (#{student.pronoun})"
+    end
+    content_tag :h3, name, class: 'student-details-name'
   end
 
   def cohort_name_link

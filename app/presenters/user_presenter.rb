@@ -70,7 +70,7 @@ class UserPresenter < BasePresenter
       render('shared/student_info', student: user, show_email: true)
     elsif user.type == 'Teacher'
       output = link_to image_for_index_page, teacher_path(user)
-      output += link_to user.full_name.to_s, teacher_path(user)
+      output += link_to "#{user.full_name.to_s} (#{user.pronoun})", teacher_path(user)
       user_content output
     else
       output = image_for_index_page
