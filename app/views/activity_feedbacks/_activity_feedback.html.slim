@@ -6,7 +6,8 @@ li.activity-feedback.media.mb-2 id="curriculum-feedback-#{activity_feedback.id}"
       = " #{activity_feedback.user.try :full_name}"
       small = " (#{time_ago_in_words(activity_feedback.created_at)} ago) "
       - if activity_feedback.legacy_note?
-        span.badge-pill.badge-info Legacy Note
+        small
+          em Legacy Note
 
     .content
       - if activity_feedback.rating?
