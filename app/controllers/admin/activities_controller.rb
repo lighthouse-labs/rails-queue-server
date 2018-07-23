@@ -5,7 +5,6 @@ class Admin::ActivitiesController < Admin::BaseController
   def index
     @activities = Activity.order(average_rating: :desc)
     apply_filters
-    @activities_count = @activities.count
     @activities = @activities.page(params[:page]).per(DEFAULT_PER)
   end
 

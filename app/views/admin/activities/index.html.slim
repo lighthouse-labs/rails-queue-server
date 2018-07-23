@@ -17,7 +17,7 @@ header.page-header
       .card-header
         h3.card-title
           | Activities
-          = " (#{@activities.count} / #{@activities_count} results)"
+          = " (#{@activities.count} / #{@activities.total_count} results)"
 
       .table-responsive
         table.table.students.sortable
