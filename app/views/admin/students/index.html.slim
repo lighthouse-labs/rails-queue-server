@@ -58,7 +58,7 @@ header.page-header
                       .badge.badge-warning Rolled In
                   div
                     .badge.badge-danger.badge-light 
-                      =student.deactivated? ? 'Dropped' : 'Active'
+                      = student.status
                 td
                   .btn-collection
                     - if student.deactivated?
