@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :section do
     name "MyString"
     slug "MyString"
