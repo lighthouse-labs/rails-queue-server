@@ -43,6 +43,8 @@ gem 'logging'
 
 gem 'redis'
 
+gem 'inky-rb', require: 'inky'
+gem 'premailer-rails'
 gem 'email_validator'
 
 gem 'redcarpet'
@@ -104,7 +106,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'dotenv-rails'
   gem 'spring-commands-rspec'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.6'
   gem 'rspec-collection_matchers'
   gem 'rails-controller-testing'

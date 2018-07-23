@@ -396,6 +396,7 @@ ActiveRecord::Schema.define(version: 20180705173431) do
     t.boolean  "prep_assistance"
     t.boolean  "has_queue",                       default: true
     t.text     "disable_queue_days",              default: [],   null: false, array: true
+    t.string   "curriculum_team_email"
   end
 
   create_table "questions", force: :cascade do |t|

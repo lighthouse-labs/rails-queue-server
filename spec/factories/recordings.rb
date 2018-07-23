@@ -1,6 +1,6 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+# Read about factories at https://github.com/thoughtbot/factory_bot
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :recording do
     file_name { Faker::Number.number(10) + '.mp4' }
     recorded_at Time.now.getlocal
