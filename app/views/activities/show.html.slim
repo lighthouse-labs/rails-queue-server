@@ -1,6 +1,6 @@
 - title "#{@activity.name}"
 
-- present @activity, ActivityPresenter, { workbook: @workbook } do |activity_presenter|
+- present @activity, nil, { workbook: @workbook } do |activity_presenter|
 
   = activity_presenter.render_sidenav
 
