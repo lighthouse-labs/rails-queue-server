@@ -12,6 +12,7 @@ class UserSerializer < ActiveModel::Serializer
              :avatar_url,
              :busy,
              :last_assisted_at,
+             :pronoun,
              :remote
 
   has_one :location
