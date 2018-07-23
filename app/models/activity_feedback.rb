@@ -61,9 +61,9 @@ class ActivityFeedback < ApplicationRecord
     end
   }
   scope :filter_by_legacy, ->(mode) {
-    if mode === 'only'
+    if mode == 'only'
       where(legacy_note: true)
-    elsif mode === 'exclude'
+    elsif mode == 'exclude'
       where(legacy_note: [nil, false])
     end
   }
