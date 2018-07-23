@@ -23,6 +23,12 @@ section.activity-details {
         overflow-y: hidden;
         margin-bottom: 20px;
 
+        .content {
+          img {
+            max-width: 100%;
+          }
+        }
+
         // Adapted from
         // http://www.webdevbydoing.com/how-to-make-text-fade-out-at-the-bottom-or-top/
         .fade-mask {
@@ -47,6 +53,11 @@ section.activity-details {
 .lecture-show {
   .card {
     margin: 5px 0 5px;
+
+    .card-body img {
+      max-width: 100%;
+    }
+
   }
   .video-wrapper {
     position: relative;
