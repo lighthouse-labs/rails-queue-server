@@ -7,6 +7,9 @@ hr
     dt class="col-sm-3" Name
     dd class="col-sm-9" #{@activity.name || "N/A"}
 
+    dt class="col-sm-3" UUID
+    dd class="col-sm-9" #{@activity.uuid || "N/A"}
+
     - if (day || @activity.project?)
       dt class="col-sm-3" Day
       dd class="col-sm-9" #{@activity.day || "N/A"}
