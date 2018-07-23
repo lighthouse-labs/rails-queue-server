@@ -1,5 +1,4 @@
 / Not expected to be called on @success (see controller action)
 - unless @success
-  ul
-    - @errors.each do |error|
-      li = error
+  - @errors.each do |error|
+    = error
