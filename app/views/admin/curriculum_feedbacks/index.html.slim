@@ -49,20 +49,16 @@ br
                 tr
                   td = activity_feedback_presenter.upcased_day
                   td = activity_feedback_presenter.activity_name
-                  - if activity_feedback.legacy_note?
-                    td
-                  - else
-                    td
+                  td
+                    - if !activity_feedback.legacy_note?
                       .raty-viewer data-score="#{activity_feedback.rating}"
                   td = activity_feedback_presenter.user_full_name
                   td = activity_feedback.updated_at.to_date
                   - if activity_feedback.detail.present?
                     tr
-                      - if activity_feedback.legacy_note?
-                        td
+                      td
+                        - if activity_feedback.legacy_note?
                           span.badge-pill.badge-info Legacy Note
-                      - else
-                        td
                       td colspan="3"
                         small
                           em
