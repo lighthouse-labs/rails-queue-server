@@ -1,8 +1,11 @@
 class Admin::ActivitiesController < Admin::BaseController
 
+  DEFAULT_PER = 25
+
   def index
     @activities = Activity.order(average_rating: :desc)
     apply_filters
+    @activities = @activities.page(params[:page]).per(DEFAULT_PER)
   end
 
   private
