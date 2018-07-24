@@ -661,8 +661,8 @@ ActiveRecord::Schema.define(version: 20180705173431) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.string   "unlock_on_day",         limit: 5
-    t.boolean  "public"
     t.text     "description"
+    t.boolean  "public"
     t.index ["content_repository_id"], name: "index_workbooks_on_content_repository_id", using: :btree
     t.index ["slug"], name: "index_workbooks_on_slug", unique: true, using: :btree
     t.index ["uuid"], name: "index_workbooks_on_uuid", unique: true, using: :btree

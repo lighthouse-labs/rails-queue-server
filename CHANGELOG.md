@@ -1,5 +1,25 @@
 # Change Log
 
+## [2018.07.23.1530](https://github.com/lighthouse-labs/compass/tree/2018.07.23.1530) (2018-07-23)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.06.13.1345...2018.07.23.1530)
+
+**Merged pull requests:**
+
+- UUID Appears in Activity Details [\#723](https://github.com/lighthouse-labs/compass/pull/723) ([krsnachandra](https://github.com/krsnachandra))
+- Revert hardcoding which presenter to use to fix bug [\#721](https://github.com/lighthouse-labs/compass/pull/721) ([kvirani](https://github.com/kvirani))
+- Remove Html From Alert [\#717](https://github.com/lighthouse-labs/compass/pull/717) ([krsnachandra](https://github.com/krsnachandra))
+- Add Assessment Tests Link to Admin Dropdown [\#715](https://github.com/lighthouse-labs/compass/pull/715) ([krsnachandra](https://github.com/krsnachandra))
+- Remove Mark Completed Button on Lectures and Breakouts [\#713](https://github.com/lighthouse-labs/compass/pull/713) ([krsnachandra](https://github.com/krsnachandra))
+- Mark Stretch in Project Side Nav [\#711](https://github.com/lighthouse-labs/compass/pull/711) ([krsnachandra](https://github.com/krsnachandra))
+- Curriculum Feedback: Ratings Selected Show After Filtering [\#705](https://github.com/lighthouse-labs/compass/pull/705) ([krsnachandra](https://github.com/krsnachandra))
+- Update deprecated factory\_girl to factory\_bot [\#702](https://github.com/lighthouse-labs/compass/pull/702) ([krsnachandra](https://github.com/krsnachandra))
+- Prep Students Disallowed From /students [\#700](https://github.com/lighthouse-labs/compass/pull/700) ([krsnachandra](https://github.com/krsnachandra))
+- Blockquotes Are Differentiated Again [\#694](https://github.com/lighthouse-labs/compass/pull/694) ([krsnachandra](https://github.com/krsnachandra))
+- Students Can Give Feedback on Project Evaluations [\#687](https://github.com/lighthouse-labs/compass/pull/687) ([krsnachandra](https://github.com/krsnachandra))
+- Nav Dropdowns for Students and Cohorts Are Now Scrollable [\#686](https://github.com/lighthouse-labs/compass/pull/686) ([krsnachandra](https://github.com/krsnachandra))
+- Support for workbooks \(for alumni workbook + others in the future\) [\#669](https://github.com/lighthouse-labs/compass/pull/669) ([kvirani](https://github.com/kvirani))
+- Weekly Digest of Negative Curriculum Feedback [\#649](https://github.com/lighthouse-labs/compass/pull/649) ([krsnachandra](https://github.com/krsnachandra))
+
 ## [2018.06.13.1345](https://github.com/lighthouse-labs/compass/tree/2018.06.13.1345) (2018-06-13)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.06.06.1615...2018.06.13.1345)
 
