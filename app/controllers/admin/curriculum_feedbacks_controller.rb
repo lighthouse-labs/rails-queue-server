@@ -5,7 +5,7 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
 
   def index
     @feedbacks = ActivityFeedback.filter_by(filter_by_params).reorder(order)
-    @ratings = params[:ratings] || 'ratings[0, 1, 2, 3, 4, 5]'
+    @ratings = params[:ratings]
     @avg_rating = @feedbacks.average_rating
     @paginated_feedbacks = @feedbacks.page(params[:page]).per(DEFAULT_PER)
 
