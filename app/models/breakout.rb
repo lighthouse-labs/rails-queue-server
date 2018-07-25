@@ -15,4 +15,8 @@ class Breakout < Activity
     false
   end
 
+  def completable?
+    false
+  end
+
 end

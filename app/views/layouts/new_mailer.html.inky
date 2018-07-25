@@ -1,0 +1,25 @@
+doctype strict
+html[xmlns='http://www.w3.org/1999/xhtml']
+  head
+    meta http-equiv="Content-Type" content="text/html; charset=utf-8"
+    meta name="viewport" content="width=device-width"
+
+    = stylesheet_link_tag "foundation_emails"
+
+  body
+    wrapper.header
+      container
+        row.collapse
+          columns small="6" valign="middle"
+            img src="https://i.imgur.com/vWnRHLB.png"
+
+          columns small="6" valign="middle"
+            p.text-right
+              = yield :right_side_heading
+
+    wrapper
+      container.float-center
+        spacer size="16"
+        row
+          columns small="12" large="12"
+            = yield

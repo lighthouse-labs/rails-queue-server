@@ -39,4 +39,8 @@ class Lecture < ApplicationRecord
     user.admin? || (user == presenter)
   end
 
+  def completable?
+    false
+  end
+
 end

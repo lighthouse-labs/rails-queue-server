@@ -7,5 +7,6 @@ FactoryBot.define do
     recordings_bucket { Faker::Number.number(10) }
     weeks 8
     days_per_week 5
+    curriculum_team_email "curriculum@team.com"
   end
 end
