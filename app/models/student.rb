@@ -76,16 +76,4 @@ class Student < User
     end
   end
 
-  def status
-    if self.deactivated?
-      'Deactivated'
-    elsif self.active_student?
-      'Enrolled'
-    elsif self.enrolled_and_prepping?
-      'Upcoming'
-    elsif self.alumni?
-      'Graduated'
-    end
-  end
-
 end
