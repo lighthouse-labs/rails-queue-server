@@ -33,7 +33,7 @@ class ActivitiesController < ApplicationController
 
     # new feedback model
     @activity_feedbacks = @activity.activity_feedbacks
-    @activity_feedbacks = @activity_feedbacks.where(user: current_user) unless teacher?
+    @activity_feedbacks = @activity_feedbacks.where(user: current_user).filter_by_legacy('exclude') unless teacher?
 
     if teacher?
       @messages = @activity.messages
