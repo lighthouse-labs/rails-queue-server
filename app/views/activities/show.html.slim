@@ -48,59 +48,7 @@
 
     = render "code_evaluation", activity: @activity if !teacher? && @activity.evaluates_code?
 
-    - if @activity.recordings.length > 0
-      .recordings
-        h3
-          | Videos
-        - while @recordings_arr.count > 0 do
-          div.container
-            div.row
-              div.col-6
-                .card.mb-3
-                  .card-body
-                    h6.card-title
-                      - if @recordings_arr[0].presenter
-                        = link_to teacher_path(@recordings_arr[0].presenter)
-                          = @recordings_arr[0].presenter.full_name
-                        =": "
-                      - if @recordings_arr[0].presenter_name && !@recordings_arr[0].presenter_name.empty?
-                        = "#{@recordings_arr[0].presenter_name}: "
-                      = recording_title(@recordings_arr[0])
-                    .card-text
-                      - if @recordings_arr[0].recorded_at
-                        = "Recorded: #{format_date_time(@recordings_arr[0].recorded_at)}"
-                        = ' &bull; '.html_safe
-                      - if @recordings_arr[0].s3_url
-                        a href=@recordings_arr[0].s3_url title="Right click > Save Link As..."
-                          span.fa.fa-file-video-o
-                          |  Download file
-                        = ' &bull; '.html_safe
-                      = link_to 'Watch now &raquo;'.html_safe, @recordings_arr[0]
-              div.col-6
-                - if @recordings_arr[1]
-                  .card.mb-3
-                    .card-body
-                      h6.card-title
-                        - if @recordings_arr[1].presenter
-                          = link_to teacher_path(@recordings_arr[1].presenter)
-                            = @recordings_arr[1].presenter.full_name
-                          =": "
-                        - if @recordings_arr[1].presenter_name && !@recordings_arr[1].presenter_name.empty?
-                          = "#{@recordings_arr[1].presenter_name}: "
-                        = recording_title(@recordings_arr[1])
-                      .card-text
-                        - if @recordings_arr[1].recorded_at
-                          = "Recorded: #{format_date_time(@recordings_arr[1].recorded_at)}"
-                          = ' &bull; '.html_safe
-                        - if @recordings_arr[1].s3_url
-                          a href=@recordings_arr[1].s3_url title="Right click > Save Link As..."
-                            span.fa.fa-file-video-o
-                            |  Download file
-                          = ' &bull; '.html_safe
-                        = link_to 'Watch now &raquo;'.html_safe, @recordings_arr[1]
-          - @recordings_arr.shift(2)
-
-    - if teacher? && @program.lecture_tips? && (@activity.is_a?(Lecture) || @activity.is_a?(Breakout))
+    - if teacher? && @program.lecture_tips? && @activity.has_lectures?
       .lecture-tips
         h3 = "Lecture Tips / Reminders"
         == markdown @program.lecture_tips
@@ -111,34 +59,14 @@
       .instructions
         == markdown @activity.teacher_notes
 
-    - if @messages.present?
+    = render 'feedback' if @activity.allow_feedback?
+    = render 'submission_bar', activity_presenter: activity_presenter
+
+    - if @lectures.present?
       hr
-      h3 = "Messages"
-      .messages
-        - @messages.each do |msg|
-          .message
-            .heading
-              = image_tag(avatar_for(msg.user), size: '50x50')
-              h4 = msg.subject
-              .when
-                = msg.created_at.to_formatted_s(:friendly)
-                - if teacher?
-                  br
-                  = msg.cohort.name
+      h3 = "Lectures"
+      .lectures
+        = render @lectures
 
-            .contents
-              == markdown msg.body
-              - if teacher? && msg.teacher_notes?
-                .teacher-notes
-                  h5 Teacher (Internal) Notes
-                  == markdown msg.teacher_notes
 
-            - if (teacher? && current_user == msg.user) || admin?
-              .actions
-                = link_to edit_activity_message_path(@activity, msg), class: 'edit'
-                  i.fa.fa-edit
-                = link_to activity_message_path(@activity, msg), method: :delete, confirm: 'Sure ,lad?', class: 'delete'
-                  i.fa.fa-times
 
-  = render 'feedback' if @activity.allow_feedback?
-  = render 'submission_bar', activity_presenter: activity_presenter

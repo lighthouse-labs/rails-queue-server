@@ -1,0 +1,9 @@
+<h2><%= @lecture.subject %></h2>
+
+<%= raw markdown(@lecture.body) %>
+
+<hr>
+
+<p>
+  <%= @lecture.presenter.full_name %>
+</p>
