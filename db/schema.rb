@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 20180718230929) do
     t.text     "detail"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.boolean  "legacy_note"
     t.index ["activity_id"], name: "index_activity_feedbacks_on_activity_id", using: :btree
     t.index ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
   end
@@ -306,16 +305,16 @@ ActiveRecord::Schema.define(version: 20180718230929) do
     t.integer  "presenter_id"
     t.integer  "cohort_id"
     t.integer  "activity_id"
-    t.string   "day",            limit: 5
-    t.string   "subject",        limit: 1000
-    t.string   "presenter_name"
+    t.string   "day",           limit: 5
+    t.string   "subject",       limit: 1000
     t.text     "body"
     t.text     "teacher_notes"
-    t.string   "youtube_url",    limit: 500
+    t.string   "youtube_url",   limit: 500
     t.string   "file_name"
     t.string   "file_type"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.boolean  "legacy",                     default: false
     t.index ["activity_id"], name: "index_lectures_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_lectures_on_cohort_id", using: :btree
     t.index ["presenter_id"], name: "index_lectures_on_presenter_id", using: :btree

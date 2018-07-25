@@ -1,4 +1,4 @@
-class Breakout < Activity
+class LecturePlan < Activity
 
   has_many :lectures, -> { order(created_at: :desc) }, foreign_key: :activity_id
 
@@ -12,10 +12,6 @@ class Breakout < Activity
   end
 
   def display_duration?
-    false
-  end
-
-  def completable?
     false
   end
 

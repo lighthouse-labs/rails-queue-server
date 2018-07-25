@@ -2,8 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #feedback_notes {
-    width: 350px;
-    height: 100px;
+  width: 350px;
+  height: 100px;
 }
 
 .raty-editor {
@@ -13,6 +13,17 @@
 .hint {
   display: inline;
   padding-left: 15px;
+}
+
+li.activity-feedback {
+  img.align-self-start {
+    // For some reason I couldn't just specify width & height so went with max+min - KV
+    max-width: 64px;
+    max-height: 64px;
+    min-width: 64px;
+    min-height: 64px;
+    overflow: hidden;
+  }
 }
 
 .feedbacks-avatar {

@@ -1,0 +1,60 @@
+- if form.object.errors.full_messages.any?
+  .alert.alert-danger
+    strong Please correct the following errors:
+    - form.object.errors.full_messages.each do |msg|
+      li = msg
+
+  hr
+
+
+= form.input :subject, label: 'Subject', placeholder: "Lecture topic (don't include 'WxDy')", required: true
+= form.input :youtube_url, label: 'Lecture Video', placeholder: 'YouTube Link'
+= form.association :presenter, collection: Teacher.all.order(:last_name, :first_name), label_method: :full_name, required: true
+= form.association :cohort, collection: ([form.object.cohort] + Cohort.is_active.chronological.all).uniq.compact, required: true
+
+.form-group.required
+  = form.label :body
+  pre#body_content style="display:none" = @lecture.body
+  #body-editor.editor
+
+
+.form-group.required
+  / = form.label :teacher_notes
+  label.control-label
+    | Teacher Notes
+    small.form-text.text-muted style="display:inline; margin-left: 5px;" Any tips or context for future teachers?
+  pre#notes_content style="display:none" = @lecture.teacher_notes
+  #notes-editor.editor
+
+
+= form.input :body, as: :hidden
+= form.input :teacher_notes, as: :hidden, required: false
+
+- content_for :end_of_body do
+  css:
+    .editor {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 10px;
+    }
+  javascript:
+    function initEditors() {
+      var bodyEditor = ace.edit("body-editor");
+      bodyEditor.setTheme("ace/theme/monokai");
+      bodyEditor.getSession().setMode("ace/mode/markdown");
+      bodyEditor.setValue($('#body_content').text())
+      var notesEditor = ace.edit("notes-editor");
+      notesEditor.setTheme("ace/theme/monokai");
+      notesEditor.getSession().setMode("ace/mode/markdown");
+      notesEditor.setValue($('#notes_content').text())
+
+      $('form').submit(function(evt) {
+        evt.preventDefault();
+
+        $('#lecture_body').val(bodyEditor.getValue());
+        $('#lecture_teacher_notes').val(notesEditor.getValue());
+        this.submit();
+      });
+    }
+    $(initEditors); // regular document ready
+

@@ -1,0 +1,40 @@
+.lecture.card.mb-4
+  .card-header
+    = image_tag avatar_for(lecture.presenter), class: 'mr-2 float-md-left d-none d-md-block teacher-avatar'
+    h5.float-md-left
+      = lecture.subject
+      br
+      small
+        = lecture.presenter.full_name
+        = " (#{lecture.presenter.location.name})"
+        br
+        = time_ago_in_words lecture.created_at
+        | &nbsp;ago&nbsp;
+        - if cohort && lecture.cohort == cohort
+          - if student?
+            span.badge.badge-info Your Cohort
+          - else
+            span.badge.badge-info Selected Cohort
+
+    .float-md-right.d-none.d-sm-none
+      = image_tag lecture.presenter.avatar_url, class: 'avatar'
+
+  .card-body
+    .row
+      .col-md-3
+        = link_to activity_lecture_path(@activity, lecture)
+          = lecture_thumbnail(lecture)
+
+      .col-md-9
+        .content-container
+          .content
+            == markdown(lecture.body)
+          .fade-mask
+
+        = link_to activity_lecture_path(@activity, lecture), class: "btn btn-primary"
+          | View &raquo;
+
+  - if teacher? && lecture.teacher_notes?
+    .card-footer.text-muted
+      h5 Teacher (Internal) Notes
+      == markdown lecture.teacher_notes

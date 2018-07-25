@@ -23,11 +23,11 @@ if Rails.env.development?
   cohort_van_finished = Cohort.find_by(code: 'vanc')
   cohort_van_finished ||= Cohort.create!(name: "Previous Cohort Van", location: @location_van, start_date: Time.now.monday - 77.days, program: @program, code: "vanc", weekdays: @weekdays)
 
-  cohort_van_upcoming = Cohort.find_by(code: 'vanc-future')
-  cohort_van_upcoming ||= Cohort.create!(name: "Upcoming Cohort Van", location: @location_van, start_date: Time.now.monday + 77.days, program: @program, code: "vanc-future", weekdays: @weekdays)
+  cohort_van_upcoming = Cohort.find_by(code: 'vanf')
+  cohort_van_upcoming ||= Cohort.create!(name: "Upcoming Cohort Van", location: @location_van, start_date: Time.now.monday + 77.days, program: @program, code: "vanf", weekdays: @weekdays)
 
-  cohort_tor_upcoming = Cohort.find_by(code: 'toto-future')
-  cohort_tor_upcoming ||= Cohort.create!(name: "Upcoming Cohort Tor", location: @location_van, start_date: Time.now.monday + 77.days, program: @program, code: "toto-future", weekdays: @weekdays)
+  cohort_tor_upcoming = Cohort.find_by(code: 'to-future')
+  cohort_tor_upcoming ||= Cohort.create!(name: "Upcoming Cohort Tor", location: @location_van, start_date: Time.now.monday + 77.days, program: @program, code: "to-future", weekdays: @weekdays)
 
   User.where(last_name: 'The Fake').destroy_all
 
@@ -146,6 +146,25 @@ if Rails.env.development?
         )
       end
     end # 10 loop for students
+
+    # create one Lecture record for the finished cohort for each LecturePlan and Breakout
+    next unless cohort == Cohort.find_by(code: 'vanc')
+    Activity.all.each do |activity|
+      next unless activity.has_lectures?
+      teacher = @teachers.sample
+      Lecture.create!(
+        cohort:         cohort,
+        activity:       activity,
+        presenter:      teacher,
+        day:            activity.day,
+        subject:        activity.name,
+        presenter_name: teacher.full_name,
+        # when the next version of Faker is released use Faker::Markdown.sandwich(5, 4) for the body
+        body:           Faker::Markdown.headers + Faker::Markdown.ordered_list + Faker::Markdown.block_code + Faker::Lorem.paragraphs(1).to_s,
+        teacher_notes:  Faker::Lorem.sentence,
+        youtube_url:    'https://www.youtube.com/watch?v=XgvR3y5JCXg'
+      )
+    end
   end # locations
 
   # Needed for project evals

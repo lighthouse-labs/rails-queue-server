@@ -9,7 +9,7 @@ class FeedbackPresenter < BasePresenter
   end
 
   def upcased_day
-    if feedback.try(:feedbackable).try(:day) 
+    if feedback.try(:feedbackable).try(:day)
       feedback.feedbackable.day.upcase
     elsif feedback.student.present?
       CurriculumDay.new(feedback.created_at.to_date, feedback.student.cohort).to_s.upcase
@@ -33,7 +33,7 @@ class FeedbackPresenter < BasePresenter
 
   def feedbackable_type
     if feedback.try(:feedbackable) && feedback.feedbackable.try(:type)
-      feedback.feedbackable.type
+      humanized_type(feedback.feedbackable.type)
     elsif feedback.try(:feedbackable)
       feedback.feedbackable.class.name
     else
@@ -93,6 +93,17 @@ class FeedbackPresenter < BasePresenter
 
   def date
     feedback.updated_at.to_date.to_s
+  end
+
+  private
+
+  def humanized_type(type)
+    case type
+    when 'LecturePlan'
+      'Lecture'
+    else
+      type.underscore.humanize
+    end
   end
 
 end

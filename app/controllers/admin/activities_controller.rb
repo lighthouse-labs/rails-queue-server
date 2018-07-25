@@ -1,8 +1,11 @@
 class Admin::ActivitiesController < Admin::BaseController
 
+  DEFAULT_PER = 25
+
   def index
     @activities = Activity.order(average_rating: :desc)
     apply_filters
+    @activities = @activities.page(params[:page]).per(DEFAULT_PER)
   end
 
   private
@@ -88,9 +91,9 @@ class Admin::ActivitiesController < Admin::BaseController
     params[:lectures] ||= 'Exclude'
     @activities = case params[:lectures]
                   when 'Only'
-                    @activities.where(type: %w[Lecture Breakout])
+                    @activities.where(type: %w[LecturePlan Breakout])
                   when 'Exclude'
-                    @activities.where.not(type: %w[Lecture Breakout])
+                    @activities.where.not(type: %w[LecturePlan Breakout])
                   else
                     @activities
     end

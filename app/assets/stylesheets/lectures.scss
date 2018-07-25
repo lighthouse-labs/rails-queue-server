@@ -1,0 +1,79 @@
+section.activity-details {
+
+  .lectures {
+
+    .lecture {
+
+      &.my-cohort {
+        .card-header {
+          background-color: #C1E1FF;
+        }
+      }
+
+      img.avatar {
+        width: 22px;
+        height: 22px;
+        border-radius: 4px
+      }
+
+      .content-container {
+        zoom: 70%;
+        position: relative;
+        max-height: 300px;
+        overflow-y: hidden;
+        margin-bottom: 20px;
+
+        .content {
+          img {
+            max-width: 100%;
+          }
+        }
+
+        // Adapted from
+        // http://www.webdevbydoing.com/how-to-make-text-fade-out-at-the-bottom-or-top/
+        .fade-mask {
+          pointer-events: none;
+          height: 300px;
+          width: 100%;
+          position: absolute;
+          top: 0;
+          background: -moz-linear-gradient(top,  rgba(255,255,255,0) 60%, rgba(255,255,255,1) 100%);
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(95%,rgba(255,255,255,1)));
+          background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 60%,rgba(255,255,255,1) 100%);
+          background: -o-linear-gradient(top,  rgba(255,255,255,0) 60%,rgba(255,255,255,1) 100%);
+          background: -ms-linear-gradient(top,  rgba(255,255,255,0) 60%,rgba(255,255,255,1) 100%);
+          background: linear-gradient(to bottom,  rgba(255,255,255,0) 60%,rgba(255,255,255,1) 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+        }
+      }
+    }
+  }
+}
+
+.lecture-show {
+  .card {
+    margin: 5px 0 5px;
+
+    .card-body img {
+      max-width: 100%;
+    }
+
+  }
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .teacher-notes {
+    color: grey;
+    // padding: 30px;
+  }
+}
