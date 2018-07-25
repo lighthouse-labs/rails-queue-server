@@ -57,8 +57,7 @@ header.page-header
                     div
                       .badge.badge-warning Rolled In
                   div
-                    .badge.badge-danger.badge-light 
-                      = student.status
+                    == status(student)
                 td
                   .btn-collection
                     - if student.deactivated?
