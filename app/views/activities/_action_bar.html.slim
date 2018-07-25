@@ -9,10 +9,8 @@
             | &nbsp;
           = activity_presenter.details_button
           | &nbsp;
-          - if !@activity.prep?
-            = link_to '+ Video', new_activity_recording_path(@activity), class: 'btn btn-secondary btn-new-recording'
-            | &nbsp;
-            = link_to '+ Message', new_activity_message_path(@activity), class: 'btn btn-primary btn-new-message'
+          - if @activity.has_lectures?
+            = link_to '+ Lecture', new_activity_lecture_path(@activity), class: 'btn btn-secondary btn-new-lecture'
 
         - else
           = render 'completion_status'

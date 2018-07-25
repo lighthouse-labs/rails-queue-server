@@ -35,11 +35,8 @@ class ActivitiesController < ApplicationController
     @activity_feedbacks = @activity.activity_feedbacks
     @activity_feedbacks = @activity_feedbacks.where(user: current_user) unless teacher?
 
-    if teacher?
-      @messages = @activity.messages
-    elsif cohort # no messages if student or just User and no cohort is assigned
-      @messages = @activity.messages.for_cohort(cohort)
-    end
+    @lectures = @activity.lectures if @activity.has_lectures?
+
     @recordings_arr = @activity.recordings.to_a
   end
 
@@ -100,9 +97,9 @@ class ActivitiesController < ApplicationController
     params[:lectures] ||= 'Exclude'
     @activities = case params[:lectures]
                   when 'Only'
-                    @activities.where(type: %w[Lecture Breakout])
+                    @activities.where(type: %w[LecturePlan Breakout])
                   when 'Exclude'
-                    @activities.where.not(type: %w[Lecture Breakout])
+                    @activities.where.not(type: %w[LecturePlan Breakout])
                   else
                     @activities
     end
