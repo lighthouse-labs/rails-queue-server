@@ -31,6 +31,12 @@ body.tech-interview-on {
   }
 }
 
+.tech-interview-actions {
+  position: sticky;
+  top: 70px;
+  z-index: 1000;
+}
+
 #tech_interview_feedback {
   height: 300px;
 }

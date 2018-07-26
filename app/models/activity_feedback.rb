@@ -60,6 +60,13 @@ class ActivityFeedback < ApplicationRecord
       where(rating: ratings)
     end
   }
+  scope :filter_by_legacy, ->(mode) {
+    if mode == 'only'
+      where(legacy_note: true)
+    elsif mode == 'exclude'
+      where(legacy_note: [nil, false])
+    end
+  }
 
   scope :seven_days, ->(from, to) { where(created_at: from..to) }
 
@@ -103,10 +110,6 @@ class ActivityFeedback < ApplicationRecord
     else
       result.pending
     end
-  end
-
-  def self.average_rating
-    average(:rating).to_f.round(2)
   end
 
   def self.to_csv
