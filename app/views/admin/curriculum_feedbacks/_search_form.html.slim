@@ -42,5 +42,7 @@
     .form-group
       = text_field_tag 'day', params[:day], placeholder: 'Day e.g. w01d2 or w01', class: "form-control admin-feedback-text-box"
 
+    .form-group
+      = select_tag :legacy, options_for_select([['Include Legacy Notes', 'include'], ['Exclude Legacy Notes', 'exclude'], ['Only Legacy Notes', 'only']], params[:legacy]), class: "form-control admin-feedback-dropdown"
 
     = submit_tag 'Filter', class: 'btn btn-success admin-feedback-button'
