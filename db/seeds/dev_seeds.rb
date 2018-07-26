@@ -158,7 +158,7 @@ if Rails.env.development?
         presenter:      teacher,
         day:            activity.day,
         subject:        activity.name,
-        body:           Faker::Markdown.headers + Faker::Markdown.sandwich(5, 4) + Faker::Markdown.block_code + Faker::Lorem.paragraphs(2).to_s,
+        body:           Faker::Markdown.headers + Faker::Markdown.sandwich(5, 4) + Faker::Markdown.block_code + Faker::Lorem.paragraphs(1).to_s,
         teacher_notes:  Faker::Lorem.sentence,
         youtube_url:    'https://www.youtube.com/watch?v=XgvR3y5JCXg'
       )
