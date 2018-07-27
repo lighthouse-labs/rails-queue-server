@@ -31,7 +31,6 @@ var RequestItem = React.createClass({
             <a href={`/teacher/students/${student.id}`}> {student.first_name} {student.last_name} </a>
             { this.renderStudentLocation() }
           </h4>
-          {console.log(student)}
           { this.studentPronoun(student) }
           <p className="student-cohort">
             <a href={"cohorts/" + student.cohort.id + "/students"} className="cohort-name">
