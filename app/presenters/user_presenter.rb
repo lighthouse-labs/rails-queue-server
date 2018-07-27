@@ -74,7 +74,8 @@ class UserPresenter < BasePresenter
       user_content output
     else
       output = image_for_index_page
-      output += user.full_name.to_s + (user.pronoun.present? ? " (#{user.pronoun})" : "")
+      output += user.full_name.to_s
+      output += " (#{user.pronoun})" if user.pronoun?
       user_content output
     end
   end
