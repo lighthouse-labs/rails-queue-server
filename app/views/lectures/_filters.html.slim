@@ -44,7 +44,7 @@
     .form-group.col-md-4.extra-search-option class=("hidden" unless advanced_search) style="padding-top:28px"
       .form-check
         = check_box_tag :advanced_topics, '1', params[:advanced_topics], class: 'form-check-input', disabled: !advanced_search
-        label.form-check-label for="advanced" Advanced Topics Only
+        label.form-check-label for="advanced_topics" Advanced Topics Only
       .form-check
         = check_box_tag :video, '1', params[:video], class: 'form-check-input', disabled: !advanced_search
         label.form-check-label for="video" With Video Recording Only
