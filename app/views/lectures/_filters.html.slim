@@ -1,64 +1,54 @@
-= form_tag lectures_path, class: 'form-inline', method: 'get' do
+- advanced_search = params[:advanced_search] == '1'
+
+= form_tag lectures_path, class: 'search-form', method: 'get' do
+
   .form-row
+    .form-group.col-md-2
+      - if student? && cohort
+        label Cohort
+        = select_tag :cohort, options_for_select([['My Cohort', 'my'], ['All Cohorts', 'all']], params[:cohort]), class: 'form-control'
 
-    .form-group.btn-group.btn-group-toggle data-toggle='buttons'
-      - if current_user && teacher? 
-        label.btn.btn-secondary.active
-          input#my-lectures autocomplete="off" checked="" name="my_lectures" type="radio"
-            | My Lectures
-      - elsif current_user && active_student?
-        label.btn.btn-secondary.active 
-          input#my-cohort autocomplete="off" checked="" name="my_cohort" type="radio"
-            | My Cohort
-      - if current_user && alumni?
-        label.btn.btn-secondary 
-          input#my-cohort autocomplete="off" name="my_cohort" type="radio"
-            | My Cohort
-        label.btn.btn-secondary.active
-          input#all-lectures autocomplete="off" checked="" name="all_lectures" type="radio"
-            | All Lectures
-      - elsif current_user && (teacher? || student?)
-        label.btn.btn-secondary
-          input#all-lectures autocomplete="off" name="all_lectures" type="radio"
-            | All Lectures
+    .form-group.col-md-3
+      label Keywords
+      = text_field_tag :keywords, params[:keywords], placeholder: 'e.g. jQuery, AJAX, callbacks', class: "form-control lectures-text-box", id: 'search_keywords'
 
-    .form-group
-      label Subject/Lecture Notes
-      = text_field_tag :keywords, params[:keywords], placeholder: 'e.g. jQuery, AJAX, callbacks', class: "form-control lectures-text-box"
+    .form-group.col-md-3.pt-md-5
+      = hidden_field_tag :advanced_search, params[:advanced_search]
+      a.expand-search-options href="" class=("hidden" if advanced_search)
+        | Enable Advanced Search
+      a.collapse-search-options href="" class=("hidden" unless advanced_search)
+        | Disable Advanced Search
 
-    .form-group
+  .form-row
+    .form-group.col-md-4.extra-search-option class=("hidden" unless advanced_search)
       label Teacher
-      = select_tag :teacher_id, options_from_collection_for_select(Teacher.all.order('first_name'), "id", "full_name", params[:teacher_id]), prompt: 'All Teachers', class: "form-control lectures-dropdown"
+      = select_tag :teacher_id, options_from_collection_for_select(Teacher.all.order('first_name'), :id, :full_name, params[:teacher_id]), prompt: 'All Teachers', class: "form-control lectures-dropdown", disabled: !advanced_search
 
-    .form-group
+    .form-group.col-md-2.extra-search-option class=("hidden" unless advanced_search)
       label Day
-      = text_field_tag :day, params[:day], placeholder: 'e.g. w01d3', class: "form-control lectures-text-box"
+      = text_field_tag :day, params[:day], placeholder: 'e.g. w01d3', class: "form-control lectures-text-box", disabled: !advanced_search
 
-    .form-group.form-check
-      label Advanced Topics Only
-      = check_box_tag :advanced, params[:advanced]
-
-    .form-group.extra-search-option.hidden
+    .form-group.col-md-4.extra-search-option class=("hidden" unless advanced_search)
       label Location
-      = select_tag :location, options_from_collection_for_select(Location.all.order('name'), "id", "name", params[:location] || "All"), prompt: 'All Locations', class: "form-control lectures-dropdown"
+      = select_tag :location, options_from_collection_for_select(Location.all.order('name'), :id, :name, params[:location] || "All"), prompt: 'All Locations', class: "form-control lectures-dropdown", disabled: !advanced_search
 
-    .form-group.extra-search-option.hidden
-      label Start:
-      input type='date' class='form-control lectures-date-select' name='start_date' id='start_date' value=params[:start_date]
+  .form-row
+    .form-group.col-md-3.extra-search-option class=("hidden" unless advanced_search)
+      label From Date
+      input type='date' class='form-control lectures-date-select' name='start_date' id='start_date' value=params[:start_date] disabled=(!advanced_search)
 
-    .form-group.extra-search-option.hidden
-      label End:
-      input type='date' class='form-control lectures-date-select' name='end_date' id='end_date' value=params[:end_date]
+    .form-group.col-md-3.extra-search-option class=("hidden" unless advanced_search)
+      label To Date
+      input type='date' class='form-control lectures-date-select' name='end_date' id='end_date' value=params[:end_date] disabled=(!advanced_search)
 
-    .form-group.extra-search-option.hidden
-      label Only Show Results With Video
-      = check_box_tag :video, params[:video] 
+    .form-group.col-md-4.extra-search-option class=("hidden" unless advanced_search) style="padding-top:28px"
+      .form-check
+        = check_box_tag :advanced_topics, '1', params[:advanced_topics], class: 'form-check-input', disabled: !advanced_search
+        label.form-check-label for="advanced" Advanced Topics Only
+      .form-check
+        = check_box_tag :video, '1', params[:video], class: 'form-check-input', disabled: !advanced_search
+        label.form-check-label for="video" With Video Recording Only
 
-    .btn-group
-      .btn.btn-outline-info.expand-search-options
-        | More Filters
-
-      .btn.btn-outline-info.collapse-search-options.hidden
-        | Fewer filters
-
-      = submit_tag 'Filter', class: 'btn btn-success lectures-button float-right'
+  .form-row
+    .form-group
+      = submit_tag 'Filter', class: 'btn btn-success lectures-button'

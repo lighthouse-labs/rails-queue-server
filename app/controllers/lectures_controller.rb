@@ -102,7 +102,7 @@ class LecturesController < ApplicationController
   end
 
   def apply_filters
-    filter_by_lecture_scope
+    filter_by_student_cohort
     filter_by_location
     filter_by_day
     filter_by_presenter
@@ -114,13 +114,10 @@ class LecturesController < ApplicationController
     filter_by_unlocked_days
   end
 
-  def filter_by_lecture_scope
-    if params[:all_lectures].present?
-      @lectures = Lecture.all.most_recent_first
-    elsif params[:my_cohort].present?
-      @lectures = @lectures.for_cohort(current_user.cohort)
-    elsif params[:my_lectures].present?
-      @lectures = @lectures.for_teacher(current_user)
+  def filter_by_student_cohort
+    if student? && cohort
+      params[:cohort] ||= 'my'
+      @lectures = @lectures.for_cohort(cohort) if params[:cohort] == 'my'
     end
   end
 
@@ -141,7 +138,7 @@ class LecturesController < ApplicationController
   end
 
   def filter_by_advanced_topics
-    @lectures = @lectures.advanced_topics if params[:advanced].present?
+    @lectures = @lectures.advanced_topics if params[:advanced_topics].present?
   end
 
   def filter_by_start_date
