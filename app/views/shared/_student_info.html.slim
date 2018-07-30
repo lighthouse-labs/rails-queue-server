@@ -4,10 +4,10 @@
 - if teacher? || admin?
   = link_to link do
     = image_tag avatar_for(student), class: 'avatar'
-  = link_to student.full_name + (student.pronoun.present? ? " (#{student.pronoun})" : ""), link
+  = link_to student.full_name_with_pronoun, link
 - else
   = image_tag avatar_for(student), class: 'avatar'
-  = student.full_name + (student.pronoun.present? ? " (#{student.pronoun})" : "")
+  = name
 
 - if show_email
   br
