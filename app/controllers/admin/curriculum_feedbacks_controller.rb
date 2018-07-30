@@ -1,11 +1,11 @@
 class Admin::CurriculumFeedbacksController < Admin::BaseController
 
-  FILTER_BY_OPTIONS = [:program, :user_id, :user_location_id, :cohort_id, :start_date, :end_date, :day, :type, :ratings].freeze
+  FILTER_BY_OPTIONS = [:program, :user_id, :user_location_id, :cohort_id, :start_date, :end_date, :day, :type, :ratings, :legacy].freeze
   DEFAULT_PER = 10
 
   def index
     @feedbacks = ActivityFeedback.filter_by(filter_by_params).reorder(order)
-    @ratings = params[:ratings] || %w{0 1 2 3 4 5}
+    @ratings = params[:ratings] || %w[0 1 2 3 4 5]
     @avg_rating = @feedbacks.average_rating
     @paginated_feedbacks = @feedbacks.page(params[:page]).per(DEFAULT_PER)
 

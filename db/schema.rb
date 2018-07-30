@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20180718230929) do
     t.text     "detail"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.boolean  "legacy_note"
     t.index ["activity_id"], name: "index_activity_feedbacks_on_activity_id", using: :btree
     t.index ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
   end

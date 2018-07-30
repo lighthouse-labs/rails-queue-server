@@ -7,14 +7,13 @@ class LecturesController < ApplicationController
   before_action :teacher_required, only: [:edit, :update, :destroy, :new, :create]
   before_action :check_if_day_unlocked, only: [:show]
 
-  def show
-  end
+  def show; end
 
   def new
     @lecture = Lecture.new(
       presenter: current_user,
       cohort:    @cohort,
-      subject: @activity.name
+      subject:   @activity.name
     )
   end
 
