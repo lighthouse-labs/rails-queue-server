@@ -11,9 +11,7 @@ class LecturesController < ApplicationController
 
   def index
     @lectures = Lecture.all.most_recent_first
-    if current_user && teacher?
-      @lectures = @lectures.for_teacher(current_user)
-    elsif current_user && active_student?
+    if current_user && active_student? && !params[:cohort]
       @lectures = @lectures.for_cohort(current_user.cohort)
     end
     apply_filters
