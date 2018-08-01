@@ -1,6 +1,13 @@
 .activity-details, .project-detail {
 
   .instructions {
+    font-size: calc(.9em + .5vw);
+    h1, h2, h3, h4, h5, h6 {
+      padding: 1em 0 .6em;
+    }
+    p, li {
+      font-weight: 100;
+    }
     aside {
       background: #eee;
       font-size: .85em;
@@ -48,7 +55,7 @@
       // http://stackoverflow.com/questions/10374171/how-to-make-twitter-bootstraps-pre-blocks-scroll-horizontally
       overflow-y: auto;
       word-wrap: normal;
-
+      margin: 1.5em 0;
       code {
         overflow-wrap: normal;
         white-space: pre;
@@ -57,6 +64,7 @@
         -moz-user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;
+        font-size: .8em;
       }
     }
 
