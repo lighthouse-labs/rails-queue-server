@@ -1,5 +1,13 @@
 # Change Log
 
+## [2018.08.01.1630](https://github.com/lighthouse-labs/compass/tree/2018.08.01.1630) (2018-08-01)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.07.30.2115...2018.08.01.1630)
+
+**Merged pull requests:**
+
+- Fix bug restricting students from viewing lecture details [\#735](https://github.com/lighthouse-labs/compass/pull/735) ([kvirani](https://github.com/kvirani))
+- Fix Undefined Name Sentry Error [\#734](https://github.com/lighthouse-labs/compass/pull/734) ([krsnachandra](https://github.com/krsnachandra))
+
 ## [2018.07.30.2115](https://github.com/lighthouse-labs/compass/tree/2018.07.30.2115) (2018-07-30)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.07.23.1530...2018.07.30.2115)
 
