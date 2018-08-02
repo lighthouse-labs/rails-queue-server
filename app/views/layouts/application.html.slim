@@ -25,8 +25,7 @@ html
     header
       == render 'layouts/navigation'
 
-    - fluid = (yield(:container) == 'fluid')
-    main role="main" class=(fluid ? 'container-fluid' : 'container')
+    main role="main" class='container-fluid'
       == render 'layouts/messages'
 
       - unless disable_cable?
