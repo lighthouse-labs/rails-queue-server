@@ -154,24 +154,8 @@ class LecturesController < ApplicationController
   end
 
   def filter_by_unlocked_days
-    @lecture_days = [ "w01d1", "w01d2", "w01d3", "w01d4", "w01d5",
-                      "w02d1", "w02d2", "w02d3", "w02d4", "w02d5",
-                      "w03d1", "w03d2", "w03d3", "w03d4", "w03d5",
-                      "w04d1", "w04d2", "w04d3", "w04d4", "w04d5",
-                      "w05d1", "w05d2", "w05d3", "w05d4", "w05d5",
-                      "w06d1", "w06d2", "w06d3", "w06d4", "w06d5",
-                      "w07d1", "w07d2", "w07d3", "w07d4", "w07d5",
-                      "w08d1", "w08d2", "w08d3", "w08d4", "w08d5",
-                      "w09d1", "w09d2", "w09d3", "w09d4", "w09d5",
-                      "w10d1", "w10d2", "w10d3", "w10d4", "w10d5" ]
-
-    if current_user && active_student?
-      this_day = CurriculumDay.new(Date.current, current_user.cohort).to_s
-      # go to Friday to show lectures whose days are unlocked
-      this_day[4] = "5"
-      # select the lectures given on days that are before or during this week
-      days = @lecture_days.select { |d| @lecture_days.index(d) <= @lecture_days.index(this_day) }
-      @lectures = @lectures.where(day: days)
+    if active_student?
+      @lectures = @lectures.until_day(current_user.curriculum_day)
     end
   end
 

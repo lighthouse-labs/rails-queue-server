@@ -27,6 +27,7 @@ class Lecture < ApplicationRecord
       .references(:teacher, :location)
   }
   scope :advanced_topics, -> { where(activity: LecturePlan.advanced_topic) }
+  scope :until_day, ->(day) { joins(:activity).where("activities.day <= ?", day) }
 
   validates :activity, presence: true
   validates :cohort, presence: true

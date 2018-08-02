@@ -59,13 +59,11 @@ class ActivitiesController < ApplicationController
     filter_by_keywords
   end
 
+  # FIXME: Potential bug spotted here.
+  # It's not using the overwrite field `unlocked_until_day` on user
   def filter_by_permissions
-    if current_user.is_a?(Student)
-      timezone = current_user.location.timezone
-      curriculum_day = current_user.cohort.curriculum_day.unlocked_until_day(timezone).to_s
-      @activities = @activities.until_day(curriculum_day)
-    else
-      @activities
+    if active_student?
+      @activities = @activities.until_day(current_user.curriculum_day)
     end
   end
 
