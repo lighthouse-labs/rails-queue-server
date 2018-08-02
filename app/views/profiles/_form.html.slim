@@ -21,6 +21,7 @@
 .profile-edit-fields
   = f.input :first_name, label: 'First Name'
   = f.input :last_name, label: 'Last Name'
+  = f.input :pronoun, collection: ['They', 'She', 'He', 'Ask me'], label: 'Pronoun', class: 'form-group row'
   = f.input :email
   = f.input :phone_number, label: 'Phone Number'
   = f.input :twitter

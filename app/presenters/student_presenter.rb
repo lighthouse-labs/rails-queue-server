@@ -3,7 +3,7 @@ class StudentPresenter < UserPresenter
   presents :student
 
   def name
-    content_tag :h3, student.full_name, class: 'student-details-name'
+    content_tag :h3, student.full_name_with_pronoun, class: 'student-details-name'
   end
 
   def cohort_name_link

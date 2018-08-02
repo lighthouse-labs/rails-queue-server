@@ -1,12 +1,37 @@
 # Change Log
 
+## [2018.08.01.1630](https://github.com/lighthouse-labs/compass/tree/2018.08.01.1630) (2018-08-01)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.07.30.2115...2018.08.01.1630)
+
+**Merged pull requests:**
+
+- Fix bug restricting students from viewing lecture details [\#735](https://github.com/lighthouse-labs/compass/pull/735) ([kvirani](https://github.com/kvirani))
+- Fix Undefined Name Sentry Error [\#734](https://github.com/lighthouse-labs/compass/pull/734) ([krsnachandra](https://github.com/krsnachandra))
+
+## [2018.07.30.2115](https://github.com/lighthouse-labs/compass/tree/2018.07.30.2115) (2018-07-30)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.07.23.1530...2018.07.30.2115)
+
+**Merged pull requests:**
+
+- Fix Dev Seeds [\#730](https://github.com/lighthouse-labs/compass/pull/730) ([krsnachandra](https://github.com/krsnachandra))
+- Tech Interview Actions are Sticky Again [\#728](https://github.com/lighthouse-labs/compass/pull/728) ([krsnachandra](https://github.com/krsnachandra))
+- Broken Avatar Images Won't Break View on Activity Feedbacks [\#727](https://github.com/lighthouse-labs/compass/pull/727) ([krsnachandra](https://github.com/krsnachandra))
+- Ratings Checked By Default--Fixes /admin/curriculum\_feedbacks [\#726](https://github.com/lighthouse-labs/compass/pull/726) ([krsnachandra](https://github.com/krsnachandra))
+- Fix /teacher/assistances View When there is no Assistance Request [\#725](https://github.com/lighthouse-labs/compass/pull/725) ([krsnachandra](https://github.com/krsnachandra))
+- Quiz Back Button Goes to the Quiz Day Instead of Today [\#724](https://github.com/lighthouse-labs/compass/pull/724) ([krsnachandra](https://github.com/krsnachandra))
+- Support For Pronoun Identification [\#722](https://github.com/lighthouse-labs/compass/pull/722) ([krsnachandra](https://github.com/krsnachandra))
+- Show Dropped or Active as Appropriate on admin/students [\#718](https://github.com/lighthouse-labs/compass/pull/718) ([krsnachandra](https://github.com/krsnachandra))
+- Paginate Admin Activities [\#716](https://github.com/lighthouse-labs/compass/pull/716) ([krsnachandra](https://github.com/krsnachandra))
+- Feedback Created from Activity Submission Note Field [\#706](https://github.com/lighthouse-labs/compass/pull/706) ([krsnachandra](https://github.com/krsnachandra))
+- Streamline the UI / UX of lecture recordings & notes \(for students AND teachers\) [\#651](https://github.com/lighthouse-labs/compass/pull/651) ([kvirani](https://github.com/kvirani))
+
 ## [2018.07.23.1530](https://github.com/lighthouse-labs/compass/tree/2018.07.23.1530) (2018-07-23)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.06.13.1345...2018.07.23.1530)
 
 **Merged pull requests:**
 
 - UUID Appears in Activity Details [\#723](https://github.com/lighthouse-labs/compass/pull/723) ([krsnachandra](https://github.com/krsnachandra))
-- Revert hardcoding which presenter to use to fix bug [\#721](https://github.com/lighthouse-labs/compass/pull/721) ([kvirani](https://github.com/kvirani))
+- Make quizzes work again \(broke with workbooks\) [\#721](https://github.com/lighthouse-labs/compass/pull/721) ([kvirani](https://github.com/kvirani))
 - Remove Html From Alert [\#717](https://github.com/lighthouse-labs/compass/pull/717) ([krsnachandra](https://github.com/krsnachandra))
 - Add Assessment Tests Link to Admin Dropdown [\#715](https://github.com/lighthouse-labs/compass/pull/715) ([krsnachandra](https://github.com/krsnachandra))
 - Remove Mark Completed Button on Lectures and Breakouts [\#713](https://github.com/lighthouse-labs/compass/pull/713) ([krsnachandra](https://github.com/krsnachandra))
