@@ -70,7 +70,7 @@ class LecturesController < ApplicationController
 
   def check_if_day_unlocked
     if student?
-      redirect_to day_path('today'), alert: 'Not allowed' unless @activity.day == params[:day_number]
+      redirect_to day_path('today'), alert: 'Not allowed' unless current_user.can_access_day?(@activity.day)
     end
   end
 
