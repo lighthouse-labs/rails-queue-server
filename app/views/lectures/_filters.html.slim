@@ -3,8 +3,8 @@
 = form_tag lectures_path, class: 'search-form', method: 'get' do
 
   .form-row
-    .form-group.col-md-2
-      - if student? && cohort
+    - if student? && cohort
+      .form-group.col-md-2
         label Cohort
         = select_tag :cohort, options_for_select([['My Cohort', 'my'], ['All Cohorts', 'all']], params[:cohort]), class: 'form-control'
 
