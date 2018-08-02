@@ -12,7 +12,7 @@
       h3
         i.fa.fa-folder-open
         | &nbsp;
-        = @activities.core.size
+        = @activities.core.total_count
       span Core Activities
 
   .stat.card
@@ -20,7 +20,7 @@
       h3
         i.fa.fa-fire
         | &nbsp;
-        = @activities.stretch.size
+        = @activities.stretch.total_count
       span Stretch Activities
 
   .stat.card

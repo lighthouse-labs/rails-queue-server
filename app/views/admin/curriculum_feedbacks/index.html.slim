@@ -39,7 +39,7 @@ br
             tr
               th Day
               th Name
-              th.feedback-rating-column = sortable "rating", "Rating (Avg: #{@rating})"
+              th.feedback-rating-column = sortable "rating", "Rating (Avg: #{@avg_rating})"
               th.admin-curriculum-feedback-student-column User
               th.admin-curriculum-feedback-date-column = sortable "activity_feedbacks.created_at", "Created"
 
@@ -50,12 +50,15 @@ br
                   td = activity_feedback_presenter.upcased_day
                   td = activity_feedback_presenter.activity_name
                   td
-                    .raty-viewer data-score="#{activity_feedback.rating}"
+                    - if !activity_feedback.legacy_note?
+                      .raty-viewer data-score="#{activity_feedback.rating}"
                   td = activity_feedback_presenter.user_full_name
                   td = activity_feedback.updated_at.to_date
                   - if activity_feedback.detail.present?
                     tr
                       td
+                        - if activity_feedback.legacy_note?
+                          span.badge-pill.badge-info Legacy Note
                       td colspan="3"
                         small
                           em

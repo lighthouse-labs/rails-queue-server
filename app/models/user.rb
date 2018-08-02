@@ -162,6 +162,14 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def full_name_with_pronoun
+    if pronoun?
+      "#{full_name} (#{pronoun})"
+    else
+      full_name
+    end
+  end
+
   def complete_submissions
     # Code evaluated activities need to be finalized, other activies only need to have time spent
     activity_submissions.where(finalized: true).or(activity_submissions.where.not(time_spent: nil)).select(:activity_id)

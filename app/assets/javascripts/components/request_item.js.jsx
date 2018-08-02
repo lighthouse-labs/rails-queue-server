@@ -12,6 +12,12 @@ var RequestItem = React.createClass({
       )
   },
 
+  studentPronoun: function(student) {
+    return (
+      student.pronoun ? <p className="student-pronoun">({student.pronoun})</p> : null
+    )
+  },
+
   render: function() {
     var student = this.props.student;
     return(
@@ -25,6 +31,7 @@ var RequestItem = React.createClass({
             <a href={`/teacher/students/${student.id}`}> {student.first_name} {student.last_name} </a>
             { this.renderStudentLocation() }
           </h4>
+          { this.studentPronoun(student) }
           <p className="student-cohort">
             <a href={"cohorts/" + student.cohort.id + "/students"} className="cohort-name">
               {student.cohort.name}

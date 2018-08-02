@@ -74,5 +74,12 @@
      -ms-user-select: text;
     }
 
+    blockquote {
+      border-left: 3px solid #AAA;
+      padding: 0 0 0 16px;
+      margin: 0 0 30px;
+      font-size: 1.1em;
+    }
+
   }
 }

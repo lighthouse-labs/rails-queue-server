@@ -16,4 +16,16 @@ module Admin::StudentsHelper
     user.use_double_digit_week? ? "wxxdx or wxxe" : "wxdx or wxe"
   end
 
+  def status(student)
+    if student.deactivated?
+      '<span class="badge badge-danger">Deactivated</span>'
+    elsif student.active_student?
+      '<span class="badge badge-success">Enrolled</span>'
+    elsif student.enrolled_and_prepping?
+      '<span class="badge badge-secondary">Upcoming</span>'
+    elsif student.alumni?
+      '<span class="badge badge-info">Graduated</span>'
+    end
+  end
+
 end

@@ -22,7 +22,7 @@
       - rates = [0, 1, 2, 3, 4, 5]
       - rates.each do |rate|
         .form-check
-        = check_box_tag 'ratings[]', rate, true, class: 'form-check-input', id: "ratings_#{rate}"
+        = check_box_tag 'ratings[]', rate, @ratings.include?(rate.to_s), class: 'form-check-input', id: "ratings_#{rate}"
         label.form-check-label[for="ratings_#{rate}"]
           = rate
 
@@ -42,5 +42,7 @@
     .form-group
       = text_field_tag 'day', params[:day], placeholder: 'Day e.g. w01d2 or w01', class: "form-control admin-feedback-text-box"
 
+    .form-group
+      = select_tag :legacy, options_for_select([['Include Legacy Notes', 'include'], ['Exclude Legacy Notes', 'exclude'], ['Only Legacy Notes', 'only']], params[:legacy]), class: "form-control admin-feedback-dropdown"
 
     = submit_tag 'Filter', class: 'btn btn-success admin-feedback-button'

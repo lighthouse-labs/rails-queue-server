@@ -2,7 +2,7 @@ class UserPresenter < BasePresenter
 
   presents :user
 
-  delegate :full_name, :email, :phone_number, :quirky_fact, :bio, :specialties, :company_name, :company_url, :slack, :skype, :type, to: :user
+  delegate :full_name, :full_name_with_pronoun, :email, :phone_number, :quirky_fact, :bio, :specialties, :company_name, :company_url, :slack, :skype, :type, to: :user
 
   def image_for_index_page
     h.image_tag(avatar_for, style: 'float:left; width:60px; margin-right: 8px; border-radius: 5px; border: 2px solid black; overflow: hidden;')
@@ -70,11 +70,11 @@ class UserPresenter < BasePresenter
       render('shared/student_info', student: user, show_email: true)
     elsif user.type == 'Teacher'
       output = link_to image_for_index_page, teacher_path(user)
-      output += link_to user.full_name.to_s, teacher_path(user)
+      output += link_to user.full_name_with_pronoun.to_s, teacher_path(user)
       user_content output
     else
       output = image_for_index_page
-      output += user.full_name.to_s
+      output += user.full_name_with_pronoun.to_s
       user_content output
     end
   end

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :option do
     answer "MyText"
     explanation "MyText"

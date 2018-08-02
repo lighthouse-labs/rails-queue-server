@@ -42,7 +42,7 @@ class ActivitySubmission < ApplicationRecord
   }
 
   scope :proper, -> {
-    joins(:activity).where("activities.type NOT IN ('QuizActivity', 'PinnedNote', 'Lecture', 'Breakout', 'Test') AND (activities.evaluates_code = false OR activities.evaluates_code IS NULL OR activity_submissions.finalized = true)")
+    joins(:activity).where("activities.type NOT IN ('QuizActivity', 'PinnedNote', 'LecturePlan', 'Breakout', 'Test') AND (activities.evaluates_code = false OR activities.evaluates_code IS NULL OR activity_submissions.finalized = true)")
   }
 
   scope :prep, -> {
