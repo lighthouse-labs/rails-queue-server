@@ -35,11 +35,6 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             = link_to prep_index_path, class: 'dropdown-item', title: 'Prep Work'
               i.fa.fa-fw.fa-paper-plane-o
               | Prep Work
-              
-            - if teacher? || active_student? || alumni?
-              = link_to lectures_path, class: 'dropdown-item', title: 'Lectures'
-                i.fa.fa-fw.fa-tv
-                | Lectures
 
             - if available_workbooks.present?
               .dropdown-divider
@@ -58,6 +53,15 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
                 = link_to :code_reviews, class: 'dropdown-item', title: 'Code Reviews'
                   i.fa.fa-fw.fa-eye
                   | Code Reviews
+
+            .dropdown-divider
+            .divider-title Search
+            = link_to lectures_path, class: 'dropdown-item', title: 'Lectures'
+              i.fa.fa-fw.fa-tv
+              | Lectures
+            = link_to activities_path, class: 'dropdown-item', title: 'Activities'
+              i.fa.fa-fw.fa-code
+              | Activities
 
 
       - else
@@ -85,9 +89,9 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             .dropdown-divider
             - dropdown_cohorts.each do |location, cohorts|
               .divider-title = location.name
-              .dropdown-divider
               - cohorts.each do |c|
                 = link_to cohort_link(c), cohort_students_path(c), class: "dropdown-item #{'active' if cohort == c}"
+              .dropdown-divider
 
 
       - if teacher?
@@ -127,13 +131,6 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
 
 
     ul.navbar-nav.ml-auto
-      - if teacher? || active_student? || alumni?
-        li.nav-item
-          = link_to activities_path, title: "Search", class:"nav-link"
-            i.fa.fa-fw.fa-search
-            span.non-tablet-label
-              | Search
-
       - if teacher? && !dropdown_cohorts.empty?
         li.dropdown.cohort
           = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Cohort' do
