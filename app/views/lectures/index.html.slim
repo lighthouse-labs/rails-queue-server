@@ -13,6 +13,6 @@
   hr
   h3 = "Lecture Search (#{@count} lectures found)"
   .lectures
-    = render @lectures
+    = render @lectures, show_curriculum_day: true
 
 = paginate @lectures, window: 2, theme: 'bootstrap4'
