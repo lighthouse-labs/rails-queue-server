@@ -32,11 +32,11 @@ html
         - if current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student) && current_user.active_student?)
           = render "layouts/teachers_holder"
         = render "layouts/reconnect_holder"
-      .row
+      .row.pt-5
         - if content_for?(:side_nav)
-          nav.side-nav.col-lg-3.col-md-4
+          nav.side-nav.col-lg-3.col-md-4.bg-light.pt-2
             == yield :side_nav
-          .content.col-lg-9.col-md-8
+          .content.col-lg-9.col-md-8.pt-2
             == yield
         - else
           .content.col-12

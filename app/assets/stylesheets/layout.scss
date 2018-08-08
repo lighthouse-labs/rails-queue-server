@@ -2,9 +2,6 @@ html,
 body {
   min-height: 100%;
 }
-body {
-  padding-top: 80px;
-}
 .non-tablet-label {
   @include media-breakpoint-between(md, lg) {
     position: absolute;

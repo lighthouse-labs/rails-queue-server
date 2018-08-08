@@ -1,31 +1,36 @@
 h1 = title
 
-#accordion
+ul.list-unstyled
   - sections.each_with_index do |section, i|
-    - unless section.archived?
-      - active = @activity && section.activities.include?(@activity)
-      .card class="card-default #{'selected' if active}"
-        .card-header id=section.slug
-          = link_to( "#collapse_#{section.slug}", { data: { target: "\#collapse_#{section.slug}", toggle: 'collapse' }, aria: { controls: "collapse_#{section.slug}", expanded: active }}) do
-            = section.name
+    - p section
+    li.toc-module #{section.name}
+      
+/ #accordion
+/   - sections.each_with_index do |section, i|
+/     - unless section.archived?
+/       - active = @activity && section.activities.include?(@activity)
+/       .card class="card-default #{'selected' if active}"
+/         .card-header id=section.slug
+/           = link_to( "#collapse_#{section.slug}", { data: { target: "\#collapse_#{section.slug}", toggle: 'collapse' }, aria: { controls: "collapse_#{section.slug}", expanded: active }}) do
+/             = section.name
 
-        .collapse class="#{'show' if active}" id="collapse_#{section.slug}" aria-labelledby=section.slug data-parent='#accordion'
-          .card-body style="padding: 0px"
+/         .collapse class="#{'show' if active}" id="collapse_#{section.slug}" aria-labelledby=section.slug data-parent='#accordion'
+/           .card-body style="padding: 0px"
 
-            .card-body style="background-color: #e3f2fd;"
-              dl class="row" style="margin-bottom: 0px;"
-                dt class="col-sm-5"
-                  small Core:
-                dd class="col-sm-7" style="margin-bottom: 0px;"
-                  - num = number_with_precision section.core_duration_in_hours, precision: 0
-                  small = pluralize(num, 'hour')
-                dt class="col-sm-5"
-                  small Stretch:
-                dd class="col-sm-7" style="margin-bottom: 0px;"
-                  - num = number_with_precision section.stretch_duration_in_hours, precision: 0
-                  small = pluralize(num, 'hour')
+/             .card-body style="background-color: #e3f2fd;"
+/               dl class="row" style="margin-bottom: 0px;"
+/                 dt class="col-sm-5"
+/                   small Core:
+/                 dd class="col-sm-7" style="margin-bottom: 0px;"
+/                   - num = number_with_precision section.core_duration_in_hours, precision: 0
+/                   small = pluralize(num, 'hour')
+/                 dt class="col-sm-5"
+/                   small Stretch:
+/                 dd class="col-sm-7" style="margin-bottom: 0px;"
+/                   - num = number_with_precision section.stretch_duration_in_hours, precision: 0
+/                   small = pluralize(num, 'hour')
 
-            = render "shared/menus/section_activities", section: section
+/             = render "shared/menus/section_activities", section: section
 
 
 - if title == "Prep Work"
