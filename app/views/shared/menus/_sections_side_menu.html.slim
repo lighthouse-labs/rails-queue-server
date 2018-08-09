@@ -1,9 +1,25 @@
 h1 = title
 
-ul.list-unstyled
+ul#toc.list-unstyled
   - sections.each_with_index do |section, i|
-    - p section
-    li.toc-module #{section.name}
+    - pp section
+    li.toc-section.list-unstyled.mb-2
+      a.toc-collapser.collapsed data-toggle='collapse' data-target="#toc-section-#{i}" 
+        span.d-inline-block
+          = section.name
+          br
+          - core_hours = number_with_precision section.core_duration_in_hours, precision: 0 
+          - stretch_hours = number_with_precision section.stretch_duration_in_hours, precision: 0
+          - if stretch_hours.to_i > 0
+            small.text-muted #{core_hours} + #{pluralize(stretch_hours, "hour")}
+          - else
+            small.text-muted #{pluralize(core_hours, "hour")}
+          
+      .collapse id="toc-section-#{i}" data-parent='#toc'
+        ul
+          - section.activities.chronological.active.each do |activity|
+            li.list-unstyled #{activity.name}
+
       
 / #accordion
 /   - sections.each_with_index do |section, i|

@@ -25,3 +25,27 @@
 h1.day-heading.prep-heading {
   margin-bottom: 20px;
 }
+
+
+*[data-toggle=collapse][aria-expanded=true] > .toc-angle {
+  transform: rotate(90deg);
+}
+
+.toc-angle {
+  transition: transform .25s;
+}
+
+.toc-collapser {
+  &::before {
+    width:18px;
+    text-align: center;
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f107"; // Font Awesome Angle Down
+    vertical-align: top;
+    padding: .3em;
+  }
+  &.collapsed::before {
+    transform: rotate(-90deg);
+  }
+}
