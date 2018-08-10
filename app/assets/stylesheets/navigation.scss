@@ -36,6 +36,9 @@ h1.day-heading.prep-heading {
 }
 
 .toc-collapser {
+  cursor: pointer;
+  display:flex;
+  font-size: 1.2em;
   &::before {
     width:18px;
     text-align: center;
@@ -44,8 +47,78 @@ h1.day-heading.prep-heading {
     content: "\f107"; // Font Awesome Angle Down
     vertical-align: top;
     padding: .3em;
+    transition: transform .25s;
   }
+
   &.collapsed::before {
     transform: rotate(-90deg);
+  }
+}
+.toc-section {
+  padding: .5em 0;
+  font-weight: lighter;
+}
+.toc-section-detail {
+  margin-left: 18px;
+}
+
+.toc-activity--info {
+  
+}
+.toc-activity {
+  font-weight: lighter;
+  color: $black;
+  margin: 1em 0;
+  a {
+    color: inherit;
+  }
+  &:hover {
+    opacity:.6;
+  }
+  &--core {
+    font-weight: bold;
+    color: #888;
+  }
+  &--stretch {
+    font-size: .8em;
+    font-weight: bold;
+    font-style: italic;
+    color: var(--purple);
+  }
+}
+
+.toc-activity__active {
+  font-weight: 500;
+  position: relative;
+  &::before {
+    content:'';
+    position: absolute;
+    background-color: var(--primary);
+    display: block;
+    right:calc(100% + 5px);
+    top:0;
+    bottom:0;
+    width:5px;
+    border-radius: 5px;
+  }
+}
+
+.toc-activity__is-stretch {
+  color: var(--purple);
+}
+
+.toc-activity--label {
+  display: flex;
+}
+
+.toc-activity--name {
+  flex-grow: 1;
+}
+
+.toc-activity--tags {
+  padding-left: 1em;
+  min-width: 2em;
+  i {
+    margin: 0 .25em;
   }
 }

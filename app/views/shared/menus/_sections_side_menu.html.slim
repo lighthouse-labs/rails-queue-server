@@ -1,26 +1,39 @@
-h1 = title
+h1.display-4 = title
 
 ul#toc.list-unstyled
   - sections.each_with_index do |section, i|
-    - pp section
     li.toc-section.list-unstyled.mb-2
-      a.toc-collapser.collapsed data-toggle='collapse' data-target="#toc-section-#{i}" 
+      - active_section = section.activities.include?(@activity)
+      a class=(active_section ? "toc-collapser" : "toc-collapser collapsed") data-toggle='collapse' data-target="#toc-section-#{i}" 
         span.d-inline-block
-          = section.name
-          br
+          = section.name[10..-1]
+          / br
+          / - core_hours = number_with_precision section.core_duration_in_hours, precision: 0 
+          / - stretch_hours = number_with_precision section.stretch_duration_in_hours, precision: 0
+          / - if stretch_hours.to_i > 0
+          /   small.text-muted #{core_hours} + #{pluralize(stretch_hours, "hour")}
+          / - else
+          /   small.text-muted #{pluralize(core_hours, "hour")}
+          
+      div class=(active_section ? 'toc-section-detail collapse show' : 'toc-section-detail collapse' ) id="toc-section-#{i}" data-parent='#toc'
+        p.toc-activity--info
           - core_hours = number_with_precision section.core_duration_in_hours, precision: 0 
           - stretch_hours = number_with_precision section.stretch_duration_in_hours, precision: 0
+          span.toc-activity--core #{pluralize(core_hours, "hr")}
           - if stretch_hours.to_i > 0
-            small.text-muted #{core_hours} + #{pluralize(stretch_hours, "hour")}
-          - else
-            small.text-muted #{pluralize(core_hours, "hour")}
-          
-      .collapse id="toc-section-#{i}" data-parent='#toc'
-        ul
+            span.toc-activity--stretch #{" + #{pluralize(stretch_hours, "hr")} stretch"}
+        ul.list-unstyled
           - section.activities.chronological.active.each do |activity|
-            li.list-unstyled #{activity.name}
+            - activity_classes = ["toc-activity"]
+            - activity_classes.push("toc-activity__active") if (@activity == activity)
+            - activity_classes.push("toc-activity__is-stretch") if(activity.stretch?)
+            li class=(activity_classes.join(" "))
+              = link_to activity_path(activity), class: 'toc-activity--label' do
+                span.toc-activity--name = activity.name
+                span.toc-activity--tags
+                  - if true# current_user.completed_activity?(activity)
+                    i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
 
-      
 / #accordion
 /   - sections.each_with_index do |section, i|
 /     - unless section.archived?
@@ -48,9 +61,3 @@ ul#toc.list-unstyled
 
 /             = render "shared/menus/section_activities", section: section
 
-
-- if title == "Prep Work"
-  = render "layouts/jump_to_activity", grouped_activities: prep_activities_uuid_for_select
-
-- elsif title == "Training"
-  = render "layouts/jump_to_activity", grouped_activities: teacher_activities_uuid_for_select
