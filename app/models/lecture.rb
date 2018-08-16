@@ -7,6 +7,7 @@ class Lecture < ApplicationRecord
   belongs_to :activity
 
   scope :for_cohort, ->(cohort) { where(cohort_id: cohort.id) }
+  scope :video_is_s3, -> { where(file_type: "S3") }
 
   validates :activity, presence: true
   validates :cohort, presence: true
