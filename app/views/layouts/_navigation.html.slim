@@ -165,6 +165,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             = link_to 'Sign Out', session_path, :method => :delete, class: "sign-out-link dropdown-item"
             - if teacher?
               .dropdown-divider
+              = link_to 'Your Lectures', lectures_path(teacher_id: current_user.id, advanced_search: 1), class: 'dropdown-item'
               = link_to 'Your Evaluations', teacher_evaluations_path, class: 'dropdown-item'
               = link_to 'Your Assistances', teacher_assistances_path, class: 'dropdown-item'
               = link_to 'Your Tech Interviews', teacher_tech_interviews_path, class: 'dropdown-item'
