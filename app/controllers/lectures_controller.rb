@@ -143,9 +143,11 @@ class LecturesController < ApplicationController
   end
 
   def filter_by_end_date
-    params[:end_date] = Date.current.end_of_month.to_s if params[:end_date].blank?
-    end_datetime = Time.zone.parse(params[:end_date]).end_of_day
-    @lectures = @lectures.where("lectures.created_at < :date", date: end_datetime)
+    if params[:end_date].present?
+    # params[:end_date] = Date.current.end_of_month.to_s if params[:end_date].blank?
+      end_datetime = Time.zone.parse(params[:end_date]).end_of_day
+      @lectures = @lectures.where("lectures.created_at < :date", date: end_datetime)
+    end
   end
 
   def filter_by_video
