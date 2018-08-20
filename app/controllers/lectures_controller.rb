@@ -15,7 +15,6 @@ class LecturesController < ApplicationController
       @lectures = @lectures.for_cohort(current_user.cohort)
     end
     apply_filters
-    @count = @lectures.count
     @lectures = @lectures.page(params[:page]).per(DEFAULT_PER)
   end
 

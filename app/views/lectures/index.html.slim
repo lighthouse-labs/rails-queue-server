@@ -10,7 +10,7 @@ header.page-header
     = render 'filters'
 
 - if @lectures.present?
-  h3 = "Listing #{@count} lectures"
+  h3 = "Listing #{@lectures.total_count} lectures"
   .lectures
     = render @lectures, show_curriculum_day: true
 
