@@ -7,21 +7,22 @@
       = lecture.subject
       - if local_assigns[:show_curriculum_day]
         small.text-muted
-          |  - 
+          |  -
           = lecture.day.upcase
       br
       small
         = lecture.presenter.full_name
         = " (#{lecture.presenter.location.name})"
         br
-        = time_ago_in_words lecture.created_at
+        span title=lecture.created_at.to_s(:friendly)
+          = time_ago_in_words lecture.created_at
         | &nbsp;ago&nbsp;
         - if cohort && lecture.cohort == cohort
           - if student?
             span.badge.badge-info Your Cohort
           - else
             span.badge.badge-info Selected Cohort
-        
+
 
     .float-md-right.d-none.d-sm-none
       = image_tag lecture.presenter.avatar_url, class: 'avatar'

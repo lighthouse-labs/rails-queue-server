@@ -139,14 +139,16 @@ class LecturesController < ApplicationController
   end
 
   def filter_by_start_date
-    @lectures = @lectures.where("lectures.created_at > :date", date: params[:start_date]) if params[:start_date].present?
+    if params[:start_date].present?
+      start_datetime = Time.zone.parse(params[:start_date]).beginning_of_day
+      @lectures = @lectures.where("lectures.created_at >= :date", date: start_datetime)
+    end
   end
 
   def filter_by_end_date
     if params[:end_date].present?
-    # params[:end_date] = Date.current.end_of_month.to_s if params[:end_date].blank?
       end_datetime = Time.zone.parse(params[:end_date]).end_of_day
-      @lectures = @lectures.where("lectures.created_at < :date", date: end_datetime)
+      @lectures = @lectures.where("lectures.created_at <= :date", date: end_datetime)
     end
   end
 
