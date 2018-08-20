@@ -1,4 +1,4 @@
-- @activity = @activity || lecture.activity
+- activity = @activity || lecture.activity
 
 .lecture.card.mb-4
   .card-header
@@ -30,7 +30,7 @@
   .card-body
     .row
       .col-md-3
-        = link_to activity_lecture_path(@activity, lecture)
+        = link_to activity_lecture_path(activity, lecture)
           = lecture_thumbnail(lecture)
 
       .col-md-9
@@ -39,7 +39,7 @@
             == markdown(lecture.body)
           .fade-mask
 
-        = link_to activity_lecture_path(@activity, lecture), class: "btn btn-primary"
+        = link_to activity_lecture_path(activity, lecture), class: "btn btn-primary"
           | View &raquo;
 
   - if teacher? && lecture.teacher_notes?
