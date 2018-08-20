@@ -2,16 +2,15 @@
 - provide :body_class, 'lecture-search'
 - title "Lecture Search"
 
-/ - content_for :side_nav do
-/   == render 'layouts/side_nav'
+header.page-header
+  h1 Lectures Search
 
 .card.mb-3
   .card-header
     = render 'filters'
 
 - if @lectures.present?
-  hr
-  h3 = "Lecture Search (#{@count} lectures found)"
+  h3 = "Listing #{@count} lectures"
   .lectures
     = render @lectures, show_curriculum_day: true
 
