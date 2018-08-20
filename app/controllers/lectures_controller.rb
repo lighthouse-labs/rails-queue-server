@@ -124,7 +124,7 @@ class LecturesController < ApplicationController
   end
 
   def filter_by_day
-    @lectures = @lectures.where(day: params[:day]) if params[:day].present?
+    @lectures = @lectures.where(day: params[:day].to_s.downcase) if params[:day].present?
   end
 
   def filter_by_presenter
