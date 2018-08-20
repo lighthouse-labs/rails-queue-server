@@ -11,9 +11,6 @@ class LecturesController < ApplicationController
 
   def index
     @lectures = Lecture.all.most_recent_first
-    if current_user && active_student? && !params[:cohort]
-      @lectures = @lectures.for_cohort(current_user.cohort)
-    end
     apply_filters
     @lectures = @lectures.page(params[:page]).per(DEFAULT_PER)
   end
