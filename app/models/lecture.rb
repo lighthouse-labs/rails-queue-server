@@ -9,8 +9,8 @@ class Lecture < ApplicationRecord
   belongs_to :activity
 
   pg_search_scope :by_keywords,
-                  against:            [:subject, :body],
-                  using:              {
+                  against: [:subject, :body],
+                  using:   {
                     tsearch: {
                       dictionary: "english",
                       any_word:   true,

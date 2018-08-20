@@ -153,14 +153,14 @@ if Rails.env.development?
       next unless activity.has_lectures?
       teacher = @teachers.sample
       Lecture.create!(
-        cohort:         cohort,
-        activity:       activity,
-        presenter:      teacher,
-        day:            activity.day,
-        subject:        activity.name,
-        body:           Faker::Markdown.sandwich(5, 4),
-        teacher_notes:  Faker::Lorem.sentence,
-        youtube_url:    'https://www.youtube.com/watch?v=XgvR3y5JCXg'
+        cohort:        cohort,
+        activity:      activity,
+        presenter:     teacher,
+        day:           activity.day,
+        subject:       activity.name,
+        body:          Faker::Markdown.sandwich(5, 4),
+        teacher_notes: Faker::Lorem.sentence,
+        youtube_url:   'https://www.youtube.com/watch?v=XgvR3y5JCXg'
       )
     end
   end # locations

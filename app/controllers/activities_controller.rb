@@ -60,9 +60,7 @@ class ActivitiesController < ApplicationController
   end
 
   def filter_by_permissions
-    if active_student?
-      @activities = @activities.until_day(current_user.curriculum_day)
-    end
+    @activities = @activities.until_day(current_user.curriculum_day) if active_student?
   end
 
   def filter_by_stretch

@@ -154,9 +154,7 @@ class LecturesController < ApplicationController
   end
 
   def filter_by_unlocked_days
-    if active_student?
-      @lectures = @lectures.until_day(current_user.curriculum_day)
-    end
+    @lectures = @lectures.until_day(current_user.curriculum_day) if active_student?
   end
 
 end
