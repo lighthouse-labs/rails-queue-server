@@ -132,7 +132,7 @@ class LecturesController < ApplicationController
   end
 
   def filter_by_advanced_topics
-    @lectures = @lectures.advanced_topics if params[:advanced_topics].present?
+    @lectures = @lectures.advanced_topics if @program.has_advanced_lectures? && params[:advanced_topics].present?
   end
 
   def filter_by_start_date

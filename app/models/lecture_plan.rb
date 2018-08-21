@@ -2,8 +2,6 @@ class LecturePlan < Activity
 
   has_many :lectures, -> { order(created_at: :desc) }, foreign_key: :activity_id
 
-  scope :advanced_topic, -> { where(name: "Advanced Topic") }
-
   # This means we can call .lectures (assoc) on this instance
   def has_lectures?
     true

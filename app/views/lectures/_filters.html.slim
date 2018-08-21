@@ -42,9 +42,10 @@
       input type='date' class='form-control lectures-date-select' name='end_date' id='end_date' value=params[:end_date] disabled=(!advanced_search)
 
     .form-group.col-md-4.extra-search-option class=("hidden" unless advanced_search) style="padding-top:28px"
-      .form-check
-        = check_box_tag :advanced_topics, '1', params[:advanced_topics], class: 'form-check-input', disabled: !advanced_search
-        label.form-check-label for="advanced_topics" Advanced Topics Only
+      - if @program.has_advanced_lectures?
+        .form-check
+          = check_box_tag :advanced_topics, '1', params[:advanced_topics], class: 'form-check-input', disabled: !advanced_search
+          label.form-check-label for="advanced_topics" Advanced Topics Only
       .form-check
         = check_box_tag :video, '1', params[:video], class: 'form-check-input', disabled: !advanced_search
         label.form-check-label for="video" With Video Recording Only
