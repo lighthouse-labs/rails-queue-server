@@ -49,7 +49,12 @@ class Student < User
   end
 
   def curriculum_day
-    cohort.curriculum_day.unlocked_until_day(location.timezone).to_s
+    day = cohort.curriculum_day.unlocked_until_day(location.timezone).to_s
+    if unlocked_until_day?
+      unlocked_until_day > day ? unlocked_until_day : day
+    else
+      day
+    end
   end
 
   def completed_code_review_requests

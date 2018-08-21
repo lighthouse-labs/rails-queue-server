@@ -8,7 +8,7 @@ class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
       feedbacks = feedbacks.filter_by_student_location(location)
     end
 
-    feedbacks = feedbacks.filter_by_start_date(params[:from]) if params[:from].present? 
+    feedbacks = feedbacks.filter_by_start_date(params[:from]) if params[:from].present?
     feedbacks = feedbacks.filter_by_end_date(params[:to]) if params[:to].present?
     feedbacks = feedbacks.filter_by_program(params[:program_id]) if params[:program_id].present?
     feedbacks = feedbacks.filter_by_cohort(params[:cohort_id]) if params[:cohort_id].present?
@@ -55,7 +55,8 @@ class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
       f.rating,
       f.technical_rating,
       f.style_rating,
-      f.notes,   
+      f.notes
     ]
   end
+
 end

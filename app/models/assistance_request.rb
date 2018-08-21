@@ -1,4 +1,5 @@
 class AssistanceRequest < ApplicationRecord
+
   belongs_to :requestor, class_name: User
   belongs_to :assistance, dependent: :delete
   belongs_to :activity
@@ -56,9 +57,9 @@ class AssistanceRequest < ApplicationRecord
   scope :newest_requests_first, -> { order(start_at: :desc) }
   scope :requested_by, ->(user) { where(requestor: user) }
   scope :code_reviews, -> { where(type: 'CodeReviewRequest') }
-  scope :between_dates, -> (start_date, end_date) { where("start_at between ? and ?", start_date, end_date)}
-  scope :for_cohort, ->(cohort) {where(cohort_id: cohort)}
-  scope :for_program, ->(program) {joins(:cohort).where(cohorts: { program_id: program })}
+  scope :between_dates, ->(start_date, end_date) { where("start_at between ? and ?", start_date, end_date) }
+  scope :for_cohort, ->(cohort) { where(cohort_id: cohort) }
+  scope :for_program, ->(program) { joins(:cohort).where(cohorts: { program_id: program }) }
 
   def cancel
     self.canceled_at = Time.current

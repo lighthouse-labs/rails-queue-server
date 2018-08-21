@@ -1,14 +1,21 @@
+- activity = @activity || lecture.activity
+
 .lecture.card.mb-4
   .card-header
     = image_tag avatar_for(lecture.presenter), class: 'mr-2 float-md-left d-none d-md-block teacher-avatar'
     h5.float-md-left
       = lecture.subject
+      - if local_assigns[:show_curriculum_day]
+        small.text-muted
+          |  -
+          = lecture.day.upcase
       br
       small
         = lecture.presenter.full_name
         = " (#{lecture.presenter.location.name})"
         br
-        = time_ago_in_words lecture.created_at
+        span title=lecture.created_at.to_s(:friendly)
+          = time_ago_in_words lecture.created_at
         | &nbsp;ago&nbsp;
         - if cohort && lecture.cohort == cohort
           - if student?
@@ -16,13 +23,14 @@
           - else
             span.badge.badge-info Selected Cohort
 
+
     .float-md-right.d-none.d-sm-none
       = image_tag lecture.presenter.avatar_url, class: 'avatar'
 
   .card-body
     .row
       .col-md-3
-        = link_to activity_lecture_path(@activity, lecture)
+        = link_to activity_lecture_path(activity, lecture)
           = lecture_thumbnail(lecture)
 
       .col-md-9
@@ -31,7 +39,7 @@
             == markdown(lecture.body)
           .fade-mask
 
-        = link_to activity_lecture_path(@activity, lecture), class: "btn btn-primary"
+        = link_to activity_lecture_path(activity, lecture), class: "btn btn-primary"
           | View &raquo;
 
   - if teacher? && lecture.teacher_notes?

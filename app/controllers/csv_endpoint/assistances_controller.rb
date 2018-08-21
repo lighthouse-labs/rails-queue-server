@@ -8,11 +8,11 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
       assistance_requests = assistance_requests.for_location(location)
     end
 
-    assistance_requests = assistance_requests.between_dates(params[:from], params[:to]) if params[:from].present? && params[:to].present? 
+    assistance_requests = assistance_requests.between_dates(params[:from], params[:to]) if params[:from].present? && params[:to].present?
     assistance_requests = assistance_requests.for_program(params[:program_id]) if params[:program_id].present?
     assistance_requests = assistance_requests.for_cohort(params[:cohort_id]) if params[:cohort_id].present?
 
-    assistance_requests.order created_at: :desc
+    assistance_requests = assistance_requests.order created_at: :desc
 
     csv_data = CSV.generate do |csv|
       csv << csv_header
@@ -28,24 +28,24 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
 
   def csv_header
     [
-      "Request Created_at", 
-      "Canceled?", 
-      "Request Type", 
-      "Reason", 
-      "Cohort", 
-      "Program", 
-      "Day", 
-      "Mentor ID", 
-      "Mentor Name", 
-      "Student ID", 
-      "Student Name", 
-      "Assistance Started_At", 
+      "Request Created_at",
+      "Canceled?",
+      "Request Type",
+      "Reason",
+      "Cohort",
+      "Program",
+      "Day",
+      "Mentor ID",
+      "Mentor Name",
+      "Student ID",
+      "Student Name",
+      "Assistance Started_At",
       "Assistance Ended_At",
-      "Activity ID", 
-      "Activity Name", 
-      "Rating", 
-      "Notes", 
-      "Student Notes", 
+      "Activity ID",
+      "Activity Name",
+      "Rating",
+      "Notes",
+      "Student Notes"
     ]
   end
 
@@ -68,7 +68,8 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
       ar.assistance.try(:activity).try(:name),
       ar.assistance.try(:rating),
       ar.assistance.try(:notes),
-      ar.assistance.try(:student_notes) 
+      ar.assistance.try(:student_notes)
     ]
   end
+
 end

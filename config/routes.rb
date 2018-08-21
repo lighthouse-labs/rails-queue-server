@@ -138,6 +138,8 @@ LaserShark::Application.routes.draw do
 
   resources :assessment_tests, only: [:index]
 
+  resources :lectures, only: [:index]
+
   # Wallboard
   namespace :wallboard do
     resources :assistances, only: [:index]
@@ -145,7 +147,7 @@ LaserShark::Application.routes.draw do
     resources :calendars, only: [:index]
   end
 
-# CSV Endpoint
+  # CSV Endpoint
   namespace :csv_endpoint do
     resources :assistances, only: [:index]
     resources :feedbacks, only: [:index]

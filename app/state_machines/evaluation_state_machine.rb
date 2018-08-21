@@ -35,6 +35,7 @@ class EvaluationStateMachine
 
   after_transition(to: :auto_accepted) do |evaluation, _transition|
     evaluation.state = "auto_accepted"
+    evaluation.started_at = Time.current
     evaluation.completed_at = Time.current
     evaluation.save
   end
