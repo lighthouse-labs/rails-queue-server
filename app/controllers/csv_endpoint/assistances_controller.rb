@@ -12,7 +12,7 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
     assistance_requests = assistance_requests.for_program(params[:program_id]) if params[:program_id].present?
     assistance_requests = assistance_requests.for_cohort(params[:cohort_id]) if params[:cohort_id].present?
 
-    assistance_requests.order created_at: :desc
+    assistance_requests = assistance_requests.order created_at: :desc
 
     csv_data = CSV.generate do |csv|
       csv << csv_header
