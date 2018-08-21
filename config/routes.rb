@@ -147,7 +147,7 @@ LaserShark::Application.routes.draw do
     resources :calendars, only: [:index]
   end
 
-# CSV Endpoint
+  # CSV Endpoint
   namespace :csv_endpoint do
     resources :assistances, only: [:index]
     resources :feedbacks, only: [:index]
