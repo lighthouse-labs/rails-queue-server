@@ -59,7 +59,8 @@ class Content::LoadActivity
       outcomes:           outcomes(d['outcomes']),
       test_code:          d['test_code'],
       initial_code:       d['initial_code'],
-      milestone:          d['milestone']
+      milestone:          d['milestone'],
+      advanced_topic:     d['advanced_topic']
     }
     # if sequence is not specified, do not change the existing one
     attrs[:sequence] = d['sequence'] if d['sequence']

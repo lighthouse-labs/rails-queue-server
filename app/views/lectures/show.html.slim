@@ -53,13 +53,13 @@
       .card-body
         dl.row
           dt.col-sm-3 Cohort
-          dd.col-sm-9 = @cohort.name
+          dd.col-sm-9 = @lecture.cohort.name
 
           dt.col-sm-3 Day
           dd.col-sm-9 = @lecture.day
 
           dt.col-sm-3 Created
-          dd.col-sm-9 = @cohort.created_at.to_s(:friendly)
+          dd.col-sm-9 = @lecture.created_at.to_s(:friendly)
 
           dt.col-sm-3 Presenter
           dd.col-sm-9 = link_to @lecture.presenter.full_name, teacher_path(@lecture.presenter)
