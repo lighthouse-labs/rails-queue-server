@@ -1,5 +1,17 @@
 # Change Log
 
+## [2018.08.20.1845](https://github.com/lighthouse-labs/compass/tree/2018.08.20.1845) (2018-08-21)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.01.1630...2018.08.20.1845)
+
+**Merged pull requests:**
+
+- Fix "day" field data in lecture records so they become searchable by day [\#759](https://github.com/lighthouse-labs/compass/pull/759) ([kvirani](https://github.com/kvirani))
+- Fix Error For Auto-Accepted Projects [\#758](https://github.com/lighthouse-labs/compass/pull/758) ([krsnachandra](https://github.com/krsnachandra))
+- Lecture details now pull from the actual lecture [\#751](https://github.com/lighthouse-labs/compass/pull/751) ([krsnachandra](https://github.com/krsnachandra))
+- Quiz Submission Bug Fix: Handles Prep Quizzes Again [\#747](https://github.com/lighthouse-labs/compass/pull/747) ([krsnachandra](https://github.com/krsnachandra))
+- Changed position of mark completed [\#743](https://github.com/lighthouse-labs/compass/pull/743) ([JoelCodes](https://github.com/JoelCodes))
+- Lecture Search Feature [\#699](https://github.com/lighthouse-labs/compass/pull/699) ([krsnachandra](https://github.com/krsnachandra))
+
 ## [2018.08.01.1630](https://github.com/lighthouse-labs/compass/tree/2018.08.01.1630) (2018-08-01)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.07.30.2115...2018.08.01.1630)
 
