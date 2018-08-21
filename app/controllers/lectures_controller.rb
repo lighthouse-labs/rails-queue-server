@@ -150,7 +150,7 @@ class LecturesController < ApplicationController
   end
 
   def filter_by_video
-    @lectures = @lectures.where.not(youtube_url: nil || '') if params[:video].present?
+    @lectures = @lectures.where("youtube_url LIKE :prefix", prefix: "https://www.youtube.com/%") if params[:video].present?
   end
 
   def filter_by_unlocked_days
