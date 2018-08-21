@@ -138,6 +138,8 @@ LaserShark::Application.routes.draw do
 
   resources :assessment_tests, only: [:index]
 
+  resources :lectures, only: [:index]
+
   # Wallboard
   namespace :wallboard do
     resources :assistances, only: [:index]
