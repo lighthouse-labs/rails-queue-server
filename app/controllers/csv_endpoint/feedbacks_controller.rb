@@ -1,7 +1,7 @@
 class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
 
   def index
-    feedbacks = Feedback
+    feedbacks = Feedback.includes(:student, :teacher)
 
     if params[:location].present?
       location = Location.find_by(name: params[:location])

@@ -1,7 +1,7 @@
 class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
 
   def index
-    assistance_requests = AssistanceRequest
+    assistance_requests = AssistanceRequest.includes(:cohort, cohort: [:program], :assistance)
 
     if params[:location].present?
       location = Location.find_by(name: params[:location])

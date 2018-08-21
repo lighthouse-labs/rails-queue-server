@@ -48,13 +48,21 @@ class Feedback < ApplicationRecord
   }
 
   scope :filter_by_start_date, ->(date_str, location_id) {
-    Time.use_zone(Location.find(location_id).timezone) do
-      where("feedbacks.updated_at >= ?", Time.zone.parse(date_str).beginning_of_day.utc)
+    if location_id.nil?
+      where("feedbacks.updated_at >= ?", date_str)
+    else
+      Time.use_zone(Location.find(location_id).timezone) do
+        where("feedbacks.updated_at >= ?", Time.zone.parse(date_str).beginning_of_day.utc)
+      end
     end
   }
   scope :filter_by_end_date, ->(date_str, location_id) {
-    Time.use_zone(Location.find(location_id).timezone) do
-      where("feedbacks.updated_at <= ?", Time.zone.parse(date_str).end_of_day.utc)
+    if location_id.nil?
+      where("feedbacks.updated_at >= ?", date_str)
+    else
+      Time.use_zone(Location.find(location_id).timezone) do
+        where("feedbacks.updated_at <= ?", Time.zone.parse(date_str).end_of_day.utc)
+      end
     end
   }
 
