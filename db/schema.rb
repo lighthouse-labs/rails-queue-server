@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180821003455) do
+ActiveRecord::Schema.define(version: 20180822181835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,8 +136,11 @@ ActiveRecord::Schema.define(version: 20180821003455) do
     t.integer  "assistor_location_id"
     t.index ["activity_id"], name: "index_assistance_requests_on_activity_id", using: :btree
     t.index ["activity_submission_id"], name: "index_assistance_requests_on_activity_submission_id", using: :btree
+    t.index ["assistance_id"], name: "index_assistance_requests_on_assistance_id", using: :btree
+    t.index ["assistor_id"], name: "index_assistance_requests_on_assistor_id", using: :btree
     t.index ["assistor_location_id"], name: "index_assistance_requests_on_assistor_location_id", using: :btree
     t.index ["cohort_id"], name: "index_assistance_requests_on_cohort_id", using: :btree
+    t.index ["requestor_id"], name: "index_assistance_requests_on_requestor_id", using: :btree
   end
 
   create_table "assistances", force: :cascade do |t|
@@ -157,6 +160,8 @@ ActiveRecord::Schema.define(version: 20180821003455) do
     t.boolean  "flag"
     t.integer  "secs_in_queue"
     t.index ["activity_id"], name: "index_assistances_on_activity_id", using: :btree
+    t.index ["assistee_id"], name: "index_assistances_on_assistee_id", using: :btree
+    t.index ["assistor_id"], name: "index_assistances_on_assistor_id", using: :btree
     t.index ["cohort_id"], name: "index_assistances_on_cohort_id", using: :btree
   end
 

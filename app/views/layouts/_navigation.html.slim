@@ -231,28 +231,28 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
           = link_to 'Sign In', new_session_path
 
 - if current_user && current_user.active_student?
-.modal.fade#assistance-request-reason-modal
-  .modal-dialog
-    .modal-content
-      .modal-header
-        h4.modal-title
-          | Bring in the big guns
-        button.close type='button' data-dismiss='modal'
-          span aria-hidden='true'
-            | &times;
-          span.sr-only
-            | Close
-      = form_tag '/assistance_requests', method: 'post', remote: true, id: 'assistance-request-form'
-        .modal-body
-          label
-            | Description
-          .form-group
-            = text_area_tag(:reason, nil, placeholder: 'What do you need assistance with?', class: 'form-control')
-          label
-            | Activity
-          .form-group
-            = select_tag(:activity_id, assistance_activities_grouped_by_day_for_select, prompt: 'Which activity?', class: 'form-control')
-        .modal-footer
-          button.btn.btn-outline-danger type='button' data-dismiss='modal'
-            | Cancel
-          = submit_tag 'Request Assistance', class: 'btn btn-primary request-assistance-button', data: {dismiss: 'modal'}
+  .modal.fade#assistance-request-reason-modal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h4.modal-title
+            | Bring in the big guns
+          button.close type='button' data-dismiss='modal'
+            span aria-hidden='true'
+              | &times;
+            span.sr-only
+              | Close
+        = form_tag '/assistance_requests', method: 'post', remote: true, id: 'assistance-request-form'
+          .modal-body
+            label
+              | Description
+            .form-group
+              = text_area_tag(:reason, nil, placeholder: 'What do you need assistance with?', class: 'form-control')
+            label
+              | Activity
+            .form-group
+              = select_tag(:activity_id, assistance_activities_grouped_by_day_for_select, prompt: 'Which activity?', class: 'form-control')
+          .modal-footer
+            button.btn.btn-outline-danger type='button' data-dismiss='modal'
+              | Cancel
+            = submit_tag 'Request Assistance', class: 'btn btn-primary request-assistance-button', data: {dismiss: 'modal'}
