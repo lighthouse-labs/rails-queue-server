@@ -230,7 +230,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
         li
           = link_to 'Sign In', new_session_path
 
-- if current_user && current_user.active_student?
+- if current_user&.active_student? && current_user.cohort.active_queue?
   .modal.fade#assistance-request-reason-modal
     .modal-dialog
       .modal-content
