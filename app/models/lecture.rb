@@ -28,7 +28,7 @@ class Lecture < ApplicationRecord
   }
   scope :advanced_topics, -> { joins(:activity).where(activities: { advanced_topic: true }) }
   scope :until_day, ->(day) { joins(:activity).where("activities.day <= ?", day) }
-  scope :with_youtube_video, -> { where("youtube_url LIKE :prefix", prefix: "https://www.youtube.com/%") }
+  scope :with_youtube_video, -> { where("lecture.youtube_url LIKE :prefix", prefix: "https://www.youtube.com/%") }
 
   validates :activity, presence: true
   validates :cohort, presence: true
