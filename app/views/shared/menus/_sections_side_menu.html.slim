@@ -26,10 +26,3 @@ h1 = title
                   small = pluralize(num, 'hour')
 
             = render "shared/menus/section_activities", section: section
-
-
-- if title == "Prep Work"
-  = render "layouts/jump_to_activity", grouped_activities: prep_activities_uuid_for_select
-
-- elsif title == "Training"
-  = render "layouts/jump_to_activity", grouped_activities: teacher_activities_uuid_for_select

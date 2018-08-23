@@ -1,5 +1,14 @@
 # Change Log
 
+## [2018.08.22.1715](https://github.com/lighthouse-labs/compass/tree/2018.08.22.1715) (2018-08-23)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.20.1845...2018.08.22.1715)
+
+**Merged pull requests:**
+
+- Easy performance improvements \(part 2\) Fix big slowdown on days\#show [\#766](https://github.com/lighthouse-labs/compass/pull/766) ([kvirani](https://github.com/kvirani))
+- Removed Jump To Activity from left side nav \(for everyone\) [\#765](https://github.com/lighthouse-labs/compass/pull/765) ([kvirani](https://github.com/kvirani))
+- Easy performance improvements \(part 1\) [\#764](https://github.com/lighthouse-labs/compass/pull/764) ([kvirani](https://github.com/kvirani))
+
 ## [2018.08.20.1845](https://github.com/lighthouse-labs/compass/tree/2018.08.20.1845) (2018-08-21)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.01.1630...2018.08.20.1845)
 
