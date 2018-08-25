@@ -1,5 +1,14 @@
 # Change Log
 
+## [2018.08.25.1030](https://github.com/lighthouse-labs/compass/tree/2018.08.25.1030) (2018-08-25)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.22.1715...2018.08.25.1030)
+
+**Merged pull requests:**
+
+- More performance: Improve activities show perf [\#768](https://github.com/lighthouse-labs/compass/pull/768) ([kvirani](https://github.com/kvirani))
+- More Performance: Remove sequential scans in db [\#767](https://github.com/lighthouse-labs/compass/pull/767) ([kvirani](https://github.com/kvirani))
+- Fix Filter to Search Lectures With Video [\#761](https://github.com/lighthouse-labs/compass/pull/761) ([krsnachandra](https://github.com/krsnachandra))
+
 ## [2018.08.22.1715](https://github.com/lighthouse-labs/compass/tree/2018.08.22.1715) (2018-08-23)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.20.1845...2018.08.22.1715)
 
