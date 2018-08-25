@@ -29,15 +29,11 @@ class ActivitiesController < ApplicationController
       @activity_submission = current_user.activity_submissions.where(activity: @activity).first || ActivitySubmission.new
     end
 
-    @feedback = @activity.feedbacks.find_by(student: current_user)
-
     # new feedback model
-    @activity_feedbacks = @activity.activity_feedbacks
+    @activity_feedbacks = @activity.activity_feedbacks.includes(:user)
     @activity_feedbacks = @activity_feedbacks.where(user: current_user).filter_by_legacy('exclude') unless teacher?
 
     @lectures = @activity.lectures if @activity.has_lectures?
-
-    @recordings_arr = @activity.recordings.to_a
   end
 
   def autocomplete
