@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180822234600) do
+ActiveRecord::Schema.define(version: 20180825172247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,10 @@ ActiveRecord::Schema.define(version: 20180822234600) do
     t.boolean  "milestone"
     t.boolean  "advanced_topic"
     t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
+    t.index ["day"], name: "index_activities_on_day", using: :btree
     t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
+    t.index ["section_id", "stretch"], name: "index_activities_on_section_id_and_stretch", using: :btree
+    t.index ["section_id"], name: "index_activities_on_section_id", using: :btree
     t.index ["sequence"], name: "index_activities_on_sequence", using: :btree
     t.index ["start_time"], name: "index_activities_on_start_time", using: :btree
     t.index ["uuid"], name: "index_activities_on_uuid", unique: true, using: :btree
@@ -284,7 +287,11 @@ ActiveRecord::Schema.define(version: 20180822234600) do
     t.datetime "due"
     t.index ["cohort_id"], name: "index_evaluations_on_cohort_id", using: :btree
     t.index ["evaluation_rubric"], name: "index_evaluations_on_evaluation_rubric", using: :gin
+    t.index ["project_id"], name: "index_evaluations_on_project_id", using: :btree
     t.index ["result"], name: "index_evaluations_on_result", using: :gin
+    t.index ["student_id"], name: "index_evaluations_on_student_id", using: :btree
+    t.index ["teacher_id", "state"], name: "index_evaluations_on_teacher_id_and_state", using: :btree
+    t.index ["teacher_id"], name: "index_evaluations_on_teacher_id", using: :btree
   end
 
   create_table "feedbacks", force: :cascade do |t|
@@ -298,6 +305,9 @@ ActiveRecord::Schema.define(version: 20180822234600) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "rating"
+    t.index ["feedbackable_id", "feedbackable_type"], name: "index_feedbacks_on_feedbackable_id_and_feedbackable_type", using: :btree
+    t.index ["student_id"], name: "index_feedbacks_on_student_id", using: :btree
+    t.index ["teacher_id"], name: "index_feedbacks_on_teacher_id", using: :btree
   end
 
   create_table "item_outcomes", force: :cascade do |t|
@@ -650,6 +660,8 @@ ActiveRecord::Schema.define(version: 20180822234600) do
     t.index ["auth_token"], name: "index_users_on_auth_token", using: :btree
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
     t.index ["initial_cohort_id"], name: "index_users_on_initial_cohort_id", using: :btree
+    t.index ["type", "on_duty"], name: "index_users_on_type_and_on_duty", using: :btree
+    t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
   create_table "work_module_items", force: :cascade do |t|
