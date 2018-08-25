@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180825164403) do
+ActiveRecord::Schema.define(version: 20180825172247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,10 @@ ActiveRecord::Schema.define(version: 20180825164403) do
     t.boolean  "milestone"
     t.boolean  "advanced_topic"
     t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
+    t.index ["day"], name: "index_activities_on_day", using: :btree
     t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
+    t.index ["section_id", "stretch"], name: "index_activities_on_section_id_and_stretch", using: :btree
+    t.index ["section_id"], name: "index_activities_on_section_id", using: :btree
     t.index ["sequence"], name: "index_activities_on_sequence", using: :btree
     t.index ["start_time"], name: "index_activities_on_start_time", using: :btree
     t.index ["uuid"], name: "index_activities_on_uuid", unique: true, using: :btree
