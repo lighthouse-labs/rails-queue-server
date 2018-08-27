@@ -1,5 +1,35 @@
 # Change Log
 
+## [2018.08.25.1030](https://github.com/lighthouse-labs/compass/tree/2018.08.25.1030) (2018-08-25)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.22.1715...2018.08.25.1030)
+
+**Merged pull requests:**
+
+- More performance: Improve activities show perf [\#768](https://github.com/lighthouse-labs/compass/pull/768) ([kvirani](https://github.com/kvirani))
+- More Performance: Remove sequential scans in db [\#767](https://github.com/lighthouse-labs/compass/pull/767) ([kvirani](https://github.com/kvirani))
+- Fix Filter to Search Lectures With Video [\#761](https://github.com/lighthouse-labs/compass/pull/761) ([krsnachandra](https://github.com/krsnachandra))
+
+## [2018.08.22.1715](https://github.com/lighthouse-labs/compass/tree/2018.08.22.1715) (2018-08-23)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.20.1845...2018.08.22.1715)
+
+**Merged pull requests:**
+
+- Easy performance improvements \(part 2\) Fix big slowdown on days\#show [\#766](https://github.com/lighthouse-labs/compass/pull/766) ([kvirani](https://github.com/kvirani))
+- Removed Jump To Activity from left side nav \(for everyone\) [\#765](https://github.com/lighthouse-labs/compass/pull/765) ([kvirani](https://github.com/kvirani))
+- Easy performance improvements \(part 1\) [\#764](https://github.com/lighthouse-labs/compass/pull/764) ([kvirani](https://github.com/kvirani))
+
+## [2018.08.20.1845](https://github.com/lighthouse-labs/compass/tree/2018.08.20.1845) (2018-08-21)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.01.1630...2018.08.20.1845)
+
+**Merged pull requests:**
+
+- Fix "day" field data in lecture records so they become searchable by day [\#759](https://github.com/lighthouse-labs/compass/pull/759) ([kvirani](https://github.com/kvirani))
+- Fix Error For Auto-Accepted Projects [\#758](https://github.com/lighthouse-labs/compass/pull/758) ([krsnachandra](https://github.com/krsnachandra))
+- Lecture details now pull from the actual lecture [\#751](https://github.com/lighthouse-labs/compass/pull/751) ([krsnachandra](https://github.com/krsnachandra))
+- Quiz Submission Bug Fix: Handles Prep Quizzes Again [\#747](https://github.com/lighthouse-labs/compass/pull/747) ([krsnachandra](https://github.com/krsnachandra))
+- Changed position of mark completed [\#743](https://github.com/lighthouse-labs/compass/pull/743) ([JoelCodes](https://github.com/JoelCodes))
+- Lecture Search Feature [\#699](https://github.com/lighthouse-labs/compass/pull/699) ([krsnachandra](https://github.com/krsnachandra))
+
 ## [2018.08.01.1630](https://github.com/lighthouse-labs/compass/tree/2018.08.01.1630) (2018-08-01)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.07.30.2115...2018.08.01.1630)
 
