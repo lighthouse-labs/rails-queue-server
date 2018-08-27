@@ -4,17 +4,17 @@ ul#toc.list-unstyled
   - sections.each_with_index do |section, i|
     li.toc-section.list-unstyled.mb-2
       - active_section = section.activities.include?(@activity)
-      a class=(active_section ? "toc-collapser" : "toc-collapser collapsed") data-toggle='collapse' data-target="#toc-section-#{i}" 
+      a class=(active_section ? "toc-collapser" : "toc-collapser collapsed") data-toggle='collapse' data-target="#toc-section-#{i}"
         span.d-inline-block
           = section.name[10..-1]
           / br
-          / - core_hours = number_with_precision section.core_duration_in_hours, precision: 0 
+          / - core_hours = number_with_precision section.core_duration_in_hours, precision: 0
           / - stretch_hours = number_with_precision section.stretch_duration_in_hours, precision: 0
           / - if stretch_hours.to_i > 0
           /   small.text-muted #{core_hours} + #{pluralize(stretch_hours, "hour")}
           / - else
           /   small.text-muted #{pluralize(core_hours, "hour")}
-          
+
       div class=(active_section ? 'toc-section-detail collapse show' : 'toc-section-detail collapse' ) id="toc-section-#{i}" data-parent='#toc'
         p.toc-activity--info
           - core_hours = number_with_precision section.core_duration_in_hours, precision: 0 
@@ -43,31 +43,4 @@ ul#toc.list-unstyled
                 span.toc-activity--tags
                   - if current_user.completed_activity?(activity)
                     i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
-
-/ #accordion
-/   - sections.each_with_index do |section, i|
-/     - unless section.archived?
-/       - active = @activity && section.activities.include?(@activity)
-/       .card class="card-default #{'selected' if active}"
-/         .card-header id=section.slug
-/           = link_to( "#collapse_#{section.slug}", { data: { target: "\#collapse_#{section.slug}", toggle: 'collapse' }, aria: { controls: "collapse_#{section.slug}", expanded: active }}) do
-/             = section.name
-
-/         .collapse class="#{'show' if active}" id="collapse_#{section.slug}" aria-labelledby=section.slug data-parent='#accordion'
-/           .card-body style="padding: 0px"
-
-/             .card-body style="background-color: #e3f2fd;"
-/               dl class="row" style="margin-bottom: 0px;"
-/                 dt class="col-sm-5"
-/                   small Core:
-/                 dd class="col-sm-7" style="margin-bottom: 0px;"
-/                   - num = number_with_precision section.core_duration_in_hours, precision: 0
-/                   small = pluralize(num, 'hour')
-/                 dt class="col-sm-5"
-/                   small Stretch:
-/                 dd class="col-sm-7" style="margin-bottom: 0px;"
-/                   - num = number_with_precision section.stretch_duration_in_hours, precision: 0
-/                   small = pluralize(num, 'hour')
-
-/             = render "shared/menus/section_activities", section: section
 

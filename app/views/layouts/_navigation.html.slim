@@ -17,10 +17,17 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
               | Program
           div class="dropdown-menu" aria-labelledby="nav-program-dropdown"
 
-            - if teacher? || active_student? || alumni?
-              = link_to day_path('today'), class: 'dropdown-item', title: 'Schedule'
-                i.fa.fa-fw.fa-calendar
-                | Schedule
+            = link_to day_path('today'), class: 'dropdown-item', title: 'Schedule'
+              i.fa.fa-fw.fa-calendar
+              | Schedule
+
+            / = link_to activities_path, class: 'dropdown-item', title: 'Activities'
+            /   i.fa.fa-fw.fa-code
+            /   | Activities
+
+            = link_to lectures_path, class: 'dropdown-item', title: 'Lectures'
+              i.fa.fa-fw.fa-tv
+              | Lectures
 
             - if @program.try :has_projects?
               = link_to projects_path, class: 'dropdown-item', title: 'Projects'
@@ -80,9 +87,9 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             .dropdown-divider
             - dropdown_cohorts.each do |location, cohorts|
               .divider-title = location.name
-              .dropdown-divider
               - cohorts.each do |c|
                 = link_to cohort_link(c), cohort_students_path(c), class: "dropdown-item #{'active' if cohort == c}"
+              .dropdown-divider
 
 
       - if teacher?
@@ -122,13 +129,6 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
 
 
     ul.navbar-nav.ml-auto
-      - if teacher? || active_student? || alumni?
-        li.nav-item
-          = link_to activities_path, title: "Search", class:"nav-link"
-            i.fa.fa-fw.fa-search
-            span.non-tablet-label
-              | Search
-
       - if teacher? && !dropdown_cohorts.empty?
         li.dropdown.cohort
           = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Cohort' do
@@ -165,6 +165,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             = link_to 'Sign Out', session_path, :method => :delete, class: "sign-out-link dropdown-item"
             - if teacher?
               .dropdown-divider
+              = link_to 'Your Lectures', lectures_path(teacher_id: current_user.id, advanced_search: 1), class: 'dropdown-item'
               = link_to 'Your Evaluations', teacher_evaluations_path, class: 'dropdown-item'
               = link_to 'Your Assistances', teacher_assistances_path, class: 'dropdown-item'
               = link_to 'Your Tech Interviews', teacher_tech_interviews_path, class: 'dropdown-item'
@@ -229,29 +230,29 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
         li
           = link_to 'Sign In', new_session_path
 
-- if current_user && current_user.active_student?
-.modal.fade#assistance-request-reason-modal
-  .modal-dialog
-    .modal-content
-      .modal-header
-        h4.modal-title
-          | Bring in the big guns
-        button.close type='button' data-dismiss='modal'
-          span aria-hidden='true'
-            | &times;
-          span.sr-only
-            | Close
-      = form_tag '/assistance_requests', method: 'post', remote: true, id: 'assistance-request-form'
-        .modal-body
-          label
-            | Description
-          .form-group
-            = text_area_tag(:reason, nil, placeholder: 'What do you need assistance with?', class: 'form-control')
-          label
-            | Activity
-          .form-group
-            = select_tag(:activity_id, assistance_activities_grouped_by_day_for_select, prompt: 'Which activity?', class: 'form-control')
-        .modal-footer
-          button.btn.btn-outline-danger type='button' data-dismiss='modal'
-            | Cancel
-          = submit_tag 'Request Assistance', class: 'btn btn-primary request-assistance-button', data: {dismiss: 'modal'}
+- if current_user&.active_student? && current_user.cohort.active_queue?
+  .modal.fade#assistance-request-reason-modal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h4.modal-title
+            | Bring in the big guns
+          button.close type='button' data-dismiss='modal'
+            span aria-hidden='true'
+              | &times;
+            span.sr-only
+              | Close
+        = form_tag '/assistance_requests', method: 'post', remote: true, id: 'assistance-request-form'
+          .modal-body
+            label
+              | Description
+            .form-group
+              = text_area_tag(:reason, nil, placeholder: 'What do you need assistance with?', class: 'form-control')
+            label
+              | Activity
+            .form-group
+              = select_tag(:activity_id, assistance_activities_grouped_by_day_for_select, prompt: 'Which activity?', class: 'form-control')
+          .modal-footer
+            button.btn.btn-outline-danger type='button' data-dismiss='modal'
+              | Cancel
+            = submit_tag 'Request Assistance', class: 'btn btn-primary request-assistance-button', data: {dismiss: 'modal'}
