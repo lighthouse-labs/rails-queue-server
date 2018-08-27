@@ -38,7 +38,8 @@ h1.day-heading.prep-heading {
 .toc-collapser {
   cursor: pointer;
   display:flex;
-  font-size: 1.2em;
+  font-size: 1.5em;
+  font-weight: bolder;
   &::before {
     width:18px;
     text-align: center;
@@ -46,7 +47,7 @@ h1.day-heading.prep-heading {
     font: normal normal normal 14px/1 FontAwesome;
     content: "\f107"; // Font Awesome Angle Down
     vertical-align: top;
-    padding: .3em;
+    padding: .7em .3em;
     transition: transform .25s;
   }
 
@@ -62,9 +63,6 @@ h1.day-heading.prep-heading {
   margin-left: 18px;
 }
 
-.toc-activity--info {
-  
-}
 .toc-activity {
   font-weight: lighter;
   color: $black;
@@ -75,35 +73,33 @@ h1.day-heading.prep-heading {
   &:hover {
     opacity:.6;
   }
-  &--core {
+  &--info {
+    color: #666;
     font-weight: bold;
-    color: #888;
   }
   &--stretch {
     font-size: .8em;
-    font-weight: bold;
     font-style: italic;
     color: var(--purple);
   }
-}
-
-.toc-activity__active {
-  font-weight: 500;
-  position: relative;
-  &::before {
-    content:'';
-    position: absolute;
-    background-color: var(--primary);
-    display: block;
-    right:calc(100% + 5px);
-    top:0;
-    bottom:0;
-    width:5px;
-    border-radius: 5px;
+  &__active {
+    position: relative;
+    &::before {
+      content:'';
+      position: absolute;
+      background-color: var(--primary);
+      display: block;
+      right:calc(100% + 5px);
+      top:0;
+      bottom:0;
+      width:5px;
+      border-radius: 5px;
+    }
   }
 }
 
 .toc-activity__is-stretch {
+  font-style: italic;
   color: var(--purple);
 }
 
@@ -117,7 +113,6 @@ h1.day-heading.prep-heading {
 
 .toc-activity--tags {
   padding-left: 1em;
-  min-width: 2em;
   i {
     margin: 0 .25em;
   }
