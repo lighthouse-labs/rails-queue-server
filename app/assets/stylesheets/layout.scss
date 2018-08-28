@@ -2,6 +2,17 @@ html,
 body {
   min-height: 100%;
 }
+@each $breakpoint in map-keys($grid-breakpoints){
+  
+}
+.container-fluid-md {
+  @extend .container-fluid;
+  @include media-breakpoint-up(md){
+    margin-left: 0;
+    margin-right: calc(8em + 5vw);
+    width: auto;
+  }
+}
 .non-tablet-label {
   @include media-breakpoint-between(md, lg) {
     position: absolute;
