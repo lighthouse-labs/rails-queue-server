@@ -40,7 +40,7 @@ html
               = render "layouts/reconnect_holder"
             == yield
         - else
-          .content.col-12
+          .content.col-12.py-5
             == render 'layouts/messages'
 
             - unless disable_cable?
