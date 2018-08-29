@@ -34,11 +34,11 @@
     }
 
     @media (min-width: 46em) {
-      aside { float: right; margin: 0 0 1em 2em; width: 24em; }
-    }
-
-    @media (min-width: 88em) {
-      aside { margin-right: -14em; }
+      aside { 
+        float: right; 
+        margin: 0 0 1em 2em; 
+        width: calc(12em + 10vw); 
+      }
     }
 
     img {
