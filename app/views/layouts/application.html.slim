@@ -29,9 +29,9 @@ html
 
       .row
         - if content_for?(:side_nav)
-          nav.side-nav.col-lg-3.col-md-4.bg-light.pt-4
+          nav.side-nav.col-lg-3.col-md-4.bg-light.py-5
             == yield :side_nav
-          .content.col-lg-9.col-md-8.pt-4
+          .content.col-lg-9.col-md-8.py-5
             == render 'layouts/messages'
 
             - unless disable_cable?
