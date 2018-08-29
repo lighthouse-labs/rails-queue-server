@@ -16,28 +16,28 @@ table.side-schedule {
       padding: 8px 3px;
       opacity: 0.8;
       font-weight: bold;
+      width: 54px;
     }
 
     td.day {
       width: 34px;
       text-align: center;
       padding: 0px;
-      opacity: 0.3;
+      opacity: 0.4;
 
       a {
         display: block;
         height: 100%;
         width: 100%;
         padding: 8px 3px;
-        color: darkgray;
+        color: black;
         &:hover {
           text-decoration: none;
         }
       }
 
       &.unlocked {
-        font-weight: bold;
-        opacity: 0.8;
+        opacity: 1;
       }
 
       &.locked {

@@ -4,7 +4,7 @@ body {
   font-size: calc(12px + .5vw);
 }
 @each $breakpoint in map-keys($grid-breakpoints){
-  
+
 }
 .container-fluid-md {
   @extend .container-fluid;
@@ -74,10 +74,25 @@ main {
   }
 
   nav.side-nav {
-    // @media (min-width: $screen-sm-min) {
-    //   float: left;
-    //   width: $side-nav-width;
-    // }
+    h1 {
+      font-weight: 300;
+      line-height: 0.7;
+
+      &.day-heading {
+
+        small {
+          font-weight: 300;
+          font-size: 50%;
+        }
+      }
+    }
+
+    h5.date-heading {
+      @extend .text-muted;
+      font-weight: 300;
+      margin-top: 0;
+    }
+
     i.fa {
       width: 18px;
       text-align: center;

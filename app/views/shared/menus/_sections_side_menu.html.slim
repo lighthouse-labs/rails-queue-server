@@ -1,8 +1,8 @@
-h1.display-4 = title
+h1 = title
 
 ul#toc.list-unstyled
   - sections.each_with_index do |section, i|
-    li.toc-section.list-unstyled.mb-2
+    li.toc-section.list-unstyled
       - active_section = section.activities.include?(@activity)
       a class=(active_section ? "toc-collapser" : "toc-collapser collapsed") data-toggle='collapse' data-target="#toc-section-#{i}"
         span.d-inline-block
@@ -17,7 +17,7 @@ ul#toc.list-unstyled
 
       div class=(active_section ? 'toc-section-detail collapse show' : 'toc-section-detail collapse' ) id="toc-section-#{i}" data-parent='#toc'
         p.toc-activity--info
-          - core_hours = number_with_precision section.core_duration_in_hours, precision: 0 
+          - core_hours = number_with_precision section.core_duration_in_hours, precision: 0
           - if core_hours.to_i > 0
             span.toc-activity--core #{pluralize(core_hours, "hr")}
           |&nbsp;

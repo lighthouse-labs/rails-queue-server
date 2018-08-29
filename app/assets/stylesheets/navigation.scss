@@ -37,18 +37,19 @@ h1.day-heading.prep-heading {
 
 .toc-collapser {
   cursor: pointer;
-  display:flex;
-  font-size: 1.5em;
-  font-weight: bolder;
+  display: flex;
+  font-size: 1.3rem;
+  font-weight: 300;
   &::before {
     width:18px;
     text-align: center;
     display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 0.5em;
+    font-family: FontAwesome;
     content: "\f107"; // Font Awesome Angle Down
     vertical-align: top;
     padding: .7em .3em;
-    transition: transform .25s;
+    transition: transform .15s;
   }
 
   &.collapsed::before {
@@ -56,8 +57,8 @@ h1.day-heading.prep-heading {
   }
 }
 .toc-section {
-  padding: .5em 0;
-  font-weight: lighter;
+  padding: .2em 0;
+  // font-weight: lighter;
 }
 .toc-section-detail {
   margin-left: 18px;
@@ -65,7 +66,7 @@ h1.day-heading.prep-heading {
 
 .toc-activity {
   color: $black;
-  margin: 1em 0;
+  margin: 0.5em 0;
   a {
     color: inherit;
   }
@@ -80,6 +81,10 @@ h1.day-heading.prep-heading {
     font-size: .8em;
     font-style: italic;
     color: var(--purple);
+  }
+  &--label {
+    display: flex;
+    font-weight: 200;
   }
   &__active {
     position: relative;
@@ -100,10 +105,6 @@ h1.day-heading.prep-heading {
 .toc-activity__is-stretch {
   font-style: italic;
   color: var(--purple);
-}
-
-.toc-activity--label {
-  display: flex;
 }
 
 .toc-activity--name {
