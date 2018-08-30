@@ -18,8 +18,7 @@ ul#toc.list-unstyled
       div class=(active_section ? 'toc-section-detail collapse show' : 'toc-section-detail collapse' ) id="toc-section-#{i}" data-parent='#toc'
         p.toc-activity--info
           - core_hours = number_with_precision section.core_duration_in_hours, precision: 0
-          - if core_hours.to_i > 0
-            span.toc-activity--core #{pluralize(core_hours, "hr")}
+          span.toc-activity--core #{pluralize(core_hours, "hr")}
           |&nbsp;
           - stretch_hours = number_with_precision section.stretch_duration_in_hours, precision: 0
           - if stretch_hours.to_i > 0
