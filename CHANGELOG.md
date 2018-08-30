@@ -1,5 +1,12 @@
 # Change Log
 
+## [2018.08.30.1615](https://github.com/lighthouse-labs/compass/tree/2018.08.30.1615) (2018-08-30)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.30.1015...2018.08.30.1615)
+
+**Merged pull requests:**
+
+- 746 s3 videos [\#773](https://github.com/lighthouse-labs/compass/pull/773) ([kvirani](https://github.com/kvirani))
+
 ## [2017.08.30.1015](https://github.com/lighthouse-labs/compass/tree/2017.08.30.1015) (2018-08-30)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.25.1030...2017.08.30.1015)
 
