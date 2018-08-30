@@ -73,57 +73,7 @@ main {
     margin-left: 0px;
   }
 
-  nav.side-nav {
-    h1 {
-      font-weight: 300;
-      line-height: 0.7;
-
-      &.day-heading {
-
-        small {
-          font-weight: 300;
-          font-size: 50%;
-        }
-      }
-    }
-
-    h5.date-heading {
-      @extend .text-muted;
-      font-weight: 300;
-      margin-top: 0;
-    }
-
-    i.fa {
-      width: 18px;
-      text-align: center;
-    }
-    .panel {
-      &.selected {
-        .panel-heading {
-          a, i {
-            color: $brand-primary;
-          }
-        }
-      }
-      .list-group-item.selected {
-        a, i {
-          color: $brand-primary;
-        }
-      }
-    }
-
-  }
   .content {
-    // @media (min-width: $screen-sm-min) {
-    //   float: left;
-    //   width: $container-sm - $side-nav-width - $grid-gutter-width;
-    // }
-    // @media (min-width: $screen-md-min) {
-    //   width: $container-md - $side-nav-width - $grid-gutter-width;
-    // }
-    // @media (min-width: $screen-lg-min) {
-    //   width: $container-lg - $side-nav-width - $grid-gutter-width;
-    // }
     .jumbotron {
       padding-top: 30px;
       padding-bottom: 30px;
