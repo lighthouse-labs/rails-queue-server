@@ -10,6 +10,7 @@ Rails.logger.info "SEEDING"
   p.has_interviews = true
   p.has_code_reviews = true
   p.has_queue = true
+  p.has_advanced_lectures = true
 end
 @location_van = Location.find_or_create_by!(name: "Vancouver", timezone: "Pacific Time (US & Canada)")
 @location_to = Location.find_or_create_by!(name: "Toronto", timezone: "Eastern Time (US & Canada)")

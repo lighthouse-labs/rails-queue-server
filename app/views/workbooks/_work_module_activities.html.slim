@@ -1,12 +1,16 @@
-.list-group.list-group-flush
-  - work_module.work_module_items.active.each do |item|
-    - activity = item.activity
-    = link_to workbook_activity_path(@workbook, activity.id), class: "list-group-item list-group-item-action #{'active' if @activity && @activity.eql?(activity)} #{'stretch' if item.stretch?}" do
-        i class=(icon_for(activity)) title=activity_type(activity)
-        = " #{activity.name}"
+- work_module.work_module_items.active.each do |item|
+  - activity = item.activity
+  - activity_classes = ["toc-activity"]
+  - activity_classes.push("toc-activity__active") if  @activity == activity
+  - activity_classes.push("toc-activity__is-stretch") if item.stretch?
+  li class=(activity_classes.join(" "))
+    = link_to workbook_activity_path(@workbook, activity), class: 'toc-activity--label' do
+      span.toc-activity--name
         - if item.stretch?
-          i.fa.fa-rocket data-toggle='tooltip' title='Stretch'
-
-        - if current_user.completed_activity?(activity)
+          i.fa.fa-trophy data-toggle='tooltip' title='Stretch'
           | &nbsp;
-          i.fa.fa-check data-toggle='tooltip' title='Completed :)'
+        = activity.name
+      span.toc-activity--tags
+        - if current_user.completed_activity?(activity)
+          i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
+

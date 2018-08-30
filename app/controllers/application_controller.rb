@@ -129,7 +129,7 @@ class ApplicationController < ActionController::Base
   helper_method :streams
 
   def preps
-    @preps ||= Prep.all
+    @preps ||= Prep.active.all
   end
   helper_method :preps
 
@@ -139,7 +139,7 @@ class ApplicationController < ActionController::Base
   helper_method :available_workbooks
 
   def teacher_resources
-    @teacher_resources ||= TeacherSection.all
+    @teacher_resources ||= TeacherSection.active.all
   end
   helper_method :teacher_resources
 

@@ -41,24 +41,6 @@ module ActivitiesHelper
     end
   end
 
-  def bootcamp_activities_uuid_for_select
-    grouped_options_for_select(
-      current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :uuid).group_by { |d| d[1] }
-    )
-  end
-
-  def prep_activities_uuid_for_select
-    grouped_options_for_select(
-      Activity.prep.assistance_worthy.joins(:section).pluck(:name, "sections.name", :uuid).group_by { |d| d[1] }
-    )
-  end
-
-  def teacher_activities_uuid_for_select
-    grouped_options_for_select(
-      Activity.teacher.assistance_worthy.joins(:section).pluck(:name, "sections.name", :uuid).group_by { |d| d[1] }
-    )
-  end
-
   def markdown(content, renderer = CompassMarkdownRenderer)
     return '' if content.nil?
     options = {
