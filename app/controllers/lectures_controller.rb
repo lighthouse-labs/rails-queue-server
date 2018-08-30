@@ -150,7 +150,7 @@ class LecturesController < ApplicationController
   end
 
   def filter_by_video
-    @lectures = @lectures.with_youtube_video if params[:video].present?
+    @lectures = @lectures.with_video if params[:video].present?
   end
 
   def filter_by_unlocked_days

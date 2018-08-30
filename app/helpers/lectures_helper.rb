@@ -3,6 +3,8 @@ module LecturesHelper
   def lecture_thumbnail(lecture)
     if lecture.youtube_url?
       youtube_lecture_thumbnail lecture.youtube_url
+    elsif lecture.is_s3?
+      s3_video_lecture_thumbnail
     else
       no_video_lecture_thumbnail
     end
@@ -14,6 +16,10 @@ module LecturesHelper
 
   def no_video_lecture_thumbnail
     image_tag('no-video-thumbnail.jpg', style: 'width: 100%')
+  end
+
+  def s3_video_lecture_thumbnail
+    image_tag('s3-video-thumbnail.png', style: 'width: 100%')
   end
 
 end
