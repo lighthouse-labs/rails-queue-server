@@ -41,7 +41,7 @@ class Lecture < ApplicationRecord
 
   ## INSTANCE METHODS
 
-  def is_s3?
+  def s3?
     file_type == "S3" && s3_video_key?
   end
 
@@ -51,7 +51,7 @@ class Lecture < ApplicationRecord
 
   # Link expires after an hour
   def s3_url
-    return nil unless is_s3?
+    return nil unless s3?
     @s3_url ||= self.class.s3_presigner.presigned_url(
       :get_object,
       bucket:     program.recordings_bucket,

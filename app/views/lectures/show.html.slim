@@ -32,7 +32,7 @@
           h5 Recording
         .card-body.video-wrapper
           iframe frameborder="0" src="https://www.youtube.com/embed/#{lecture_presenter.youtube_code}" allow="encrypted-media" allowfullscreen
-    - elsif @lecture.is_s3?
+    - elsif @lecture.s3?
       .card.mb-4
         .card-header
           h5 Recording

@@ -3,7 +3,7 @@ module LecturesHelper
   def lecture_thumbnail(lecture)
     if lecture.youtube_url?
       youtube_lecture_thumbnail lecture.youtube_url
-    elsif lecture.is_s3?
+    elsif lecture.s3?
       s3_video_lecture_thumbnail
     else
       no_video_lecture_thumbnail
