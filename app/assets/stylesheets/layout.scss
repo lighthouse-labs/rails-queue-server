@@ -1,9 +1,15 @@
 html,
 body {
   min-height: 100%;
+  font-size: calc(12px + .5vw);
 }
-body {
-  padding-top: 80px;
+.container-fluid-md {
+  @extend .container-fluid;
+  @include media-breakpoint-up(md){
+    margin-left: 0;
+    margin-right: calc(8em + 5vw);
+    width: auto;
+  }
 }
 .non-tablet-label {
   @include media-breakpoint-between(md, lg) {
@@ -62,45 +68,9 @@ main {
   $side-nav-width: 240px;
   &.container {
     margin-left: 0px;
-    // width: 1400px;
   }
 
-  nav.side-nav {
-    // @media (min-width: $screen-sm-min) {
-    //   float: left;
-    //   width: $side-nav-width;
-    // }
-    i.fa {
-      width: 18px;
-      text-align: center;
-    }
-    .panel {
-      &.selected {
-        .panel-heading {
-          a, i {
-            color: $brand-primary;
-          }
-        }
-      }
-      .list-group-item.selected {
-        a, i {
-          color: $brand-primary;
-        }
-      }
-    }
-
-  }
   .content {
-    // @media (min-width: $screen-sm-min) {
-    //   float: left;
-    //   width: $container-sm - $side-nav-width - $grid-gutter-width;
-    // }
-    // @media (min-width: $screen-md-min) {
-    //   width: $container-md - $side-nav-width - $grid-gutter-width;
-    // }
-    // @media (min-width: $screen-lg-min) {
-    //   width: $container-lg - $side-nav-width - $grid-gutter-width;
-    // }
     .jumbotron {
       padding-top: 30px;
       padding-bottom: 30px;
