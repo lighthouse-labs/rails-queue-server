@@ -6,14 +6,7 @@ ul#toc.list-unstyled
       - active_section = section.activities.include?(@activity)
       a class=(active_section ? "toc-collapser" : "toc-collapser collapsed") data-toggle='collapse' data-target="#toc-section-#{i}"
         span.d-inline-block
-          = section.name[10..-1]
-          / br
-          / - core_hours = number_with_precision section.core_duration_in_hours, precision: 0
-          / - stretch_hours = number_with_precision section.stretch_duration_in_hours, precision: 0
-          / - if stretch_hours.to_i > 0
-          /   small.text-muted #{core_hours} + #{pluralize(stretch_hours, "hour")}
-          / - else
-          /   small.text-muted #{pluralize(core_hours, "hour")}
+          = section.name
 
       div class=(active_section ? 'toc-section-detail collapse show' : 'toc-section-detail collapse' ) id="toc-section-#{i}" data-parent='#toc'
         p.toc-activity--info
@@ -42,4 +35,3 @@ ul#toc.list-unstyled
                 span.toc-activity--tags
                   - if current_user.completed_activity?(activity)
                     i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
-
