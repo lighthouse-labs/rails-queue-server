@@ -67,13 +67,13 @@ class Lecture < ApplicationRecord
   ## CLASS METHODS
 
   def self.s3_presigner
-    @@s3_presigner ||= Aws::S3::Presigner.new(
+    @s3_presigner ||= Aws::S3::Presigner.new(
       client: s3_client
     )
   end
 
   def self.s3_client
-    @@s3_client ||= Aws::S3::Client.new(
+    @s3_client ||= Aws::S3::Client.new(
       region:            ENV['REC_AWS_REGION'],
       access_key_id:     ENV['REC_AWS_ACCESS_KEY'],
       secret_access_key: ENV['REC_AWS_SECRET_KEY']
