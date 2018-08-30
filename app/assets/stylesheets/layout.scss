@@ -3,9 +3,9 @@ body {
   min-height: 100%;
   font-size: calc(12px + .5vw);
 }
-.container-fluid-md {
+.container-fluid-ish {
   @extend .container-fluid;
-  @include media-breakpoint-up(md){
+  @include media-breakpoint-up(xl){
     margin-left: 0;
     margin-right: calc(8em + 5vw);
     width: auto;
