@@ -328,7 +328,7 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.text     "body"
     t.text     "teacher_notes"
     t.string   "youtube_url",   limit: 500
-    t.string   "file_name"
+    t.string   "s3_video_key"
     t.string   "file_type"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
