@@ -1,5 +1,12 @@
 # Change Log
 
+## [2017.08.30.1015](https://github.com/lighthouse-labs/compass/tree/2017.08.30.1015) (2018-08-30)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.25.1030...2017.08.30.1015)
+
+**Merged pull requests:**
+
+- UI UPDATE: New Prep Course Side Nav [\#754](https://github.com/lighthouse-labs/compass/pull/754) ([JoelCodes](https://github.com/JoelCodes))
+
 ## [2018.08.25.1030](https://github.com/lighthouse-labs/compass/tree/2018.08.25.1030) (2018-08-25)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.22.1715...2018.08.25.1030)
 
