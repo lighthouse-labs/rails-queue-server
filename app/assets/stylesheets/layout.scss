@@ -3,9 +3,6 @@ body {
   min-height: 100%;
   font-size: calc(12px + .5vw);
 }
-@each $breakpoint in map-keys($grid-breakpoints){
-
-}
 .container-fluid-md {
   @extend .container-fluid;
   @include media-breakpoint-up(md){
