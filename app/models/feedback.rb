@@ -47,22 +47,16 @@ class Feedback < ApplicationRecord
       .references(:student, :cohort)
   }
 
+  scope :filter_by_start_date_no_location, ->(date_str) { where("feedbacks.updated_at >= ?", date_str) }
   scope :filter_by_start_date, ->(date_str, location_id) {
-    if location_id.nil?
-      where("feedbacks.updated_at >= ?", date_str)
-    else
-      Time.use_zone(Location.find(location_id).timezone) do
-        where("feedbacks.updated_at >= ?", Time.zone.parse(date_str).beginning_of_day.utc)
-      end
+    Time.use_zone(Location.find(location_id).timezone) do
+      where("feedbacks.updated_at >= ?", Time.zone.parse(date_str).beginning_of_day.utc)
     end
   }
+  scope :filter_by_end_date_no_location, ->(date_str) { where("feedbacks.updated_at <= ?", date_str) }
   scope :filter_by_end_date, ->(date_str, location_id) {
-    if location_id.nil?
-      where("feedbacks.updated_at >= ?", date_str)
-    else
-      Time.use_zone(Location.find(location_id).timezone) do
-        where("feedbacks.updated_at <= ?", Time.zone.parse(date_str).end_of_day.utc)
-      end
+    Time.use_zone(Location.find(location_id).timezone) do
+      where("feedbacks.updated_at <= ?", Time.zone.parse(date_str).end_of_day.utc)
     end
   }
 
