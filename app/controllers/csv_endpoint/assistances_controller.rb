@@ -1,14 +1,21 @@
 class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
 
   def index
-    assistance_requests = AssistanceRequest.includes(:cohort, cohort: [:program], :assistance)
+    assistance_requests = AssistanceRequest.includes(:cohort, :assistance, cohort: [:program], assistance: [:assistor, :assistee, :activity])
 
     if params[:location].present?
       location = Location.find_by(name: params[:location])
       assistance_requests = assistance_requests.for_location(location)
     end
 
-    assistance_requests = assistance_requests.between_dates(params[:from], params[:to]) if params[:from].present? && params[:to].present?
+    if params[:from].present? || params[:to].present?
+      params[:to] = Date.parse(params[:to]) if params[:to].present? && !params[:from].present?
+      params[:to] ||= Date.today
+      params[:from] ||= params[:to] - 1.year
+
+      assistance_requests = assistance_requests.between_dates(params[:from], params[:to])
+    end
+
     assistance_requests = assistance_requests.for_program(params[:program_id]) if params[:program_id].present?
     assistance_requests = assistance_requests.for_cohort(params[:cohort_id]) if params[:cohort_id].present?
 
