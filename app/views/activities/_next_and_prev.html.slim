@@ -19,14 +19,16 @@
 
 
   - next_act = activity_presenter.next_activity(@workbook)
-  - if @activity.is_a?(PinnedNote) && @activity.activity_submissions.where(user: current_user).any?
-  = link_to get_activity_path(next_act, @workbook), class: 'nextandprev-button'
+  = link_to get_activity_path(next_act, @workbook, @activity), class: 'nextandprev-button'
 
     .nextandprev-button-next
       .nextandprev-button-direction
         span Next
       .nextandprev-button-activitytitle
-        span = descriptive_activity_name(next_act)
+        - if next_act
+          span = descriptive_activity_name(next_act)
+        - else
+          span All Done!
 
     .nextandprev-button-arrow
       svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"
