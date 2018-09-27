@@ -13,8 +13,6 @@
       h4 This activity should help you progress with a project:
       = render @activity.section
 
-    = activity_presenter.display_outcomes
-
     - if stretch_activity?(@activity, @workbook)
       - text = @activity.day? ? "day" : "prep course"
       .alert.alert-info

@@ -11,8 +11,6 @@ class DaysController < ApplicationController
 
     @interview_template = TechInterviewTemplate.active.where(week: week).first
 
-    @outcomes = @activities.flat_map(&:outcomes).uniq
-
     if student?
       # Teachers dont have day feedback associated with their model
       @day_feedback = current_user.day_feedbacks.new

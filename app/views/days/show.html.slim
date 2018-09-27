@@ -6,18 +6,6 @@
 .schedule-heading.clearfix
   h1.pull-left Schedule
 
-- if !@outcomes.blank?
-  .day-objectives-container
-    .btn.btn-primary.btn-sm id="show-objectives-button"
-      | Show all outcomes
-    .btn.btn-warning.btn-sm id="hide-objectives-button"
-      | Hide all outcomes
-    .day-objectives-holder
-      h4 All Learning Outcomes This Day
-      ul
-        - @outcomes.each do |outcome|
-          li = outcome.text
-
 - lecture_activities, work_activities = @activities.partition { |a| a.is_a?(LecturePlan) || a.is_a?(Breakout) || a.is_a?(Test) }
 - initial_notes = []
 - while work_activities.first.is_a?(PinnedNote) do
