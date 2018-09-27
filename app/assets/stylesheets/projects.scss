@@ -51,7 +51,7 @@ a.project-bio, a.workbook-bio {
   border: 1px solid $brand-primary;
 
   &:hover {
-    border: 1px solid black;
+    box-shadow: 0 0 0 1px $brand-primary;
     text-decoration: none;
 
     .info .name {

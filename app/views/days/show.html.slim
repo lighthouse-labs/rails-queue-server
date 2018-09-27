@@ -3,6 +3,8 @@
 - content_for :side_nav do
   == render 'layouts/side_nav'
 
+- content_for :body_class, 'days-show'
+
 .schedule-heading.clearfix
   h1.pull-left Schedule
 
@@ -13,12 +15,10 @@
 
 - if initial_notes.any?
   = render partial: 'activities/activity', collection: initial_notes
-  hr
 
 - if lecture_activities.any?
   h3 Lectures & Breakouts
   = render partial: 'activities/activity', collection: lecture_activities
-  hr
 
 - if @project
   - if @project.start_day == day.to_s
@@ -55,7 +55,6 @@
   = render @workbooks
 
 - if ENV['GOOGLE_API_KEY'] && current_user.location.try(:calendar?)
-  hr
   h1 id="events-header"
     | Events
   list-group id="eventlist" data-calendar="#{current_user.location.calendar}" data-tag="#{cohort.program.tag}" data-day="#{day}" data-start-date="#{cohort.start_date}"
@@ -63,8 +62,7 @@
   = tag :meta, :name => "google-key", :content => ENV['GOOGLE_API_KEY']
 
 - if student? && !weekend? && !alumni?
-  hr
-  .row
+  .row.mt-5
     .col-md-12
       .card
         .card-header
