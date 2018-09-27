@@ -46,32 +46,6 @@ class ActivityPresenter < BasePresenter
     end
   end
 
-  def previous_button
-    other_activity = previous_activity(workbook)
-    if other_activity
-      content_tag :div, class: 'previous-activity' do
-        (
-          content_tag(:label, 'Previous:') +
-          content_tag(:i, nil, class: icon_for(other_activity)) + ' ' +
-          link_to(descriptive_activity_name(other_activity), get_activity_path(other_activity, workbook))
-        ).html_safe
-      end
-    end
-  end
-
-  def next_button
-    other_activity = next_activity(workbook)
-    if other_activity
-      content_tag :div, class: 'next-activity' do
-        (
-          content_tag(:label, 'Next:') +
-          content_tag(:i, nil, class: icon_for(other_activity)) + ' ' +
-          link_to(descriptive_activity_name(other_activity), get_activity_path(other_activity, workbook))
-        ).html_safe
-      end
-    end
-  end
-
   def submissions_text
     activity.allow_submissions? ? "Submissions" : "Completions"
   end
@@ -79,7 +53,7 @@ class ActivityPresenter < BasePresenter
   def submission_form
     if allow_completion?
       next_activity = next_activity(workbook)
-      next_path = next_activity ? get_activity_path(next_activity, workbook) : get_next_index_path(activity, workbook)
+      next_path = get_activity_path(next_activity, workbook, activity)
       if activity.evaluates_code?
         render "code_activity_submission_form", next_path: next_path
       else
@@ -105,7 +79,6 @@ class ActivityPresenter < BasePresenter
     # overwritten
   end
 
-  protected
 
   def next_activity(workbook = nil)
     workbook ? workbook.next_activity(activity) : activity.next
@@ -114,6 +87,8 @@ class ActivityPresenter < BasePresenter
   def previous_activity(workbook = nil)
     workbook ? workbook.previous_activity(activity) : activity.previous
   end
+
+  protected
 
   def stretch?
     if workbook
