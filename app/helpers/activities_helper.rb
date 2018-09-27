@@ -8,7 +8,8 @@ module ActivitiesHelper
     end
   end
 
-  def get_activity_path(activity, workbook = nil)
+  def get_activity_path(activity, workbook = nil, current_activity = nil)
+    return get_next_index_path(current_activity, workbook) if activity.blank? && current_activity
     if workbook
       workbook_activity_path(workbook, activity)
     elsif activity.prep?

@@ -60,6 +60,7 @@
         == markdown @activity.teacher_notes
 
     = render 'submission_bar', activity_presenter: activity_presenter
+    = render 'next_and_prev', activity_presenter: activity_presenter
     = render 'feedback' if @activity.allow_feedback?
 
     - if @lectures.present?
