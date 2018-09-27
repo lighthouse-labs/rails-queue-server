@@ -48,14 +48,14 @@ a.project-bio, a.workbook-bio {
   display: block;
   border-radius: 6px;
   color: $brand-primary;
+  border: 1px solid $brand-primary;
 
   &:hover {
-    box-shadow: 0 0 0 2px $brand-secondary;
+    border: 1px solid black;
     text-decoration: none;
 
-
-    .name {
-      color: $brand-primary;
+    .info .name {
+      color: $brand-secondary;
     }
     .icon {
       opacity: 0.9;
@@ -90,7 +90,7 @@ a.project-bio, a.workbook-bio {
       left: 0;
     }
     .name {
-      color: $brand-secondary;
+      color: $brand-primary;
       overflow: hidden;
       padding: 28px 0;
       .stretch {
