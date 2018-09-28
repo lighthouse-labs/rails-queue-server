@@ -1,3 +1,10 @@
+body.days-show {
+  h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
 .schedule-heading {
   .stats {
     margin-top: 48px;
@@ -20,16 +27,18 @@
 }
 
 .pinnednote.activity + .pinned-content { // only for pinned activities
-  background-color: lighten($clouds, 3%);
-  padding: 10px 60px 10px 80px;
+  background-color: #f9f9f9;
+  padding: 30px 60px 10px 80px;
   margin-bottom: 20px;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
+  border: 1px solid $brand-primary;
+  border-top: none;
 
   > .instructions * {
     // color: $brand-secondary;
     font-size: 1em;
-    
+
   }
 }
 
@@ -41,7 +50,7 @@ a.activity {
 
 .activity {
   display: block;
-  background-color: $clouds;
+  background-color: white;
   border-radius: 6px;
   color: $brand-primary;
   font-size: 24px;
@@ -49,6 +58,8 @@ a.activity {
   padding: 0 60px 0 140px;
   position: relative;
   margin-bottom: 20px;
+  border: 1px solid $brand-primary;
+  transition: all 0.15s;
 
   &.archived {
     opacity: 0.5;
@@ -58,13 +69,17 @@ a.activity {
     margin-bottom: 0px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+    background-color: $clouds;
   }
 
   &:not(.pinnednote) {
     &:hover {
-      box-shadow: 0 0 0 2px $brand-secondary;
+      box-shadow: 0 0 0 1px $brand-primary;
+      background-color: $clouds;
+      border: 1px solid black;
+
       .name {
-        color: $brand-primary;
+        color: $brand-secondary;
       }
       .icon {
         opacity: 0.9;
@@ -109,7 +124,6 @@ a.activity {
     left: 0;
   }
   .name {
-    color: $brand-secondary;
     overflow: hidden;
     padding: 28px 0;
     .stretch {
@@ -187,17 +201,3 @@ a.activity {
   }
 }
 
-#show-objectives-button {
-}
-
-#hide-objectives-button {
-  display: none;
-}
-
-.day-objectives-container {
-  margin-bottom: 20px;
-}
-
-.day-objectives-holder {
-  display: none;
-}
