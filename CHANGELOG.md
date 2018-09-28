@@ -1,5 +1,14 @@
 # Change Log
 
+## [2018.09.27.1800](https://github.com/lighthouse-labs/compass/tree/2018.09.27.1800) (2018-09-28)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.30.1615...2018.09.27.1800)
+
+**Merged pull requests:**
+
+- Improve ui skin a bit [\#785](https://github.com/lighthouse-labs/compass/pull/785) ([kvirani](https://github.com/kvirani))
+- Feature/remove all outcomes for day [\#784](https://github.com/lighthouse-labs/compass/pull/784) ([kvirani](https://github.com/kvirani))
+- Fix next/prev buttons; 2 birds! [\#782](https://github.com/lighthouse-labs/compass/pull/782) ([kvirani](https://github.com/kvirani))
+
 ## [2018.08.30.1615](https://github.com/lighthouse-labs/compass/tree/2018.08.30.1615) (2018-08-30)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.30.1015...2018.08.30.1615)
 
