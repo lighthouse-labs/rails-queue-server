@@ -12,4 +12,9 @@ class QuizActivity < Activity
     false
   end
 
+  # can complete/submit, but not using typical mark completed flow
+  def can_mark_completed?
+    false
+  end
+
 end

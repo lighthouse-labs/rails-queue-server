@@ -1,0 +1,37 @@
+.nextandprev
+
+  - prev_act = activity_presenter.previous_activity(@workbook)
+  - if prev_act
+    = link_to get_activity_path(prev_act, @workbook, @activity), class: 'nextandprev-button'
+
+      .nextandprev-button-arrow
+        svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"
+          g
+            line x1="19" y1="12" x2="5" y2="12"
+            polyline points="12 19 5 12 12 5"
+
+      .nextandprev-button-prev
+        .nextandprev-button-direction
+          span Previous
+
+        .nextandprev-button-activitytitle
+          span = descriptive_activity_name(prev_act)
+
+
+  - next_act = activity_presenter.next_activity(@workbook)
+  = link_to get_activity_path(next_act, @workbook, @activity), class: 'nextandprev-button'
+
+    .nextandprev-button-next
+      .nextandprev-button-direction
+        span Next
+      .nextandprev-button-activitytitle
+        - if next_act
+          span = descriptive_activity_name(next_act)
+        - else
+          span All Done!
+
+    .nextandprev-button-arrow
+      svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"
+        g
+          line x1="5" y1="12" x2="19" y2="12"
+          polyline points="12 5 19 12 12 19"

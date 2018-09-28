@@ -8,6 +8,12 @@ class Recording < ApplicationRecord
   validates :program, presence: true
   validate :ensure_program_has_recordings_bucket, if: :program
 
+  scope :is_s3, -> { where(file_type: "S3") }
+
+  def is_s3?
+    file_type == "S3"
+  end
+
   def s3_url
     return nil unless file_type == "S3"
     @s3_url ||= Recording.s3_presigner.presigned_url(

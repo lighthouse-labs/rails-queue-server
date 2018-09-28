@@ -15,6 +15,10 @@ class Breakout < Activity
     false
   end
 
+  def can_mark_completed?
+    false
+  end
+
   def completable?
     false
   end

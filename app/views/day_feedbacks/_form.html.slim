@@ -1,6 +1,7 @@
 = form_for(@day_feedback, url: day_feedbacks_path(@day), id: "feedback-form", html: {class: "" }) do |f|
   fieldset
-    legend Use this form to provide your overall sentiment about #{@day.today? ? 'TODAY' : @day.to_s.upcase}. Neither curriculum-specific nor teacher-specific feedback should be placed here. Think instead about how today went as a whole in terms of the experience (the mood, the energy, the space, mentor support and availability, the space itself, etc).
+    p
+      small Use this form to provide your overall sentiment about #{@day.today? ? 'TODAY' : @day.to_s.upcase}. Neither curriculum-specific nor teacher-specific feedback should be placed here. Think instead about how today went as a whole in terms of the experience (the mood, the energy, the space, mentor support and availability, the space itself, etc).
     only
     - if @day_feedback && @day_feedback.errors.any?
       .alert.alert-danger
@@ -9,7 +10,7 @@
           - @day_feedback.errors.full_messages.each do |msg|
             li=msg
 
-    h4 Select overall sentiment:
+    / h5 Select overall sentiment:
     .form-group
       = f.label :mood_happy, class: 'face'
         = f.radio_button :mood, "happy"

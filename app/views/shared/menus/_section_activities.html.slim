@@ -1,11 +1,11 @@
 .list-group.list-group-flush
   - section.activities.chronological.active.each do |activity|
     = link_to activity_path(activity.id), class: "list-group-item list-group-item-action #{'active' if @activity && @activity.eql?(activity)} #{'stretch' if activity.stretch?}" do
-        i class=(icon_for(activity)) title=activity_type(activity)
-        = " #{activity.name}"
-        - if activity.stretch?
-          i.fa.fa-rocket data-toggle='tooltip' title='Stretch'
+      i class=(icon_for(activity)) title=activity_type(activity)
+      = " #{activity.name}"
+      - if activity.stretch?
+        i.fa.fa-rocket data-toggle='tooltip' title='Stretch'
 
-        - if current_user.completed_activity?(activity)
-          | &nbsp;
-          i.fa.fa-check data-toggle='tooltip' title='Completed :)'
+      - if current_user.completed_activity?(activity)
+        | &nbsp;
+        i.fa.fa-check data-toggle='tooltip' title='Completed :)'

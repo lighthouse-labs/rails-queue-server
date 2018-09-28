@@ -8,7 +8,8 @@ module ActivitiesHelper
     end
   end
 
-  def get_activity_path(activity, workbook = nil)
+  def get_activity_path(activity, workbook = nil, current_activity = nil)
+    return get_next_index_path(current_activity, workbook) if activity.blank? && current_activity
     if workbook
       workbook_activity_path(workbook, activity)
     elsif activity.prep?
@@ -39,24 +40,6 @@ module ActivitiesHelper
         @activity.try(:id)
       )
     end
-  end
-
-  def bootcamp_activities_uuid_for_select
-    grouped_options_for_select(
-      current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :uuid).group_by { |d| d[1] }
-    )
-  end
-
-  def prep_activities_uuid_for_select
-    grouped_options_for_select(
-      Activity.prep.assistance_worthy.joins(:section).pluck(:name, "sections.name", :uuid).group_by { |d| d[1] }
-    )
-  end
-
-  def teacher_activities_uuid_for_select
-    grouped_options_for_select(
-      Activity.teacher.assistance_worthy.joins(:section).pluck(:name, "sections.name", :uuid).group_by { |d| d[1] }
-    )
   end
 
   def markdown(content, renderer = CompassMarkdownRenderer)
