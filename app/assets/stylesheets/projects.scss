@@ -48,14 +48,14 @@ a.project-bio, a.workbook-bio {
   display: block;
   border-radius: 6px;
   color: $brand-primary;
+  border: 1px solid $brand-primary;
 
   &:hover {
-    box-shadow: 0 0 0 2px $brand-secondary;
+    box-shadow: 0 0 0 1px $brand-primary;
     text-decoration: none;
 
-
-    .name {
-      color: $brand-primary;
+    .info .name {
+      color: $brand-secondary;
     }
     .icon {
       opacity: 0.9;
@@ -90,7 +90,7 @@ a.project-bio, a.workbook-bio {
       left: 0;
     }
     .name {
-      color: $brand-secondary;
+      color: $brand-primary;
       overflow: hidden;
       padding: 28px 0;
       .stretch {
@@ -136,7 +136,7 @@ a.project-bio, a.workbook-bio {
   .details { // only for pinned activities
     background-color: lighten($clouds, 3%);
     padding: 20px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
   }

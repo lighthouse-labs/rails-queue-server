@@ -1,16 +1,135 @@
 .activity-details {
-  .actions {
-    .next-activity, .previous-activity {
-      label {
-        width: 105px;
-        font-weight: bold;
-        font-size: 1.12em;
-        line-height: 1.12em;
-        color: gray;
+
+  .nextandprev {
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+    display: grid;
+    -ms-grid-template-columns: -webkit-calc(50% - 8px) -webkit-calc(50% - 8px);
+    -ms-grid-template-columns: -moz-calc(50% - 8px) -moz-calc(50% - 8px);
+    -ms-grid-template-columns: calc(50% - 8px) calc(50% - 8px);
+    grid-template-columns: -webkit-calc(50% - 8px) -webkit-calc(50% - 8px);
+    grid-template-columns: -moz-calc(50% - 8px) -moz-calc(50% - 8px);
+    grid-template-columns: calc(50% - 8px) calc(50% - 8px);
+    -ms-grid-template-rows: auto;
+    grid-template-rows: auto;
+    -ms-grid-column-gap: 24px;
+    grid-column-gap: 24px;
+
+    a.nextandprev-button {
+
+      -ms-flex-item-align: stretch;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-box-direction: normal;
+      -webkit-box-orient: horizontal;
+      margin: 0px;
+      padding: 0px;
+      position: relative;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-align-items: center;
+      align-items: center;
+      justify-self: stretch;
+      -webkit-align-self: stretch;
+      align-self: stretch;
+      color: #242A31;
+      background-color: #FFFFFF;
+      border-radius: 3px;
+      border: 1px solid #E6ECF1;
+      -webkit-transition: border ease 200ms;
+      -moz-transition: border ease 200ms;
+      transition: border ease 200ms;
+      box-shadow: 0 3px 8px 0 rgba(116, 129, 141, 0.1);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    a.nextandprev-button:hover {
+      color: $brand-secondary;
+      border-color: $brand-secondary;
+
+      .nextandprev-button-arrow {
+        color: $brand-secondary;
       }
-      a {
-        font-weight: bold;
+    }
+
+    .nextandprev-button-arrow {
+
+      &:first-child {
+        padding-right: 0px;
       }
+
+      display: block;
+      margin: 0px;
+      color: #9DAAB6;
+      -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+      font-size: 24px;
+      -webkit-transition: color ease 200ms;
+      -moz-transition: color ease 200ms;
+      transition: color ease 200ms;
+      padding: 16px;
+
+      svg {
+        vertical-align: middle;
+      }
+    }
+
+    .nextandprev-button-prev {
+      display: block;
+      margin: 0px;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      padding: 16px;
+      text-align: right;
+    }
+
+    .nextandprev-button-direction {
+      display: block;
+      margin: 0px;
+      padding: 0px;
+      color: #9DAAB6;
+
+      span {
+        font-size: 12px;
+        line-height: 1.625;
+        font-weight: 400;
+      }
+    }
+
+    .nextandprev-button-activitytitle {
+      display: block;
+      margin: 0px;
+      padding: 0px;
+      -webkit-transition: color ease 200ms;
+      -moz-transition: color ease 200ms;
+      transition: color ease 200ms;
+
+      span {
+        font-size: 16px;
+        line-height: 1.5;
+        font-weight: 500;
+      }
+    }
+
+    /* Right side */
+
+    .nextandprev-button-next {
+      display: block;
+      margin: 0px;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      padding: 16px;
     }
   }
 }

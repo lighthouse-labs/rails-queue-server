@@ -68,5 +68,5 @@
 //= require console
 //= require projects
 //= require google_analytics
-//= require side_nav_search
 //= require more_search_filters
+//= require video

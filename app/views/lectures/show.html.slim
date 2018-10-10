@@ -26,12 +26,20 @@
                   i.fa.fa-times
                   | &nbsp; Delete
 
-    - if @lecture.youtube_url.present?
+    - if @lecture.youtube_url?
       .card.mb-4
         .card-header
           h5 Recording
         .card-body.video-wrapper
           iframe frameborder="0" src="https://www.youtube.com/embed/#{lecture_presenter.youtube_code}" allow="encrypted-media" allowfullscreen
+    - elsif @lecture.s3?
+      .card.mb-4
+        .card-header
+          h5 Recording
+        .card-body
+          video.video-js.vjs-default-skin controls="true" preload="auto" width="100%" height="434" id="lecture-video"
+            source type="video/mp4" src=@lecture.s3_url
+
 
     - if teacher? && @lecture.teacher_notes?
       .card.mb-4
