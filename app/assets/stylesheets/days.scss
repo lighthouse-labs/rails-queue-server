@@ -35,6 +35,9 @@ body.days-show {
   border: 1px solid $brand-primary;
   border-top: none;
 
+  > .instructions img {
+    max-width: 100%;
+  }
   > .instructions * {
     // color: $brand-secondary;
     font-size: 1em;
