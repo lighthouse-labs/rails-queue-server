@@ -3,14 +3,7 @@ body {
   min-height: 100%;
   font-size: calc(12px + .5vw);
 }
-.container-fluid-ish {
-  @extend .container-fluid;
-  @include media-breakpoint-up(xl){
-    margin-left: 0;
-    margin-right: calc(8em + 5vw);
-    width: auto;
-  }
-}
+
 .non-tablet-label {
   @include media-breakpoint-between(md, lg) {
     position: absolute;
@@ -71,6 +64,9 @@ main {
   }
 
   .content {
+    &.main-content {
+      max-width: 1000px;
+    }
     .jumbotron {
       padding-top: 30px;
       padding-bottom: 30px;

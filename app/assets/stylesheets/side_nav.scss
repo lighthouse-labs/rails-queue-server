@@ -33,6 +33,11 @@ nav.side-nav {
     font-size: 1.3rem;
     font-weight: 300;
 
+    @include media-breakpoint-down(md) {
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+
     &::before {
       width:18px;
       text-align: center;
@@ -60,6 +65,14 @@ nav.side-nav {
   .toc-activity {
     color: $black;
     margin: 0.5em 0;
+    font-size: 0.9rem;
+
+    @include media-breakpoint-down(md) {
+      font-size: 1.2rem;
+    }
+    @include media-breakpoint-up(xl) {
+      font-size: 1.0rem;
+    }
     a {
       color: inherit;
     }

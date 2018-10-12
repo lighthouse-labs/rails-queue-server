@@ -14,7 +14,7 @@ html
 
     == csrf_meta_tags
   body class=(yield :body_class)
-    header
+    header.p-5
       == render 'layouts/navigation'
     - fluid = (yield(:container) == 'fluid')
     main role="main" class=(fluid ? 'container-fluid' : 'container')
