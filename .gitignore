@@ -3,6 +3,9 @@
 /vendor/bundle/
 /vendor/ruby/
 
+# deploy script (KV)
+/deploy_all.sh
+
 # Project specific
 db/activities_seed.rb
 public/uploads
