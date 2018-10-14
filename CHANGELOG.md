@@ -1,5 +1,12 @@
 # Change Log
 
+## [2018.10.14.1645](https://github.com/lighthouse-labs/compass/tree/2018.10.14.1645) (2018-10-14)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.09.27.1800...2018.10.14.1645)
+
+**Merged pull requests:**
+
+- Layout / responsiveness improvements [\#789](https://github.com/lighthouse-labs/compass/pull/789) ([kvirani](https://github.com/kvirani))
+
 ## [2018.09.27.1800](https://github.com/lighthouse-labs/compass/tree/2018.09.27.1800) (2018-09-28)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.30.1615...2018.09.27.1800)
 
