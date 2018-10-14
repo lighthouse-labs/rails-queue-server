@@ -70,3 +70,5 @@
 //= require google_analytics
 //= require more_search_filters
 //= require video
+//= require prism_width_hack
+

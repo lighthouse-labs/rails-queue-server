@@ -24,6 +24,9 @@ li.activity-feedback {
     min-height: 64px;
     overflow: hidden;
   }
+  .content p {
+    word-break: break-all;
+  }
 }
 
 .feedbacks-avatar {
