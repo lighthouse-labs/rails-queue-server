@@ -9,7 +9,7 @@ $(document).on('turbolinks:load', function() {
     if ($('.main-content .activity-details').size() < 1) return;
     $('.main-content pre').hide();
     var width = $('.main-content').width();
-    $('.main-content pre').width(width-40).show();
+    $('.main-content pre').css({maxWidth: width-40}).show();
   }
 
   // only attach resize handler if necessary (prism pre tags exist)
