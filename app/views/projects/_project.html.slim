@@ -1,4 +1,6 @@
-= link_to project, class: 'project-bio mb-4' do
+- day_number ||= nil
+
+= link_to project_path(project, day_number: day_number), class: 'project-bio mb-4' do
   .info
     .icon.icon-type title='Project'
       i.fa.fa-gavel

@@ -2,36 +2,11 @@ h1 = title
 
 ul#toc.list-unstyled
   - sections.each_with_index do |section, i|
-    li.toc-section.list-unstyled
-      - active_section = section.activities.include?(@activity)
-      a class=(active_section ? "toc-collapser" : "toc-collapser collapsed") data-toggle='collapse' data-target="#toc-section-#{i}"
-        span.d-inline-block
-          = section.name
 
-      div class=(active_section ? 'toc-section-detail collapse show' : 'toc-section-detail collapse' ) id="toc-section-#{i}" data-parent='#toc'
-        p.toc-activity--info
-          - core_hours = number_with_precision section.core_duration_in_hours, precision: 0
-          span.toc-activity--core #{pluralize(core_hours, "hr")}
-          |&nbsp;
-          - stretch_hours = number_with_precision section.stretch_duration_in_hours, precision: 0
-          - if stretch_hours.to_i > 0
-            span.toc-activity--stretch
-              | +&nbsp;
-              = pluralize(stretch_hours, "hr")
-              | &nbsp;stretch&nbsp;
-              i.fa.fa-trophy
-        ul.list-unstyled
-          - section.activities.chronological.active.each do |activity|
-            - activity_classes = ["toc-activity"]
-            - activity_classes.push("toc-activity__active") if (@activity == activity)
-            - activity_classes.push("toc-activity__is-stretch") if(activity.stretch?)
-            li class=(activity_classes.join(" "))
-              = link_to activity_path(activity), class: 'toc-activity--label' do
-                span.toc-activity--name
-                  - if activity.stretch?
-                    i.fa.fa-trophy data-toggle='tooltip' title='Stretch'
-                    | &nbsp;
-                  = activity.name
-                span.toc-activity--tags
-                  - if current_user.completed_activity?(activity)
-                    i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
+    = render 'shared/menus/section',
+      key: section.slug,
+      activities: section.activities.chronological.active,
+      current_activity: @activity,
+      title: section.name,
+      show_info: true
+

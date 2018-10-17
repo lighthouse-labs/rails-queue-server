@@ -1,5 +1,7 @@
 class EvaluationsController < ApplicationController
 
+  include CourseCalendar
+
   before_action :teacher_required, except: [:new, :create, :cancel, :show]
   before_action :find_project
   before_action :find_evaluation, only: [:show, :edit, :update, :start_marking, :cancel, :cancel_marking]

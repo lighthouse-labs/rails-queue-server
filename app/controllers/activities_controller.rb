@@ -34,11 +34,18 @@ class ActivitiesController < ApplicationController
     @activity_feedbacks = @activity_feedbacks.where(user: current_user).filter_by_legacy('exclude') unless teacher?
 
     @lectures = @activity.lectures if @activity.has_lectures?
+
+    ## Stolen from days#show (need to DRY) - KV
+    load_day_schedule
   end
 
   def autocomplete
     @outcomes = (Outcome.search(params[:term]) - @activity.outcomes)
     render json: ActivityAutocompleteSerializer.new(outcomes: @outcomes).outcomes.as_json, root: false
+  end
+
+  def edit
+    load_day_schedule
   end
 
   private

@@ -1,3 +1,4 @@
+- allow_submission ||= false
 .row
   .col-sm-12
 
@@ -8,7 +9,12 @@
       - evals = @project.evaluations_for(current_user)
       - if evals.blank?
         .card-body
-          | The status of your previous submissions to this project are displayed here. However, you have not submitted this project yet.
+          p The status of your previous submissions to this project are displayed here. However, you have not submitted this project yet.
+          - if allow_submission
+            - last_evaluation = @project.last_evaluation(current_user) if student?
+            - if student? && (!last_evaluation || (last_evaluation.status == "Cancelled" || last_evaluation.status == "Rejected"))
+              p.text-center
+                = link_to "Submit Project", new_project_evaluation_path(@project), class: "btn btn-outline-success btn-lg", onclick: "ga('send', 'event', 'student-submit-project-button', 'click');"
       - else
         .table-responsive
           table.table.table-condensed

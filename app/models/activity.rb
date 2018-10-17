@@ -89,7 +89,6 @@ class Activity < ApplicationRecord
     true
   end
 
-
   # Given the start_time and duration, return the end_time
   def end_time
     hours = start_time / 100

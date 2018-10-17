@@ -34,16 +34,16 @@ class ActivityPresenter < BasePresenter
       end
     elsif bootcamp?
       content_for :side_nav do
-        render('layouts/side_nav')
+        render('shared/menus/bootcamp_day_menu')
       end
     end
 
     # append project specific content if it's part of a project.
-    if project?
-      content_for :side_nav do
-        render('shared/menus/project_side_menu', project: activity.section)
-      end
-    end
+    # if project?
+    #   content_for :side_nav do
+    #     render('shared/menus/project_side_menu', project: activity.section)
+    #   end
+    # end
   end
 
   def submissions_text
@@ -78,7 +78,6 @@ class ActivityPresenter < BasePresenter
   def after_instructions
     # overwritten
   end
-
 
   def next_activity(workbook = nil)
     workbook ? workbook.next_activity(activity) : activity.next

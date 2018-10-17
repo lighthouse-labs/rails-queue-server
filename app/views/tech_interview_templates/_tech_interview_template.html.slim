@@ -1,6 +1,7 @@
 - interview_template = tech_interview_template
+- day_number ||= nil
 
-= link_to interview_template, class: 'tech-interview-template' do
+= link_to tech_interview_template_path(interview_template, day_number: day_number), class: 'tech-interview-template' do
   .info
     .icon.icon-type title='Tech Interview'
       i.fa.fa-comments

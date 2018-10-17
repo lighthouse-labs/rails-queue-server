@@ -1,6 +1,11 @@
 - provide :container,  'fluid'
 - title "Week #{@interview_template.week} Tech Interview"
 
+
+- if params[:day_number].present?
+  - content_for :side_nav
+    == render('shared/menus/bootcamp_day_menu')
+
 header.page-header
   h1 Week #{@interview_template.week} Tech Interview
 

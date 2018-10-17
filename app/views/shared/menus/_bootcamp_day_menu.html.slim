@@ -1,0 +1,49 @@
+h1.day-heading
+  span = day.to_s.upcase
+  | &nbsp;
+  small
+    = link_to day_path(day), class: 'text-muted' do
+      i.fa.fa-calendar
+
+h5
+  small.text-muted = "#{day.date.strftime("%a %b #{day.date.day}")}"
+
+hr
+
+- lecture_activities, work_activities = @activities.partition { |a| a.is_a?(LecturePlan) || a.is_a?(Breakout) || a.is_a?(Test) }
+- initial_notes = []
+- while work_activities.first.is_a?(PinnedNote) do
+  - initial_notes << work_activities.shift
+
+ul#toc.list-unstyled
+
+  = render 'shared/menus/section',
+    key: 'notes',
+    activities: initial_notes,
+    current_activity: @activity,
+    title: 'Outline & Notes',
+    display_count: true
+
+  = render 'shared/menus/section',
+    key: 'lectures',
+    activities: lecture_activities,
+    current_activity: @activity,
+    title: 'Lectures',
+    show_info: true,
+    display_count: true
+
+  = render 'shared/menus/section',
+    key: 'work_activities',
+    activities: work_activities,
+    current_activity: @activity,
+    title: 'Work',
+    show_info: true,
+    display_count: true
+
+  = render 'shared/menus/other',
+    items: [@core_project, @interview, @stretch_project, @workbooks],
+    current_activity: @activity
+
+hr
+
+= link_to "#{day.to_s.upcase} Schedule &raquo;".html_safe, day_path(day), class: 'btn btn-outline-primary'
