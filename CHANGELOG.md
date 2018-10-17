@@ -1,5 +1,13 @@
 # Change Log
 
+## [2018.10.17.0715](https://github.com/lighthouse-labs/compass/tree/2018.10.17.0715) (2018-10-17)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.10.14.1645...2018.10.17.0715)
+
+**Merged pull requests:**
+
+- Display duration on activities\#show if we have actuals but not estimate [\#792](https://github.com/lighthouse-labs/compass/pull/792) ([kvirani](https://github.com/kvirani))
+- Side nav logic drastically changed [\#791](https://github.com/lighthouse-labs/compass/pull/791) ([kvirani](https://github.com/kvirani))
+
 ## [2018.10.14.1645](https://github.com/lighthouse-labs/compass/tree/2018.10.14.1645) (2018-10-14)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.09.27.1800...2018.10.14.1645)
 
