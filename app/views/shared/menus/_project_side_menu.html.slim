@@ -1,22 +1,28 @@
-- last_evaluation = project.last_evaluation(current_user) if student?
+h1.day-heading
+  = @project.name
+  | &nbsp;
 
-.card.project-nav.text-center
-  .card-header
-    = link_to project.name, project
-  ul.list-group.project-activities
-    - project.activities.chronological_for_project.active.each do |activity|
-      li class = (@activity ? "list-group-item #{@activity && activity.eql?(@activity) ? 'active' : ''}" : "list-group-item")
-        = link_to day_activity_path(activity.day, activity)
-          = activity.name
-          - if activity.stretch?
-            i.fa.fa-rocket data-toggle='tooltip' title='Stretch'
-        = content_tag(:i, nil, class: 'fa fa-check') if current_user.completed_activity?(activity)
+  br
+  small.text-muted = "#{day.date.strftime("%a %b #{day.date.day}")}"
 
-    - if student?
-      - if !last_evaluation || (last_evaluation.status == "Cancelled" || last_evaluation.status == "Rejected")
-        li.list-group-item = link_to "Submit", new_project_evaluation_path(project), class: "btn btn-primary center-block", onclick: "ga('send', 'event', 'student-submit-project-button', 'click');"
-      - if last_evaluation && (last_evaluation.status != "Accepted" && last_evaluation.status != "Rejected" && last_evaluation.status != "Cancelled")
-        li.list-group-item = link_to "Cancel Submission", cancel_project_evaluation_path(project, last_evaluation), class: "btn btn-danger center-block", method: :delete
+hr
 
-    - if teacher?
-      li.list-group-item = link_to "Evaluations", project_evaluations_path(project)
+ul#toc.list-unstyled
+
+  - activities_by_day = project.activities.chronological_for_project.active.group_by(&:day)
+  - activities_by_day.each do |day, activities|
+    = render 'shared/menus/section',
+      key: day,
+      activities: activities,
+      current_activity: @activity,
+      title: day.upcase,
+      expanded: true,
+      show_info: true
+
+
+hr
+
+= link_to "Project Details &raquo;".html_safe, project_path(project), class: 'btn btn-outline-secondary'
+
+- if teacher?
+  = link_to "View Evaluations", project_evaluations_path(project), class: 'btn btn-outline-primary'

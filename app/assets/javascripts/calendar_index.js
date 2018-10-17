@@ -20,11 +20,11 @@
 
       var activityDiv = document.createElement('div')
       activityDiv.className = "activity";
-      
+
       // Add the icon to the holder
       activityDiv.appendChild(getEventIcon());
 
-      // Add the location 
+      // Add the location
       activityDiv.appendChild(getEventLocation(item));
 
       if (item.start.dateTime) {
@@ -48,7 +48,7 @@
 
     var eventsHeader = $div.prev();
     eventsHeader.hide();
-    eventsHeader.prev().hide();
+    // eventsHeader.prev().hide();
 
     function getEventHolder() {
       var holderDiv = document.createElement('div')
@@ -137,18 +137,18 @@
         // Only append the calendar event if the program's tag is part of the events tag
         if(intersection > -1) {
           eventsHeader.show();
-          eventsHeader.prev().show();
+          // eventsHeader.prev().show();
           appendDetails(item);
         }
       }
       // If it doesn't have hashtags, assume it is event for all
       else {
         eventsHeader.show();
-        eventsHeader.prev().show();
+        // eventsHeader.prev().show();
         appendDetails(item);
       }
     }
-      
+
     $.ajax({
       url: feedUrl,
       dataType: 'json',

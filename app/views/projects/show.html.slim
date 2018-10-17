@@ -6,13 +6,16 @@
 - provide :body_class, 'project-detail'
 
 - content_for :side_nav do
-  = render 'shared/menus/project_side_menu', project: @project
+  - if params[:day_number].present?
+    = render 'shared/menus/bootcamp_day_menu'
+  - else
+    = render 'shared/menus/project_side_menu', project: @project
 
 .hero
   = render @project
 
 - if student?
-  = render 'my_evals'
+  = render 'my_evals', allow_submission: true
 
 hr
 

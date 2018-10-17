@@ -2,12 +2,16 @@ class ProjectsController < ApplicationController
 
   before_action :find_project, only: [:show]
 
+  include CourseCalendar # concern
+
   def index
     @projects = Project.active.core
     @stretch_projects = Project.active.stretch
   end
 
-  def show; end
+  def show
+    load_day_schedule if params[:day_number]
+  end
 
   private
 

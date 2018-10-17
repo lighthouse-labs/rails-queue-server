@@ -1,8 +1,8 @@
 nav.side-nav {
   h1 {
     font-weight: 300;
-    line-height: 0.7;
-    margin-bottom: 1.5rem;
+    line-height: 1.1em;
+    margin-bottom: 0px;
 
     &.day-heading {
       small {
@@ -91,6 +91,12 @@ nav.side-nav {
     &--label {
       display: flex;
       font-weight: 200;
+    }
+    &--icon {
+      flex-grow: 0;
+      margin-right: 2%;
+      font-size: 0.8em;
+      margin-top: 3px;
     }
     &--name {
       flex-grow: 1;

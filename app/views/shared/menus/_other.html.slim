@@ -1,0 +1,36 @@
+- items = items.compact.flatten
+
+li.toc-section.list-unstyled
+  - active = (@interview_template || @project).present?
+  a class=(active ? "toc-collapser" : "toc-collapser collapsed")   data-toggle='collapse' data-target="#toc-section-other"
+      span.d-inline-block
+        = "Other (#{items.size})"
+
+  div class=(active ? 'toc-section-detail collapse show' : 'toc-section-detail collapse') id="toc-section-other" data-parent='#toc'
+    p.toc-activity--info
+
+    ul.list-unstyled
+      - items.each do |item|
+        - activity_classes = ["toc-activity"]
+        - if item.is_a?(Workbook)
+          li class=(activity_classes.join(" "))
+            = link_to workbook_path(item), class: 'toc-activity--label' do
+              span.toc-activity--name
+                | Workbook: #{item.name}
+        - elsif item.is_a?(TechInterviewTemplate)
+          - interview_active = (@interview_template == item)
+          - activity_classes.push("toc-activity__active") if interview_active
+          li class=(activity_classes.join(" "))
+            = link_to tech_interview_template_path(item, day_number: day), class: 'toc-activity--label' do
+              span.toc-activity--name
+                | Tech Interview: Week #{item.week}
+        - elsif item.is_a?(Project)
+          - project_active = (@project == item)
+          - activity_classes.push("toc-activity__active") if project_active
+          li class=(activity_classes.join(" "))
+            = link_to project_path(item, day_number: day), class: 'toc-activity--label' do
+              span.toc-activity--name
+                - if item.stretch?
+                  | Stretch Project: #{item.name}
+                - else
+                  | Project: #{item.name}

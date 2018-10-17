@@ -1,7 +1,7 @@
 - title "#{@lecture.subject}"
 
 - content_for :side_nav do
-  == render 'layouts/side_nav'
+  == render 'shared/menus/bootcamp_day_menu'
 
 - present @lecture do |lecture_presenter|
   .lecture-show

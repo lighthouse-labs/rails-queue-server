@@ -13,6 +13,16 @@ module CourseCalendar
 
   private
 
+  def load_day_schedule
+    @activities = Activity.chronological.active.for_day(day).includes(:outcomes)
+
+    @workbooks = Workbook.active.unlocks_on_day(day)
+    @core_project = Project.active.core.where("? between start_day AND end_day", day.to_s).first
+    @stretch_project = Project.active.stretch.where("? between start_day AND end_day", day.to_s).first
+
+    @interview = TechInterviewTemplate.active.where(week: week).first
+  end
+
   def weekend?
     !!(day.to_s =~ /(?<=w\d)e$/)
   end

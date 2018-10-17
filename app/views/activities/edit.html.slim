@@ -1,5 +1,8 @@
 - title "#{day.to_s.upcase}: #{@activity.name}"
 
+- present @activity, nil, { workbook: @workbook } do |activity_presenter|
+  = activity_presenter.render_sidenav
+
 h1 = "#{day.to_s.upcase}: #{@activity.name}"
 hr
 

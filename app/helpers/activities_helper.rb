@@ -1,5 +1,37 @@
 module ActivitiesHelper
 
+  def activity_average_time(activity)
+    if activity.average_time_spent? && activity.duration?
+      (activity.duration + activity.average_time_spent) / 2.0
+    elsif activity.average_time_spent?
+      activity.average_time_spent
+    elsif activity.duration?
+      activity.duration
+    else
+      0
+    end
+  end
+
+  def core_duration_in_hours(activities, workbook = nil)
+    (activities.inject(0) do |sum, activity|
+      if !stretch_activity?(activity, workbook) && activity.active?
+        sum + activity_average_time(activity)
+      else
+        sum
+      end
+    end) / 60.0 * 1.1
+  end
+
+  def stretch_duration_in_hours(activities, workbook = nil)
+    (activities.inject(0) do |sum, activity|
+      if stretch_activity?(activity, workbook) && activity.active?
+        sum + activity_average_time(activity)
+      else
+        sum
+      end
+    end) / 60.0 * 1.1
+  end
+
   def stretch_activity?(activity, workbook = nil)
     if workbook
       workbook.stretch_activity?(activity)
