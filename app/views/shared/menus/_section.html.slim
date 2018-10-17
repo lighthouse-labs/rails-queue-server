@@ -3,46 +3,47 @@
 - active = expanded || activities.include?(current_activity)
 - display_count ||= false
 
-li.toc-section.list-unstyled
-  a class=(active ? "toc-collapser" : "toc-collapser collapsed")  data-toggle='collapse' data-target="#toc-section-#{key}"
-      span.d-inline-block = title
-      - if display_count
-        | &nbsp;
-        span.d-inline-block.text-muted
-          small = "(#{activities.size})"
+- if activities.any?
+  li.toc-section.list-unstyled
+    a class=(active ? "toc-collapser" : "toc-collapser collapsed")  data-toggle='collapse' data-target="#toc-section-#{key}"
+        span.d-inline-block = title
+        - if display_count
+          | &nbsp;
+          span.d-inline-block.text-muted
+            small = "(#{activities.size})"
 
-  div class=(active ? 'toc-section-detail collapse show' : 'toc-section-detail collapse') id="toc-section-#{key}" data-parent='#toc'
-    - if show_info
-      p.toc-activity--info
-        - core_hours = number_with_precision core_duration_in_hours(activities), precision: 0
-        span.toc-activity--core #{pluralize(core_hours, "hr")}
-        |&nbsp;
-        - stretch_hours = number_with_precision stretch_duration_in_hours(activities), precision: 0
-        - if stretch_hours.to_i > 0
-          span.toc-activity--stretch
-            | +&nbsp;
-            = pluralize(stretch_hours, "hr")
-            | &nbsp;stretch&nbsp;
-            i.fa.fa-trophy
+    div class=(active ? 'toc-section-detail collapse show' : 'toc-section-detail collapse') id="toc-section-#{key}" data-parent='#toc'
+      - if show_info
+        p.toc-activity--info
+          - core_hours = number_with_precision core_duration_in_hours(activities), precision: 0
+          span.toc-activity--core #{pluralize(core_hours, "hr")}
+          |&nbsp;
+          - stretch_hours = number_with_precision stretch_duration_in_hours(activities), precision: 0
+          - if stretch_hours.to_i > 0
+            span.toc-activity--stretch
+              | +&nbsp;
+              = pluralize(stretch_hours, "hr")
+              | &nbsp;stretch&nbsp;
+              i.fa.fa-trophy
 
 
-    ul.list-unstyled
-      - activities.each do |activity|
-        - activity_classes = ["toc-activity"]
-        - activity_classes.push("toc-activity__active") if (@activity == activity)
-        - activity_classes.push("toc-activity__is-stretch") if(activity.stretch?)
+      ul.list-unstyled
+        - activities.each do |activity|
+          - activity_classes = ["toc-activity"]
+          - activity_classes.push("toc-activity__active") if (@activity == activity)
+          - activity_classes.push("toc-activity__is-stretch") if(activity.stretch?)
 
-        li class=(activity_classes.join(" "))
-            = link_to activity_path(activity), class: 'toc-activity--label' do
-              span.toc-activity--icon
-                i.text-muted class=icon_for(activity)
-              span.toc-activity--name
+          li class=(activity_classes.join(" "))
+              = link_to activity_path(activity), class: 'toc-activity--label' do
+                span.toc-activity--icon
+                  i.text-muted class=icon_for(activity)
+                span.toc-activity--name
 
-                = activity.name
-                / - if activity.stretch?
-                  / | &nbsp;
-                  / i.fa.fa-trophy data-toggle='tooltip' title='Stretch'
+                  = activity.name
+                  / - if activity.stretch?
+                    / | &nbsp;
+                    / i.fa.fa-trophy data-toggle='tooltip' title='Stretch'
 
-              span.toc-activity--tags
-                - if current_user.completed_activity?(activity)
-                  i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
+                span.toc-activity--tags
+                  - if current_user.completed_activity?(activity)
+                    i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
