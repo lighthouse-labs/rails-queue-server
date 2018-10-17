@@ -1,13 +1,15 @@
 - expanded ||= false
 - show_info ||= false
 - active = expanded || activities.include?(current_activity)
+- display_count ||= false
 
 li.toc-section.list-unstyled
   a class=(active ? "toc-collapser" : "toc-collapser collapsed")  data-toggle='collapse' data-target="#toc-section-#{key}"
       span.d-inline-block = title
-      | &nbsp;
-      span.d-inline-block.text-muted
-        small = "(#{activities.size})"
+      - if display_count
+        | &nbsp;
+        span.d-inline-block.text-muted
+          small = "(#{activities.size})"
 
   div class=(active ? 'toc-section-detail collapse show' : 'toc-section-detail collapse') id="toc-section-#{key}" data-parent='#toc'
     - if show_info

@@ -21,21 +21,24 @@ ul#toc.list-unstyled
     key: 'notes',
     activities: initial_notes,
     current_activity: @activity,
-    title: 'Outline & Notes'
+    title: 'Outline & Notes',
+    display_count: true
 
   = render 'shared/menus/section',
     key: 'lectures',
     activities: lecture_activities,
     current_activity: @activity,
     title: 'Lectures',
-    show_info: true
+    show_info: true,
+    display_count: true
 
   = render 'shared/menus/section',
     key: 'work_activities',
     activities: work_activities,
     current_activity: @activity,
     title: 'Work',
-    show_info: true
+    show_info: true,
+    display_count: true
 
   = render 'shared/menus/other',
     items: [@core_project, @interview, @stretch_project, @workbooks],

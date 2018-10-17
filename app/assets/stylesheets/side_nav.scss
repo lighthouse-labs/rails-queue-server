@@ -95,8 +95,14 @@ nav.side-nav {
     &--icon {
       flex-grow: 0;
       margin-right: 2%;
-      font-size: 0.8em;
-      margin-top: 3px;
+      font-size: 0.9em;
+      position: relative;
+      top: 1px;
+      @include media-breakpoint-down(md) {
+        font-size: 1.0em;
+        top: 0px;
+        margin-right: 1.2%;
+      }
     }
     &--name {
       flex-grow: 1;

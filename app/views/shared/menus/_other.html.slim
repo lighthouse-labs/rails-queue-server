@@ -3,8 +3,11 @@
 li.toc-section.list-unstyled
   - active = (@interview_template || @project).present?
   a class=(active ? "toc-collapser" : "toc-collapser collapsed")   data-toggle='collapse' data-target="#toc-section-other"
-      span.d-inline-block
-        = "Other (#{items.size})"
+      span.d-inline-block Other
+      | &nbsp;
+      span.d-inline-block.text-muted
+        small = "(#{items.size})"
+
 
   div class=(active ? 'toc-section-detail collapse show' : 'toc-section-detail collapse') id="toc-section-other" data-parent='#toc'
     p.toc-activity--info
