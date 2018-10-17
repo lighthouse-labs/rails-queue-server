@@ -79,7 +79,6 @@ class ActivityPresenter < BasePresenter
     # overwritten
   end
 
-
   def next_activity(workbook = nil)
     workbook ? workbook.next_activity(activity) : activity.next
   end
