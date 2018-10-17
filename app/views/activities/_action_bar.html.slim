@@ -16,7 +16,7 @@
           = render 'completion_status'
 
       div
-        = render 'duration', presenter: activity_presenter  if @activity.duration?
+        = render 'duration', presenter: activity_presenter  if @activity.display_duration?
 
 - if @activity.gist_url?
   .actions
