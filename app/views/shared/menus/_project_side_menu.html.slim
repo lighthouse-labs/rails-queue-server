@@ -27,4 +27,6 @@ hr
 = link_to "Project Details &raquo;".html_safe, project_path(project), class: 'btn btn-outline-secondary'
 
 - if teacher?
+  br
+  br
   = link_to "View Evaluations", project_evaluations_path(project), class: 'btn btn-outline-primary'
