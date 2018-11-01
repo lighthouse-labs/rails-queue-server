@@ -103,9 +103,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.0)
     connection_pool (2.2.0)
-    crass (1.0.3)
+    crass (1.0.4)
     css_parser (1.6.0)
       addressable
     database_cleaner (1.0.1)
@@ -247,8 +247,8 @@ GEM
     fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
-    font-awesome-rails (4.7.0.3)
-      railties (>= 3.2, < 5.2)
+    font-awesome-rails (4.7.0.4)
+      railties (>= 3.2, < 6.0)
     formatador (0.2.5)
     foundation_emails (2.2.1.0)
     globalid (0.4.1)
@@ -300,7 +300,7 @@ GEM
     logging (2.1.0)
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
-    loofah (2.1.1)
+    loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.0)
@@ -322,7 +322,7 @@ GEM
     net-ssh (3.0.1)
     newrelic_rpm (4.6.0.338)
     nio4r (2.1.0)
-    nokogiri (1.8.2)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     oauth2 (1.2.0)
       faraday (>= 0.8, < 0.10)
@@ -367,7 +367,7 @@ GEM
       byebug (~> 8.0)
       pry (~> 0.10)
     puma (3.11.2)
-    rack (2.0.3)
+    rack (2.0.5)
     rack-cors (1.0.2)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -390,8 +390,8 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.0.3)
-      loofah (~> 2.0)
+    rails-html-sanitizer (1.0.4)
+      loofah (~> 2.2, >= 2.2.2)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
