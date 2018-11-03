@@ -2,6 +2,8 @@
 # refer to solution at https://github.com/vmg/redcarpet/issues/85
 class CompassMarkdownRenderer < Redcarpet::Render::HTML
 
+  CALLOUT_REGEX = /\A\<h4\>(\w+)(\:\:[\S\s]+)?\<\/h4\>/
+
   def initialize(extensions = {})
     super extensions.merge(link_attributes: { target: "_blank" })
   end
@@ -17,6 +19,23 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
   #     "#{code}" \
   #   "</code>"
   # end
+
+  def block_quote(quote)
+    if matches = quote.match(CALLOUT_REGEX)
+      icon_html = block_quote_icon_html(matches[1])
+      tooltip_attrs = %(data-toggle="tooltip" title="#{matches[2][2..-1]}") if matches[2]
+      %(
+        <div class="callout callout-#{block_quote_class(matches[1])}">
+          <div class="callout-icon" #{tooltip_attrs}>#{icon_html}</div>
+          <div class="callout-body">
+            #{quote.sub(CALLOUT_REGEX, '')}
+          </div>
+        </div>
+      )
+    else
+      %(<blockquote>#{quote}</blockquote>)
+    end
+  end
 
   def block_code(code, lang)
     class_name = ""
@@ -42,6 +61,71 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
   end
 
   private
+
+  def block_quote_class(type)
+    case type.downcase
+    when 'note', 'info'
+      'info'
+    when 'warning'
+      'warning'
+    when 'danger', 'alert'
+      'danger'
+    when 'question'
+      'question'
+    when 'instruction'
+      'instruction'
+    else
+      'info'
+    end
+  end
+
+
+  def block_quote_icon_html(type)
+    type = type.downcase
+    case type
+      when 'note', 'info'
+        %(
+          <span class="fa-stack">
+            <i class="fa fa-circle-o fa-stack-2x"></i>
+            <i class="fa fa-info fa-stack-1x"></i>
+          </span>
+        )
+      when 'warning'
+        %(
+          <span class="fa-stack">
+            <i class="fa fa-circle-o fa-stack-2x"></i>
+            <i class="fa fa-exclamation fa-stack-1x"></i>
+          </span>
+        )
+      when 'danger', 'alert'
+        %(
+          <span class="fa-stack">
+            <i class="fa fa-circle-o fa-rotate-90 fa-stack-2x"></i>
+            <i class="fa fa-exclamation fa-stack-1x"></i>
+          </span>
+        )
+      when 'question'
+        %(
+          <span class="fa-stack">
+            <i class="fa fa-circle-o fa-stack-2x"></i>
+            <i class="fa fa-question fa-stack-1x"></i>
+          </span>
+        )
+      when 'instruction'
+        %(
+          <span class="fa-stack">
+            <i class="fa fa-code fa-stack-2x"></i>
+          </span>
+        )
+      else
+        %(
+          <span class="fa-stack">
+            <i class="fa fa-circle-o fa-stack-2x"></i>
+            <i class="fa fa-question fa-stack-1x"></i>
+          </span>
+        )
+    end
+  end
 
   def html_escape(string)
     string.gsub(/['&\"<>\/]/, '&' => '&amp;',
