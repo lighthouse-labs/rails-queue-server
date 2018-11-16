@@ -21,7 +21,7 @@ class Admin::DeploymentsController < Admin::BaseController
 
     CurriculumDeploymentWorker.perform_async(@repository.id, @branch, @sha)
 
-    redirect_to [:admin, :deployments], notice: "Deployment Queued (#{@branch} branch) for #{@program}! Refresh to view it"
+    redirect_to [:admin, :deployments], notice: "Deployment Queued (#{@branch} branch) for #{@program.name}! Refresh to view it"
   end
 
 end
