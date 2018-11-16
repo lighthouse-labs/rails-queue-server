@@ -2,7 +2,7 @@ tr
   td = deployment.id
   td = deployment.created_at.to_s(:date_and_time)
   td = deployment.branch
-  td = deployment.sha
+  td = deployment.sha.to_s.first(7)
   td
     - if deployment.completed?
       span.badge.badge-success = deployment.status
