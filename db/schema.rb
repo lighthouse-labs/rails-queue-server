@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180825172247) do
+ActiveRecord::Schema.define(version: 20181114011751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,6 +205,8 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.datetime "updated_at",                         null: false
     t.string   "last_sha"
     t.string   "github_branch",   default: "master"
+    t.integer  "program_id"
+    t.index ["program_id"], name: "index_content_repositories_on_program_id", using: :btree
   end
 
   create_table "curriculum_breaks", force: :cascade do |t|

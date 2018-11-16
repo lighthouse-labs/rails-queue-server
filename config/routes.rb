@@ -210,6 +210,8 @@ LaserShark::Application.routes.draw do
     resources :assistances, only: [:index]
     # Projects CRUD
     resources :projects, only: [:new, :create, :edit, :update, :destroy]
+
+    resources :deployments
   end
 
   # To test 500 error notifications on production
