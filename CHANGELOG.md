@@ -1,5 +1,14 @@
 # Change Log
 
+## [2018.11.15.1645](https://github.com/lighthouse-labs/compass/tree/2018.11.15.1645) (2018-11-16)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.10.17.0715...2018.11.15.1645)
+
+**Merged pull requests:**
+
+- Admin can make curriculum deployments manually. +added sidekiq for bg jobs [\#800](https://github.com/lighthouse-labs/compass/pull/800) ([kvirani](https://github.com/kvirani))
+- Markdown Support for coloured callouts in activity instructions [\#796](https://github.com/lighthouse-labs/compass/pull/796) ([kvirani](https://github.com/kvirani))
+- Fix issue with latest release where student could not resubmit project [\#793](https://github.com/lighthouse-labs/compass/pull/793) ([kvirani](https://github.com/kvirani))
+
 ## [2018.10.17.0715](https://github.com/lighthouse-labs/compass/tree/2018.10.17.0715) (2018-10-17)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.10.14.1645...2018.10.17.0715)
 
