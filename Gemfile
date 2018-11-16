@@ -31,6 +31,7 @@ gem 'best_in_place', github: 'bernat/best_in_place'
 gem 'ace-rails-ap'
 
 gem 'simple_form'
+gem 'sidekiq'
 gem 'slim-rails'
 gem 'font-awesome-rails'
 # gem 'compass-rails'

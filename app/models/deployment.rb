@@ -1,9 +1,18 @@
 class Deployment < ApplicationRecord
 
   belongs_to :content_repository
+  default_scope -> { order(created_at: :desc) }
 
   def prev
     content_repository.deployments.where('created_at < ?', created_at).order(created_at: :desc).first
+  end
+
+  def completed?
+    status == 'completed'
+  end
+
+  def started?
+    status == 'started'
   end
 
   def github_compare_link_against(deployment)

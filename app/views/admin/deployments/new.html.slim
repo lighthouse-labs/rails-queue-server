@@ -1,0 +1,15 @@
+- title "Admin New Curriculum Deployment"
+
+h1 New Curriculum Deployment
+hr
+
+= simple_form_for [:admin, @deployment],
+  html: { class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
+
+  = render f
+
+  .actions.card
+    .card-header
+      = f.submit 'Deploy', class: 'btn btn-primary', style: 'margin-right: 10px;'
+      = link_to '&laquo; Cancel'.html_safe, [:admin, :cohorts]
+

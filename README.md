@@ -61,6 +61,8 @@ Follow these steps in order please:
   * This will create, schema load, and seed the db
   * The seed script will download the (private) curriculum repo in order to ingest the content. This means your github auth should be set appropriately, otherwise it will have access issues and fail.
 9. Start the server, using `bin/serve`
+11. Run `bin/fresh_sidekiq` in another terminal
+  * Note: It will intentionally clear the queues (seeds cause a lot of tasks) before starting, so keep that in mind
 10. Create an admin+teacher account for yourself. First sign up as a teacher using this URL:
   * <http://compass.local:4000/i/ggg> (teacher invite code URL)
   * Once you've authenticated successfully, `rails c` in and update the user (using `u = User.last`, set `u.admin = true`, then `u.save`)
@@ -78,13 +80,15 @@ User (student/teacher) Authentication can only happen through Github. Much like 
 
 ## Server
 
-Start the server using the command `bin/serve`
-This runs `bin/rails s -b 0.0.0.0 -p 4000`
+1. Start the server using the command `bin/serve`.
+  - This runs `bin/rails s -b 0.0.0.0 -p 4000`
   - You can change this to 3000 if you prefer (affects above GitHub changes)
+2. Run `bin/fresh_sidekiq` in another terminal.
+  - Note: This script will intentionally clear the queues for a fresh start.
 
-## Queue
+## Assistance Queue
 
-The Queue is reliant on Redis (though ActionCable).
+The Assistance Queue (found on path /assistance_requests) is reliant on Redis (though ActionCable).
 
 To install Redis:
 
