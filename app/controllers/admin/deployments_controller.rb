@@ -9,7 +9,7 @@ class Admin::DeploymentsController < Admin::BaseController
     @repository = @program.content_repositories.first
     @deployment = Deployment.new(
       content_repository: @repository,
-      branch: ENV['CURRICULUM_BRANCH'] || 'master'
+      branch:             ENV['CURRICULUM_BRANCH'] || 'master'
     )
   end
 

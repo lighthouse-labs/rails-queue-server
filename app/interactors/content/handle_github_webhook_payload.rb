@@ -19,7 +19,8 @@ class Content::HandleGithubWebhookPayload
     CurriculumDeploymentWorker.perform_async(
       @repo.id,
       nil,
-      sha)
+      sha
+    )
   end
 
 end

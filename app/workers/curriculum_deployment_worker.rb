@@ -1,4 +1,5 @@
 class CurriculumDeploymentWorker
+
   include Sidekiq::Worker
 
   # Don't want it to retry a failed deployment. Move on!
@@ -10,8 +11,9 @@ class CurriculumDeploymentWorker
 
     Content::Deploy.call(
       content_repository: repo,
-      branch: branch,
-      sha: sha
+      branch:             branch,
+      sha:                sha
     )
   end
+
 end
