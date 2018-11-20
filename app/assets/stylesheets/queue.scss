@@ -25,6 +25,10 @@ body.queue-show {
     padding-left: 30px;
     padding-bottom: 42px;
 
+    &.student {
+      padding-bottom: 12px;
+    }
+
     img.avatar {
       width: 60px;
       height: 60px;
@@ -98,6 +102,9 @@ body.queue-show {
       }
       &.interview {
         background-color: #61E8E1;
+      }
+      &.student {
+        background-color: #9BF764;
       }
 
       .text {
