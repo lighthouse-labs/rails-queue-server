@@ -24,6 +24,7 @@ LaserShark::Application.routes.draw do
   end
 
   resources :questions
+  resource :queue, only: [:show], controller: 'queue'
 
   resources :quiz_submissions, only: [:show]
 
