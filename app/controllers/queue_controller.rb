@@ -1,44 +1,29 @@
 class QueueController < ApplicationController
 
-  skip_before_action :authenticate_user
+  before_action :teacher_required
 
   def show
-    # raise (Queue::LocationSerializer == LocationSerializer).inspect
-
-    root = {
-      locations: Location.active.to_a
-    }
-    @locations = Location.all
-    @locations.each do |loc|
-      root[:locations] << loc
-    end
-    # render json: QueueRootSerializer.new(root).as_json
     respond_to do |format|
       format.html
-      format.js {
-        render json: @locations, each_serializer: QueueLocationSerializer, root: false
+      format.json {
+        render json: QueueSerializer.new(current_user)
       }
     end
   end
 
   private
 
-  def render_location(loc)
-    # data = {
-    #   students: []
-    # }
-
-    # students = Student.active.in_active_cohort.where(location_id: loc)
-
-    # students.each do |s|
-    #   data[:students].push({
-    #     id: s.id,
-    #     first_name: s.first_name,
-    #     last_name:  s.last_name,
-    #     email:      s.email,
-    #     avatar:
-    #   })
-    # end
+  def teacher_required
+    unless teacher?
+      respond_to do |format|
+        format.html {
+          redirect_to(:root, alert: 'Not allowed.')
+        }
+        format.json {
+          render json: { error: 'Not Allowed.' }
+        }
+      end
+    end
   end
 
 end

@@ -25,6 +25,7 @@ class StartTechInterview
   def broadcast_to_queue
     ActionCable.server.broadcast "assistance-#{@location.name}", type:   "TechInterviewStarted",
                                                                  object: TechInterviewSerializer.new(@tech_interview, root: false).as_json
+    BroadcastQueueUpdate.call(program: Program.first)
   end
 
   def broadcast_to_interviewee

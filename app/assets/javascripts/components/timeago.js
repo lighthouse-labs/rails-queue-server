@@ -1,4 +1,4 @@
-var TimeAgo = React.createClass(
+window.TimeAgo = createReactClass(
   { displayName: 'Time-Ago'
   , timeoutId: 0
   , getDefaultProps: function(){
@@ -15,15 +15,15 @@ var TimeAgo = React.createClass(
              }
     }
   , propTypes:
-      { live: React.PropTypes.bool.isRequired
-      , minPeriod: React.PropTypes.number.isRequired
-      , maxPeriod: React.PropTypes.number.isRequired
-      , component: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]).isRequired
-      , formatter: React.PropTypes.func.isRequired
-      , date: React.PropTypes.oneOfType(
-          [ React.PropTypes.string
-          , React.PropTypes.number
-          , React.PropTypes.instanceOf(Date)
+      { live: PropTypes.bool.isRequired
+      , minPeriod: PropTypes.number.isRequired
+      , maxPeriod: PropTypes.number.isRequired
+      , component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired
+      , formatter: PropTypes.func.isRequired
+      , date: PropTypes.oneOfType(
+          [ PropTypes.string
+          , PropTypes.number
+          , PropTypes.instanceOf(Date)
           ]
         ).isRequired
       }
@@ -48,7 +48,7 @@ var TimeAgo = React.createClass(
     }
   }
   , tick: function(refresh){
-      if(!this.isMounted() || !this.props.live){
+      if(!this.props.live){
         return
       }
 
@@ -115,6 +115,9 @@ var TimeAgo = React.createClass(
       delete props.date
       delete props.formatter
       delete props.component
+      delete props.maxPeriod
+      delete props.minPeriod
+      delete props.live
 
       return React.createElement( this.props.component, props, this.props.formatter(value, unit, suffix, then) )
     }

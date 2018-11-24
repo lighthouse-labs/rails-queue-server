@@ -6,6 +6,8 @@ class BroadcastEvaluationToTeachers
     evaluation = context.evaluation
     ActionCable.server.broadcast "assistance-#{evaluation.student.cohort.location.name}", type:   "EvaluationRequest",
                                                                                           object: EvaluationSerializer.new(evaluation, root: false).as_json
+
+    BroadcastQueueUpdate.call(program: Program.first)
   end
 
 end

@@ -18,6 +18,7 @@ class UserChannel < ApplicationCable::Channel
     ActionCable.server.broadcast "assistance-#{location_name}", type:   "AssistanceRequest",
                                                                 object: AssistanceRequestSerializer.new(ar, root: false).as_json
 
+    BroadcastQueueUpdate.call(program: Program.first)
     UserChannel.broadcast_to current_user, type:   "AssistanceRequested",
                                            object: current_user.position_in_queue
   end
@@ -30,6 +31,7 @@ class UserChannel < ApplicationCable::Channel
                                                                   object: AssistanceRequestSerializer.new(ar, root: false).as_json
 
       UserChannel.broadcast_to current_user, type: "AssistanceEnded"
+      BroadcastQueueUpdate.call(program: Program.first)
 
       teacher_available(ar.assistance.assistor) if ar.assistance
       update_students_in_queue(ar.requestor.cohort.location)

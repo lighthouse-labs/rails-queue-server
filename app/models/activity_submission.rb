@@ -138,6 +138,7 @@ class ActivitySubmission < ApplicationRecord
   def handle_submission_destroy
     ActionCable.server.broadcast "assistance", type:   "CancelAssistanceRequest",
                                                object: AssistanceRequestSerializer.new(code_review_request, root: false).as_json
+    BroadcastQueueUpdate.call(program: Program.first)
   end
 
   def create_user_outcome_results
