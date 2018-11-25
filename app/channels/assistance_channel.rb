@@ -20,18 +20,6 @@ class AssistanceChannel < ApplicationCable::Channel
     end
   end
 
-  def end_assistance(data)
-    assistance = Assistance.find data["assistance_id"]
-    assistance.end(data["notes"], data["notify"], data["rating"].to_i)
-
-    location_name = assistance.assistance_request.assistor_location.name
-    ActionCable.server.broadcast "assistance-#{location_name}", type:   "AssistanceEnded",
-                                                                object: AssistanceSerializer.new(assistance, root: false).as_json
-    BroadcastQueueUpdate.call(program: Program.first)
-    UserChannel.broadcast_to assistance.assistance_request.requestor, type: "AssistanceEnded"
-    teacher_available(current_user)
-  end
-
   def cancel_assistance_request(data)
     ar = AssistanceRequest.find data["request_id"]
     if ar&.cancel
@@ -59,17 +47,6 @@ class AssistanceChannel < ApplicationCable::Channel
       BroadcastQueueUpdate.call(program: Program.first)
       teacher_available(current_user)
       update_students_in_queue(assistance.assistance_request.assistor_location)
-    end
-  end
-
-  def provided_assistance(data)
-    student = Student.find data["student_id"]
-    assistance_request = AssistanceRequest.new(requestor: student, reason: "Offline assistance requested")
-    BroadcastQueueUpdate.call(program: Program.first)
-    if assistance_request.save
-      assistance_request.start_assistance(current_user)
-      assistance = assistance_request.reload.assistance
-      assistance.end(data["notes"], data["notify"], data["rating"])
     end
   end
 

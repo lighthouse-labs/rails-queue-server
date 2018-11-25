@@ -6,14 +6,7 @@ window.Queue.StudentsList = class StudentsList extends React.Component {
   }
 
   renderStudent(student) {
-    return (
-      <li key={student.id} className="list-group-item student clearfix">
-        <div className="type student">
-          <div className="text">Student</div>
-        </div>
-        <Queue.StudentInfo student={student} />
-      </li>
-    )
+    return <Queue.Student key={`student-${student.id}`} student={student} />
   }
 
   renderStudents() {

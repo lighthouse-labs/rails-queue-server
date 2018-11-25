@@ -25,7 +25,7 @@ window.Queue.OpenRequestsList = class OpenRequestsList extends React.Component {
         <div className="card-header clearfix">
           <h5 className="card-title">
             <span className="count">{this.props.requests.length}</span>
-            <span className="title">Open Help Requests</span>
+            <span className="title">Open Requests</span>
           </h5>
         </div>
         <ul className="list-group">

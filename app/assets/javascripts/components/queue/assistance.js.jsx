@@ -7,13 +7,21 @@ window.Queue.Assistance = class Assistance extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { disabled: false }
+    this.state = { disabled: false };
   }
 
-  stopAssisting = () => {
-    this.setState({disabled: true})
-    App.queue.stopAssisting(this.props.assistance)
-    // ga('send', 'event', 'cancel-assistance', 'click');
+  handleCancelAssisting = () => {
+    this.setState({disabled: true});
+    App.queue.stopAssisting(this.props.assistance);
+    ga('send', 'event', 'cancel-assistance', 'click');
+  }
+
+  handleEndAssisting = () => {
+    this.openModal();
+  }
+
+  openModal() {
+    this.refs.requestModal.open()
   }
 
   render() {
@@ -40,7 +48,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
           <div className="info">
             <div className="name">{assistor.firstName} {assistor.lastName}</div>
             <div className="details">
-              <span className="time">~ <TimeAgo date={assistance.startAt} /></span>
+              <span className="time"><TimeAgo date={assistance.startAt} /></span>
             </div>
           </div>
         </div>
@@ -49,9 +57,11 @@ window.Queue.Assistance = class Assistance extends React.Component {
           <blockquote>{assistance.blurb}</blockquote>
         </div>
         <div className="actions pull-right">
-          <button className="btn btn-sm btn-danger" onClick={this.stopAssisting} disabled={this.state.disabled}>Cancel</button>
-          <button className="btn btn-sm btn-primary">Finished</button>
+          <button className="btn btn-sm btn-danger" onClick={this.handleCancelAssisting} disabled={this.state.disabled}>Cancel</button>
+          <button className="btn btn-sm btn-primary"onClick={this.handleEndAssisting} disabled={this.state.disabled}>Finished</button>
         </div>
+
+        <Queue.RequestModal assistance={assistance} ref="requestModal" />
       </li>
     )
   }

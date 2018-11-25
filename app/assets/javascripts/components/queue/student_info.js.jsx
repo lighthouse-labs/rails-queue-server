@@ -4,34 +4,40 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
   propTypes: {
     student: PropTypes.object.isRequired,
     activity: PropTypes.object,
+    project: PropTypes.object,
     when: PropTypes.string,
     showDetails: PropTypes.bool
+  }
+
+  renderWhen() {
+    const when = this.props.when;
+    if (when) {
+      return(<TimeAgo date={when} />)
+    } else {
+      return(<span>Never Helped</span>)
+    }
   }
 
   renderDetails() {
     if (!this.props.showDetails) return;
 
-    let when = this.props.when || new Date();
+    let when = this.props.when;
     let student = this.props.student;
     let cohort = student.cohort;
     let activity = this.props.activity;
-    let project = activity && activity.project;
+    let project = this.props.project || (activity && activity.project);
 
-    let weekBadge;
-    let projectBadge;
+    let badges = []
 
-    if (cohort && cohort.week) weekBadge = (<a className="badge badge-primary" href={`/cohorts/${cohort.id}/students`}>W{cohort.week}</a>)
+    if (cohort && cohort.week) badges.push(<a key="weekbadge" className="badge badge-secondary" href={`/cohorts/${cohort.id}/students`}>W{cohort.week}</a>)
+    if (project) badges.push(<a key="projectbadge" className="badge badge-info" href={`/projects/${project.slug}`}>{project.name}</a>)
 
-    if (project) projectBadge = (<a className="badge badge-info" href={`/projects/${project.slug}`}>{project.name}</a>)
-
-    // ~ {moment(when).fromNow()}
     return (
       <div className="details">
-        {weekBadge}
-        {projectBadge}
+        { badges.reduce((prev, curr) => [prev, ' ', curr]) }
         <br/>
         <span className="time">
-          ~ <TimeAgo date={when} />
+          {this.renderWhen()}
         </span>
       </div>
     )

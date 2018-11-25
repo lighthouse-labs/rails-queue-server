@@ -11,8 +11,9 @@ window.Queue.Location = class Location extends React.Component {
       <div className="row queue-by-location">
         <div className="col-md-6">
           <h4>{loc.name} Queue</h4>
+          <Queue.InProgressList assistances={loc.assistances || []} evaluations={loc.inProgressEvaluations || []} />
           <Queue.OpenRequestsList requests={loc.requests || []} />
-          <Queue.InProgressList assistances={loc.assistances || []} />
+          <Queue.PendingEvaluationsList evaluations={loc.pendingEvaluations || []} />
         </div>
         <div className="col-md-6">
           <h4>{loc.name} Students</h4>

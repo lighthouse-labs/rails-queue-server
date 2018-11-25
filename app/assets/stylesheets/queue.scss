@@ -1,6 +1,28 @@
 
 body.queue-show {
 
+  nav.nav-pills {
+    span.badge {
+      position: relative;
+      top: -2px;
+    }
+  }
+
+  .queue-container {
+
+    transition: opacity 1s ease-in-out;
+
+    &.disabled {
+      opacity: 0.2;
+      pointer-events: none;
+      -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;
+      user-select: none;
+      *:focus {
+        outline: 0;
+      }
+    }
+  }
+
   .card {
     margin-bottom: 14px;
   }
@@ -24,6 +46,14 @@ body.queue-show {
     position: relative;
     padding-left: 30px;
     padding-bottom: 42px;
+
+
+    // Bootstrap Modal inside flickers on mouse move (hover) without this :hover z-index thing - KV
+    // https://github.com/twbs/bootstrap/issues/25206
+    z-index: auto;
+    &:hover {
+      z-index: auto;
+    }
 
     &.student {
       padding-bottom: 12px;
@@ -71,16 +101,15 @@ body.queue-show {
         margin-top: 10px;
         padding-left: 6px;
         margin-bottom: 4px;
-
       }
     }
 
     .actions {
       position: absolute;
       right: 0px;
-      bottom: -2px;
+      bottom: 0px;
 
-      button {
+      button.btn, a.btn {
         border-radius: 0px;
       }
     }

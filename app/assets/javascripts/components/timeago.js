@@ -10,7 +10,7 @@ window.TimeAgo = createReactClass(
                  if(value !== 1){
                    unit += 's'
                  }
-                 return value + ' ' + unit + ' ' + suffix
+                 return '~ ' + value + ' ' + unit + ' ' + suffix
                }
              }
     }
@@ -89,10 +89,10 @@ window.TimeAgo = createReactClass(
 
       if(seconds < 60){
         value = Math.round(seconds)
-        unit = 'second'
+        unit = 'sec'
       } else if(seconds < 60*60) {
         value = Math.round(seconds/60)
-        unit = 'minute'
+        unit = 'min'
       } else if(seconds < 60*60*24) {
         value = Math.round(seconds/(60*60))
         unit = 'hour'

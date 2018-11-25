@@ -38,6 +38,9 @@ class User < ApplicationRecord
   scope :order_by_first_name, -> {
     order(first_name: :asc)
   }
+  scope :order_by_name, -> {
+    order(first_name: :asc, last_name: :asc)
+  }
   scope :cohort_in_locations, ->(locations) {
     if locations.is_a?(Array) && !locations.empty?
       includes(cohort: :location)

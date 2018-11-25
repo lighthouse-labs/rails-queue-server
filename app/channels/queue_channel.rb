@@ -1,5 +1,7 @@
 class QueueChannel < ApplicationCable::Channel
 
+  include Rails.application.routes.url_helpers
+
   def subscribed
     stream_from "queue"
   end
@@ -39,6 +41,28 @@ class QueueChannel < ApplicationCable::Channel
       UserChannel.broadcast_to ar.requestor, type: "AssistanceStarted", object: UserSerializer.new(current_user).as_json
       teacher_busy(current_user)
       update_students_in_queue(ar.assistor_location)
+    end
+  end
+
+  def start_evaluating(data)
+    evaluation = Evaluation.find_by id: data["evaluation_id"]
+    if evaluation&.grabbable_by?(current_user)
+      evaluation.teacher = current_user
+      if evaluation.transition_to(:in_progress)
+        BroadcastMarking.call(evaluation: evaluation,
+                              user: current_user,
+                              edit_evaluation_url: edit_project_evaluation_path(evaluation.project, evaluation))
+      end
+    end
+  end
+
+  def cancel_evaluating(data)
+    evaluation = Evaluation.find_by id: data["evaluation_id"]
+    if evaluation&.can_requeue?
+      evaluation.teacher = nil
+      if evaluation.transition_to(:pending)
+        BroadcastMarking.call(evaluation: evaluation)
+      end
     end
   end
 
