@@ -9,7 +9,7 @@ class window.RequestButtonPresenter
 
   render: ->
     switch @type
-      when "AssistanceRequested" then @assistanceRequested(@object) 
+      when "AssistanceRequested" then @assistanceRequested(@object)
       when "AssistanceStarted" then @assistanceStarted(@object)
       when "AssistanceEnded" then @assistanceEnded()
       when "QueueUpdate" then @updateQueuePosition(@object)
@@ -18,7 +18,7 @@ class window.RequestButtonPresenter
     @ar_cancel_button.text('No. ' + position + ' in Request Queue')
 
   assistanceStarted: (assistor) ->
-    @ar_cancel_button.text(assistor.first_name + ' ' + assistor.last_name + ' assisting')
+    @ar_cancel_button.text(assistor.firstName + ' ' + assistor.lastName + ' assisting')
 
   assistanceEnded: ->
     @ar_create.removeClass('d-none')
@@ -26,7 +26,7 @@ class window.RequestButtonPresenter
 
   assistanceRequested: (position) ->
     @ar_create.addClass('d-none')
-    @ar_cancel.removeClass('d-none') 
+    @ar_cancel.removeClass('d-none')
     @ar_cancel_button.text('No. ' + position + ' in Request Queue')
     @ar_cancel_button.tooltip()
 

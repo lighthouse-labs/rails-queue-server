@@ -1,6 +1,7 @@
 class UserSerializer < ActiveModel::Serializer
 
   format_keys :lower_camel
+  root false
 
   attributes :id,
              :type,
