@@ -38,7 +38,7 @@ window.Queue.App = class App extends React.Component {
           this.setState({connected: false, disconnects: disconnects+1 });
         },
         received: (data) => {
-          this.setState(JSON.parse(data));
+          this.queueDataReceived(JSON.parse(data));
         },
         cancelAssistanceRequest: function(request) {
           this.perform('cancel_assistance_request', {request_id: request.id});
@@ -59,11 +59,13 @@ window.Queue.App = class App extends React.Component {
     });
   }
 
+  queueDataReceived(data) {
+    this.setState(data);
+    this.writeCacheQueueData(data);
+  }
+
   fetchQueueData() {
-    $.getJSON('/queue.json').then((data) => {
-      this.setState(data);
-      this.writeCacheQueueData(data);
-    });
+    $.getJSON('/queue.json').then(this.queueDataReceived.bind(this));
     this.setupSubscription();
   }
 
