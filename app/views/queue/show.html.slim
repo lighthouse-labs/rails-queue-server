@@ -3,7 +3,7 @@
 
 / == react_component("Queue.App", QueueSerializer.new(current_user, key_format: :lower_camel).to_json)
 
-== react_component("Queue.App")
+== react_component("Queue.App", { myLocation: MyLocationSerializer.new(current_user.location) })
 
 / .row
 /   .col-md-6

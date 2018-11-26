@@ -96,8 +96,10 @@ body.queue-show {
 
     .blurb {
       blockquote {
-        font-size: 0.65em;
-        line-height: 1.3em;
+        font-size: 0.9em;
+        color: #555;
+        font-style: italic;
+        line-height: 1.5em;
         margin-top: 10px;
         padding-left: 6px;
         margin-bottom: 4px;
@@ -150,7 +152,7 @@ body.queue-show {
 
     .assister {
       margin-top: 6px;
-      font-size: 0.75em;
+      font-size: 0.9em;
       padding-left: 27px;
 
       img.avatar {

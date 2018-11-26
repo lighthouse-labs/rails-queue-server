@@ -1,5 +1,6 @@
 class window.UserChannelHandler
   constructor: (data) ->
+    @data = data
     @type = data.type
     @object = data.object
 
@@ -14,7 +15,7 @@ class window.UserChannelHandler
         presenter.render()
 
   redirectCommand: ->
-    console.log 'RedirectCommand: ', @data
+    Turbolinks.visit(@data.location)
 
   userConnected: ->
     window.current_user = @object

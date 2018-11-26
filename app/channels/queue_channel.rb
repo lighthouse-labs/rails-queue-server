@@ -50,6 +50,7 @@ class QueueChannel < ApplicationCable::Channel
       evaluation.teacher = current_user
       if evaluation.transition_to(:in_progress)
         BroadcastMarking.call(evaluation: evaluation,
+                              evaluator: current_user,
                               user: current_user,
                               edit_evaluation_url: edit_project_evaluation_path(evaluation.project, evaluation))
       end

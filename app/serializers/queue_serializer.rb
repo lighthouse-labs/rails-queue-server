@@ -6,7 +6,7 @@ class QueueSerializer < ActiveModel::Serializer
   has_many :locations, serializer: QueueLocationSerializer
 
   def locations
-    Location.all.order(id: :desc)
+    Location.all.order(id: :asc)
   end
 
 end

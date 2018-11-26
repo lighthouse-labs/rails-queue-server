@@ -9,6 +9,7 @@ window.Queue.App = class App extends React.Component {
     super(props);
     const queue = this.readCacheQueueData();
     this.state = {
+      myLocation: this.props.myLocation,
       queue: this.props.queue || queue,
       connected: false,
       disconnects: 0
@@ -93,7 +94,6 @@ window.Queue.App = class App extends React.Component {
   }
 
   onlyVisibleLocations(myLocation) {
-    console.log('here');
     return (this.state.queue.locations || []).filter((location) => {
       return (
         (location.students.length > 0) ||
