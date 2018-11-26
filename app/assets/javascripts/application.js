@@ -28,7 +28,6 @@
 //= require autosize
 //= require bootstrap-sortable
 //= require eslint
-//= require sugar-truncate
 
 //= require default
 

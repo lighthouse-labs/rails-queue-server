@@ -27,7 +27,7 @@ window.Queue.Interview = class Interview extends React.Component {
 
   truncatedDescription(interview) {
     const desc = interview.techInterviewTemplate.description;
-    return truncateString(desc.split('. ').splice(0, 1).join('. '), 105);
+    return _.truncate(desc.split('. ').splice(0, 1).join('. '), {length: 105});
   }
 
   render() {
