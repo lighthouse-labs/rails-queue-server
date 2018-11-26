@@ -5,8 +5,8 @@ window.Queue.RequestModal = class RequestModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notesValid: true,
-      ratingValid: true,
+      notesValid: null,
+      ratingValid: null,
       disabled: false
     };
   }
@@ -115,6 +115,20 @@ window.Queue.RequestModal = class RequestModal extends React.Component {
 
     const disabled = this.state.disabled;
 
+    let notesFieldClass = '';
+    if (this.state.notesValid === true) {
+      notesFieldClass = 'is-valid';
+    } else if (this.state.notesValid === false) {
+      notesFieldClass = 'is-invalid';
+    }
+
+    let ratingFieldClass = '';
+    if (this.state.ratingValid === true) {
+      ratingFieldClass = 'is-valid';
+    } else if (this.state.ratingValid === false) {
+      ratingFieldClass = 'is-invalid';
+    }
+
     return (
       <div className="modal fade" ref="modal">
         <div className="modal-dialog">
@@ -135,7 +149,7 @@ window.Queue.RequestModal = class RequestModal extends React.Component {
                   <label>Notes</label>
                   <textarea
                     onChange={this.setNotesError}
-                    className="form-control"
+                    className={`form-control ${notesFieldClass}`}
                     placeholder="How did the assistance go?"
                     ref="notes">
                   </textarea>
@@ -145,7 +159,7 @@ window.Queue.RequestModal = class RequestModal extends React.Component {
                   <label>Rating</label>
                   <select
                     onChange={this.setRatingError}
-                    className="form-control"
+                    className={`form-control ${ratingFieldClass}`}
                     ref="rating"
                     required="true">
                       <option value=''>Please Select</option>

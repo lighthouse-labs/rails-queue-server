@@ -11,6 +11,7 @@ class QueueLocationSerializer < ActiveModel::Serializer
   has_many :requests
   has_many :pending_evaluations
   has_many :in_progress_evaluations
+  has_many :in_progress_interviews
 
   def pending_evaluations
     Evaluation.open_evaluations.student_location(object).student_priority
@@ -18,6 +19,10 @@ class QueueLocationSerializer < ActiveModel::Serializer
 
   def in_progress_evaluations
     Evaluation.in_progress_evaluations.student_location(object).student_priority
+  end
+
+  def in_progress_interviews
+    TechInterview.in_progress.oldest_first.interviewee_location(object)
   end
 
   def students
