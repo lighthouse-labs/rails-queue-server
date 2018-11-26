@@ -88,35 +88,38 @@ window.Queue.App = class App extends React.Component {
     })
   }
 
-  renderLocation(selectedLocation, location) {
-    if (selectedLocation && selectedLocation.id === location.id) {
-      return(
-        <Queue.Location key={`location-${location.id}`} location={location} />
-      )
-    }
+  getSelectedLocation(locations) {
+    return this.state.selectedLocation || this.state.myLocation || (locations && locations[0])
   }
 
-  renderLocations() {
-    const locations = this.state.queue.locations;
-    return locations.map(this.renderLocation.bind(this, this.getSelectedLocation()));
-  }
-
-  getSelectedLocation() {
-    return this.state.selectedLocation || this.state.myLocation || (this.state.queue && this.state.queue.locations[0])
+  onlyVisibleLocations(myLocation) {
+    console.log('here');
+    return (this.state.queue.locations || []).filter((location) => {
+      return (
+        (location.students.length > 0) ||
+        (location.pendingEvaluations.length > 0) ||
+        (location.inProgressEvaluations.length > 0) ||
+        (myLocation && location.id === myLocation.id)
+      );
+    });
   }
 
   render() {
     if (this.state.queue) {
-      const disabled = this.state.connected ? '' : 'disabled';
-      const locations = this.state.queue.locations;
+      const disabled   = this.state.connected ? '' : 'disabled';
+      const myLocation = this.state.myLocation;
+      const locations  = this.onlyVisibleLocations(myLocation);
+      const selectedLocation = this.getSelectedLocation(locations);
 
       return (
         <div className={`queue-container ${disabled}`}>
           <Queue.LocationPicker onLocationChange={this.handleLocationChange}
                                 locations={locations}
-                                myLocation={this.state.myLocation}
-                                selectedLocation={this.getSelectedLocation()} />
-          {this.renderLocations()}
+                                myLocation={myLocation}
+                                selectedLocation={selectedLocation} />
+          <Queue.Locations      locations={locations}
+                                myLocation={myLocation}
+                                selectedLocation={selectedLocation} />
         </div>
       );
     }

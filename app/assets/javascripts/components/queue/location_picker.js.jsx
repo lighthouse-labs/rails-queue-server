@@ -3,7 +3,8 @@ window.Queue || (window.Queue = {});
 window.Queue.LocationPicker = class LocationPicker extends React.Component {
   propTypes: {
     locations: PropTypes.array.isRequired,
-    selectedLocation: PropTypes.object
+    selectedLocation: PropTypes.object,
+    myLocation: PropTypes.object
   }
 
   constructor(props) {
