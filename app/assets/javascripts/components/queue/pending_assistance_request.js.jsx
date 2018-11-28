@@ -32,8 +32,8 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
 
   actionButtons() {
     const buttons = []
-    buttons.push(<button key="remove" className="btn btn-sm btn-danger" onClick={this.handleCancelAssistance} disabled={this.state.disabled}>Remove!</button>)
-    buttons.push(<button key="start" className="btn btn-sm btn-primary" onClick={this.handleStartAssisting} disabled={this.state.disabled}>Start Assisting</button>)
+    buttons.push(<button key="remove" className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelAssistance} disabled={this.state.disabled}>Remove</button>)
+    buttons.push(<button key="start" className="btn btn-sm btn-secondary btn-main" onClick={this.handleStartAssisting} disabled={this.state.disabled}>Start Assisting</button>)
     return buttons;
   }
 
@@ -50,9 +50,9 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
     const student = request.requestor;
 
     return (
-      <li className="assistance list-group-item clearfix">
-        <div className="type assistance">
-          <div className="text">Assistance</div>
+      <li className="request list-group-item clearfix">
+        <div className="type">
+          <div className="text">Request</div>
         </div>
 
         <Queue.StudentInfo  student={student}

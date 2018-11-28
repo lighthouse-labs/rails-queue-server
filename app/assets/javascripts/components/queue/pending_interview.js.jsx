@@ -11,7 +11,7 @@ window.Queue.PendingInterview = class PendingInterview extends React.Component {
 
     return (
       <li className="interview list-group-item clearfix">
-        <div className="type interview">
+        <div className="type">
           <div className="text">Interview</div>
         </div>
 

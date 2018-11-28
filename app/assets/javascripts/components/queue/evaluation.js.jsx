@@ -39,7 +39,7 @@ window.Queue.Evaluation = class Evaluation extends React.Component {
 
     return (
       <li className="evaluation list-group-item clearfix">
-        <div className="type evaluation">
+        <div className="type">
           <div className="text">Evaluation</div>
         </div>
 
@@ -55,8 +55,8 @@ window.Queue.Evaluation = class Evaluation extends React.Component {
           <blockquote>{evaluation.studentNotes}</blockquote>
         </div>
         <div className="actions pull-right">
-          <button className="btn btn-sm btn-danger" onClick={this.handleCancelEvaluating} disabled={this.state.disabled}>Cancel</button>
-          <a className="btn btn-sm btn-primary" href={`/projects/${project.slug}/evaluations/${evaluation.id}/edit`} disabled={this.state.disabled}>View</a>
+          <button className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelEvaluating} disabled={this.state.disabled}>Cancel</button>
+          <a className="btn btn-sm btn-secondary btn-main" href={`/projects/${project.slug}/evaluations/${evaluation.id}/edit`} disabled={this.state.disabled}>View</a>
         </div>
       </li>
     )

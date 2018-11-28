@@ -10,20 +10,20 @@ window.Queue.Interview = class Interview extends React.Component {
     this.state = { disabled: false };
   }
 
-  renderInterviewer(interviewer, interview) {
-    return(
-      <div className="assister clearfix">
-        <div className="arrow"><span>&#10551;</span></div>
-        <img className="avatar" src={interviewer.avatarUrl} />
-        <div className="info">
-          <div className="name">{interviewer.firstName} {interviewer.lastName}</div>
-          <div className="details">
+  // renderInterviewer(interviewer, interview) {
+  //   return(
+  //     <div className="assister clearfix">
+  //       <div className="arrow"><span>&#10551;</span></div>
+  //       <img className="avatar" src={interviewer.avatarUrl} />
+  //       <div className="info">
+  //         <div className="name">{interviewer.firstName} {interviewer.lastName}</div>
+  //         <div className="details">
 
-          </div>
-        </div>
-      </div>
-    );
-  }
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   truncatedDescription(interview) {
     const desc = interview.techInterviewTemplate.description;
@@ -38,7 +38,7 @@ window.Queue.Interview = class Interview extends React.Component {
 
     return (
       <li className="interview list-group-item clearfix">
-        <div className="type interview">
+        <div className="type">
           <div className="text">Interview</div>
         </div>
 
@@ -48,14 +48,14 @@ window.Queue.Interview = class Interview extends React.Component {
                              />
 
 
-        { interviewer ? this.renderInterviewer(interviewer, interview) : nil }
+        { interviewer ? <Queue.TeacherInfo teacher={interviewer} /> : nil }
 
         <div className="blurb">
           <blockquote>{this.truncatedDescription(interview)}</blockquote>
         </div>
         <div className="actions pull-right">
-          <button className="btn btn-sm btn-danger" onClick={this.handleCancelEvaluating} disabled={this.state.disabled}>Cancel</button>
-          <a className="btn btn-sm btn-primary" href={`/tech_interviews/${interview.id}/edit`} disabled={this.state.disabled}>View</a>
+          <button className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelEvaluating} disabled={this.state.disabled}>Cancel</button>
+          <a className="btn btn-sm btn-secondary btn-main" href={`/tech_interviews/${interview.id}/edit`} disabled={this.state.disabled}>View</a>
         </div>
       </li>
     )

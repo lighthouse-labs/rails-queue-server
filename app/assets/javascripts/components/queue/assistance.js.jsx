@@ -32,7 +32,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
 
     return (
       <li className="assistance list-group-item clearfix">
-        <div className="type assistance">
+        <div className="type">
           <div className="text">Assistance</div>
         </div>
 
@@ -42,23 +42,15 @@ window.Queue.Assistance = class Assistance extends React.Component {
                              />
 
 
-        <div className="assister clearfix">
-          <div className="arrow"><span>&#10551;</span></div>
-          <img className="avatar" src={assistor.avatarUrl} />
-          <div className="info">
-            <div className="name">{assistor.firstName} {assistor.lastName}</div>
-            <div className="details">
-              <span className="time"><TimeAgo date={assistance.startAt} /></span>
-            </div>
-          </div>
-        </div>
+        <Queue.TeacherInfo teacher={assistor} when={assistance.startAt} />
+
 
         <div className="blurb">
           <blockquote>{assistance.blurb}</blockquote>
         </div>
         <div className="actions pull-right">
-          <button className="btn btn-sm btn-danger" onClick={this.handleCancelAssisting} disabled={this.state.disabled}>Cancel</button>
-          <button className="btn btn-sm btn-primary"onClick={this.handleEndAssisting} disabled={this.state.disabled}>Finished</button>
+          <button className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelAssisting} disabled={this.state.disabled}>Cancel</button>
+          <button className="btn btn-sm btn-secondary btn-main"onClick={this.handleEndAssisting} disabled={this.state.disabled}>Finished</button>
         </div>
 
         <Queue.RequestModal assistance={assistance} ref="requestModal" />

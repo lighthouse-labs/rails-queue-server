@@ -47,6 +47,102 @@ body.queue-show {
     padding-left: 30px;
     padding-bottom: 42px;
 
+    &.submission {
+      &:hover {
+      .type {
+          background-color: lighten($green, 25%);
+        }
+      }
+      .type {
+        background-color: lighten($green, 30%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $green;
+        border-color: $green;
+        color: $light;
+      }
+    }
+
+    &.evaluation {
+      &:hover {
+      .type {
+          background-color: lighten($teal, 25%);
+        }
+      }
+      .type {
+        background-color: lighten($teal, 30%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $teal;
+        border-color: $teal;
+        color: white;
+      }
+    }
+
+    &.assistance {
+      &:hover {
+        .type {
+          background-color: lighten($yellow, 25%);
+        }
+      }
+      .type {
+        background-color: lighten($yellow, 30%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $yellow;
+        border-color: $yellow;
+        color: $dark;
+      }
+    }
+
+    &.request {
+      &:hover {
+        .type {
+          background-color: lighten($orange, 25%);
+        }
+      }
+      .type {
+        background-color: lighten($orange, 30%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $orange;
+        border-color: $orange;
+        color: $light;
+      }
+    }
+
+    &.interview {
+      &:hover {
+      .type {
+          background-color: lighten($blue, 30%);
+        }
+      }
+      .type {
+        background-color: lighten($blue, 40%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $blue;
+        border-color: $blue;
+        color: white;
+      }
+    }
+
+    &.student {
+      &:hover {
+        .type {
+          background-color: darken($light, 10%);
+        }
+      }
+      .type {
+        background-color: $light;//lighten($dark, 40%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $blue;
+        border-color: $blue;
+        color: $light;
+      }
+    }
+
     .buffer {
       height: 20px;
     }
@@ -123,23 +219,11 @@ body.queue-show {
       top: 0px;
       left: 0px;
       position: absolute;
-      font-size: 0.7em;
+      font-size: 0.8em;
       overflow: hidden;
       height: 100%;
-      width: 20px;
-
-      &.evaluation {
-        background-color: #F25757;
-      }
-      &.assistance {
-        background-color: #F2E863;
-      }
-      &.interview {
-        background-color: #61E8E1;
-      }
-      &.student {
-        background-color: #9BF764;
-      }
+      width: 22px;
+      transition: background-color 0.1s ease-in-out;
 
       .text {
         transform: rotate(-90deg);

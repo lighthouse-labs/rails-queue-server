@@ -33,8 +33,8 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
 
     let badges = []
 
-    if (cohort && cohort.week) badges.push(<a key="weekbadge" className="badge badge-secondary" href={`/cohorts/${cohort.id}/students`}>W{cohort.week}</a>)
-    if (project) badges.push(<a key="projectbadge" className="badge badge-info" href={`/projects/${project.slug}`}>{project.name}</a>)
+    if (cohort && cohort.week) badges.push(<a key="weekbadge" className="badge badge-light" href={`/cohorts/${cohort.id}/students`}>W{cohort.week}</a>)
+    if (project) badges.push(<a key="projectbadge" className="badge badge-light" href={`/projects/${project.slug}`}>{project.name}</a>)
 
     // console.log('reduce: ', this.renderTogether(badges));
     return (
@@ -60,10 +60,11 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     const student = this.props.student;
     const activity = this.props.activity;
 
-    // "https://avatars.githubusercontent.com/u/20713265?v=3"
     return (
       <div className="assistee clearfix">
-        <img className="avatar" src={student.avatarUrl} />
+        <a href={`/teacher/students/${student.id}`} title='Details'>
+          <img className="avatar" src={student.avatarUrl} />
+        </a>
         <div className="info">
           <div className="name">
             {student.firstName} {student.lastName}
