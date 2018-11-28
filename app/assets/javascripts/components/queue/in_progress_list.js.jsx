@@ -42,7 +42,6 @@ window.Queue.InProgressList = class InProgressList extends React.Component {
   }
 
   renderItems(items) {
-    console.log('items: ', items);
     return items.map(this.renderItem);
   }
 

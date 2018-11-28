@@ -36,7 +36,6 @@ window.Queue.App = class App extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('unmounting queue.app');
     window.App.queue.unregisterApp();
   }
 

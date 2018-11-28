@@ -38,7 +38,7 @@ window.Queue.PendingEvaluation = class PendingEvaluation extends React.Component
 
         <div className="actions pull-right">
           <button className="btn btn-sm btn-light btn-hover-danger" disabled={disabled}>Remove</button>
-          <button className="btn btn-sm btn-main" disabled={disabled} onClick={this.handleStartEvaluating}>Start Evaluating</button>
+          <button className="btn btn-sm btn-secondary btn-main" disabled={disabled} onClick={this.handleStartEvaluating}>Start Evaluating</button>
         </div>
       </li>
     )

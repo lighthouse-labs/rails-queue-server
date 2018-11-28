@@ -36,7 +36,6 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     if (cohort && cohort.week) badges.push(<a key="weekbadge" className="badge badge-light" href={`/cohorts/${cohort.id}/students`}>W{cohort.week}</a>)
     if (project) badges.push(<a key="projectbadge" className="badge badge-light" href={`/projects/${project.slug}`}>{project.name}</a>)
 
-    // console.log('reduce: ', this.renderTogether(badges));
     return (
       <div className="details">
         { this.renderTogether(badges) }

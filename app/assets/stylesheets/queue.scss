@@ -25,6 +25,25 @@ body.queue-show {
 
   .card {
     margin-bottom: 14px;
+
+    .card-header {
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .list-group {
+      transition: opacity 0.3s ease-in-out;
+      overflow: hidden;
+    }
+
+    &.collapsed {
+      opacity: 0.4;
+
+      .list-group {
+        opacity: 0;
+        height: 0px;
+      }
+    }
   }
 
   h5.card-title {
