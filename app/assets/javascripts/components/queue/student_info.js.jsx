@@ -55,6 +55,12 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     )
   }
 
+  pronoun(student) {
+    return (
+      student.pronoun ? <p title="Pronoun" className="pronoun">({student.pronoun})</p> : null
+    )
+  }
+
   render() {
     const student = this.props.student;
     const activity = this.props.activity;
@@ -66,9 +72,7 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
         </a>
         <div className="info">
           <div className="name">
-            {student.firstName} {student.lastName}
-            <br/>
-            {this.renderActivityDetails(activity)}
+            {student.firstName} {student.lastName} {this.pronoun(student)}
           </div>
           {this.renderDetails()}
         </div>

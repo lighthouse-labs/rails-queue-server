@@ -12,6 +12,12 @@ window.Queue.TeacherInfo = class TeacherInfo extends React.Component {
     }
   }
 
+  pronoun(teacher) {
+    return (
+      teacher.pronoun ? <p title="Pronoun" className="pronoun">({teacher.pronoun})</p> : null
+    )
+  }
+
   render() {
     const teacher = this.props.teacher;
 
@@ -22,7 +28,7 @@ window.Queue.TeacherInfo = class TeacherInfo extends React.Component {
           <img className="avatar" src={teacher.avatarUrl} />
         </a>
         <div className="info">
-          <div className="name">{teacher.firstName} {teacher.lastName}</div>
+          <div className="name">{teacher.firstName} {teacher.lastName} {this.pronoun(teacher)}</div>
           <div className="details">
             { this.renderWhen() }
           </div>

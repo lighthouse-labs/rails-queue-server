@@ -1,6 +1,12 @@
 
 body.queue-show {
 
+  .pronoun {
+    font-style: italic;
+    color: $dark;
+    font-size: 0.7em;
+  }
+
   nav.nav-pills {
     span.badge {
       position: relative;
