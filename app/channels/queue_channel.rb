@@ -3,7 +3,7 @@ class QueueChannel < ApplicationCable::Channel
   include Rails.application.routes.url_helpers
 
   def subscribed
-    stream_from "queue"
+    stream_from "queue" if current_user&.is_a?(Teacher)
   end
 
   def unsubscribed
