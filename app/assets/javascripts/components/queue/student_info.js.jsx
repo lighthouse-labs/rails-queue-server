@@ -18,6 +18,10 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     }
   }
 
+  renderTogether(elements, seperator=' ') {
+    return elements.reduce((prev, curr) => [prev, seperator, curr])
+  }
+
   renderDetails() {
     if (!this.props.showDetails) return;
 
@@ -32,9 +36,10 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     if (cohort && cohort.week) badges.push(<a key="weekbadge" className="badge badge-secondary" href={`/cohorts/${cohort.id}/students`}>W{cohort.week}</a>)
     if (project) badges.push(<a key="projectbadge" className="badge badge-info" href={`/projects/${project.slug}`}>{project.name}</a>)
 
+    // console.log('reduce: ', this.renderTogether(badges));
     return (
       <div className="details">
-        { badges.reduce((prev, curr) => [prev, ' ', curr]) }
+        { this.renderTogether(badges) }
         <br/>
         <span className="time">
           {this.renderWhen()}

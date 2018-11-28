@@ -15,17 +15,9 @@ window.Queue.StudentsList = class StudentsList extends React.Component {
 
   render() {
     return (
-      <div className="card card-default">
-        <div className="card-header clearfix">
-          <h5 className="card-title">
-            <span className="count">{this.props.students.length}</span>
-            <span className="title">Students</span>
-          </h5>
-        </div>
-        <ul className="list-group">
-          {this.renderStudents()}
-        </ul>
-      </div>
+      <Queue.ListGroup count={this.props.students.length} title="Students">
+        {this.renderStudents()}
+      </Queue.ListGroup>
     );
   }
 }

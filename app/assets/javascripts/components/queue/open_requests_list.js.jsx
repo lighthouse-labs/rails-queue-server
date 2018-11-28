@@ -6,13 +6,7 @@ window.Queue.OpenRequestsList = class OpenRequestsList extends React.Component {
   }
 
   renderRequest(request) {
-    // if(task.type === 'Evaluation') {
-    //   return <Queue.PendingEvaluation key={`evaluation-${task.id}`} evaluation={task} />
-    // } else if (task.type === 'Assistance') {
-      return <Queue.PendingAssistanceRequest key={`request-${request.id}`} request={request} />
-    // } else if (task.type === 'Interview') {
-    //    return <Queue.PendingInterview key={`interview-${task.id}`} interview={task} />
-    // }
+    return <Queue.PendingAssistanceRequest key={`request-${request.id}`} request={request} />
   }
 
   renderRequests() {
@@ -21,18 +15,9 @@ window.Queue.OpenRequestsList = class OpenRequestsList extends React.Component {
 
   render() {
     return (
-      <div className="card card-default">
-        <div className="card-header clearfix">
-          <h5 className="card-title">
-            <span className="count">{this.props.requests.length}</span>
-            <span className="title">Open Requests</span>
-          </h5>
-        </div>
-        <ul className="list-group">
-          {this.renderRequests()}
-        </ul>
-      </div>
+      <Queue.ListGroup count={this.props.requests.length} title="Open Requests">
+        {this.renderRequests()}
+      </Queue.ListGroup>
     );
   }
 }
-

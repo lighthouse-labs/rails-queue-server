@@ -26,6 +26,25 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
     ga('send', 'event', 'start-assistance', 'click');
   }
 
+  renderTogether(elements, seperator=' ') {
+    return elements.reduce((prev, curr) => [prev, seperator, curr])
+  }
+
+  actionButtons() {
+    const buttons = []
+    buttons.push(<button key="remove" className="btn btn-sm btn-danger" onClick={this.handleCancelAssistance} disabled={this.state.disabled}>Remove!</button>)
+    buttons.push(<button key="start" className="btn btn-sm btn-primary" onClick={this.handleStartAssisting} disabled={this.state.disabled}>Start Assisting</button>)
+    return buttons;
+  }
+
+  renderActions() {
+    return(
+      <div className="actions pull-right">
+        { this.renderTogether(this.actionButtons(), null) }
+      </div>
+    )
+  }
+
   render() {
     const request = this.props.request;
     const student = request.requestor;
@@ -44,10 +63,7 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
         <div className="blurb">
           <blockquote>{request.reason}</blockquote>
         </div>
-        <div className="actions pull-right">
-          <button className="btn btn-sm btn-danger" onClick={this.handleCancelAssistance} disabled={this.state.disabled}>Remove!</button>
-          <button className="btn btn-sm btn-primary" onClick={this.handleStartAssisting} disabled={this.state.disabled}>Start Assisting</button>
-        </div>
+        {this.renderActions()}
       </li>
     )
   }

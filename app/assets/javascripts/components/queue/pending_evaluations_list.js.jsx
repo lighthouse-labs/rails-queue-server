@@ -15,17 +15,9 @@ window.Queue.PendingEvaluationsList = class PendingEvaluationsList extends React
 
   render() {
     return (
-      <div className="card card-default">
-        <div className="card-header clearfix">
-          <h5 className="card-title">
-            <span className="count">{this.props.evaluations.length}</span>
-            <span className="title">Pending Evaluations</span>
-          </h5>
-        </div>
-        <ul className="list-group">
-          {this.renderEvaluations()}
-        </ul>
-      </div>
+      <Queue.ListGroup count={this.props.evaluations.length} title="Pending Evaluations">
+        {this.renderEvaluations()}
+      </Queue.ListGroup>
     );
   }
 }

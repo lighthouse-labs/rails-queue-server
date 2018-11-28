@@ -47,6 +47,9 @@ body.queue-show {
     padding-left: 30px;
     padding-bottom: 42px;
 
+    .buffer {
+      height: 20px;
+    }
 
     // Bootstrap Modal inside flickers on mouse move (hover) without this :hover z-index thing - KV
     // https://github.com/twbs/bootstrap/issues/25206
