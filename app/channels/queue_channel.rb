@@ -3,7 +3,11 @@ class QueueChannel < ApplicationCable::Channel
   include Rails.application.routes.url_helpers
 
   def subscribed
-    stream_from "queue" if current_user&.is_a?(Teacher)
+    if current_user&.is_a?(Teacher)
+      stream_from "queue"
+      location_name = current_user.location.name
+      stream_from "assistance-#{location_name}"
+    end
   end
 
   def unsubscribed

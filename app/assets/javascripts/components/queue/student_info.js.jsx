@@ -31,6 +31,7 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     let activity = this.props.activity;
     let project = this.props.project || (activity && activity.project);
 
+    // always have one empty element otherwise it could fail on reduce - KV
     let badges = [null]
 
     if (cohort && cohort.week) badges.push(<a key="weekbadge" className="badge badge-light" href={`/cohorts/${cohort.id}/students`}>W{cohort.week}</a>)

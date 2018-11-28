@@ -12,7 +12,10 @@ class BroadcastQueueUpdate
     # I guess we could have a redis val with the updated at instead actually
     # Too lazy to implement that no (lazy optimization is the best type of optimization, right?)
     # - KV
-    ActionCable.server.broadcast("queue", QueueSerializer.new(@program).to_json)
+    ActionCable.server.broadcast("queue", {
+      type: 'QueueUpdate',
+      queue: QueueSerializer.new(@program, root: false)
+    })
   end
 
 end
