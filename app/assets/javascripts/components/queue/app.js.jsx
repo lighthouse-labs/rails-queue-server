@@ -8,13 +8,24 @@ window.Queue.App = class App extends React.Component {
   constructor(props) {
     super(props);
     const queue = this.props.queue || window.App.queue.readFromCache();
-    console.log('cached queue content: ', queue);
+
     this.state = {
       myLocation:   this.props.myLocation,
       queue:        queue,
       connected:    false,
       disconnects:  0
     }
+  }
+
+  connected() {
+    this.setState({connected: true});
+  }
+
+  disconnected() {
+    this.setState({
+      disconnects: this.state.disconnects + 1,
+      connected: false
+    });
   }
 
   componentDidMount() {

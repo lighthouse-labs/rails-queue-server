@@ -1,13 +1,18 @@
 # A Queue connection Manager
 # Creates the ActionCable/WS subscription for the QueueChannel (server channel) and then
 # Provides:
-# 1. An interface to request queue payload on demand
-# 2. Ability for react-based queue to register with this object
-# 3. Callback to registered queue func with any data changes broadcast from server
+# 1. An interface to request the queue data on demand
+# 2. The ability for react-based queue to register with this object (see @app)
+# 3. A callback to registered queue func with any data changes broadcast from server
+
 class Queue
 
+  # @app is a pointer to the Queue.App react component
+  #      and therefore expects to be able to call .setState() on it
+  #      and must also support custom .connected() and .disconnected() functions
   constructor: ->
     @connected = false
+    @app = null
     @connect()
 
   connect: ->
@@ -25,11 +30,11 @@ class Queue
       @channel = window.App.cable.subscriptions.create "QueueChannel",
         connected: ->
           queue.connected = true
-          queue.app.setState(connected: true) if queue.app
+          queue.app.connected() if queue.app
 
         disconnected: ->
           queue.connected = false
-          queue.app.setState(disconnects: queue.app.state.disconnects + 1, connected: false) if queue.app
+          queue.app.disconnected() if queue.app
 
         # Called when there's incoming data on the websocket for this channel
         received: (data) ->
