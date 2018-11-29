@@ -22,10 +22,7 @@ window.Queue.PendingEvaluation = class PendingEvaluation extends React.Component
     const disabled = this.state.disabled;
 
     return (
-      <li className="submission list-group-item clearfix">
-        <div className="type">
-          <div className="text">Submission</div>
-        </div>
+      <Queue.QueueItem type='Submission' disabled={this.state.disabled}>
 
         <Queue.StudentInfo  student={student}
                             project={evaluation.project}
@@ -40,7 +37,7 @@ window.Queue.PendingEvaluation = class PendingEvaluation extends React.Component
           <button className="btn btn-sm btn-light btn-hover-danger" disabled={disabled}>Remove</button>
           <button className="btn btn-sm btn-secondary btn-main" disabled={disabled} onClick={this.handleStartEvaluating}>Start Evaluating</button>
         </div>
-      </li>
+      </Queue.QueueItem>
     )
   }
 }

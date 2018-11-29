@@ -31,6 +31,10 @@ window.Queue.Evaluation = class Evaluation extends React.Component {
     );
   }
 
+  renderQuote(quote, length=200) {
+    return (<blockquote>&ldquo;{_.truncate(quote, {length: length})}&rdquo;</blockquote>)
+  }
+
   render() {
     const evaluation = this.props.evaluation;
     const project = evaluation.project
@@ -38,10 +42,7 @@ window.Queue.Evaluation = class Evaluation extends React.Component {
     const evaluator = evaluation.teacher;
 
     return (
-      <li className="evaluation list-group-item clearfix">
-        <div className="type">
-          <div className="text">Evaluation</div>
-        </div>
+      <Queue.QueueItem type='Evaluation' disabled={this.state.disabled}>
 
         <Queue.StudentInfo  student={student}
                             showDetails={true}
@@ -52,13 +53,13 @@ window.Queue.Evaluation = class Evaluation extends React.Component {
         { evaluator ? this.renderEvaluator(evaluator, evaluation) : nil }
 
         <div className="blurb">
-          <blockquote>{evaluation.studentNotes}</blockquote>
+          {this.renderQuote(evaluation.studentNotes)}
         </div>
         <div className="actions pull-right">
           <button className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelEvaluating} disabled={this.state.disabled}>Cancel</button>
           <a className="btn btn-sm btn-secondary btn-main" href={`/projects/${project.slug}/evaluations/${evaluation.id}/edit`} disabled={this.state.disabled}>View</a>
         </div>
-      </li>
+      </Queue.QueueItem>
     )
   }
 }

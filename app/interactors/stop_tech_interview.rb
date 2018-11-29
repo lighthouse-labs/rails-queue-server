@@ -23,7 +23,7 @@ class StopTechInterview
   def broadcast_to_queue
     ActionCable.server.broadcast "assistance-#{@location.name}", type:   "TechInterviewStopped",
                                                                  object: TechInterviewSerializer.new(@tech_interview, root: false).as_json
-    BroadcastQueueUpdate.call(program: Program.first)
+    RequestQueue::BroadcastUpdate.call(program: Program.first)
   end
 
   def broadcast_to_interviewee

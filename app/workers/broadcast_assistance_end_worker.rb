@@ -16,7 +16,7 @@ class BroadcastAssistanceEndWorker
       ActionCable.server.broadcast "teachers", type:   "TeacherAvailable",
                                                object: UserSerializer.new(assistor).as_json
     end
-    BroadcastQueueUpdate.call(program: Program.first)
+    RequestQueue::BroadcastUpdate.call(program: Program.first)
   end
 
 end

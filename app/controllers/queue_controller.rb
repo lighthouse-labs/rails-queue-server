@@ -29,7 +29,7 @@ class QueueController < ApplicationController
           render json: { success: false, error: assistance_request.errors.full_messages.first }, status: 403
         end
         puts "queue update starting"
-        BroadcastQueueUpdate.call(program: Program.first)
+        RequestQueue::BroadcastUpdate.call(program: Program.first)
       }
     end
   end

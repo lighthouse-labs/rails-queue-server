@@ -12,7 +12,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
 
   handleCancelAssisting = () => {
     this.setState({disabled: true});
-    App.queue.stopAssisting(this.props.assistance);
+    App.queue.cancelAssisting(this.props.assistance);
     ga('send', 'event', 'cancel-assistance', 'click');
   }
 
@@ -31,19 +31,14 @@ window.Queue.Assistance = class Assistance extends React.Component {
     const assistor = assistance.assistor;
 
     return (
-      <li className="assistance list-group-item clearfix">
-        <div className="type">
-          <div className="text">Assistance</div>
-        </div>
+      <Queue.QueueItem type='Assistance' disabled={this.state.disabled}>
 
         <Queue.StudentInfo  student={student}
                             showDetails={true}
                             when={request.startAt}
                              />
 
-
         <Queue.TeacherInfo teacher={assistor} when={assistance.startAt} />
-
 
         <div className="blurb">
           <blockquote>{assistance.blurb}</blockquote>
@@ -54,7 +49,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
         </div>
 
         <Queue.RequestModal assistance={assistance} ref="requestModal" />
-      </li>
+      </Queue.QueueItem>
     )
   }
 }

@@ -37,27 +37,25 @@ window.Queue.Interview = class Interview extends React.Component {
     const interviewer = interview.interviewer;
 
     return (
-      <li className="interview list-group-item clearfix">
-        <div className="type">
-          <div className="text">Interview</div>
-        </div>
+      <Queue.QueueItem type='Interview' disabled={this.state.disabled}>
 
         <Queue.StudentInfo  student={interviewee}
                             showDetails={true}
-                            when={interview.createdAt}
-                             />
-
+                            when={interview.createdAt} />
 
         { interviewer ? <Queue.TeacherInfo teacher={interviewer} /> : nil }
 
         <div className="blurb">
-          <blockquote>{this.truncatedDescription(interview)}</blockquote>
+          <blockquote>
+            <strong>Week {interview.techInterviewTemplate.week } Interview: </strong>
+            {this.truncatedDescription(interview)}
+          </blockquote>
         </div>
         <div className="actions pull-right">
           <button className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelEvaluating} disabled={this.state.disabled}>Cancel</button>
           <a className="btn btn-sm btn-secondary btn-main" href={`/tech_interviews/${interview.id}/edit`} disabled={this.state.disabled}>View</a>
         </div>
-      </li>
+      </Queue.QueueItem>
     )
   }
 }

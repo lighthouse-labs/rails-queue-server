@@ -1,9 +1,9 @@
-class BroadcastQueueUpdate
+class RequestQueue::BroadcastUpdate
 
   include Interactor
 
   before do
-    @program = context.program
+    @program = context.program || Program.first
   end
 
   def call

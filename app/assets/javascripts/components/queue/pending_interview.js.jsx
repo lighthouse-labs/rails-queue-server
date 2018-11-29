@@ -10,10 +10,7 @@ window.Queue.PendingInterview = class PendingInterview extends React.Component {
     const student = interview.student;
 
     return (
-      <li className="interview list-group-item clearfix">
-        <div className="type">
-          <div className="text">Interview</div>
-        </div>
+      <Queue.QueueItem type='Interview' disabled={this.state.disabled}>
 
         <Queue.StudentInfo  student={student}
                             showDetails={true} />
@@ -22,7 +19,7 @@ window.Queue.PendingInterview = class PendingInterview extends React.Component {
           <button className="btn btn-sm btn-danger">Remove</button>
           <button className="btn btn-sm btn-primary">Start Interviewing</button>
         </div>
-      </li>
+      </Queue.QueueItem>
     )
   }
 }

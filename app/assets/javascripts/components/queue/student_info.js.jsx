@@ -48,14 +48,6 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     )
   }
 
-  renderActivityDetails(activity) {
-    if (!activity) return;
-
-    return (
-      <a className="resource-name" href={`/${activity.uuid}`}>{activity.name}</a>
-    )
-  }
-
   pronoun(student) {
     return (
       student.pronoun ? <p title="Pronoun" className="pronoun">({student.pronoun})</p> : null

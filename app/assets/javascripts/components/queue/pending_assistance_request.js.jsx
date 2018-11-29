@@ -45,26 +45,34 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
     )
   }
 
+  renderActivityDetails(activity) {
+    if (!activity) return;
+    return (
+      <a className="resource-name" href={`/${activity.uuid}`}>{activity.name}</a>
+    )
+  }
+
+  renderQuote(quote, length=200) {
+    return (<blockquote>&ldquo;{_.truncate(quote, {length: length})}&rdquo;</blockquote>)
+  }
+
   render() {
     const request = this.props.request;
     const student = request.requestor;
 
     return (
-      <li className="request list-group-item clearfix">
-        <div className="type">
-          <div className="text">Request</div>
-        </div>
-
+      <Queue.QueueItem type='Request' disabled={this.state.disabled}>
         <Queue.StudentInfo  student={student}
                             showDetails={true}
                             when={request.startAt}
                             activity={request.activity} />
 
         <div className="blurb">
-          <blockquote>{request.reason}</blockquote>
+          {this.renderActivityDetails(request.activity)}
+          {this.renderQuote(request.reason)}
         </div>
         {this.renderActions()}
-      </li>
+      </Queue.QueueItem>
     )
   }
 }

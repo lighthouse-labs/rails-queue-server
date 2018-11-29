@@ -71,6 +71,11 @@ body.queue-show {
     position: relative;
     padding-left: 30px;
     padding-bottom: 42px;
+    transition: opacity 0.3s ease-in-out;
+
+    &.disabled {
+      opacity: 0.5;
+    }
 
     &.submission {
       &:hover {
@@ -219,14 +224,20 @@ body.queue-show {
     }
 
     .blurb {
+      margin-top: 16px;
+      // margin-bottom: 0px;
+      padding-left: 6px;
+
+      .resource-name {
+        font-size: 0.9em;
+      }
+
       blockquote {
         font-size: 0.9em;
         color: #555;
         font-style: italic;
         line-height: 1.5em;
-        margin-top: 10px;
-        padding-left: 6px;
-        margin-bottom: 4px;
+        margin-bottom: 0px;
       }
     }
 

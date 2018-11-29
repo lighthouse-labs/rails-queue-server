@@ -54,8 +54,8 @@ class Queue
   startAssisting: (request) ->
     @channel? && @channel.sendMessage 'start_assisting', request_id: request.id
 
-  stopAssisting: (assistance) ->
-    @channel? && @channel.sendMessage 'stop_assisting', assistance_id: assistance.id
+  cancelAssisting: (assistance) ->
+    @channel? && @channel.sendMessage 'cancel_assisting', assistance_id: assistance.id
 
   startEvaluating: (evaluation) ->
     @channel? && @channel.sendMessage 'start_evaluating', evaluation_id: evaluation.id

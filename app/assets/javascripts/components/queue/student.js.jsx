@@ -13,10 +13,7 @@ window.Queue.Student = class Student extends React.Component {
     const student = this.props.student;
 
     return(
-      <li className="list-group-item student clearfix">
-        <div className="type">
-          <div className="text">Student</div>
-        </div>
+      <Queue.QueueItem type='Student'>
         <Queue.StudentInfo student={student} when={student.lastAssistedAt} showDetails={true} />
 
         <div className="buffer">&nbsp;</div>
@@ -25,7 +22,7 @@ window.Queue.Student = class Student extends React.Component {
         </div>
 
         <Queue.RequestModal student={student} ref="requestModal" />
-      </li>
+      </Queue.QueueItem>
     )
   }
 
