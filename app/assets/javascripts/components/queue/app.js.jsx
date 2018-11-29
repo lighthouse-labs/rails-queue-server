@@ -13,12 +13,16 @@ window.Queue.App = class App extends React.Component {
       myLocation:   this.props.myLocation,
       queue:        queue,
       connected:    false,
+      refreshing:   false,
       disconnects:  0
     }
   }
 
   connected() {
     this.setState({connected: true});
+    if (this.state.disconnects > 0) {
+      window.App.queue.fetch();
+    }
   }
 
   disconnected() {
@@ -45,6 +49,11 @@ window.Queue.App = class App extends React.Component {
     this.setState({connected: window.App.queue.isConnected()});
   }
 
+  updateData(data) {
+    const state = Object.assign({}, data, { refreshing: false });
+    this.setState(state)
+  }
+
   handleLocationChange = (location) => {
     this.setState({
       selectedLocation: location
@@ -66,19 +75,36 @@ window.Queue.App = class App extends React.Component {
     });
   }
 
+  hardRefresh = () => {
+    if (this.state.refreshing) return;
+    this.setState({ refreshing: true });
+    window.App.queue.fetch(true);
+  }
+
   render() {
     if (this.state.queue) {
-      const disabled   = this.state.connected ? '' : 'disabled';
+      const disabled   = this.state.connected && !this.state.refreshing ? '' : 'disabled';
       const myLocation = this.state.myLocation;
       const locations  = this.onlyVisibleLocations(myLocation);
       const selectedLocation = this.getSelectedLocation(locations);
+      const refreshBtnClass = this.state.refreshing ? 'rotating' : '';
 
       return (
         <div className={`queue-container ${disabled}`}>
-          <Queue.LocationPicker onLocationChange={this.handleLocationChange}
-                                locations={locations}
-                                myLocation={myLocation}
-                                selectedLocation={selectedLocation} />
+          <div className="clearfix">
+            <div className="pull-left">
+              <Queue.LocationPicker onLocationChange={this.handleLocationChange}
+                                    locations={locations}
+                                    myLocation={myLocation}
+                                    selectedLocation={selectedLocation} />
+            </div>
+            <div className="pull-right">
+              <button onClick={this.hardRefresh} className={`btn btn-sm btn-refresh btn-outline btn-secondary ${refreshBtnClass}`}>
+                <i className="fa fa-refresh"></i>
+              </button>
+            </div>
+          </div>
+
           <Queue.Locations      locations={locations}
                                 myLocation={myLocation}
                                 selectedLocation={selectedLocation} />

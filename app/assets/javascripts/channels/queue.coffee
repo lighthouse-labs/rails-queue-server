@@ -2,14 +2,18 @@
 # Creates the ActionCable/WS subscription for the QueueChannel (server channel) and then
 # Provides:
 # 1. An interface to request the queue data on demand
-# 2. The ability for react-based queue to register with this object (see @app)
+# 2. The ability for a queue "view object" to register itself with this object (see @app notes below)
 # 3. A callback to registered queue func with any data changes broadcast from server
+# - KV
 
 class Queue
 
-  # @app is a pointer to the Queue.App react component
-  #      and therefore expects to be able to call .setState() on it
-  #      and must also support custom .connected() and .disconnected() functions
+  # @app is a pointer to an object that responds to
+  #      .updateData(data)
+  #      .connected() and
+  #      .disconnected() state change functions
+  #      In our case, the Queue.App react component is what we pass in
+  # - KV
 
   constructor: ->
     @connected = false
@@ -17,7 +21,8 @@ class Queue
     @connect()
 
   connect: ->
-    return true if @connected
+    return true if @connecting || @connected
+    @connecting = true
     @establishConnection()
 
   isConnected: ->
@@ -27,6 +32,7 @@ class Queue
     return false unless window.App
     $ =>
       return unless window.App.cable
+      return if @channel?
       queue = this
       @channel = window.App.cable.subscriptions.create "QueueChannel",
         connected: ->
@@ -39,6 +45,7 @@ class Queue
 
         # Called when there's incoming data on the websocket for this channel
         received: (data) ->
+          data = JSON.parse(data) if typeof(data) is 'string'
           if data.type is 'AssistanceRequest'
             queue.handleNewAssistanceRequest(data.object)
           else if data.type is 'QueueUpdate'
@@ -46,7 +53,6 @@ class Queue
 
         sendMessage: (action, data) ->
           @perform action, data
-
 
   cancelAssistanceRequest: (request) ->
     @channel? && @channel.sendMessage 'cancel_assistance_request', request_id: request.id
@@ -73,8 +79,8 @@ class Queue
   unregisterApp: ->
     @app = null
 
-  fetch: ->
-    $.getJSON('/queue.json').then(@handleDataReceived.bind(this))
+  fetch: (force=false) ->
+    $.getJSON('/queue.json', force: force).then(@handleDataReceived.bind(this))
 
   writeToCache: (data) ->
     window.localStorage.setItem 'queue', JSON.stringify(data.queue)
@@ -85,7 +91,7 @@ class Queue
 
   handleDataReceived: (data) ->
     @writeToCache(data)
-    @app.setState(data) if @app
+    @app.updateData(data) if @app
 
   handleNewAssistanceRequest: (request) ->
     @notifier.handleNewAssistanceRequest(request) if @notifier

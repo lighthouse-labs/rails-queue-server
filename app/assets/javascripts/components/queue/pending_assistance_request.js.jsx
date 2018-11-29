@@ -53,7 +53,7 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
   }
 
   renderQuote(quote, length=200) {
-    return (<blockquote>&ldquo;{_.truncate(quote, {length: length})}&rdquo;</blockquote>)
+    return (<blockquote title={quote}>&ldquo;{_.truncate(quote, {length: length})}&rdquo;</blockquote>)
   }
 
   render() {

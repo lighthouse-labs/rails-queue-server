@@ -3,14 +3,16 @@ class QueueController < ApplicationController
   before_action :teacher_required
 
   def show
+    # only one program. Yes, this breaks in the future if we ever have multiple programs in the db
+    # but that's a problem everywhere
+    @program = Program.first
+
     respond_to do |format|
       format.html
-      format.json {
-        render json: {
-          queue: QueueSerializer.new(current_user, root: false),
-          myLocation: MyLocationSerializer.new(current_user.location)
-        }
-      }
+      format.json do
+        # 15ms-30ms response vs 900-1200 ms range response on my localhost, due to reading from cache - KV
+        render json: full_queue_json(params[:force] == 'true')
+      end
     end
   end
 
@@ -63,6 +65,28 @@ class QueueController < ApplicationController
   end
 
   private
+
+  def full_queue_json(force=false)
+    queue_json = queue_json(force)
+    loc_json = MyLocationSerializer.new(current_user.location).to_json
+    %({"queue":#{queue_json},"myLocation":#{loc_json}})
+  end
+
+  def queue_json(force=false)
+    $redis_pool.with do |conn|
+      if force
+        json = QueueSerializer.new(@program, root: false).to_json
+        conn.set("program:#{@program.id}:queue", json)
+      else
+        json = conn.get("program:#{@program.id}:queue")
+        unless json
+          json = QueueSerializer.new(@program, root: false).to_json
+          conn.set("program:#{@program.id}:queue", json)
+        end
+      end
+      json
+    end
+  end
 
   def teacher_required
     unless teacher?

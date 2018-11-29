@@ -1,5 +1,19 @@
-
 body.queue-show {
+
+  @keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+  }
+
+  .btn-refresh.rotating {
+    i {
+      animation: rotating 2s linear infinite;
+    }
+  }
 
   .pronoun {
     font-style: italic;
@@ -16,7 +30,7 @@ body.queue-show {
 
   .queue-container {
 
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 
     &.disabled {
       opacity: 0.2;
@@ -72,6 +86,10 @@ body.queue-show {
     padding-left: 30px;
     padding-bottom: 42px;
     transition: opacity 0.3s ease-in-out;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-left: 0;
+    border-right: 0;
 
     &.disabled {
       opacity: 0.5;
