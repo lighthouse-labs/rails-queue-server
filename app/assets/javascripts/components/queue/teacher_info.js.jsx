@@ -14,7 +14,7 @@ window.Queue.TeacherInfo = class TeacherInfo extends React.Component {
 
   pronoun(teacher) {
     return (
-      teacher.pronoun ? <p title="Pronoun" className="pronoun">({teacher.pronoun})</p> : null
+      teacher.pronoun ? <span title="Pronoun" className="pronoun">({teacher.pronoun})</span> : null
     )
   }
 

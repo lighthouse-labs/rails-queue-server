@@ -16,7 +16,7 @@ class UserSerializer < ActiveModel::Serializer
              :pronoun,
              :remote
 
-  has_one :location
+  has_one :location, serializer: MyLocationSerializer
   has_one :cohort
 
   protected

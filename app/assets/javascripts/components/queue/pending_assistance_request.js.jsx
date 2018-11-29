@@ -31,7 +31,7 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
   }
 
   actionButtons() {
-    const buttons = []
+    const buttons = [null]
     buttons.push(<button key="remove" className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelAssistance} disabled={this.state.disabled}>Remove</button>)
     buttons.push(<button key="start" className="btn btn-sm btn-secondary btn-main" onClick={this.handleStartAssisting} disabled={this.state.disabled}>Start Assisting</button>)
     return buttons;

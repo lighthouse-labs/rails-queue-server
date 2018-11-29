@@ -9,13 +9,17 @@ window.Queue.App = class App extends React.Component {
     super(props);
     const queue = this.props.queue || window.App.queue.readFromCache();
 
+    window.current_user = this.props.user || window.current_user;
+
     this.state = {
-      myLocation:   this.props.myLocation,
+      myLocation:   window.current_user.location,
       queue:        queue,
       connected:    false,
       refreshing:   false,
       disconnects:  0
     }
+
+
   }
 
   connected() {
