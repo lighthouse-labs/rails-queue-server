@@ -18,10 +18,6 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     }
   }
 
-  renderTogether(elements, seperator=' ') {
-    return elements.reduce((prev, curr) => [prev, seperator, curr])
-  }
-
   renderDetails() {
     if (!this.props.showDetails) return;
 
@@ -39,7 +35,7 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
 
     return (
       <div className="details">
-        { this.renderTogether(badges) }
+        { App.ReactUtils.joinElements(badges) }
         <br/>
         <span className="time">
           {this.renderWhen()}
