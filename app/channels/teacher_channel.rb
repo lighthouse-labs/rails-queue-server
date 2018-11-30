@@ -1,7 +1,7 @@
 class TeacherChannel < ApplicationCable::Channel
 
   def subscribed
-    stream_from channel_name
+    stream_from channel_name if current_user.is_a?(Teacher)
   end
 
   def on_duty

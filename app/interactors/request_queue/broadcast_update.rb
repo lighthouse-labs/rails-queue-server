@@ -7,24 +7,17 @@ class RequestQueue::BroadcastUpdate
   end
 
   def call
-    # Opportunity to read from a cache in redis.
-    # For that we'd need a timestamp but there's no queue record in the db to "touch" (updated_at)
-    # I guess we could have a redis val with the updated at instead actually
-    # Too lazy to implement that no (lazy optimization is the best type of optimization, right?)
-    # - KV
-
     queue_json = QueueSerializer.new(@program, root: false).to_json
+    # We do this the ugly way (manually gen the final json payload) in order to avoid unncessary
+    # decode/encode of the large queue JSON payload
+    json = %({"type": "QueueUpdate","queue":#{queue_json}})
+    ActionCable.server.broadcast("queue", json)
+
+    # Write latest queue to Redis cache
+    # Used later by adhoc fetches
     $redis_pool.with do |conn|
       conn.set("program:#{@program.id}:queue", queue_json)
     end
-
-    val = %({"type": "QueueUpdate","queue":#{queue_json}})
-    puts val
-    # ActionCable.server.broadcast("queue", {
-    #   type: 'QueueUpdate',
-    #   queue: queue_json
-    # })
-    ActionCable.server.broadcast("queue", val)
   end
 
 end

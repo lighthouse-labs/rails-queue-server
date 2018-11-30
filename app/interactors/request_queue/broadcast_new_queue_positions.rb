@@ -8,7 +8,7 @@ class RequestQueue::BroadcastNewQueuePositions
 
   def call
     Student.has_open_requests_in_location([@location]).each do |student|
-      UserChannel.broadcast_to student, type: "QueueUpdate", object: student.position_in_queue.as_json
+      UserChannel.broadcast_to student, type: "QueuePositionUpdate", object: student.position_in_queue.as_json
     end
   end
 

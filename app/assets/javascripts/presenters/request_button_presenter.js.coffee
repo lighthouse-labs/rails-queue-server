@@ -12,7 +12,7 @@ class window.RequestButtonPresenter
       when "AssistanceRequested" then @assistanceRequested(@object)
       when "AssistanceStarted" then @assistanceStarted(@object)
       when "AssistanceEnded" then @assistanceEnded()
-      when "QueueUpdate" then @updateQueuePosition(@object)
+      when "QueuePositionUpdate" then @updateQueuePosition(@object)
 
   updateQueuePosition: (position) ->
     @ar_cancel_button.text('No. ' + position + ' in Request Queue')

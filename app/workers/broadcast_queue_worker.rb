@@ -2,7 +2,7 @@ class BroadcastQueueWorker
 
   include Sidekiq::Worker
 
-  # Don't want it to retry a failed deployment. Move on!
+  # Don't want it to retry failed websocket updates. Move on!
   # https://github.com/mperham/sidekiq/wiki/Error-Handling
   sidekiq_options retry: false
 

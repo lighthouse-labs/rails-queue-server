@@ -7,9 +7,9 @@ class window.TeacherChannelHandler
     switch @type
       when "UserConnected"
         @userConnected()
-      when "TeacherOnDuty" 
+      when "TeacherOnDuty"
         @teacherOnDuty()
-      when "TeacherOffDuty" 
+      when "TeacherOffDuty"
         @teacherOffDuty()
       when "TeacherBusy"
         @teacherBusy()
@@ -24,10 +24,14 @@ class window.TeacherChannelHandler
   teacherOnDuty: ->
     if @teacherInLocation(@object)
       @addTeacherToSidebar(@object)
+    if @teacherIsMe(@object)
+      @markSelfAsOnDuty()
 
   teacherOffDuty: ->
     if @teacherInLocation(@object)
       @removeTeacherFromSidebar(@object)
+    if @teacherIsMe(@object)
+      @markSelfAsOffDuty()
 
   teacherBusy: ->
     $('.teacher-holder').find('#teacher_' + @object.id).addClass('busy')
@@ -40,12 +44,21 @@ class window.TeacherChannelHandler
       if current_user.type is 'Teacher' or current_user.cohort
         return current_user.location.id is teacher.location.id
 
+  teacherIsMe: (teacher) ->
+    window.current_user?.id is teacher.id
+
+  markSelfAsOnDuty: ->
+    window.current_user.onDuty = true
+
+  markSelfAsOffDuty: ->
+    window.current_user.onDuty = false
+
   addTeacherToSidebar: (teacher) ->
     if $('.teacher-holder').find('#teacher_' + teacher.id).length is 0
       img = document.createElement('img')
       img.id = 'teacher_' + teacher.id
-      img.src = teacher.avatar_url
-      img.title = teacher.full_name
+      img.src = teacher.avatarUrl
+      img.title = teacher.fullName
       img.setAttribute("data-placement", "bottom")
 
       link = document.createElement('a')
@@ -61,4 +74,3 @@ class window.TeacherChannelHandler
   removeTeacherFromSidebar: (teacher) ->
     $('.teacher-holder').find('#teacher_' + teacher.id).remove()
 
-  

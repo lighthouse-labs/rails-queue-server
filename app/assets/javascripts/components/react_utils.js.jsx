@@ -4,7 +4,9 @@ class ReactUtils {
   }
 
   renderQuote(quote, length=200) {
-    return (<blockquote title={quote}>&ldquo;{_.truncate(quote, {length: length})}&rdquo;</blockquote>)
+    if (quote && _.trim(quote).length > 0) {
+      return (<blockquote title={quote}>&ldquo;{_.truncate(quote, {length: length})}&rdquo;</blockquote>)
+    }
   }
 }
 

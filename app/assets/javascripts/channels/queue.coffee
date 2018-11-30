@@ -29,30 +29,28 @@ class Queue
     @connected?
 
   establishConnection: () ->
-    return false unless window.App
-    $ =>
-      return unless window.App.cable
-      return if @channel?
-      queue = this
-      @channel = window.App.cable.subscriptions.create "QueueChannel",
-        connected: ->
-          queue.connected = true
-          queue.app.connected() if queue.app
+    return unless window.App?.cable
+    return if @channel
+    queue = this
+    @channel = window.App.cable.subscriptions.create "QueueChannel",
+      connected: ->
+        queue.connected = true
+        queue.app.connected() if queue.app
 
-        disconnected: ->
-          queue.connected = false
-          queue.app.disconnected() if queue.app
+      disconnected: ->
+        queue.connected = false
+        queue.app.disconnected() if queue.app
 
-        # Called when there's incoming data on the websocket for this channel
-        received: (data) ->
-          data = JSON.parse(data) if typeof(data) is 'string'
-          if data.type is 'AssistanceRequest'
-            queue.handleNewAssistanceRequest(data.object)
-          else if data.type is 'QueueUpdate'
-            queue.handleDataReceived queue: data.queue
+      # Called when there's incoming data on the websocket for this channel
+      received: (data) ->
+        data = JSON.parse(data) if typeof(data) is 'string'
+        if data.type is 'AssistanceRequest'
+          queue.handleNewAssistanceRequest(data.object)
+        else if data.type is 'QueueUpdate'
+          queue.handleDataReceived queue: data.queue
 
-        sendMessage: (action, data) ->
-          @perform action, data
+      sendMessage: (action, data) ->
+        @perform action, data
 
   cancelAssistanceRequest: (request) ->
     @channel? && @channel.sendMessage 'cancel_assistance_request', request_id: request.id

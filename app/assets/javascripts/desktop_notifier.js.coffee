@@ -18,10 +18,17 @@ class DesktopNotifier
         if res is "granted"
           @canNotify = true
 
+  onDuty: ->
+    window.current_user.onDuty is on
+
+  notificationBody: (request) ->
+    week = request.requestor.cohort.week;
+    "[Week #{week}] #{request.reason}\r\n(Notified b/c you're marked as on duty)"
+
   handleNewAssistanceRequest: (assistanceRequest) ->
-    if @supportsNotifications && @canNotify
+    if @supportsNotifications && @canNotify && @onDuty()
       new Notification "Assistance Requested by " + assistanceRequest.requestor.firstName + ' ' + assistanceRequest.requestor.lastName, {
-        body: "[Week " + assistanceRequest.requestor.cohort.week + "] " + (assistanceRequest.reason || ''),
+        body: @notificationBody(assistanceRequest),
         icon: assistanceRequest.requestor.avatarUrl
       }
 
