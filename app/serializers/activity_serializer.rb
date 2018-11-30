@@ -6,9 +6,7 @@ class ActivitySerializer < ActiveModel::Serializer
   has_one :project
 
   def project
-    if object.section && object.section.is_a?(Project)
-      object.section
-    end
+    object.section if object.section&.is_a?(Project)
   end
 
 end

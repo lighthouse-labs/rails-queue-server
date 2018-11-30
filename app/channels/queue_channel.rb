@@ -27,9 +27,8 @@ class QueueChannel < ApplicationCable::Channel
     assistance = Assistance.find_by id: data["assistance_id"]
     RequestQueue::CancelAssistance.call(
       assistance: assistance,
-      user: current_user
+      user:       current_user
     )
-
   end
 
   def start_assisting(data)
@@ -45,9 +44,9 @@ class QueueChannel < ApplicationCable::Channel
     if evaluation&.grabbable_by?(current_user)
       evaluation.teacher = current_user
       if evaluation.transition_to(:in_progress)
-        BroadcastMarking.call(evaluation: evaluation,
-                              evaluator: current_user,
-                              user: current_user,
+        BroadcastMarking.call(evaluation:          evaluation,
+                              evaluator:           current_user,
+                              user:                current_user,
                               edit_evaluation_url: edit_project_evaluation_path(evaluation.project, evaluation))
       end
     end
@@ -57,9 +56,7 @@ class QueueChannel < ApplicationCable::Channel
     evaluation = Evaluation.find_by id: data["evaluation_id"]
     if evaluation&.can_requeue?
       evaluation.teacher = nil
-      if evaluation.transition_to(:pending)
-        BroadcastMarking.call(evaluation: evaluation)
-      end
+      BroadcastMarking.call(evaluation: evaluation) if evaluation.transition_to(:pending)
     end
   end
 

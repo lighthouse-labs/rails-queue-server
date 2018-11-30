@@ -19,8 +19,3 @@ class BroadcastRequestCancellationWorker
   end
 
 end
-
-
-
-
-
