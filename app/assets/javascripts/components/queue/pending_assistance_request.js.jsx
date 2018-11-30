@@ -26,10 +26,6 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
     ga('send', 'event', 'start-assistance', 'click');
   }
 
-  renderTogether(elements, seperator=' ') {
-    return elements.reduce((prev, curr) => [prev, seperator, curr])
-  }
-
   actionButtons() {
     const buttons = [null]
     buttons.push(<button key="remove" className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelAssistance} disabled={this.state.disabled}>Remove</button>)
@@ -40,7 +36,7 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
   renderActions() {
     return(
       <div className="actions pull-right">
-        { this.renderTogether(this.actionButtons(), null) }
+        { App.ReactUtils.joinElements(this.actionButtons(), null) }
       </div>
     )
   }
@@ -50,10 +46,6 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
     return (
       <a className="resource-name" href={`/${activity.uuid}`}>{activity.name}</a>
     )
-  }
-
-  renderQuote(quote, length=200) {
-    return (<blockquote title={quote}>&ldquo;{_.truncate(quote, {length: length})}&rdquo;</blockquote>)
   }
 
   render() {
@@ -69,7 +61,7 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
 
         <div className="blurb">
           {this.renderActivityDetails(request.activity)}
-          {this.renderQuote(request.reason)}
+          {App.ReactUtils.renderQuote(request.reason)}
         </div>
         {this.renderActions()}
       </Queue.QueueItem>

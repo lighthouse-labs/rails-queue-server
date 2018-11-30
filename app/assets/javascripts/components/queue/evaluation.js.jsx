@@ -31,8 +31,22 @@ window.Queue.Evaluation = class Evaluation extends React.Component {
     );
   }
 
-  renderQuote(quote, length=200) {
-    return (<blockquote title={quote}>&ldquo;{_.truncate(quote, {length: length})}&rdquo;</blockquote>)
+  actionButtions() {
+    const buttons = [null];
+    const evaluation = this.props.evaluation;
+    if (window.current_user.id === evaluation.evaluator.id) {
+      buttons.push(<button key="cancel" className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelEvaluating} disabled={this.state.disabled}>Cancel</button>);
+      buttons.push(<a key="view" className="btn btn-sm btn-secondary btn-main" href={`/projects/${project.slug}/evaluations/${evaluation.id}/edit`} disabled={this.state.disabled}>View</a>);
+    }
+    return buttons;
+  }
+
+  renderActions() {
+    return(
+      <div className="actions pull-right">
+        { App.ReactUtils.joinElements(this.actionButtons(), null) }
+      </div>
+    )
   }
 
   render() {
@@ -53,11 +67,10 @@ window.Queue.Evaluation = class Evaluation extends React.Component {
         { evaluator ? this.renderEvaluator(evaluator, evaluation) : nil }
 
         <div className="blurb">
-          {this.renderQuote(evaluation.studentNotes)}
+          {App.ReactUtils.renderQuote(evaluation.studentNotes)}
         </div>
         <div className="actions pull-right">
-          <button className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelEvaluating} disabled={this.state.disabled}>Cancel</button>
-          <a className="btn btn-sm btn-secondary btn-main" href={`/projects/${project.slug}/evaluations/${evaluation.id}/edit`} disabled={this.state.disabled}>View</a>
+
         </div>
       </Queue.QueueItem>
     )

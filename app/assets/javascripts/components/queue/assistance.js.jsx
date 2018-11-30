@@ -24,10 +24,6 @@ window.Queue.Assistance = class Assistance extends React.Component {
     this.refs.requestModal.open()
   }
 
-  renderTogether(elements, seperator=' ') {
-    return elements.reduce((prev, curr) => [prev, seperator, curr])
-  }
-
   actionButtons() {
     const assistance = this.props.assistance;
     const buttons = [null];
@@ -41,14 +37,11 @@ window.Queue.Assistance = class Assistance extends React.Component {
   renderActions() {
     return(
       <div className="actions pull-right">
-        { this.renderTogether(this.actionButtons(), null) }
+        { App.ReactUtils.joinElements(this.actionButtons(), null) }
       </div>
     )
   }
 
-  renderQuote(quote, length=200) {
-    return (<blockquote title={quote}>&ldquo;{_.truncate(quote, {length: length})}&rdquo;</blockquote>)
-  }
 
   render() {
     const assistance = this.props.assistance;
@@ -67,7 +60,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
         <Queue.TeacherInfo teacher={assistor} when={assistance.startAt} />
 
         <div className="blurb">
-          {this.renderQuote(assistance.assistanceRequest.reason)}
+          {App.ReactUtils.renderQuote(assistance.assistanceRequest.reason)}
         </div>
         {this.renderActions()}
 
