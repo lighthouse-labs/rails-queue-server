@@ -95,15 +95,15 @@ window.Queue.App = class App extends React.Component {
 
       return (
         <div className={`queue-container ${disabled}`}>
-          <div className="clearfix">
-            <div className="pull-left">
+          <div className="clearfix mb-2">
+            <div className="pull-left mr-2">
               <Queue.LocationPicker onLocationChange={this.handleLocationChange}
                                     locations={locations}
                                     myLocation={myLocation}
                                     selectedLocation={selectedLocation} />
             </div>
-            <div className="pull-right">
-              <button onClick={this.hardRefresh} className={`btn btn-sm btn-refresh btn-outline btn-secondary ${refreshBtnClass}`}>
+            <div className="pull-left">
+              <button onClick={this.hardRefresh} className={`btn btn-refresh btn-outline btn-secondary ${refreshBtnClass}`} title="A 'hard refresh' shouldn't be needed, but just incase you're having trust issues still ;)">
                 <i className="fa fa-refresh"></i>
               </button>
             </div>
