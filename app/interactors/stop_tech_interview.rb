@@ -9,6 +9,7 @@ class StopTechInterview
 
     # FIXME: Doesn't do a permission check using @user
     #        And also should be in a db transaction
+    #        See StartTechInterview interactor/service-obj for eg
     #        - KV
     @tech_interview.started_at = nil
     TechInterviewResult.where(tech_interview_id: @tech_interview.id).delete_all
