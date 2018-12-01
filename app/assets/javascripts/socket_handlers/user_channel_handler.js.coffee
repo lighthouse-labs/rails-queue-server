@@ -1,8 +1,8 @@
 class window.UserChannelHandler
   constructor: (data) ->
     @data = data
-    @type = data.type
-    @object = data.object
+    @type = data?.type
+    @object = data?.object
 
   processResponse: (callback) ->
     switch @type
@@ -11,8 +11,13 @@ class window.UserChannelHandler
       when "RedirectCommand"
         @redirectCommand()
       else
-        presenter = new RequestButtonPresenter @type, @object
-        presenter.render()
+        new RequestButtonPresenter(@type, @object).render()
+
+  connected: ->
+    new RequestButtonPresenter('Connected').render()
+
+  disconnected: ->
+    new RequestButtonPresenter('Disconnected').render()
 
   redirectCommand: ->
     Turbolinks.visit(@data.location)

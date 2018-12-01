@@ -85,7 +85,7 @@ class Queue
     $.getJSON('/queue.json', force: force).then(@handleDataReceived.bind(this))
 
   writeToCache: (data) ->
-    window.localStorage.setItem 'queue', JSON.stringify(data.queue)
+    window.localStorage.setItem 'queue', JSON.stringify(data.queue) if data?.queue
 
   readFromCache: ->
     data = localStorage.getItem 'queue'

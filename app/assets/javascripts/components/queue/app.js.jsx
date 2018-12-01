@@ -8,7 +8,6 @@ window.Queue.App = class App extends React.Component {
   constructor(props) {
     super(props);
     const queue = this.props.queue || window.App.queue.readFromCache();
-
     window.current_user = this.props.user || window.current_user;
 
     this.state = {

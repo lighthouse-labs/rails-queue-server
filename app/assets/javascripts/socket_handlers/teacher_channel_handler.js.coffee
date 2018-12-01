@@ -1,7 +1,13 @@
 class window.TeacherChannelHandler
   constructor: (data) ->
-    @type = data.type
-    @object = data.object
+    @type = data?.type
+    @object = data?.object
+
+  connected: ->
+    $('.off-duty-link, .on-duty-link').removeClass('disabled')
+
+  disconnected: ->
+    $('.off-duty-link, .on-duty-link').addClass('disabled')
 
   processResponse: ->
     switch @type

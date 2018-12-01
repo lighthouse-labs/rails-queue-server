@@ -9,13 +9,19 @@ window.connectToTeachersSocket = ->
       @perform 'off_duty'
 
     received: (data) ->
-      handler = new TeacherChannelHandler data
-      handler.processResponse()
+      new TeacherChannelHandler(data).processResponse()
+
+    connected: ->
+      new TeacherChannelHandler().connected()
+
+    disconnected: ->
+      new TeacherChannelHandler().disconnected()
 
 $ ->
   return unless App.cable
   App.userChannel = App.cable.subscriptions.create "UserChannel",
     connected: ->
+      new UserChannelHandler().connected();
       if $('.reconnect-holder').is(':visible')
         $('.reconnect-holder').hide()
         eventClass = navigator.onLine ? 'reconnect-online' : 'reconnect-offline'
@@ -32,6 +38,7 @@ $ ->
       handler.processResponse()
 
     disconnected: ->
+      new UserChannelHandler().disconnected();
       eventClass = navigator.onLine ? 'disconnect-online' : 'disconnect-offline'
       ga('send', 'event', 'queue-connection', eventClass)
       $('.reconnect-holder').delay(500).show(0)
