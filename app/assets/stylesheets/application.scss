@@ -9,7 +9,6 @@
 @import "recordings";
 @import "lectures";
 @import "file_field";
-@import "assistance_requests";
 @import "day_feedbacks";
 // @import "april1";
 @import "feedbacks";
@@ -41,9 +40,6 @@
 // Admin
 
 @import "admin/students";
-// @import "admin/learning_objectives";
-// @import "admin/breadcrumb-adjustments";
-// @import "admin/autocomplete-modal-styling";
 @import "admin/outcomes";
 @import 'admin/teacher_stats';
 @import 'admin/cohorts';
