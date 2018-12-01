@@ -15,11 +15,17 @@ window.Queue.Interview = class Interview extends React.Component {
     return _.truncate(desc.split('. ').splice(0, 1).join('. '), {length: 105});
   }
 
+  handleCancelInterviewing = () => {
+    this.setState({disabled: true});
+    App.queue.cancelInterviewing(this.props.interview);
+    ga('send', 'event', 'cancel-interviewing', 'click');
+  }
+
   actionButtons() {
     const buttons = [null];
     const interview = this.props.interview;
     if (interview.interviewer && window.current_user.id === interview.interviewer.id) {
-      buttons.push(<button key="cancel" className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelEvaluating} disabled={this.state.disabled}>Cancel</button>);
+      buttons.push(<button key="cancel" className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelInterviewing} disabled={this.state.disabled}>Cancel</button>);
       buttons.push(<a key="view" className="btn btn-sm btn-secondary btn-main" href={`/tech_interviews/${interview.id}/edit`} disabled={this.state.disabled}>View</a>);
     }
     return buttons;

@@ -60,4 +60,12 @@ class QueueChannel < ApplicationCable::Channel
     end
   end
 
+  def cancel_interviewing(data)
+    interview = TechInterview.find_by id: data["interview_id"]
+    StopTechInterview.call(
+      tech_interview: interview,
+      user:           current_user
+    )
+  end
+
 end

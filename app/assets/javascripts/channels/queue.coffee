@@ -67,6 +67,9 @@ class Queue
   cancelEvaluating: (evaluation) ->
     @channel? && @channel.sendMessage 'cancel_evaluating', evaluation_id: evaluation.id
 
+  cancelInterviewing: (interview) ->
+    @channel? && @channel.sendMessage 'cancel_interviewing', interview_id: interview.id
+
   # for desktop notifications
   registerNotifier: (notifier) ->
     @notifier = notifier

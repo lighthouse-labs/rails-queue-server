@@ -16,6 +16,12 @@ window.Queue.PendingEvaluation = class PendingEvaluation extends React.Component
     ga('send', 'event', 'start-marking', 'click');
   }
 
+  renderResubmissionLabel(evaluation) {
+    if (evaluation.resubmission)  {
+      return (<span className="badge badge-warning badge-sm pull-right">resubmission</span>);
+    }
+  }
+
   render() {
     const evaluation = this.props.evaluation;
     const student = evaluation.student;
@@ -30,11 +36,14 @@ window.Queue.PendingEvaluation = class PendingEvaluation extends React.Component
                             when={evaluation.createdAt} />
 
         <div className="blurb">
-          <blockquote>{evaluation.studentNotes}</blockquote>
+          <a href={evaluation.githubUrl} target="_blank">{evaluation.githubUrl}</a>
+          {this.renderResubmissionLabel(evaluation)}
+          <br/>
+          {App.ReactUtils.renderQuote(evaluation.studentNotes, 300)}
         </div>
 
         <div className="actions pull-right">
-          <button className="btn btn-sm btn-light btn-hover-danger" disabled={disabled}>Remove</button>
+          <a className="btn btn-sm btn-light" href={`/projects/${evaluation.project.slug}/evaluations/${evaluation.id}`}>View</a>
           <button className="btn btn-sm btn-secondary btn-main" disabled={disabled} onClick={this.handleStartEvaluating}>Start Evaluating</button>
         </div>
       </Queue.QueueItem>

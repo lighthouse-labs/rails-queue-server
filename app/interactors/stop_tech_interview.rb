@@ -7,28 +7,21 @@ class StopTechInterview
     @user           = context.user # who is stopping the interview
     @location       = @tech_interview.cohort.location
 
+    # FIXME: Doesn't do a permission check using @user
+    #        And also should be in a db transaction
+    #        - KV
     @tech_interview.started_at = nil
     TechInterviewResult.where(tech_interview_id: @tech_interview.id).delete_all
 
-    if @tech_interview.save
-      broadcast_to_queue
-      broadcast_to_interviewee
-    else
-      context.fail!(error: @tech_interview.errors.full_messages.first)
-    end
+    context.fail!(error: @tech_interview.errors.full_messages.first) unless @tech_interview.save
+    RequestQueue::BroadcastUpdateAsync.call(program: Program.first)
   end
 
-  private
-
-  def broadcast_to_queue
-    ActionCable.server.broadcast "assistance-#{@location.name}", type:   "TechInterviewStopped",
-                                                                 object: TechInterviewSerializer.new(@tech_interview, root: false).as_json
-    RequestQueue::BroadcastUpdate.call(program: Program.first)
-  end
-
-  def broadcast_to_interviewee
-    UserChannel.broadcast_to @interviewee, type:   "TechInterviewStopped",
-                                           object: TechInterviewSerializer.new(@tech_interview).as_json
-  end
+  # Not used to change anything in the UI. Commenting out for that reason.
+  # Remove me in a future cleanup - KV
+  # def broadcast_to_interviewee
+  #   UserChannel.broadcast_to @interviewee, type:   "TechInterviewStopped",
+  #                                          object: TechInterviewSerializer.new(@tech_interview).as_json
+  # end
 
 end

@@ -10,10 +10,8 @@ class BroadcastAssistanceCancelWorker
   def perform(request_id, assistor_id)
     request  = AssistanceRequest.find request_id
     assistor = User.find assistor_id
-    student  = request.requestor
 
     RequestQueue::BroadcastUpdate.call(program: Program.first)
-    UserChannel.broadcast_to student, type: "AssistanceEnded"
     RequestQueue::BroadcastTeacherAvailable.call(assistor: assistor)
     RequestQueue::BroadcastNewQueuePositions.call(location: request.assistor_location)
   end
