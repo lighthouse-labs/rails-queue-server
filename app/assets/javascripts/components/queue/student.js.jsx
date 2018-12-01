@@ -6,7 +6,7 @@ window.Queue.Student = class Student extends React.Component {
   }
 
   openModal = () => {
-    this.refs.requestModal.open()
+    this.refs.requestModal.open();
   }
 
   render() {

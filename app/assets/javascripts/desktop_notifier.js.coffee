@@ -17,8 +17,7 @@ class DesktopNotifier
   requestNotificationPermission: ->
     if @supportsNotifications
       Notification.requestPermission().then (res) =>
-        if res is "granted"
-          @permissionGranted = true
+        @permissionGranted = true if res is "granted"
 
   checkIfNeedsNotifications: ->
     window.current_user?.type is 'Teacher'
@@ -35,10 +34,9 @@ class DesktopNotifier
 
   handleNewAssistanceRequest: (assistanceRequest) ->
     if @shouldNotifyNow()
-      new Notification "Assistance Requested by " + assistanceRequest.requestor.firstName + ' ' + assistanceRequest.requestor.lastName, {
+      new Notification "Assistance Requested by #{assistanceRequest.requestor.firstName} #{assistanceRequest.requestor.lastName}",
         body: @notificationBody(assistanceRequest),
         icon: assistanceRequest.requestor.avatarUrl
-      }
 
 window.App ||= {}
 notifier = window.App.desktopNotifier = new DesktopNotifier

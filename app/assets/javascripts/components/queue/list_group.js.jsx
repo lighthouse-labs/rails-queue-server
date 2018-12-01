@@ -10,20 +10,20 @@ window.Queue.ListGroup = class ListGroup extends React.Component {
     super(props);
     this.state = {
       collapsed: this.checkCollapsed()
-    }
+    };
   }
 
   checkCollapsed() {
-    return window.localStorage.getItem(`${this.props.title} - collapsed`) === 'y'
+    return window.localStorage.getItem(`${this.props.title} - collapsed`) === 'y';
   }
 
   handleToggleCollapse = () => {
     if (this.state.collapsed) {
-      this.setState({collapsed: false })
-      window.localStorage.setItem(`${this.props.title} - collapsed`, 'n')
+      this.setState({collapsed: false });
+      window.localStorage.setItem(`${this.props.title} - collapsed`, 'n');
     } else {
-      this.setState({collapsed: true })
-      window.localStorage.setItem(`${this.props.title} - collapsed`, 'y')
+      this.setState({collapsed: true });
+      window.localStorage.setItem(`${this.props.title} - collapsed`, 'y');
     }
   }
 

@@ -12,9 +12,9 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
   renderWhen() {
     const when = this.props.when;
     if (when) {
-      return(<TimeAgo date={when} />)
+      return(<TimeAgo date={when} />);
     } else {
-      return(<span>Never Helped</span>)
+      return(<span>Never Helped</span>);
     }
   }
 
@@ -28,10 +28,12 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     let project = this.props.project || (activity && activity.project);
 
     // always have one empty element otherwise it could fail on reduce - KV
-    let badges = [null]
+    let badges = [null];
 
-    if (cohort && cohort.week) badges.push(<a key="weekbadge" className="badge badge-light" href={`/cohorts/${cohort.id}/students`}>W{cohort.week}</a>)
-    if (project) badges.push(<a key="projectbadge" className="badge badge-light" href={`/projects/${project.slug}`}>{project.name}</a>)
+    if (cohort && cohort.week)
+      badges.push(<a key="weekbadge" className="badge badge-light" href={`/cohorts/${cohort.id}/students`}>W{cohort.week}</a>);
+    if (project)
+      badges.push(<a key="projectbadge" className="badge badge-light" href={`/projects/${project.slug}`}>{project.name}</a>);
 
     return (
       <div className="details">
@@ -41,13 +43,13 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
           {this.renderWhen()}
         </span>
       </div>
-    )
+    );
   }
 
   pronoun(student) {
     return (
       student.pronoun ? <span title="Pronoun" className="pronoun">({student.pronoun})</span> : null
-    )
+    );
   }
 
   render() {

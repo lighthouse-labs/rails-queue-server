@@ -62,8 +62,7 @@ window.Queue.Evaluation = class Evaluation extends React.Component {
         <Queue.StudentInfo  student={student}
                             showDetails={true}
                             project={project}
-                            when={evaluation.createdAt}
-                             />
+                            when={evaluation.createdAt} />
 
         { evaluator ? this.renderEvaluator(evaluator, evaluation) : nil }
 

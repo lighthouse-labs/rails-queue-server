@@ -18,20 +18,15 @@ class window.TeacherChannelHandler
 
   userConnected: ->
     for teacher in @object
-      if @teacherInLocation(teacher)
-        @addTeacherToSidebar(teacher)
+      @addTeacherToSidebar(teacher) if @teacherInLocation(teacher)
 
   teacherOnDuty: ->
-    if @teacherInLocation(@object)
-      @addTeacherToSidebar(@object)
-    if @teacherIsMe(@object)
-      @markSelfAsOnDuty()
+    @addTeacherToSidebar(@object) if @teacherInLocation(@object)
+    @markMeAsOnDuty() if @teacherIsMe(@object)
 
   teacherOffDuty: ->
-    if @teacherInLocation(@object)
-      @removeTeacherFromSidebar(@object)
-    if @teacherIsMe(@object)
-      @markSelfAsOffDuty()
+    @removeTeacherFromSidebar(@object) if @teacherInLocation(@object)
+    @markMeAsOffDuty() if @teacherIsMe(@object)
 
   teacherBusy: ->
     $('.teacher-holder').find('#teacher_' + @object.id).addClass('busy')
@@ -40,37 +35,34 @@ class window.TeacherChannelHandler
     $('.teacher-holder').find('#teacher_' + @object.id).removeClass('busy')
 
   teacherInLocation: (teacher) ->
-    if current_user
-      if current_user.type is 'Teacher' or current_user.cohort
-        return current_user.location.id is teacher.location.id
+    if current_user?.type is 'Teacher' or current_user?.cohort
+      return current_user.location.id is teacher.location.id
 
   teacherIsMe: (teacher) ->
     window.current_user?.id is teacher.id
 
-  markSelfAsOnDuty: ->
+  markMeAsOnDuty: ->
     window.current_user.onDuty = true
 
-  markSelfAsOffDuty: ->
+  markMeAsOffDuty: ->
     window.current_user.onDuty = false
 
   addTeacherToSidebar: (teacher) ->
-    if $('.teacher-holder').find('#teacher_' + teacher.id).length is 0
+    if $('.teacher-holder').find("\#teacher_#{teacher.id}").length is 0
       img = document.createElement('img')
-      img.id = 'teacher_' + teacher.id
+      img.id = "teacher_#{teacher.id}"
       img.src = teacher.avatarUrl
       img.title = teacher.fullName
       img.setAttribute("data-placement", "bottom")
 
       link = document.createElement('a')
-      link.href = "/teachers/" + teacher.id
+      link.href = "/teachers/#{teacher.id}"
       link.appendChild(img)
 
-      if teacher.busy
-        img.className = 'busy'
+      img.className = 'busy' if teacher.busy
 
       $('.teacher-holder').append(link)
       $(img).tooltip()
 
   removeTeacherFromSidebar: (teacher) ->
-    $('.teacher-holder').find('#teacher_' + teacher.id).remove()
-
+    $('.teacher-holder').find("\#teacher_#{teacher.id}").remove()

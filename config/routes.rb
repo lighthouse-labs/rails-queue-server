@@ -76,16 +76,6 @@ LaserShark::Application.routes.draw do
   end
 
   get 'assistance_requests', to: redirect('/queue')
-  resources :assistance_requests, only: [:create, :destroy] do
-    collection do
-      delete :cancel
-      get :status
-      get :queue
-    end
-    member do
-      post :start_assistance
-    end
-  end
 
   resources :prep_assistance_requests, only: [:create]
 

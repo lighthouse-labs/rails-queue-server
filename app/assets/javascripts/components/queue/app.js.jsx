@@ -111,9 +111,9 @@ window.Queue.App = class App extends React.Component {
             </div>
           </div>
 
-          <Queue.Locations      locations={locations}
-                                myLocation={myLocation}
-                                selectedLocation={selectedLocation} />
+          <Queue.Locations  locations={locations}
+                            myLocation={myLocation}
+                            selectedLocation={selectedLocation} />
         </div>
       );
     }

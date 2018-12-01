@@ -102,7 +102,7 @@ window.Queue.RequestModal = class RequestModal extends React.Component {
           <b>Original reason:</b>
           {assistanceRequest.reason}
         </div>
-      )
+      );
     }
   }
 
@@ -187,7 +187,7 @@ window.Queue.RequestModal = class RequestModal extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
 }

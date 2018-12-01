@@ -7,7 +7,7 @@ window.Queue.QueueItem = class QueueItem extends React.Component {
 
   render() {
     const type = this.props.type;
-    const disabled = this.props.disabled ? 'disabled' : ''
+    const disabled = this.props.disabled ? 'disabled' : '';
 
     return(
       <li className={`${_.kebabCase(type)} ${disabled} list-group-item clearfix`}>

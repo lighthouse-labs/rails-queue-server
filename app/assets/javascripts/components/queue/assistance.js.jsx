@@ -21,7 +21,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
   }
 
   openModal() {
-    this.refs.requestModal.open()
+    this.refs.requestModal.open();
   }
 
   actionButtons() {
@@ -39,7 +39,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
       <div className="actions pull-right">
         { App.ReactUtils.joinElements(this.actionButtons(), null) }
       </div>
-    )
+    );
   }
 
 
@@ -54,8 +54,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
 
         <Queue.StudentInfo  student={student}
                             showDetails={true}
-                            when={request.startAt}
-                             />
+                            when={request.startAt} />
 
         <Queue.TeacherInfo teacher={assistor} when={assistance.startAt} />
 

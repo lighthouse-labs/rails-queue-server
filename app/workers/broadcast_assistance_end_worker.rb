@@ -8,9 +8,10 @@ class BroadcastAssistanceEndWorker
 
   def perform(assistance_id)
     assistance = Assistance.find assistance_id
-    assistor = assistance.assistor
+    assistor   = assistance.assistor
+    requestor  = assistance.assistance_request.requestor
 
-    UserChannel.broadcast_to assistance.assistance_request.requestor, type: "AssistanceEnded"
+    UserChannel.broadcast_to requestor, type: "AssistanceEnded"
 
     if assistor.teaching_assistances.currently_active.empty?
       ActionCable.server.broadcast "teachers", type:   "TeacherAvailable",

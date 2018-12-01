@@ -8,14 +8,14 @@ window.Queue.TeacherInfo = class TeacherInfo extends React.Component {
 
   renderWhen() {
     if (this.props.when) {
-      return (<span className="time"><TimeAgo date={this.props.when} /></span>)
+      return <span className="time"><TimeAgo date={this.props.when} /></span>
     }
   }
 
   pronoun(teacher) {
-    return (
-      teacher.pronoun ? <span title="Pronoun" className="pronoun">({teacher.pronoun})</span> : null
-    )
+    if (teacher.pronoun) {
+      return <span title="Pronoun" className="pronoun">({teacher.pronoun})</span>
+    }
   }
 
   render() {

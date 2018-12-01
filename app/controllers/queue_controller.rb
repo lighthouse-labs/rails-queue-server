@@ -16,6 +16,7 @@ class QueueController < ApplicationController
     end
   end
 
+  # TODO: Turn it into an interactor instead of controller doing a whole bunch of logic
   def provided_assistance
     respond_to do |format|
       format.json do
@@ -36,6 +37,7 @@ class QueueController < ApplicationController
     end
   end
 
+  # TODO: Turn it into an interactor instead of controller doing a whole bunch of logic
   def end_assistance
     respond_to do |format|
       format.json do
@@ -49,6 +51,7 @@ class QueueController < ApplicationController
     end
   end
 
+  # TODO: Turn it into an interactor instead of controller doing a whole bunch of logic
   def start_evaluation
     respond_to do |format|
       format.json do
@@ -69,6 +72,8 @@ class QueueController < ApplicationController
   def full_queue_json(force = false)
     queue_json = queue_json(force)
     loc_json = MyLocationSerializer.new(current_user.location).to_json
+    # A bit ugly in how we are compiling the _final_ json string
+    # However, saves us an unncessary parse/stringify step since it's stored as a string in redis
     %({"queue":#{queue_json},"myLocation":#{loc_json}})
   end
 
@@ -91,12 +96,8 @@ class QueueController < ApplicationController
   def teacher_required
     unless teacher?
       respond_to do |format|
-        format.html do
-          redirect_to(:root, alert: 'Not allowed.')
-        end
-        format.json do
-          render json: { error: 'Not Allowed.' }
-        end
+        format.html { redirect_to(:root, alert: 'Not allowed.') }
+        format.json { render json: { error: 'Not Allowed.' } }
       end
     end
   end
