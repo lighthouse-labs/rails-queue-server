@@ -16,7 +16,7 @@ class BroadcastAssistanceRequestWorker
 
     # Location specific b/c it's the stream used to
     # trigger desktop notifications for teachers/assistors on the queue
-    if location_name = request.assistor_location&.name
+    if (location_name = request.assistor_location&.name)
       ActionCable.server.broadcast "assistance-#{location_name}", type:   "AssistanceRequest",
                                                                   object: AssistanceRequestSerializer.new(request, root: false).as_json
     end

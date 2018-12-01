@@ -9,7 +9,6 @@ class BroadcastRequestCancellationWorker
   def perform(assistance_request_id)
     request   = AssistanceRequest.find assistance_request_id
     requestor = request.requestor
-    location_name = request.assistor_location.name || 'Vancouver'
 
     RequestQueue::BroadcastUpdate.call(program: Program.first)
     UserChannel.broadcast_to requestor, type: "AssistanceEnded"

@@ -24,6 +24,7 @@ class EvaluationsController < ApplicationController
     @evaluation = @project.evaluations.new
   end
 
+  # TODO: Refactor logic into interactor (service object)
   def create
     @evaluation = @project.evaluations.new(evaluation_params)
     @evaluation.student = current_user
