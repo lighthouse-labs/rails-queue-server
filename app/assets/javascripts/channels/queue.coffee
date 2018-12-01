@@ -35,6 +35,7 @@ class Queue
     @channel = window.App.cable.subscriptions.create "QueueChannel",
       connected: ->
         queue.connected = true
+        queue.connecting = false
         queue.app.connected() if queue.app
 
       disconnected: ->
@@ -53,22 +54,22 @@ class Queue
         @perform action, data
 
   cancelAssistanceRequest: (request) ->
-    @channel? && @channel.sendMessage 'cancel_assistance_request', request_id: request.id
+    @channel?.sendMessage 'cancel_assistance_request', request_id: request.id
 
   startAssisting: (request) ->
-    @channel? && @channel.sendMessage 'start_assisting', request_id: request.id
+    @channel?.sendMessage 'start_assisting', request_id: request.id
 
   cancelAssisting: (assistance) ->
-    @channel? && @channel.sendMessage 'cancel_assisting', assistance_id: assistance.id
+    @channel?.sendMessage 'cancel_assisting', assistance_id: assistance.id
 
   startEvaluating: (evaluation) ->
-    @channel? && @channel.sendMessage 'start_evaluating', evaluation_id: evaluation.id
+    @channel?.sendMessage 'start_evaluating', evaluation_id: evaluation.id
 
   cancelEvaluating: (evaluation) ->
-    @channel? && @channel.sendMessage 'cancel_evaluating', evaluation_id: evaluation.id
+    @channel?.sendMessage 'cancel_evaluating', evaluation_id: evaluation.id
 
   cancelInterviewing: (interview) ->
-    @channel? && @channel.sendMessage 'cancel_interviewing', interview_id: interview.id
+    @channel?.sendMessage 'cancel_interviewing', interview_id: interview.id
 
   # for desktop notifications
   registerNotifier: (notifier) ->

@@ -18,32 +18,18 @@ window.Queue.App = class App extends React.Component {
       refreshing:   false,
       disconnects:  0
     }
-
-
-  }
-
-  connected() {
-    this.setState({connected: true});
-    if (this.state.disconnects > 0) {
-      window.App.queue.fetch();
-    }
-  }
-
-  disconnected() {
-    this.setState({
-      disconnects: this.state.disconnects + 1,
-      connected: false
-    });
   }
 
   componentDidMount() {
-    // get the data :)
+    // register this app to the queue manager class, which will notify us of important data/state changes
     this.registerApp();
+    // get the data :)
     // no callback needed since we registered the app and it will call our setState
     window.App.queue.fetch();
   }
 
   componentWillUnmount() {
+    // otherwise the queue mgr will obliviously be setting state on unmounted react component
     window.App.queue.unregisterApp();
   }
 
@@ -53,15 +39,31 @@ window.Queue.App = class App extends React.Component {
     this.setState({connected: window.App.queue.isConnected()});
   }
 
+  // external callback (from Queue manager: queue.coffee)
+  connected() {
+    this.setState({connected: true});
+    // It's not an initial connect, but a retry. Let's refetch queue state!
+    if (this.state.disconnects > 0) {
+      window.App.queue.fetch();
+    }
+  }
+
+  // external callback (from Queue manager: queue.coffee)
+  disconnected() {
+    this.setState({
+      disconnects: this.state.disconnects + 1,
+      connected: false
+    });
+  }
+
+  // external callback (from Queue manager: queue.coffee)
   updateData(data) {
     const state = Object.assign({}, data, { refreshing: false });
     this.setState(state)
   }
 
   handleLocationChange = (location) => {
-    this.setState({
-      selectedLocation: location
-    })
+    this.setState({ selectedLocation: location })
   }
 
   getSelectedLocation(locations) {
