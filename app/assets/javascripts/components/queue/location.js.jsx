@@ -12,12 +12,12 @@ window.Queue.Location = class Location extends React.Component {
         <div className="col-md-12">
           <h4>{loc.name} Queue</h4>
         </div>
-        <div className="col-md-6 order-1 order-md-1">
+        <div className="col-lg-6">
           <Queue.OpenRequestsList requests={loc.requests || []} />
           <Queue.InProgressList assistances={loc.assistances || []} evaluations={loc.inProgressEvaluations || []} interviews={loc.inProgressInterviews || []} />
           <Queue.PendingEvaluationsList evaluations={loc.pendingEvaluations || []} />
         </div>
-        <div className="col-md-6 order-2 order-md-2">
+        <div className="col-lg-6">
           <Queue.StudentsList students={loc.students} />
         </div>
       </div>
