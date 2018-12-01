@@ -4,7 +4,7 @@ class BroadcastAssistanceRequestWorker
 
   # Don't want it to retry failed websocket updates. Move on!
   # https://github.com/mperham/sidekiq/wiki/Error-Handling
-  sidekiq_options retry: false
+  sidekiq_options retry: false, queue: 'realtime'
 
   def perform(assistance_request_id)
     request   = AssistanceRequest.find assistance_request_id
