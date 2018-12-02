@@ -38,6 +38,7 @@ class DesktopNotifier
         body: @notificationBody(assistanceRequest),
         icon: assistanceRequest.requestor.avatarUrl
 
-window.App ||= {}
-notifier = window.App.desktopNotifier = new DesktopNotifier
-window.App.queue.registerNotifier(notifier)
+if window.current_user
+  window.App ||= {}
+  notifier = window.App.desktopNotifier = new DesktopNotifier
+  window.App.queue.registerNotifier(notifier) if window.App.queue

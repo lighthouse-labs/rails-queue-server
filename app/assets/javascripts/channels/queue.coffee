@@ -19,6 +19,7 @@ class Queue
     @connected = false
     @app = null
     @connect()
+    @bindEvents()
 
   connect: ->
     return true if @connecting || @connected
@@ -98,6 +99,13 @@ class Queue
   handleNewAssistanceRequest: (request) ->
     @notifier.handleNewAssistanceRequest(request) if @notifier
 
+  bindEvents: ->
+    # Taken from:
+    # https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API#Properties_added_to_the_Document_interface
+    handleVisibilityChange = => (@fetch() if !document.hidden)
+    document.addEventListener "visibilitychange", handleVisibilityChange, false
 
-window.App ||= {}
-window.App.queue = new Queue(window.App.desktopNotifier)
+
+if window.current_user?.type is 'Teacher'
+  window.App ||= {}
+  window.App.queue = new Queue(window.App.desktopNotifier)
