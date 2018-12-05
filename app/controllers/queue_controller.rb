@@ -10,7 +10,8 @@ class QueueController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        # 15ms-30ms response vs 900-1200 ms range response on my localhost, due to reading from cache - KV
+        # 15ms-30ms response vs 900-1200 ms range response on my localhost, due to reading from cache
+        # - KV
         render json: full_queue_json(params[:force] == 'true')
       end
     end
@@ -26,12 +27,10 @@ class QueueController < ApplicationController
           assistance_request.start_assistance(current_user)
           assistance = assistance_request.reload.assistance
           assistance.end(params[:notes], params[:notify], params[:rating])
-          puts "responding"
           render json: { success: true }
         else
           render json: { success: false, error: assistance_request.errors.full_messages.first }, status: :forbidden
         end
-        puts "queue update starting"
         RequestQueue::BroadcastUpdate.call(program: Program.first)
       end
     end
@@ -43,9 +42,7 @@ class QueueController < ApplicationController
       format.json do
         assistance = Assistance.find params[:assistance_id]
         assistance.end(params[:notes], params[:notify], params[:rating].to_i)
-
         render json: { success: true }
-
         BroadcastAssistanceEndWorker.perform_async(assistance.id)
       end
     end
@@ -69,17 +66,16 @@ class QueueController < ApplicationController
 
   private
 
-  def full_queue_json(force = false)
-    queue_json = queue_json(force)
-    loc_json = MyLocationSerializer.new(current_user.location).to_json
+  def full_queue_json(rebuild_cache = false)
+    queue_json = queue_json(rebuild_cache)
     # A bit ugly in how we are compiling the _final_ json string
     # However, saves us an unncessary parse/stringify step since it's stored as a string in redis
-    %({"queue":#{queue_json},"myLocation":#{loc_json}})
+    %({"queue":#{queue_json}})
   end
 
-  def queue_json(force = false)
+  def queue_json(rebuild_cache = false)
     $redis_pool.with do |conn|
-      if force
+      if rebuild_cache
         json = QueueSerializer.new(@program, root: false).to_json
         conn.set("program:#{@program.id}:queue", json)
       else

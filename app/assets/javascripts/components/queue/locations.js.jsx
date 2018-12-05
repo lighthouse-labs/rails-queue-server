@@ -7,13 +7,6 @@ window.Queue.Locations = class Locations extends React.Component {
     myLocation: PropTypes.object,
   }
 
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   selectedLocation: this.props.selectedLocation || this.props.myLocation || this.props.locations[0]
-    // }
-  }
-
   renderLocation = (location) => {
     const selectedLocation = this.props.selectedLocation;
     if (selectedLocation && selectedLocation.id === location.id) {
