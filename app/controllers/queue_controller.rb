@@ -12,7 +12,9 @@ class QueueController < ApplicationController
       format.json do
         # 15ms-30ms response vs 900-1200 ms range response on my localhost, due to reading from cache
         # - KV
-        render json: full_queue_json(params[:force] == 'true')
+        render json: RequestQueue::FetchQueueJson.call(
+          rebuild_cache: params[:force] == 'true',
+          program: @program).json
       end
     end
   end
@@ -65,29 +67,6 @@ class QueueController < ApplicationController
   end
 
   private
-
-  def full_queue_json(rebuild_cache = false)
-    queue_json = queue_json(rebuild_cache)
-    # A bit ugly in how we are compiling the _final_ json string
-    # However, saves us an unncessary parse/stringify step since it's stored as a string in redis
-    %({"queue":#{queue_json}})
-  end
-
-  def queue_json(rebuild_cache = false)
-    $redis_pool.with do |conn|
-      if rebuild_cache
-        json = QueueSerializer.new(@program, root: false).to_json
-        conn.set("program:#{@program.id}:queue", json)
-      else
-        json = conn.get("program:#{@program.id}:queue")
-        unless json
-          json = QueueSerializer.new(@program, root: false).to_json
-          conn.set("program:#{@program.id}:queue", json)
-        end
-      end
-      json
-    end
-  end
 
   def teacher_required
     unless teacher?
