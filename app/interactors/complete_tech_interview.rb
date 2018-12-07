@@ -4,6 +4,6 @@ class CompleteTechInterview
 
   organize  MarkTechInterview,
             CreateOutcomeResultsFromTechInterview,
-            RequestQueue::BroadcastUpdateAsyc
+            RequestQueue::BroadcastUpdateAsync
 
 end
