@@ -26,7 +26,7 @@ class DesktopNotifier
     window.current_user.onDuty is on
 
   shouldNotifyNow: ->
-    @supportsNotifications && @permissionGranted && @onDuty() && @needsNotifications
+    @supportsNotifications && @permissionGranted && @onDuty()
 
   notificationBody: (request) ->
     week = request.requestor.cohort.week;
