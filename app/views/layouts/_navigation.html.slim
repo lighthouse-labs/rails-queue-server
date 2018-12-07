@@ -214,7 +214,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
         - elsif current_user.try(:active_student?) && current_user.cohort.active_queue?
           li#assistance-request-module
             span#cancel-assistance-request class = (!(current_user.waiting_for_assistance? || current_user.being_assisted?) ? 'd-none' : '')
-              = button_to '#', class: 'navbar-btn btn disabled btn-outline-warning cancel-request-assistance-button', :'data-toggle' => 'tooltip', :'data-placement' => 'bottom', title: 'Cancel this Assistance Request' do
+              = button_to '#', class: 'navbar-btn btn btn-outline-warning cancel-request-assistance-button', :'data-toggle' => 'tooltip', :'data-placement' => 'bottom', title: 'Cancel this Assistance Request' do
                 - if current_user.being_assisted?
                   = "#{current_user.current_assistor.try(:full_name) || 'TA'} assisting"
                 - elsif current_user.waiting_for_assistance?
@@ -222,7 +222,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
                 - else
                   = 'Waiting for Assistance'
             span#create-assistance-request class = ((current_user.waiting_for_assistance? || current_user.being_assisted?) ? 'd-none' : '')
-              button.btn.disabled.navbar-btn.btn-primary data-toggle="modal" data-target="#assistance-request-reason-modal" onclick="ga('send', 'event', 'request-assistance', 'click', 'student-requested-assistance');"
+              button.btn.navbar-btn.btn-primary data-toggle="modal" data-target="#assistance-request-reason-modal" onclick="ga('send', 'event', 'request-assistance', 'click', 'student-requested-assistance');"
                 - if current_user.location.try(:satellite?) && !current_user.cohort.local_assistance_queue?
                   | Request Remote Assistance
                 - else

@@ -18,12 +18,12 @@ class window.RequestButtonPresenter
       when "Connected" then @enable()
 
   disable: ->
-    @ar_create_button.addClass('disabled')
-    @ar_cancel_button.addClass('disabled')
+    @ar_create_button.attr('disabled', 'disabled')
+    @ar_cancel_button.attr('disabled', 'disabled')
 
   enable: ->
-    @ar_create_button.removeClass('disabled')
-    @ar_cancel_button.removeClass('disabled')
+    @ar_create_button.removeAttr('disabled')
+    @ar_cancel_button.removeAttr('disabled')
 
   updateQueuePosition: (position) ->
     @ar_cancel_button.text('No. ' + position + ' in Request Queue')
