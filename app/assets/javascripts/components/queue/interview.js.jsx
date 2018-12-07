@@ -52,7 +52,7 @@ window.Queue.Interview = class Interview extends React.Component {
                             showDetails={true}
                             when={interview.createdAt} />
 
-        { interviewer ? <Queue.TeacherInfo teacher={interviewer} /> : nil }
+        { interviewer && <Queue.TeacherInfo teacher={interviewer} /> }
 
         <div className="blurb">
           <blockquote>

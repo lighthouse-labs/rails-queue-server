@@ -142,7 +142,7 @@ window.Queue.RequestModal = class RequestModal extends React.Component {
             </div>
             <div className="modal-body">
 
-              { assistanceRequest ? this.renderReason(assistanceRequest) : null }
+              { assistanceRequest && this.renderReason(assistanceRequest) }
 
               <fieldset disabled={disabled}>
                 <div className={this.state.notesValid ? "form-group" : "form-group has-error"}>

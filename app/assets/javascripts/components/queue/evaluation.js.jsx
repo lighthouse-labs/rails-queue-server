@@ -64,7 +64,7 @@ window.Queue.Evaluation = class Evaluation extends React.Component {
                             project={project}
                             when={evaluation.createdAt} />
 
-        { evaluator ? this.renderEvaluator(evaluator, evaluation) : nil }
+        { evaluator && this.renderEvaluator(evaluator, evaluation) }
 
         <div className="blurb">
           {App.ReactUtils.renderQuote(evaluation.studentNotes)}
