@@ -188,10 +188,10 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             li.teacher-duty
               span
                 - attrs = { data: { toggle: 'tooltip', placement: 'bottom' }, title: "Your Location: #{current_user.location.try(:name) || 'N/A'}" }
-                = link_to '#', { class: "on-duty-link disabled btn btn-outline-success", hidden: current_user.on_duty?, onclick: "ga('send', 'event', 'go-on-duty', 'click');"}.merge(attrs) do
+                = link_to '#', { class: "on-duty-link btn btn-outline-success", hidden: current_user.on_duty?, onclick: "ga('send', 'event', 'go-on-duty', 'click');"}.merge(attrs) do
                   i.fa.fa-fw.fa-bullhorn
                   span.non-tablet-label Go on Duty
-                = link_to '#', { class: "off-duty-link disabled btn btn-outline-danger", hidden: !current_user.on_duty?, onclick: "ga('send', 'event', 'go-off-duty', 'click');"}.merge(attrs) do
+                = link_to '#', { class: "off-duty-link btn btn-outline-danger", hidden: !current_user.on_duty?, onclick: "ga('send', 'event', 'go-off-duty', 'click');"}.merge(attrs) do
                   i.fa.fa-fw.fa-bullhorn
                   span.non-tablet-label Go off duty
 
