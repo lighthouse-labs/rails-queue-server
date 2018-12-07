@@ -2,6 +2,8 @@ class CompleteTechInterview
 
   include Interactor::Organizer
 
-  organize MarkTechInterview, CreateOutcomeResultsFromTechInterview
+  organize  MarkTechInterview,
+            CreateOutcomeResultsFromTechInterview,
+            RequestQueue::BroadcastUpdateAsyc
 
 end
