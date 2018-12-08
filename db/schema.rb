@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181114011751) do
+ActiveRecord::Schema.define(version: 20181206233007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20181114011751) do
     t.index ["assistor_id"], name: "index_assistance_requests_on_assistor_id", using: :btree
     t.index ["assistor_location_id"], name: "index_assistance_requests_on_assistor_location_id", using: :btree
     t.index ["cohort_id"], name: "index_assistance_requests_on_cohort_id", using: :btree
+    t.index ["id"], name: "open_requests_by_id", where: "((canceled_at IS NULL) AND (type IS NULL) AND (assistance_id IS NULL))", using: :btree
     t.index ["requestor_id"], name: "index_assistance_requests_on_requestor_id", using: :btree
   end
 
@@ -195,7 +196,9 @@ ActiveRecord::Schema.define(version: 20181114011751) do
     t.string   "weekdays"
     t.text     "disable_queue_days",     default: [], null: false, array: true
     t.boolean  "local_assistance_queue"
+    t.index ["location_id"], name: "index_cohorts_on_location_id", using: :btree
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
+    t.index ["start_date"], name: "index_cohorts_on_start_date", using: :btree
   end
 
   create_table "content_repositories", force: :cascade do |t|
@@ -660,8 +663,11 @@ ActiveRecord::Schema.define(version: 20181114011751) do
     t.float    "cohort_assistance_average"
     t.string   "pronoun"
     t.index ["auth_token"], name: "index_users_on_auth_token", using: :btree
+    t.index ["cohort_id"], name: "active_students_by_cohort", where: "((completed_registration = true) AND (deactivated_at IS NULL) AND ((type)::text = 'Student'::text))", using: :btree
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
     t.index ["initial_cohort_id"], name: "index_users_on_initial_cohort_id", using: :btree
+    t.index ["location_id"], name: "active_users_by_location", where: "((completed_registration = true) AND (deactivated_at IS NULL))", using: :btree
+    t.index ["location_id"], name: "index_users_on_location_id", using: :btree
     t.index ["type", "on_duty"], name: "index_users_on_type_and_on_duty", using: :btree
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
