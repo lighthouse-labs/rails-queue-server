@@ -117,9 +117,11 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def set_assistor_location_id
-    self.assistor_location_id = requestor.cohort.local_assistance_queue? ?
-      requestor.location_id :
-      requestor.cohort.location_id
+    if requestor
+      self.assistor_location_id = requestor.cohort.local_assistance_queue? ?
+        requestor.location_id :
+        requestor.cohort.location_id
+    end
   end
 
 end

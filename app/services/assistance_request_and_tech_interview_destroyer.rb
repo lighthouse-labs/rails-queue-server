@@ -23,6 +23,7 @@ class AssistanceRequestAndTechInterviewDestroyer
                                    type:   "CancelAssistanceRequest",
                                    object: AssistanceRequestSerializer.new(ar, root: false).as_json
       UserChannel.broadcast_to ar.requestor, type: "AssistanceEnded"
+      RequestQueue::BroadcastUpdate.call(program: Program.first)
     end
   end
 

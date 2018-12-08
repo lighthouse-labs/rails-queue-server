@@ -12,23 +12,13 @@ class CreateTechInterview
       interviewee: @interviewee
     )
 
-    if @tech_interview.save
-      broadcast_to_queue
-      broadcast_to_interviewee
-    else
-      context.fail!(error: @tech_interview.errors.full_messages.first)
-    end
+    context.fail!(error: @tech_interview.errors.full_messages.first) unless @tech_interview.save
+    RequestQueue::BroadcastUpdateAsync.call(program: Program.first)
   end
 
-  private
-
-  def broadcast_to_queue
-    ActionCable.server.broadcast "assistance-#{@location.name}", type:   "NewTechInterview",
-                                                                 object: TechInterviewSerializer.new(@tech_interview, root: false).as_json
-  end
-
-  def broadcast_to_interviewee
-    UserChannel.broadcast_to @interviewee, type: "TechInterviewQueued", object: TechInterviewSerializer.new(@tech_interview).as_json
-  end
+  # Not used/consumed by UI at all. Remove in next cleanup - KV
+  # def broadcast_to_interviewee
+  #   UserChannel.broadcast_to @interviewee, type: "TechInterviewQueued", object: TechInterviewSerializer.new(@tech_interview).as_json
+  # end
 
 end

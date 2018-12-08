@@ -66,7 +66,6 @@ class TechInterviewsController < ApplicationController
     if @tech_interview.update(interview_params)
       redirect_to confirm_tech_interview_path(@tech_interview)
     else
-      raise @tech_interview.results.inspect
       render :edit
     end
   end

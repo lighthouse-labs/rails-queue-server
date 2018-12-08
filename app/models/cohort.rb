@@ -45,7 +45,9 @@ class Cohort < ApplicationRecord
   scope :is_finished, -> { where('cohorts.start_date < ?', (Date.current - Program.first.weeks.weeks)) }
   scope :started_before, ->(date) { where('cohorts.start_date <= ?', date) }
   scope :started_after, ->(date) { where('cohorts.start_date >= ?', date) }
-
+  scope :running_in_location, ->(location) {
+    where(location_id: location.supported_by_location ? location.supported_by_location : location)
+  }
   # assumes monday start date =/ - KV
   # last day of instruction, friday of the last week - JM
   def end_date

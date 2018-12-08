@@ -21,11 +21,6 @@ module ApplicationHelper
       (current_user.is_a?(Student) && !current_user.cohort.program.has_queue?)
   end
 
-  # folks in limited (previous alumni) cohort dont need to take up action cable connections
-  def disable_cable_for_some
-    ' disable-cable' if disable_cable?
-  end
-
   # Display an integer time as a string
   # Ex: integer_time_to_s(930) # => "9:30"
   def integer_time_to_s(int_time)

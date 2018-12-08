@@ -5,6 +5,7 @@ class Evaluations::Complete
   organize  Evaluations::ValidateCompleteness,
             Evaluations::UpdateResult,
             Evaluations::Finish,
+            RequestQueue::BroadcastUpdateAsync,
             Evaluations::CreateFeedbackStub,
             Evaluations::SendEmail
 

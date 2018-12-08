@@ -4,7 +4,7 @@ class CurriculumDeploymentWorker
 
   # Don't want it to retry a failed deployment. Move on!
   # https://github.com/mperham/sidekiq/wiki/Error-Handling
-  sidekiq_options retry: false
+  sidekiq_options retry: false, queue: 'low'
 
   def perform(repo_id, branch, sha)
     repo = ContentRepository.find repo_id

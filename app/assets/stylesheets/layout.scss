@@ -127,6 +127,13 @@ span.anchor {
   margin-right: 6px;
 }
 
+.btn-hover-danger:hover, .btn-hover-danger:focus, .btn-hover-danger:active {
+  background-color: $brand-danger;
+  color: white;
+  border-color: $brand-danger;
+}
+
+
 .navbar-text {
   margin-left: 0;
   margin-right: 0;

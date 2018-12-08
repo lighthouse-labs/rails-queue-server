@@ -1,0 +1,358 @@
+body.queue-show {
+
+  @keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+  }
+
+  .btn-refresh.rotating {
+    i {
+      animation: rotating 2s linear infinite;
+    }
+  }
+
+  .pronoun {
+    font-style: italic;
+    color: $dark;
+    font-size: 0.7em;
+  }
+
+  nav.nav-pills {
+    span.badge {
+      position: relative;
+      top: -2px;
+    }
+  }
+
+  .queue-container {
+
+    transition: opacity 0.3s ease-in-out;
+
+    &.disabled {
+      opacity: 0.2;
+      pointer-events: none;
+      -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;
+      user-select: none;
+      *:focus {
+        outline: 0;
+      }
+    }
+  }
+
+  .card {
+    margin-bottom: 14px;
+
+    .card-header {
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .list-group {
+      transition: opacity 0.3s ease-in-out;
+      overflow: hidden;
+    }
+
+    &.collapsed {
+      opacity: 0.4;
+
+      .list-group {
+        opacity: 0;
+        height: 0px;
+      }
+    }
+  }
+
+  h5.card-title {
+    float: left;
+    margin-bottom: 0px;
+
+    span.count {
+      padding-right: 4px;
+      padding-left: 4px;
+      font-weight: 100;
+      color: darkblue;
+      background-color: white;
+      border-radius: 4px;
+      margin-right: 6px;
+    }
+  }
+
+  li.list-group-item {
+    transition: opacity 0.3s ease-in-out;
+    position: relative;
+    padding-left: 30px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-left: 0;
+    border-right: 0;
+
+    &.disabled {
+      opacity: 0.5;
+    }
+
+    &.submission {
+      &:hover {
+      .type {
+          background-color: lighten($green, 25%);
+        }
+      }
+      .type {
+        background-color: lighten($green, 30%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $green;
+        border-color: $green;
+        color: $light;
+      }
+    }
+
+    &.evaluation {
+      &:hover {
+      .type {
+          background-color: lighten($teal, 25%);
+        }
+      }
+      .type {
+        background-color: lighten($teal, 30%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $teal;
+        border-color: $teal;
+        color: white;
+      }
+    }
+
+    &.assistance {
+      &:hover {
+        .type {
+          background-color: lighten($yellow, 25%);
+        }
+      }
+      .type {
+        background-color: lighten($yellow, 30%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $yellow;
+        border-color: $yellow;
+        color: $dark;
+      }
+    }
+
+    &.request {
+      &:hover {
+        .type {
+          background-color: lighten($orange, 25%);
+        }
+      }
+      .type {
+        background-color: lighten($orange, 30%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $orange;
+        border-color: $orange;
+        color: $light;
+      }
+    }
+
+    &.interview {
+      &:hover {
+      .type {
+          background-color: lighten($blue, 30%);
+        }
+      }
+      .type {
+        background-color: lighten($blue, 40%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $blue;
+        border-color: $blue;
+        color: white;
+      }
+    }
+
+    &.interview-status {
+      &:hover {
+      .type {
+          background-color: lighten($purple, 30%);
+        }
+      }
+      .type {
+        background-color: lighten($purple, 40%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $purple;
+        border-color: $purple;
+        color: white;
+      }
+    }
+
+    &.student {
+      &:hover {
+        .type {
+          background-color: darken($light, 10%);
+        }
+      }
+      .type {
+        background-color: $light;//lighten($dark, 40%);
+      }
+      .btn-main:hover, .btn-main:focus, .btn-main:active {
+        background-color: $blue;
+        border-color: $blue;
+        color: $light;
+      }
+    }
+
+    .buffer {
+      height: 20px;
+    }
+
+    // Bootstrap Modal inside flickers on mouse move (hover) without this :hover z-index thing - KV
+    // https://github.com/twbs/bootstrap/issues/25206
+    z-index: auto;
+    &:hover {
+      z-index: auto;
+    }
+
+    img.avatar {
+      width: 60px;
+      height: 60px;
+      float: left;
+      margin-right: 8px;
+      border-radius: 5px;
+      border: 2px solid #34495e;
+    }
+
+    .info {
+      .name {
+        line-height: 1.2em;
+        float: left;
+        .resource-name {
+          font-style: italic;
+          font-size: 0.6em;
+          line-height: 20px;
+        }
+      }
+      .details {
+        float: right;
+        text-align: right;
+        position: relative;
+        top: -6px;
+
+        .time {
+          font-size: 0.7em;
+          float: right;
+          padding-right: 4px;
+          font-style: italic;
+          color: gray;
+        }
+      }
+    }
+
+    .blurb {
+      margin-top: 16px;
+      // margin-bottom: 0px;
+      padding-left: 6px;
+
+      .resource-name {
+        font-size: 0.9em;
+      }
+
+      blockquote {
+        font-size: 0.9em;
+        color: #555;
+        font-style: italic;
+        line-height: 1.5em;
+        margin-bottom: 0px;
+      }
+    }
+
+    .actions {
+      position: relative;
+      right: -1.25rem;
+      top: 0.75rem;
+
+      button.btn, a.btn {
+        border-radius: 0px;
+      }
+    }
+
+    .type {
+      top: 0px;
+      left: 0px;
+      position: absolute;
+      font-size: 0.8em;
+      overflow: hidden;
+      height: 100%;
+      width: 22px;
+      transition: background-color 0.1s ease-in-out;
+
+      .text {
+        transform: rotate(-90deg);
+        transform-origin: left;
+        left: 10px;
+        top: 100px;
+        position: relative;
+        width: 100px;
+        text-align:right;
+
+      }
+    }
+
+    .assister {
+      margin-top: 6px;
+      font-size: 0.9em;
+      padding-left: 27px;
+
+      img.avatar {
+        width: 44px;
+        height: 44px;
+        // border: 2px solid darkred;
+      }
+
+      .info {
+        .name {
+          line-height: 15px;
+          float: initial;
+        }
+        .details {
+          float: initial;
+          .time {
+            float: initial;
+            font-size: 0.8em;
+          }
+        }
+      }
+
+      .arrow {
+        font-size: 1.3em;
+        float: left;
+        padding-left: 0px;
+        padding-right: 15px;
+        span {
+          // transform: rotate(60deg);
+          font-size: 1.7em;
+          line-height: 36px;
+          color: #555;
+        }
+      }
+      // padding-left: 30px;
+    }
+
+  }
+
+  .progress {
+    position: relative;
+
+    .progress-label {
+      position: absolute;
+      right: 14px;
+      top: 25%;
+    }
+
+  }
+
+}

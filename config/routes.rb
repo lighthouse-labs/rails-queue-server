@@ -24,6 +24,10 @@ LaserShark::Application.routes.draw do
   end
 
   resources :questions
+  resource :queue, only: [:show], controller: 'queue' do
+    post 'provided_assistance'
+    post 'end_assistance'
+  end
 
   resources :quiz_submissions, only: [:show]
 
@@ -71,16 +75,7 @@ LaserShark::Application.routes.draw do
     end
   end
 
-  resources :assistance_requests, only: [:index, :create, :destroy] do
-    collection do
-      delete :cancel
-      get :status
-      get :queue
-    end
-    member do
-      post :start_assistance
-    end
-  end
+  get 'assistance_requests', to: redirect('/queue')
 
   resources :prep_assistance_requests, only: [:create]
 
