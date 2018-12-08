@@ -11,8 +11,19 @@ class QueueLocationSerializer < ActiveModel::Serializer
   has_many :pending_evaluations
   has_many :in_progress_evaluations
   has_many :in_progress_interviews
-  # see below
-  # has_many :pending_interviews, serializer: PendingTechInterviewSerializer
+  has_many :interview_statuses_by_cohort, serializer: QueueCohortStatusSerializer
+
+  def interview_statuses_by_cohort
+    # FYI object = location instance
+    cohorts = Cohort.is_active.running_in_location(object)
+    cohorts.each do |cohort|
+      cohort.instance_variable_set(:@current_location, object)
+      cohort.define_singleton_method :current_location do
+        @current_location
+      end
+    end
+    cohorts
+  end
 
   def pending_evaluations
     Evaluation.open_evaluations.student_location(object).student_priority

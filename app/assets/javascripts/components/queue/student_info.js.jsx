@@ -33,7 +33,7 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     if (cohort && cohort.week)
       badges.push(<a key="weekbadge" className="badge badge-light" href={`/cohorts/${cohort.id}/students`}>W{cohort.week}</a>);
     if (project)
-      badges.push(<a key="projectbadge" className="badge badge-light" href={`/projects/${project.slug}`}>{project.name}</a>);
+      badges.push(<a key="projectbadge" className="badge badge-light" href={`/projects/${project.slug}`}>{_.truncate(project.name, { length: 13, omission: null })}</a>);
 
     return (
       <div className="details">
@@ -63,7 +63,9 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
         </a>
         <div className="info">
           <div className="name">
-            {student.firstName} {student.lastName} {this.pronoun(student)}
+            {student.firstName} {student.lastName}
+            <br />
+            {this.pronoun(student)}
           </div>
           {this.renderDetails()}
         </div>
