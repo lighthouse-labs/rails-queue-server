@@ -1,5 +1,12 @@
 # Change Log
 
+## [2018.12.08.0815](https://github.com/lighthouse-labs/compass/tree/2018.12.08.0815) (2018-12-08)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.11.15.1645...2018.12.08.0815)
+
+**Merged pull requests:**
+
+- New Assistance Request Queue \(rebuilt\) [\#802](https://github.com/lighthouse-labs/compass/pull/802) ([kvirani](https://github.com/kvirani))
+
 ## [2018.11.15.1645](https://github.com/lighthouse-labs/compass/tree/2018.11.15.1645) (2018-11-16)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.10.17.0715...2018.11.15.1645)
 
