@@ -7,6 +7,12 @@ html
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'By Lighthouse Labs'}"
 
     == stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+
+    javascript:
+        window.ga = function() { return true; };
+        window.current_user = #{current_user ? raw(UserSerializer.new(current_user).to_json) : "undefined"};
+        window.cableOn = #{!disable_cable?};
+
     == javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
     == yield :pre_admin_js

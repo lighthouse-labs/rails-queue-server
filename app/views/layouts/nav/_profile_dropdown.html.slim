@@ -1,0 +1,17 @@
+li.dropdown.nav-item.current-user
+  = link_to '#', class: 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown' do
+    i.fa.fa-fw.fa-cogs
+    span.non-tablet-label
+      = teacher? ? current_user.initials : current_user.first_name
+  .dropdown-menu.dropdown-menu-right
+    = link_to 'Edit Profile', edit_profile_path, class: 'dropdown-item'
+    - if active_student? || alumni?
+      = link_to 'Classmates', students_path, class: 'dropdown-item'
+      = link_to 'Teachers', teachers_path(location_id: current_user.location_id), class: 'dropdown-item'
+    = link_to 'Sign Out', session_path, :method => :delete, class: "sign-out-link dropdown-item"
+    - if teacher?
+      .dropdown-divider
+      = link_to 'Your Lectures', lectures_path(teacher_id: current_user.id, advanced_search: 1), class: 'dropdown-item'
+      = link_to 'Your Evaluations', teacher_evaluations_path, class: 'dropdown-item'
+      = link_to 'Your Assistances', teacher_assistances_path, class: 'dropdown-item'
+      = link_to 'Your Tech Interviews', teacher_tech_interviews_path, class: 'dropdown-item'

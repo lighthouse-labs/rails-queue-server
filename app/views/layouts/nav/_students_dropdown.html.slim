@@ -1,0 +1,13 @@
+li.nav-item.dropdown
+  = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Students'
+    i.fa.fa-fw.fa-id-card
+    span.non-tablet-label
+      | Students
+  .dropdown-menu.scrollable-menu
+    = link_to 'Search', teacher_students_path, class: "dropdown-item #{'active' if @on_student_search}"
+    .dropdown-divider
+    - dropdown_cohorts.each do |location, cohorts|
+      .divider-title = location.name
+      - cohorts.each do |c|
+        = link_to cohort_link(c), cohort_students_path(c), class: "dropdown-item #{'active' if cohort == c}"
+      .dropdown-divider
