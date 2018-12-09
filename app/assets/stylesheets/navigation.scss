@@ -1,14 +1,5 @@
-.teacher-duty {
-  margin-left: 10px;
-  margin-right: 5px;
-}
-
 .navbar-static-bottom {
   background-color: white;
-}
-
-.new-issue {
-  margin-left: 10px;
 }
 
 .divider-title {
@@ -22,4 +13,19 @@
   overflow-x: hidden;
 }
 
+.navbar-actionbuttons {
+  flex-direction: row;
 
+  > li {
+    margin-left: 10px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    > li:first-child {
+      margin-left: 0px;
+    }
+  }
+}
