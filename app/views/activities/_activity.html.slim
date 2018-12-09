@@ -1,4 +1,4 @@
-- activity_class = "#{activity.type.to_s.downcase} #{'archived' if activity.archived?} " + ' activity'
+- activity_class = "#{activity.type.to_s.downcase} #{'archived' if activity.archived?} #{'stretch' if activity.stretch?} " + ' activity'
 
 - if activity.is_a?(PinnedNote)
   div class=activity_class
@@ -45,7 +45,8 @@
       = activity.name
       | &nbsp;
       - if activity.stretch?
-        span.stretch = '(Stretch)'
+        span.stretch data-toggle="tooltip" title="Stretch Work"
+          i.fa.fa-trophy
       - if activity.archived?
         span.archived = ' [Archived]'
 

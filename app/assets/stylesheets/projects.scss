@@ -62,6 +62,18 @@ a.project-bio, a.workbook-bio {
     }
   }
 
+  .blurb {
+    img {
+      float: left;
+      max-width: 200px;
+      margin-right: 10px;
+
+      @include media-breakpoint-down(sm) {
+        max-width: 80px;
+      }
+    }
+  }
+
   .info {
     background-color: $clouds;
     color: $brand-primary;
@@ -75,6 +87,12 @@ a.project-bio, a.workbook-bio {
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
 
+    @include media-breakpoint-down(xs) {
+      font-size: 18px;
+      padding: 0 20px 0 40px;
+      line-height: 24px;
+    }
+
     .icon {
       opacity: 0.75;
       font-size: 36px;
@@ -84,6 +102,11 @@ a.project-bio, a.workbook-bio {
       padding: 0 20px;
       position: absolute;
       top: 50%;
+
+      @include media-breakpoint-down(xs) {
+        font-size: 20px;
+        padding: 0 10px;
+      }
     }
 
     .icon-type {
@@ -93,6 +116,11 @@ a.project-bio, a.workbook-bio {
       color: $brand-primary;
       overflow: hidden;
       padding: 28px 0;
+
+      @include media-breakpoint-down(xs) {
+        padding: 16px 40px 16px 0px;
+      }
+
       .stretch {
         color: $gray-light;
       }
@@ -130,7 +158,15 @@ a.project-bio, a.workbook-bio {
     }
     .time-duration {
       font-size: 0.6em;
+      @include media-breakpoint-down(xs) {
+        right: 10px;
+        left: auto;
+        line-height: 15px;
+        font-size: 12px;
+        margin-top: -42px;
+      }
     }
+
   }
 
   .details { // only for pinned activities
