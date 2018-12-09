@@ -1,5 +1,12 @@
 # Change Log
 
+## [2018.12.08.1945](https://github.com/lighthouse-labs/compass/tree/2018.12.08.1945) (2018-12-09)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.08.1800...2018.12.08.1945)
+
+**Merged pull requests:**
+
+- Improve and refactor top nav [\#804](https://github.com/lighthouse-labs/compass/pull/804) ([kvirani](https://github.com/kvirani))
+
 ## [2018.12.08.1800](https://github.com/lighthouse-labs/compass/tree/2018.12.08.1800) (2018-12-09)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.08.0815...2018.12.08.1800)
 
