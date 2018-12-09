@@ -2,6 +2,11 @@ body.days-show {
   h3 {
     margin-top: 2rem;
     margin-bottom: 1rem;
+
+    @include media-breakpoint-down(sm) {
+      text-align: center;
+    }
+
   }
 }
 
@@ -24,6 +29,16 @@ body.days-show {
       color: $brand-danger;
     }
   }
+
+  @include media-breakpoint-down(sm) {
+    margin-bottom: 10px;
+    text-align: center;
+
+    h1 {
+      width: 100%;
+    }
+  }
+
 }
 
 .pinnednote.activity + .pinned-content { // only for pinned activities
@@ -41,7 +56,10 @@ body.days-show {
   > .instructions * {
     // color: $brand-secondary;
     font-size: 1em;
+  }
 
+  @include media-breakpoint-down(sm) {
+    padding: 20px;
   }
 }
 
@@ -64,6 +82,11 @@ a.activity {
   border: 1px solid $brand-primary;
   transition: all 0.15s;
 
+  &.stretch {
+    border-color: var(--purple);
+    color: var(--purple);
+  }
+
   &.archived {
     opacity: 0.5;
   }
@@ -73,6 +96,13 @@ a.activity {
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     background-color: $clouds;
+
+    @include media-breakpoint-down(sm) {
+      padding: 0 20px 0 20px;
+      .icon {
+        display: none;
+      }
+    }
   }
 
   &:not(.pinnednote) {
@@ -89,6 +119,18 @@ a.activity {
       }
       .homework-indicator {
         opacity: 1.0;
+      }
+    }
+
+    &.stretch {
+      &:hover {
+        box-shadow: 0 0 0 1px var(--purple);
+        background-color: $clouds;
+        border: 1px solid var(--purple);
+
+        .name {
+          color: var(--purple);
+        }
       }
     }
   }
@@ -130,7 +172,7 @@ a.activity {
     overflow: hidden;
     padding: 28px 0;
     .stretch {
-      color: $gray-light;
+      color: var(--purple);
     }
   }
   .homework-indicator {
@@ -173,6 +215,38 @@ a.activity {
   .time-duration {
     font-size: 0.6em;
   }
+
+  @include media-breakpoint-down(sm) {
+    font-size: 18px;
+    padding: 0 50px 0 40px;
+    line-height: 24px;
+
+    .icon {
+      font-size: 20px;
+      padding: 0 10px;
+    }
+    .time {
+      display: none;
+    }
+    .name {
+      padding: 12px 0;
+    }
+
+    &.lectureplan {
+      .time {
+        display: block;
+        line-height: 12px;
+        left: auto;
+        right: 0px;
+        font-size: 9px;
+        top: 50%;
+        padding: 33px 0;
+      }
+    }
+
+
+  }
+
 }
 
 .description-container {

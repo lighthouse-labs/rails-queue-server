@@ -5,14 +5,14 @@
   .info
     .icon.icon-type title='Tech Interview'
       i.fa.fa-comments
-    .time.time-duration
+    .time.time-duration.d-none.d-sm-block
       | W
       = interview_template.week
     .name
       | Week&nbsp;
       = interview_template.week
       | &nbsp;Tech Interview
-    .status
+    .status.d-none.d-sm-block
       - if student?
         = render 'tech_interview_templates/student_interview_status', student: current_user, interview_template: interview_template
       - elsif teacher? || admin?
