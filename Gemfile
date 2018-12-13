@@ -66,6 +66,7 @@ gem 'fog'
 gem 'newrelic_rpm'
 gem "sentry-raven"
 
+gem 'responders'
 gem 'rubyzip', '>= 1.0.0'
 
 gem 'slack-poster'

@@ -12,7 +12,7 @@ $ ->
     $('#activity_feedback_rating').val('')
 
   $(document).on('ajax:success', '#new_activity_feedback', (e, data, status, error) ->
-    $('#activity-feedback > ul').prepend(data)
+    window.App.activityFeedbackApp && window.App.activityFeedbackApp.reset()
     $('.empty-message').hide()
     resetFeedbackForm()
   ).on 'ajax:error', (e, xhr, status, error) ->

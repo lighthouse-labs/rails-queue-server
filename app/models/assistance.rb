@@ -72,6 +72,8 @@ class Assistance < ApplicationRecord
 
     assistee.save.tap do
       create_feedback(student: assistee, teacher: assistor)
+      UserChannel.broadcast_to assistee, type:   "NewFeedback",
+                                         object: assistee.feedbacks.pending.where.not(feedbackable: nil).not_expired.count
       send_notes_to_slack
     end
   end

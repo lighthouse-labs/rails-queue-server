@@ -154,9 +154,14 @@ class ApplicationController < ActionController::Base
   helper_method :teacher_resources
 
   def pending_feedbacks
-    current_user.feedbacks.pending.reverse_chronological_order.where.not(feedbackable: nil).not_expired
+    @pending_feedbacks ||= current_user.feedbacks.pending.reverse_chronological_order.where.not(feedbackable: nil).not_expired
   end
   helper_method :pending_feedbacks
+
+  def pending_feedbacks_count
+    @pending_feedbacks_count ||= pending_feedbacks.count
+  end
+  helper_method :pending_feedbacks_count
 
   def apply_invitation_code(code)
     if ENV['TEACHER_INVITE_CODE'] == code

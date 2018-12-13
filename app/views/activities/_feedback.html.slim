@@ -22,13 +22,17 @@
         = render 'activity_feedbacks/form', form: f
 
 
-.card style="margin-top:30px;"
-  h5#feedback-form.card-header Previous Feedback
-  .card-body
-    - if teacher?
-      h5.card-title All Student Feedback
-    - else
-      h5.card-title Your Feedback
+- if teacher?
+  .card.activity-feedback-container
+    h5#feedback-form.card-header Student Feedback
+    .card-body
+      .card-text
+        / = bar_chart(@activity_feedbacks.rated.reorder(nil).group(:rating).count, height: '100px', width: '200px')
 
-    .card-text
-      = render 'activity_feedbacks/list'
+        / = line_chart(@activity_feedbacks.rated.reorder(nil).group_by_month('activity_feedbacks.created_at').average(:rating), height: '200px', width: '100%')
+
+        / = render 'activity_feedbacks/list'
+
+        == react_component("ActivityFeedback.App", { activityId: @activity.id })
+
+
