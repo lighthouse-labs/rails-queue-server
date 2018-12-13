@@ -29,7 +29,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
     const buttons = [null];
     if (window.current_user.id === assistance.assistor.id) {
       buttons.push(<button key="cancel" className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelAssisting} disabled={this.state.disabled}>Cancel</button>);
-      buttons.push(<button key="finish" className="btn btn-sm btn-secondary btn-main"onClick={this.handleEndAssisting} disabled={this.state.disabled}>Finished</button>);
+      buttons.push(<button key="finish" className="btn btn-sm btn-secondary btn-main"onClick={this.handleEndAssisting} disabled={this.state.disabled}>Finish</button>);
     }
     return buttons;
   }
@@ -59,6 +59,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
         <Queue.TeacherInfo teacher={assistor} when={assistance.startAt} />
 
         <div className="blurb">
+          {App.ReactUtils.renderActivityDetails(request.activity)}
           {App.ReactUtils.renderQuote(assistance.assistanceRequest.reason)}
         </div>
         {this.renderActions()}
