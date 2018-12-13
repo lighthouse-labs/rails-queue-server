@@ -46,7 +46,7 @@ class QueueLocationSerializer < ActiveModel::Serializer
   end
 
   def requests
-    AssistanceRequest.genuine.open_requests.for_location(object)
+    AssistanceRequest.genuine.open_requests.for_location(object).oldest_requests_first
   end
 
   # Consider enabling / adding this in the near future. Ignore for now - KV
