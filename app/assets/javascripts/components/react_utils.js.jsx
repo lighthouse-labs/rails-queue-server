@@ -12,6 +12,13 @@ class ReactUtils {
       );
     }
   }
+
+  renderActivityDetails(activity) {
+    if (!activity) return;
+    return (
+      <a className="resource-name" href={`/${activity.uuid}`}>{activity.name}</a>
+    );
+  }
 }
 
 window.App.ReactUtils = new ReactUtils();

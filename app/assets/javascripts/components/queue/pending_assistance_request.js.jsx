@@ -40,13 +40,6 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
     );
   }
 
-  renderActivityDetails(activity) {
-    if (!activity) return;
-    return (
-      <a className="resource-name" href={`/${activity.uuid}`}>{activity.name}</a>
-    );
-  }
-
   render() {
     const request = this.props.request;
     const student = request.requestor;
@@ -59,7 +52,7 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
                             activity={request.activity} />
 
         <div className="blurb">
-          {this.renderActivityDetails(request.activity)}
+          {App.ReactUtils.renderActivityDetails(request.activity)}
           {App.ReactUtils.renderQuote(request.reason)}
         </div>
         {this.renderActions()}

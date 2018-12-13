@@ -18,6 +18,12 @@ window.Queue.TeacherInfo = class TeacherInfo extends React.Component {
     }
   }
 
+  highlightMe(teacher) {
+    if (teacher.id === window.current_user.id) {
+      return <span className="bg-light text-danger">(You)</span>
+    }
+  }
+
   render() {
     const teacher = this.props.teacher;
 
@@ -28,7 +34,13 @@ window.Queue.TeacherInfo = class TeacherInfo extends React.Component {
           <img className="avatar" src={teacher.avatarUrl} />
         </a>
         <div className="info">
-          <div className="name">{teacher.firstName} {teacher.lastName} {this.pronoun(teacher)}</div>
+          <div className="name">
+            {teacher.firstName} {teacher.lastName}
+            &nbsp;
+            {this.highlightMe(teacher)}
+            <br/>
+            {this.pronoun(teacher)}
+          </div>
           <div className="details">
             { this.renderWhen() }
           </div>
