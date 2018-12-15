@@ -150,6 +150,10 @@ class Activity < ApplicationRecord
     true
   end
 
+  def has_rated_feedback?
+    activity_feedbacks.rated.any?
+  end
+
   def repo_full_name
     content_repository.try :full_name
   end

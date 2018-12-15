@@ -88,7 +88,7 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
-    chartkick (2.2.2)
+    chartkick (3.0.1)
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
     chromedriver-helper (1.1.0)

@@ -31,8 +31,8 @@ window.ActivityFeedback.Feedback = class Feedback extends React.Component {
   }
 
   _renderFeedbackDetail(detail) {
-    return _.truncate(detail, { length: 4000 }).split('\n').map(i => {
-      return <p className="mb-0" key={i}>{i}</p>
+    return _.truncate(detail, { length: 4000 }).split('\n').map((text, i) => {
+      return <p key={i} className="mb-0">{text}</p>
     });
   }
 

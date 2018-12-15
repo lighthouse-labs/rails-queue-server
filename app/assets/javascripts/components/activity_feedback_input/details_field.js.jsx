@@ -16,7 +16,7 @@ window.ActivityFeedbackInput.DetailsField = class DetailsField extends React.Com
   render() {
     const saving = this.props.saving;
     return(
-      <div className={`can-load ${saving ? 'loading' : ''}`}>
+      <div className={`mb-3 can-load ${saving ? 'loading' : ''}`}>
         <div className="d-flex justify-content-center">
           <textarea onBlur={this._onChange} className="form-control d-inline-flex rating-label" defaultValue={this.props.detail} placeholder="Please give us some written insight into your feedback" />
         </div>

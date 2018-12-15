@@ -26,6 +26,19 @@ class ActivityFeedbacksController < ApplicationController
     }
   end
 
+  # For barchart
+  def rating_stats
+    @activity_feedbacks = @activity.activity_feedbacks
+    render json: @activity_feedbacks.rated.reorder(nil).group('ROUND(activity_feedbacks.rating)::integer').count
+  end
+
+  # For timeline chart
+  def ratings_by_month
+    @activity_feedbacks = @activity.activity_feedbacks
+    data = @activity_feedbacks.rated.reorder(nil).group_by_month('activity_feedbacks.created_at').average(:rating)
+    render json: data.select { |_, value| value > 0 }
+  end
+
   private
 
   def require_teacher
