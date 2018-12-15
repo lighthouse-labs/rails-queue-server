@@ -38,6 +38,7 @@ gem 'font-awesome-rails'
 
 gem 'interactor-rails'
 
+gem 'paranoia', '~> 2.4'
 gem 'statesman'
 gem 'awesome_print'
 gem 'logging'

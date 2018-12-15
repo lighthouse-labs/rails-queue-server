@@ -1,47 +1,6 @@
 .row
   .col-lg-12
     == react_component("ActivityFeedbackInput.App", { activityId: @activity.id, activityFeedback: @activity_feedback ? ActivityFeedbackSerializer.new(@activity_feedback) : nil })
-    / div.provide-activity-feedback-app
-    /   h3.text-center.mt-4.mb-0 Did you like this activity?
-    /   p.text-center
-    /     small.text-dark Let us know how we're doing
-
-    /   div.d-flex.justify-content-center
-    /     a.rating.d-inline-flex.p-2.bd-highlight href="#"
-    /       i.fa.fa-star
-    /     a.rating.d-inline-flex.p-2.bd-highlight href="#"
-    /       i.fa.fa-star
-    /     a.rating.d-inline-flex.p-2.bd-highlight href="#"
-    /       i.fa.fa-star
-    /     a.rating.d-inline-flex.p-2.bd-highlight href="#"
-    /       i.fa.fa-star
-    /     a.rating.d-inline-flex.p-2.bd-highlight href="#"
-    /       i.fa.fa-star
-
-
-/ .card.bg-light style="margin-top: 40px;"
-/   h5#feedback-form.card-header Submit Feedback
-/   .card-body
-/     h5.card-title
-/       | Feedback for this #{(@activity.type || 'Activity').titleize}
-/     .card-text
-/       p
-/         | Your feedback is critical for us to iterate and improve upon our curriculum. In fact, you can even give us feedback for this and other activities multiple times! It is <em>not anonymous</em> but it <em>is confidential</em> meaning only teachers and admins can view it, not other students.
-
-/       - if @activity.prep? && @program.prep_assistance?
-/         p
-/           strong NEED HELP?
-/           | &nbsp;
-/           | Do not use this mechanism to ask for help if you are stuck.
-/           | &nbsp;
-/           = link_to 'Our Private Discourse Forum', 'http://web-prep-help.lighthouselabs.ca/', target: '_blank'
-/           | &nbsp;
-/           | is a perfect place for you to get help from us and from your peers. That said, only registered bootcamp students have access to this private forum.
-
-/       hr
-/       = simple_form_for [@activity.becomes(Activity), ActivityFeedback.new], remote: true do |f|
-/         = render 'activity_feedbacks/form', form: f
-
 
 - if teacher?
   .card.activity-feedback-container

@@ -1,8 +1,6 @@
 li.nav-item.dropdown
   = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Admin'
     i.fa.fa-fw.fa-lock
-    span.non-tablet-label
-      | Admin
   .dropdown-menu
     = link_to 'Cohorts', admin_cohorts_path, class: 'dropdown-item'
     = link_to 'Assistances', admin_assistances_path, class: 'dropdown-item'

@@ -343,6 +343,8 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     parallel (1.12.1)
+    paranoia (2.4.1)
+      activerecord (>= 4.0, < 5.3)
     parser (2.5.1.0)
       ast (~> 2.4.0)
     pg (0.18.4)
@@ -589,6 +591,7 @@ DEPENDENCIES
   octokit
   omniauth
   omniauth-github
+  paranoia (~> 2.4)
   pg
   pg_search
   phantomjs

@@ -12,19 +12,28 @@ window.ActivityFeedback.Feedback = class Feedback extends React.Component {
   }
 
   _fullName(user) {
-    if (user.firstName.length + user.lastName.length > 15) {
-      return `${user.firstName} ${user.lastName[0]}.`;
+    const fName = _.trim(user.firstName);
+    const lName = _.trim(user.lastName);
+    if (fName.length + lName.length > 15) {
+      return `${fName} ${lName[0]}.`;
     } else {
-      return `${user.firstName} ${user.lastName}`;
+      return `${fName} ${lName}`;
     }
   }
 
 
   _renderDucks(rating) {
-    return [...Array(Number(rating))].map((_, i) => { return <i key={i} class={`fa fa-star rating rating${rating}`} /> })
+    return [...Array(Number(rating))].map((_, i) => { return <i key={i} className={`fa fa-star rating rating${rating}`} /> })
   }
+
   _renderRating(rating) {
     return rating && <div title={rating}>{ this._renderDucks(rating) }</div>;
+  }
+
+  _renderFeedbackDetail(detail) {
+    return _.truncate(detail, { length: 4000 }).split('\n').map(i => {
+      return <p className="mb-0" key={i}>{i}</p>
+    });
   }
 
   render() {
@@ -41,7 +50,7 @@ window.ActivityFeedback.Feedback = class Feedback extends React.Component {
           </small>
           { this._renderRating(feedback.rating) }
           <div title={feedback.detail}>
-            { _.truncate(feedback.detail, { length: 400 }) }
+            { this._renderFeedbackDetail(feedback.detail) }
           </div>
         </div>
 

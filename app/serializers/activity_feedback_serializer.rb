@@ -7,4 +7,8 @@ class ActivityFeedbackSerializer < ActiveModel::Serializer
 
   has_one :user, serializer: ActivityFeedbackUserSerializer
 
+  def rating
+    object.rating.round if object.rating?
+  end
+
 end

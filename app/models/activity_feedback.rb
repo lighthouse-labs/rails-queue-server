@@ -1,5 +1,7 @@
 class ActivityFeedback < ApplicationRecord
 
+  acts_as_paranoid
+
   belongs_to :activity
   belongs_to :user
 
