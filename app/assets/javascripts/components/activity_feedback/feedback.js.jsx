@@ -21,7 +21,7 @@ window.ActivityFeedback.Feedback = class Feedback extends React.Component {
 
 
   _renderDucks(rating) {
-    return [...Array(Number(rating))].map((_, i) => { return <img key={i} src="/larry-rating2.png" className="larry-rating" /> })
+    return [...Array(Number(rating))].map((_, i) => { return <i key={i} class={`fa fa-star rating rating${rating}`} /> })
   }
   _renderRating(rating) {
     return rating && <div title={rating}>{ this._renderDucks(rating) }</div>;
