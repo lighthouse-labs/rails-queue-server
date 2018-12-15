@@ -4,7 +4,10 @@ window.ActivityFeedbackInput.App = class App extends React.Component {
 
   propTypes: {
     activityId:       PropTypes.number.required,
-    activityFeedback: PropTypes.object
+    activityFeedback: PropTypes.object,
+    stealthSaving:    PropTypes.bool,   // true: dont show user you are saving
+    windowKey:        PropTypes.string, // what name to save self as on window obj
+    sisterWindowKey:  PropTypes.string  // name of the sister component to update
   }
 
   constructor(props) {
@@ -22,6 +25,18 @@ window.ActivityFeedbackInput.App = class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.windowKey) {
+      window.App[this.props.windowKey] = this;
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.windowKey) {
+      window.App[this.props.windowKey] = undefined;
+    }
+  }
+
   _ratingChanged = (rating) => {
     this.setState({ rating: rating, saving: true });
     this._submitFeedback({ rating: rating });
@@ -32,6 +47,15 @@ window.ActivityFeedbackInput.App = class App extends React.Component {
     this._submitFeedback({ detail: detail });
   }
 
+  // External method to be called by "sister" component
+  // This is because there are two copies/instances of this input component/app
+  // On the activities#show page.
+  // One at the bottom of page and one in the completion modal
+  // They use this method to keep each other in sync.
+  updateState(newState) {
+    this.setState(newState);
+  }
+
   _submitFeedback(data) {
     const url = `/activities/${this.props.activityId}/my_feedback`;
     $.ajax({
@@ -39,20 +63,36 @@ window.ActivityFeedbackInput.App = class App extends React.Component {
       method: 'PUT' ,
       data: data
     })
-      .then((json) => {
-        if (json.success) {
-          this.setState({ activityFeedback: json.activityFeedback });
-          window.App.activityFeedbackApp && window.App.activityFeedbackApp.reset();
-        } else if (json.error) {
-          alert(json.error);
-        }
-      })
+      .then(this._feedbackSubmitted)
       .always(() => this.setState({ saving: false }));
+  }
+
+  _feedbackSubmitted = (json) => {
+    if (json.success) {
+      this.setState({ activityFeedback: json.activityFeedback });
+      window.App.activityFeedbackApp && window.App.activityFeedbackApp.reset();
+      // updateSisterComponent
+      this._updateSisterComponent(json);
+    } else if (json.error) {
+      alert(json.error);
+    }
+  }
+
+  _updateSisterComponent(json) {
+    if (this.props.sisterWindowKey && window.App[this.props.sisterWindowKey]) {
+      const feedback = json.activityFeedback;
+
+      window.App[this.props.sisterWindowKey].updateState({
+        detail: feedback.detail,
+        rating: feedback.rating,
+        activityFeedback: feedback
+      });
+    }
   }
 
   render() {
     const feedback = this.state.activityFeedback;
-    const saving  = this.state.saving;
+    const saving  = this.state.saving && !this.props.stealthSaving;
     let message = "Let us know how we're doing";
     if (saving) {
       message = "Saving ..."

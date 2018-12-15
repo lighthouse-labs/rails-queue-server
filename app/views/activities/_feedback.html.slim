@@ -1,6 +1,6 @@
 .row
   .col-lg-12
-    == react_component("ActivityFeedbackInput.App", { activityId: @activity.id, activityFeedback: @activity_feedback ? ActivityFeedbackSerializer.new(@activity_feedback) : nil })
+    == react_component("ActivityFeedbackInput.App", { activityId: @activity.id, activityFeedback: @activity_feedback ? ActivityFeedbackSerializer.new(@activity_feedback) : nil, windowKey: 'activityFeedbackAtBottomApp', sisterWindowKey: 'activityFeedbackFromModalApp' })
 
 - if teacher? || admin?
   .card

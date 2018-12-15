@@ -14,11 +14,11 @@ window.ActivityFeedbackInput.RatingButtons = class RatingButtons extends React.C
       hovering: false
     };
     this._ratingLabels = [
-      'Poor',
-      'Almost Acceptable',
+      'Very Problematic',
+      'Problematic',
       'Acceptable',
       'Good',
-      'Very Good'
+      'Great'
     ];
   }
 
