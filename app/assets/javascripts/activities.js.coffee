@@ -12,14 +12,14 @@ $ ->
     $('#activity_feedback_rating').val('')
 
   $(document).on('ajax:success', '#new_activity_feedback', (e, data, status, error) ->
-    $('#activity-feedback > ul').prepend(data)
+    window.App.activityFeedbackApp && window.App.activityFeedbackApp.reset()
     $('.empty-message').hide()
     resetFeedbackForm()
   ).on 'ajax:error', (e, xhr, status, error) ->
     alert(xhr.responseText)
 
   $(document).on('ajax:success', '#new_activity_submission_with_optional_feedback', (e, data, status, xhr) ->
-    window.location.href = nextPath
+    Turbolinks.visit(nextPath)
   ).on 'ajax:error', (e, xhr, status, error) ->
     $('#new_activity_submission_with_optional_feedback .remote-form-errors').removeClass('d-none').find('.error-messages').html xhr.responseText
 

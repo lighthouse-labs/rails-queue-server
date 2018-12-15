@@ -17,7 +17,6 @@ class QueueCohortStatusSerializer < ActiveModel::Serializer
     templates
   end
 
-
   def active_student_count
     students.count
   end

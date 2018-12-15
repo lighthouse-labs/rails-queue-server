@@ -38,6 +38,7 @@ gem 'font-awesome-rails'
 
 gem 'interactor-rails'
 
+gem 'paranoia', '~> 2.4'
 gem 'statesman'
 gem 'awesome_print'
 gem 'logging'
@@ -66,6 +67,7 @@ gem 'fog'
 gem 'newrelic_rpm'
 gem "sentry-raven"
 
+gem 'responders'
 gem 'rubyzip', '>= 1.0.0'
 
 gem 'slack-poster'

@@ -133,3 +133,24 @@ span.anchor {
   margin-left: 0;
   margin-right: 0;
 }
+
+.can-load {
+  transition: opacity 0.3s ease-in-out;
+
+  &.loading {
+    opacity: 0.3;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+ul.list-group.flat-list-group {
+  li.list-group-item:first-child {
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+  }
+  li.list-group-item:last-child {
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
+  }
+}

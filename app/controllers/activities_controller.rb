@@ -29,9 +29,7 @@ class ActivitiesController < ApplicationController
       @activity_submission = current_user.activity_submissions.where(activity: @activity).first || ActivitySubmission.new
     end
 
-    # new feedback model
-    @activity_feedbacks = @activity.activity_feedbacks.includes(:user)
-    @activity_feedbacks = @activity_feedbacks.where(user: current_user).filter_by_legacy('exclude') unless teacher?
+    @activity_feedback = @activity.activity_feedbacks.where(user: current_user).reverse_chronological_order.first
 
     @lectures = @activity.lectures if @activity.has_lectures?
 

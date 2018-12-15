@@ -1,5 +1,12 @@
 # Change Log
 
+## [2018.12.12.1830](https://github.com/lighthouse-labs/compass/tree/2018.12.12.1830) (2018-12-13)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.08.1945...2018.12.12.1830)
+
+**Merged pull requests:**
+
+- Various queue 2.0 patches [\#807](https://github.com/lighthouse-labs/compass/pull/807) ([kvirani](https://github.com/kvirani))
+
 ## [2018.12.08.1945](https://github.com/lighthouse-labs/compass/tree/2018.12.08.1945) (2018-12-09)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.08.1800...2018.12.08.1945)
 

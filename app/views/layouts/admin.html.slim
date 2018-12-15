@@ -10,7 +10,7 @@ html
 
     javascript:
         window.ga = function() { return true; };
-        window.current_user = #{current_user ? raw(UserSerializer.new(current_user).to_json) : "undefined"};
+        window.current_user = #{raw(UserSerializer.new(current_user).to_json)};
         window.cableOn = #{!disable_cable?};
 
     == javascript_include_tag 'application', 'data-turbolinks-track': 'reload'

@@ -10,6 +10,8 @@ class window.UserChannelHandler
         @userConnected()
       when "RedirectCommand"
         @redirectCommand()
+      when "NewFeedback"
+        @newFeedback()
       else
         new RequestButtonPresenter(@type, @object).render()
 
@@ -21,6 +23,10 @@ class window.UserChannelHandler
 
   redirectCommand: ->
     Turbolinks.visit(@data.location)
+
+  newFeedback: ->
+    $('nav .feedback-count').text(@object)
+    $('nav .feedback-count').effect("bounce")
 
   userConnected: ->
     window.current_user = @object
