@@ -1,5 +1,12 @@
 # Change Log
 
+## [2018.12.15.1345](https://github.com/lighthouse-labs/compass/tree/2018.12.15.1345) (2018-12-15)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.12.1830...2018.12.15.1345)
+
+**Merged pull requests:**
+
+- New Activity feedback UI and UX for students \*and\* teachers! w00t [\#808](https://github.com/lighthouse-labs/compass/pull/808) ([kvirani](https://github.com/kvirani))
+
 ## [2018.12.12.1830](https://github.com/lighthouse-labs/compass/tree/2018.12.12.1830) (2018-12-13)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.08.1945...2018.12.12.1830)
 
