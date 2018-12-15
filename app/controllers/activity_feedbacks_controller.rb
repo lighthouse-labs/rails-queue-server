@@ -1,7 +1,7 @@
 class ActivityFeedbacksController < ApplicationController
 
   before_filter :require_activity
-  before_filter :require_teacher, only: [:index]
+  before_filter :require_teacher
 
   respond_to :json
 
@@ -26,23 +26,7 @@ class ActivityFeedbacksController < ApplicationController
     }
   end
 
-  # assume xhr only
-  def create
-    @activity_feedback = @activity.activity_feedbacks.new(feedback_params)
-    @activity_feedback.user = current_user
-
-    if @activity_feedback.save
-      render partial: 'activity_feedback', locals: { activity_feedback: @activity_feedback }
-    else
-      render text: "Failed: #{@activity_feedback.errors.full_messages.first}", status: :bad_request
-    end
-  end
-
   private
-
-  def feedback_params
-    params.require(:activity_feedback).permit(:detail, :sentiment, :rating)
-  end
 
   def require_teacher
     render json: { error: 'Not Authorized' }, status: 403 unless teacher? || admin?

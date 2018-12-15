@@ -36,7 +36,9 @@ window.ActivityFeedback.Feedback = class Feedback extends React.Component {
         <div className="content">
           <strong>{this._fullName(feedback.user)}</strong>
           &nbsp;
-          <small className="font-weight-light">4 days ago</small>
+          <small className="font-weight-light">
+            <TimeAgo date={feedback.createdAt} live={false} />
+          </small>
           { this._renderRating(feedback.rating) }
           <div title={feedback.detail}>
             { _.truncate(feedback.detail, { length: 400 }) }

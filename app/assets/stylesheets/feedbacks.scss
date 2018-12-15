@@ -9,6 +9,46 @@
   }
 }
 
+.provide-activity-feedback-app {
+
+  .rating-label {
+    height: 2rem;
+    display: inline-block;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 120px;
+  }
+
+  a.rating {
+    transition: all 0.2s ease-in-out;
+    font-size: 2rem;
+    color: $gray-500;
+
+    &:hover {
+      text-decoration: none;
+      transform: scale(1.4);
+    }
+
+    &.rating1 {
+      color: $brand-danger;
+    }
+    &.rating2 {
+      color: $orange;
+    }
+    &.rating3 {
+      color: $yellow;
+    }
+    &.rating4 {
+      color: $cyan;
+    }
+    &.rating5 {
+      color: $brand-success;
+    }
+  }
+}
+
 .activity-feedback-app {
 
   .avatar {

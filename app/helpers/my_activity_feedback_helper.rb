@@ -1,0 +1,2 @@
+module MyActivityFeedbackHelper
+end

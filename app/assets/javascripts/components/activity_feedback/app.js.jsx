@@ -33,6 +33,7 @@ window.ActivityFeedback.App = class App extends React.Component {
     const freshState = this.getDefaultState();
     freshState.feedbacks = this.state.feedbacks;
     freshState.loading = true;
+    freshState.filterOptions.requireFeedback = false;
     this.setState(freshState);
     this._fetchInitial();
   }

@@ -108,7 +108,8 @@ LaserShark::Application.routes.draw do
     resource :submission_with_feedback, only: [:create], controller: 'activity_submission_with_feedback'
     resources :messages, controller: 'activity_messages'
     resources :recordings, only: [:new, :create]
-    resources :activity_feedbacks, only: [:index, :create]
+    resources :activity_feedbacks, only: [:index]
+    resource :my_feedback, only: [:update], controller: 'my_activity_feedback'
     resources :lectures, except: [:index]
   end
 
