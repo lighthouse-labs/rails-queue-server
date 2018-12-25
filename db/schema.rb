@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181215033708) do
+ActiveRecord::Schema.define(version: 20181225182533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -442,6 +442,7 @@ ActiveRecord::Schema.define(version: 20181215033708) do
     t.text     "disable_queue_days",              default: [],   null: false, array: true
     t.string   "curriculum_team_email"
     t.boolean  "has_advanced_lectures"
+    t.string   "teacher_invite_code"
   end
 
   create_table "questions", force: :cascade do |t|
