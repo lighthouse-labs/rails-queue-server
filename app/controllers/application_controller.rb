@@ -185,7 +185,7 @@ class ApplicationController < ActionController::Base
   end
 
   # In the future this will be a role, and we will use `program` to create the role - KV
-  def make_teacher(program = nil)
+  def make_teacher(_program = nil)
     unless teacher?
       current_user.type = 'Teacher'
       current_user.save!(validate: false)
