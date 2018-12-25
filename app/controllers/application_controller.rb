@@ -164,9 +164,7 @@ class ApplicationController < ActionController::Base
   helper_method :pending_feedbacks_count
 
   def apply_invitation_code(code)
-    if ENV['TEACHER_INVITE_CODE'] == code
-      make_teacher
-    elsif cohort = Cohort.find_by(code: code)
+    if cohort = Cohort.find_by(code: code)
       if admin?
         flash[:alert] = "This code is valid to register as a student for #{cohort.name}. You are an Admin so no change made for you."
       elsif teacher?
@@ -179,12 +177,15 @@ class ApplicationController < ActionController::Base
           flash[:alert] = response.error
         end
       end
+    elsif program = Program.find_by(teacher_invite_code: code)
+      make_teacher(program)
     else
       flash[:alert] = "Sorry, invalid code"
     end
   end
 
-  def make_teacher
+  # In the future this will be a role, and we will use `program` to create the role - KV
+  def make_teacher(_program = nil)
     unless teacher?
       current_user.type = 'Teacher'
       current_user.save!(validate: false)
