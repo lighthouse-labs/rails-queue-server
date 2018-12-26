@@ -1,4 +1,29 @@
 nav.side-nav {
+
+  .powered-by {
+
+    opacity: 0.6;
+    transition: opacity 0.5s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    small {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    a {
+      width: 50%;
+      display: block;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
   h1 {
     font-weight: 300;
     line-height: 1.1em;
