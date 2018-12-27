@@ -11,7 +11,8 @@ describe 'Navbar', type: :feature, js: true do
       visit root_path
       expect(page).to have_link("Sign In")
       find_link("Sign In").click
-      expect(page).to have_css("h1", text: "Login")
+      expect(page).to have_css("h1", text: "[Compass]")
+      expect(page).to have_text('Log in with GitHub')
     end
   end
 
