@@ -4,6 +4,8 @@ class SessionsController < ApplicationController
   skip_before_action :registration_check
   before_action :admin_required, only: [:impersonate]
 
+  layout 'auth'
+
   def new
     redirect_to day_path('today') if current_user
   end

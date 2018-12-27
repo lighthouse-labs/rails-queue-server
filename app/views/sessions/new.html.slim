@@ -1,11 +1,17 @@
-- title "Login"
+== render 'flash_messages'
 
-h1 Login
+h1 = "[Compass]"
 
-p You must authenticate via GitHub in order to use this app. If you do not have a GitHub account, please register for a free account during the login process. Click the button below to continue.
+h2.text-center
+  | Learn to code.
+  br
+  | Really well.
 
-p
-  = link_to github_session_path, class: 'btn btn-hg btn-success'
-    i.fa.fa-github
-    | &nbsp;
-    span Login with GitHub
+= link_to github_session_path, class: 'btn btn-lg btn-github-login my-3'
+  | Log in with
+  | &nbsp;
+  span GitHub
+
+span.disclaimer A GitHub account is required to log into Compass
+
+= render 'layouts/powered_by'
