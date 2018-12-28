@@ -6,6 +6,7 @@ html
       = content_for?(:title) ? "Compass | " + yield(:title) : 'Compass'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'By Lighthouse Labs'}"
 
+    link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"
     == stylesheet_link_tag 'application', :media => 'all'
 
     - if Rails.env.production? && ENV["GOOGLE_ANALYTICS_TRACKING_ID"]

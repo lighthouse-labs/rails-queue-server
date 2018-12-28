@@ -16,6 +16,20 @@ body {
     border: 0;
   }
 }
+
+.only-on-small {
+  @include media-breakpoint-between(md, xl) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+}
+
 header > nav {
   i {
     margin: 0px 4px 0px 0px;
@@ -153,4 +167,8 @@ ul.list-group.flat-list-group {
     border-bottom-left-radius: unset;
     border-bottom-right-radius: unset;
   }
+}
+
+.pacifico {
+  font-family: 'Pacifico', cursive;
 }
