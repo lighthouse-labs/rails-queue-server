@@ -2,6 +2,11 @@
 
 body.auth {
 
+  h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 70px;
+    margin-bottom: 36px;
+  }
   span.disclaimer {
     font-weight: 100;
   }
@@ -57,8 +62,8 @@ body.auth {
       bottom: 0;
       content: "";
       left: 32px;
-      -webkit-mask-image: url(https://dwv6i237vhjwj.cloudfront.net/assets/icons/github-3376852c060f42299877ed133720d923.svg);
-      mask-image: url(https://dwv6i237vhjwj.cloudfront.net/assets/icons/github-3376852c060f42299877ed133720d923.svg);
+      -webkit-mask-image: image-url("github.svg");
+      mask-image: image-url("github.svg");
       -webkit-mask-position: center left;
       mask-position: center left;
       -webkit-mask-repeat: no-repeat;

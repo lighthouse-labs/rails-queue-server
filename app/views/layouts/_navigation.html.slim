@@ -3,8 +3,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
     - home = current_user.prospect? ? prep_index_path : day_path('today')
   - else
     - home = :root
-  = link_to home, title: 'Home', class: 'navbar-brand'
-    i.fa.fa-fw.fa-lg.fa-compass
+  = link_to 'Compass', home, title: 'Home', class: 'navbar-brand pacifico'
   button.navbar-toggler data-target="#navbarCollapse" data-toggle="collapse" type="button" aria-expanded="false" aria-label="Toggle navigation"
     span.navbar-toggler-icon
   .collapse.navbar-collapse#navbarCollapse
@@ -80,4 +79,3 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
           = link_to 'Sign In', new_session_path, class: 'btn navbar-btn btn-primary'
 
 = render 'layouts/assistance_request_modal' if student_with_queue?
-
