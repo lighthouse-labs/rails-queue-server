@@ -28,4 +28,3 @@ class QueueTechInterviewProgressSerializer < ActiveModel::Serializer
   end
 
 end
-

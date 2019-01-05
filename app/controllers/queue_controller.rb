@@ -14,7 +14,8 @@ class QueueController < ApplicationController
         # - KV
         render json: RequestQueue::FetchQueueJson.call(
           rebuild_cache: params[:force] == 'true',
-          program: @program).json
+          program:       @program
+        ).json
       end
     end
   end

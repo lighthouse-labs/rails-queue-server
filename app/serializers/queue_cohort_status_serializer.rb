@@ -28,4 +28,3 @@ class QueueCohortStatusSerializer < ActiveModel::Serializer
   end
 
 end
-

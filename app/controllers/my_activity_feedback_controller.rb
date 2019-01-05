@@ -1,6 +1,6 @@
 class MyActivityFeedbackController < ApplicationController
 
-  before_filter :require_activity
+  before_action :require_activity
 
   # XHR only (JSON response)
   def update
@@ -14,13 +14,13 @@ class MyActivityFeedbackController < ApplicationController
 
     if @activity_feedback.save
       render json: {
-        success: true,
+        success:          true,
         activityFeedback: ActivityFeedbackSerializer.new(@activity_feedback)
       }
     else
       render json: {
         success: false,
-        error: @activity_feedback.errors.full_messages.first
+        error:   @activity_feedback.errors.full_messages.first
       }
     end
   end
