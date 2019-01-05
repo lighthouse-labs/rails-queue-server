@@ -117,12 +117,15 @@ class ActivityFeedback < ApplicationRecord
 
   def self.to_csv
     CSV.generate do |csv|
-      csv << ['Student First Name', 'Student Last Name', 'Activity Name', 'Activity Day', 'Rating', 'Created Date', 'Location']
+      csv << ['Student First Name', 'Student Last Name', 'Activity UUID', 'Activity Name', 'Activity Day', 'Rating', 'Detail', 'Created Date', 'Cohort Location', 'User Location']
       all.find_each do |activity_feedback|
-        csv << (activity_feedback.user.attributes.values_at('first_name', 'last_name') +
-                activity_feedback.activity.attributes.values_at("name", "day") +
-                activity_feedback.attributes.values_at('rating', 'created_at') +
-                activity_feedback.user.cohort.location.attributes.values_at('name'))
+        csv << (
+          activity_feedback.user.attributes.values_at('first_name', 'last_name') +
+          activity_feedback.activity.attributes.values_at("uuid", "name", "day") +
+          activity_feedback.attributes.values_at('rating', 'detail', 'created_at') +
+          (activity_feedback.user.cohort ? activity_feedback.user.cohort.location.attributes.values_at('name') : ['']) + 
+          (activity_feedback.user.location ? activity_feedback.user.location.attributes.values_at('name') : [''])
+        )
       end
     end
   end
