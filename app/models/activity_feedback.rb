@@ -123,7 +123,7 @@ class ActivityFeedback < ApplicationRecord
           activity_feedback.user.attributes.values_at('first_name', 'last_name') +
           activity_feedback.activity.attributes.values_at("uuid", "name", "day") +
           activity_feedback.attributes.values_at('rating', 'detail', 'created_at') +
-          (activity_feedback.user.cohort ? activity_feedback.user.cohort.location.attributes.values_at('name') : ['']) + 
+          (activity_feedback.user.cohort ? activity_feedback.user.cohort.location.attributes.values_at('name') : ['']) +
           (activity_feedback.user.location ? activity_feedback.user.location.attributes.values_at('name') : [''])
         )
       end
