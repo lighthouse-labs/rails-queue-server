@@ -1,5 +1,23 @@
 # Change Log
 
+## [Unreleased](https://github.com/lighthouse-labs/compass/tree/HEAD)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.04.1700...HEAD)
+
+**Merged pull requests:**
+
+- Fix 500 error with admin/curriculum\_feedbacks CSV download [\#814](https://github.com/lighthouse-labs/compass/pull/814) ([kvirani](https://github.com/kvirani))
+
+## [2019.01.04.1700](https://github.com/lighthouse-labs/compass/tree/2019.01.04.1700) (2019-01-05)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.15.1345...2019.01.04.1700)
+
+**Merged pull requests:**
+
+- Improve logo \(google font based\) [\#812](https://github.com/lighthouse-labs/compass/pull/812) ([kvirani](https://github.com/kvirani))
+- Slightly better auth \(login\) page [\#811](https://github.com/lighthouse-labs/compass/pull/811) ([kvirani](https://github.com/kvirani))
+- Added powered by with logo [\#810](https://github.com/lighthouse-labs/compass/pull/810) ([kvirani](https://github.com/kvirani))
+- Moved teacher invite code to programs model [\#809](https://github.com/lighthouse-labs/compass/pull/809) ([kvirani](https://github.com/kvirani))
+
 ## [2018.12.15.1345](https://github.com/lighthouse-labs/compass/tree/2018.12.15.1345) (2018-12-15)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.12.1830...2018.12.15.1345)
 
