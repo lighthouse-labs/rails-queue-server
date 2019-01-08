@@ -52,6 +52,7 @@ class AssistanceRequest < ApplicationRecord
         .references(:requestor, :cohort, :location)
     end
   }
+  scope :for_cohort, ->(cohort) { where(cohort_id: cohort) if cohort }
   scope :for_location, ->(location) { where(assistor_location_id: location) }
   scope :oldest_requests_first, -> { order(start_at: :asc) }
   scope :newest_requests_first, -> { order(start_at: :desc) }

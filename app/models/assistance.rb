@@ -49,6 +49,7 @@ class Assistance < ApplicationRecord
   scope :order_by_start, -> { order(:start_at) }
   scope :assisted_by, ->(user) { where(assistor: user) }
   scope :assisting, ->(user) { where(assistee: user) }
+  scope :for_cohort, ->(cohort) { where(cohort_id: cohort) if cohort }
 
   scope :average_length, -> { average('EXTRACT(EPOCH FROM (assistances.end_at - assistances.start_at)) / 60.0').to_f }
 

@@ -83,13 +83,11 @@ class StudentStats
   ## BOOTCAMP STATS
 
   def bootcamp_assistance_stats
-    cohort_id = @cohort.id
-
     @bootcamp_assistance_stats = {
-      requests:           @student.assistance_requests.genuine.where(cohort_id: cohort_id).count,
-      assistances:        @student.assistances.completed.where(cohort_id: cohort_id).count,
-      assistances_length: @student.assistances.completed.average_length.to_i,
-      average_score:      @student.assistances.completed.where(cohort_id: cohort_id).where.not(rating: nil).average(:rating).to_f.round(2)
+      requests:           @student.assistance_requests.genuine.for_cohort(@cohort).count,
+      assistances:        @student.assistances.completed.for_cohort(@cohort).count,
+      assistances_length: @student.assistances.completed.for_cohort(@cohort).average_length.to_i,
+      average_score:      @student.assistances.completed.for_cohort(@cohort).where.not(rating: nil).average(:rating).to_f.round(2)
     }
   end
 
