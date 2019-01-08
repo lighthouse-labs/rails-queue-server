@@ -96,6 +96,11 @@ class AssistanceRequest < ApplicationRecord
     self.class.open_requests.where(type: nil).for_location(assistor_location).where('assistance_requests.id < ?', id).count + 1 if open?
   end
 
+  # this offline assistance request record thing is annoying and silly, but bigger code debt to fix/remove at a later time - KV
+  def offline?
+    reason == 'Offline assistance requested'
+  end
+
   private
 
   def set_cohort
@@ -111,7 +116,7 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def limit_one_per_user
-    if type.nil? && requestor.assistance_requests.where(type: nil).open_or_in_progress_requests.exists?
+    if type.nil? && !offline? && requestor.assistance_requests.where(type: nil).open_or_in_progress_requests.exists?
       errors.add :base, 'Limit one open/in progress request per user'
       false
     end
