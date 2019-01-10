@@ -1,11 +1,13 @@
 # Change Log
 
-## [Unreleased](https://github.com/lighthouse-labs/compass/tree/HEAD)
-
-[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.04.1700...HEAD)
+## [2019.01.10.1145](https://github.com/lighthouse-labs/compass/tree/2019.01.10.1145) (2019-01-08)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.04.1700...2019.01.10.1145)
 
 **Merged pull requests:**
 
+- Queue: Allow student notes even if student has pending request [\#821](https://github.com/lighthouse-labs/compass/pull/821) ([kvirani](https://github.com/kvirani))
+- Allow Student with no Cohort to browse prep course [\#820](https://github.com/lighthouse-labs/compass/pull/820) ([kvirani](https://github.com/kvirani))
+- Fix Student detail/stats page 500 error if no cohort present \(bad state\) [\#818](https://github.com/lighthouse-labs/compass/pull/818) ([kvirani](https://github.com/kvirani))
 - Fix 500 error with admin/curriculum\_feedbacks CSV download [\#814](https://github.com/lighthouse-labs/compass/pull/814) ([kvirani](https://github.com/kvirani))
 
 ## [2019.01.04.1700](https://github.com/lighthouse-labs/compass/tree/2019.01.04.1700) (2019-01-05)
