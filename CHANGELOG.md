@@ -1,5 +1,93 @@
 # Change Log
 
+## [2019.01.10.1145](https://github.com/lighthouse-labs/compass/tree/2019.01.10.1145) (2019-01-08)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.04.1700...2019.01.10.1145)
+
+**Merged pull requests:**
+
+- Queue: Allow student notes even if student has pending request [\#821](https://github.com/lighthouse-labs/compass/pull/821) ([kvirani](https://github.com/kvirani))
+- Allow Student with no Cohort to browse prep course [\#820](https://github.com/lighthouse-labs/compass/pull/820) ([kvirani](https://github.com/kvirani))
+- Fix Student detail/stats page 500 error if no cohort present \(bad state\) [\#818](https://github.com/lighthouse-labs/compass/pull/818) ([kvirani](https://github.com/kvirani))
+- Fix 500 error with admin/curriculum\_feedbacks CSV download [\#814](https://github.com/lighthouse-labs/compass/pull/814) ([kvirani](https://github.com/kvirani))
+
+## [2019.01.04.1700](https://github.com/lighthouse-labs/compass/tree/2019.01.04.1700) (2019-01-05)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.15.1345...2019.01.04.1700)
+
+**Merged pull requests:**
+
+- Improve logo \(google font based\) [\#812](https://github.com/lighthouse-labs/compass/pull/812) ([kvirani](https://github.com/kvirani))
+- Slightly better auth \(login\) page [\#811](https://github.com/lighthouse-labs/compass/pull/811) ([kvirani](https://github.com/kvirani))
+- Added powered by with logo [\#810](https://github.com/lighthouse-labs/compass/pull/810) ([kvirani](https://github.com/kvirani))
+- Moved teacher invite code to programs model [\#809](https://github.com/lighthouse-labs/compass/pull/809) ([kvirani](https://github.com/kvirani))
+
+## [2018.12.15.1345](https://github.com/lighthouse-labs/compass/tree/2018.12.15.1345) (2018-12-15)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.12.1830...2018.12.15.1345)
+
+**Merged pull requests:**
+
+- New Activity feedback UI and UX for students \*and\* teachers! w00t [\#808](https://github.com/lighthouse-labs/compass/pull/808) ([kvirani](https://github.com/kvirani))
+
+## [2018.12.12.1830](https://github.com/lighthouse-labs/compass/tree/2018.12.12.1830) (2018-12-13)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.08.1945...2018.12.12.1830)
+
+**Merged pull requests:**
+
+- Various queue 2.0 patches [\#807](https://github.com/lighthouse-labs/compass/pull/807) ([kvirani](https://github.com/kvirani))
+
+## [2018.12.08.1945](https://github.com/lighthouse-labs/compass/tree/2018.12.08.1945) (2018-12-09)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.08.1800...2018.12.08.1945)
+
+**Merged pull requests:**
+
+- Improve and refactor top nav [\#804](https://github.com/lighthouse-labs/compass/pull/804) ([kvirani](https://github.com/kvirani))
+
+## [2018.12.08.1800](https://github.com/lighthouse-labs/compass/tree/2018.12.08.1800) (2018-12-09)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.08.0815...2018.12.08.1800)
+
+**Merged pull requests:**
+
+- Improve responsiveness on xs breakpoint for days\#show [\#803](https://github.com/lighthouse-labs/compass/pull/803) ([kvirani](https://github.com/kvirani))
+
+## [2018.12.08.0815](https://github.com/lighthouse-labs/compass/tree/2018.12.08.0815) (2018-12-08)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.11.15.1645...2018.12.08.0815)
+
+**Merged pull requests:**
+
+- New Assistance Request Queue \(rebuilt\) [\#802](https://github.com/lighthouse-labs/compass/pull/802) ([kvirani](https://github.com/kvirani))
+
+## [2018.11.15.1645](https://github.com/lighthouse-labs/compass/tree/2018.11.15.1645) (2018-11-16)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.10.17.0715...2018.11.15.1645)
+
+**Merged pull requests:**
+
+- Admin can make curriculum deployments manually. +added sidekiq for bg jobs [\#800](https://github.com/lighthouse-labs/compass/pull/800) ([kvirani](https://github.com/kvirani))
+- Markdown Support for coloured callouts in activity instructions [\#796](https://github.com/lighthouse-labs/compass/pull/796) ([kvirani](https://github.com/kvirani))
+- Fix issue with latest release where student could not resubmit project [\#793](https://github.com/lighthouse-labs/compass/pull/793) ([kvirani](https://github.com/kvirani))
+
+## [2018.10.17.0715](https://github.com/lighthouse-labs/compass/tree/2018.10.17.0715) (2018-10-17)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.10.14.1645...2018.10.17.0715)
+
+**Merged pull requests:**
+
+- Display duration on activities\#show if we have actuals but not estimate [\#792](https://github.com/lighthouse-labs/compass/pull/792) ([kvirani](https://github.com/kvirani))
+- Side nav logic drastically changed [\#791](https://github.com/lighthouse-labs/compass/pull/791) ([kvirani](https://github.com/kvirani))
+
+## [2018.10.14.1645](https://github.com/lighthouse-labs/compass/tree/2018.10.14.1645) (2018-10-14)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.09.27.1800...2018.10.14.1645)
+
+**Merged pull requests:**
+
+- Layout / responsiveness improvements [\#789](https://github.com/lighthouse-labs/compass/pull/789) ([kvirani](https://github.com/kvirani))
+
+## [2018.09.27.1800](https://github.com/lighthouse-labs/compass/tree/2018.09.27.1800) (2018-09-28)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.30.1615...2018.09.27.1800)
+
+**Merged pull requests:**
+
+- Improve ui skin a bit [\#785](https://github.com/lighthouse-labs/compass/pull/785) ([kvirani](https://github.com/kvirani))
+- Feature/remove all outcomes for day [\#784](https://github.com/lighthouse-labs/compass/pull/784) ([kvirani](https://github.com/kvirani))
+- Fix next/prev buttons; 2 birds! [\#782](https://github.com/lighthouse-labs/compass/pull/782) ([kvirani](https://github.com/kvirani))
+
 ## [2018.08.30.1615](https://github.com/lighthouse-labs/compass/tree/2018.08.30.1615) (2018-08-30)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.30.1015...2018.08.30.1615)
 

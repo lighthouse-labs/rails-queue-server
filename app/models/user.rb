@@ -38,6 +38,9 @@ class User < ApplicationRecord
   scope :order_by_first_name, -> {
     order(first_name: :asc)
   }
+  scope :order_by_name, -> {
+    order(first_name: :asc, last_name: :asc)
+  }
   scope :cohort_in_locations, ->(locations) {
     if locations.is_a?(Array) && !locations.empty?
       includes(cohort: :location)
@@ -70,6 +73,11 @@ class User < ApplicationRecord
   validates :email,           email: true
   validates :location_id,     presence: true
   validates :github_username, presence: true
+
+  # Temp logic, until we get better (role-based?) permission mgmt throughout the app - KV
+  def can_adminify?(user)
+    super_admin? && !user.super_admin?
+  end
 
   def prospect?
     true
@@ -113,7 +121,8 @@ class User < ApplicationRecord
   end
 
   def can_access_day?(day)
-    unlocked? CurriculumDay.new(day, cohort)
+    return unlocked? CurriculumDay.new(day, cohort) if cohort
+    false
   end
 
   def being_assisted?

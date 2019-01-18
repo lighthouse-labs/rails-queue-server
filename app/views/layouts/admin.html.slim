@@ -6,7 +6,14 @@ html
       = content_for?(:title) ? yield(:title) : 'Compass Admin'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'By Lighthouse Labs'}"
 
+    link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"
     == stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+
+    javascript:
+        window.ga = function() { return true; };
+        window.current_user = #{raw(UserSerializer.new(current_user).to_json)};
+        window.cableOn = #{!disable_cable?};
+
     == javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
     == yield :pre_admin_js
@@ -14,7 +21,7 @@ html
 
     == csrf_meta_tags
   body class=(yield :body_class)
-    header
+    header.p-5
       == render 'layouts/navigation'
     - fluid = (yield(:container) == 'fluid')
     main role="main" class=(fluid ? 'container-fluid' : 'container')

@@ -1,5 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
 
+  format_keys :lower_camel
   root false
 
   attributes :id,
@@ -13,9 +14,10 @@ class UserSerializer < ActiveModel::Serializer
              :busy,
              :last_assisted_at,
              :pronoun,
-             :remote
+             :remote,
+             :on_duty
 
-  has_one :location
+  has_one :location, serializer: MyLocationSerializer
   has_one :cohort
 
   protected

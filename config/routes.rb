@@ -24,6 +24,10 @@ LaserShark::Application.routes.draw do
   end
 
   resources :questions
+  resource :queue, only: [:show], controller: 'queue' do
+    post 'provided_assistance'
+    post 'end_assistance'
+  end
 
   resources :quiz_submissions, only: [:show]
 
@@ -71,16 +75,7 @@ LaserShark::Application.routes.draw do
     end
   end
 
-  resources :assistance_requests, only: [:index, :create, :destroy] do
-    collection do
-      delete :cancel
-      get :status
-      get :queue
-    end
-    member do
-      post :start_assistance
-    end
-  end
+  get 'assistance_requests', to: redirect('/queue')
 
   resources :prep_assistance_requests, only: [:create]
 
@@ -113,7 +108,13 @@ LaserShark::Application.routes.draw do
     resource :submission_with_feedback, only: [:create], controller: 'activity_submission_with_feedback'
     resources :messages, controller: 'activity_messages'
     resources :recordings, only: [:new, :create]
-    resources :activity_feedbacks, only: [:create]
+    resources :activity_feedbacks, only: [:index] do
+      collection do
+        get :rating_stats
+        get :ratings_by_month
+      end
+    end
+    resource :my_feedback, only: [:update], controller: 'my_activity_feedback'
     resources :lectures, except: [:index]
   end
 
@@ -184,6 +185,8 @@ LaserShark::Application.routes.draw do
         post :deactivate
         post :enrol_in_cohort
       end
+      # admins can make other users admins / non-admins
+      resource :adminification, only: [:create, :destroy]
     end
     resources :cohorts, except: [:destroy] do
       resources :curriculum_breaks, only: [:new, :create, :edit, :update, :destroy]
@@ -216,6 +219,8 @@ LaserShark::Application.routes.draw do
     resources :assistances, only: [:index]
     # Projects CRUD
     resources :projects, only: [:new, :create, :edit, :update, :destroy]
+
+    resources :deployments
   end
 
   # To test 500 error notifications on production

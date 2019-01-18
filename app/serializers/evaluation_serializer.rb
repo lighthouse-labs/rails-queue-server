@@ -1,19 +1,16 @@
 class EvaluationSerializer < ActiveModel::Serializer
 
+  format_keys :lower_camel
   root false
 
-  attributes :id, :created_at, :github_url, :resubmission
+  attributes :id, :created_at, :github_url, :resubmission, :started_at, :completed_at, :due, :state, :student_notes, :type
+
   has_one :project, serializer: ProjectSerializer
   has_one :student, serializer: UserSerializer
+  has_one :teacher, serializer: UserSerializer
 
-  def attributes
-    attributes = super
-    attributes[:teacher] = UserSerializer.new(object.teacher) if object.teacher
-    attributes
-  end
-
-  def created_at
-    object.created_at.to_s
+  def type
+    'ProjectEvaluation'
   end
 
 end

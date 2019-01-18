@@ -1,5 +1,7 @@
 class TechInterviewTemplatesController < ApplicationController
 
+  include CourseCalendar # concern
+
   def index
     @interview_templates = TechInterviewTemplate.active
   end
@@ -17,6 +19,8 @@ class TechInterviewTemplatesController < ApplicationController
     @interview_template = TechInterviewTemplate.find params[:id]
 
     @result = @interview_template.interview_for(current_user) if student?
+
+    load_day_schedule if params[:day_number]
   end
 
 end

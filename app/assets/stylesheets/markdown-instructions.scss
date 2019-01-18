@@ -1,5 +1,4 @@
 .activity-details, .project-detail {
-  max-width: 1200px;
   .instructions {
     h1, h2, h3, h4, h5, h6 {
       padding: 1em 0 .6em;
@@ -33,10 +32,10 @@
     }
 
     @media (min-width: 46em) {
-      aside { 
-        float: right; 
-        margin: 0 0 1em 2em; 
-        width: calc(12em + 10vw); 
+      aside {
+        float: right;
+        margin: 0 0 1em 2em;
+        width: calc(12em + 10vw);
       }
     }
 

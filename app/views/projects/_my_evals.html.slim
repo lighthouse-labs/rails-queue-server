@@ -1,3 +1,4 @@
+- allow_submission ||= false
 .row
   .col-sm-12
 
@@ -8,43 +9,11 @@
       - evals = @project.evaluations_for(current_user)
       - if evals.blank?
         .card-body
-          | The status of your previous submissions to this project are displayed here. However, you have not submitted this project yet.
+          p The status of your previous submissions to this project are displayed here. However, you have not submitted this project yet.
       - else
-        .table-responsive
-          table.table.table-condensed
-            thead
-              th GitHub Repo
-              th Submitted
-              th Evaluator
-              th Status
-              th.actions
-
-            tbody
-              - evals.each do |eval|
-                tr
-                  td
-                    = link_to(shortened_github_url(eval.github_url), eval.github_url, target: '_blank')
-                  td
-                    = eval.created_at.to_s(:short_friendly)
-                    br
-                    small
-                      = "#{time_ago_in_words(eval.created_at)} ago"
-                  td
-                    - if eval.teacher
-                      = eval.teacher.full_name
-
-                  td
-                    = eval.status
-                    br
-                    small
-                      - if eval.in_state?(:in_progress)
-                        = "#{time_ago_in_words(eval.started_at)} ago"
-                      - elsif eval.in_state?(:accepted, :rejected)
-                        = "#{time_ago_in_words(eval.completed_at)} ago"
-                      - elsif eval.in_state?(:cancelled)
-                        = "#{time_ago_in_words(eval.cancelled_at)} ago"
-
-                  td
-                    = link_to 'View', project_evaluation_path(@project, eval), class: 'btn btn-primary btn-xs'
-                    - if eval.cancellable?
-                      = link_to 'Cancel', cancel_project_evaluation_path(@project, eval), class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' }
+        == render 'projects/evaluations', evals: evals
+      - if allow_submission
+        - last_evaluation = @project.last_evaluation(current_user) if student?
+        - if student? && (!last_evaluation || (last_evaluation.status == "Cancelled" || last_evaluation.status == "Rejected"))
+          p.text-center
+            = link_to "Submit Project", new_project_evaluation_path(@project), class: "btn btn-outline-success btn-lg", onclick: "ga('send', 'event', 'student-submit-project-button', 'click');"

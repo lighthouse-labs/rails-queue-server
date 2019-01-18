@@ -1,0 +1,58 @@
+.instructions {
+  .callout {
+    display: block;
+    position: relative;
+    width: 100%;
+    background-color: rgb(245, 247, 249);
+    margin: 32px 0px;
+    padding: 24px 24px 6px 60px;
+    border-left: 4px solid;
+    border-radius: 3px;
+
+    &.callout-info {
+      border-color: #3884ff; //rgb(56, 132, 255);
+
+      .callout-icon {
+        color: #3884ff;
+      }
+    }
+    &.callout-warning {
+      border-color: #F77D05;
+
+      .callout-icon {
+        color: #F77D05;
+      }
+    }
+    &.callout-danger {
+      border-color: #FF4642;
+
+      .callout-icon {
+        color: #FF4642;
+      }
+    }
+    &.callout-instruction {
+      border-color: #26CB7C;
+
+      .callout-icon {
+        color: #26CB7C;
+      }
+    }
+    &.callout-question {
+      border-color: #f8c200;//#e6de2d;
+
+      .callout-icon {
+        color: #f8c200;//#e6de2d;
+      }
+    }
+
+    .callout-icon {
+      display: block;
+      position: absolute;
+      left: 16px;
+      font-size: 14px;
+      top: 24px;
+      margin: 0px;
+      padding: 0px;
+    }
+  }
+}

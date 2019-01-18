@@ -1,0 +1,45 @@
+li class="nav-item dropdown"
+  a class="nav-link dropdown-toggle" href="#" id="nav-program-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+    i.fa.fa-fw.fa-flag
+    span.non-tablet-label
+      | Program
+  div class="dropdown-menu" aria-labelledby="nav-program-dropdown"
+    = link_to day_path('today'), class: 'dropdown-item', title: 'Schedule'
+      i.fa.fa-fw.fa-calendar
+      | Schedule
+
+    = link_to lectures_path, class: 'dropdown-item', title: 'Lectures'
+      i.fa.fa-fw.fa-tv
+      | Lectures
+
+    - if @program&.has_projects?
+      = link_to projects_path, class: 'dropdown-item', title: 'Projects'
+        i.fa.fa-fw.fa-pencil-square-o
+        | Projects
+
+    - if @program&.has_interviews?
+      = link_to tech_interview_templates_path, class: 'dropdown-item', title: 'Tech Interviews'
+        i.fa.fa-fw.fa-comments
+        | Interviews
+
+    = link_to prep_index_path, class: 'dropdown-item', title: 'Prep Work'
+      i.fa.fa-fw.fa-paper-plane-o
+      | Prep Work
+
+    - if available_workbooks.present?
+      .dropdown-divider
+      - available_workbooks.each do |workbook|
+        = link_to workbook, class: 'dropdown-item', title: workbook.name
+          i.fa.fa-fw.fa-book
+          = workbook.name
+
+    - if teacher? || admin?
+      .dropdown-divider
+      = link_to teacher_resources_path, class: 'dropdown-item', title: 'Teacher Resources'
+        i.fa.fa-fw.fa-balance-scale
+        | Teacher Resources
+
+      - if @program&.has_code_reviews?
+        = link_to :code_reviews, class: 'dropdown-item', title: 'Code Reviews'
+          i.fa.fa-fw.fa-eye
+          | Code Reviews

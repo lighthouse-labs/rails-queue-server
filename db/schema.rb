@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180825172247) do
+ActiveRecord::Schema.define(version: 20190118001334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,12 +62,14 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.integer  "activity_id"
     t.integer  "user_id"
     t.integer  "sentiment"
-    t.integer  "rating"
+    t.float    "rating"
     t.text     "detail"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.boolean  "legacy_note"
+    t.datetime "deleted_at"
     t.index ["activity_id"], name: "index_activity_feedbacks_on_activity_id", using: :btree
+    t.index ["deleted_at"], name: "index_activity_feedbacks_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
   end
 
@@ -144,6 +146,7 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.index ["assistor_id"], name: "index_assistance_requests_on_assistor_id", using: :btree
     t.index ["assistor_location_id"], name: "index_assistance_requests_on_assistor_location_id", using: :btree
     t.index ["cohort_id"], name: "index_assistance_requests_on_cohort_id", using: :btree
+    t.index ["id"], name: "open_requests_by_id", where: "((canceled_at IS NULL) AND (type IS NULL) AND (assistance_id IS NULL))", using: :btree
     t.index ["requestor_id"], name: "index_assistance_requests_on_requestor_id", using: :btree
   end
 
@@ -195,7 +198,9 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.string   "weekdays"
     t.text     "disable_queue_days",     default: [], null: false, array: true
     t.boolean  "local_assistance_queue"
+    t.index ["location_id"], name: "index_cohorts_on_location_id", using: :btree
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
+    t.index ["start_date"], name: "index_cohorts_on_start_date", using: :btree
   end
 
   create_table "content_repositories", force: :cascade do |t|
@@ -205,6 +210,8 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.datetime "updated_at",                         null: false
     t.string   "last_sha"
     t.string   "github_branch",   default: "master"
+    t.integer  "program_id"
+    t.index ["program_id"], name: "index_content_repositories_on_program_id", using: :btree
   end
 
   create_table "curriculum_breaks", force: :cascade do |t|
@@ -435,6 +442,7 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.text     "disable_queue_days",              default: [],   null: false, array: true
     t.string   "curriculum_team_email"
     t.boolean  "has_advanced_lectures"
+    t.string   "teacher_invite_code"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -657,9 +665,13 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.boolean  "suppress_tech_interviews"
     t.float    "cohort_assistance_average"
     t.string   "pronoun"
+    t.boolean  "super_admin"
     t.index ["auth_token"], name: "index_users_on_auth_token", using: :btree
+    t.index ["cohort_id"], name: "active_students_by_cohort", where: "((completed_registration = true) AND (deactivated_at IS NULL) AND ((type)::text = 'Student'::text))", using: :btree
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
     t.index ["initial_cohort_id"], name: "index_users_on_initial_cohort_id", using: :btree
+    t.index ["location_id"], name: "active_users_by_location", where: "((completed_registration = true) AND (deactivated_at IS NULL))", using: :btree
+    t.index ["location_id"], name: "index_users_on_location_id", using: :btree
     t.index ["type", "on_duty"], name: "index_users_on_type_and_on_duty", using: :btree
     t.index ["type"], name: "index_users_on_type", using: :btree
   end

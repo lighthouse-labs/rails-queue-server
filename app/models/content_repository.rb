@@ -1,5 +1,6 @@
 class ContentRepository < ApplicationRecord
 
+  belongs_to :program
   has_many :activities
   has_many :deployments
 

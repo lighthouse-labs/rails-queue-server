@@ -12,18 +12,7 @@
   = form.input :time_spent, as: :integer, label: 'Time spent in minutes', placeholder: 'How long did it take you? Your best approximation (in minutes) please!'
 
   - if @activity.allow_feedback?
-    h3
-      | Feedback
-      | &nbsp;
-      small optional
-
-    p Tell us how you found this #{(@activity.type || 'Activity').titleize}
-
-    div
-      .raty-editor name="feedback[rating]" data-score=form.object.rating
-        = form.hidden_field :rating, id: "modal-average-rating"
-      .hint
-    = form.input :detail, as: :text, placeholder: 'The more you can give us the better!'
+    == react_component("ActivityFeedbackInput.App", { stealthSaving: true, activityId: @activity.id, activityFeedback: @activity_feedback ? ActivityFeedbackSerializer.new(@activity_feedback) : nil, windowKey: 'activityFeedbackFromModalApp', sisterWindowKey: 'activityFeedbackAtBottomApp' })
 
 .modal-footer
   button.btn.btn-secondary type='button' data-dismiss='modal'
