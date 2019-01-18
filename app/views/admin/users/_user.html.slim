@@ -48,8 +48,13 @@
             i.fa.fa-bolt
           .btn.btn-outline-primary.btn-sm.user-reactivate-button.hidden-button data-toggle='tooltip' title='Reactivate'
             i.fa.fa-heartbeat
-        - if !user.admin?
+        - if user.admin?
+          - if current_user.can_adminify?(user)
+            = link_to fa_icon('lock'), admin_user_adminification_path(user), method: :delete, class: 'btn btn-outline-warning btn-sm', title: 'Remoke Admin Privileges', data: { toggle: 'tooltip' }
+        - else
           = link_to fa_icon('user'), impersonate_session_path(id: user.id), method: :put, class: 'btn btn-outline-primary btn-sm user-impersonate-button', title: 'Impersonate', 'data-toggle' => 'tooltip'
+          - if current_user.can_adminify?(user)
+            = link_to fa_icon('lock'), admin_user_adminification_path(user), method: :post, class: 'btn btn-outline-secondary btn-sm', title: 'Grant Admin Privileges', data: { toggle: 'tooltip' }
         - if user.prospect?
           span.assign-cohort-button title='Enrol in Cohort' data-toggle='tooltip'
             .btn.btn-outline-info.btn-sm data-toggle='modal' data-target="#enrolment-modal-#{user.id}"

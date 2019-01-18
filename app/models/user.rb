@@ -74,6 +74,11 @@ class User < ApplicationRecord
   validates :location_id,     presence: true
   validates :github_username, presence: true
 
+  # Temp logic, until we get better (role-based?) permission mgmt throughout the app - KV
+  def can_adminify?(user)
+    super_admin? && !user.super_admin?
+  end
+
   def prospect?
     true
   end
