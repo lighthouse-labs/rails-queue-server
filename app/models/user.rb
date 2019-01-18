@@ -121,7 +121,8 @@ class User < ApplicationRecord
   end
 
   def can_access_day?(day)
-    !!(cohort && unlocked?(CurriculumDay.new(day, cohort)))
+    return unlocked? CurriculumDay.new(day, cohort) if cohort
+    false
   end
 
   def being_assisted?
