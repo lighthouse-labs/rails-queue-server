@@ -148,6 +148,12 @@ LaserShark::Application.routes.draw do
     resources :calendars, only: [:index]
   end
 
+  # CSV Endpoint
+  namespace :csv_endpoint do
+    resources :assistances, only: [:index]
+    resources :feedbacks, only: [:index]
+  end
+
   # TEACHER
   namespace :teacher do
     resources :students, only: [:show, :index]
