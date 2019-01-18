@@ -1,5 +1,13 @@
 # Change Log
 
+## [2019.01.17.1715](https://github.com/lighthouse-labs/compass/tree/2019.01.17.1715) (2019-01-18)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.10.1145...2019.01.17.1715)
+
+**Merged pull requests:**
+
+- Feature/admin make admin babies [\#829](https://github.com/lighthouse-labs/compass/pull/829) ([kvirani](https://github.com/kvirani))
+- Create a CSV end point where assistance requests and feedbacks can be loaded into Google Sheets [\#741](https://github.com/lighthouse-labs/compass/pull/741) ([JBorts](https://github.com/JBorts))
+
 ## [2019.01.10.1145](https://github.com/lighthouse-labs/compass/tree/2019.01.10.1145) (2019-01-08)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.04.1700...2019.01.10.1145)
 
