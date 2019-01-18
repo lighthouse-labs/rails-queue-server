@@ -8,9 +8,12 @@
       - else
         = "User"
 
-      - if user.admin?
-        br
+      br
+      - if user.super_admin?
+        span.badge.badge-warning Super Admin
+      - elsif user.admin?
         span.badge.badge-warning Admin
+
     td
       - if user.cohort
         = link_to user.cohort.name, [:admin, user.cohort]
