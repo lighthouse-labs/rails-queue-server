@@ -29,7 +29,7 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
     end
 
     if params[:from].present? || params[:to].present?
-      params[:to] = Date.parse(params[:to]) if params[:to].present? && !params[:from].present?
+      params[:to] = Date.parse(params[:to]) if params[:to].present? && params[:from].blank?
       params[:to] ||= Date.today
       params[:from] ||= params[:to] - 1.year
 
@@ -43,16 +43,17 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
   end
 
   def get_joined_model
-    AssistanceRequest.joins("LEFT OUTER JOIN cohorts ON assistance_requests.cohort_id = cohorts.id")
+    assistance_requests = AssistanceRequest.joins("LEFT OUTER JOIN cohorts ON assistance_requests.cohort_id = cohorts.id")
     assistance_requests = assistance_requests.joins("LEFT OUTER JOIN assistances ON assistance_requests.assistance_id = assistances.id")
     assistance_requests = assistance_requests.joins("LEFT OUTER JOIN programs ON cohorts.program_id = programs.id")
     assistance_requests = assistance_requests.joins("LEFT OUTER JOIN activities ON assistances.activity_id = activities.id")
     assistance_requests = assistance_requests.joins("LEFT OUTER JOIN users assistors ON assistances.assistor_id = assistors.id")
-    assistance_requests = assistance_requests.joins("LEFT OUTER JOIN users assistees ON assistances.assistee_id = assistees.id")    
+    assistance_requests = assistance_requests.joins("LEFT OUTER JOIN users assistees ON assistances.assistee_id = assistees.id")
   end
 
   def csv_header
     [
+      "ID",
       "Request Created_at",
       "Canceled?",
       "Request Type",
@@ -76,12 +77,13 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
 
   def get_select_fields
     [
+      "assistance_requests.id",
       "assistance_requests.created_at",
       "assistance_requests.canceled_at",
       "assistance_requests.type",
-      "assistance_requests.reason",    
+      "assistance_requests.reason",
       "cohorts.name",
-      "programs.name",      
+      "programs.name",
       "assistance_requests.day",
       "assistors.id",
       "assistors.first_name || ' ' || assistors.last_name",
@@ -96,4 +98,5 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
       "assistances.student_notes"
     ]
   end
+
 end

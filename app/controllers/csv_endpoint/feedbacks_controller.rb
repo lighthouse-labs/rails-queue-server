@@ -4,7 +4,7 @@ class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
     feedbacks = get_joined_model
     feedbacks = feedbacks.select get_select_fields
     feedbacks = add_where_clauses feedbacks
-    feedbacks = feedbacks.order created_at: :desc    
+    feedbacks = feedbacks.order created_at: :desc
 
     pg = ActiveRecord::Base.connection.instance_variable_get(:@connection)
     pg.send_query(feedbacks.to_sql)
@@ -43,6 +43,7 @@ class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
 
   def csv_header
     [
+      "ID",
       "Created_at",
       "Feedback Type",
       "Feedbackable ID",
@@ -59,6 +60,7 @@ class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
 
   def get_select_fields
     [
+      "feedbacks.id",
       "feedbacks.created_at",
       "feedbacks.feedbackable_type",
       "feedbacks.feedbackable_id",
@@ -72,4 +74,5 @@ class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
       "feedbacks.notes"
     ]
   end
+
 end
