@@ -4,14 +4,33 @@
 
   = activity_presenter.render_sidenav
 
+  - activities = @activities.select(&:completable?)
+  - total = activities.inject(0) { |sum, a| sum + (a.approx_duration || 10) }
+  - current_index = activities.index(@activity)
+  div.activity-progress.progress.mb-2 style="height: 1.4rem"
+    - activities.each_with_index do |activity, i|
+      - width =  activity.approx_duration ? (activity.approx_duration.to_f / total.to_f * 100).round(1) : 10
+      - classes = []
+      - classes << 'progress-bar-striped' if activity == @activity
+      - if current_user&.completed_activity?(activity)
+        - classes << 'bg-success'
+      - elsif activity.stretch?
+        - classes << 'bg-purple'
+      - else
+        - classes << 'bg-secondary'
+      
+      a.progress-bar href="/#{activity.uuid}" class=classes.join(' ') title=activity.name data-toggle="tooltip" role="progressbar" style="width: #{width}%" aria-valuenow="#{width}" aria-valuemin="0" aria-valuemax="100"
+    
   section.activity-details
-    h1 = activity_presenter.name
-    = render 'action_bar', activity_presenter: activity_presenter
-    hr
-
-    - if @activity.section && @activity.section.is_a?(Project) && !@activity.section.archived?
-      h4 This activity should help you progress with a project:
-      = render @activity.section
+    header.jumbotron.text-center.text-light.py-5
+      h1 = @activity.name
+      small 
+        | #{@activity.duration_range.join(' - ')} minutes
+        - if @activity.project?
+          br
+          = link_to @activity.section.name, @activity.section, style: "color:white;"
+      / = render 'action_bar', activity_presenter: activity_presenter
+    
 
     - if stretch_activity?(@activity, @workbook)
       - text = @activity.day? ? "day" : "prep course"

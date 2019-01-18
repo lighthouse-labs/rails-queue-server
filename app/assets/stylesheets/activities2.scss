@@ -1,4 +1,24 @@
+.activity-progress {
+  padding: 6px 10px 6px 10px;
+  .progress-bar {
+    margin-right: 4px;
+    border-radius: 0.25rem;
+
+    &.bg-purple {
+      background-color: lighten($purple, 10%);
+    }
+  }
+}
 .activity-details {
+
+  > header {
+    // background-image: url("https://media1.popsugar-assets.com/files/thumbor/QuRnunc8aZDHiAV720GIev_qYJk/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2016/10/10/710/n/41655633/a209a38eaa06972a_4._MSDHOIS_EC008_H/i/Honey-I-Shrunk-Kids.JPG");
+    background-image: url("https://cdn.dribbble.com/users/989466/screenshots/5850402/tyrannosaurus-dribbble-alex-pasquarella.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    background-position: center;
+  }
 
   .nextandprev {
     margin: 0px;
