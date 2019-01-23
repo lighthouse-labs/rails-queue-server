@@ -74,6 +74,11 @@ class User < ApplicationRecord
   validates :location_id,     presence: true
   validates :github_username, presence: true
 
+  # Temp logic, until we get better (role-based?) permission mgmt throughout the app - KV
+  def can_adminify?(user)
+    super_admin? && !user.super_admin?
+  end
+
   def prospect?
     true
   end
@@ -116,7 +121,8 @@ class User < ApplicationRecord
   end
 
   def can_access_day?(day)
-    !!(cohort && unlocked?(CurriculumDay.new(day, cohort)))
+    return unlocked? CurriculumDay.new(day, cohort) if cohort
+    false
   end
 
   def being_assisted?

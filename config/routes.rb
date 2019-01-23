@@ -148,6 +148,12 @@ LaserShark::Application.routes.draw do
     resources :calendars, only: [:index]
   end
 
+  # CSV Endpoint
+  namespace :csv_endpoint do
+    resources :assistances, only: [:index]
+    resources :feedbacks, only: [:index]
+  end
+
   # TEACHER
   namespace :teacher do
     resources :students, only: [:show, :index]
@@ -179,6 +185,8 @@ LaserShark::Application.routes.draw do
         post :deactivate
         post :enrol_in_cohort
       end
+      # admins can make other users admins / non-admins
+      resource :adminification, only: [:create, :destroy]
     end
     resources :cohorts, except: [:destroy] do
       resources :curriculum_breaks, only: [:new, :create, :edit, :update, :destroy]
