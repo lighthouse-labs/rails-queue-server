@@ -1,0 +1,22 @@
+- showing_details ||= false
+
+header.jumbotron.text-center.text-light.py-5
+  h1 = @activity.name
+  - if @activity.project?
+    = link_to @activity.section.name, @activity.section, style: "color: white;"
+    | &nbsp;
+  = activity_type @activity
+  br
+  small
+    | #{@activity.duration_range.join(' - ')} minutes
+  br
+  small
+    - if teacher? && !@activity.teachers_only?
+      - if @activity.completable?
+        a href="#" data-toggle="collapse" data-target="#student-progress" style="color: white"
+          = activity_presenter.submissions_text
+        | &nbsp;&middot;&nbsp;
+      - if showing_details
+        = link_to 'Back To Content', activity_path(@activity), style: 'color: white'
+      - else
+        = activity_presenter.details_link

@@ -1,0 +1,16 @@
+- activities = @activities.select(&:completable?)
+- total = activities.inject(0) { |sum, a| sum + (a.approx_duration || 10) }
+- current_index = activities.index(@activity)
+div.activity-progress.progress.mb-2 style="height: 1.4rem"
+  - activities.each_with_index do |activity, i|
+    - width =  activity.approx_duration ? (activity.approx_duration.to_f / total.to_f * 100).round(1) : 10
+    - classes = []
+    - classes << 'progress-bar-striped' if activity == @activity
+    - if current_user&.completed_activity?(activity)
+      - classes << 'bg-success'
+    - elsif activity.stretch?
+      - classes << 'bg-purple'
+    - else
+      - classes << 'bg-secondary'
+
+    a.progress-bar href="/#{activity.uuid}" class=classes.join(' ') title=activity.name data-toggle="tooltip" role="progressbar" style="width: #{width}%" aria-valuenow="#{width}" aria-valuemin="0" aria-valuemax="100"

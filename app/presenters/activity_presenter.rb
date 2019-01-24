@@ -62,8 +62,8 @@ class ActivityPresenter < BasePresenter
     end
   end
 
-  def details_button
-    link_to 'Details', details_button_path, class: 'btn btn-outline-secondary btn-edit'
+  def details_link
+    link_to 'Details', details_button_path, style: 'color: white'
   end
 
   def display_outcomes
