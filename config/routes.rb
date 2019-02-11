@@ -141,6 +141,8 @@ LaserShark::Application.routes.draw do
 
   resources :lectures, only: [:index]
 
+  resource :github_education, controller: 'github_education', only: [:show]
+
   # Wallboard
   namespace :wallboard do
     resources :assistances, only: [:index]

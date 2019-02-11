@@ -226,6 +226,10 @@ class User < ApplicationRecord
     Program.first.weeks >= 10
   end
 
+  def unique_id
+    OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), "unique-lhl-id", "#{id}-#{created_at}")
+  end
+
   class << self
 
     def authenticate_via_github(auth)
