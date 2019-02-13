@@ -1,6 +1,6 @@
 li.dropdown.nav-item.current-user
   = link_to '#', class: 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown' do
-    i.fa.fa-fw.fa-cogs
+    i.fa.fa-fw.fa-cog
     span.non-tablet-label
       = teacher? ? current_user.initials : current_user.first_name
   .dropdown-menu.dropdown-menu-right

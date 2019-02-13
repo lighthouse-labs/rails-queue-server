@@ -60,25 +60,25 @@ window.ActivityFeedbackInput.RatingButtons = class RatingButtons extends React.C
   }
 
   render() {
-    const starType = this.state.hovering || this.props.rating ? 'fa-star' : 'fa-star-o';
+    const starType = this.state.hovering || this.props.rating ? 'fa' : 'far';
     const saving = this.props.saving;
     return(
       <div className={`can-load ${saving ? 'loading' : ''}`}>
         <div className="d-flex justify-content-center" onMouseLeave={this._resetHover}>
           <a onMouseOver={this._onHover.bind(this, 1)} className={`rating d-inline-flex p-2 mr-1 ml-1 bd-highlight ${this._starClasses(1)}`} href="#" onClick={this._onRatingClicked.bind(this, 1)}>
-            <i className={`fa ${starType}`} />
+            <i className={`fa-star ${starType}`} />
           </a>
           <a onMouseOver={this._onHover.bind(this, 2)} className={`rating d-inline-flex p-2 mr-1 ml-1 bd-highlight ${this._starClasses(2)}`} href="#" onClick={this._onRatingClicked.bind(this, 2)}>
-            <i className={`fa ${starType}`} />
+            <i className={`fa-star ${starType}`} />
           </a>
           <a onMouseOver={this._onHover.bind(this, 3)} className={`rating d-inline-flex p-2 mr-1 ml-1 bd-highlight ${this._starClasses(3)}`} href="#" onClick={this._onRatingClicked.bind(this, 3)}>
-            <i className={`fa ${starType}`} />
+            <i className={`fa-star ${starType}`} />
           </a>
           <a onMouseOver={this._onHover.bind(this, 4)} className={`rating d-inline-flex p-2 mr-1 ml-1 bd-highlight ${this._starClasses(4)}`} href="#" onClick={this._onRatingClicked.bind(this, 4)}>
-            <i className={`fa ${starType}`} />
+            <i className={`fa-star ${starType}`} />
           </a>
           <a onMouseOver={this._onHover.bind(this, 5)} className={`rating d-inline-flex p-2 mr-1 ml-1 bd-highlight ${this._starClasses(5)}`} href="#" onClick={this._onRatingClicked.bind(this, 5)}>
-            <i className={`fa ${starType}`} />
+            <i className={`fa-star ${starType}`} />
           </a>
         </div>
         <div className="d-flex justify-content-center my-2">

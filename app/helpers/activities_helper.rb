@@ -160,7 +160,7 @@ module ActivitiesHelper
         'fa fa-code'
       end
     when "task"
-      'fa fa-flash'
+      'fa fa-bolt'
     when "pinnednote"
       'fa fa-sticky-note'
     when "lectureplan", "breakout"
@@ -170,7 +170,7 @@ module ActivitiesHelper
     when "survey"
       'fa fa-list-alt'
     when "video"
-      'fa fa-video-camera'
+      'fa fa-video'
     when 'reading'
       'fa fa-book'
     when "test"

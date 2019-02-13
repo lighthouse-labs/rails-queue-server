@@ -14,7 +14,7 @@ li class="nav-item dropdown"
 
     - if @program&.has_projects?
       = link_to projects_path, class: 'dropdown-item', title: 'Projects'
-        i.fa.fa-fw.fa-pencil-square-o
+        i.fa.fa-fw.fa-cogs
         | Projects
 
     - if @program&.has_interviews?
@@ -23,7 +23,7 @@ li class="nav-item dropdown"
         | Interviews
 
     = link_to prep_index_path, class: 'dropdown-item', title: 'Prep Work'
-      i.fa.fa-fw.fa-paper-plane-o
+      i.fa.fa-fw.fa-paper-plane
       | Prep Work
 
     - if available_workbooks.present?
