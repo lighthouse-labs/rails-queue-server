@@ -164,9 +164,9 @@ module ActivitiesHelper
     when "pinnednote"
       'fa fa-sticky-note'
     when "lectureplan", "breakout"
-      'fa fa-group'
+      'fa fa-users'
     when "homework"
-      'fa fa-moon-o'
+      'far fa-moon'
     when "survey"
       'fa fa-list-alt'
     when "video"

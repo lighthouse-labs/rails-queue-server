@@ -85,28 +85,28 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
     when 'note', 'info'
       %(
         <span class="fa-stack">
-          <i class="fa fa-circle-o fa-stack-2x"></i>
+          <i class="far fa-circle fa-stack-2x"></i>
           <i class="fa fa-info fa-stack-1x"></i>
         </span>
       )
     when 'warning'
       %(
         <span class="fa-stack">
-          <i class="fa fa-circle-o fa-stack-2x"></i>
+          <i class="far fa-circle fa-stack-2x"></i>
           <i class="fa fa-exclamation fa-stack-1x"></i>
         </span>
       )
     when 'danger', 'alert'
       %(
         <span class="fa-stack">
-          <i class="fa fa-circle-o fa-rotate-90 fa-stack-2x"></i>
+          <i class="far fa-circle fa-rotate-90 fa-stack-2x"></i>
           <i class="fa fa-exclamation fa-stack-1x"></i>
         </span>
       )
     when 'question'
       %(
         <span class="fa-stack">
-          <i class="fa fa-circle-o fa-stack-2x"></i>
+          <i class="far fa-circle  fa-stack-2x"></i>
           <i class="fa fa-question fa-stack-1x"></i>
         </span>
       )
@@ -119,7 +119,7 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
     else
       %(
         <span class="fa-stack">
-          <i class="fa fa-circle-o fa-stack-2x"></i>
+          <i class="far fa-circle  fa-stack-2x"></i>
           <i class="fa fa-question fa-stack-1x"></i>
         </span>
       )
