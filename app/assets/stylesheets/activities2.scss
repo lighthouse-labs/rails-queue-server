@@ -1,14 +1,21 @@
 .activity-progress {
-  padding: 6px 10px 6px 10px;
   .progress-bar {
-    margin-right: 4px;
-    border-radius: 0.25rem;
+    border-right: 1px solid white;
+
+    &:last-child {
+      border-right: none;
+    }
 
     &.bg-purple {
-      background-color: lighten($purple, 10%);
+      background-color: lighten($purple, 20%);
+    }
+
+    &.bg-secondary {
+      background-color: #aaa !important;
     }
   }
 }
+
 .activity-details {
 
   > header {
