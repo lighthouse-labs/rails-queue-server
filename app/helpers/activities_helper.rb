@@ -151,11 +151,11 @@ module ActivitiesHelper
 
   def icon_for(activity)
     case activity.type.to_s.downcase
+    when "problem"
+      'fa fa-hammer'
     when "assignment"
       if activity.evaluates_code?
-        'fa fa-gears'
-      elsif activity.allow_submissions?
-        'fa fa-github'
+        'fa fa-hammer'
       else
         'fa fa-code'
       end
@@ -177,6 +177,8 @@ module ActivitiesHelper
       'fa fa-gavel'
     when "quizactivity"
       'fa fa-question'
+    when "walkthrough"
+      'fa fa-walking'
     end
   end
 
