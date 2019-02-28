@@ -14,12 +14,6 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
     "</table>"
   end
 
-  # def block_code(code, language)
-  #   "<code class=\"language-#{language}\">" \
-  #     "#{code}" \
-  #   "</code>"
-  # end
-
   def block_quote(quote)
     if matches = quote.match(CALLOUT_REGEX)
       icon_html = block_quote_icon_html(matches[1])
@@ -50,9 +44,14 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
   end
 
   def preprocess(doc)
-    # raise full_document.inspect
+    handle_toggle_code_block(doc)
+    handle_toggle_markdown(doc)
+  end
+
+  private
+
+  def handle_toggle_code_block(doc)
     regex = Regexp.new(/(^\?\?\?([a-zA-Z-]+)\s+(.*?)\s+^\?\?\?)/m)
-    # raise match[0].inspect if match
     doc.gsub(regex) do
       code = Regexp.last_match[3]
       lang = Regexp.last_match[2]
@@ -60,7 +59,13 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
     end
   end
 
-  private
+  def handle_toggle_markdown(doc)
+    regex = Regexp.new(/(^\?\?\?\?\s+(.*?)\s+^\?\?\?\?)/m)
+    doc.gsub(regex) do
+      markdown_content = Regexp.last_match[2]
+      generate_toggle_markdown(markdown_content)
+    end
+  end
 
   def block_quote_class(type)
     case type.downcase
@@ -142,6 +147,27 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
     "</div>" \
     "<a class='btn btn-primary' onclick='$(this).closest(\".togglable-solution\").find(\".answer\").toggle();'>Toggle Answer</a>" \
     "</div>"
+  end
+
+  def generate_toggle_markdown(content)
+    "<div class='togglable-solution card card-body mb-3'>" \
+    "<div class='answer' style='display: none;'>" \
+    "#{markdown(content)}" \
+    "</div>" \
+    "<button class='btn btn-primary' onclick='$(this).closest(\".togglable-solution\").find(\".answer\").slideToggle(); return false;'>Toggle Answer</button>" \
+    "</div>"
+  end
+
+  def markdown(content)
+    return '' if content.nil?
+    options = {
+      autolink:            true,
+      space_after_headers: true,
+      fenced_code_blocks:  true,
+      tables:              true,
+      strikethrough:       true
+    }
+    Redcarpet::Markdown.new(CompassMarkdownRenderer, options).render(content)
   end
 
 end
