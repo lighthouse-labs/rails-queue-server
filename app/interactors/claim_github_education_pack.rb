@@ -19,4 +19,3 @@ class ClaimGithubEducationPack
   end
 
 end
-

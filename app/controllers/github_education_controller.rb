@@ -1,11 +1,8 @@
 class GithubEducationController < ApplicationController
 
-  # layout 'auth'
-
   before_action :require_eligible_user
 
-  def show
-  end
+  def show; end
 
   # PUT
   def claim
