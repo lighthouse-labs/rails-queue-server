@@ -1,35 +1,33 @@
-== render 'sessions/flash_messages'
+/ == render 'sessions/flash_messages'
 
-h1
-  a href="/" title="Compass Home" Compass
+/ h1
+/   a href="/" title="Compass Home" Compass
 
-h2.text-center
-  | Lighthouse
-  '  +
-  | GitHub
-  br
-  | =
-  br
-  | Githouse? LightHub?
-  br
+.github-education
 
-p
-  strong Whatever. Anyway... Free stuff!
+  h2.text-center.my-2 Free GitHub Education Pack!
 
+  p.my-3 style="max-width:600px"
+    ' As a current student at Lighthouse Labs, you are now eligible to GitHub's
+    a href="https://education.github.com/pack" target="_blank" Education Pack.
+    '  It includes a bunch of cool free stuff, including
+    strong unlimited free private repos on GitHub (!!!)
+    ', a free dyno on Heroku (for hosting) and much more!
+    - unless current_user.github_education_pack_actioned?
+      br
+      br
+      ' Click the button below to claim the Eduacation Pack for your GitHub account.
 
-p style="max-width:600px"
-  ' Thanks to a recent partnership, all active students at Lighthouse Labs can now claim the
-  a href="https://education.github.com/pack" target="_blank" GitHub Education Pack.
-  '  It includes a bunch of cool free stuff, including unlimited free private repos on GitHub, a free dyno on Heroku (for hosting) and much more!
-  ' Use the link below to enable the pack for your GitHub account.
+  p.my-3 style="max-width:600px"
+    = link_to claim_github_education_path, method: :put, class: 'btn btn-lg btn-github-login my-3'
+      - unless current_user.github_education_pack_actioned?
+        ' Claim
+      strong GitHub
+      '  Education Pack
 
-- student_id = current_user.unique_id
-- school_id = ENV['GITHUB_EDUCATION_SCHOOL_ID']
-- secret_key = ENV['GITHUB_EDUCATION_SECRET_KEY']
-- signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), secret_key, school_id + student_id)
-- url = "https://education.github.com/student/verify?school_id=#{school_id}&student_id=#{URI.escape(student_id)}&signature=#{URI.escape(signature)}"
-
-= link_to url, class: 'btn btn-lg btn-github-login my-3'
-  ' Claim
-  strong GitHub
-  '  Education Pack
+  - unless current_user.github_education_pack_actioned?
+    p.text-center
+      strong -- OR --
+      br
+      br
+      = link_to "Skip it", skip_github_education_path,  method: :put, class: 'btn btn-danger'

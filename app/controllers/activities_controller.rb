@@ -5,6 +5,7 @@ class ActivitiesController < ApplicationController
   before_action :require_activity, only: [:show, :edit, :update]
 
   include CourseCalendar # concern
+  include GithubEducationPack # concern
 
   before_action :teacher_required, only: [:new, :create, :edit, :update]
   before_action :check_if_day_unlocked, only: [:show]
