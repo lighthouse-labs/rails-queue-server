@@ -11,6 +11,12 @@
 = form.association :program
 = form.input :start_date, as: :date, html5: true
 = form.input :teacher_email_group
+
+.form-check.mb-2 style="padding-left: 2rem"
+  = form.check_box :local_assistance_queue, class: 'form-check-input'
+  = form.label :local_assistance_queue, class: 'form-check-label'
+  small.form-text.text-muted Turns on assistance queue for cohorts where satellite/remote students get mentor support locally (eg: Montreal!)
+
 - if form.object.program.days_per_week != 5
   = form.input :weekdays
 .form-group
