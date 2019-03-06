@@ -15,10 +15,7 @@ module GithubEducationPack
   end
 
   def eligible_for_github_edu_pack?
-    ENV['GITHUB_EDUCATION_SCHOOL_ID'].present? &&
-      ENV['GITHUB_EDUCATION_SECRET_KEY'].present? &&
-      current_user&.eligible_for_github_education_pack? &&
-      !current_user.github_education_pack_actioned)
+    current_user&.eligible_for_github_education_pack? && !current_user.github_education_pack_actioned?
   end
 
 end

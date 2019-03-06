@@ -231,7 +231,9 @@ class User < ApplicationRecord
   end
 
   def eligible_for_github_education_pack?
-    active_student?
+    ENV['GITHUB_EDUCATION_SCHOOL_ID'].present? &&
+      ENV['GITHUB_EDUCATION_SECRET_KEY'].present? &&
+      active_student?
   end
 
   def github_education_pack_claimed?

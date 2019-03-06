@@ -23,7 +23,7 @@ class GithubEducationController < ApplicationController
       current_user.save(validate: false)
       flash[:notice] = "You've chosen to skip GitHub Education. Check your Profile page if you still want it later."
     end
-    redirect_to params[:original_destination] || day_path('today')
+    redirect_to day_path('today')
   end
 
   private
