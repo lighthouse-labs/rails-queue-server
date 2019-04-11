@@ -226,6 +226,24 @@ class User < ApplicationRecord
     Program.first.weeks >= 10
   end
 
+  def unique_id
+    OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), "unique-lhl-id", "#{id}-#{created_at}")
+  end
+
+  def eligible_for_github_education_pack?
+    ENV['GITHUB_EDUCATION_SCHOOL_ID'].present? &&
+      ENV['GITHUB_EDUCATION_SECRET_KEY'].present? &&
+      active_student?
+  end
+
+  def github_education_pack_claimed?
+    github_education_action == 'claimed'
+  end
+
+  def github_education_pack_actioned?
+    github_education_action.present?
+  end
+
   class << self
 
     def authenticate_via_github(auth)

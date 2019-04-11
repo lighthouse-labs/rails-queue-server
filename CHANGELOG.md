@@ -1,11 +1,19 @@
 # Change Log
 
+## [2019.03.06.1630](https://github.com/lighthouse-labs/compass/tree/2019.03.06.1630) (2019-03-07)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.17.1715...2019.03.06.1630)
+
+**Merged pull requests:**
+
+- Feature/add local queue cb for admins [\#840](https://github.com/lighthouse-labs/compass/pull/840) ([kvirani](https://github.com/kvirani))
+- New Feature for GitHub Education pack [\#839](https://github.com/lighthouse-labs/compass/pull/839) ([kvirani](https://github.com/kvirani))
+
 ## [2019.01.17.1715](https://github.com/lighthouse-labs/compass/tree/2019.01.17.1715) (2019-01-18)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.10.1145...2019.01.17.1715)
 
 **Merged pull requests:**
 
-- Feature/admin make admin babies [\#829](https://github.com/lighthouse-labs/compass/pull/829) ([kvirani](https://github.com/kvirani))
+- Super Admins \(new role\) can now make other admins [\#829](https://github.com/lighthouse-labs/compass/pull/829) ([kvirani](https://github.com/kvirani))
 - Create a CSV end point where assistance requests and feedbacks can be loaded into Google Sheets [\#741](https://github.com/lighthouse-labs/compass/pull/741) ([JBorts](https://github.com/JBorts))
 
 ## [2019.01.10.1145](https://github.com/lighthouse-labs/compass/tree/2019.01.10.1145) (2019-01-08)
