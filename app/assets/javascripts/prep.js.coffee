@@ -239,7 +239,7 @@ $(document).on 'turbolinks:load', ->
   runLinter = (code) =>
     results = eslint.verify(code, {
       rules: RULES,
-      env: {browser: true}
+      env: {browser: true, es6: true}
     })
 
     if results.length > 0
