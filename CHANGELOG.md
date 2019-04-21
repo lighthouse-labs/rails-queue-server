@@ -1,5 +1,13 @@
 # Change Log
 
+## [2019.04.21.1215](https://github.com/lighthouse-labs/compass/tree/2019.04.21.1215) (2019-04-21)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.03.06.1630...2019.04.21.1215)
+
+**Merged pull requests:**
+
+- Add more charts [\#845](https://github.com/lighthouse-labs/compass/pull/845) ([kvirani](https://github.com/kvirani))
+- Allow code evaluation linter to support ES6 code [\#843](https://github.com/lighthouse-labs/compass/pull/843) ([daegren](https://github.com/daegren))
+
 ## [2019.03.06.1630](https://github.com/lighthouse-labs/compass/tree/2019.03.06.1630) (2019-03-07)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.17.1715...2019.03.06.1630)
 
