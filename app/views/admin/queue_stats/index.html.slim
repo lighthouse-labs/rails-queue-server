@@ -1,0 +1,71 @@
+- title "Queue Stats Feedback"
+
+header.page-header
+  h1 Queue Stats
+
+.card
+  .card-header
+    = render 'search_form'
+br
+
+- if @data[:closed_request_waittimes][:by_week].present?
+  .row
+    .col-sm-12
+      .card.my-3
+        .card-header
+          h3.card-title Wait Times (for Requests Completed) by Week
+        .card-body
+          = line_chart @data[:closed_request_waittimes][:by_week],
+            label: "Wait Time"
+
+- if @data[:closed_request_waittimes][:by_quarter].present?
+  .row
+    .col-sm-12
+      .card.my-3
+        .card-header
+          h3.card-title Wait Times (for Requests Completed) by Quarter
+        .card-body
+          = line_chart @data[:closed_request_waittimes][:by_quarter],
+            label: "Wait Time"
+
+- if @data[:request_counts][:by_week].present?
+  .row
+    .col-sm-12
+      .card.my-3
+        .card-header
+          h3.card-title Requests by Week
+        .card-body
+          = line_chart @data[:request_counts][:by_week],
+            label: "Requests"
+
+- if @data[:request_counts][:by_month].present?
+  .row
+    .col-sm-12
+      .card.my-3
+        .card-header
+          h3.card-title Requests by Month
+        .card-body
+          = line_chart @data[:request_counts][:by_month],
+            label: "Requests"
+
+- if @data[:request_counts][:by_quarter].present?
+  .row
+    .col-sm-12
+      .card.my-3
+        .card-header
+          h3.card-title Requests by Quarter
+        .card-body
+          = column_chart @data[:request_counts][:by_quarter], label: "Requests", stacked: true
+
+- if @data[:request_counts][:by_curriculum_day].present?
+  .row
+    .col-sm-12
+      .card.my-3
+        .card-header
+          h3.card-title Requests by Curriculum Day
+        .card-body
+          = bar_chart @data[:request_counts][:by_curriculum_day],
+            label: "Requests",
+            height: "#{@data[:request_counts][:by_curriculum_day].keys.size * 30}px"
+
+
