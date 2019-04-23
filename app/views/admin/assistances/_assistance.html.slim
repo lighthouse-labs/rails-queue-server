@@ -4,8 +4,8 @@
       .student-info
         = render 'shared/student_info', student: assistance.assistee
 
-    td.details data-value=assistance.assistee.cohort.name
-      = assistance.assistee.cohort.name
+    td.details data-value=assistance.assistee.cohort&.name
+      = assistance.assistee.cohort&.name
 
     td.details data-value=assistance.assistor.first_name
       - present assistance.assistor  do |teacher_presenter|
