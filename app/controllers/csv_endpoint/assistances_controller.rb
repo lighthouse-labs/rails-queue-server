@@ -53,18 +53,6 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
     assistance_requests = assistance_requests.joins("LEFT OUTER JOIN users assistees ON assistances.assistee_id = assistees.id")
   end
 
-  def csv_header(field_mapping)
-    field_mapping.values.map { |e| e[:header] }
-  end
-
-  def get_select_fields(field_mapping)    
-    rtn = field_mapping.values.map { |e| e[:statement] }
-  end
-
-  def get_field_mappings(requested_fields = nil)  
-    requested_fields.nil? ? field_mapping_arr : field_mapping_arr.select { |k,v| requested_fields.include?(k.to_s) }
-  end
-
   def field_mapping_arr
     {
       id: {statement: "assistance_requests.id", header: "ID"},
