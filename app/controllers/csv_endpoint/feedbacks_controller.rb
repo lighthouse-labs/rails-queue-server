@@ -1,8 +1,10 @@
 class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
 
   def index
+    filtered_field_mapping = get_field_mappings(params[:requested_fields])      
+
     feedbacks = get_joined_model
-    feedbacks = feedbacks.select get_select_fields
+    feedbacks = feedbacks.select get_select_fields(filtered_field_mapping)
     feedbacks = add_where_clauses feedbacks
     feedbacks = feedbacks.order created_at: :desc
 
@@ -11,7 +13,7 @@ class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
     pg.set_single_row_mode
 
     csv_data = CSV.generate do |csv|
-      csv << csv_header
+      csv << csv_header(filtered_field_mapping)
       pg.get_result.stream_each_row do |row|
         csv << row
       end
@@ -41,38 +43,33 @@ class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
     feedbacks = feedbacks.joins("LEFT OUTER JOIN users teachers ON feedbacks.teacher_id = teachers.id")
   end
 
-  def csv_header
-    [
-      "ID",
-      "Created_at",
-      "Feedback Type",
-      "Feedbackable ID",
-      "Mentor ID",
-      "Mentor Name",
-      "Student ID",
-      "Student Name",
-      "Rating",
-      "Technical Rating",
-      "Style Rating",
-      "Notes"
-    ]
+  def csv_header(field_mapping)
+    field_mapping.values.map { |e| e[:header] }
   end
 
-  def get_select_fields
-    [
-      "feedbacks.id",
-      "feedbacks.created_at",
-      "feedbacks.feedbackable_type",
-      "feedbacks.feedbackable_id",
-      "teachers.id",
-      "teachers.first_name || ' ' || teachers.last_name",
-      "students.id",
-      "students.first_name || ' ' || students.last_name",
-      "feedbacks.rating",
-      "feedbacks.technical_rating",
-      "feedbacks.style_rating",
-      "feedbacks.notes"
-    ]
+  def get_select_fields(field_mapping)    
+    rtn = field_mapping.values.map { |e| e[:statement] }
+  end
+
+  def get_field_mappings(requested_fields = nil)  
+    requested_fields.nil? ? field_mapping_arr : field_mapping_arr.select { |k,v| requested_fields.include?(k.to_s) }
+  end
+
+  def field_mapping_arr
+    {
+      id: {statement: "feedbacks.id", header: "ID"},
+      created_at: {statement: "feedbacks.created_at", header: "Created At"},
+      type: {statement: "feedbacks.feedbackable_type", header: "Feedback Type"},
+      feedbackable_id: {statement: "feedbacks.feedbackable_id", header: "Feedbackable ID"},
+      mentor_id: {statement: "teachers.id", header: "Mentor ID"},
+      mentor_name: {statement: "teachers.first_name || ' ' || teachers.last_name", header: "Mentor Name"},
+      student_id: {statement: "students.id", header: "Student ID"},
+      student_name: {statement: "students.first_name || ' ' || students.last_name", header: "Student Name"},
+      rating: {statement: "feedbacks.rating", header: "Rating"},
+      technical_rating: {statement: "feedbacks.technical_rating", header: "Technical Rating"},
+      style_rating: {statement: "feedbacks.style_rating", header: "Style Rating"},
+      notes: {statement: "feedbacks.notes", header: "Notes"},
+    }    
   end
 
 end
