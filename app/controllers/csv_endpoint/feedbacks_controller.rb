@@ -54,8 +54,6 @@ class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
       student_id:       { statement: "students.id", header: "Student ID" },
       student_name:     { statement: "students.first_name || ' ' || students.last_name", header: "Student Name" },
       rating:           { statement: "feedbacks.rating", header: "Rating" },
-      technical_rating: { statement: "feedbacks.technical_rating", header: "Technical Rating" },
-      style_rating:     { statement: "feedbacks.style_rating", header: "Style Rating" },
       notes:            { statement: "feedbacks.notes", header: "Notes" }
     }
   end
