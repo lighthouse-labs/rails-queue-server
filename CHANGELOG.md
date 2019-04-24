@@ -1,5 +1,13 @@
 # Change Log
 
+## [2019.04.23.2130](https://github.com/lighthouse-labs/compass/tree/2019.04.23.2130) (2019-04-24)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.21.1215...2019.04.23.2130)
+
+**Merged pull requests:**
+
+- Fix 500 on admin/assistances [\#849](https://github.com/lighthouse-labs/compass/pull/849) ([kvirani](https://github.com/kvirani))
+- Allowing CSV endpoint to select which fields it wants [\#847](https://github.com/lighthouse-labs/compass/pull/847) ([JBorts](https://github.com/JBorts))
+
 ## [2019.04.21.1215](https://github.com/lighthouse-labs/compass/tree/2019.04.21.1215) (2019-04-21)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.03.06.1630...2019.04.21.1215)
 
