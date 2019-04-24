@@ -1,7 +1,7 @@
 class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
 
   def index
-    filtered_field_mapping = get_field_mappings(params[:requested_fields])  
+    filtered_field_mapping = get_field_mappings(params[:requested_fields])
 
     assistance_requests = get_joined_model
     assistance_requests = assistance_requests.select get_select_fields(filtered_field_mapping)
@@ -55,26 +55,26 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
 
   def field_mapping_arr
     {
-      id: {statement: "assistance_requests.id", header: "ID"},
-      created_at: {statement: "assistance_requests.created_at", header: "Request Created At"},
-      canceled_at: {statement: "assistance_requests.canceled_at", header: "Request Canceled At"},
-      request_type: {statement: "assistance_requests.type", header: "Request Type"},
-      request_reason: {statement: "assistance_requests.reason", header: "Request Reason"},
-      cohort_name: {statement: "cohorts.name", header: "Cohort Name"},
-      program_name: {statement: "programs.name", header: "Program Name"},
-      cohort_day: {statement: "assistance_requests.day", header: "Cohort Day"},
-      mentor_id: {statement: "assistors.id", header: "Mentor ID"},
-      mentor_name: {statement: "assistors.first_name || ' ' || assistors.last_name", header: "Mentor Name"},
-      student_id: {statement: "assistees.id", header: "Student ID"},
-      student_name: {statement: "assistees.first_name || ' ' || assistees.last_name", header: "Student Name"},
-      assistance_started_at: {statement: "assistances.start_at", header: "Assistance Started At"},
-      assistance_ended_at: {statement: "assistances.end_at", header: "Assistance Ended At"},
-      activity_id: {statement: "assistances.activity_id", header: "Activity ID"},
-      activity_name: {statement: "activities.name", header: "Activity Name"},
-      rating: {statement: "assistances.rating", header: "Rating"},
-      notes: {statement: "assistances.notes", header: "Notes"},
-      student_notes: {statement: "assistances.student_notes", header: "Student Notes"},
-    }    
+      id:                    { statement: "assistance_requests.id", header: "ID" },
+      created_at:            { statement: "assistance_requests.created_at", header: "Request Created At" },
+      canceled_at:           { statement: "assistance_requests.canceled_at", header: "Request Canceled At" },
+      request_type:          { statement: "assistance_requests.type", header: "Request Type" },
+      request_reason:        { statement: "assistance_requests.reason", header: "Request Reason" },
+      cohort_name:           { statement: "cohorts.name", header: "Cohort Name" },
+      program_name:          { statement: "programs.name", header: "Program Name" },
+      cohort_day:            { statement: "assistance_requests.day", header: "Cohort Day" },
+      mentor_id:             { statement: "assistors.id", header: "Mentor ID" },
+      mentor_name:           { statement: "assistors.first_name || ' ' || assistors.last_name", header: "Mentor Name" },
+      student_id:            { statement: "assistees.id", header: "Student ID" },
+      student_name:          { statement: "assistees.first_name || ' ' || assistees.last_name", header: "Student Name" },
+      assistance_started_at: { statement: "assistances.start_at", header: "Assistance Started At" },
+      assistance_ended_at:   { statement: "assistances.end_at", header: "Assistance Ended At" },
+      activity_id:           { statement: "assistances.activity_id", header: "Activity ID" },
+      activity_name:         { statement: "activities.name", header: "Activity Name" },
+      rating:                { statement: "assistances.rating", header: "Rating" },
+      notes:                 { statement: "assistances.notes", header: "Notes" },
+      student_notes:         { statement: "assistances.student_notes", header: "Student Notes" }
+    }
   end
 
 end
