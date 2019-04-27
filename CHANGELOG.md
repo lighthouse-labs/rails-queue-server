@@ -1,5 +1,12 @@
 # Change Log
 
+## [2019.04.25.1030](https://github.com/lighthouse-labs/compass/tree/2019.04.25.1030) (2019-04-25)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.23.2130...2019.04.25.1030)
+
+**Merged pull requests:**
+
+- Changes includes to joins in Feedback scopes [\#851](https://github.com/lighthouse-labs/compass/pull/851) ([JBorts](https://github.com/JBorts))
+
 ## [2019.04.23.2130](https://github.com/lighthouse-labs/compass/tree/2019.04.23.2130) (2019-04-24)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.21.1215...2019.04.23.2130)
 
