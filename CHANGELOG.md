@@ -1,5 +1,13 @@
 # Change Log
 
+## [2019.05.13.1400](https://github.com/lighthouse-labs/compass/tree/2019.05.13.1400) (2019-05-13)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.25.1030...2019.05.13.1400)
+
+**Merged pull requests:**
+
+- Add evaluations to CSV Endpoint [\#853](https://github.com/lighthouse-labs/compass/pull/853) ([JBorts](https://github.com/JBorts))
+- updating prism to latest, and including react syntax highlighting [\#852](https://github.com/lighthouse-labs/compass/pull/852) ([daegren](https://github.com/daegren))
+
 ## [2019.04.25.1030](https://github.com/lighthouse-labs/compass/tree/2019.04.25.1030) (2019-04-25)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.23.2130...2019.04.25.1030)
 
