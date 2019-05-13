@@ -1,5 +1,28 @@
 # Change Log
 
+## [2019.05.13.1400](https://github.com/lighthouse-labs/compass/tree/2019.05.13.1400) (2019-05-13)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.25.1030...2019.05.13.1400)
+
+**Merged pull requests:**
+
+- Add evaluations to CSV Endpoint [\#853](https://github.com/lighthouse-labs/compass/pull/853) ([JBorts](https://github.com/JBorts))
+- updating prism to latest, and including react syntax highlighting [\#852](https://github.com/lighthouse-labs/compass/pull/852) ([daegren](https://github.com/daegren))
+
+## [2019.04.25.1030](https://github.com/lighthouse-labs/compass/tree/2019.04.25.1030) (2019-04-25)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.23.2130...2019.04.25.1030)
+
+**Merged pull requests:**
+
+- Changes includes to joins in Feedback scopes [\#851](https://github.com/lighthouse-labs/compass/pull/851) ([JBorts](https://github.com/JBorts))
+
+## [2019.04.23.2130](https://github.com/lighthouse-labs/compass/tree/2019.04.23.2130) (2019-04-24)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.21.1215...2019.04.23.2130)
+
+**Merged pull requests:**
+
+- Fix 500 on admin/assistances [\#849](https://github.com/lighthouse-labs/compass/pull/849) ([kvirani](https://github.com/kvirani))
+- Allowing CSV endpoint to select which fields it wants [\#847](https://github.com/lighthouse-labs/compass/pull/847) ([JBorts](https://github.com/JBorts))
+
 ## [2019.04.21.1215](https://github.com/lighthouse-labs/compass/tree/2019.04.21.1215) (2019-04-21)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.03.06.1630...2019.04.21.1215)
 
