@@ -36,7 +36,7 @@ class CsvEndpoint::EvaluationsController < CsvEndpoint::BaseController
   end
 
   def get_joined_model
-    evaluations = Evaluation.scoped
+    evaluations = Evaluation.all
     evaluations
   end
 
