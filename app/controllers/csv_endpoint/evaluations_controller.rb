@@ -46,24 +46,24 @@ class CsvEndpoint::EvaluationsController < CsvEndpoint::BaseController
 
   def field_mapping_arr
     {
-      id:                    { statement: "evaluations.id", header: "ID" },
-      project_id:            { statement: "evaluations.project_id", header: "Project ID" },
-      project_name:            { statement: "projects.name", header: "Project Name" },
-      student_id:           { statement: "evaluations.student_id", header: "Student Name" },
-      student_name:     { statement: "students.first_name || ' ' || students.last_name", header: "Student Name" },
-      evaluator_id:           { statement: "evaluations.teacher_id", header: "Evaluator ID" },
-      evaluator_name:      { statement: "teachers.first_name || ' ' || teachers.last_name", header: "Evaluator Name" },
-      evaluator_email:      { statement: "teachers.email", header: "Evaluator Email" },
+      id:              { statement: "evaluations.id", header: "ID" },
+      project_id:      { statement: "evaluations.project_id", header: "Project ID" },
+      project_name:    { statement: "projects.name", header: "Project Name" },
+      student_id:      { statement: "evaluations.student_id", header: "Student Name" },
+      student_name:    { statement: "students.first_name || ' ' || students.last_name", header: "Student Name" },
+      evaluator_id:    { statement: "evaluations.teacher_id", header: "Evaluator ID" },
+      evaluator_name:  { statement: "teachers.first_name || ' ' || teachers.last_name", header: "Evaluator Name" },
+      evaluator_email: { statement: "teachers.email", header: "Evaluator Email" },
       state:           { statement: "evaluations.state", header: "State" },
-      created_at:           { statement: "evaluations.created_at", header: "Created At" },
-      started_at:           { statement: "evaluations.started_at", header: "Started At" },
-      completed_at:           { statement: "evaluations.completed_at", header: "Completed At" },
-      cancelled_at:           { statement: "evaluations.cancelled_at", header: "Cancelled At" },
-      due_at:           { statement: "evaluations.due", header: "Due At" },
-      final_score:           { statement: "evaluations.final_score", header: "Final Score" },
-      resubmission:           { statement: "evaluations.resubmission", header: "Resubmission?" },
-      student_notes:           { statement: "evaluations.student_notes", header: "Student Notes" },
-      teacher_notes:           { statement: "evaluations.teacher_notes", header: "Teacher Notes" },
+      created_at:      { statement: "evaluations.created_at", header: "Created At" },
+      started_at:      { statement: "evaluations.started_at", header: "Started At" },
+      completed_at:    { statement: "evaluations.completed_at", header: "Completed At" },
+      cancelled_at:    { statement: "evaluations.cancelled_at", header: "Cancelled At" },
+      due_at:          { statement: "evaluations.due", header: "Due At" },
+      final_score:     { statement: "evaluations.final_score", header: "Final Score" },
+      resubmission:    { statement: "evaluations.resubmission", header: "Resubmission?" },
+      student_notes:   { statement: "evaluations.student_notes", header: "Student Notes" },
+      teacher_notes:   { statement: "evaluations.teacher_notes", header: "Teacher Notes" }
     }
   end
 

@@ -45,16 +45,16 @@ class CsvEndpoint::FeedbacksController < CsvEndpoint::BaseController
 
   def field_mapping_arr
     {
-      id:               { statement: "feedbacks.id", header: "ID" },
-      created_at:       { statement: "feedbacks.created_at", header: "Created At" },
-      type:             { statement: "feedbacks.feedbackable_type", header: "Feedback Type" },
-      feedbackable_id:  { statement: "feedbacks.feedbackable_id", header: "Feedbackable ID" },
-      mentor_id:        { statement: "teachers.id", header: "Mentor ID" },
-      mentor_name:      { statement: "teachers.first_name || ' ' || teachers.last_name", header: "Mentor Name" },
-      student_id:       { statement: "students.id", header: "Student ID" },
-      student_name:     { statement: "students.first_name || ' ' || students.last_name", header: "Student Name" },
-      rating:           { statement: "feedbacks.rating", header: "Rating" },
-      notes:            { statement: "feedbacks.notes", header: "Notes" }
+      id:              { statement: "feedbacks.id", header: "ID" },
+      created_at:      { statement: "feedbacks.created_at", header: "Created At" },
+      type:            { statement: "feedbacks.feedbackable_type", header: "Feedback Type" },
+      feedbackable_id: { statement: "feedbacks.feedbackable_id", header: "Feedbackable ID" },
+      mentor_id:       { statement: "teachers.id", header: "Mentor ID" },
+      mentor_name:     { statement: "teachers.first_name || ' ' || teachers.last_name", header: "Mentor Name" },
+      student_id:      { statement: "students.id", header: "Student ID" },
+      student_name:    { statement: "students.first_name || ' ' || students.last_name", header: "Student Name" },
+      rating:          { statement: "feedbacks.rating", header: "Rating" },
+      notes:           { statement: "feedbacks.notes", header: "Notes" }
     }
   end
 
