@@ -157,6 +157,7 @@ LaserShark::Application.routes.draw do
   namespace :csv_endpoint do
     resources :assistances, only: [:index]
     resources :feedbacks, only: [:index]
+    resources :evaluations, only: [:index]
   end
 
   # TEACHER
@@ -199,6 +200,7 @@ LaserShark::Application.routes.draw do
     resources :feedbacks, except: [:edit, :update, :destroy]
     resources :teacher_feedbacks, only: [:index]
     resources :curriculum_feedbacks, only: [:index]
+    resources :queue_stats, only: [:index]
     resources :day_feedbacks, except: [:destroy] do
       member do
         post :archive
