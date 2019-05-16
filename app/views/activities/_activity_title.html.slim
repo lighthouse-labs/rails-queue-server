@@ -8,7 +8,7 @@ header.jumbotron.text-center.text-light.py-5
   = activity_type @activity
   br
   small
-    | #{@activity.duration_range.join(' - ')} minutes
+    = render 'duration', activity: @activity
   br
   small
     - if teacher? && !@activity.teachers_only?
