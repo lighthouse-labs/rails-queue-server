@@ -151,7 +151,7 @@ module ActivitiesHelper
 
   def icon_for(activity)
     case activity.type.to_s.downcase
-    when "problem"
+    when "problem", "challenge"
       'fa fa-hammer'
     when "assignment"
       if activity.evaluates_code?
