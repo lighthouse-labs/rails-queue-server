@@ -1,11 +1,50 @@
 # Change Log
 
+## [2019.05.13.1400](https://github.com/lighthouse-labs/compass/tree/2019.05.13.1400) (2019-05-13)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.25.1030...2019.05.13.1400)
+
+**Merged pull requests:**
+
+- Add evaluations to CSV Endpoint [\#853](https://github.com/lighthouse-labs/compass/pull/853) ([JBorts](https://github.com/JBorts))
+- updating prism to latest, and including react syntax highlighting [\#852](https://github.com/lighthouse-labs/compass/pull/852) ([daegren](https://github.com/daegren))
+
+## [2019.04.25.1030](https://github.com/lighthouse-labs/compass/tree/2019.04.25.1030) (2019-04-25)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.23.2130...2019.04.25.1030)
+
+**Merged pull requests:**
+
+- Changes includes to joins in Feedback scopes [\#851](https://github.com/lighthouse-labs/compass/pull/851) ([JBorts](https://github.com/JBorts))
+
+## [2019.04.23.2130](https://github.com/lighthouse-labs/compass/tree/2019.04.23.2130) (2019-04-24)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.21.1215...2019.04.23.2130)
+
+**Merged pull requests:**
+
+- Fix 500 on admin/assistances [\#849](https://github.com/lighthouse-labs/compass/pull/849) ([kvirani](https://github.com/kvirani))
+- Allowing CSV endpoint to select which fields it wants [\#847](https://github.com/lighthouse-labs/compass/pull/847) ([JBorts](https://github.com/JBorts))
+
+## [2019.04.21.1215](https://github.com/lighthouse-labs/compass/tree/2019.04.21.1215) (2019-04-21)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.03.06.1630...2019.04.21.1215)
+
+**Merged pull requests:**
+
+- Add more charts [\#845](https://github.com/lighthouse-labs/compass/pull/845) ([kvirani](https://github.com/kvirani))
+- Allow code evaluation linter to support ES6 code [\#843](https://github.com/lighthouse-labs/compass/pull/843) ([daegren](https://github.com/daegren))
+
+## [2019.03.06.1630](https://github.com/lighthouse-labs/compass/tree/2019.03.06.1630) (2019-03-07)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.17.1715...2019.03.06.1630)
+
+**Merged pull requests:**
+
+- Feature/add local queue cb for admins [\#840](https://github.com/lighthouse-labs/compass/pull/840) ([kvirani](https://github.com/kvirani))
+- New Feature for GitHub Education pack [\#839](https://github.com/lighthouse-labs/compass/pull/839) ([kvirani](https://github.com/kvirani))
+
 ## [2019.01.17.1715](https://github.com/lighthouse-labs/compass/tree/2019.01.17.1715) (2019-01-18)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.10.1145...2019.01.17.1715)
 
 **Merged pull requests:**
 
-- Feature/admin make admin babies [\#829](https://github.com/lighthouse-labs/compass/pull/829) ([kvirani](https://github.com/kvirani))
+- Super Admins \(new role\) can now make other admins [\#829](https://github.com/lighthouse-labs/compass/pull/829) ([kvirani](https://github.com/kvirani))
 - Create a CSV end point where assistance requests and feedbacks can be loaded into Google Sheets [\#741](https://github.com/lighthouse-labs/compass/pull/741) ([JBorts](https://github.com/JBorts))
 
 ## [2019.01.10.1145](https://github.com/lighthouse-labs/compass/tree/2019.01.10.1145) (2019-01-08)

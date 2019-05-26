@@ -1,8 +1,10 @@
 class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
 
   def index
+    filtered_field_mapping = get_field_mappings(params[:requested_fields])
+
     assistance_requests = get_joined_model
-    assistance_requests = assistance_requests.select get_select_fields
+    assistance_requests = assistance_requests.select get_select_fields(filtered_field_mapping)
     assistance_requests = add_where_clauses assistance_requests
     assistance_requests = assistance_requests.order created_at: :desc
 
@@ -11,7 +13,7 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
     pg.set_single_row_mode
 
     csv_data = CSV.generate do |csv|
-      csv << csv_header
+      csv << csv_header(filtered_field_mapping)
       pg.get_result.stream_each_row do |row|
         csv << row
       end
@@ -51,52 +53,28 @@ class CsvEndpoint::AssistancesController < CsvEndpoint::BaseController
     assistance_requests = assistance_requests.joins("LEFT OUTER JOIN users assistees ON assistances.assistee_id = assistees.id")
   end
 
-  def csv_header
-    [
-      "ID",
-      "Request Created_at",
-      "Canceled?",
-      "Request Type",
-      "Reason",
-      "Cohort",
-      "Program",
-      "Day",
-      "Mentor ID",
-      "Mentor Name",
-      "Student ID",
-      "Student Name",
-      "Assistance Started_At",
-      "Assistance Ended_At",
-      "Activity ID",
-      "Activity Name",
-      "Rating",
-      "Notes",
-      "Student Notes"
-    ]
-  end
-
-  def get_select_fields
-    [
-      "assistance_requests.id",
-      "assistance_requests.created_at",
-      "assistance_requests.canceled_at",
-      "assistance_requests.type",
-      "assistance_requests.reason",
-      "cohorts.name",
-      "programs.name",
-      "assistance_requests.day",
-      "assistors.id",
-      "assistors.first_name || ' ' || assistors.last_name",
-      "assistees.id",
-      "assistees.first_name || ' ' || assistees.last_name",
-      "assistances.start_at",
-      "assistances.end_at",
-      "assistances.activity_id",
-      "activities.name",
-      "assistances.rating",
-      "assistances.notes",
-      "assistances.student_notes"
-    ]
+  def field_mapping_arr
+    {
+      id:                    { statement: "assistance_requests.id", header: "ID" },
+      created_at:            { statement: "assistance_requests.created_at", header: "Request Created At" },
+      canceled_at:           { statement: "assistance_requests.canceled_at", header: "Request Canceled At" },
+      request_type:          { statement: "assistance_requests.type", header: "Request Type" },
+      request_reason:        { statement: "assistance_requests.reason", header: "Request Reason" },
+      cohort_name:           { statement: "cohorts.name", header: "Cohort Name" },
+      program_name:          { statement: "programs.name", header: "Program Name" },
+      cohort_day:            { statement: "assistance_requests.day", header: "Cohort Day" },
+      mentor_id:             { statement: "assistors.id", header: "Mentor ID" },
+      mentor_name:           { statement: "assistors.first_name || ' ' || assistors.last_name", header: "Mentor Name" },
+      student_id:            { statement: "assistees.id", header: "Student ID" },
+      student_name:          { statement: "assistees.first_name || ' ' || assistees.last_name", header: "Student Name" },
+      assistance_started_at: { statement: "assistances.start_at", header: "Assistance Started At" },
+      assistance_ended_at:   { statement: "assistances.end_at", header: "Assistance Ended At" },
+      activity_id:           { statement: "assistances.activity_id", header: "Activity ID" },
+      activity_name:         { statement: "activities.name", header: "Activity Name" },
+      rating:                { statement: "assistances.rating", header: "Rating" },
+      notes:                 { statement: "assistances.notes", header: "Notes" },
+      student_notes:         { statement: "assistances.student_notes", header: "Student Notes" }
+    }
   end
 
 end

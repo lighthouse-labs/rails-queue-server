@@ -26,23 +26,23 @@ class Feedback < ApplicationRecord
   scope :direct, -> { where(feedbackable_type: nil) }
 
   scope :filter_by_program, ->(program_id) {
-    includes(student: { cohort: :program })
+    joins(student: { cohort: :program })
       .where(programs: { id: program_id })
       .references(:student, :cohort, :program)
   }
 
   scope :filter_by_student_location, ->(location_id) {
-    includes(student: :location)
+    joins(student: :location)
       .where(locations: { id: location_id })
       .references(:student, :location)
   }
   scope :filter_by_teacher_location, ->(location_id) {
-    includes(teacher: :location)
+    joins(teacher: :location)
       .where(locations: { id: location_id })
       .references(:teacher, :location)
   }
   scope :filter_by_cohort, ->(cohort_id) {
-    includes(student: :cohort)
+    joins(student: :cohort)
       .where(cohorts: { id: cohort_id })
       .references(:student, :cohort)
   }

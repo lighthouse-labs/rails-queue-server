@@ -136,6 +136,15 @@ class Activity < ApplicationRecord
     [duration, average_time_spent || duration].compact.uniq.sort
   end
 
+  def approx_duration
+    range = duration_range
+    if range.many?
+      ((range[0].to_f + range[1].to_f) / 2.0).round(0)
+    else
+      range[0]
+    end
+  end
+
   # if it has it, display it
   # overwritten by some subclasses like Test, LecturePlan, Breakout, etc
   def display_duration?

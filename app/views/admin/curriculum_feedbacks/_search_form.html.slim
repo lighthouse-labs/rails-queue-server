@@ -15,9 +15,6 @@
       = select_tag :type, options_for_select(['Prep', 'Bootcamp'], params[:type]), prompt: 'Any Content Type', class: "form-control admin-feedback-dropdown"
 
     .form-group
-      = select_tag :charts, options_for_select(['Enable'], params[:charts]), prompt: 'Hide Charts', class: "form-control admin-feedback-dropdown"
-
-    .form-group
       | Ratings: &nbsp;
       - rates = [0, 1, 2, 3, 4, 5]
       - rates.each do |rate|
@@ -45,4 +42,26 @@
     .form-group
       = select_tag :legacy, options_for_select([['Include Legacy Notes', 'include'], ['Exclude Legacy Notes', 'exclude'], ['Only Legacy Notes', 'only']], params[:legacy]), class: "form-control admin-feedback-dropdown"
 
-    = submit_tag 'Filter', class: 'btn btn-success admin-feedback-button'
+
+  .form-row
+    h5.mt-3 Charts
+    .form-group.col-md-12
+      .form-check
+        = check_box_tag 'charts[]', 'quarterly', @charts.include?('quarterly'), id: 'quarterly_charts', multiple: true
+        = label_tag :quarterly_charts, 'By Quarter'
+      .form-check
+        = check_box_tag 'charts[]', 'curriculum_day', @charts.include?('curriculum_day'), id: 'curriculum_day_charts', multiple: true
+        = label_tag :curriculum_day_charts, 'By Curriculum Day'
+      .form-check
+        = check_box_tag 'charts[]', 'weekly', @charts.include?('weekly'), id: 'weekly_charts', multiple: true
+        = label_tag :weekly_charts, 'By Week'
+      .form-check
+        = check_box_tag 'charts[]', 'monthly', @charts.include?('monthly'), id: 'monthly_charts', multiple: true
+        = label_tag :monthly_charts, 'By Month'
+      .form-check
+        = check_box_tag 'charts[]', 'yearly', @charts.include?('yearly'), id: 'yearly_charts', multiple: true
+        = label_tag :yearly_charts, 'By Year'
+
+  .form-row.mt-2 style="width: 100%;"
+    .form-group.col-md-12
+      = submit_tag 'Filter', class: 'btn btn-success admin-feedback-button'

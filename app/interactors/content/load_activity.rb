@@ -106,8 +106,12 @@ class Content::LoadActivity
           'QuizActivity'
         when 'exercise'
           'Assignment'
+        when 'walkthrough'
+          'Walkthrough'
         when 'problem'
-          'Assignment'
+          'Problem'
+        when 'challenge'
+          'Challenge'
         # FIXME: below categories should be changed/removed - KV
         when 'project'
           # FIXME: projects should be moved into their own curriculum dir, perhaps

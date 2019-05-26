@@ -14,13 +14,13 @@
     .form-group
       = f.label :mood_happy, class: 'face'
         = f.radio_button :mood, "happy"
-        i class='fa fa-smile-o fa-5x'
+        i class='far fa-smile fa-5x'
       = f.label :mood_ok, class: 'face'
         = f.radio_button :mood, "ok"
-        i class='fa fa-circle-thin fa-5x'
+        i class='far fa-meh fa-5x'
       = f.label :mood_sad, class: 'face'
         = f.radio_button :mood, "sad"
-        i class='fa fa-frown-o fa-5x'
+        i class='far fa-frown fa-5x'
 
     .form-group
       = f.text_field :title, placeholder: "Title (optional)", class: "form-control"

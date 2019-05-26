@@ -1,5 +1,7 @@
 class UserSerializer < ActiveModel::Serializer
 
+  include AvatarHelper
+
   format_keys :lower_camel
   root false
 
@@ -22,8 +24,9 @@ class UserSerializer < ActiveModel::Serializer
 
   protected
 
+  # Delegates to method in AvatarHelper
   def avatar_url
-    object.custom_avatar.try(:url, :thumb) || object.avatar_url
+    avatar_for(object)
   end
 
   def busy

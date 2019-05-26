@@ -19,24 +19,15 @@
     .icon.icon-type title=activity.type
       i class=(icon_for(activity))
 
-    - if weekend? || activity.display_duration? || activity.display_vague_duration?
-      .time.time-duration
-        = duration activity
-    - elsif activity.start_time?
-      .time
-        = integer_time_to_s activity.start_time
-        br
-        | to
-        br
-        = integer_time_to_s activity.end_time
+    = render 'activities/multiline_duration', activity: activity
 
     - if activity.completable?
       .icon.icon-completion
         - if student?
           - if current_user.completed_activity?(activity)
-            i.fa.fa-check-square-o
+            i.far.fa-check-square
           - else
-            i.fa.fa-square-o
+            i.far.fa-square
         - elsif teacher?
           .completed-activities
             = completed_students(activity)
@@ -52,4 +43,4 @@
 
     - if activity.homework?
       .homework-indicator
-        i.fa.fa-moon-o title='Homework' data-toggle='tooltip'
+        i.far.fa-moon title='Homework' data-toggle='tooltip'

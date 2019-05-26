@@ -1,6 +1,7 @@
 class DaysController < ApplicationController
 
   include CourseCalendar # concern
+  include GithubEducationPack # concern
 
   def show
     load_day_schedule
