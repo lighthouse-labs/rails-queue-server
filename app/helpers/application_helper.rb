@@ -58,16 +58,6 @@ module ApplicationHelper
     end.compact.reverse.join(' ')
   end
 
-  def avatar_for(user)
-    if user&.custom_avatar?
-      user.custom_avatar.url(:thumb)
-    elsif user&.avatar_url
-      user.avatar_url
-    else
-      image_path('duck-on.png')
-    end
-  end
-
   def format_date_time(time)
     time ? time.strftime("%b %e, %l:%M %p") : ''
   end
