@@ -14,7 +14,7 @@ table.table
       - present student, StudentPresenter do |student_presenter|
         tr
           td.student-info
-              = render 'shared/student_info', student: student
+            = render 'shared/student_info', student: student
           td = student_presenter.email
           td = student_presenter.phone_number
           td
