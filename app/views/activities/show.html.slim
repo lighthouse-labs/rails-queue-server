@@ -3,15 +3,15 @@
 - present @activity, nil, { workbook: @workbook } do |activity_presenter|
 
   = activity_presenter.render_sidenav
+  / = render 'progress_bar' if @activity.bootcamp?
 
   section.activity-details
-    h1 = activity_presenter.name
-    = render 'action_bar', activity_presenter: activity_presenter
-    hr
 
-    - if @activity.section && @activity.section.is_a?(Project) && !@activity.section.archived?
-      h4 This activity should help you progress with a project:
-      = render @activity.section
+    = render 'activity_title', activity_presenter: activity_presenter
+    = render 'actions', activity_presenter: activity_presenter
+
+    - if @activity.has_lectures?
+      = link_to '+ Lecture', new_activity_lecture_path(@activity), class: 'btn btn-secondary btn-new-lecture'
 
     - if stretch_activity?(@activity, @workbook)
       - text = @activity.day? ? "day" : "prep course"

@@ -108,26 +108,27 @@ module ActivitiesHelper
 
   def vague_duration(activity)
     duration = activity.duration.to_i
-    vague_duration = if duration > 0 && duration <= 30
-                       'Tiny'
-                     elsif duration > 30 && duration <= 60
-                       'Short'
-                     elsif duration > 60 && duration < 120
-                       'Medium'
-                     elsif duration >= 120
-                       'Long'
-                     else # 0 / nil
-                       ''
+    if duration > 0 && duration <= 30
+      'Tiny'
+    elsif duration > 30 && duration <= 60
+      'Short'
+    elsif duration > 60 && duration < 120
+      'Medium'
+    elsif duration >= 120
+      'Long'
+    else # 0 / nil
+      ''
     end
-    "<br>#{vague_duration}<br>".html_safe
   end
 
+  # returns either an array of 2 numbers, both actual and estimate (if there's enough of a differece between actual and estimate)
+  # or just a number (no range, just a single number since estimate and actuals are close)
   def duration_range(activity)
     durations = activity.duration_range
-    if durations.size == 2 && durations[1] - durations[0] > 15
-      "#{round5(durations[0])}m<br>to<br>#{round5(durations[1])}m".html_safe
+    if durations.size == 2 && (durations[1] - durations[0] >= 15)
+      [round5(durations[0]), round5(durations[1])]
     else
-      "<br>#{round5([durations.first, durations.last].max)}m<br>".html_safe
+      round5([durations.first, durations.last].max)
     end
   end
 

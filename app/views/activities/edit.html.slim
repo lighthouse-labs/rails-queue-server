@@ -2,9 +2,9 @@
 
 - present @activity, nil, { workbook: @workbook } do |activity_presenter|
   = activity_presenter.render_sidenav
-
-h1 = "#{day.to_s.upcase}: #{@activity.name}"
-hr
+  / = render 'progress_bar' if @activity.bootcamp?
+  section.activity-details
+    = render 'activity_title', activity_presenter: activity_presenter, showing_details: true
 
   dl class="row"
     dt class="col-sm-3" Name

@@ -1,12 +1,15 @@
-.input-group.duration
-  .input-group-prepend
-    span.input-group-text
-      i.far.fa-clock
-      | &nbsp;Duration
-  .form-control
-    - if weekend? || @activity.display_duration? || @activity.display_vague_duration?
-      = duration(@activity).gsub('<br>', ' ')
-    - else
-      = integer_time_to_s(@activity.start_time)
-      | &nbsp;to&nbsp;
-      = integer_time_to_s(@activity.end_time)
+div.mb-3
+  - if weekend? || activity.display_duration? || activity.display_vague_duration?
+    - duration = duration(activity)
+    small
+      - if duration.is_a? Array
+        | #{duration[0]} - #{duration[1]} minutes
+      - elsif duration.is_a? String
+        = duration
+      - elsif duration
+        | #{duration} minutes
+  - elsif activity.start_time?
+    small
+      = integer_time_to_s(activity.start_time)
+      '  -
+      = integer_time_to_s(activity.end_time)

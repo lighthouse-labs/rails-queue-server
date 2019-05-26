@@ -1,0 +1,26 @@
+- unless (teacher? && !@activity.teachers_only?) || !@activity.can_mark_completed?
+  .actions
+    .form-group
+      .form-inline style="justify-content: space-between"
+        div
+          = render 'completion_status'
+
+- if teacher?
+  .collapse#student-progress
+    table.table
+      thead
+        th style="min-width:220px" Student
+        - if @activity.allow_submissions?
+          th Github URL
+        th Completed
+        th Submission Time
+      tbody
+        - cohort.students.sort_by { |student| student.completed_activity?(@activity) ? 0 : 1 }.each do |student|
+          tr
+            td
+              .student-info
+                = render 'shared/student_info', student: student
+            - if @activity.allow_submissions?
+              td = link_to shortened_github_url(student.github_url(@activity)), student.github_url(@activity) if student.completed_activity?(@activity)
+            td = student.completed_activity?(@activity) ? "Yes" : "No"
+            td = "Completed #{time_ago_in_words(student.completed_at(@activity))} ago" if student.completed_activity?(@activity)
