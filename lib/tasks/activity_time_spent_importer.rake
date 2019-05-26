@@ -9,7 +9,7 @@ end
 private
 
 def process_activity_file(path)
-  activity_data = YAML.load(File.read(path))
+  activity_data = YAML.safe_load(File.read(path))
   activity_data.each do |data|
     process_activity_data(data)
   end

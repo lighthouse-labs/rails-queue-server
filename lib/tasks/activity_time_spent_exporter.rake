@@ -22,7 +22,7 @@ end
 
 def activity_details(activity)
   {
-    uuid: activity.uuid,
+    uuid:               activity.uuid,
     average_time_spent: activity.average_time_spent
   }
 end
