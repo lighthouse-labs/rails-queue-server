@@ -1,0 +1,3 @@
+class Walkthrough < Activity
+
+end

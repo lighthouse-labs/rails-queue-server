@@ -1,6 +1,6 @@
 li.dropdown.cohort
   = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Cohort' do
-    i.fa.fa-fw.fa-group
+    i.fa.fa-fw.fa-users
     span.non-tablet-label = cohort.name
   .dropdown-menu.scrollable-menu
     - dropdown_cohorts.each do |location, cohorts|

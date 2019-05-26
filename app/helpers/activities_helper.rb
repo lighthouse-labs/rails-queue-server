@@ -152,32 +152,34 @@ module ActivitiesHelper
 
   def icon_for(activity)
     case activity.type.to_s.downcase
+    when "problem", "challenge"
+      'fa fa-hammer'
     when "assignment"
       if activity.evaluates_code?
-        'fa fa-gears'
-      elsif activity.allow_submissions?
-        'fa fa-github'
+        'fa fa-hammer'
       else
         'fa fa-code'
       end
     when "task"
-      'fa fa-flash'
+      'fa fa-bolt'
     when "pinnednote"
       'fa fa-sticky-note'
     when "lectureplan", "breakout"
-      'fa fa-group'
+      'fa fa-users'
     when "homework"
-      'fa fa-moon-o'
+      'far fa-moon'
     when "survey"
       'fa fa-list-alt'
     when "video"
-      'fa fa-video-camera'
+      'fa fa-video'
     when 'reading'
       'fa fa-book'
     when "test"
       'fa fa-gavel'
     when "quizactivity"
       'fa fa-question'
+    when "walkthrough"
+      'fa fa-walking'
     end
   end
 

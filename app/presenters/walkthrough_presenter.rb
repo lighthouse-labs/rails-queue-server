@@ -1,0 +1,2 @@
+class WalkthroughPresenter < ActivityPresenter
+end
