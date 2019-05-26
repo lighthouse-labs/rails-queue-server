@@ -140,7 +140,7 @@ class Activity < ApplicationRecord
     range = duration_range
     if range.many?
       ((range[0].to_f + range[1].to_f) / 2.0).round(0)
-    else 
+    else
       range[0]
     end
   end
