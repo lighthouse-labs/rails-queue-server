@@ -6,7 +6,7 @@
     = duration
   - elsif duration
     | #{duration} minutes
-- else
+- elsif activity.start_time?
   = integer_time_to_s(activity.start_time)
   ' -
   = integer_time_to_s(activity.end_time)
