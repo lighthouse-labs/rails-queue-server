@@ -18,13 +18,57 @@
 
 .activity-details {
 
-  > header {
+  > header.bg {
     background-image: image-url("activity-banners/banner1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: scroll;
     background-position: center;
   }
+
+  > header.colored {
+
+    background-color: #112932;
+
+    &.reading, &.walkthrough {
+      background-color: #1A5E63; //#B3CDD1;//#9FA4C4;
+    }
+
+    &.task {
+      background-color: #370031;
+    }
+
+    &.lecture_plan {
+      background-color: #832232;
+    }
+
+    &.exercise {
+      background-color: #48284A;
+    }
+
+    &.challenge, &.problem {
+      background-color: #112932;
+    }
+
+    &.quiz_activity {
+      background-color: #618B4A;
+    }
+
+    &.video {
+      background-color: #7AA095;
+    }
+
+    &.pinned_note, &.note, &.day_info {
+      background-color: #054A29;
+    }
+
+    &.stretch {
+      background-color: #6457A6;
+    }
+
+  }
+
+
 
   .nextandprev {
     margin: 0px;

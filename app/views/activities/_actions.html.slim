@@ -1,8 +1,8 @@
-.actions
-  .form-group
-    .form-inline style="justify-content: space-between"
-      div
-        - unless teacher? && !@activity.teachers_only?
+- unless (teacher? && !@activity.teachers_only?) || !@activity.can_mark_completed?
+  .actions
+    .form-group
+      .form-inline style="justify-content: space-between"
+        div
           = render 'completion_status'
 
 - if teacher?

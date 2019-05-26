@@ -1,6 +1,8 @@
 - showing_details ||= false
 
-header.jumbotron.text-center.text-light.py-5
+- activity_class = @activity.type.to_s.underscore
+- activity_class += " stretch" if @activity.stretch?
+header.jumbotron.text-center.text-light.py-5.colored class=activity_class
   h1 = @activity.name
   - if @activity.project?
     = link_to @activity.section.name, @activity.section, style: "color: white;"
