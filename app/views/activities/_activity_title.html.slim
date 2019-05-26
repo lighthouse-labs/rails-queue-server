@@ -8,10 +8,7 @@ header.jumbotron.text-center.text-light.py-5.colored class=activity_class
     = link_to @activity.section.name, @activity.section, style: "color: white;"
     | &nbsp;
   = activity_type @activity
-  br
-  small
-    = render 'duration', activity: @activity
-  br
+  = render 'duration', activity: @activity
   small
     - if teacher? && !@activity.teachers_only?
       - if @activity.completable?
