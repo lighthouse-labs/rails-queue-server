@@ -16,7 +16,7 @@ class QueueStudentSerializer < ActiveModel::Serializer
 
   # Delegates to method in AvatarHelper
   def avatar_url
-    self.avatar_for(object)
+    avatar_for(object)
   end
 
 end

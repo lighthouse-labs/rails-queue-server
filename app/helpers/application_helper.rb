@@ -58,7 +58,6 @@ module ApplicationHelper
     end.compact.reverse.join(' ')
   end
 
-
   def format_date_time(time)
     time ? time.strftime("%b %e, %l:%M %p") : ''
   end
