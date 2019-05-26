@@ -34,9 +34,9 @@
       .icon.icon-completion
         - if student?
           - if current_user.completed_activity?(activity)
-            i.fa.fa-check-square-o
+            i.far.fa-check-square
           - else
-            i.fa.fa-square-o
+            i.far.fa-square
         - elsif teacher?
           .completed-activities
             = completed_students(activity)
@@ -52,4 +52,4 @@
 
     - if activity.homework?
       .homework-indicator
-        i.fa.fa-moon-o title='Homework' data-toggle='tooltip'
+        i.far.fa-moon title='Homework' data-toggle='tooltip'

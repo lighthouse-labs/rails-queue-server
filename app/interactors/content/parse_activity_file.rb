@@ -22,7 +22,7 @@ class Content::ParseActivityFile
 
     attrs['sequence'] = @sequence ? @sequence : filename_parts.first.to_i
     attrs['file_path'] = File.join('data', @data_dir_path, @filename).to_s
-    attrs['type'] = filename_parts.last.split('.').first.strip
+    attrs['type'] ||= filename_parts.last.split('.').first.strip
     attrs['day'] = determine_day(day_from_file, @data_dir_path) unless @dayless
     # We use the relevant part of the md file name if name attribute is not set in yaml front matter
     attrs['name'] ||= CGI.unescape(filename_parts[-2].strip)

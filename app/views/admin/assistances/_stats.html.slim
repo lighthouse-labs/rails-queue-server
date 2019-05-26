@@ -26,7 +26,7 @@
   .stat.card
     .card-body
       h3
-        i.fa.fa-clock-o
+        i.far.fa-clock
         | &nbsp;
         - if @assist_length_avg.nan?
           = "N/A"
@@ -37,7 +37,7 @@
   .stat.card
     .card-body
       h3
-        i.fa.fa-group
+        i.fa.fa-users
         | &nbsp;
         = @distinct_students
       span Students

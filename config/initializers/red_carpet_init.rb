@@ -82,44 +82,30 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
   def block_quote_icon_html(type)
     type = type.downcase
     case type
-    when 'note', 'info'
+    when 'note', 'info', 'information'
       %(
-        <span class="fa-stack">
-          <i class="fa fa-circle-o fa-stack-2x"></i>
-          <i class="fa fa-info fa-stack-1x"></i>
-        </span>
+        <i class="fa fa-2x fa-info-circle"></i>
       )
     when 'warning'
       %(
-        <span class="fa-stack">
-          <i class="fa fa-circle-o fa-stack-2x"></i>
-          <i class="fa fa-exclamation fa-stack-1x"></i>
-        </span>
+        <i class="fa fa-2x fa-exclamation-triangle"></i>
       )
     when 'danger', 'alert'
       %(
-        <span class="fa-stack">
-          <i class="fa fa-circle-o fa-rotate-90 fa-stack-2x"></i>
-          <i class="fa fa-exclamation fa-stack-1x"></i>
-        </span>
+        <i class="fa fa-2x fa-radiation-alt"></i>
       )
     when 'question'
       %(
-        <span class="fa-stack">
-          <i class="fa fa-circle-o fa-stack-2x"></i>
-          <i class="fa fa-question fa-stack-1x"></i>
-        </span>
+        <i class="fa fa-2x fa-question-circle"></i>
       )
     when 'instruction'
       %(
-        <span class="fa-stack">
-          <i class="fa fa-code fa-stack-2x"></i>
-        </span>
+        <i class="fa fa-2x fa-hand-point-right"></i>
       )
     else
       %(
         <span class="fa-stack">
-          <i class="fa fa-circle-o fa-stack-2x"></i>
+          <i class="far fa-circle  fa-stack-2x"></i>
           <i class="fa fa-question fa-stack-1x"></i>
         </span>
       )
