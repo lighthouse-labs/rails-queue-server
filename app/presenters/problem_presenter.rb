@@ -1,0 +1,2 @@
+class ProblemPresenter < ActivityPresenter
+end

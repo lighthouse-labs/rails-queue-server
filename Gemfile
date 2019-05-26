@@ -33,7 +33,7 @@ gem 'ace-rails-ap'
 gem 'simple_form'
 gem 'sidekiq'
 gem 'slim-rails'
-gem 'font-awesome-rails'
+gem 'font-awesome-sass', '~> 5.6.1'
 # gem 'compass-rails'
 
 gem 'interactor-rails'

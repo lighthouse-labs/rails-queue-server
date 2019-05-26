@@ -6,17 +6,17 @@
 
 h4.pull-left Day Feedback (#{@day_feedbacks.count}):
 .pull-right.stats.total-feedbacks
-  i class='happy fa fa-smile-o fa-3x' title="Happy feedback"
+  i class='happy far fa-smile fa-3x' title="Happy feedback"
   sup.total-feedbacks.happy title="Happy total"
     = @day_feedbacks.count_for_mood(:happy)
   sub.percentage-feedback-happy title="Happy %"
     = number_to_percentage(@day_feedbacks.percentage_of_mood(:happy), precision: 0)
-  i class='ok fa fa-circle-thin fa-3x' title="OK feedback"
+  i class='ok far fa-meh fa-3x' title="OK feedback"
   sup.total-feedbacks.ok title="Ok total"
     = @day_feedbacks.count_for_mood(:ok)
   sub.percentage-feedback-ok title="Ok %"
     = number_to_percentage(@day_feedbacks.percentage_of_mood(:ok), precision: 0)
-  i class='sad fa fa-frown-o fa-3x' title="Sad feedback"
+  i class='sad far fa-frown fa-3x' title="Sad feedback"
   sup.total-feedbacks.sad title="Sad total"
     = @day_feedbacks.count_for_mood(:sad)
   sub.percentage-feedback-sad title="Sad %"
