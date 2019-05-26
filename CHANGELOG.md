@@ -1,5 +1,27 @@
 # Change Log
 
+## [2019.05.26.1600](https://github.com/lighthouse-labs/compass/tree/2019.05.26.1600) (2019-05-26)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.05.13.1715...2019.05.26.1600)
+
+**Merged pull requests:**
+
+- request less oauth access. only user info [\#868](https://github.com/lighthouse-labs/compass/pull/868) ([kvirani](https://github.com/kvirani))
+- New Activity Title/Hero area \(UI change\) [\#867](https://github.com/lighthouse-labs/compass/pull/867) ([kvirani](https://github.com/kvirani))
+- Improvement to toggle answer feature in activity markdown [\#866](https://github.com/lighthouse-labs/compass/pull/866) ([kvirani](https://github.com/kvirani))
+- Use proper avatar url for lecturer in lecture notes [\#865](https://github.com/lighthouse-labs/compass/pull/865) ([kvirani](https://github.com/kvirani))
+- UI Support for green circle numbered labels [\#864](https://github.com/lighthouse-labs/compass/pull/864) ([kvirani](https://github.com/kvirani))
+- Use existing helper for avatar [\#863](https://github.com/lighthouse-labs/compass/pull/863) ([kvirani](https://github.com/kvirani))
+- Activity\#average\_time\_spent data exporter and importer \(for staging etc\) [\#862](https://github.com/lighthouse-labs/compass/pull/862) ([kvirani](https://github.com/kvirani))
+- Font Awesome Update and New Activity types [\#861](https://github.com/lighthouse-labs/compass/pull/861) ([kvirani](https://github.com/kvirani))
+- Migrate evaluations csv to new filtered field mapping model [\#857](https://github.com/lighthouse-labs/compass/pull/857) ([JBorts](https://github.com/JBorts))
+
+## [2019.05.13.1715](https://github.com/lighthouse-labs/compass/tree/2019.05.13.1715) (2019-05-14)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.05.13.1400...2019.05.13.1715)
+
+**Merged pull requests:**
+
+- Fix evaluations csv [\#856](https://github.com/lighthouse-labs/compass/pull/856) ([JBorts](https://github.com/JBorts))
+
 ## [2019.05.13.1400](https://github.com/lighthouse-labs/compass/tree/2019.05.13.1400) (2019-05-13)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.25.1030...2019.05.13.1400)
 
