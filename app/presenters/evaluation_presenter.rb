@@ -3,7 +3,7 @@ class EvaluationPresenter < BasePresenter
   presents :evaluation
 
   def student_info
-    content_tag(:div, render('shared/student_info', student: evaluation.student, show_cohort: true), class: 'student-info')
+    content_tag(:div, render('shared/student_info', student: evaluation.student, show_cohort: true), class: 'student-info') if evaluation.student
   end
 
   def project_status
