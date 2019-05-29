@@ -105,7 +105,7 @@ window.Queue.App = class App extends React.Component {
             </div>
             <div className="pull-left">
               <button onClick={this.hardRefresh} className={`btn btn-refresh btn-outline btn-secondary ${refreshBtnClass}`} title="A 'hard refresh' shouldn't be needed, but just incase you're having trust issues still ;)">
-                <i className="fa fa-refresh"></i>
+                <i className="fa fa-sync-alt"></i>
               </button>
             </div>
           </div>
