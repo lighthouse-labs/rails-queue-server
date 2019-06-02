@@ -1,5 +1,13 @@
 # Change Log
 
+## [2019.06.02.1030](https://github.com/lighthouse-labs/compass/tree/2019.06.02.1030) (2019-06-02)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.05.29.1230...2019.06.02.1030)
+
+**Merged pull requests:**
+
+- Fix embedded video size so it's no longer ridic small [\#876](https://github.com/lighthouse-labs/compass/pull/876) ([kvirani](https://github.com/kvirani))
+- Mocha tests now support block level scoped function definitions [\#875](https://github.com/lighthouse-labs/compass/pull/875) ([kvirani](https://github.com/kvirani))
+
 ## [2019.05.29.1230](https://github.com/lighthouse-labs/compass/tree/2019.05.29.1230) (2019-05-29)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.05.26.1600...2019.05.29.1230)
 
