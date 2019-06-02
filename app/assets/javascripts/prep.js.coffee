@@ -218,13 +218,14 @@ $(document).on 'turbolinks:load', ->
     expect = chai.expect
     assert = chai.assert
 
-    # Load the user code into a local variable
     console.clear()
-    eval(code)
 
-    # Load the mocha tests
     test_content = $('#test_content').val()
-    eval(test_content)
+
+    # Load the user code and mocha tests
+    # Code and test content need to be eval'd at the same time
+    # This is because block level scoping (from let & const) is not available between evals
+    eval(code + '\n' + test_content)
 
     $('#test_holder').removeClass('d-none')
 
