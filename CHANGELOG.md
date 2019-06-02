@@ -1,5 +1,13 @@
 # Change Log
 
+## [2019.05.29.1230](https://github.com/lighthouse-labs/compass/tree/2019.05.29.1230) (2019-05-29)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.05.26.1600...2019.05.29.1230)
+
+**Merged pull requests:**
+
+- Fix 500 on admin/evals due to nil student [\#873](https://github.com/lighthouse-labs/compass/pull/873) ([kvirani](https://github.com/kvirani))
+- Fixing missing font-awesome icons [\#872](https://github.com/lighthouse-labs/compass/pull/872) ([daegren](https://github.com/daegren))
+
 ## [2019.05.26.1600](https://github.com/lighthouse-labs/compass/tree/2019.05.26.1600) (2019-05-26)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.05.13.1715...2019.05.26.1600)
 
