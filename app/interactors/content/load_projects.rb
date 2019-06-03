@@ -95,6 +95,7 @@ class Content::LoadProjects
       evaluation_guide:     attributes['evaluation_guide'],
       evaluation_rubric:    attributes['evaluation_rubric'],
       evaluation_checklist: attributes['evaluation_checklist'],
+      archived:             attributes['archived'],
       stretch:              attributes['stretch'],
       content_repository:   @repo
     }
