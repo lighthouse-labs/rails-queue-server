@@ -35,6 +35,8 @@ class CsvEndpoint::EvaluationsController < CsvEndpoint::BaseController
     evaluations = evaluations.after_date(params[:from]) if params[:from].present?
     evaluations = evaluations.before_date(params[:to]) if params[:to].present?
     evaluations = evaluations.for_project(params[:project_id]) if params[:project_id].present?
+
+    evaluations
   end
 
   def get_joined_model
