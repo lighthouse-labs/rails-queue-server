@@ -1,5 +1,13 @@
 # Change Log
 
+## [2019.06.03.1630](https://github.com/lighthouse-labs/compass/tree/2019.06.03.1630) (2019-06-03)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.02.1030...2019.06.03.1630)
+
+**Merged pull requests:**
+
+- Projects should be archivable [\#879](https://github.com/lighthouse-labs/compass/pull/879) ([kvirani](https://github.com/kvirani))
+- Add return to evaluations controller add\_where\_clause [\#878](https://github.com/lighthouse-labs/compass/pull/878) ([JBorts](https://github.com/JBorts))
+
 ## [2019.06.02.1030](https://github.com/lighthouse-labs/compass/tree/2019.06.02.1030) (2019-06-02)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.05.29.1230...2019.06.02.1030)
 
