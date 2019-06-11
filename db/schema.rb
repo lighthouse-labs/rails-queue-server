@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190129002454) do
+ActiveRecord::Schema.define(version: 20190611002033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 20190129002454) do
     t.text     "instructions"
     t.text     "teacher_notes"
     t.string   "file_name"
-    t.boolean  "allow_submissions",     default: true
+    t.boolean  "allow_submissions",         default: true
     t.string   "media_filename"
     t.string   "revisions_gistid"
-    t.integer  "code_review_percent",   default: 60
+    t.integer  "code_review_percent",       default: 60
     t.integer  "quiz_id"
     t.integer  "content_repository_id"
     t.string   "content_file_path"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 20190129002454) do
     t.boolean  "homework"
     t.boolean  "milestone"
     t.boolean  "advanced_topic"
+    t.string   "background_image_url"
+    t.string   "background_image_darkness"
     t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
     t.index ["day"], name: "index_activities_on_day", using: :btree
     t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree

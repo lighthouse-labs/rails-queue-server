@@ -60,7 +60,9 @@ class Content::LoadActivity
       test_code:          d['test_code'],
       initial_code:       d['initial_code'],
       milestone:          d['milestone'],
-      advanced_topic:     d['advanced_topic']
+      advanced_topic:     d['advanced_topic'],
+      background_image_url: d['bg_image_url'],
+      background_image_darkness: d['bg_image_darkness'],
     }
     # if sequence is not specified, do not change the existing one
     attrs[:sequence] = d['sequence'] if d['sequence']

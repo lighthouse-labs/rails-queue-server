@@ -194,4 +194,23 @@ module ActivitiesHelper
     ]
   end
 
+  def activity_title_background_style(activity)
+    if activity.background_image_url?
+      style = []
+      if activity.background_image_darkness?
+        style << "linear-gradient(rgba(0, 0, 0, #{activity.background_image_darkness}), rgba(0, 0, 0, #{activity.background_image_darkness}))"
+      end
+      style << "url('#{activity.background_image_url}')"
+      "background-image: #{style.join(', ')};"
+    end
+  end
+
+  def activity_title_background_class(activity)
+    if activity.background_image_url?
+      "bg"
+    else
+      "colored"
+    end
+  end
+
 end
