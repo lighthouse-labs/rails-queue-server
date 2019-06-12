@@ -1,5 +1,12 @@
 # Change Log
 
+## [2019.06.10.2345](https://github.com/lighthouse-labs/compass/tree/2019.06.10.2345) (2019-06-11)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.03.1630...2019.06.10.2345)
+
+**Merged pull requests:**
+
+- Activity title background [\#883](https://github.com/lighthouse-labs/compass/pull/883) ([kvirani](https://github.com/kvirani))
+
 ## [2019.06.03.1630](https://github.com/lighthouse-labs/compass/tree/2019.06.03.1630) (2019-06-03)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.02.1030...2019.06.03.1630)
 
