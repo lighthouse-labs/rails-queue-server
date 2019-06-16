@@ -5,6 +5,11 @@
         div
           = render 'completion_status'
 
+
+- if teacher? && @activity.has_lectures?
+  .actions.bg-light.p-3.rounded
+    = link_to '+ Lecture', new_activity_lecture_path(@activity), class: 'btn btn-secondary btn-new-lecture'
+
 - if teacher?
   .collapse#student-progress
     table.table

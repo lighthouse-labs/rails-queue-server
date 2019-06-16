@@ -10,9 +10,6 @@
     = render 'activity_title', activity_presenter: activity_presenter
     = render 'actions', activity_presenter: activity_presenter
 
-    - if @activity.has_lectures?
-      = link_to '+ Lecture', new_activity_lecture_path(@activity), class: 'btn btn-secondary btn-new-lecture'
-
     - if stretch_activity?(@activity, @workbook)
       - text = @activity.day? ? "day" : "prep course"
       .alert.alert-info
@@ -52,9 +49,8 @@
         == markdown @program.lecture_tips
 
     - if teacher? && @activity.teacher_notes?
-      hr
-      h3 = "Teacher Notes"
-      .instructions
+      .instructions.teacher-notes.text-white.bg-dark
+        h2 Teacher Notes
         == markdown @activity.teacher_notes
 
     = render 'submission_bar', activity_presenter: activity_presenter
