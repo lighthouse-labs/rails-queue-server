@@ -41,7 +41,6 @@
 
     img {
       max-width: 100%;
-      border: 1px solid gray;
       border-radius: 5px;
       box-shadow: 2px 4px 10px #AAA;
     }
@@ -92,5 +91,10 @@
       opacity: 0.9;
     }
 
+  }
+
+  .instructions.teacher-notes {
+    padding: 0px 30px 20px 30px;
+    border-radius: 15px;
   }
 }

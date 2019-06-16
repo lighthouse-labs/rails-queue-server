@@ -79,7 +79,7 @@ class LecturesController < ApplicationController
   end
 
   def teacher_required
-    redirect_to activity_lecture_path unless teacher?
+    redirect_to activity_path(@activity), alert: "Not Allowed" unless teacher?
   end
 
   def check_if_day_unlocked
