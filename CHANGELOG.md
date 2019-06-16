@@ -1,5 +1,12 @@
 # Change Log
 
+## [2019.06.16.0945](https://github.com/lighthouse-labs/compass/tree/2019.06.16.0945) (2019-06-16)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.10.2345...2019.06.16.0945)
+
+**Merged pull requests:**
+
+- Activities\#show UI tweaks for Teachers [\#884](https://github.com/lighthouse-labs/compass/pull/884) ([kvirani](https://github.com/kvirani))
+
 ## [2019.06.10.2345](https://github.com/lighthouse-labs/compass/tree/2019.06.10.2345) (2019-06-11)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.03.1630...2019.06.10.2345)
 
