@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190611002033) do
+ActiveRecord::Schema.define(version: 20190622181527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -509,8 +509,8 @@ ActiveRecord::Schema.define(version: 20190611002033) do
   create_table "sections", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "order"
     t.string   "type"
     t.string   "uuid"
@@ -529,6 +529,8 @@ ActiveRecord::Schema.define(version: 20190611002033) do
     t.text     "teacher_notes"
     t.boolean  "archived"
     t.boolean  "stretch"
+    t.string   "background_image_url"
+    t.string   "background_image_darkness"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end

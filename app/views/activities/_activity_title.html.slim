@@ -7,7 +7,7 @@
 - style = activity_title_background_style(@activity)
 - activity_class << activity_title_background_class(@activity)
 
-header.jumbotron.text-center.text-light.py-5 class=activity_class.join(' ') style=style
+header.splash.jumbotron.text-center.text-light.py-5 class=activity_class.join(' ') style=style
   h1 = @activity.name
   - if @activity.project?
     = link_to @activity.section.name, @activity.section, style: "color: white;"
