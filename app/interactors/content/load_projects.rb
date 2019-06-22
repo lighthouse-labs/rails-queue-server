@@ -81,23 +81,25 @@ class Content::LoadProjects
     uuid = attributes.delete 'uuid'
 
     attrs = {
-      name:                 attributes['name'],
-      slug:                 attributes['slug'],
-      order:                attributes['order'],
-      start_day:            attributes['start_day'],
-      end_day:              attributes['end_day'],
-      image:                attributes['image'],
-      blurb:                attributes['blurb'],
-      evaluated:            attributes['evaluated'],
-      description:          attributes['description'],
-      teacher_notes:        attributes['teacher_notes'],
-      content_file_path:    attributes['file_path'],
-      evaluation_guide:     attributes['evaluation_guide'],
-      evaluation_rubric:    attributes['evaluation_rubric'],
-      evaluation_checklist: attributes['evaluation_checklist'],
-      archived:             attributes['archived'],
-      stretch:              attributes['stretch'],
-      content_repository:   @repo
+      name:                      attributes['name'],
+      slug:                      attributes['slug'],
+      order:                     attributes['order'],
+      start_day:                 attributes['start_day'],
+      end_day:                   attributes['end_day'],
+      image:                     attributes['image'],
+      blurb:                     attributes['blurb'],
+      evaluated:                 attributes['evaluated'],
+      description:               attributes['description'],
+      teacher_notes:             attributes['teacher_notes'],
+      content_file_path:         attributes['file_path'],
+      evaluation_guide:          attributes['evaluation_guide'],
+      evaluation_rubric:         attributes['evaluation_rubric'],
+      evaluation_checklist:      attributes['evaluation_checklist'],
+      archived:                  attributes['archived'],
+      stretch:                   attributes['stretch'],
+      background_image_url:      attributes['bg_image_url'],
+      background_image_darkness: attributes['bg_image_darkness'],
+      content_repository:        @repo
     }
 
     section = Project.find_or_initialize_by(uuid: uuid)
