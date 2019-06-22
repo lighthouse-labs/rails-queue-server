@@ -199,9 +199,7 @@ module ActivitiesHelper
       style = []
       image_url = activity.background_image_url || activity.section&.background_image_url
       darkness = activity.background_image_darkness || activity.section&.background_image_darkness
-      if darkness.present?
-        style << "linear-gradient(rgba(0, 0, 0, #{darkness}), rgba(0, 0, 0, #{darkness}))"
-      end
+      style << "linear-gradient(rgba(0, 0, 0, #{darkness}), rgba(0, 0, 0, #{darkness}))" if darkness.present?
       style << "url('#{image_url}')"
       "background-image: #{style.join(', ')};"
     end
