@@ -136,7 +136,7 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
     "</div>"
   end
 
-  def generate_toggle_markdown(content, id=nil)
+  def generate_toggle_markdown(content, id = nil)
     key = "data-key='#{id}'" if id.present?
     placeholder = "Type in your answer here before you can reveal it below. Your answer will auto-save as you type. Once you click 'Toggle Answer' below your answer cannot be changed."
     answer_textarea = "<label><strong>Your Answer</strong></label><textarea class='form-control mb-4' placeholder='#{placeholder}'></textarea>" if id.present?

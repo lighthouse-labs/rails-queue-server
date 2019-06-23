@@ -1,4 +1,5 @@
 class ActivityAnswer < ApplicationRecord
+
   belongs_to :activity
   belongs_to :user
 
