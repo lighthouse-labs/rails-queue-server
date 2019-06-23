@@ -18,6 +18,8 @@ class Activity < ApplicationRecord
   has_many :skills, through: :outcomes
   has_many :outcome_results, as: :source
 
+  has_many :answers, class_name: ActivityAnswer
+
   include PgSearch
   pg_search_scope :by_keywords,
                   against:            [:name, :day, :type, :instructions],

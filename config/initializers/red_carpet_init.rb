@@ -60,10 +60,11 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
   end
 
   def handle_toggle_markdown(doc)
-    regex = Regexp.new(/(^\?\?\?\?\s+(.*?)\s+^\?\?\?\?)/m)
+    regex = Regexp.new(/(^\?\?\?\?([A-Za-z0-9_\-]*)?\s+(.*?)\s+^\?\?\?\?)/m)
     doc.gsub(regex) do
-      markdown_content = Regexp.last_match[2]
-      generate_toggle_markdown(markdown_content)
+      markdown_content = Regexp.last_match[3]
+      id = Regexp.last_match[2]
+      generate_toggle_markdown(markdown_content, id)
     end
   end
 
@@ -135,12 +136,17 @@ class CompassMarkdownRenderer < Redcarpet::Render::HTML
     "</div>"
   end
 
-  def generate_toggle_markdown(content)
-    "<div class='togglable-solution card card-body mb-3'>" \
+  def generate_toggle_markdown(content, id = nil)
+    key = "data-key='#{id}'" if id.present?
+    placeholder = "Type in your answer here before you can reveal it below. Your answer will auto-save as you type. Once you click 'Toggle Answer' below your answer cannot be changed."
+    answer_textarea = "<label><strong>Your Answer</strong></label><textarea class='form-control mb-4' placeholder='#{placeholder}'></textarea>" if id.present?
+    "<div class='togglable-solution card card-body mb-3' #{key}>" \
+    "#{answer_textarea}" \
     "<div class='answer' style='display: none;'>" \
+    "#{'<label><strong>Correct Answer</strong></label><br>' if id.present?}" \
     "#{markdown(content)}" \
     "</div>" \
-    "<button class='btn btn-primary' onclick='$(this).closest(\".togglable-solution\").find(\".answer\").slideToggle(); return false;'>Toggle Answer</button>" \
+    "<button class='btn btn-primary toggle-answer'>Toggle Answer</button>" \
     "</div>"
   end
 
