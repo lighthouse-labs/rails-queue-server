@@ -37,7 +37,13 @@ $ ->
 
   populateAnswer = (activityAnswer) ->
     $tAnswer = $(".togglable-solution[data-key=\"#{activityAnswer.question_key}\"]")
-    $tAnswer.find('textarea').val(activityAnswer.answer_text)
+    $textarea = $tAnswer.find('textarea')
+    $textarea.val(activityAnswer.answer_text)
+
+    # height adjustment
+    autosize.update($textarea)
+
+    # state adjustments (textarea and/or toggle buttons can be disabled)
     changeButtonDisabledState($tAnswer, activityAnswer.answer_text)
     changeAnswerDisabledState($tAnswer, activityAnswer.toggled)
 
@@ -52,18 +58,17 @@ $ ->
 
     timers[key] = setTimeout saveAnswer.bind(this, elm, key, val), 1000
 
+
   setupInteractiveToggleAnswer = (elm, key) ->
     elm.find('textarea').on 'input', (evt) ->
       handleAnswerChange(elm, key, evt)
-
-    elm.find('button.toggle-answer')
 
     elm.find('button.toggle-answer').on 'click', ->
       answerText = elm.find('textarea').val()
 
       if elm.hasClass('answer-locked')
         elm.find(".answer").slideToggle()
-      else if (!elm.find('.answer').is(':visible') && confirm("Commit your answer? You won't be able to update it after toggling the answer"))
+      else if (!elm.find('.answer').is(':visible') && confirm("Commit your answer? You won't be able to update your answer after showing the correct answer."))
         changeAnswerDisabledState(elm, true)
         elm.find(".answer").slideToggle()
         $.ajax "/activities/#{uuid}/answers/#{key}", { type: 'PUT', data: { toggled: true, answer_text: answerText } }
