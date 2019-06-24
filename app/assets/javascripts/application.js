@@ -58,6 +58,7 @@
 //= require incomplete_activities
 //= require activities
 //= require toggle_answer
+//= require compass.autosize
 //= require reconnect_holder
 //= require prep
 //= require profile
