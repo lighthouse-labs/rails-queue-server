@@ -1,5 +1,27 @@
 # Change Log
 
+## [2019.06.28.1030](https://github.com/lighthouse-labs/compass/tree/2019.06.28.1030) (2019-06-28)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/transition-stable...2019.06.28.1030)
+
+**Merged pull requests:**
+
+- Minor TI UI improvements / fixes [\#899](https://github.com/lighthouse-labs/compass/pull/899) ([kvirani](https://github.com/kvirani))
+- Activity Search Fix - Transition [\#897](https://github.com/lighthouse-labs/compass/pull/897) ([jmatsuba](https://github.com/jmatsuba))
+- start\_day and end\_day Need a cohort on the transition branch [\#896](https://github.com/lighthouse-labs/compass/pull/896) ([jmatsuba](https://github.com/jmatsuba))
+- Fix placeholder bug in new interactive question textarea [\#893](https://github.com/lighthouse-labs/compass/pull/893) ([kvirani](https://github.com/kvirani))
+- Support for togglable answers where an answer is prompted first [\#892](https://github.com/lighthouse-labs/compass/pull/892) ([kvirani](https://github.com/kvirani))
+- Project background image support [\#891](https://github.com/lighthouse-labs/compass/pull/891) ([kvirani](https://github.com/kvirani))
+- Updated Calls to Quiz.day [\#890](https://github.com/lighthouse-labs/compass/pull/890) ([jmatsuba](https://github.com/jmatsuba))
+- Transition Stretch Bug Fix [\#888](https://github.com/lighthouse-labs/compass/pull/888) ([jmatsuba](https://github.com/jmatsuba))
+
+## [transition-stable](https://github.com/lighthouse-labs/compass/tree/transition-stable) (2019-06-20)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.16.0945...transition-stable)
+
+**Merged pull requests:**
+
+- 10 wk Archive Blacklist \(weeks 1-3\) [\#886](https://github.com/lighthouse-labs/compass/pull/886) ([jmatsuba](https://github.com/jmatsuba))
+- Only request read access to user profile [\#885](https://github.com/lighthouse-labs/compass/pull/885) ([kvirani](https://github.com/kvirani))
+
 ## [2019.06.16.0945](https://github.com/lighthouse-labs/compass/tree/2019.06.16.0945) (2019-06-16)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.10.2345...2019.06.16.0945)
 
