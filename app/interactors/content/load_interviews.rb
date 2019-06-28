@@ -95,7 +95,8 @@ class Content::LoadInterviews
 
   def build_questions(interview, question_data)
     questions = []
-    question_data.each_with_index do |d, i|
+    i = 1
+    question_data.each do |d|
       uuid = d['uuid']
       abort("\n\n---\nHALT! Question UUID required") if uuid.blank?
       # abort("\n\n---\nHALT! Dupe Question UUID found. Check your data, as this is potentially disasterous!") if @question_uuids.include?(uuid)
@@ -106,13 +107,15 @@ class Content::LoadInterviews
         question: d['question'],
         answer:   d['answer'],
         notes:    d['notes'],
-        sequence: i + 1
+        sequence: i
       }
       attrs[:outcome] = Outcome.find_by(uuid: d['outcome']) if d['outcome']
 
       question = find_or_build_question(interview, attrs)
 
       questions.push question
+
+      i += 1 unless attrs[:archived]
     end
     questions
   end
