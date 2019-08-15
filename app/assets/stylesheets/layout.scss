@@ -73,7 +73,7 @@ main {
   }
 
   .content {
-    &.main-content {
+    &.main-content .main-content-view {
       max-width: 1000px;
     }
     .jumbotron {
