@@ -9,7 +9,7 @@ end
 private
 
 def process_activity_file(path)
-  activity_data = YAML.safe_load(File.read(path))
+  activity_data = YAML.safe_load(File.read(path), [Symbol])
   activity_data.each do |data|
     process_activity_data(data)
   end
@@ -19,7 +19,7 @@ def process_activity_data(data)
   a = Activity.find_by uuid: data[:uuid]
   return unless a
 
-  puts "Found activity, updating"
+  puts "Found activity id: #{a.id}, updating average_time_spent from #{a.average_time_spent} to #{data[:average_time_spent]}"
 
   a.update_columns average_time_spent: data[:average_time_spent]
 end
