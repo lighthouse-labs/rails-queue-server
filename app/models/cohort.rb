@@ -15,6 +15,7 @@ class Cohort < ApplicationRecord
   validates :program, presence: true
   validates :location, presence: true
   validate  :disable_queue_days_are_valid
+  validate :part_time_requires_weekdays
 
   validates :code,  uniqueness: true,
                     presence:   true,
@@ -102,4 +103,11 @@ class Cohort < ApplicationRecord
     program.has_queue? && active? && !disable_queue_days.include?(curriculum_day.to_s)
   end
 
+  private
+  def part_time_requires_weekdays
+    if program.days_per_week != 5 && !weekdays.present?
+      errors.add(:weekdays, 'needs to be present if the program is part time.')
+    end
+  end
+  
 end
