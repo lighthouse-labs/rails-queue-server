@@ -106,7 +106,7 @@ class Cohort < ApplicationRecord
   private
 
   def part_time_requires_weekdays
-    if program.days_per_week != 5 && weekdays.blank?
+    if program.part_time? && weekdays.blank?
       errors.add(:weekdays, 'needs to be present if the program is part time.')
     end
   end
