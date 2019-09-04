@@ -55,23 +55,23 @@ class CsvEndpoint::TechInterviewsController < CsvEndpoint::BaseController
     {
       id:                    { statement: "tech_interviews.id", header: "ID" },
       created_at:            { statement: "tech_interviews.created_at", header: "Interview Created At" },
-      started_at:           { statement: "tech_interviews.started_at", header: "Interview Started At" },
-      completed_at:           { statement: "tech_interviews.completed_at", header: "Interview Completed At" },
-      interview_template_id:           { statement: "tech_interviews.tech_interview_template_id", header: "Interview Template ID" },
+      started_at:            { statement: "tech_interviews.started_at", header: "Interview Started At" },
+      completed_at:          { statement: "tech_interviews.completed_at", header: "Interview Completed At" },
+      interview_template_id: { statement: "tech_interviews.tech_interview_template_id", header: "Interview Template ID" },
       total_asked:           { statement: "tech_interviews.total_asked", header: "Number of Questions Asked" },
-      total_answered:           { statement: "tech_interviews.total_answered", header: "Number of Questions Answered" },
-      average_score:           { statement: "tech_interviews.average_score", header: "Average Score" },
-      articulation_score:           { statement: "tech_interviews.articulation_score", header: "Articulation Score" },
-      knowledge_score:           { statement: "tech_interviews.knowledge_score", header: "Knowledge Score" },
-      feedback:            { statement: "tech_interviews.feedback", header: "Feedback" },
-      internal_notes:            { statement: "tech_interviews.internal_notes", header: "Internal Notes" },
+      total_answered:        { statement: "tech_interviews.total_answered", header: "Number of Questions Answered" },
+      average_score:         { statement: "tech_interviews.average_score", header: "Average Score" },
+      articulation_score:    { statement: "tech_interviews.articulation_score", header: "Articulation Score" },
+      knowledge_score:       { statement: "tech_interviews.knowledge_score", header: "Knowledge Score" },
+      feedback:              { statement: "tech_interviews.feedback", header: "Feedback" },
+      internal_notes:        { statement: "tech_interviews.internal_notes", header: "Internal Notes" },
       cohort_name:           { statement: "cohorts.name", header: "Cohort Name" },
       program_name:          { statement: "programs.name", header: "Program Name" },
       cohort_day:            { statement: "tech_interviews.day", header: "Cohort Day" },
       mentor_id:             { statement: "interviewer.id", header: "Mentor ID" },
       mentor_name:           { statement: "interviewer.first_name || ' ' || interviewer.last_name", header: "Mentor Name" },
       student_id:            { statement: "interviewee.id", header: "Student ID" },
-      student_name:          { statement: "interviewee.first_name || ' ' || interviewee.last_name", header: "Student Name" },
+      student_name:          { statement: "interviewee.first_name || ' ' || interviewee.last_name", header: "Student Name" }
     }
   end
 

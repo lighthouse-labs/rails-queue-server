@@ -22,10 +22,10 @@ class TechInterview < ApplicationRecord
   scope :queued,         -> { where(started_at: nil) }
   scope :active,         -> { where(completed_at: nil) }
   scope :in_progress,    -> { where.not(started_at: nil).where(completed_at: nil) }
-  scope :between_dates, ->(start_date, end_date) { where(started_at: start_date..end_date) }  
-  scope :for_cohort,     ->(cohort) { where(cohort: cohort) }
+  scope :between_dates, ->(start_date, end_date) { where(started_at: start_date..end_date) }
+  scope :for_cohort, ->(cohort) { where(cohort: cohort) }
   scope :for_program, ->(program) { joins(:cohort).where(cohorts: { program_id: program }) }
-  scope :for_locations,  ->(locations) {
+  scope :for_locations, ->(locations) {
     if locations.is_a?(Array) && !locations.empty?
       includes(cohort: :location)
         .where(locations: { name: locations })
