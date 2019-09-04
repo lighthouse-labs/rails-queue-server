@@ -32,7 +32,6 @@ describe 'Navbar', type: :feature, js: true do
       it 'should properly navigate to Today' do
         find_link("Home").click
         expect(page).to have_css("body")
-        save_screenshot
         expect(page).to have_css("h1", text: "Schedule")
       end
 
