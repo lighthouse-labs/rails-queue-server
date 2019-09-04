@@ -4,7 +4,7 @@ class TeachersController < ApplicationController
 
   def index
     @locations = Location.all.order(:name)
-    @teachers  = Teacher.all
+    @teachers  = Teacher.active.all
     if params[:location_id] && @location = Location.find_by(id: params[:location_id])
       @teachers = if @location.satellite? && @supporting_location = @location.supported_by_location
                     @teachers.where(location_id: [@location.id, @supporting_location.id])
@@ -38,7 +38,7 @@ class TeachersController < ApplicationController
   private
 
   def load_teacher
-    @teacher = Teacher.find(params[:id])
+    @teacher = Teacher.active.find(params[:id])
   end
 
 end
