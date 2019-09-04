@@ -8,31 +8,31 @@ Compass - by Lighthouse Labs
 
 Welcome to Compass! Lighthouse Lab's website for hosting our curriculum to students and managing their education.
 
-[Web F/T site](https://web-compass.lighthouselabs.ca)
+## Deployments
 
-[iOS F/T site](https://ios.compass.lighthouselabs.ca)
+- [Web F/T site](https://web-compass.lighthouselabs.ca)
+- [Web P/T site](https://web-pt.compass.lighthouselabs.ca)
+- [Web P/T Frontend site](https://web-pt-frontend.compass.lighthouselabs.ca)
+- [iOS P/T site](https://ios-pt.compass.lighthouselabs.ca) (deprecated)
+- [iOS F/T site](https://ios.compass.lighthouselabs.ca) (deprecated)
 
-[Web P/T site](https://web-pt.compass.lighthouselabs.ca)
 
-[Web P/T Frontend site](https://web-pt-frontend.compass.lighthouselabs.ca)
+## Table of Contents
 
-[iOS F/T site](https://ios-pt.compass.lighthouselabs.ca)
-
- Table of Contents
-  1. [Setup](#setup)
-      - [Github App Setup](#github-app-setup)
-      - [Start the Server](#server)
-      - [Getting the Queue to work](#queue)
-      - [Setting up iOS or Part-time](#ios-and-part-time-support)
-  2. [Project Management Process](#pm-process)
-      - [for Lead Dev](#for-lead-dev)
-      - [for Contributors](#for-contributors-and-junior-devs)
-  3. [Deployment](#deployment)
-  4. [CSS UI Framework](#css-ui-framework)
-  5. [Linter](#linter)
-  6. [Testing](#testing)
-  7. [CodeClimate](#codeclimate)
-  8. [Built With](#built-with)
+1. [Setup](#setup)
+  - [Github App Setup](#github-app-setup)
+  - [Start the Server](#server)
+  - [Getting the Queue to work](#queue)
+  - [Setting up iOS or Part-time](#ios-and-part-time-support)
+2. [Project Management Process](#pm-process)
+  - [for Lead Dev](#for-lead-dev)
+  - [for Contributors](#for-contributors-and-junior-devs)
+3. [Deployment](#deployment)
+4. [CSS UI Framework](#css-ui-framework)
+5. [Linter](#linter)
+6. [Testing](#testing)
+7. [CodeClimate](#codeclimate)
+8. [Built With](#built-with)
 
 ## Setup
 
@@ -209,6 +209,7 @@ Note*: creating an new issue automatically adds a card to the github projects. I
 <https://github.com/wingrunr21/flat-ui-sass> was used to convert FlatUI Pro from LESS to SASS (located in `vendor/assets` )
 
 ## Linter
+
 We also have the `rubocop` gem to lint locally, which can be run with `bundle exec rubocop`. To automatically fix simple lint errors such as indentation and white spacing, you can use `bundle exec rubocop -a`, however, there is some risk with this.
 
 ## Testing
@@ -243,10 +244,10 @@ Make sure gem `codeclimate-test-reporter` version is 1.0+
 
 ## Built With
 
-This project is built with :
-* ruby 2.3.0 (mentioned in the Gemfile)
-* rails 5.0.0.1
-* slim instead of erb/haml
-* postgres 9.x
-* bootstrap 3.something with FlatUI
-* capybara, selenium and chrome-headless for testing
+This project is built with:
+* Buby 2.4.3
+* Rails 5.0.0.1
+* Slim instead of ERB or haml or ...
+* Postgres 9.x
+* Bootstrap 4.something
+* Capybara, selenium and chrome-headless for testing
