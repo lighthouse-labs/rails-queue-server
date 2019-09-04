@@ -121,7 +121,7 @@ group :test do
   gem 'capybara'
   # https://robots.thoughtbot.com/headless-feature-specs-with-chrome
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
+  gem 'webdrivers', '~> 4.0'
   gem 'email_spec'
   # gem 'shoulda-matchers' # not ready for 4.1
 
