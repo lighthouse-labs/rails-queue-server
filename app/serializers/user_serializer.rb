@@ -1,5 +1,7 @@
 class UserSerializer < ActiveModel::Serializer
 
+  # for #avatar_url to work, since it assumes image_path will work
+  include ActionView::Helpers::AssetTagHelper
   include AvatarHelper
 
   format_keys :lower_camel

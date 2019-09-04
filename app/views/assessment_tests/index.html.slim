@@ -26,8 +26,6 @@ h2 = cohort.name
 
 h3 Proctologist Dashboards
 
-p = link_to 'Mock Test', url_for_proctologist('web-01', cohort)
+- exam_codes.each do |exam|
+  p = link_to exam[:name], url_for_proctologist(exam[:code], cohort)
 
-p = link_to 'Real Test', url_for_proctologist('web-main', cohort)
-
-p = link_to 'Rest Test (Rollovers)', url_for_proctologist('web-02b', cohort)
