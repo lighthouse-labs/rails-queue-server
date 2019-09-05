@@ -210,7 +210,7 @@ Note*: creating an new issue automatically adds a card to the github projects. I
 
 ## Linter
 
-We also have the `rubocop` gem to lint locally, which can be run with `bundle exec rubocop`. To automatically fix simple lint errors such as indentation and white spacing, you can use `bundle exec rubocop -a`, however, there is some risk with this.
+We also have the `rubocop` gem to lint locally, which can be run with `bin/rubocop`. To automatically fix simple lint errors such as indentation and white spacing, you can use `bin/rubocop -a`, however, there is some risk with this.
 
 ## Testing
 
