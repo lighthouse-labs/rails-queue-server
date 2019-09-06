@@ -1,6 +1,7 @@
 class TeachersController < ApplicationController
 
   before_action :load_teacher, except: [:index]
+  DEFAULT_PER = 10
 
   def index
     @locations = Location.all.order(:name)
@@ -12,6 +13,7 @@ class TeachersController < ApplicationController
                     @teachers.where(location_id: @location.id)
                   end
     end
+    @paginated_teachers = @teachers.page(params[:page]).per(DEFAULT_PER)
   end
 
   def feedback
