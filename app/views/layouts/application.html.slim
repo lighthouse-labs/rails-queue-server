@@ -54,7 +54,9 @@ html
               - if current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student) && current_user.active_student?)
                 = render "layouts/teachers_holder"
               = render "layouts/reconnect_holder"
-            == yield
+
+            .main-content-view
+              == yield
         - else
           .content.col-12.py-5.px-4
             == render 'layouts/messages'
