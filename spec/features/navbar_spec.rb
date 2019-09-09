@@ -17,9 +17,9 @@ describe 'Navbar', type: :feature, js: true do
   end
 
   context "when the student is logged in" do
-    describe "valid links in the navbar" do
+    describe "with valid links in the navbar" do
       let(:cohort) { create :cohort }
-      let(:student) { create :student, cohort: cohort, uid: GITHUB_OAUTH_HASH['uid'] }
+      let(:student) { create :student, cohort: cohort, uid: GITHUB_OAUTH_HASH['uid'], github_education_action: 'skipped', github_education_action_at: Time.current }
       before :each do
         student
         visit github_session_path
