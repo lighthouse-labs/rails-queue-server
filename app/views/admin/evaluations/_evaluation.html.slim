@@ -7,8 +7,19 @@
     td.details
       = evaluation_presenter.teacher_info
     td
-      = evaluation_presenter.project(include_link = true)
-    td
       = evaluation_presenter.stats
     td
-      = evaluation.created_at.to_date
+      - if (CurriculumDay.new(evaluation.created_at.to_date, evaluation.student.cohort)<=>evaluation.project.end_day) > 0
+        span.badge.badge-danger title= "#{(evaluation.created_at.to_date - CurriculumDay.new(evaluation.project.end_day, evaluation.student.cohort).date).to_i.to_s} days late" data-toggle="tooltip"
+         = CurriculumDay.new(evaluation.created_at.to_date, evaluation.student.cohort).to_s
+      - elsif (CurriculumDay.new(evaluation.created_at.to_date, evaluation.student.cohort)<=>evaluation.project.end_day) < 0
+        span.badge.badge-success title= "#{(CurriculumDay.new(evaluation.project.end_day, evaluation.student.cohort).date - evaluation.created_at.to_date).to_i.to_s} days early" data-toggle="tooltip"
+         = CurriculumDay.new(evaluation.created_at.to_date, evaluation.student.cohort).to_s
+      - else
+        span.badge.badge-warning title= "On time" data-toggle="tooltip"
+         = CurriculumDay.new(evaluation.created_at.to_date, evaluation.student.cohort).to_s
+      br
+      small
+        = evaluation.created_at.to_date
+    td
+      = evaluation_presenter.project(include_link = true)

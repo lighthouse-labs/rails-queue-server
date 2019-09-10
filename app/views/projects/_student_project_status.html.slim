@@ -17,9 +17,5 @@
   - elsif project_evaluation.status == "Rejected"
     span.badge.badge-danger title="#{time_ago_in_words(project_evaluation.completed_at)} ago" data-toggle="tooltip"
       = "Rejected"
-    br
-    small
-      = time_ago_in_words(project_evaluation.completed_at)
-      | &nbsp;ago
 - else
   span.badge.badge-warning Not Submitted
