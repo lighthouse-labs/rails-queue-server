@@ -1,7 +1,7 @@
 class TeachersController < ApplicationController
 
   before_action :load_teacher, except: [:index]
-  DEFAULT_PER = 10
+  DEFAULT_PER = 30
 
   def index
     @locations = Location.all.order(:name)
