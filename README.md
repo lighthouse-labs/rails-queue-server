@@ -200,7 +200,7 @@ Note*: creating an new issue automatically adds a card to the github projects. I
   * Paste the relevant contents from the CHANGELOG.md file for the release notes. ([Example](https://github.com/lighthouse-labs/compass/releases/tag/v2.0.2))
 6. Push your local master to production: `git push compass2 master`
   * which points to remote: `dokku@compass.lighthouselabs.ca:compass2`
-7. If there are migrations: SSH into VM and run migrations: `dokku run compass2 bundle exec rake db:migrate; dokku ps:restart compass2`
+7. If there are migrations: SSH into VM and run migrations: `dokku run compass2 bin/rake db:migrate; dokku ps:restart compass2`
 8. Let Ed Ops folks know about the deployment (`web-ed-ops-vancouver@lighthouselabs.ca` and `web-ed-ops-toronto@lighthouselabs.ca`)
 9. Let all (web bootcamp) teachers know about the deployment by pasting the link to the release on GitHub on #web-curriculum in Slack
 
@@ -210,21 +210,21 @@ Note*: creating an new issue automatically adds a card to the github projects. I
 
 ## Linter
 
-We also have the `rubocop` gem to lint locally, which can be run with `bundle exec rubocop`. To automatically fix simple lint errors such as indentation and white spacing, you can use `bundle exec rubocop -a`, however, there is some risk with this.
+We also have the `rubocop` gem to lint locally, which can be run with `bin/rubocop`. To automatically fix simple lint errors such as indentation and white spacing, you can use `bin/rubocop -a`, however, there is some risk with this.
 
 ## Testing
 
 **To run all tests:**
 
-`bundle exec rspec`
+`bin/rspec`
 
 **To run a specific file:**
 
-`bundle exec rspec ./spec/models/user_spec.rb`
+`bin/rspec ./spec/models/user_spec.rb`
 
 **To run a specific test:**
 
-`bundle exec rspec ./spec/models/user_spec.rb -e "User has a valid factory"`
+`bin/rspec ./spec/models/user_spec.rb -e "User has a valid factory"`
 
 **Note:** Use `HEADLESS=0` when running feature specs to see your browser in action (sometimes useful for debugging or just plain entertainment).
 

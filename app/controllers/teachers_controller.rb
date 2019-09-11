@@ -1,10 +1,11 @@
 class TeachersController < ApplicationController
 
   before_action :load_teacher, except: [:index]
+  DEFAULT_PER = 30
 
   def index
     @locations = Location.all.order(:name)
-    @teachers  = Teacher.all
+    @teachers  = Teacher.active.all
     if params[:location_id] && @location = Location.find_by(id: params[:location_id])
       @teachers = if @location.satellite? && @supporting_location = @location.supported_by_location
                     @teachers.where(location_id: [@location.id, @supporting_location.id])
@@ -12,6 +13,7 @@ class TeachersController < ApplicationController
                     @teachers.where(location_id: @location.id)
                   end
     end
+    @paginated_teachers = @teachers.page(params[:page]).per(DEFAULT_PER)
   end
 
   def feedback
@@ -38,7 +40,7 @@ class TeachersController < ApplicationController
   private
 
   def load_teacher
-    @teacher = Teacher.find(params[:id])
+    @teacher = Teacher.active.find(params[:id])
   end
 
 end
