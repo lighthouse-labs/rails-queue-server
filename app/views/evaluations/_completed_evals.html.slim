@@ -11,7 +11,6 @@
               th Status
               th Marker
               th Date Submitted
-              th Evaluated
               th 
           tbody
             - @all_completed_evaluations.each do |eval|
@@ -22,21 +21,7 @@
                   td
                     = evaluation_presenter.teacher_info
                   td
-                    - if (CurriculumDay.new(eval.created_at.to_date, eval.student.cohort)<=>eval.project.end_day) > 0
-                      span.badge.badge-danger title= submission_relative_to_due(eval) data-toggle="tooltip"
-                       = CurriculumDay.new(eval.created_at.to_date, eval.student.cohort).to_s
-                    - elsif (CurriculumDay.new(eval.created_at.to_date, eval.student.cohort)<=>eval.project.end_day) < 0
-                      span.badge.badge-success title= submission_relative_to_due(eval) data-toggle="tooltip"
-                       = CurriculumDay.new(eval.created_at.to_date, eval.student.cohort).to_s
-                    - else
-                      span.badge.badge-warning title= "On time" data-toggle="tooltip"
-                       = CurriculumDay.new(eval.created_at.to_date, eval.student.cohort).to_s
-                    br
-                    small
-                      = eval.created_at.to_date
-                  td
-                    small 
-                      = eval.completed_at.to_s(:short_friendly)
+                    = evaluation_presenter.date_submitted
                   td
                     = link_to eval.github_url, target: '_blank', class: 'btn btn-xs btn-success', title: 'Github Repo', data: { toggle: "tooltip" } do
                       i.fab.fa-github
