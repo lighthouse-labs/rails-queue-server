@@ -9,9 +9,7 @@ class EvaluationPresenter < BasePresenter
   def project_status
     result = render('projects/student_project_status', project_evaluation: evaluation)
     result += tag('br')
-    if evaluation.completed_at
-      result += content_tag(:small, "#{time_ago_in_words(evaluation.completed_at)} ago")
-    end
+    result += content_tag(:small, "#{time_ago_in_words(evaluation.completed_at)} ago") if evaluation.completed_at
     content_tag(:div, result)
   end
 

@@ -24,5 +24,4 @@ describe Cohort do
   it "is valid without weekdays when full time" do
     expect(build(:cohort, weekdays: nil)).to be_valid
   end
-
 end
