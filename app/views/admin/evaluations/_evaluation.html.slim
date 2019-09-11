@@ -10,10 +10,10 @@
       = evaluation_presenter.stats
     td
       - if (CurriculumDay.new(evaluation.created_at.to_date, evaluation.student.cohort)<=>evaluation.project.end_day) > 0
-        span.badge.badge-danger title= "#{(evaluation.created_at.to_date - CurriculumDay.new(evaluation.project.end_day, evaluation.student.cohort).date).to_i.to_s} days late" data-toggle="tooltip"
+        span.badge.badge-danger title= submission_relative_to_due(evaluation) data-toggle="tooltip"
          = CurriculumDay.new(evaluation.created_at.to_date, evaluation.student.cohort).to_s
       - elsif (CurriculumDay.new(evaluation.created_at.to_date, evaluation.student.cohort)<=>evaluation.project.end_day) < 0
-        span.badge.badge-success title= "#{(CurriculumDay.new(evaluation.project.end_day, evaluation.student.cohort).date - evaluation.created_at.to_date).to_i.to_s} days early" data-toggle="tooltip"
+        span.badge.badge-success title= submission_relative_to_due(evaluation) data-toggle="tooltip"
          = CurriculumDay.new(evaluation.created_at.to_date, evaluation.student.cohort).to_s
       - else
         span.badge.badge-warning title= "On time" data-toggle="tooltip"

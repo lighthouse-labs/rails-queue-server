@@ -201,4 +201,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  helper_method :submission_relative_to_due
+
+  def submission_relative_to_due(evaluation)
+    days = evaluation.created_at.to_date - CurriculumDay.new(evaluation.project.end_day, evaluation.student.cohort).date
+    if (days > 0)
+      "#{days.to_i.to_s} days late"
+    else
+      "#{days.to_i.abs.to_s} days early"
+    end
+  end
+
 end
