@@ -132,6 +132,8 @@ class Content::LoadActivity
           'LecturePlan'
         when 'breakout'
           'LecturePlan'
+        when 'test'
+          'TestActivity'
         else
           # make sure this is a valid Activity type, and if so, roll with it
           t.strip.gsub(/\s+/, '_').classify

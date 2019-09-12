@@ -1,0 +1,2 @@
+class TestActivityPresenter < ActivityPresenter
+end
