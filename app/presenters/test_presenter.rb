@@ -1,2 +1,0 @@
-class TestPresenter < ActivityPresenter
-end

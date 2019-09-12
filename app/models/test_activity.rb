@@ -1,4 +1,4 @@
-class Test < Activity
+class TestActivity < Activity
 
   belongs_to :programming_test
 
