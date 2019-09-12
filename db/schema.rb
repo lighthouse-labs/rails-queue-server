@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20191002160813) do
     t.integer  "sequence"
     t.text     "instructions"
     t.boolean  "stretch"
+    t.integer  "programming_test_id"
     t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
     t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
     t.index ["section_id"], name: "index_activities_on_section_id", using: :btree
@@ -433,6 +434,14 @@ ActiveRecord::Schema.define(version: 20191002160813) do
     t.index ["user_id"], name: "index_prep_assistance_requests_on_user_id", using: :btree
   end
 
+  create_table "programming_tests", force: :cascade do |t|
+    t.string   "exam_code"
+    t.string   "uuid"
+    t.json     "config"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "programs", force: :cascade do |t|
     t.string   "name"
     t.text     "lecture_tips"
@@ -738,6 +747,7 @@ ActiveRecord::Schema.define(version: 20191002160813) do
     t.index ["uuid"], name: "index_workbooks_on_uuid", unique: true, using: :btree
   end
 
+  add_foreign_key "activities", "programming_tests"
   add_foreign_key "activities", "quizzes"
   add_foreign_key "activity_answers", "activities"
   add_foreign_key "activity_answers", "users"
