@@ -15,6 +15,8 @@ class Content::LoadActivity
 
     # QUIZ
     quiz = load_quiz if quiz?
+    # Test
+    programming_test = load_programming_test if test?
 
     # ACTIVITY
     activity = Activity.find_or_initialize_by(uuid: uuid)
@@ -27,6 +29,11 @@ class Content::LoadActivity
       activity.quiz = quiz if quiz
     end
 
+    if test?
+      activity = activity.becomes TestActivity
+      activity.programming_test = programming_test if programming_test
+    end
+
     @records.push activity
     activity
   end
@@ -35,6 +42,10 @@ class Content::LoadActivity
 
   def quiz?
     @data['type'] == 'Quiz'
+  end
+
+  def test?
+    @data['type'] == 'Test'
   end
 
   # There's intentionally no AR mass assignment
@@ -148,6 +159,10 @@ class Content::LoadActivity
 
   def load_quiz
     Content::LoadQuiz.call(repo: @repo, log: @log, data: @data, records: @records).quiz
+  end
+
+  def load_programming_test
+    Content::LoadProgrammingTest.call(repo: @repo, log: @log, data: @data, records: @records).programming_test
   end
 
 end
