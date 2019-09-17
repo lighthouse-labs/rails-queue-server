@@ -9,6 +9,4 @@ class RevertTransitionChanges < ActiveRecord::Migration[5.0]
     rename_column :activities, :schedule2_sequence, :sequence if ActiveRecord::Base.connection.column_exists?(:activities, :schedule2_sequence)
     rename_column :activities, :schedule2, :day if ActiveRecord::Base.connection.column_exists?(:activities, :schedule2)
   end
-
-
 end
