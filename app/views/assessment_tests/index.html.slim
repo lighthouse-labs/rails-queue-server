@@ -26,6 +26,6 @@ h2 = cohort.name
 
 h3 Proctologist Dashboards
 
-- exam_codes.each do |exam|
-  p = link_to exam[:name], url_for_proctologist(exam[:code], cohort)
+- programming_tests.each do |programming_test|
+  p = link_to programming_test[:name], url_for_proctologist(programming_test[:exam_code], cohort)
 
