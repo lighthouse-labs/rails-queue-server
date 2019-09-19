@@ -13,6 +13,16 @@ class SubmitActivityWithFeedback
       context.fail!
     end
 
+    if @fields.time_spent.to_i >= 2400
+      context.errors << "It is impossible for you to have spent that much time!"
+      context.fail!
+    end
+
+    if @fields.time_spent.to_i < 0
+      context.errors << "An activity cannot take negative time!"
+      context.fail!
+    end
+
     handle_code_eval
 
     if @activity_submission.save
