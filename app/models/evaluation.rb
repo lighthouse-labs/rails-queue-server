@@ -155,6 +155,14 @@ class Evaluation < ApplicationRecord
     Evaluation.where("project_id = ? AND student_id = ? AND state = ?", project_id, student_id, "rejected").count > 0
   end
 
+  def days_late
+    created_at.to_date - CurriculumDay.new(project.end_day, student.cohort).date
+  end
+
+  def completion_day
+    completed_at.to_date.to_s
+  end
+
   private_class_method :transition_class
 
   def self.initial_state
