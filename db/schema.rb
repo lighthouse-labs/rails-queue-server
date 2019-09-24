@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190924223620) do
+ActiveRecord::Schema.define(version: 20190924235328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -483,21 +483,6 @@ ActiveRecord::Schema.define(version: 20190924223620) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
-  end
-
-  create_table "recordings", force: :cascade do |t|
-    t.string   "file_name"
-    t.datetime "recorded_at"
-    t.integer  "presenter_id"
-    t.integer  "cohort_id"
-    t.integer  "activity_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "program_id"
-    t.string   "title"
-    t.string   "presenter_name"
-    t.string   "file_type"
-    t.boolean  "archived"
   end
 
   create_table "sections", force: :cascade do |t|
