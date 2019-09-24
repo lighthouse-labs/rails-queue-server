@@ -5,7 +5,6 @@ class Cohort < ApplicationRecord
 
   has_many :students
   has_many :rolled_out_students, foreign_key: 'initial_cohort_id', class_name: 'Student'
-  has_many :recordings
   has_many :tech_interviews
   # only supports one break per cohort
   has_one :curriculum_break

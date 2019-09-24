@@ -106,7 +106,6 @@ LaserShark::Application.routes.draw do
   resources :activities, only: [:index, :show] do
     resource :activity_submission, only: [:create, :destroy]
     resource :submission_with_feedback, only: [:create], controller: 'activity_submission_with_feedback'
-    resources :recordings, only: [:new, :create]
     resources :answers, only: [:update, :index], controller: 'activity_answers'
     resources :activity_feedbacks, only: [:index] do
       collection do
@@ -124,8 +123,6 @@ LaserShark::Application.routes.draw do
   end
 
   resources :code_reviews, only: [:index, :show, :new, :create]
-
-  resources :recordings
 
   resources :streams, only: [:index, :show]
 
