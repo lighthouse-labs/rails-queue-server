@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190919183814) do
+ActiveRecord::Schema.define(version: 20191002160813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,9 +22,7 @@ ActiveRecord::Schema.define(version: 20190919183814) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
-    t.string   "day"
     t.string   "gist_url"
-    t.text     "instructions"
     t.text     "teacher_notes"
     t.string   "file_name"
     t.boolean  "allow_submissions",         default: true
@@ -40,8 +38,6 @@ ActiveRecord::Schema.define(version: 20190919183814) do
     t.string   "uuid"
     t.text     "initial_code"
     t.text     "test_code"
-    t.integer  "sequence"
-    t.boolean  "stretch"
     t.boolean  "archived"
     t.float    "average_rating"
     t.integer  "average_time_spent"
@@ -50,12 +46,21 @@ ActiveRecord::Schema.define(version: 20190919183814) do
     t.boolean  "advanced_topic"
     t.string   "background_image_url"
     t.string   "background_image_darkness"
+    t.string   "schedule1"
+    t.string   "day"
+    t.string   "schedule3"
+    t.integer  "schedule1_sequence"
+    t.integer  "sequence"
+    t.integer  "schedule3_sequence"
+    t.text     "schedule1_body"
+    t.text     "instructions"
+    t.text     "schedule3_body"
+    t.boolean  "schedule1_stretch"
+    t.boolean  "stretch"
+    t.boolean  "schedule3_stretch"
     t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
-    t.index ["day"], name: "index_activities_on_day", using: :btree
     t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
-    t.index ["section_id", "stretch"], name: "index_activities_on_section_id_and_stretch", using: :btree
     t.index ["section_id"], name: "index_activities_on_section_id", using: :btree
-    t.index ["sequence"], name: "index_activities_on_sequence", using: :btree
     t.index ["start_time"], name: "index_activities_on_start_time", using: :btree
     t.index ["uuid"], name: "index_activities_on_uuid", unique: true, using: :btree
   end
@@ -211,6 +216,7 @@ ActiveRecord::Schema.define(version: 20190919183814) do
     t.string   "weekdays"
     t.text     "disable_queue_days",     default: [], null: false, array: true
     t.boolean  "local_assistance_queue"
+    t.string   "schedule"
     t.index ["location_id"], name: "index_cohorts_on_location_id", using: :btree
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
     t.index ["start_date"], name: "index_cohorts_on_start_date", using: :btree
@@ -224,6 +230,8 @@ ActiveRecord::Schema.define(version: 20190919183814) do
     t.string   "last_sha"
     t.string   "github_branch",   default: "master"
     t.integer  "program_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_content_repositories_on_deleted_at", using: :btree
     t.index ["program_id"], name: "index_content_repositories_on_program_id", using: :btree
   end
 
@@ -495,11 +503,13 @@ ActiveRecord::Schema.define(version: 20190919183814) do
   end
 
   create_table "quizzes", force: :cascade do |t|
-    t.string   "day"
     t.string   "uuid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
+    t.string   "schedule1"
+    t.string   "day"
+    t.string   "schedule3"
   end
 
   create_table "recordings", force: :cascade do |t|
@@ -528,9 +538,7 @@ ActiveRecord::Schema.define(version: 20190919183814) do
     t.text     "description"
     t.string   "content_file_path"
     t.integer  "content_repository_id"
-    t.string   "start_day"
     t.text     "blurb"
-    t.string   "end_day"
     t.string   "image"
     t.boolean  "evaluated"
     t.string   "last_sha1"
@@ -540,6 +548,12 @@ ActiveRecord::Schema.define(version: 20190919183814) do
     t.text     "teacher_notes"
     t.boolean  "archived"
     t.boolean  "stretch"
+    t.string   "schedule1_start"
+    t.string   "schedule1_end"
+    t.string   "start_day"
+    t.string   "end_day"
+    t.string   "schedule3_start"
+    t.string   "schedule3_end"
     t.string   "background_image_url"
     t.string   "background_image_darkness"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
@@ -596,7 +610,6 @@ ActiveRecord::Schema.define(version: 20190919183814) do
 
   create_table "tech_interview_templates", force: :cascade do |t|
     t.string   "uuid"
-    t.integer  "week"
     t.string   "content_file_path"
     t.integer  "content_repository_id"
     t.text     "description"
@@ -604,6 +617,9 @@ ActiveRecord::Schema.define(version: 20190919183814) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.boolean  "archived"
+    t.integer  "schedule1_week"
+    t.integer  "week"
+    t.integer  "schedule3_week"
     t.index ["content_repository_id"], name: "index_tech_interview_templates_on_content_repository_id", using: :btree
   end
 
