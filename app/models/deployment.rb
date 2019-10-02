@@ -1,6 +1,6 @@
 class Deployment < ApplicationRecord
 
-  belongs_to :content_repository
+  belongs_to :content_repository, -> { with_deleted }
   default_scope -> { order(created_at: :desc) }
 
   def prev
