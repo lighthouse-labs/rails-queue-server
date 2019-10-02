@@ -156,7 +156,7 @@ class Evaluation < ApplicationRecord
   end
 
   def days_late
-    created_at.to_date - CurriculumDay.new(project.end_day, student.cohort).date
+    created_at.to_date - CurriculumDay.new(project.end_day, student.cohort).date if student&.cohort
   end
 
   def completion_day
