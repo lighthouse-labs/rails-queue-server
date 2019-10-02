@@ -12,11 +12,9 @@ class EvaluationPresenter < BasePresenter
     if evaluation.completed_at?
       if evaluation&.student&.cohort
         curriculum_day = CurriculumDay.new(evaluation.completed_at.to_date, evaluation.student.cohort).to_s
-        completed = evaluation.completion_day
-        result += content_tag(:span, curriculum_day, class: 'badge badge-success', 'data-toggle': 'tooltip', 'title': "#{time_ago_in_words(evaluation.completed_at)} ago")
+        result += content_tag(:span, curriculum_day, class: 'badge badge-light')
         result += tag('br')
       end
-      result += content_tag(:small, completed)
     end
 
     content_tag(:div, result)
@@ -31,10 +29,12 @@ class EvaluationPresenter < BasePresenter
                   content_tag(:span, curriculum_day, class: 'badge badge-danger', 'data-toggle': 'tooltip', 'title': "#{days_late.to_i} days late")
                 elsif days_late < 0
                   content_tag(:span, curriculum_day, class: 'badge badge-success', 'data-toggle': 'tooltip', 'title': "#{days_late.to_i.abs} days early")
+                else
+                  content_tag(:span, curriculum_day, class: 'badge badge-primary', 'data-toggle': 'tooltip', 'title': "on time")
                 end
       result += tag('br')
     end
-    result += content_tag(:small, evaluation.created_at.to_date)
+    result += content_tag(:span, evaluation.created_at.to_date, class: 'badge badge-light')
     result.html_safe
   end
 
