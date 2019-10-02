@@ -120,7 +120,6 @@ ActiveRecord::Schema.define(version: 20191002160813) do
     t.boolean  "finalized",               default: false
     t.text     "code_evaluation_results"
     t.integer  "time_spent"
-    t.text     "note"
     t.integer  "cohort_id"
     t.index ["activity_id"], name: "index_activity_submissions_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_activity_submissions_on_cohort_id", using: :btree
