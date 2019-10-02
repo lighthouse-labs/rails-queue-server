@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190919183814) do
+ActiveRecord::Schema.define(version: 20191002160813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,6 +221,8 @@ ActiveRecord::Schema.define(version: 20190919183814) do
     t.string   "last_sha"
     t.string   "github_branch",   default: "master"
     t.integer  "program_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_content_repositories_on_deleted_at", using: :btree
     t.index ["program_id"], name: "index_content_repositories_on_program_id", using: :btree
   end
 
