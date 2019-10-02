@@ -6,9 +6,9 @@ class EvaluationPresenter < BasePresenter
     content_tag(:div, render('shared/student_info', student: evaluation.student, show_cohort: true), class: 'student-info') if evaluation.student
   end
 
-  def project_status
+  def project_status(layout = 'default')
     result = render('projects/student_project_status', project_evaluation: evaluation)
-    result += tag('br')
+    result += tag('br') if layout != 'inline'
     if evaluation.completed_at?
       if evaluation&.student&.cohort
         curriculum_day = CurriculumDay.new(evaluation.completed_at.to_date, evaluation.student.cohort).to_s
@@ -20,7 +20,7 @@ class EvaluationPresenter < BasePresenter
     content_tag(:div, result)
   end
 
-  def date_submitted
+  def date_submitted(layout = 'default')
     result = ""
     if evaluation&.student&.cohort
       days_late = evaluation.days_late
@@ -32,7 +32,7 @@ class EvaluationPresenter < BasePresenter
                 else
                   content_tag(:span, curriculum_day, class: 'badge badge-primary', 'data-toggle': 'tooltip', 'title': "on time")
                 end
-      result += tag('br')
+      result += tag('br') if layout != 'inline'
     end
     result += content_tag(:span, evaluation.created_at.to_date, class: 'badge badge-light')
     result.html_safe
