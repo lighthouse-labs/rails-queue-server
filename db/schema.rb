@@ -418,8 +418,8 @@ ActiveRecord::Schema.define(version: 20191011163600) do
   end
 
   create_table "programming_tests", force: :cascade do |t|
-    t.string   "exam_code"
-    t.string   "uuid"
+    t.string   "exam_code",  null: false
+    t.string   "uuid",       null: false
     t.json     "config"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
