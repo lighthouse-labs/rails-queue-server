@@ -1,7 +1,5 @@
-- present evaluation, EvaluationPresenter do |evaluation_presenter|
+- present my_evaluation, EvaluationPresenter do |evaluation_presenter|
   tr
-    td
-      = evaluation_presenter.student_info
     td
       = evaluation_presenter.project_status
     td.details
@@ -14,4 +12,3 @@
       = evaluation_presenter.project(include_link = true)
        - if my_evaluation.cancellable?
         = link_to 'Cancel', cancel_project_evaluation_path(@project, eval), class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' }
-
