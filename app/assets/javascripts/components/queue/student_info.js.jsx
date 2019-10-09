@@ -63,9 +63,9 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
         </a>
         <div className="info">
           <div className="name">
-            {student.firstName} {student.lastName}
+            {student.firstName} {student.lastName} {this.pronoun(student)}
             <br />
-            {this.pronoun(student)}
+            <Queue.SocialIcons user={student} />
           </div>
           {this.renderDetails()}
         </div>
