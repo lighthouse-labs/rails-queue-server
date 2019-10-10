@@ -75,7 +75,7 @@ class CurriculumDay
     if program.curriculum_unlocking == 'weekly'
       # Allowing access on Sunday night as well.
       next_weekend = CurriculumDay.new(DateTime.now.sunday + 6.days, @cohort)
-      unlocked_based_on_current_week? || unlocked_based_on_year? || unlocked_based_on_sunday_night?(timezone, next_weekend) || unlock_based_on_last_week_of_year
+      unlocked_based_on_current_week? || unlocked_based_on_year? || unlocked_based_on_sunday_night?(timezone, next_weekend) || unlock_based_on_last_week_of_year?
     else # assume daily
       date <= today.date
     end
@@ -85,7 +85,7 @@ class CurriculumDay
     date.cweek <= today.date.cweek && date.year <= today.date.year
   end
 
-  def unlock_based_on_last_week_of_year
+  def unlock_based_on_last_week_of_year?
     # force week 53 for last few days of dec if ruby logic does not
     week = today.date.cweek
     month = today.date.month
