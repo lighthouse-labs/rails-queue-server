@@ -8,6 +8,8 @@ class QueueStudentSerializer < ActiveModel::Serializer
              :first_name,
              :last_name,
              :avatar_url,
+             :email,
+             :slack,
              :github_username,
              :last_assisted_at,
              :pronoun

@@ -7,12 +7,21 @@ class SocialIcon extends React.Component {
     url: PropTypes.string,
   }
 
+  componentDidMount() {
+    window.$('[data-toggle="tooltip"]').tooltip();
+  }
   render() {
     const { company, handle, url } = this.props;
     const iconSet = company == 'inbox' ? 'fas' : 'fab';
     return (
       <li className="list-inline-item">
-        <a href={url || '#'} target={url ? '_blank' : ''} datatoggle="tooltip" title={handle}>
+        <a
+          href={url || '#'}
+          target={url ? '_blank' : ''}
+          data-toggle="tooltip"
+          title={handle}
+          ref={handle}
+        >
           <span className="fa-stack fa-lg" style={{ fontSize: '0.9em' }}>
             <i className="far fa-square fa-stack-2x" />
             <i className={`${iconSet} fa-${company} fa-stack-1x`} style={{ top: -1 }} />
@@ -30,20 +39,20 @@ window.Queue.SocialIcons = class SocialIcons extends React.Component {
 
   render() {
     const user = this.props.user;
-
+// console.log('user :', user);
     return(
       <ul className="list-inline social-icons">
-        <SocialIcon
+        {user.email && <SocialIcon
           handle={user.email}
           company="inbox"
           url={`mailto:${user.email}`}
-        />
-        <SocialIcon
-          handle={user.github_username}
+        />}
+        {user.githubUsername && <SocialIcon
+          handle={user.githubUsername}
           company="github"
-          url={`https://github.com/${user.github_username}`}
-        />
-        <SocialIcon handle={user.slack} company="slack" />
+          url={`https://github.com/${user.githubUsername}`}
+        />}
+        {user.slack && <SocialIcon handle={user.slack} company="slack" />}
       </ul>
     )
   }
