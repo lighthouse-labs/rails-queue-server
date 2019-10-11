@@ -84,7 +84,7 @@ class EvaluationPresenter < BasePresenter
   end
 
   def view_button
-    link_to 'View', project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-info btn-xs'
+    link_to 'View', project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-info btn-sm'
   end
 
   def state_marking_button
@@ -96,11 +96,11 @@ class EvaluationPresenter < BasePresenter
   end
 
   def start_marking_button
-    link_to "Start Marking", start_marking_project_evaluation_path(evaluation.project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
+    link_to "Start Marking", start_marking_project_evaluation_path(evaluation.project, evaluation), method: :put, class: 'btn btn-primary btn-sm'
   end
 
   def continue_marking_button
-    link_to "Continue Marking", edit_project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-primary btn-xs'
+    link_to "Continue Marking", edit_project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-primary btn-sm'
   end
 
   def eval_options_hash(title, value)
