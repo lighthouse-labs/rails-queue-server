@@ -84,24 +84,6 @@ ActiveRecord::Schema.define(version: 20191002160813) do
     t.index ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
   end
 
-  create_table "activity_messages", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "cohort_id"
-    t.integer  "activity_id"
-    t.string   "kind",          limit: 50
-    t.string   "day",           limit: 5
-    t.string   "subject",       limit: 1000
-    t.text     "body"
-    t.text     "teacher_notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "archived"
-    t.index ["activity_id"], name: "index_activity_messages_on_activity_id", using: :btree
-    t.index ["cohort_id"], name: "index_activity_messages_on_cohort_id", using: :btree
-    t.index ["day"], name: "index_activity_messages_on_day", using: :btree
-    t.index ["user_id"], name: "index_activity_messages_on_user_id", using: :btree
-  end
-
   create_table "activity_submissions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "activity_id"
@@ -499,21 +481,6 @@ ActiveRecord::Schema.define(version: 20191002160813) do
     t.datetime "updated_at", null: false
     t.string   "name"
     t.string   "day"
-  end
-
-  create_table "recordings", force: :cascade do |t|
-    t.string   "file_name"
-    t.datetime "recorded_at"
-    t.integer  "presenter_id"
-    t.integer  "cohort_id"
-    t.integer  "activity_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "program_id"
-    t.string   "title"
-    t.string   "presenter_name"
-    t.string   "file_type"
-    t.boolean  "archived"
   end
 
   create_table "sections", force: :cascade do |t|

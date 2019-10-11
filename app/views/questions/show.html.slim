@@ -35,7 +35,7 @@ article.page-content
       - @question.options.each_with_index do |option, index|
         div class="panel panel-#{option.correct? ? 'success' : 'default'}"
           .panel-heading.text-right.clearfix
-            b.pull-left = "Option #{index + 1} "
+            b.float-left = "Option #{index + 1} "
             - if option.correct?
               span.badge.badge-success correct answer
             .small = "Selected #{option.answers.joins(:quiz_submission).where(quiz_submissions: { initial: true }).count} times"

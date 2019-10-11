@@ -1,5 +1,14 @@
 # Change Log
 
+## [2019.10.02.1700u](https://github.com/lighthouse-labs/compass/tree/2019.10.02.1700u) (2019-10-02)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.09.23.1500u...2019.10.02.1700u)
+
+**Merged pull requests:**
+
+- Content Repos can now be soft destroyed [\#935](https://github.com/lighthouse-labs/compass/pull/935) ([kvirani](https://github.com/kvirani))
+- 707 drop activity submissions note [\#933](https://github.com/lighthouse-labs/compass/pull/933) ([tborsa](https://github.com/tborsa))
+- Reverse Transition - Phase 2 - Remove Unneeded Columns [\#931](https://github.com/lighthouse-labs/compass/pull/931) ([jmatsuba](https://github.com/jmatsuba))
+
 ## [2019.09.23.1500u](https://github.com/lighthouse-labs/compass/tree/2019.09.23.1500u) (2019-09-19)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.09.09.1140u...2019.09.23.1500u)
 
