@@ -1,5 +1,50 @@
 # Change Log
 
+## [2019.10.11.1930u](https://github.com/lighthouse-labs/compass/tree/2019.10.11.1930u) (2019-10-11)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.02.1700u...2019.10.11.1930u)
+
+**Merged pull requests:**
+
+- Support for darkness gradient on activity/project BG image [\#947](https://github.com/lighthouse-labs/compass/pull/947) ([kvirani](https://github.com/kvirani))
+- Replaced bootstrap 3 pull-\(right/left\) to bootstrap 4's float [\#946](https://github.com/lighthouse-labs/compass/pull/946) ([hafbau](https://github.com/hafbau))
+- 680 remove activity messages files [\#934](https://github.com/lighthouse-labs/compass/pull/934) ([tborsa](https://github.com/tborsa))
+- Improve project eval UI \(tables and details\) [\#927](https://github.com/lighthouse-labs/compass/pull/927) ([tborsa](https://github.com/tborsa))
+
+## [2019.10.02.1700u](https://github.com/lighthouse-labs/compass/tree/2019.10.02.1700u) (2019-10-02)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.09.23.1500u...2019.10.02.1700u)
+
+**Merged pull requests:**
+
+- Content Repos can now be soft destroyed [\#935](https://github.com/lighthouse-labs/compass/pull/935) ([kvirani](https://github.com/kvirani))
+- 707 drop activity submissions note [\#933](https://github.com/lighthouse-labs/compass/pull/933) ([tborsa](https://github.com/tborsa))
+- Reverse Transition - Phase 2 - Remove Unneeded Columns [\#931](https://github.com/lighthouse-labs/compass/pull/931) ([jmatsuba](https://github.com/jmatsuba))
+
+## [2019.09.23.1500u](https://github.com/lighthouse-labs/compass/tree/2019.09.23.1500u) (2019-09-19)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.09.09.1140u...2019.09.23.1500u)
+
+**Merged pull requests:**
+
+- Reverse Transition - Phase 1 - Rename the columns [\#930](https://github.com/lighthouse-labs/compass/pull/930) ([jmatsuba](https://github.com/jmatsuba))
+- Disallow negative or high time\_spent values for completion [\#929](https://github.com/lighthouse-labs/compass/pull/929) ([tborsa](https://github.com/tborsa))
+- Fix \#920 Added pagination to teachers page [\#923](https://github.com/lighthouse-labs/compass/pull/923) ([tborsa](https://github.com/tborsa))
+
+## [2019.09.09.1140u](https://github.com/lighthouse-labs/compass/tree/2019.09.09.1140u) (2019-09-06)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.28.1030...2019.09.09.1140u)
+
+**Merged pull requests:**
+
+- use active scope when loading teachers [\#922](https://github.com/lighthouse-labs/compass/pull/922) ([kvirani](https://github.com/kvirani))
+- Fix 913 Fontawesome icon fix & 914 Remove Feedback Button [\#919](https://github.com/lighthouse-labs/compass/pull/919) ([tborsa](https://github.com/tborsa))
+- updated capybara, webdrivers, selenium gems [\#918](https://github.com/lighthouse-labs/compass/pull/918) ([kvirani](https://github.com/kvirani))
+- Fix broken specs [\#917](https://github.com/lighthouse-labs/compass/pull/917) ([kvirani](https://github.com/kvirani))
+- Added Validation so Part-Time Programs require 'weekdays' [\#916](https://github.com/lighthouse-labs/compass/pull/916) ([tborsa](https://github.com/tborsa))
+- Hardcoding in all the proctored exams [\#912](https://github.com/lighthouse-labs/compass/pull/912) ([daegren](https://github.com/daegren))
+- Add CSV API Endpoint for Tech interviews \(data analysis\) [\#911](https://github.com/lighthouse-labs/compass/pull/911) ([JBorts](https://github.com/JBorts))
+- Fix \#815: don't break grid by overriding max-width [\#909](https://github.com/lighthouse-labs/compass/pull/909) ([vaz](https://github.com/vaz))
+- Support for Username/Password \(OmniAuth Identity\) [\#908](https://github.com/lighthouse-labs/compass/pull/908) ([JBorts](https://github.com/JBorts))
+- Week 4-5 Archive Blacklist [\#903](https://github.com/lighthouse-labs/compass/pull/903) ([jmatsuba](https://github.com/jmatsuba))
+- Activity Time Spent Importer Fix [\#880](https://github.com/lighthouse-labs/compass/pull/880) ([jmatsuba](https://github.com/jmatsuba))
+
 ## [2019.06.28.1030](https://github.com/lighthouse-labs/compass/tree/2019.06.28.1030) (2019-06-28)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/transition-stable...2019.06.28.1030)
 

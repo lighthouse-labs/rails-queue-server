@@ -18,7 +18,7 @@ window.Queue.PendingEvaluation = class PendingEvaluation extends React.Component
 
   renderResubmissionLabel(evaluation) {
     if (evaluation.resubmission)  {
-      return (<span className="badge badge-warning badge-sm pull-right">resubmission</span>);
+      return (<span className="badge badge-warning badge-sm float-right">resubmission</span>);
     }
   }
 
@@ -42,7 +42,7 @@ window.Queue.PendingEvaluation = class PendingEvaluation extends React.Component
           {App.ReactUtils.renderQuote(evaluation.studentNotes, 300)}
         </div>
 
-        <div className="actions pull-right">
+        <div className="actions float-right">
           <a className="btn btn-sm btn-light" href={`/projects/${evaluation.project.slug}/evaluations/${evaluation.id}`}>View</a>
           <button className="btn btn-sm btn-secondary btn-main" disabled={disabled} onClick={this.handleStartEvaluating}>Start Evaluating</button>
         </div>

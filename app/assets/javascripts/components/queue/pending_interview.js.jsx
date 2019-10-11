@@ -15,7 +15,7 @@ window.Queue.PendingInterview = class PendingInterview extends React.Component {
         <Queue.StudentInfo  student={student}
                             showDetails={true} />
 
-        <div className="actions pull-right">
+        <div className="actions float-right">
           <button className="btn btn-sm btn-danger">Remove</button>
           <button className="btn btn-sm btn-primary">Start Interviewing</button>
         </div>
