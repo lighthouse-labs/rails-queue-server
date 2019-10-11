@@ -5,7 +5,7 @@ header.page-header
   h1 #{@interviewee.full_name}'s Week #{@interview_template.week} Tech Interview
 
 .interview-details.clearfix style="margin-bottom: 10px;"
-  .student-info.pull-left
+  .student-info.float-left
     = render 'shared/student_info', student: @tech_interview.interviewee
 
 p You are about to begin a tech interview with #{@interviewee.full_name}. Please review the questions below and find a room or quiet place to conduct it one-on-one.

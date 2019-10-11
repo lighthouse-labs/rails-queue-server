@@ -17,7 +17,7 @@ header.page-header
       | &nbsp;
       = link_to 'Edit', [:edit, :admin, @current_cohort], class: 'btn btn-warning'
       | &nbsp;
-      = link_to [:admin, :cohorts], class: 'btn btn-info pull-right' do
+      = link_to [:admin, :cohorts], class: 'btn btn-info float-right' do
         | &laquo; Cohort List
 
   = render 'admin/cohorts/stats', cohort: @current_cohort

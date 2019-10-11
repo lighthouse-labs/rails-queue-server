@@ -16,7 +16,7 @@ window.Queue.Student = class Student extends React.Component {
       <Queue.QueueItem type='Student'>
         <Queue.StudentInfo student={student} when={student.lastAssistedAt} showDetails={true} />
 
-        <div className="actions pull-right">
+        <div className="actions float-right">
           <button className="btn btn-sm btn-light btn-main" onClick={this.openModal}>Assistance / Note</button>
         </div>
 
