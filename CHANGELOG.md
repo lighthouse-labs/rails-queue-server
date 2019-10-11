@@ -1,5 +1,15 @@
 # Change Log
 
+## [2019.10.11.1930u](https://github.com/lighthouse-labs/compass/tree/2019.10.11.1930u) (2019-10-11)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.02.1700u...2019.10.11.1930u)
+
+**Merged pull requests:**
+
+- Support for darkness gradient on activity/project BG image [\#947](https://github.com/lighthouse-labs/compass/pull/947) ([kvirani](https://github.com/kvirani))
+- Replaced bootstrap 3 pull-\(right/left\) to bootstrap 4's float [\#946](https://github.com/lighthouse-labs/compass/pull/946) ([hafbau](https://github.com/hafbau))
+- 680 remove activity messages files [\#934](https://github.com/lighthouse-labs/compass/pull/934) ([tborsa](https://github.com/tborsa))
+- Improve project eval UI \(tables and details\) [\#927](https://github.com/lighthouse-labs/compass/pull/927) ([tborsa](https://github.com/tborsa))
+
 ## [2019.10.02.1700u](https://github.com/lighthouse-labs/compass/tree/2019.10.02.1700u) (2019-10-02)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.09.23.1500u...2019.10.02.1700u)
 
