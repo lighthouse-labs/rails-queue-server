@@ -33,6 +33,6 @@
                 = "#{time_ago_in_words(eval.cancelled_at)} ago"
 
           td
-            = link_to 'View', project_evaluation_path(@project, eval), class: 'btn btn-primary btn-xs'
+            = link_to 'View', project_evaluation_path(@project, eval), class: 'btn btn-primary btn-sm'
             - if eval.cancellable?
-              = link_to 'Cancel', cancel_project_evaluation_path(@project, eval), class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' }
+              = link_to 'Cancel', cancel_project_evaluation_path(@project, eval), class: 'btn btn-danger btn-sm', method: :delete, data: { confirm: 'Are you sure?' }

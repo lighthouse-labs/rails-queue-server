@@ -1,5 +1,5 @@
 - if interview && interview.completed?
-  = link_to "Completed (#{interview.day})", tech_interview_path(interview), class: 'btn btn-success btn-xs'
+  = link_to "Completed (#{interview.day})", tech_interview_path(interview), class: 'btn btn-success btn-sm'
 
 - elsif interview && interview.in_progress?
   .badge.badge-info In Progress

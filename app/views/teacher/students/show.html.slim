@@ -15,11 +15,11 @@
           = student_presenter.cohort_name_link
           br
           = student_presenter.cohort_date_link
-        - else 
+        - else
           p.alert.alert-danger.my-3 This student is not assigned a cohort!
         = student_presenter.contact
       - if student_presenter.rollover_button?
-        button.btn.btn-danger.btn-xs.rollover Rollover
+        button.btn.btn-danger.btn-sm.rollover Rollover
       = student_presenter.day_button
       ul.nav.nav-tabs role="tablist"
         li.nav-item role="presentation"

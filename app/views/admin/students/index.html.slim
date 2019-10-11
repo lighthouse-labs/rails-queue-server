@@ -61,36 +61,36 @@ header.page-header
                 td
                   .btn-collection
                     - if student.deactivated?
-                      .btn.btn-primary.btn-xs.user-reactivate-button
+                      .btn.btn-primary.btn-sm.user-reactivate-button
                         | Reactivate
-                      .btn.btn-danger.btn-xs.user-deactivate-button.hidden-button
+                      .btn.btn-danger.btn-sm.user-deactivate-button.hidden-button
                         | Deactivate
                     - else
-                      .btn.btn-danger.btn-xs.user-deactivate-button
+                      .btn.btn-danger.btn-sm.user-deactivate-button
                         | Deactivate
-                      .btn.btn-primary.btn-xs.user-reactivate-button.hidden-button
+                      .btn.btn-primary.btn-sm.user-reactivate-button.hidden-button
                         | Reactivate
 
-                    = link_to 'Edit', [:edit, :admin, student], class: 'btn btn-xs btn-primary'
+                    = link_to 'Edit', [:edit, :admin, student], class: 'btn btn-sm btn-primary'
 
-                    a.btn.btn-xs.btn-info.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-actions-modal" data-student-id="#{student.id}"
+                    a.btn.btn-sm.btn-info.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-actions-modal" data-student-id="#{student.id}"
                       i.fa.fa-edit
                       | &nbsp;Change Cohort
 
                     - if student.cohort
-                      a.btn.btn-xs.btn-danger.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-rollover-modal" data-content-url="#{new_admin_student_rollover_path(student)}"
+                      a.btn.btn-sm.btn-danger.admin-student-edit-button href="#" data-toggle="modal" data-target="#student-rollover-modal" data-content-url="#{new_admin_student_rollover_path(student)}"
                         i.fa.fa-life-saver
                         | &nbsp;Rollover
 
                     - if !student.suppress_tech_interviews
-                      a.btn.btn-xs.btn-danger.admin-student-toggle-tech-interviews-btn data-content-url="#{toggle_tech_interviews_admin_student_path(student)}"
+                      a.btn.btn-sm.btn-danger.admin-student-toggle-tech-interviews-btn data-content-url="#{toggle_tech_interviews_admin_student_path(student)}"
                         | Disable Interviews
                     - elsif student.suppress_tech_interviews
-                      a.btn.btn-xs.btn-warning.admin-student-toggle-tech-interviews-btn data-content-url="#{toggle_tech_interviews_admin_student_path(student)}"
+                      a.btn.btn-sm.btn-warning.admin-student-toggle-tech-interviews-btn data-content-url="#{toggle_tech_interviews_admin_student_path(student)}"
                         | Enable Interviews
 
                     - if student.cohort.active? || student.cohort.upcoming?
-                      = link_to 'Revert to Prep', admin_student_path(student), class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' }
+                      = link_to 'Revert to Prep', admin_student_path(student), class: 'btn btn-danger btn-sm', method: :delete, data: { confirm: 'Are you sure?' }
 
       .card-footer
         = paginate @students, window: 2, theme: 'bootstrap4'
