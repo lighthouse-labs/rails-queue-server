@@ -33,7 +33,7 @@ window.Queue.Interview = class Interview extends React.Component {
 
   renderActions() {
     return(
-      <div className="actions pull-right">
+      <div className="actions float-right">
         { App.ReactUtils.joinElements(this.actionButtons(), null) }
       </div>
     )

@@ -4,8 +4,8 @@
   .card-header
     = render 'form'
 
-h4.pull-left Day Feedback (#{@day_feedbacks.count}):
-.pull-right.stats.total-feedbacks
+h4.float-left Day Feedback (#{@day_feedbacks.count}):
+.float-right.stats.total-feedbacks
   i class='happy far fa-smile fa-3x' title="Happy feedback"
   sup.total-feedbacks.happy title="Happy total"
     = @day_feedbacks.count_for_mood(:happy)

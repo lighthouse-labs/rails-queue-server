@@ -36,7 +36,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
 
   renderActions() {
     return(
-      <div className="actions pull-right">
+      <div className="actions float-right">
         { App.ReactUtils.joinElements(this.actionButtons(), null) }
       </div>
     );
