@@ -15,9 +15,12 @@ class LecturesController < ApplicationController
     @lectures = @lectures.page(params[:page]).per(DEFAULT_PER)
   end
 
-  def show; end
+  def show
+    load_day_schedule
+  end
 
   def new
+    load_day_schedule
     @lecture = Lecture.new(
       presenter: current_user,
       cohort:    @cohort,
@@ -37,11 +40,13 @@ class LecturesController < ApplicationController
     if result.success?
       redirect_to activity_lecture_path(@activity, @lecture), notice: "Created! #{@cohort.name} students notified via e-mail."
     else
+      load_day_schedule
       render :new
     end
   end
 
   def edit
+    load_day_schedule
     @lecture = @activity.lectures.find(params[:id])
   end
 
@@ -49,6 +54,7 @@ class LecturesController < ApplicationController
     if @lecture.update(lecture_params)
       redirect_to activity_lecture_path(@activity, @lecture), notice: 'Updated!'
     else
+      load_day_schedule
       render :edit
     end
   end
@@ -73,7 +79,7 @@ class LecturesController < ApplicationController
   end
 
   def teacher_required
-    redirect_to activity_lecture_path unless teacher?
+    redirect_to activity_path(@activity), alert: "Not Allowed" unless teacher?
   end
 
   def check_if_day_unlocked
@@ -150,7 +156,7 @@ class LecturesController < ApplicationController
   end
 
   def filter_by_video
-    @lectures = @lectures.with_youtube_video if params[:video].present?
+    @lectures = @lectures.with_video if params[:video].present?
   end
 
   def filter_by_unlocked_days

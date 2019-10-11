@@ -7,8 +7,8 @@ $ ->
     incompleteActivitiesTitle = $('.incomplete-activities-title')
     numberOfIncompleteActivities = parseInt incompleteActivitiesTitle.text().match(/\d+/)
 
-    feedbackNavItem = $('#feedback-link')
-    numberOfFeedbacks = parseInt feedbackNavItem.text().match(/\d+/)
+    feedbackNavItem = $('nav .feedback-count:first')
+    numberOfFeedbacks = parseInt feedbackNavItem.text()
 
     $.ajax
       url: '/activities/' + activityId + '/activity_submission'
@@ -20,4 +20,4 @@ $ ->
         # Update total number of feedbacks in nav menu if activity is not a lecture.
         # This will need to change once Web Sockets are used
         unless activityType is 'Lecture'
-          feedbackNavItem.text('Feedback (' + (numberOfFeedbacks+1).toString() + ')')
+          feedbackNavItem.text(numberOfFeedbacks)

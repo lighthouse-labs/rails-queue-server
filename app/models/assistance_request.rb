@@ -52,11 +52,19 @@ class AssistanceRequest < ApplicationRecord
         .references(:requestor, :cohort, :location)
     end
   }
+  scope :for_cohort, ->(cohort) { where(cohort_id: cohort) if cohort }
   scope :for_location, ->(location) { where(assistor_location_id: location) }
   scope :oldest_requests_first, -> { order(start_at: :asc) }
   scope :newest_requests_first, -> { order(start_at: :desc) }
   scope :requested_by, ->(user) { where(requestor: user) }
   scope :code_reviews, -> { where(type: 'CodeReviewRequest') }
+  scope :between_dates, ->(start_date, end_date) { where(start_at: start_date..end_date) }
+  scope :for_cohort, ->(cohort) { where(cohort_id: cohort) }
+  scope :for_program, ->(program) { joins(:cohort).where(cohorts: { program_id: program }) }
+
+  scope :wait_times_between, ->(low, high) {
+    where('(EXTRACT(EPOCH FROM (assistances.start_at - assistance_requests.start_at)) / 60.0)::float BETWEEN ? AND ?', low, high)
+  }
 
   def cancel
     self.canceled_at = Time.current
@@ -95,6 +103,11 @@ class AssistanceRequest < ApplicationRecord
     self.class.open_requests.where(type: nil).for_location(assistor_location).where('assistance_requests.id < ?', id).count + 1 if open?
   end
 
+  # this offline assistance request record thing is annoying and silly, but bigger code debt to fix/remove at a later time - KV
+  def offline?
+    reason == 'Offline assistance requested'
+  end
+
   private
 
   def set_cohort
@@ -110,16 +123,18 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def limit_one_per_user
-    if type.nil? && requestor.assistance_requests.where(type: nil).open_or_in_progress_requests.exists?
+    if type.nil? && !offline? && requestor.assistance_requests.where(type: nil).open_or_in_progress_requests.exists?
       errors.add :base, 'Limit one open/in progress request per user'
       false
     end
   end
 
   def set_assistor_location_id
-    self.assistor_location_id = requestor.cohort.local_assistance_queue? ?
-      requestor.location_id :
-      requestor.cohort.location_id
+    if requestor
+      self.assistor_location_id = requestor.cohort.local_assistance_queue? ?
+        requestor.location_id :
+        requestor.cohort.location_id
+    end
   end
 
 end

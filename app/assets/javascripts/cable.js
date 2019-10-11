@@ -5,11 +5,7 @@
 //= require_self
 //= require_tree ./channels
 
-$(function() {
-  window.App || (window.App = {});
-
-  if (!$('body').hasClass('disable-cable')) {
-    App.cable = ActionCable.createConsumer();
-  }
-
-});
+window.App || (window.App = {});
+if (window.cableOn) {
+  App.cable = ActionCable.createConsumer();
+}

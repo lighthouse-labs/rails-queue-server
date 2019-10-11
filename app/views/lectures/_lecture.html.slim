@@ -11,9 +11,10 @@
           = lecture.day.upcase
       br
       small
-        = lecture.presenter.full_name
-        = " (#{lecture.presenter.location.name})"
-        br
+        - if lecture.presenter
+          = lecture.presenter.full_name
+          = " (#{lecture.presenter.location.name})"
+          br
         span title=lecture.created_at.to_s(:friendly)
           = time_ago_in_words lecture.created_at
         | &nbsp;ago&nbsp;
@@ -25,7 +26,7 @@
 
 
     .float-md-right.d-none.d-sm-none
-      = image_tag lecture.presenter.avatar_url, class: 'avatar'
+      = image_tag avatar_for(lecture.presenter), class: 'avatar'
 
   .card-body
     .row

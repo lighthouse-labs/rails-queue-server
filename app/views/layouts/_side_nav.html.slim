@@ -1,5 +1,11 @@
-h1.day-heading = day.to_s.upcase
+h1.day-heading
+  span = day.to_s.upcase
+  / keep empty small for consistent vertical spacing between this side nav and the one shown on activities#show (_bootcamp_day_menu)
+  small
 
-h3.date-heading = "#{day.date.strftime("%a %b #{day.date.day}")}"
+h5
+  small.text-muted = "#{day.date.strftime("%a %b #{day.date.day}")}"
+
+hr
 
 == render 'layouts/calendar'

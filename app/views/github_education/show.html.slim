@@ -1,0 +1,27 @@
+.github-education
+  h2.text-center.my-2 Free GitHub Education Pack!
+
+  p.my-3 style="max-width:600px"
+    ' As a current student at Lighthouse Labs, you are now eligible to GitHub's
+    a href="https://education.github.com/pack" target="_blank" Education Pack.
+    '  It includes a bunch of cool free stuff, including
+    strong unlimited free private repos on GitHub (!!!)
+    ', a free dyno on Heroku (for hosting) and much more!
+    - unless current_user.github_education_pack_actioned?
+      br
+      br
+      ' Click the button below to claim the Eduacation Pack for your GitHub account.
+
+  p.my-3 style="max-width:600px"
+    = link_to claim_github_education_path, method: :put, class: 'btn btn-lg btn-github-login my-3'
+      - unless current_user.github_education_pack_actioned?
+        ' Claim
+      strong GitHub
+      '  Education Pack
+
+  - unless current_user.github_education_pack_actioned?
+    p.text-center
+      strong -- OR --
+      br
+      br
+      = link_to "Skip it", skip_github_education_path,  method: :put, class: 'btn btn-danger'

@@ -1,34 +1,24 @@
-.card.bg-light style="margin-top: 40px;"
-  h5#feedback-form.card-header Submit Feedback
-  .card-body
-    h5.card-title
-      | Feedback for this #{(@activity.type || 'Activity').titleize}
-    .card-text
-      p
-        | Your feedback is critical for us to iterate and improve upon our curriculum. In fact, you can even give us feedback for this and other activities multiple times! It is <em>not anonymous</em> but it <em>is confidential</em> meaning only teachers and admins can view it, not other students.
+.row
+  .col-lg-12
+    == react_component("ActivityFeedbackInput.App", { activityId: @activity.id, activityFeedback: @activity_feedback ? ActivityFeedbackSerializer.new(@activity_feedback) : nil, windowKey: 'activityFeedbackAtBottomApp', sisterWindowKey: 'activityFeedbackFromModalApp' })
 
-      - if @activity.prep? && @program.prep_assistance?
-        p
-          strong NEED HELP?
-          | &nbsp;
-          | Do not use this mechanism to ask for help if you are stuck.
-          | &nbsp;
-          = link_to 'Our Private Discourse Forum', 'http://web-prep-help.lighthouselabs.ca/', target: '_blank'
-          | &nbsp;
-          | is a perfect place for you to get help from us and from your peers. That said, only registered bootcamp students have access to this private forum.
+- if teacher? || admin?
+  .card
+    h5#feedback-form.card-header Feedback Summary
+    .card-body
+      .card-text
+        - if @activity.has_rated_feedback?
+          h5 Overall Ratings
+          = bar_chart(rating_stats_activity_activity_feedbacks_path(@activity), height: '200px', width: '300px', label: 'Number of Ratings', colors: ["\#2ecc71"])
+          h5 Rating Trends By Month
+          = line_chart(ratings_by_month_activity_activity_feedbacks_path(@activity), height: '300px', width: '100%', discrete: false, label: 'Rating', min: 1, max: 5)
+        - else
+          p.alert.alert-warning.mb-0 This activity has no rated feedback to summarize
 
-      hr
-      = simple_form_for [@activity.becomes(Activity), ActivityFeedback.new], remote: true do |f|
-        = render 'activity_feedbacks/form', form: f
+  .card.activity-feedback-container
+    h5#feedback-form.card-header Student Feedback
+    .card-body
+      .card-text
+        == react_component("ActivityFeedback.App", { activityId: @activity.id })
 
 
-.card style="margin-top:30px;"
-  h5#feedback-form.card-header Previous Feedback
-  .card-body
-    - if teacher?
-      h5.card-title All Student Feedback
-    - else
-      h5.card-title Your Feedback
-
-    .card-text
-      = render 'activity_feedbacks/list'

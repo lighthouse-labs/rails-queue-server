@@ -1,0 +1,17 @@
+tr
+  td = deployment.id
+  td = deployment.created_at.to_s(:date_and_time)
+  td = deployment.content_repository&.github_repo
+  td = deployment.branch
+  td = deployment.sha.to_s.first(7)
+  td
+    - if deployment.completed?
+      span.badge.badge-success = deployment.status
+    - elsif deployment.started?
+      span.badge.badge-info = deployment.status
+    - else
+      span.badge.badge-danger = deployment.status
+  td style="max-width:200px"
+    small
+      code
+        = truncate deployment.error_message, length: 300

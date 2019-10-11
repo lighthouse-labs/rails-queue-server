@@ -64,6 +64,16 @@ class ApplicationController < ActionController::Base
   end
   helper_method :active_student?
 
+  def student_with_queue?
+    active_student? && current_user.cohort.active_queue?
+  end
+  helper_method :student_with_queue?
+
+  def prep_assistance?
+    @program&.prep_assistance? && current_user&.enrolled_and_prepping?
+  end
+  helper_method :prep_assistance?
+
   def alumni?
     student? && current_user.alumni?
   end
@@ -129,7 +139,7 @@ class ApplicationController < ActionController::Base
   helper_method :streams
 
   def preps
-    @preps ||= Prep.all
+    @preps ||= Prep.active.all
   end
   helper_method :preps
 
@@ -139,19 +149,22 @@ class ApplicationController < ActionController::Base
   helper_method :available_workbooks
 
   def teacher_resources
-    @teacher_resources ||= TeacherSection.all
+    @teacher_resources ||= TeacherSection.active.all
   end
   helper_method :teacher_resources
 
   def pending_feedbacks
-    current_user.feedbacks.pending.reverse_chronological_order.where.not(feedbackable: nil).not_expired
+    @pending_feedbacks ||= current_user.feedbacks.pending.reverse_chronological_order.where.not(feedbackable: nil).not_expired
   end
   helper_method :pending_feedbacks
 
+  def pending_feedbacks_count
+    @pending_feedbacks_count ||= pending_feedbacks.count
+  end
+  helper_method :pending_feedbacks_count
+
   def apply_invitation_code(code)
-    if ENV['TEACHER_INVITE_CODE'] == code
-      make_teacher
-    elsif cohort = Cohort.find_by(code: code)
+    if cohort = Cohort.find_by(code: code)
       if admin?
         flash[:alert] = "This code is valid to register as a student for #{cohort.name}. You are an Admin so no change made for you."
       elsif teacher?
@@ -164,12 +177,15 @@ class ApplicationController < ActionController::Base
           flash[:alert] = response.error
         end
       end
+    elsif program = Program.find_by(teacher_invite_code: code)
+      make_teacher(program)
     else
       flash[:alert] = "Sorry, invalid code"
     end
   end
 
-  def make_teacher
+  # In the future this will be a role, and we will use `program` to create the role - KV
+  def make_teacher(_program = nil)
     unless teacher?
       current_user.type = 'Teacher'
       current_user.save!(validate: false)

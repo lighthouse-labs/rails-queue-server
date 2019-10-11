@@ -34,42 +34,16 @@ class ActivityPresenter < BasePresenter
       end
     elsif bootcamp?
       content_for :side_nav do
-        render('layouts/side_nav')
+        render('shared/menus/bootcamp_day_menu')
       end
     end
 
     # append project specific content if it's part of a project.
-    if project?
-      content_for :side_nav do
-        render('shared/menus/project_side_menu', project: activity.section)
-      end
-    end
-  end
-
-  def previous_button
-    other_activity = previous_activity(workbook)
-    if other_activity
-      content_tag :div, class: 'previous-activity' do
-        (
-          content_tag(:label, 'Previous:') +
-          content_tag(:i, nil, class: icon_for(other_activity)) + ' ' +
-          link_to(descriptive_activity_name(other_activity), get_activity_path(other_activity, workbook))
-        ).html_safe
-      end
-    end
-  end
-
-  def next_button
-    other_activity = next_activity(workbook)
-    if other_activity
-      content_tag :div, class: 'next-activity' do
-        (
-          content_tag(:label, 'Next:') +
-          content_tag(:i, nil, class: icon_for(other_activity)) + ' ' +
-          link_to(descriptive_activity_name(other_activity), get_activity_path(other_activity, workbook))
-        ).html_safe
-      end
-    end
+    # if project?
+    #   content_for :side_nav do
+    #     render('shared/menus/project_side_menu', project: activity.section)
+    #   end
+    # end
   end
 
   def submissions_text
@@ -79,7 +53,7 @@ class ActivityPresenter < BasePresenter
   def submission_form
     if allow_completion?
       next_activity = next_activity(workbook)
-      next_path = next_activity ? get_activity_path(next_activity, workbook) : get_next_index_path(activity, workbook)
+      next_path = get_activity_path(next_activity, workbook, activity)
       if activity.evaluates_code?
         render "code_activity_submission_form", next_path: next_path
       else
@@ -88,8 +62,8 @@ class ActivityPresenter < BasePresenter
     end
   end
 
-  def details_button
-    link_to 'Details', details_button_path, class: 'btn btn-outline-secondary btn-edit'
+  def details_link
+    link_to 'Details', details_button_path, style: 'color: white'
   end
 
   def display_outcomes
@@ -105,8 +79,6 @@ class ActivityPresenter < BasePresenter
     # overwritten
   end
 
-  protected
-
   def next_activity(workbook = nil)
     workbook ? workbook.next_activity(activity) : activity.next
   end
@@ -114,6 +86,8 @@ class ActivityPresenter < BasePresenter
   def previous_activity(workbook = nil)
     workbook ? workbook.previous_activity(activity) : activity.previous
   end
+
+  protected
 
   def stretch?
     if workbook

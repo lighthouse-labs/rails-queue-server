@@ -1,7 +1,7 @@
 class Program < ApplicationRecord
 
   has_many :cohorts
-  has_many :recordings
+  has_many :content_repositories
 
   validates :name, presence: true
   validates :days_per_week, presence: true

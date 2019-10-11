@@ -5,6 +5,7 @@ class ActivitiesController < ApplicationController
   before_action :require_activity, only: [:show, :edit, :update]
 
   include CourseCalendar # concern
+  include GithubEducationPack # concern
 
   before_action :teacher_required, only: [:new, :create, :edit, :update]
   before_action :check_if_day_unlocked, only: [:show]
@@ -29,16 +30,21 @@ class ActivitiesController < ApplicationController
       @activity_submission = current_user.activity_submissions.where(activity: @activity).first || ActivitySubmission.new
     end
 
-    # new feedback model
-    @activity_feedbacks = @activity.activity_feedbacks.includes(:user)
-    @activity_feedbacks = @activity_feedbacks.where(user: current_user).filter_by_legacy('exclude') unless teacher?
+    @activity_feedback = @activity.activity_feedbacks.where(user: current_user).reverse_chronological_order.first
 
     @lectures = @activity.lectures if @activity.has_lectures?
+
+    ## Stolen from days#show (need to DRY) - KV
+    load_day_schedule
   end
 
   def autocomplete
     @outcomes = (Outcome.search(params[:term]) - @activity.outcomes)
     render json: ActivityAutocompleteSerializer.new(outcomes: @outcomes).outcomes.as_json, root: false
+  end
+
+  def edit
+    load_day_schedule
   end
 
   private

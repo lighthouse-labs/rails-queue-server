@@ -48,17 +48,29 @@ a.project-bio, a.workbook-bio {
   display: block;
   border-radius: 6px;
   color: $brand-primary;
+  border: 1px solid $brand-primary;
 
   &:hover {
-    box-shadow: 0 0 0 2px $brand-secondary;
+    box-shadow: 0 0 0 1px $brand-primary;
     text-decoration: none;
 
-
-    .name {
-      color: $brand-primary;
+    .info .name {
+      color: $brand-secondary;
     }
     .icon {
       opacity: 0.9;
+    }
+  }
+
+  .blurb {
+    img {
+      float: left;
+      max-width: 200px;
+      margin-right: 10px;
+
+      @include media-breakpoint-down(sm) {
+        max-width: 80px;
+      }
     }
   }
 
@@ -75,6 +87,12 @@ a.project-bio, a.workbook-bio {
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
 
+    @include media-breakpoint-down(xs) {
+      font-size: 18px;
+      padding: 0 20px 0 40px;
+      line-height: 24px;
+    }
+
     .icon {
       opacity: 0.75;
       font-size: 36px;
@@ -84,15 +102,25 @@ a.project-bio, a.workbook-bio {
       padding: 0 20px;
       position: absolute;
       top: 50%;
+
+      @include media-breakpoint-down(xs) {
+        font-size: 20px;
+        padding: 0 10px;
+      }
     }
 
     .icon-type {
       left: 0;
     }
     .name {
-      color: $brand-secondary;
+      color: $brand-primary;
       overflow: hidden;
       padding: 28px 0;
+
+      @include media-breakpoint-down(xs) {
+        padding: 16px 40px 16px 0px;
+      }
+
       .stretch {
         color: $gray-light;
       }
@@ -130,13 +158,21 @@ a.project-bio, a.workbook-bio {
     }
     .time-duration {
       font-size: 0.6em;
+      @include media-breakpoint-down(xs) {
+        right: 10px;
+        left: auto;
+        line-height: 15px;
+        font-size: 12px;
+        margin-top: -42px;
+      }
     }
+
   }
 
   .details { // only for pinned activities
     background-color: lighten($clouds, 3%);
     padding: 20px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
   }

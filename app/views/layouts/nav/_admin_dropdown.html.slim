@@ -1,0 +1,18 @@
+li.nav-item.dropdown
+  = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Admin'
+    i.fa.fa-fw.fa-lock
+  .dropdown-menu
+    = link_to 'Cohorts', admin_cohorts_path, class: 'dropdown-item'
+    = link_to 'Assistances', admin_assistances_path, class: 'dropdown-item'
+    = link_to 'Curriculum Feedback', admin_curriculum_feedbacks_path, class: 'dropdown-item'
+    = link_to 'Teacher Feedback', admin_teacher_feedbacks_path, class: 'dropdown-item'
+    = link_to 'Day Feedback', admin_day_feedbacks_path, class: 'dropdown-item'
+    = link_to 'Teacher Stats', admin_teacher_stats_path, class: 'dropdown-item'
+    = link_to 'Queue Stats', admin_queue_stats_path, class: 'dropdown-item'
+    = link_to 'Learning Outcomes', admin_categories_path, class: 'dropdown-item'
+    = link_to 'Activities', admin_activities_path, class: 'dropdown-item'
+    = link_to 'Project Evaluations', admin_evaluations_path, class: 'dropdown-item'
+    = link_to 'Prep Stats', admin_prep_stats_path, class: 'dropdown-item'
+    = link_to 'Users', admin_users_path, class: 'dropdown-item'
+    = link_to 'Assessment Tests', assessment_tests_path, class: 'dropdown-item'
+    = link_to 'Curriculum Deployments', admin_deployments_path, class: 'dropdown-item'

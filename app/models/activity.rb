@@ -8,7 +8,6 @@ class Activity < ApplicationRecord
   has_many :assistances, -> { order(:user_id) }
   has_many :assistance_requests
   has_many :messages, -> { order(created_at: :desc) }, class_name: 'ActivityMessage'
-  has_many :recordings, -> { order(created_at: :desc) }
   has_many :lectures, -> { order(created_at: :desc) }
   has_many :feedbacks, as: :feedbackable
   has_many :activity_feedbacks, dependent: :destroy # new, to replace the above
@@ -17,6 +16,8 @@ class Activity < ApplicationRecord
   has_many :outcomes, through: :item_outcomes
   has_many :skills, through: :outcomes
   has_many :outcome_results, as: :source
+
+  has_many :answers, class_name: ActivityAnswer
 
   include PgSearch
   pg_search_scope :by_keywords,
@@ -85,6 +86,10 @@ class Activity < ApplicationRecord
     true
   end
 
+  def can_mark_completed?
+    true
+  end
+
   # Given the start_time and duration, return the end_time
   def end_time
     hours = start_time / 100
@@ -132,6 +137,15 @@ class Activity < ApplicationRecord
     [duration, average_time_spent || duration].compact.uniq.sort
   end
 
+  def approx_duration
+    range = duration_range
+    if range.many?
+      ((range[0].to_f + range[1].to_f) / 2.0).round(0)
+    else
+      range[0]
+    end
+  end
+
   # if it has it, display it
   # overwritten by some subclasses like Test, LecturePlan, Breakout, etc
   def display_duration?
@@ -144,6 +158,10 @@ class Activity < ApplicationRecord
 
   def allow_feedback?
     true
+  end
+
+  def has_rated_feedback?
+    activity_feedbacks.rated.any?
   end
 
   def repo_full_name

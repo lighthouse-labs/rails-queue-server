@@ -14,7 +14,13 @@ class Content::HandleGithubWebhookPayload
     branch_ref = @repo.github_branch ? "refs/heads/#{@repo.github_branch}" : 'refs/heads/master'
     return true unless payload['ref'] == branch_ref
 
-    Content::Deploy.call(content_repository: @repo, sha: payload['after'])
+    sha = payload['after']
+
+    CurriculumDeploymentWorker.perform_async(
+      @repo.id,
+      nil,
+      sha
+    )
   end
 
 end

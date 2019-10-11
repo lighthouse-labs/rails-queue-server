@@ -8,9 +8,12 @@
       - else
         = "User"
 
-      - if user.admin?
-        br
+      br
+      - if user.super_admin?
+        span.badge.badge-warning Super Admin
+      - elsif user.admin?
         span.badge.badge-warning Admin
+
     td
       - if user.cohort
         = link_to user.cohort.name, [:admin, user.cohort]
@@ -48,8 +51,13 @@
             i.fa.fa-bolt
           .btn.btn-outline-primary.btn-sm.user-reactivate-button.hidden-button data-toggle='tooltip' title='Reactivate'
             i.fa.fa-heartbeat
-        - if !user.admin?
-          = link_to fa_icon('user'), impersonate_session_path(id: user.id), method: :put, class: 'btn btn-outline-primary btn-sm user-impersonate-button', title: 'Impersonate', 'data-toggle' => 'tooltip'
+        - if user.admin?
+          - if current_user.can_adminify?(user)
+            = link_to icon('fas', 'lock'), admin_user_adminification_path(user), method: :delete, class: 'btn btn-outline-warning btn-sm', title: 'Remoke Admin Privileges', data: { toggle: 'tooltip' }
+        - else
+          = link_to icon('fas', 'user'), impersonate_session_path(id: user.id), method: :put, class: 'btn btn-outline-primary btn-sm user-impersonate-button', title: 'Impersonate', 'data-toggle' => 'tooltip'
+          - if current_user.can_adminify?(user)
+            = link_to icon('fas', 'lock'), admin_user_adminification_path(user), method: :post, class: 'btn btn-outline-secondary btn-sm', title: 'Grant Admin Privileges', data: { toggle: 'tooltip' }
         - if user.prospect?
           span.assign-cohort-button title='Enrol in Cohort' data-toggle='tooltip'
             .btn.btn-outline-info.btn-sm data-toggle='modal' data-target="#enrolment-modal-#{user.id}"
@@ -57,4 +65,4 @@
           - content_for :end_of_body do
             = render partial: 'cohort_enrolment_modal', locals: {user: user}
         - if user.enrolled_and_prepping?
-          = link_to fa_icon('angle-double-left'), admin_student_path(user), method: :delete, class: 'btn btn-outline-info btn-sm revert-to-prep-button', title: 'Revert to Prep', 'data-toggle' => 'tooltip'
+          = link_to icon('fas', 'angle-double-left'), admin_student_path(user), method: :delete, class: 'btn btn-outline-info btn-sm revert-to-prep-button', title: 'Revert to Prep', 'data-toggle' => 'tooltip'

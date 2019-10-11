@@ -1,26 +1,164 @@
-h1.day-heading {
-  margin-bottom: 0;
-}
-h3.date-heading {
-  margin-top: 0;
-}
-.nav-calendar {
+nav.side-nav {
 
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+  .powered-by {
 
-.btn-incomplete-activites {
-  width: 174px;
-  @media (min-width: $screen-md-min) {
-    margin-top: 4px;
+    opacity: 0.6;
+    transition: opacity 0.5s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    small {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    a {
+      width: 50%;
+      display: block;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+  h1 {
+    font-weight: 300;
+    line-height: 1.1em;
+    margin-bottom: 0px;
+
+    &.day-heading {
+      small {
+        font-weight: 300;
+        font-size: 50%;
+      }
+    }
+  }
+
+  h5.date-heading {
+    @extend .text-muted;
+    font-weight: 300;
+    margin-top: 0;
+  }
+
+  i.fa {
+    width: 18px;
+    text-align: center;
+  }
+
+  .toc-angle {
+    transition: transform .25s;
+  }
+
+  .toc-collapser {
+    cursor: pointer;
+    display: flex;
+    font-size: 1.3rem;
+    font-weight: 300;
+
+    @include media-breakpoint-down(md) {
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+
+    &::before {
+      width:18px;
+      text-align: center;
+      display: inline-block;
+      font-size: 0.5em;
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      content: "\f078"; // Font Awesome Angle Down
+      vertical-align: top;
+      padding: .7em .3em;
+      transition: transform .15s;
+    }
+
+    &.collapsed::before {
+      transform: rotate(-90deg);
+    }
+  }
+
+  .toc-section {
+    padding: .2em 0;
+    .toc-section-detail {
+      margin-left: 18px;
+    }
+  }
+
+  .toc-activity {
+    color: $black;
+    margin: 0.5em 0;
+    font-size: 0.9rem;
+
+    @include media-breakpoint-down(md) {
+      font-size: 1.2rem;
+    }
+    @include media-breakpoint-up(xl) {
+      font-size: 1.0rem;
+    }
+    a {
+      color: inherit;
+    }
+    &:hover {
+      opacity:.6;
+    }
+    &--info {
+      color: #666;
+      font-weight: bold;
+    }
+    &--stretch {
+      font-size: .8em;
+      font-style: italic;
+      color: var(--purple);
+    }
+    &--label {
+      display: flex;
+      font-weight: 200;
+    }
+    &--icon {
+      flex-grow: 0;
+      margin-right: 2%;
+      font-size: 0.9em;
+      position: relative;
+      top: 1px;
+      @include media-breakpoint-down(md) {
+        font-size: 1.0em;
+        top: 0px;
+        margin-right: 1.2%;
+      }
+    }
+    &--name {
+      flex-grow: 1;
+    }
+    &__is-stretch {
+      font-style: italic;
+      color: var(--purple);
+    }
+    --tags {
+      padding-left: 1em;
+      i {
+        margin: 0 .25em;
+      }
+    }
+    &__active {
+      position: relative;
+      &::before {
+        content:'';
+        position: absolute;
+        background-color: var(--primary);
+        display: block;
+        right:calc(100% + 5px);
+        top:0;
+        bottom:0;
+        width:5px;
+        border-radius: 5px;
+      }
+    }
+  }
+  *[data-toggle=collapse][aria-expanded=true] > .toc-angle {
+    transform: rotate(90deg);
   }
 }
-
-/* Styling for the calendar is located in flat ui stubs as it relied on flat ui
-heavily and we yanked it out. So a compiled version of the css for the calendar
-nav css is proping up the calendar until it is replaced.
-*/

@@ -18,7 +18,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'rack-cors'
 
 gem 'react-rails'
-gem 'active_model_serializers'
+gem 'active_model_serializers', '0.9.7'
 
 gem 'pg'
 gem 'bcrypt'
@@ -31,12 +31,14 @@ gem 'best_in_place', github: 'bernat/best_in_place'
 gem 'ace-rails-ap'
 
 gem 'simple_form'
+gem 'sidekiq'
 gem 'slim-rails'
-gem 'font-awesome-rails'
+gem 'font-awesome-sass', '~> 5.6.1'
 # gem 'compass-rails'
 
 gem 'interactor-rails'
 
+gem 'paranoia', '~> 2.4'
 gem 'statesman'
 gem 'awesome_print'
 gem 'logging'
@@ -65,6 +67,7 @@ gem 'fog'
 gem 'newrelic_rpm'
 gem "sentry-raven"
 
+gem 'responders'
 gem 'rubyzip', '>= 1.0.0'
 
 gem 'slack-poster'
@@ -118,7 +121,7 @@ group :test do
   gem 'capybara'
   # https://robots.thoughtbot.com/headless-feature-specs-with-chrome
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
+  gem 'webdrivers', '~> 4.0'
   gem 'email_spec'
   # gem 'shoulda-matchers' # not ready for 4.1
 

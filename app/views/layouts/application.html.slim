@@ -5,7 +5,10 @@ html
     title
       = content_for?(:title) ? "Compass | " + yield(:title) : 'Compass'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'By Lighthouse Labs'}"
+
+    link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"
     == stylesheet_link_tag 'application', :media => 'all'
+
     - if Rails.env.production? && ENV["GOOGLE_ANALYTICS_TRACKING_ID"]
       javascript:
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -15,32 +18,53 @@ html
 
         ga('create', "#{ENV["GOOGLE_ANALYTICS_TRACKING_ID"]}", 'auto');
         ga('send', 'pageview');
-    link href="//vjs.zencdn.net/4.11/video-js.css" rel="stylesheet"
-    script src="//vjs.zencdn.net/4.11/video.js"
+    - else
+      javascript:
+        window.ga = function() { return true; };
+
+    link href="//vjs.zencdn.net/7.1.0/video-js.css" rel="stylesheet"
+    script src="//vjs.zencdn.net/7.1.0/video.js"
+
+    / WS connections aren't for everyone. Only active students, teachers, and the like
+    javascript:
+      window.current_user = #{current_user ? raw(UserSerializer.new(current_user).to_json) : "undefined"};
+      window.cableOn = #{!disable_cable?};
+
     == javascript_include_tag 'application'
     == csrf_meta_tags
     == favicon_link_tag 'compass_favicon.ico'
+
     == yield :head
-  body class=(yield(:body_class).to_s + disable_cable_for_some.to_s)
-    header
+
+  body class=(yield(:body_class).to_s)
+    header.p-4
       == render 'layouts/navigation'
 
-    - fluid = (yield(:container) == 'fluid')
-    main role="main" class=(fluid ? 'container-fluid' : 'container')
-      == render 'layouts/messages'
+    main role="main" class='container-fluid'
 
-      - unless disable_cable?
-        - if current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student) && current_user.active_student?)
-          = render "layouts/teachers_holder"
-        = render "layouts/reconnect_holder"
       .row
         - if content_for?(:side_nav)
-          nav.side-nav.col-lg-3.col-md-4
+          nav.side-nav.col-xl-3.col-lg-3.col-md-12.order-2.order-lg-1.py-5.bg-light
             == yield :side_nav
-          .content.col-lg-9.col-md-8
-            == yield
+            == render 'layouts/powered_by'
+          .main-content.content.col-xl-9.col-lg-9.col-md-12.order-1.order-lg-2.py-5.px-4
+            == render 'layouts/messages'
+
+            - unless disable_cable?
+              - if current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student) && current_user.active_student?)
+                = render "layouts/teachers_holder"
+              = render "layouts/reconnect_holder"
+
+            .main-content-view
+              == yield
         - else
-          .content.col-12
+          .content.col-12.py-5.px-4
+            == render 'layouts/messages'
+
+            - unless disable_cable?
+              - if current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student) && current_user.active_student?)
+                = render "layouts/teachers_holder"
+              = render "layouts/reconnect_holder"
             == yield
     footer
       == render 'layouts/footer'

@@ -41,26 +41,28 @@ class Content::LoadActivity
   #   it would be problematic from a maintenance workflow standpoint - KV
   def build_attributes(d)
     attrs = {
-      remote_content:     true,
-      content_repository: @repo,
-      content_file_path:  d['file_path'],
-      section:            section(d['section']),
-      type:               type(d['type']),
-      name:               d['name'],
-      duration:           d['duration'],
-      stretch:            d['stretch'],
-      homework:           d['homework'],
-      archived:           d['archived'],
-      start_time:         d['start_time'],
-      day:                d['day'],
-      evaluates_code:     d['evaluates_code'],
-      allow_submissions:  d['allow_submissions'],
-      media_filename:     d['media_filename'],
-      outcomes:           outcomes(d['outcomes']),
-      test_code:          d['test_code'],
-      initial_code:       d['initial_code'],
-      milestone:          d['milestone'],
-      advanced_topic:     d['advanced_topic']
+      remote_content:            true,
+      content_repository:        @repo,
+      content_file_path:         d['file_path'],
+      section:                   section(d['section']),
+      type:                      type(d['type']),
+      name:                      d['name'],
+      duration:                  d['duration'],
+      stretch:                   d['stretch'],
+      homework:                  d['homework'],
+      archived:                  d['archived'],
+      start_time:                d['start_time'],
+      day:                       d['day'],
+      evaluates_code:            d['evaluates_code'],
+      allow_submissions:         d['allow_submissions'],
+      media_filename:            d['media_filename'],
+      outcomes:                  outcomes(d['outcomes']),
+      test_code:                 d['test_code'],
+      initial_code:              d['initial_code'],
+      milestone:                 d['milestone'],
+      advanced_topic:            d['advanced_topic'],
+      background_image_url:      d['bg_image_url'],
+      background_image_darkness: d['bg_image_darkness']
     }
     # if sequence is not specified, do not change the existing one
     attrs[:sequence] = d['sequence'] if d['sequence']
@@ -106,8 +108,12 @@ class Content::LoadActivity
           'QuizActivity'
         when 'exercise'
           'Assignment'
+        when 'walkthrough'
+          'Walkthrough'
         when 'problem'
-          'Assignment'
+          'Problem'
+        when 'challenge'
+          'Challenge'
         # FIXME: below categories should be changed/removed - KV
         when 'project'
           # FIXME: projects should be moved into their own curriculum dir, perhaps

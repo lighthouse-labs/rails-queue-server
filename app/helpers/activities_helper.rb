@@ -1,5 +1,37 @@
 module ActivitiesHelper
 
+  def activity_average_time(activity)
+    if activity.average_time_spent? && activity.duration?
+      (activity.duration + activity.average_time_spent) / 2.0
+    elsif activity.average_time_spent?
+      activity.average_time_spent
+    elsif activity.duration?
+      activity.duration
+    else
+      0
+    end
+  end
+
+  def core_duration_in_hours(activities, workbook = nil)
+    (activities.inject(0) do |sum, activity|
+      if !stretch_activity?(activity, workbook) && activity.active?
+        sum + activity_average_time(activity)
+      else
+        sum
+      end
+    end) / 60.0 * 1.1
+  end
+
+  def stretch_duration_in_hours(activities, workbook = nil)
+    (activities.inject(0) do |sum, activity|
+      if stretch_activity?(activity, workbook) && activity.active?
+        sum + activity_average_time(activity)
+      else
+        sum
+      end
+    end) / 60.0 * 1.1
+  end
+
   def stretch_activity?(activity, workbook = nil)
     if workbook
       workbook.stretch_activity?(activity)
@@ -8,7 +40,8 @@ module ActivitiesHelper
     end
   end
 
-  def get_activity_path(activity, workbook = nil)
+  def get_activity_path(activity, workbook = nil, current_activity = nil)
+    return get_next_index_path(current_activity, workbook) if activity.blank? && current_activity
     if workbook
       workbook_activity_path(workbook, activity)
     elsif activity.prep?
@@ -75,26 +108,27 @@ module ActivitiesHelper
 
   def vague_duration(activity)
     duration = activity.duration.to_i
-    vague_duration = if duration > 0 && duration <= 30
-                       'Tiny'
-                     elsif duration > 30 && duration <= 60
-                       'Short'
-                     elsif duration > 60 && duration < 120
-                       'Medium'
-                     elsif duration >= 120
-                       'Long'
-                     else # 0 / nil
-                       ''
+    if duration > 0 && duration <= 30
+      'Tiny'
+    elsif duration > 30 && duration <= 60
+      'Short'
+    elsif duration > 60 && duration < 120
+      'Medium'
+    elsif duration >= 120
+      'Long'
+    else # 0 / nil
+      ''
     end
-    "<br>#{vague_duration}<br>".html_safe
   end
 
+  # returns either an array of 2 numbers, both actual and estimate (if there's enough of a differece between actual and estimate)
+  # or just a number (no range, just a single number since estimate and actuals are close)
   def duration_range(activity)
     durations = activity.duration_range
-    if durations.size == 2 && durations[1] - durations[0] > 15
-      "#{round5(durations[0])}m<br>to<br>#{round5(durations[1])}m".html_safe
+    if durations.size == 2 && (durations[1] - durations[0] >= 15)
+      [round5(durations[0]), round5(durations[1])]
     else
-      "<br>#{round5([durations.first, durations.last].max)}m<br>".html_safe
+      round5([durations.first, durations.last].max)
     end
   end
 
@@ -118,32 +152,34 @@ module ActivitiesHelper
 
   def icon_for(activity)
     case activity.type.to_s.downcase
+    when "problem", "challenge"
+      'fa fa-hammer'
     when "assignment"
       if activity.evaluates_code?
-        'fa fa-gears'
-      elsif activity.allow_submissions?
-        'fa fa-github'
+        'fa fa-hammer'
       else
         'fa fa-code'
       end
     when "task"
-      'fa fa-flash'
+      'fa fa-bolt'
     when "pinnednote"
       'fa fa-sticky-note'
     when "lectureplan", "breakout"
-      'fa fa-group'
+      'fa fa-users'
     when "homework"
-      'fa fa-moon-o'
+      'far fa-moon'
     when "survey"
       'fa fa-list-alt'
     when "video"
-      'fa fa-video-camera'
+      'fa fa-video'
     when 'reading'
       'fa fa-book'
     when "test"
       'fa fa-gavel'
     when "quizactivity"
       'fa fa-question'
+    when "walkthrough"
+      'fa fa-walking'
     end
   end
 
@@ -156,6 +192,34 @@ module ActivitiesHelper
       Video
       Test
     ]
+  end
+
+  def activity_title_background_style(activity)
+    if activity_has_bg_image?(activity)
+      image_url = activity.background_image_url || activity.section&.background_image_url
+      darkness = activity.background_image_darkness || activity.section&.background_image_darkness
+      activity_or_project_background_image_css(image_url, darkness)
+    end
+  end
+
+  def activity_or_project_background_image_css(image_url, darkness=nil)
+    darkness = darkness.split(',')
+    style = []
+    style << "linear-gradient(rgba(0, 0, 0, #{darkness[0]}), rgba(0, 0, 0, #{darkness[1] || darkness[0]}))" if darkness.present?
+    style << "url('#{image_url}')"
+    "background-image: #{style.join(', ')};"
+  end
+
+  def activity_title_background_class(activity)
+    if activity_has_bg_image?(activity)
+      "bg"
+    else
+      "colored"
+    end
+  end
+
+  def activity_has_bg_image?(activity)
+    activity.background_image_url? || activity.section&.background_image_url?
   end
 
 end

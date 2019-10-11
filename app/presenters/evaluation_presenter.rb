@@ -3,14 +3,39 @@ class EvaluationPresenter < BasePresenter
   presents :evaluation
 
   def student_info
-    content_tag(:div, render('shared/student_info', student: evaluation.student, show_cohort: true), class: 'student-info')
+    content_tag(:div, render('shared/student_info', student: evaluation.student, show_cohort: true), class: 'student-info') if evaluation.student
   end
 
-  def project_status
+  def project_status(layout = 'default')
     result = render('projects/student_project_status', project_evaluation: evaluation)
-    result += tag('br')
-    result += content_tag(:small, "#{time_ago_in_words(evaluation.completed_at)} ago")
+    result += tag('br') if layout != 'inline'
+    if evaluation.completed_at?
+      if evaluation&.student&.cohort
+        curriculum_day = CurriculumDay.new(evaluation.completed_at.to_date, evaluation.student.cohort).to_s
+        result += content_tag(:span, curriculum_day, class: 'badge badge-light')
+        result += tag('br')
+      end
+    end
+
     content_tag(:div, result)
+  end
+
+  def date_submitted(layout = 'default')
+    result = ""
+    if evaluation&.student&.cohort
+      days_late = evaluation.days_late
+      curriculum_day = CurriculumDay.new(evaluation.created_at.to_date, evaluation.student.cohort).to_s
+      result += if days_late > 0
+                  content_tag(:span, curriculum_day, class: 'badge badge-danger', 'data-toggle': 'tooltip', 'title': "#{days_late.to_i} days late")
+                elsif days_late < 0
+                  content_tag(:span, curriculum_day, class: 'badge badge-success', 'data-toggle': 'tooltip', 'title': "#{days_late.to_i.abs} days early")
+                else
+                  content_tag(:span, curriculum_day, class: 'badge badge-primary', 'data-toggle': 'tooltip', 'title': "on time")
+                end
+      result += tag('br') if layout != 'inline'
+    end
+    result += content_tag(:span, evaluation.created_at.to_date, class: 'badge badge-light')
+    result.html_safe
   end
 
   def teacher_info
@@ -39,13 +64,14 @@ class EvaluationPresenter < BasePresenter
 
   def project(include_link = nil)
     result = tag("div")
-    if include_link
-      result = project_name
-      result += tag('br')
-    end
     result += view_button if evaluation
     result += nbsp_escape_false
     result += state_marking_button
+    if include_link
+      result += tag('br')
+      result += tag('small')
+      result += project_name
+    end
     content_tag(:div, result)
   end
 
@@ -58,7 +84,7 @@ class EvaluationPresenter < BasePresenter
   end
 
   def view_button
-    link_to 'View', project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-info btn-xs'
+    link_to 'View', project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-info btn-sm'
   end
 
   def state_marking_button
@@ -70,11 +96,11 @@ class EvaluationPresenter < BasePresenter
   end
 
   def start_marking_button
-    link_to "Start Marking", start_marking_project_evaluation_path(evaluation.project, evaluation), method: :put, class: 'btn btn-primary btn-xs'
+    link_to "Start Marking", start_marking_project_evaluation_path(evaluation.project, evaluation), method: :put, class: 'btn btn-primary btn-sm'
   end
 
   def continue_marking_button
-    link_to "Continue Marking", edit_project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-primary btn-xs'
+    link_to "Continue Marking", edit_project_evaluation_path(evaluation.project, evaluation), class: 'btn btn-primary btn-sm'
   end
 
   def eval_options_hash(title, value)

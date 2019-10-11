@@ -49,6 +49,7 @@ class Assistance < ApplicationRecord
   scope :order_by_start, -> { order(:start_at) }
   scope :assisted_by, ->(user) { where(assistor: user) }
   scope :assisting, ->(user) { where(assistee: user) }
+  scope :for_cohort, ->(cohort) { where(cohort_id: cohort) if cohort }
 
   scope :average_length, -> { average('EXTRACT(EPOCH FROM (assistances.end_at - assistances.start_at)) / 60.0').to_f }
 
@@ -60,18 +61,20 @@ class Assistance < ApplicationRecord
     self.student_notes = student_notes
     self.end_at = Time.current
     self.flag = notify
-    save
+    save!
     assistee.last_assisted_at = Time.current
 
     if assistance_request.instance_of?(CodeReviewRequest) && !rating.nil? && !assistee.code_review_percent.nil?
       assistee.code_review_percent += Assistance::RATING_BASELINE - rating
-      UserMailer.new_code_review_message(self).deliver
+      UserMailer.new_code_review_message(self).deliver_later
     end
 
-    UserMailer.notify_education_manager(self).deliver_later if notify
+    UserMailer.notify_education_manager(self).deliver_later if flag?
 
     assistee.save.tap do
       create_feedback(student: assistee, teacher: assistor)
+      UserChannel.broadcast_to assistee, type:   "NewFeedback",
+                                         object: assistee.feedbacks.pending.where.not(feedbackable: nil).not_expired.count
       send_notes_to_slack
     end
   end

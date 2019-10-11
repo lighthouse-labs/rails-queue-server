@@ -9,14 +9,17 @@
       .student-info-holder
         = student_presenter.name
         - if admin?
-          = link_to 'Impersonate', impersonate_session_path(id: @student.id), method: :put, class: 'btn btn-warning btn-sm user-impersonate-button';
+          = link_to 'Impersonate', impersonate_session_path(id: @student.id), method: :put, class: 'btn btn-warning btn-sm user-impersonate-button'
         br
-        = student_presenter.cohort_name_link
-        br
-        = student_presenter.cohort_date_link
+        - if @student.cohort
+          = student_presenter.cohort_name_link
+          br
+          = student_presenter.cohort_date_link
+        - else
+          p.alert.alert-danger.my-3 This student is not assigned a cohort!
         = student_presenter.contact
       - if student_presenter.rollover_button?
-        button.btn.btn-danger.btn-xs.rollover Rollover
+        button.btn.btn-danger.btn-sm.rollover Rollover
       = student_presenter.day_button
       ul.nav.nav-tabs role="tablist"
         li.nav-item role="presentation"

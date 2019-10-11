@@ -1,0 +1,12 @@
+li.dropdown.cohort
+  = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Cohort' do
+    i.fa.fa-fw.fa-users
+    span.non-tablet-label = cohort.name
+  .dropdown-menu.scrollable-menu
+    - dropdown_cohorts.each do |location, cohorts|
+      .divider-title = location.name
+      .dropdown-divider
+      - cohorts.each do |c|
+        = link_to c.name, [:switch_to, c], method: :put, class: "dropdown-item #{'active' if c == cohort}"
+    .dropdown-divider
+    = link_to 'Other...', teacher_cohort_switcher_index_path, class: 'dropdown-item'

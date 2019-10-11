@@ -16,21 +16,20 @@ class StartTechInterview
       @tech_interview.save!
       create_results
       broadcast_to_queue
-      broadcast_to_interviewee
     end
   end
 
   private
 
   def broadcast_to_queue
-    ActionCable.server.broadcast "assistance-#{@location.name}", type:   "TechInterviewStarted",
-                                                                 object: TechInterviewSerializer.new(@tech_interview, root: false).as_json
+    RequestQueue::BroadcastUpdateAsync.call(program: Program.first)
   end
 
-  def broadcast_to_interviewee
-    UserChannel.broadcast_to @interviewee, type:   "TechInterviewStarted",
-                                           object: TechInterviewSerializer.new(@tech_interview).as_json
-  end
+  # Not used by client/UI. Remove on next cleanup - KV
+  # def broadcast_to_interviewee
+  #   UserChannel.broadcast_to @interviewee, type:   "TechInterviewStarted",
+  #                                          object: TechInterviewSerializer.new(@tech_interview).as_json
+  # end
 
   def determine_day
     # expect to always an interviewee and for them to have a cohort

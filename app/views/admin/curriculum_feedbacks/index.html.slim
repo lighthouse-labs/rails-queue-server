@@ -8,25 +8,8 @@ header.page-header
     = render 'search_form'
 br
 
-- if @feedbacks.any? && params[:charts] == 'Enable'
-  .row
-    .col-sm-12
-      .card
-        .card-header
-          h3.card-title Average Rating By Month
+= render 'charts'
 
-        .card-body
-          = bar_chart @monthly_chart_data, min: 1, max: 5, label: "Average"
-
-  - if @bootcamp_data_by_curriculum_day.present?
-    .row
-      .col-sm-12
-        .card
-          .card-header
-            h3.card-title Average Rating By Curriculum Day
-
-          .card-body
-            = column_chart @bootcamp_data_by_curriculum_day, min: 1, max: 5, label: "Average Rating", height: "500px;"
 .row
   .col-sm-12
     .card

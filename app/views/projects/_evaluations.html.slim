@@ -1,0 +1,11 @@
+.table-responsive
+  table.table.table-condensed
+    thead
+      tr
+        th Status
+        th Marker
+        th Stats
+        th Date Submitted
+        th Project
+    tbody
+      == render collection: evals, partial: 'my_evaluation'

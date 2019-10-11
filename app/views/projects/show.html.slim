@@ -6,17 +6,21 @@
 - provide :body_class, 'project-detail'
 
 - content_for :side_nav do
-  = render 'shared/menus/project_side_menu', project: @project
+  - if params[:day_number].present?
+    = render 'shared/menus/bootcamp_day_menu'
+  - else
+    = render 'shared/menus/project_side_menu', project: @project
 
-.hero
-  = render @project
+- if @project.background_image_url?
+  = render 'project_hero_v2', project: @project
+- else
+  .hero
+    = render @project
 
 - if student?
-  = render 'my_evals'
+  = render 'my_evals', allow_submission: true
 
-hr
-
-ul.nav.nav-tabs role="tablist" id="studentTab"
+ul.nav.nav-tabs.mt-4 role="tablist" id="studentTab"
   li.nav-item role="presentation"
     a.nav-link.active href="#project" aria-controls="project" role="tab" data-toggle="tab"
       | Description

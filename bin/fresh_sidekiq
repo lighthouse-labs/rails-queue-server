@@ -1,0 +1,3 @@
+#!/bin/bash
+bin/rails runner  "require 'sidekiq/api'; Sidekiq::Queue.new.clear; Sidekiq::Queue.new('mailers').clear; Sidekiq::Queue.new('realtime').clear; Sidekiq::Queue.new('scheduled').clear; Sidekiq::Queue.new('low').clear; Sidekiq::ScheduledSet.new.clear; Sidekiq::RetrySet.new.clear"
+bundle exec sidekiq

@@ -2,7 +2,7 @@
   .stat.card
     .card-body
       h3
-        i.fa.fa-clock-o
+        i.far.fa-clock
         | &nbsp;
         = cohort.start_date.to_s(:short_friendly)
       span Start Date
@@ -10,7 +10,7 @@
   .stat.card
     .card-body
       h3
-        i.fa.fa-clock-o
+        i.far.fa-clock
         | &nbsp;
         = cohort.end_date.to_s(:short_friendly)
       span End Date
@@ -18,7 +18,7 @@
   .stat.card
     .card-body
       h3
-        i.fa.fa-bell-o
+        i.far.fa-bell
         | &nbsp;
         - if cohort.active?
           | Active

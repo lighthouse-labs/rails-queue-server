@@ -1,0 +1,2 @@
+class ChallengePresenter < ActivityPresenter
+end

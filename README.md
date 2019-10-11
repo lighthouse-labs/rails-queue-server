@@ -8,31 +8,31 @@ Compass - by Lighthouse Labs
 
 Welcome to Compass! Lighthouse Lab's website for hosting our curriculum to students and managing their education.
 
-[Web F/T site](https://web-compass.lighthouselabs.ca)
+## Deployments
 
-[iOS F/T site](https://ios.compass.lighthouselabs.ca)
+- [Web F/T site](https://web-compass.lighthouselabs.ca)
+- [Web P/T site](https://web-pt.compass.lighthouselabs.ca)
+- [Web P/T Frontend site](https://web-pt-frontend.compass.lighthouselabs.ca)
+- [iOS P/T site](https://ios-pt.compass.lighthouselabs.ca) (deprecated)
+- [iOS F/T site](https://ios.compass.lighthouselabs.ca) (deprecated)
 
-[Web P/T site](https://web-pt.compass.lighthouselabs.ca)
 
-[Web P/T Frontend site](https://web-pt-frontend.compass.lighthouselabs.ca)
+## Table of Contents
 
-[iOS F/T site](https://ios-pt.compass.lighthouselabs.ca)
-
- Table of Contents
-  1. [Setup](#setup)
-      - [Github App Setup](#github-app-setup)
-      - [Start the Server](#server)
-      - [Getting the Queue to work](#queue)
-      - [Setting up iOS or Part-time](#ios-and-part-time-support)
-  2. [Project Management Process](#pm-process)
-      - [for Lead Dev](#for-lead-dev)
-      - [for Contributors](#for-contributors-and-junior-devs)
-  3. [Deployment](#deployment)
-  4. [CSS UI Framework](#css-ui-framework)
-  5. [Linter](#linter)
-  6. [Testing](#testing)
-  7. [CodeClimate](#codeclimate)
-  8. [Built With](#built-with)
+1. [Setup](#setup)
+  - [Github App Setup](#github-app-setup)
+  - [Start the Server](#server)
+  - [Getting the Queue to work](#queue)
+  - [Setting up iOS or Part-time](#ios-and-part-time-support)
+2. [Project Management Process](#pm-process)
+  - [for Lead Dev](#for-lead-dev)
+  - [for Contributors](#for-contributors-and-junior-devs)
+3. [Deployment](#deployment)
+4. [CSS UI Framework](#css-ui-framework)
+5. [Linter](#linter)
+6. [Testing](#testing)
+7. [CodeClimate](#codeclimate)
+8. [Built With](#built-with)
 
 ## Setup
 
@@ -61,6 +61,8 @@ Follow these steps in order please:
   * This will create, schema load, and seed the db
   * The seed script will download the (private) curriculum repo in order to ingest the content. This means your github auth should be set appropriately, otherwise it will have access issues and fail.
 9. Start the server, using `bin/serve`
+11. Run `bin/fresh_sidekiq` in another terminal
+  * Note: It will intentionally clear the queues (seeds cause a lot of tasks) before starting, so keep that in mind
 10. Create an admin+teacher account for yourself. First sign up as a teacher using this URL:
   * <http://compass.local:4000/i/ggg> (teacher invite code URL)
   * Once you've authenticated successfully, `rails c` in and update the user (using `u = User.last`, set `u.admin = true`, then `u.save`)
@@ -78,13 +80,15 @@ User (student/teacher) Authentication can only happen through Github. Much like 
 
 ## Server
 
-Start the server using the command `bin/serve`
-This runs `bin/rails s -b 0.0.0.0 -p 4000`
+1. Start the server using the command `bin/serve`.
+  - This runs `bin/rails s -b 0.0.0.0 -p 4000`
   - You can change this to 3000 if you prefer (affects above GitHub changes)
+2. Run `bin/fresh_sidekiq` in another terminal.
+  - Note: This script will intentionally clear the queues for a fresh start.
 
-## Queue
+## Assistance Queue
 
-The Queue is reliant on Redis (though ActionCable).
+The Assistance Queue (found on path /assistance_requests) is reliant on Redis (though ActionCable).
 
 To install Redis:
 
@@ -196,7 +200,7 @@ Note*: creating an new issue automatically adds a card to the github projects. I
   * Paste the relevant contents from the CHANGELOG.md file for the release notes. ([Example](https://github.com/lighthouse-labs/compass/releases/tag/v2.0.2))
 6. Push your local master to production: `git push compass2 master`
   * which points to remote: `dokku@compass.lighthouselabs.ca:compass2`
-7. If there are migrations: SSH into VM and run migrations: `dokku run compass2 bundle exec rake db:migrate; dokku ps:restart compass2`
+7. If there are migrations: SSH into VM and run migrations: `dokku run compass2 bin/rake db:migrate; dokku ps:restart compass2`
 8. Let Ed Ops folks know about the deployment (`web-ed-ops-vancouver@lighthouselabs.ca` and `web-ed-ops-toronto@lighthouselabs.ca`)
 9. Let all (web bootcamp) teachers know about the deployment by pasting the link to the release on GitHub on #web-curriculum in Slack
 
@@ -205,21 +209,22 @@ Note*: creating an new issue automatically adds a card to the github projects. I
 <https://github.com/wingrunr21/flat-ui-sass> was used to convert FlatUI Pro from LESS to SASS (located in `vendor/assets` )
 
 ## Linter
-We also have the `rubocop` gem to lint locally, which can be run with `bundle exec rubocop`. To automatically fix simple lint errors such as indentation and white spacing, you can use `bundle exec rubocop -a`, however, there is some risk with this.
+
+We also have the `rubocop` gem to lint locally, which can be run with `bin/rubocop`. To automatically fix simple lint errors such as indentation and white spacing, you can use `bin/rubocop -a`, however, there is some risk with this.
 
 ## Testing
 
 **To run all tests:**
 
-`bundle exec rspec`
+`bin/rspec`
 
 **To run a specific file:**
 
-`bundle exec rspec ./spec/models/user_spec.rb`
+`bin/rspec ./spec/models/user_spec.rb`
 
 **To run a specific test:**
 
-`bundle exec rspec ./spec/models/user_spec.rb -e "User has a valid factory"`
+`bin/rspec ./spec/models/user_spec.rb -e "User has a valid factory"`
 
 **Note:** Use `HEADLESS=0` when running feature specs to see your browser in action (sometimes useful for debugging or just plain entertainment).
 
@@ -239,10 +244,10 @@ Make sure gem `codeclimate-test-reporter` version is 1.0+
 
 ## Built With
 
-This project is built with :
-* ruby 2.3.0 (mentioned in the Gemfile)
-* rails 5.0.0.1
-* slim instead of erb/haml
-* postgres 9.x
-* bootstrap 3.something with FlatUI
-* capybara, selenium and chrome-headless for testing
+This project is built with:
+* Buby 2.4.3
+* Rails 5.0.0.1
+* Slim instead of ERB or haml or ...
+* Postgres 9.x
+* Bootstrap 4.something
+* Capybara, selenium and chrome-headless for testing

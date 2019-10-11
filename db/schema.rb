@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180825172247) do
+ActiveRecord::Schema.define(version: 20191002160813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,15 +22,13 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
-    t.string   "day"
     t.string   "gist_url"
-    t.text     "instructions"
     t.text     "teacher_notes"
     t.string   "file_name"
-    t.boolean  "allow_submissions",     default: true
+    t.boolean  "allow_submissions",         default: true
     t.string   "media_filename"
     t.string   "revisions_gistid"
-    t.integer  "code_review_percent",   default: 60
+    t.integer  "code_review_percent",       default: 60
     t.integer  "quiz_id"
     t.integer  "content_repository_id"
     t.string   "content_file_path"
@@ -40,53 +38,50 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.string   "uuid"
     t.text     "initial_code"
     t.text     "test_code"
-    t.integer  "sequence"
-    t.boolean  "stretch"
     t.boolean  "archived"
     t.float    "average_rating"
     t.integer  "average_time_spent"
     t.boolean  "homework"
     t.boolean  "milestone"
     t.boolean  "advanced_topic"
+    t.string   "background_image_url"
+    t.string   "background_image_darkness"
+    t.string   "day"
+    t.integer  "sequence"
+    t.text     "instructions"
+    t.boolean  "stretch"
     t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
-    t.index ["day"], name: "index_activities_on_day", using: :btree
     t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
-    t.index ["section_id", "stretch"], name: "index_activities_on_section_id_and_stretch", using: :btree
     t.index ["section_id"], name: "index_activities_on_section_id", using: :btree
-    t.index ["sequence"], name: "index_activities_on_sequence", using: :btree
     t.index ["start_time"], name: "index_activities_on_start_time", using: :btree
     t.index ["uuid"], name: "index_activities_on_uuid", unique: true, using: :btree
+  end
+
+  create_table "activity_answers", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.integer  "user_id"
+    t.string   "question_key"
+    t.text     "answer_text"
+    t.boolean  "toggled"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["activity_id"], name: "index_activity_answers_on_activity_id", using: :btree
+    t.index ["user_id"], name: "index_activity_answers_on_user_id", using: :btree
   end
 
   create_table "activity_feedbacks", force: :cascade do |t|
     t.integer  "activity_id"
     t.integer  "user_id"
     t.integer  "sentiment"
-    t.integer  "rating"
+    t.float    "rating"
     t.text     "detail"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.boolean  "legacy_note"
+    t.datetime "deleted_at"
     t.index ["activity_id"], name: "index_activity_feedbacks_on_activity_id", using: :btree
+    t.index ["deleted_at"], name: "index_activity_feedbacks_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
-  end
-
-  create_table "activity_messages", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "cohort_id"
-    t.integer  "activity_id"
-    t.string   "kind",          limit: 50
-    t.string   "day",           limit: 5
-    t.string   "subject",       limit: 1000
-    t.text     "body"
-    t.text     "teacher_notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "archived"
-    t.index ["activity_id"], name: "index_activity_messages_on_activity_id", using: :btree
-    t.index ["cohort_id"], name: "index_activity_messages_on_cohort_id", using: :btree
-    t.index ["day"], name: "index_activity_messages_on_day", using: :btree
-    t.index ["user_id"], name: "index_activity_messages_on_user_id", using: :btree
   end
 
   create_table "activity_submissions", force: :cascade do |t|
@@ -99,7 +94,6 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.boolean  "finalized",               default: false
     t.text     "code_evaluation_results"
     t.integer  "time_spent"
-    t.text     "note"
     t.integer  "cohort_id"
     t.index ["activity_id"], name: "index_activity_submissions_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_activity_submissions_on_cohort_id", using: :btree
@@ -144,6 +138,7 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.index ["assistor_id"], name: "index_assistance_requests_on_assistor_id", using: :btree
     t.index ["assistor_location_id"], name: "index_assistance_requests_on_assistor_location_id", using: :btree
     t.index ["cohort_id"], name: "index_assistance_requests_on_cohort_id", using: :btree
+    t.index ["id"], name: "open_requests_by_id", where: "((canceled_at IS NULL) AND (type IS NULL) AND (assistance_id IS NULL))", using: :btree
     t.index ["requestor_id"], name: "index_assistance_requests_on_requestor_id", using: :btree
   end
 
@@ -195,7 +190,9 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.string   "weekdays"
     t.text     "disable_queue_days",     default: [], null: false, array: true
     t.boolean  "local_assistance_queue"
+    t.index ["location_id"], name: "index_cohorts_on_location_id", using: :btree
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
+    t.index ["start_date"], name: "index_cohorts_on_start_date", using: :btree
   end
 
   create_table "content_repositories", force: :cascade do |t|
@@ -205,6 +202,10 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.datetime "updated_at",                         null: false
     t.string   "last_sha"
     t.string   "github_branch",   default: "master"
+    t.integer  "program_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_content_repositories_on_deleted_at", using: :btree
+    t.index ["program_id"], name: "index_content_repositories_on_program_id", using: :btree
   end
 
   create_table "curriculum_breaks", force: :cascade do |t|
@@ -328,7 +329,7 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.text     "body"
     t.text     "teacher_notes"
     t.string   "youtube_url",   limit: 500
-    t.string   "file_name"
+    t.string   "s3_video_key"
     t.string   "file_type"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
@@ -435,6 +436,7 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.text     "disable_queue_days",              default: [],   null: false, array: true
     t.string   "curriculum_team_email"
     t.boolean  "has_advanced_lectures"
+    t.string   "teacher_invite_code"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -474,42 +476,25 @@ ActiveRecord::Schema.define(version: 20180825172247) do
   end
 
   create_table "quizzes", force: :cascade do |t|
-    t.string   "day"
     t.string   "uuid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
-  end
-
-  create_table "recordings", force: :cascade do |t|
-    t.string   "file_name"
-    t.datetime "recorded_at"
-    t.integer  "presenter_id"
-    t.integer  "cohort_id"
-    t.integer  "activity_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "program_id"
-    t.string   "title"
-    t.string   "presenter_name"
-    t.string   "file_type"
-    t.boolean  "archived"
+    t.string   "day"
   end
 
   create_table "sections", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "order"
     t.string   "type"
     t.string   "uuid"
     t.text     "description"
     t.string   "content_file_path"
     t.integer  "content_repository_id"
-    t.string   "start_day"
     t.text     "blurb"
-    t.string   "end_day"
     t.string   "image"
     t.boolean  "evaluated"
     t.string   "last_sha1"
@@ -519,6 +504,10 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.text     "teacher_notes"
     t.boolean  "archived"
     t.boolean  "stretch"
+    t.string   "start_day"
+    t.string   "end_day"
+    t.string   "background_image_url"
+    t.string   "background_image_darkness"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
   end
@@ -573,7 +562,6 @@ ActiveRecord::Schema.define(version: 20180825172247) do
 
   create_table "tech_interview_templates", force: :cascade do |t|
     t.string   "uuid"
-    t.integer  "week"
     t.string   "content_file_path"
     t.integer  "content_repository_id"
     t.text     "description"
@@ -581,6 +569,7 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.boolean  "archived"
+    t.integer  "week"
     t.index ["content_repository_id"], name: "index_tech_interview_templates_on_content_repository_id", using: :btree
   end
 
@@ -638,28 +627,34 @@ ActiveRecord::Schema.define(version: 20180825172247) do
     t.datetime "last_assisted_at"
     t.datetime "deactivated_at"
     t.string   "slack"
-    t.boolean  "remote",                    default: false
+    t.boolean  "remote",                     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "code_review_percent",       default: 80
-    t.boolean  "admin",                     default: false, null: false
+    t.integer  "code_review_percent",        default: 80
+    t.boolean  "admin",                      default: false, null: false
     t.string   "company_name"
     t.string   "company_url"
     t.text     "bio"
     t.string   "quirky_fact"
     t.string   "specialties"
     t.integer  "location_id"
-    t.boolean  "on_duty",                   default: false
+    t.boolean  "on_duty",                    default: false
     t.integer  "mentor_id"
-    t.boolean  "mentor",                    default: false
+    t.boolean  "mentor",                     default: false
     t.integer  "initial_cohort_id"
-    t.string   "auth_token",                default: "",    null: false
+    t.string   "auth_token",                 default: "",    null: false
     t.boolean  "suppress_tech_interviews"
     t.float    "cohort_assistance_average"
     t.string   "pronoun"
+    t.boolean  "super_admin"
+    t.string   "github_education_action"
+    t.datetime "github_education_action_at"
     t.index ["auth_token"], name: "index_users_on_auth_token", using: :btree
+    t.index ["cohort_id"], name: "active_students_by_cohort", where: "((completed_registration = true) AND (deactivated_at IS NULL) AND ((type)::text = 'Student'::text))", using: :btree
     t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
     t.index ["initial_cohort_id"], name: "index_users_on_initial_cohort_id", using: :btree
+    t.index ["location_id"], name: "active_users_by_location", where: "((completed_registration = true) AND (deactivated_at IS NULL))", using: :btree
+    t.index ["location_id"], name: "index_users_on_location_id", using: :btree
     t.index ["type", "on_duty"], name: "index_users_on_type_and_on_duty", using: :btree
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
@@ -711,6 +706,8 @@ ActiveRecord::Schema.define(version: 20180825172247) do
   end
 
   add_foreign_key "activities", "quizzes"
+  add_foreign_key "activity_answers", "activities"
+  add_foreign_key "activity_answers", "users"
   add_foreign_key "activity_feedbacks", "activities"
   add_foreign_key "activity_feedbacks", "users"
   add_foreign_key "answers", "options"

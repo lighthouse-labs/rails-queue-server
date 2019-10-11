@@ -5,7 +5,6 @@ class Cohort < ApplicationRecord
 
   has_many :students
   has_many :rolled_out_students, foreign_key: 'initial_cohort_id', class_name: 'Student'
-  has_many :recordings
   has_many :tech_interviews
   # only supports one break per cohort
   has_one :curriculum_break
@@ -15,6 +14,7 @@ class Cohort < ApplicationRecord
   validates :program, presence: true
   validates :location, presence: true
   validate  :disable_queue_days_are_valid
+  validate :part_time_requires_weekdays
 
   validates :code,  uniqueness: true,
                     presence:   true,
@@ -45,7 +45,9 @@ class Cohort < ApplicationRecord
   scope :is_finished, -> { where('cohorts.start_date < ?', (Date.current - Program.first.weeks.weeks)) }
   scope :started_before, ->(date) { where('cohorts.start_date <= ?', date) }
   scope :started_after, ->(date) { where('cohorts.start_date >= ?', date) }
-
+  scope :running_in_location, ->(location) {
+    where(location_id: location.supported_by_location ? location.supported_by_location : location)
+  }
   # assumes monday start date =/ - KV
   # last day of instruction, friday of the last week - JM
   def end_date
@@ -98,6 +100,12 @@ class Cohort < ApplicationRecord
 
   def active_queue?
     program.has_queue? && active? && !disable_queue_days.include?(curriculum_day.to_s)
+  end
+
+  private
+
+  def part_time_requires_weekdays
+    errors.add(:weekdays, 'needs to be present if the program is part time.') if program.part_time? && weekdays.blank?
   end
 
 end

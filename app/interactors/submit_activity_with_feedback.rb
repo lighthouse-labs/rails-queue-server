@@ -13,6 +13,16 @@ class SubmitActivityWithFeedback
       context.fail!
     end
 
+    if @fields.time_spent.to_i >= 2400
+      context.errors << "It is impossible for you to have spent that much time!"
+      context.fail!
+    end
+
+    if @fields.time_spent.to_i < 0
+      context.errors << "An activity cannot take negative time!"
+      context.fail!
+    end
+
     handle_code_eval
 
     if @activity_submission.save
@@ -35,8 +45,7 @@ class SubmitActivityWithFeedback
     if @activity.evaluates_code?
       @activity_submission = context.activity_submission = @user.activity_submissions.for_activity(@activity).finalized.first
       @activity_submission.update(
-        time_spent: @fields.time_spent,
-        note:       @fields.note
+        time_spent: @fields.time_spent
       )
     else
       # Create a new submission if it is not a code eval
@@ -44,7 +53,6 @@ class SubmitActivityWithFeedback
         user:       @user,
         activity:   @activity,
         time_spent: @fields.time_spent,
-        note:       @fields.note,
         github_url: @fields.github_url
       )
     end

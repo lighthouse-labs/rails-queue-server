@@ -9,13 +9,26 @@ class Admin::CurriculumFeedbacksController < Admin::BaseController
     @avg_rating = @feedbacks.average_rating
     @paginated_feedbacks = @feedbacks.page(params[:page]).per(DEFAULT_PER)
 
-    if params[:charts] == 'Enable'
-      @monthly_chart_data = @feedbacks.reorder('').group_by_month('activity_feedbacks.created_at', format: "%b %Y").average(:rating)
+    @charts = params[:charts] || []
 
-      if params[:type] == 'Bootcamp'
-        @bootcamp_data_by_curriculum_day = @feedbacks.reorder('activities.day ASC').references(:activity).group('activities.day').average(:rating)
-        # raise @bootcamp_data_by_curriculum_day.inspect
-      end
+    if @charts.include? 'monthly'
+      @monthly_chart_data = @feedbacks.reorder('').group_by_month('activity_feedbacks.created_at', format: "%b %Y").average(:rating)
+    end
+
+    if @charts.include? 'curriculum_day'
+      @curriculum_day_chart_data = @feedbacks.reorder('activities.day ASC').joins(:activity).references(:activity).group('activities.day').average(:rating)
+    end
+
+    if @charts.include? 'quarterly'
+      @quarterly_average_chart_data = @feedbacks.reorder('').group_by_quarter('activity_feedbacks.created_at', format: ->(date) { date.to_formatted_s(:quarter) }).average(:rating)
+    end
+
+    if @charts.include? 'weekly'
+      @weekly_chart_data = @feedbacks.reorder('').group_by_week('activity_feedbacks.created_at', format: "Week of %d %b %Y").average(:rating)
+    end
+
+    if @charts.include? 'yearly'
+      @yearly_average_chart_data = @feedbacks.reorder('').group_by_year('activity_feedbacks.created_at', format: '%Y').average(:rating)
     end
 
     respond_to do |format|

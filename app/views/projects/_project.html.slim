@@ -1,4 +1,6 @@
-= link_to project, class: 'project-bio' do
+- day_number ||= nil
+
+= link_to project_path(project, day_number: day_number), class: 'project-bio mb-4' do
   .info
     .icon.icon-type title='Project'
       i.fa.fa-gavel
@@ -13,7 +15,7 @@
       | &nbsp;
       - if project.stretch?
         span.stretch = '(Stretch)'
-    .status
+    .status.d-none.d-sm-block
       - if student?
         - project_evaluation = project.last_evaluation(current_user)
         = render 'projects/student_project_status', student: current_user, project_evaluation: project_evaluation
@@ -26,5 +28,5 @@
             span.sr-only = "#{ratio}% Complete"
   .details
     .blurb.clearfix
-      = image_tag project.image, style: 'float:left; max-width: 200px; margin-right: 10px'
+      = image_tag project.image
       p = project.blurb

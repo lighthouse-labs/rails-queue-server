@@ -37,6 +37,7 @@
 //= require best_in_place
 //= require_tree ./polyfills/
 //= require cable
+//= require desktop_notifier
 //= require react
 //= require react_ujs
 
@@ -56,6 +57,8 @@
 //= require day_feedbacks
 //= require incomplete_activities
 //= require activities
+//= require toggle_answer
+//= require compass.autosize
 //= require reconnect_holder
 //= require prep
 //= require profile
@@ -69,3 +72,6 @@
 //= require projects
 //= require google_analytics
 //= require more_search_filters
+//= require video
+//= require prism_width_hack
+

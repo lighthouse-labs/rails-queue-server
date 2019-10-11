@@ -1,7 +1,7 @@
 - title "New Lecture for #{@activity.name}"
 
 - content_for :side_nav do
-  == render 'layouts/side_nav'
+  == render 'shared/menus/bootcamp_day_menu'
 
 section.activity-details
   h1 = @activity.name

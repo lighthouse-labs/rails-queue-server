@@ -3,17 +3,12 @@
 - present @activity, nil, { workbook: @workbook } do |activity_presenter|
 
   = activity_presenter.render_sidenav
+  / = render 'progress_bar' if @activity.bootcamp?
 
-  section.activity-details
-    h1 = activity_presenter.name
-    = render 'action_bar', activity_presenter: activity_presenter
-    hr
+  section.activity-details data-uuid=@activity.uuid
 
-    - if @activity.section && @activity.section.is_a?(Project) && !@activity.section.archived?
-      h4 This activity should help you progress with a project:
-      = render @activity.section
-
-    = activity_presenter.display_outcomes
+    = render 'activity_title', activity_presenter: activity_presenter
+    = render 'actions', activity_presenter: activity_presenter
 
     - if stretch_activity?(@activity, @workbook)
       - text = @activity.day? ? "day" : "prep course"
@@ -54,12 +49,12 @@
         == markdown @program.lecture_tips
 
     - if teacher? && @activity.teacher_notes?
-      hr
-      h3 = "Teacher Notes"
-      .instructions
+      .instructions.teacher-notes.text-white.bg-dark
+        h2 Teacher Notes
         == markdown @activity.teacher_notes
 
     = render 'submission_bar', activity_presenter: activity_presenter
+    = render 'next_and_prev', activity_presenter: activity_presenter
     = render 'feedback' if @activity.allow_feedback?
 
     - if @lectures.present?

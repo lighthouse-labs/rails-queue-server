@@ -1,5 +1,10 @@
 class UserSerializer < ActiveModel::Serializer
 
+  # for #avatar_url to work, since it assumes image_path will work
+  include ActionView::Helpers::AssetTagHelper
+  include AvatarHelper
+
+  format_keys :lower_camel
   root false
 
   attributes :id,
@@ -13,15 +18,17 @@ class UserSerializer < ActiveModel::Serializer
              :busy,
              :last_assisted_at,
              :pronoun,
-             :remote
+             :remote,
+             :on_duty
 
-  has_one :location
+  has_one :location, serializer: MyLocationSerializer
   has_one :cohort
 
   protected
 
+  # Delegates to method in AvatarHelper
   def avatar_url
-    object.custom_avatar.try(:url, :thumb) || object.avatar_url
+    avatar_for(object)
   end
 
   def busy

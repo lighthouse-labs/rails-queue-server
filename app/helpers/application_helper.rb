@@ -21,11 +21,6 @@ module ApplicationHelper
       (current_user.is_a?(Student) && !current_user.cohort.program.has_queue?)
   end
 
-  # folks in limited (previous alumni) cohort dont need to take up action cable connections
-  def disable_cable_for_some
-    ' disable-cable' if disable_cable?
-  end
-
   # Display an integer time as a string
   # Ex: integer_time_to_s(930) # => "9:30"
   def integer_time_to_s(int_time)
@@ -61,16 +56,6 @@ module ApplicationHelper
         n == 1 ? "#{n.to_i} #{name}" : "#{n.to_i} #{name}s"
       end
     end.compact.reverse.join(' ')
-  end
-
-  def avatar_for(user)
-    if user&.custom_avatar?
-      user.custom_avatar.url(:thumb)
-    elsif user&.avatar_url
-      user.avatar_url
-    else
-      image_path('duck-on.png')
-    end
   end
 
   def format_date_time(time)

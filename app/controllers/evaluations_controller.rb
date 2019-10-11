@@ -1,5 +1,7 @@
 class EvaluationsController < ApplicationController
 
+  include CourseCalendar
+
   before_action :teacher_required, except: [:new, :create, :cancel, :show]
   before_action :find_project
   before_action :find_evaluation, only: [:show, :edit, :update, :start_marking, :cancel, :cancel_marking]
@@ -22,6 +24,7 @@ class EvaluationsController < ApplicationController
     @evaluation = @project.evaluations.new
   end
 
+  # TODO: Refactor logic into interactor (service object)
   def create
     @evaluation = @project.evaluations.new(evaluation_params)
     @evaluation.student = current_user

@@ -4,8 +4,11 @@ class BroadcastMarking
 
   def call
     evaluation = context.evaluation
-    ActionCable.server.broadcast "assistance-#{evaluation.student.cohort.location.name}", type:   "StartMarking",
-                                                                                          object: EvaluationSerializer.new(evaluation, root: false).as_json
+    evaluator = context.evaluator
+    redirect_to = context.edit_evaluation_url
+
+    RequestQueue::BroadcastUpdateAsync.call(program: Program.first)
+    UserChannel.broadcast_to(evaluator, type: 'RedirectCommand', location: redirect_to) if evaluator
   end
 
 end

@@ -6,18 +6,5 @@ section.activity-details
         .left-actions
           - next_activity = @workbook ? @workbook.next_activity(@activity) : @activity.next
           - next_path = next_activity ? get_activity_path(next_activity, @workbook) : get_next_index_path(@activity, @workbook)
-          - if @activity.is_a?(QuizActivity) || (@activity.is_a?(PinnedNote) && @activity.activity_submissions.where(user: current_user).any?)
-            = link_to next_path, class: 'btn btn-primary btn-activity-complete-status-no-code-review'
-              i.fa.fa-caret-right
-              | &nbsp;Next
-          - elsif @activity.is_a?(PinnedNote)
-            = simple_form_for ActivitySubmissionWithOptionalFeedback.new, url: activity_submission_with_feedback_path(@activity), method: :post, remote: true do |form|
-              = form.hidden_field :time_spent, value: 1
-              button.btn.btn-primary.btn-activity-complete-status-no-code-review
-                i.fa.fa-caret-right
-                | &nbsp;Next
-            - content_for :end_of_body
-              javascript:
-                nextPath = "#{next_path}"
-          - else
+          - if @activity.can_mark_completed?
             = activity_presenter.submission_form

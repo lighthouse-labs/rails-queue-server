@@ -1,10 +1,9 @@
 html,
 body {
   min-height: 100%;
+  font-size: calc(12px + .5vw);
 }
-body {
-  padding-top: 80px;
-}
+
 .non-tablet-label {
   @include media-breakpoint-between(md, lg) {
     position: absolute;
@@ -17,6 +16,20 @@ body {
     border: 0;
   }
 }
+
+.only-on-small {
+  @include media-breakpoint-between(md, xl) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+}
+
 header > nav {
   i {
     margin: 0px 4px 0px 0px;
@@ -51,61 +64,23 @@ header > nav {
 
     }
   }
-
-  #assistance-request-module {
-    margin-left: 10px;
-    margin-right: -10px;
-  }
 }
 
 main {
   $side-nav-width: 240px;
   &.container {
     margin-left: 0px;
-    // width: 1400px;
   }
 
-  nav.side-nav {
-    // @media (min-width: $screen-sm-min) {
-    //   float: left;
-    //   width: $side-nav-width;
-    // }
-    i.fa {
-      width: 18px;
-      text-align: center;
-    }
-    .panel {
-      &.selected {
-        .panel-heading {
-          a, i {
-            color: $brand-primary;
-          }
-        }
-      }
-      .list-group-item.selected {
-        a, i {
-          color: $brand-primary;
-        }
-      }
-    }
-
-  }
   .content {
-    // @media (min-width: $screen-sm-min) {
-    //   float: left;
-    //   width: $container-sm - $side-nav-width - $grid-gutter-width;
-    // }
-    // @media (min-width: $screen-md-min) {
-    //   width: $container-md - $side-nav-width - $grid-gutter-width;
-    // }
-    // @media (min-width: $screen-lg-min) {
-    //   width: $container-lg - $side-nav-width - $grid-gutter-width;
-    // }
+    &.main-content .main-content-view {
+      max-width: 1000px;
+    }
     .jumbotron {
       padding-top: 30px;
       padding-bottom: 30px;
       h1 {
-        font-size: 68px;
+        font-size: 48px;
       }
     }
   }
@@ -161,7 +136,39 @@ span.anchor {
   margin-right: 6px;
 }
 
+.btn-hover-danger:hover, .btn-hover-danger:focus, .btn-hover-danger:active {
+  background-color: $brand-danger;
+  color: white;
+  border-color: $brand-danger;
+}
+
+
 .navbar-text {
   margin-left: 0;
   margin-right: 0;
+}
+
+.can-load {
+  transition: opacity 0.3s ease-in-out;
+
+  &.loading {
+    opacity: 0.3;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+ul.list-group.flat-list-group {
+  li.list-group-item:first-child {
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+  }
+  li.list-group-item:last-child {
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
+  }
+}
+
+.pacifico {
+  font-family: 'Pacifico', cursive;
 }

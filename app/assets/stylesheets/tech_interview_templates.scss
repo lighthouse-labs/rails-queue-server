@@ -34,6 +34,12 @@
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
 
+    @include media-breakpoint-down(xs) {
+      font-size: 18px;
+      padding: 0 20px 0 40px;
+      line-height: 24px;
+    }
+
     .icon {
       opacity: 0.75;
       font-size: 36px;
@@ -43,6 +49,12 @@
       padding: 0 20px;
       position: absolute;
       top: 50%;
+
+      @include media-breakpoint-down(xs) {
+        font-size: 20px;
+        padding: 0 10px;
+      }
+
     }
 
     .icon-type {
@@ -52,6 +64,11 @@
       color: $brand-secondary;
       overflow: hidden;
       padding: 28px 0;
+
+      @include media-breakpoint-down(xs) {
+        padding: 16px 0;
+      }
+
       .stretch {
         color: $gray-light;
       }

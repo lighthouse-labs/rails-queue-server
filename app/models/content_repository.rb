@@ -1,5 +1,8 @@
 class ContentRepository < ApplicationRecord
 
+  acts_as_paranoid
+
+  belongs_to :program
   has_many :activities
   has_many :deployments
 

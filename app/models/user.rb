@@ -17,8 +17,6 @@ class User < ApplicationRecord
   belongs_to :initial_cohort, class_name: 'Cohort' # rollover student have this set
   belongs_to :location
 
-  has_many :recordings, foreign_key: :presenter_id
-
   has_many :assistance_requests, foreign_key: :requestor_id
   has_many :assistances, foreign_key: :assistee_id
 
@@ -37,6 +35,9 @@ class User < ApplicationRecord
   }
   scope :order_by_first_name, -> {
     order(first_name: :asc)
+  }
+  scope :order_by_name, -> {
+    order(first_name: :asc, last_name: :asc)
   }
   scope :cohort_in_locations, ->(locations) {
     if locations.is_a?(Array) && !locations.empty?
@@ -70,6 +71,11 @@ class User < ApplicationRecord
   validates :email,           email: true
   validates :location_id,     presence: true
   validates :github_username, presence: true
+
+  # Temp logic, until we get better (role-based?) permission mgmt throughout the app - KV
+  def can_adminify?(user)
+    super_admin? && !user.super_admin?
+  end
 
   def prospect?
     true
@@ -113,7 +119,8 @@ class User < ApplicationRecord
   end
 
   def can_access_day?(day)
-    unlocked? CurriculumDay.new(day, cohort)
+    return unlocked? CurriculumDay.new(day, cohort) if cohort
+    false
   end
 
   def being_assisted?
@@ -215,6 +222,24 @@ class User < ApplicationRecord
 
   def use_double_digit_week?
     Program.first.weeks >= 10
+  end
+
+  def unique_id
+    OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), "unique-lhl-id", "#{id}-#{created_at}")
+  end
+
+  def eligible_for_github_education_pack?
+    ENV['GITHUB_EDUCATION_SCHOOL_ID'].present? &&
+      ENV['GITHUB_EDUCATION_SECRET_KEY'].present? &&
+      active_student?
+  end
+
+  def github_education_pack_claimed?
+    github_education_action == 'claimed'
+  end
+
+  def github_education_pack_actioned?
+    github_education_action.present?
   end
 
   class << self

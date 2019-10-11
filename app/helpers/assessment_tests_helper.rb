@@ -12,4 +12,15 @@ module AssessmentTestsHelper
     "#{ENV['PROCTOLOGIST_URL']}admin/exams/#{test}/?studentIds=#{student_usernames}"
   end
 
+  def exam_codes
+    [
+      { name: "W1 Test (Mock Test)", code: "web-01" },
+      { name: "W2 Test", code: "web-02d" },
+      { name: "W3 Test", code: "web-03gg" },
+      { name: "W4 Test", code: "web-04yo" },
+      { name: "W5 Test (SQL)", code: "web-05sh" },
+      { name: "W10 Test (Ruby)", code: "web-06-rb" }
+    ]
+  end
+
 end
