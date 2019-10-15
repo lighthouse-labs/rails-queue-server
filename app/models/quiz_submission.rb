@@ -43,7 +43,7 @@ class QuizSubmission < ApplicationRecord
     answers.inject(0) { |sum, answer| answer.option&.correct ? sum + 1 : sum }
   end
 
-  def percentage
+  def percent
     ((correct.to_f / total.to_f) * 100).round(2).to_i.to_s + '%'
   end
 

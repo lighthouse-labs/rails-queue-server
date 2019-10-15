@@ -81,4 +81,8 @@ class Student < User
     end
   end
 
+  def initial_submission_for_quiz(quiz)
+    self.quiz_submissions.where(quiz_id: quiz).where(initial: true).first
+  end
+
 end

@@ -29,8 +29,8 @@
               td = link_to shortened_github_url(student.github_url(@activity)), student.github_url(@activity) if student.completed_activity?(@activity)
             -if student.completed_activity?(@activity)
               td 
-                -if @activity.quiz_id
-                  = "#{student.quiz_submissions.where(quiz_id: @activity.quiz_id).where(initial: true).first.percentage} Initial"
+                -if @activity.quiz?
+                  = "#{student.initial_submission_for_quiz(@activity.quiz).percent} Initial"
                 -else
                   = 'Yes'
             -else
