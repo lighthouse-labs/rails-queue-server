@@ -28,4 +28,4 @@ class Student::MergeAccounts
     end
   end
 
-  end
+end
