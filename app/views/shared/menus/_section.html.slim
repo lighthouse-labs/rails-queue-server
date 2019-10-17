@@ -32,6 +32,7 @@
           - activity_classes = ["toc-activity"]
           - activity_classes.push("toc-activity__active") if (@activity == activity)
           - activity_classes.push("toc-activity__is-stretch") if(activity.stretch?)
+          - activity_classes.push("toc-activity__is-career-service") if(activity.cs?)
 
           li class=(activity_classes.join(" "))
               = link_to activity_path(activity), class: 'toc-activity--label' do
