@@ -5,7 +5,8 @@ table.table.students
       th Status
       th Marker
       th Stats
-      th
+      th Date Submitted
+      th Project
   tbody
     - cohort.students.active.order_by_first_name.each do |student|
       - evaluations = student.evaluations.for_project(@project)

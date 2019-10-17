@@ -13,4 +13,4 @@
       - back = @quiz_submission.quiz.bootcamp? ? "Back to #{@quiz_submission.quiz.day} Activities" : "Back to Prep"
       - back_path = @quiz_submission.quiz.bootcamp? ? day_path(@quiz_submission.quiz.day) : activity_path(@quiz_submission.quiz.quiz_activities.active.first)
       = link_to back, back_path, class: "btn btn-success quiz-submission-link"
-      = link_to "Retake Quiz", new_quiz_quiz_submission_path(@quiz_submission.quiz), class: "btn btn-success quiz-submission-link pull-right"
+      = link_to "Retake Quiz", new_quiz_quiz_submission_path(@quiz_submission.quiz), class: "btn btn-success quiz-submission-link float-right"

@@ -12,8 +12,8 @@ tr
 
   td = cohort_status(cohort)
   td
-    = link_to 'Dashboard', [:admin, cohort], class: 'btn btn-xs btn-primary'
+    = link_to 'Dashboard', [:admin, cohort], class: 'btn btn-sm btn-primary'
     | &nbsp;
-    = link_to 'Students', admin_students_path(cohort_id: cohort), class: 'btn btn-xs btn-info'
+    = link_to 'Students', admin_students_path(cohort_id: cohort), class: 'btn btn-sm btn-info'
     | &nbsp;
-    = link_to 'Edit', edit_admin_cohort_path(cohort), class: 'btn btn-xs btn-warning'
+    = link_to 'Edit', edit_admin_cohort_path(cohort), class: 'btn btn-sm btn-warning'
