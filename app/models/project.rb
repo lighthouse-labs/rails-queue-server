@@ -41,8 +41,12 @@ class Project < Section
   end
 
   def evaluations_for(student, cohort = nil)
-    cohort ||= student.cohort
-    evaluations.where(student: student, cohort: cohort).order(created_at: :desc)
+    cohort ||= student ? student.cohort : nil
+    if cohort
+      evaluations.where(student: student, cohort: cohort).order(created_at: :desc)
+    else
+      evaluations.where(student: student).order(created_at: :desc)
+    end
   end
 
   def to_param
