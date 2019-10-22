@@ -8,32 +8,29 @@
         table.table
           thead
             tr
-              th Submitted
-              th Evaluated
-              th Evaluator
-              th Outcome
+              th Status
+              th Marker
+              th Date Submitted
               th
           tbody
             - @all_completed_evaluations.each do |eval|
-              tr
-                td
-                  = eval.created_at.to_s(:short_friendly)
-                td
-                  = eval.completed_at.to_s(:short_friendly)
-                td
-                  - if eval.teacher
-                    = eval.teacher.full_name
-                td
-                  = eval.status
-                td
-                  = link_to eval.github_url, target: '_blank', class: 'btn btn-xs btn-success', title: 'Github Repo', data: { toggle: "tooltip" } do
-                    i.fab.fa-github
-                  | &nbsp;
-                  = link_to 'View', project_evaluation_path(@project, eval), class: 'btn btn-xs btn-primary'
-              tr.details.hide
-                td colspan="5"
-                  - if eval.teacher_notes?
-                    == simple_format eval.teacher_notes
-                  - else
-                    .alert.alert-warning
-                      p No teacher feedback was provided :(
+              - present eval, EvaluationPresenter do |evaluation_presenter|
+                tr
+                  td
+                    = evaluation_presenter.project_status
+                  td
+                    = evaluation_presenter.teacher_info
+                  td
+                    = evaluation_presenter.date_submitted
+                  td
+                    = link_to eval.github_url, target: '_blank', class: 'btn btn-sm btn-success', title: 'Github Repo', data: { toggle: "tooltip" } do
+                      i.fab.fa-github
+                    | &nbsp;
+                    = link_to 'View', project_evaluation_path(@project, eval), class: 'btn btn-sm btn-primary'
+                tr.details.hide
+                  td colspan="5"
+                    - if eval.teacher_notes?
+                      == simple_format eval.teacher_notes
+                    - else
+                      .alert.alert-warning
+                        p No teacher feedback was provided :(

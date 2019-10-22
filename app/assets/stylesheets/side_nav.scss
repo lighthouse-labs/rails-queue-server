@@ -133,6 +133,9 @@ nav.side-nav {
     &--name {
       flex-grow: 1;
     }
+    &__is-career-service {
+      color: var(--blue);
+    }
     &__is-stretch {
       font-style: italic;
       color: var(--purple);

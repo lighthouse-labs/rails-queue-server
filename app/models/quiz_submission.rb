@@ -43,6 +43,10 @@ class QuizSubmission < ApplicationRecord
     answers.inject(0) { |sum, answer| answer.option&.correct ? sum + 1 : sum }
   end
 
+  def percent
+    ((correct.to_f / total.to_f) * 100).round(2).to_i.to_s + '%'
+  end
+
   def self.average_correct
     correct_answer_submissions = select(&:options_correct)
     correct_submissions_count = [correct_answer_submissions.length, 1].max

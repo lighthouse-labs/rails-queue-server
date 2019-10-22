@@ -21,6 +21,11 @@
         strong ARCHIVED ACTIVITY
         p This activity is archived and not presented in the curriculum list to students.
 
+    - if @activity.cs?
+      .alert.alert-info
+        strong CAREER SERVICES ACTIVITY
+        p This is a career services activity. It is here to help you develop the tools and skills needed to land a job post Bootcamp.
+
     = activity_presenter.before_instructions
 
     - if @activity.instructions?

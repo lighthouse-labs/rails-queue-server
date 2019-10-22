@@ -176,6 +176,10 @@ class Activity < ApplicationRecord
     section&.is_a?(Project)
   end
 
+  def quiz?
+    self.is_a?(QuizActivity)
+  end
+
   def bootcamp?
     !prep? && day?
   end
