@@ -1,5 +1,15 @@
 # Change Log
 
+## [2019.10.16.2200u](https://github.com/lighthouse-labs/compass/tree/2019.10.16.2200u) (2019-10-16)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.11.1930u...2019.10.16.2200u)
+
+**Merged pull requests:**
+
+- Fix wrong colour for Prep milestone flags in Cohort dashboard [\#950](https://github.com/lighthouse-labs/compass/pull/950) ([kvirani](https://github.com/kvirani))
+- Backend/Sysadmin ability: merge student accounts [\#949](https://github.com/lighthouse-labs/compass/pull/949) ([kvirani](https://github.com/kvirani))
+- Small buttons again, where they used to be small \(pre-BS4\) [\#948](https://github.com/lighthouse-labs/compass/pull/948) ([kvirani](https://github.com/kvirani))
+- Added quiz percentage to teacher activities show [\#943](https://github.com/lighthouse-labs/compass/pull/943) ([tborsa](https://github.com/tborsa))
+
 ## [2019.10.11.1930u](https://github.com/lighthouse-labs/compass/tree/2019.10.11.1930u) (2019-10-11)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.02.1700u...2019.10.11.1930u)
 
