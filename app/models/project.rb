@@ -41,7 +41,7 @@ class Project < Section
   end
 
   def evaluations_for(student, cohort = nil)
-    cohort ||= student ? student.cohort : nil
+    cohort ||= student&.cohort
     if cohort
       evaluations.where(student: student, cohort: cohort).order(created_at: :desc)
     else
