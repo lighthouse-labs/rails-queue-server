@@ -1,8 +1,10 @@
 li.dropdown.nav-item.current-user
   = link_to '#', class: 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown' do
     i.fa.fa-fw.fa-list
-    span 
-      = teachers_on_duty.length
+    span
+      = teachers_on_duty.length 
+      span.medium-show
+        = teachers_on_duty.length == 1 ? ' Teacher on duty' : ' Teachers on duty'
   .dropdown-menu.dropdown-menu-right.dropdown-teacher
     .teacher-holder data-turbolinks-permanent="true"
       p.dropdown-item Teachers on duty

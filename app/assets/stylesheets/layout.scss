@@ -51,6 +51,13 @@ header > nav {
       border-width: 7px 5px 0;
     }
 
+    span.medium-show {
+      display: inline;
+      @include media-breakpoint-up(md) {
+        display: none;
+      }
+    }
+
     > li > a {
       @include media-breakpoint-up(xs) {
         // padding: 15px 5px;
