@@ -51,7 +51,7 @@ header > nav {
       border-width: 7px 5px 0;
     }
 
-    span.medium-show {
+    span.teacher-text {
       display: inline;
       @include media-breakpoint-up(md) {
         display: none;
