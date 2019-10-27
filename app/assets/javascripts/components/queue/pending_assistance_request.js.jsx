@@ -34,7 +34,7 @@ window.Queue.PendingAssistanceRequest = class PendingAssistanceRequest extends R
 
   renderActions() {
     return(
-      <div className="actions pull-right">
+      <div className="actions float-right">
         { App.ReactUtils.joinElements(this.actionButtons(), null) }
       </div>
     );

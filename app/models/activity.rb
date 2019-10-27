@@ -8,7 +8,6 @@ class Activity < ApplicationRecord
   has_many :assistances, -> { order(:user_id) }
   has_many :assistance_requests
   has_many :messages, -> { order(created_at: :desc) }, class_name: 'ActivityMessage'
-  has_many :recordings, -> { order(created_at: :desc) }
   has_many :lectures, -> { order(created_at: :desc) }
   has_many :feedbacks, as: :feedbackable
   has_many :activity_feedbacks, dependent: :destroy # new, to replace the above
@@ -175,6 +174,10 @@ class Activity < ApplicationRecord
 
   def project?
     section&.is_a?(Project)
+  end
+
+  def quiz?
+    self.is_a?(QuizActivity)
   end
 
   def bootcamp?

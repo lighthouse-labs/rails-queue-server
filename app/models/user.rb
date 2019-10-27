@@ -17,8 +17,6 @@ class User < ApplicationRecord
   belongs_to :initial_cohort, class_name: 'Cohort' # rollover student have this set
   belongs_to :location
 
-  has_many :recordings, foreign_key: :presenter_id
-
   has_many :assistance_requests, foreign_key: :requestor_id
   has_many :assistances, foreign_key: :assistee_id
 

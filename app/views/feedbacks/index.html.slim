@@ -26,7 +26,7 @@ table.table.feedbacks-table
                 = feedback_presenter.slack_info(feedback_presenter.teacher)
             td.feedbacks-reason = feedback_presenter.assistance_request_reason
             td
-              button.btn.btn-xs.btn-primary data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{feedback.id}"
+              button.btn.btn-sm.btn-primary data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{feedback.id}"
                 | Provide
 
 h3 Completed:
@@ -52,7 +52,7 @@ table.table
             td
               .raty-viewer data-score="#{feedback.rating}"
             td
-              button.btn.btn-secondary.btn-xs data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{feedback.id}"
+              button.btn.btn-secondary.btn-sm data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{feedback.id}"
                 | Edit
 
           - if feedback.notes.present?
@@ -86,7 +86,7 @@ table.table
             td = feedback_presenter.feedbackable_type
             td = feedback_presenter.teacher_full_name
             td
-              button.btn.btn-xs.btn-primary data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{feedback.id}"
+              button.btn.btn-sm.btn-primary data-toggle="modal" data-target="#feedback_modal" data-feedback-id="#{feedback.id}"
                 | Provide
 
 .modal.fade id="feedback_modal"
