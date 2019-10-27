@@ -42,5 +42,8 @@
         span.archived = ' [Archived]'
 
     - if activity.homework?
-      .homework-indicator
+      .circle-indicator
         i.far.fa-moon title='Homework' data-toggle='tooltip'
+    - if activity.cs?
+      .circle-indicator
+        i.fas.fa-briefcase title='Career Service' data-toggle='tooltip'
