@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20191011163600) do
     t.integer  "sequence"
     t.text     "instructions"
     t.boolean  "stretch"
-    t.integer  "programming_test_id"
     t.boolean  "cs"
+    t.integer  "programming_test_id"
     t.index ["content_repository_id"], name: "index_activities_on_content_repository_id", using: :btree
     t.index ["quiz_id"], name: "index_activities_on_quiz_id", using: :btree
     t.index ["section_id"], name: "index_activities_on_section_id", using: :btree
