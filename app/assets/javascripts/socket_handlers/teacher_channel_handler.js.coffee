@@ -54,7 +54,7 @@ class window.TeacherChannelHandler
     window.current_user.onDuty = false
 
   addTeacherToSidebar: (teacher) ->
-    if $('.teacher-holder').find("\#teacher_#{teacher.id}").length is 0
+    if $('.teacher-images').find("\#teacher_#{teacher.id}").length is 0
       img = document.createElement('img')
       img.id = "teacher_#{teacher.id}"
       img.src = teacher.avatarUrl
@@ -67,8 +67,23 @@ class window.TeacherChannelHandler
 
       img.className = 'busy' if teacher.busy
 
-      $('.teacher-holder').append(link)
+      $('.teacher-images').append(link)
       $(img).tooltip()
 
+      teacherCount = $('.teacher-images').children().length
+      $('.teacher-count').text($('.teacher-images').children().length);
+      if teacherCount is 1
+        $('.teacher-text').text(' Teacher on duty');
+      else
+        $('.teacher-text').text(' Teachers on duty');
+      
+
   removeTeacherFromSidebar: (teacher) ->
-    $('.teacher-holder').find("\#teacher_#{teacher.id}").remove()
+    $('.teacher-images').find("\#teacher_#{teacher.id}").parent().remove()
+    
+    teacherCount = $('.teacher-images').children().length
+    $('.teacher-count').text($('.teacher-images').children().length);
+    if teacherCount is 1
+      $('.teacher-text').text(' Teacher on duty');
+    else
+      $('.teacher-text').text(' Teachers on duty');
