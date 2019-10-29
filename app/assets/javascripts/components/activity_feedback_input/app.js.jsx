@@ -103,7 +103,7 @@ window.ActivityFeedbackInput.App = class App extends React.Component {
 
     return(
       <div className="provide-activity-feedback-app">
-        <h3 className="text-center mt-4 mb-0">Did you like this activity?</h3>
+        <h3 className="text-center mt-4 mb-0">How well did you understand this content?</h3>
         <p className="text-center">
           <small className="text-dark">{message}</small>
         </p>
