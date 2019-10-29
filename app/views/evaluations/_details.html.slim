@@ -6,59 +6,55 @@
         h3.card-title.mb-0 Details
 
       .card-body
-
-        dl.col
-          .row
-            dt.col Student
-            dd.col
-              .student-info
-                = render 'shared/student_info', student: @evaluation.student
-          .row
-            dt.col Code
-            dd.col
-              = link_to @evaluation.github_url, target: '_blank' do
-                i.fab.fa-github
-                | &nbsp;
-                = shortened_github_url(@evaluation.github_url)
-
-          .row
-            dt.col Status
-            dd.col
-              - if @evaluation.in_state?(:rejected) || @evaluation.in_state?(:cancelled)
-                span.badge.badge-danger.badge-md = @evaluation.status
-              - else
-                span.badge.badge-info.badge-md = @evaluation.status
-
-          .row
-            dt.col Project
-            dd.col = link_to @project.name, @project
-
-
-          - if @evaluation.teacher
+        - present @evaluation, EvaluationPresenter do |evaluation_presenter|
+          dl.col
             .row
-              dt.col Evaluator
+              dt.col Student
               dd.col
-                = link_to @evaluation.teacher.full_name, @evaluation.teacher
+                .student-info
+                  = render 'shared/student_info', student: @evaluation.student
 
-          .row
-            dt.col Cohort
-            dd.col = link_to @evaluation.student.cohort.name, cohort_students_path(@evaluation.student.cohort)
-
-          .row
-            dt.col Submitted
-            dd.col
-              = @evaluation.created_at.to_s(:short_friendly)
-              = " (#{time_ago_in_words(@evaluation.created_at)} ago)"
-
-          - if teacher? && (@evaluation.in_state?(:pending) || @evaluation.in_state?(:in_progress))
-            - unless current_page?(edit_project_evaluation_path)
+            - if @evaluation.teacher
               .row
-                dt.col Mark
+                dt.col Evaluator
                 dd.col
-                  - if @evaluation.in_state?(:pending)
-                    = link_to "Start Marking", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success", method: :put
-                  - elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
-                    = link_to "Continue Marking", edit_project_evaluation_path(@project, @evaluation), class: "btn btn-success"
+                  = evaluation_presenter.teacher_info
+
+            .row
+              dt.col Code
+              dd.col
+                = link_to @evaluation.github_url, target: '_blank' do
+                  i.fab.fa-github
+                  | &nbsp;
+                  = shortened_github_url(@evaluation.github_url)
+
+            .row
+              dt.col Status
+              dd.col
+                = evaluation_presenter.project_status 'inline'
+
+            .row
+              dt.col Submitted
+              dd.col
+                = evaluation_presenter.date_submitted 'inline'
+
+            .row
+              dt.col Project
+              dd.col = link_to @project.name, @project
+
+            .row
+              dt.col Cohort
+              dd.col = link_to @evaluation.student.cohort.name, cohort_students_path(@evaluation.student.cohort)
+
+            - if teacher? && (@evaluation.in_state?(:pending) || @evaluation.in_state?(:in_progress))
+              - unless current_page?(edit_project_evaluation_path)
+                .row
+                  dt.col Mark
+                  dd.col
+                    - if @evaluation.in_state?(:pending)
+                      = link_to "Start Marking", start_marking_project_evaluation_path(@project, @evaluation), class: "btn btn-success", method: :put
+                    - elsif @evaluation.in_state?(:in_progress) && @evaluation.teacher == current_user
+                      = link_to "Continue Marking", edit_project_evaluation_path(@project, @evaluation), class: "btn btn-success"
 
 .row.mb-4
   .col-sm-12

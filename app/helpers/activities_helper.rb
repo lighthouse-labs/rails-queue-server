@@ -196,13 +196,18 @@ module ActivitiesHelper
 
   def activity_title_background_style(activity)
     if activity_has_bg_image?(activity)
-      style = []
       image_url = activity.background_image_url || activity.section&.background_image_url
       darkness = activity.background_image_darkness || activity.section&.background_image_darkness
-      style << "linear-gradient(rgba(0, 0, 0, #{darkness}), rgba(0, 0, 0, #{darkness}))" if darkness.present?
-      style << "url('#{image_url}')"
-      "background-image: #{style.join(', ')};"
+      activity_or_project_background_image_css(image_url, darkness)
     end
+  end
+
+  def activity_or_project_background_image_css(image_url, darkness=nil)
+    darkness = darkness.split(',')
+    style = []
+    style << "linear-gradient(rgba(0, 0, 0, #{darkness[0]}), rgba(0, 0, 0, #{darkness[1] || darkness[0]}))" if darkness.present?
+    style << "url('#{image_url}')"
+    "background-image: #{style.join(', ')};"
   end
 
   def activity_title_background_class(activity)

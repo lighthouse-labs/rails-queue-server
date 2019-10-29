@@ -27,5 +27,12 @@
                 = render 'shared/student_info', student: student
             - if @activity.allow_submissions?
               td = link_to shortened_github_url(student.github_url(@activity)), student.github_url(@activity) if student.completed_activity?(@activity)
-            td = student.completed_activity?(@activity) ? "Yes" : "No"
+            -if student.completed_activity?(@activity)
+              td 
+                -if @activity.quiz?
+                  = "#{student.initial_submission_for_quiz(@activity.quiz).percent} Initial"
+                -else
+                  = 'Yes'
+            -else
+              td = "No" 
             td = "Completed #{time_ago_in_words(student.completed_at(@activity))} ago" if student.completed_activity?(@activity)

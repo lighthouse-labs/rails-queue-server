@@ -1,28 +1,11 @@
 table.table.students
   thead
     tr
-      th Project
+      th Student
       th Status
       th Marker
       th Stats
-      th
-
+      th Date Submitted
+      th Project
   tbody
-    /Future to-do: move this logic/database querying into the model
-    - @projects.active.each do |project|
-      - evaluations = @student.evaluations.for_project(project)
-      - if project.name == 'Final Group Project'
-        / No evaluations for final project
-      - elsif evaluations.empty?
-        / Show project with a status label
-        tr
-          - present project, ProjectPresenter do |project_presenter|
-            td
-              = link_to project.name, project
-            td.details     
-              = project_presenter.student_project_status
-      - elsif evaluations.count > 1
-        - evaluations.each do |evaluation|
-          = render 'projects/evaluation_row', project: project, evaluation: evaluation, student: @student, show: 'project'
-      - else
-        = render 'projects/evaluation_row', project: project, evaluation: evaluations.first, student: @student, show: 'project'
+    == render collection: @evaluations, partial: 'evaluation'

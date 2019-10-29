@@ -22,7 +22,7 @@ class SocialIcon extends React.Component {
           title={handle}
           ref={handle}
         >
-          <span className="fa-stack fa-lg" style={{ fontSize: '0.9em' }}>
+          <span className="fa-stack fa-lg social-icon-muted">
             <i className="far fa-square fa-stack-2x" />
             <i className={`${iconSet} fa-${company} fa-stack-1x`} style={{ top: -1 }} />
           </span>

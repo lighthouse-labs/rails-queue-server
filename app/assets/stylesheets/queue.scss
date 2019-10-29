@@ -21,6 +21,17 @@ body.queue-show {
     font-size: 0.7em;
   }
 
+  .social-icon-muted {
+    color: $secondary;
+    font-size: 0.9em;
+    opacity: 0.1
+  }
+
+  .social-icon-muted:hover {
+    color: inherit;
+    opacity: 1;
+  }
+
   nav.nav-pills {
     span.badge {
       position: relative;
@@ -97,7 +108,7 @@ body.queue-show {
     &.submission {
       &:hover {
       .type {
-          background-color: lighten($green, 25%);
+          background-color: lighten($green, 50%);
         }
       }
       .type {
