@@ -2,10 +2,11 @@ body.queue-show {
 
   @keyframes rotating {
     from {
-        transform: rotate(0deg);
+      transform: rotate(0deg);
     }
+
     to {
-        transform: rotate(360deg);
+      transform: rotate(360deg);
     }
   }
 
@@ -19,6 +20,10 @@ body.queue-show {
     font-style: italic;
     color: $dark;
     font-size: 0.7em;
+  }
+
+  .social-icons .list-inline-item {
+    margin: 0;
   }
 
   .social-icon-muted {
@@ -46,8 +51,11 @@ body.queue-show {
     &.disabled {
       opacity: 0.2;
       pointer-events: none;
-      -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
       user-select: none;
+
       *:focus {
         outline: 0;
       }
@@ -107,14 +115,18 @@ body.queue-show {
 
     &.submission {
       &:hover {
-      .type {
+        .type {
           background-color: lighten($green, 50%);
         }
       }
+
       .type {
         background-color: lighten($green, 30%);
       }
-      .btn-main:hover, .btn-main:focus, .btn-main:active {
+
+      .btn-main:hover,
+      .btn-main:focus,
+      .btn-main:active {
         background-color: $green;
         border-color: $green;
         color: $light;
@@ -123,14 +135,18 @@ body.queue-show {
 
     &.evaluation {
       &:hover {
-      .type {
+        .type {
           background-color: lighten($teal, 25%);
         }
       }
+
       .type {
         background-color: lighten($teal, 30%);
       }
-      .btn-main:hover, .btn-main:focus, .btn-main:active {
+
+      .btn-main:hover,
+      .btn-main:focus,
+      .btn-main:active {
         background-color: $teal;
         border-color: $teal;
         color: white;
@@ -143,10 +159,14 @@ body.queue-show {
           background-color: lighten($yellow, 25%);
         }
       }
+
       .type {
         background-color: lighten($yellow, 30%);
       }
-      .btn-main:hover, .btn-main:focus, .btn-main:active {
+
+      .btn-main:hover,
+      .btn-main:focus,
+      .btn-main:active {
         background-color: $yellow;
         border-color: $yellow;
         color: $dark;
@@ -159,10 +179,14 @@ body.queue-show {
           background-color: lighten($orange, 25%);
         }
       }
+
       .type {
         background-color: lighten($orange, 30%);
       }
-      .btn-main:hover, .btn-main:focus, .btn-main:active {
+
+      .btn-main:hover,
+      .btn-main:focus,
+      .btn-main:active {
         background-color: $orange;
         border-color: $orange;
         color: $light;
@@ -171,14 +195,18 @@ body.queue-show {
 
     &.interview {
       &:hover {
-      .type {
+        .type {
           background-color: lighten($blue, 30%);
         }
       }
+
       .type {
         background-color: lighten($blue, 40%);
       }
-      .btn-main:hover, .btn-main:focus, .btn-main:active {
+
+      .btn-main:hover,
+      .btn-main:focus,
+      .btn-main:active {
         background-color: $blue;
         border-color: $blue;
         color: white;
@@ -187,14 +215,18 @@ body.queue-show {
 
     &.interview-status {
       &:hover {
-      .type {
+        .type {
           background-color: lighten($purple, 30%);
         }
       }
+
       .type {
         background-color: lighten($purple, 40%);
       }
-      .btn-main:hover, .btn-main:focus, .btn-main:active {
+
+      .btn-main:hover,
+      .btn-main:focus,
+      .btn-main:active {
         background-color: $purple;
         border-color: $purple;
         color: white;
@@ -207,10 +239,14 @@ body.queue-show {
           background-color: darken($light, 10%);
         }
       }
+
       .type {
-        background-color: $light;//lighten($dark, 40%);
+        background-color: $light; //lighten($dark, 40%);
       }
-      .btn-main:hover, .btn-main:focus, .btn-main:active {
+
+      .btn-main:hover,
+      .btn-main:focus,
+      .btn-main:active {
         background-color: $blue;
         border-color: $blue;
         color: $light;
@@ -224,6 +260,7 @@ body.queue-show {
     // Bootstrap Modal inside flickers on mouse move (hover) without this :hover z-index thing - KV
     // https://github.com/twbs/bootstrap/issues/25206
     z-index: auto;
+
     &:hover {
       z-index: auto;
     }
@@ -241,12 +278,14 @@ body.queue-show {
       .name {
         line-height: 1.2em;
         float: left;
+
         .resource-name {
           font-style: italic;
           font-size: 0.6em;
           line-height: 20px;
         }
       }
+
       .details {
         float: right;
         text-align: right;
@@ -286,7 +325,8 @@ body.queue-show {
       right: -1.25rem;
       top: 0.75rem;
 
-      button.btn, a.btn {
+      button.btn,
+      a.btn {
         border-radius: 0px;
       }
     }
@@ -308,7 +348,7 @@ body.queue-show {
         top: 100px;
         position: relative;
         width: 100px;
-        text-align:right;
+        text-align: right;
 
       }
     }
@@ -329,8 +369,10 @@ body.queue-show {
           line-height: 15px;
           float: initial;
         }
+
         .details {
           float: initial;
+
           .time {
             float: initial;
             font-size: 0.8em;
@@ -343,6 +385,7 @@ body.queue-show {
         float: left;
         padding-left: 0px;
         padding-right: 15px;
+
         span {
           // transform: rotate(60deg);
           font-size: 1.7em;
@@ -350,6 +393,7 @@ body.queue-show {
           color: #555;
         }
       }
+
       // padding-left: 30px;
     }
 
