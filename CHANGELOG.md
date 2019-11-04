@@ -1,5 +1,14 @@
 # Change Log
 
+## [2019.10.27.2145u](https://github.com/lighthouse-labs/compass/tree/2019.10.27.2145u) (2019-10-27)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.16.2200u...2019.10.27.2145u)
+
+**Merged pull requests:**
+
+- Added mentor toggle button to navbar. [\#957](https://github.com/lighthouse-labs/compass/pull/957) ([tborsa](https://github.com/tborsa))
+- Gaurd evaluations\_for against nil student or student without cohort [\#956](https://github.com/lighthouse-labs/compass/pull/956) ([tborsa](https://github.com/tborsa))
+- 939 career service activity flag [\#953](https://github.com/lighthouse-labs/compass/pull/953) ([tborsa](https://github.com/tborsa))
+
 ## [2019.10.16.2200u](https://github.com/lighthouse-labs/compass/tree/2019.10.16.2200u) (2019-10-16)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.11.1930u...2019.10.16.2200u)
 
