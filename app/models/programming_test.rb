@@ -1,12 +1,14 @@
 class ProgrammingTest < ApplicationRecord
 
-  has_many :test_activities, dependent: :nullify
+  # autosave is important becaused on how these are created
+  # https://github.com/lighthouse-labs/compass/pull/932#issuecomment-551342225
+  has_many :test_activities, dependent: :nullify, autosave: true
 
   validates :exam_code, presence: true
   validates :uuid, presence: true
 
   scope :active, -> {
-    includes(:test_activities)
+    joins(:test_activities)
       .where(activities: { archived: [false, nil] })
       .order('activities.day')
   }

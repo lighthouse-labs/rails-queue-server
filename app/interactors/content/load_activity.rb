@@ -26,12 +26,22 @@ class Content::LoadActivity
 
     if quiz?
       activity = activity.becomes(QuizActivity)
-      activity.quiz = quiz if quiz
+      if quiz
+        activity.quiz = quiz
+        # line below is needed to not have issue noticed here:
+        #   https://github.com/lighthouse-labs/compass/pull/932#issuecomment-551342225
+        quiz.quiz_activities.push activity
+      end
     end
 
     if test?
       activity = activity.becomes TestActivity
-      activity.programming_test = programming_test if programming_test
+      if programming_test
+        activity.programming_test = programming_test
+        # line below is needed to not have issue noticed here:
+        #   https://github.com/lighthouse-labs/compass/pull/932#issuecomment-551342225
+        programming_test.test_activities.push activity
+      end
     end
 
     @records.push activity

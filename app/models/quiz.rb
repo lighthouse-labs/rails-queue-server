@@ -2,7 +2,9 @@ class Quiz < ApplicationRecord
 
   QUESTIONS_PER_QUIZ = 5
 
-  has_many :quiz_activities
+  # autosave is important becaused on how these are created
+  # https://github.com/lighthouse-labs/compass/pull/932#issuecomment-551342225
+  has_many :quiz_activities, autosave: true
   has_many :quiz_submissions, dependent: :nullify
   has_and_belongs_to_many :questions
   has_many :outcomes, through: :questions

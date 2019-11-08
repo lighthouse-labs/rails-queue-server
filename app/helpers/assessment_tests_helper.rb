@@ -13,7 +13,7 @@ module AssessmentTestsHelper
   end
 
   def programming_tests
-    ProgrammingTest.active.map do |pt| 
+    ProgrammingTest.active.map do |pt|
       { name: pt.test_activities.first.name, exam_code: pt.exam_code }
     end
   end
