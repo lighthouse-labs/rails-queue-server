@@ -56,6 +56,9 @@ gem 'phantomjs'
 gem 'omniauth'
 gem 'omniauth-github'
 
+gem 'faraday'
+gem 'faraday_middleware'
+
 gem 'octokit'
 
 gem 'default_value_for'

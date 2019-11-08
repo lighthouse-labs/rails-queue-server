@@ -197,6 +197,10 @@ class Activity < ApplicationRecord
     evaluates_code?
   end
 
+  def test_activity?
+    is_a?(TestActivity)
+  end
+
   protected
 
   def add_revision_to_gist

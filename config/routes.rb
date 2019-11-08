@@ -143,6 +143,10 @@ LaserShark::Application.routes.draw do
     put :skip
   end
 
+  resources :programming_tests, only: [] do
+    resources :attempt, controller: :programming_test_attempts, only: [:create]
+  end
+
   # Wallboard
   namespace :wallboard do
     resources :assistances, only: [:index]
