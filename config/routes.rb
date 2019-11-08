@@ -144,7 +144,7 @@ LaserShark::Application.routes.draw do
   end
 
   resources :programming_tests, only: [] do
-    resources :attempt, controller: :programming_test_attempts, only: [:create]
+    resource :attempt, controller: :programming_test_attempts, only: [:show, :create]
   end
 
   # Wallboard

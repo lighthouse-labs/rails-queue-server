@@ -27,7 +27,7 @@ class ProgrammingTest::Attempt < ApplicationRecord
   end
 
   def self.transition_name
-    :transitions
+    :programming_test_attempt_transitions
   end
 
   def self.transition_class

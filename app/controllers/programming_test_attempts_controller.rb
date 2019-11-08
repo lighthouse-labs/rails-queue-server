@@ -5,6 +5,19 @@ class ProgrammingTestAttemptsController < ApplicationController
   before_action :set_programming_test
   attr_reader :programming_test
 
+  def show
+    attempt = programming_test.attempts.where(
+      student: current_user,
+      cohort:  current_user.cohort
+    ).limit(1).first
+
+    if attempt
+      render json: { attempt: attempt }
+    else
+      render json: { error: 'Not Found' }, status: :not_found
+    end
+  end
+
   def create
     attempt = programming_test.attempts.build(
       student: current_user,
@@ -29,7 +42,6 @@ class ProgrammingTestAttemptsController < ApplicationController
       attempt.transition_to(:errored, response.body)
       render json: { error: response.body }, status: :internal_server_error
     end
-
   end
 
   private

@@ -13,8 +13,24 @@ window.TestActivityAttempts.App = class App extends React.Component {
 
     this.state = {
       token: null,
-      loading: false
+      loading: true
     }
+  }
+
+  componentDidMount() {
+    const { programmingTest } = this.props
+
+    const url = `/programming_tests/${programmingTest.id}/attempt`
+
+    $.ajax({
+      dataType: 'json',
+      method: 'GET',
+      url
+    }).done(resp => {
+      this.setState({ token: resp.attempt.token })
+    }).always(() => {
+      this.setState({ loading: false })
+    })
   }
 
   render() {
@@ -45,10 +61,7 @@ window.TestActivityAttempts.App = class App extends React.Component {
       method: 'POST',
       url
     }).done((resp, _, xhr) => {
-      console.log(resp)
-      if (xhr.status === 200) {
-        this.setState({ token: resp.attempt.token })
-      }
+      this.setState({ token: resp.attempt.token })
     }).fail((xhr, _, error) => {
       console.log('Got an error', error, xhr.status)
     }).always(() => {
