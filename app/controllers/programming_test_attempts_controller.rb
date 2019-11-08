@@ -42,12 +42,18 @@ class ProgrammingTestAttemptsController < ApplicationController
     params[:programming_test_id]
   end
 
+  def proctor_host_url
+    ENV.fetch('PROCTOLOGIST_URL') { 'http://localhost:3000' }
+  end
+
+  def proctor_auth_token
+    ENV.fetch('PROCTOR_HOST_TOKEN') { 'token' }
+  end
+
   def api_connection
-    # TODO: Move the URL to an env var
-    @api_connection ||= Faraday.new 'http://localhost:3000' do |faraday|
+    @api_connection ||= Faraday.new proctor_host_url do |faraday|
       faraday.request :json
-      # TODO: Add in auth for this request
-      # faraday.authorization :Token, token: '<token>'
+      faraday.authorization :Token, token: proctor_auth_token
 
       faraday.response :json, content_type: /\bjson$/
 
