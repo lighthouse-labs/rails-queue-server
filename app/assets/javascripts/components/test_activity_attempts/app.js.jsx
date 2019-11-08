@@ -39,7 +39,7 @@ window.TestActivityAttempts.App = class App extends React.Component {
     return (
       <React.Fragment>
         {loading && <span>Loading ...</span>}
-        {!loading && token && <span>{token}</span>}
+        {!loading && token && <TokenDisplay token={token} />}
         {!loading && token === null && <button
           className="btn btn-primary"
           onClick={this._handleCreateAttempt}
@@ -69,4 +69,13 @@ window.TestActivityAttempts.App = class App extends React.Component {
     })
   }
 }
+
+const TokenDisplay = ({ token }) => (
+  <div>
+    <div>Use this code to start the exam:</div>
+    <div>
+      <code>{token}</code>
+    </div>
+  </div>
+)
 
