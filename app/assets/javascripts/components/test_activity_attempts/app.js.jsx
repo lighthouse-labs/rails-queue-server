@@ -72,7 +72,7 @@ window.TestActivityAttempts.App = class App extends React.Component {
 
 const TokenDisplay = ({ token }) => (
   <div>
-    <div>Use this code to start the exam:</div>
+    <div>Use this code to start the test:</div>
     <div>
       <code>{token}</code>
     </div>
