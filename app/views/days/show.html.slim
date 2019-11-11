@@ -10,7 +10,8 @@
     span.d-lg-none = @day.to_s.upcase
     | &nbsp;Schedule
 
-- lecture_activities, work_activities = @activities.partition { |a| a.is_a?(LecturePlan) || a.is_a?(Breakout) || a.is_a?(Test) }
+- test_activities, other_activities = @activities.partition { |a| a.is_a? TestActivity }
+- lecture_activities, work_activities = other_activities.partition { |a| a.is_a?(LecturePlan) || a.is_a?(Breakout) }
 - initial_notes = []
 - while work_activities.first.is_a?(PinnedNote) do
   - initial_notes << work_activities.shift
@@ -26,6 +27,10 @@
   - else
     h3 Project (continued)
   = render @core_project, day_number: day
+
+- if test_activities.any?
+  h3 Programming Tests
+  = render partial: 'activities/activity', collection: test_activities
 
 - if lecture_activities.any?
   h3 Lectures & Breakouts

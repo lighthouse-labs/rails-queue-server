@@ -145,6 +145,8 @@ module ActivitiesHelper
       'Note'
     when 'quizactivity'
       'Quiz'
+    when 'testactivity'
+      'Test'
     else
       activity.type.titlecase
     end
@@ -174,7 +176,7 @@ module ActivitiesHelper
       'fa fa-video'
     when 'reading'
       'fa fa-book'
-    when "test"
+    when "testactivity"
       'fa fa-gavel'
     when "quizactivity"
       'fa fa-question'
@@ -183,6 +185,7 @@ module ActivitiesHelper
     end
   end
 
+  # FIXME: Not used, remove if un-needed
   def activity_type_options
     %w[
       Assignment
