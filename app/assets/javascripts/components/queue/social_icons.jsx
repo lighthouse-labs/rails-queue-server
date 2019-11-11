@@ -7,8 +7,13 @@ class SocialIcon extends React.Component {
     url: PropTypes.string,
   }
 
+  constructor(props) {
+    super(props);
+    this.iconRef = React.createRef()
+  }
+
   componentDidMount() {
-    window.$('[data-toggle="tooltip"]').tooltip();
+    window.$(this.iconRef.current.tooltip());
   }
   render() {
     const { company, handle, url } = this.props;
@@ -20,7 +25,7 @@ class SocialIcon extends React.Component {
           target={url ? '_blank' : ''}
           data-toggle="tooltip"
           title={handle}
-          ref={handle}
+          ref={this.iconRef}
         >
           <span className="fa-stack fa-lg social-icon-muted">
             <i className="far fa-square fa-stack-2x" />
