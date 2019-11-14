@@ -7,7 +7,7 @@ class ProgrammingTestAttemptsController < ApplicationController
   def show
     attempt = @programming_test.attempts.where(
       student: current_user,
-      cohort:  current_user.cohort
+      cohort:  cohort
     ).first
 
     if attempt
@@ -20,7 +20,7 @@ class ProgrammingTestAttemptsController < ApplicationController
   def create
     attempt = @programming_test.attempts.find_or_initialize_by(
       student: current_user,
-      cohort:  current_user.cohort
+      cohort:  cohort
     )
 
     if attempt.persisted? && attempt.current_state == 'ready'
@@ -65,7 +65,7 @@ class ProgrammingTestAttemptsController < ApplicationController
   end
 
   def api_connector
-    @api_connector ||= Faraday.new proctor_host_url do |faraday|
+    @api_connector ||= Faraday.new(proctor_host_url) do |faraday|
       faraday.request :json
       faraday.authorization :Token, token: proctor_auth_token
 
@@ -76,17 +76,12 @@ class ProgrammingTestAttemptsController < ApplicationController
   end
 
   def student_id
-    current_user.github_username
-  end
-
-  def enrollment_id
-    "#{student_id}-#{current_user.cohort.id}"
+    current_user.current_enrollment_id
   end
 
   def attempt_request_body
     {
-      student_id:    student_id,
-      enrollment_id: enrollment_id
+      student_id: student_id
     }
   end
 
