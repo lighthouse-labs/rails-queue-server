@@ -18,10 +18,15 @@ class ProgrammingTestAttemptsController < ApplicationController
   end
 
   def create
-    attempt = @programming_test.attempts.build(
+    attempt = @programming_test.attempts.find_or_initialize_by(
       student: current_user,
       cohort:  current_user.cohort
     )
+
+    if attempt.persisted? && attempt.current_state == 'ready'
+      render json: { attempt: attempt }
+      return
+    end
 
     unless attempt.save
       render json: { message: 'Unable to save attempt', errors: attempt.errors }, status: 500
