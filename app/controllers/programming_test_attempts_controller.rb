@@ -33,7 +33,7 @@ class ProgrammingTestAttemptsController < ApplicationController
       return
     end
 
-    response = api_connector.post proctor_url_for_attempt do |req|
+    response = api_connector.put proctor_url_for_attempt do |req|
       req.body = attempt_request_body
     end
 
@@ -81,9 +81,14 @@ class ProgrammingTestAttemptsController < ApplicationController
     current_user.github_username
   end
 
+  def enrollment_id
+    "#{student_id}-#{current_user.cohort.id}"
+  end
+
   def attempt_request_body
     {
-      student_id: student_id
+      student_id:    student_id,
+      enrollment_id: enrollment_id
     }
   end
 
