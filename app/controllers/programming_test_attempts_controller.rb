@@ -3,13 +3,12 @@ require 'faraday_middleware'
 class ProgrammingTestAttemptsController < ApplicationController
 
   before_action :set_programming_test
-  attr_reader :programming_test
 
   def show
-    attempt = programming_test.attempts.where(
+    attempt = @programming_test.attempts.where(
       student: current_user,
       cohort:  current_user.cohort
-    ).limit(1).first
+    ).first
 
     if attempt
       render json: { attempt: attempt }
@@ -19,7 +18,7 @@ class ProgrammingTestAttemptsController < ApplicationController
   end
 
   def create
-    attempt = programming_test.attempts.build(
+    attempt = @programming_test.attempts.build(
       student: current_user,
       cohort:  current_user.cohort
     )
@@ -29,7 +28,7 @@ class ProgrammingTestAttemptsController < ApplicationController
       return
     end
 
-    response = api_connection.post attempt_url do |req|
+    response = api_connector.post proctor_url_for_attempt do |req|
       req.body = attempt_request_body
     end
 
@@ -55,15 +54,15 @@ class ProgrammingTestAttemptsController < ApplicationController
   end
 
   def proctor_host_url
-    ENV.fetch('PROCTOLOGIST_URL') { 'http://localhost:3000' }
+    ENV.fetch('PROCTOLOGIST_URL')
   end
 
   def proctor_auth_token
-    ENV.fetch('PROCTOR_HOST_TOKEN') { 'token' }
+    ENV.fetch('PROCTOLOGIST_TOKEN')
   end
 
-  def api_connection
-    @api_connection ||= Faraday.new proctor_host_url do |faraday|
+  def api_connector
+    @api_connector ||= Faraday.new proctor_host_url do |faraday|
       faraday.request :json
       faraday.authorization :Token, token: proctor_auth_token
 
@@ -83,7 +82,7 @@ class ProgrammingTestAttemptsController < ApplicationController
     }
   end
 
-  def attempt_url
+  def proctor_url_for_attempt
     "/api/v2/exams/#{programming_test.exam_code}/attempt"
   end
 
