@@ -83,7 +83,7 @@ class ProgrammingTestAttemptsController < ApplicationController
   end
 
   def proctor_url_for_attempt
-    "/api/v2/exams/#{programming_test.exam_code}/attempt"
+    "/api/v2/exams/#{@programming_test.exam_code}/attempt"
   end
 
 end
