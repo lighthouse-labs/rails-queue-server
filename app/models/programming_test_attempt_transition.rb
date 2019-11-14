@@ -1,7 +1,7 @@
-class ProgrammingTest::Attempt::Transition < ApplicationRecord
+class ProgrammingTestAttemptTransition < ApplicationRecord
   include Statesman::Adapters::ActiveRecordTransition
 
-  belongs_to :attempt, class_name: 'ProgrammingTest::Attempt', inverse_of: :programming_test_attempt_transitions
+  belongs_to :attempt, class_name: 'ProgrammingTestAttempt', inverse_of: :programming_test_attempt_transitions
 
   after_destroy :update_most_recent, if: :most_recent?
 

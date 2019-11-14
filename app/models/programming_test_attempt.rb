@@ -1,8 +1,8 @@
-class ProgrammingTest::Attempt < ApplicationRecord
+class ProgrammingTestAttempt < ApplicationRecord
 
   include Statesman::Adapters::ActiveRecordQueries
 
-  has_many :programming_test_attempt_transitions, class_name: 'ProgrammingTest::Attempt::Transition', autosave: false, dependent: :destroy, inverse_of: :attempt
+  has_many :programming_test_attempt_transitions, foreign_key: :attempt_id, autosave: false, dependent: :destroy, inverse_of: :attempt
 
   belongs_to :student
   belongs_to :cohort
@@ -23,15 +23,11 @@ class ProgrammingTest::Attempt < ApplicationRecord
   ## STATE MACHINE ##
 
   def state_machine
-    @state_machine ||= ProgrammingTest::Attempt::StateMachine.new(self, transition_class: ProgrammingTest::Attempt::Transition)
-  end
-
-  def self.transition_name
-    :programming_test_attempt_transitions
+    @state_machine ||= ProgrammingTestAttemptStateMachine.new(self, transition_class: ProgrammingTestAttemptTransition)
   end
 
   def self.transition_class
-    ProgrammingTest::Attempt::Transition
+    ProgrammingTestAttemptTransition
   end
   private_class_method :transition_class
 

@@ -1,4 +1,4 @@
-class ProgrammingTest::Attempt::StateMachine
+class ProgrammingTestAttemptStateMachine
 
   include Statesman::Machine
 
