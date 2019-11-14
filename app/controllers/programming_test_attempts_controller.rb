@@ -39,8 +39,6 @@ class ProgrammingTestAttemptsController < ApplicationController
 
     if response.success?
       attempt.transition_to(:ready, token: response.body["examToken"])
-      attempt.token = response.body["examToken"]
-      attempt.save
       render json: { attempt: attempt }
     else
       attempt.transition_to(:errored, response.body)

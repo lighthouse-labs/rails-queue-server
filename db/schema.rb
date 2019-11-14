@@ -433,7 +433,6 @@ ActiveRecord::Schema.define(version: 20191108163249) do
     t.integer  "student_id",          null: false
     t.integer  "cohort_id",           null: false
     t.integer  "programming_test_id", null: false
-    t.uuid     "token"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.index ["cohort_id"], name: "index_programming_test_attempts_on_cohort_id", using: :btree

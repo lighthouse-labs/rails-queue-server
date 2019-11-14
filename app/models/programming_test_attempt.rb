@@ -18,7 +18,17 @@ class ProgrammingTestAttempt < ApplicationRecord
 
   ## HELPERS ##
 
+  def token
+    current_state == 'ready' ? programming_test_attempt_transitions.last.metadata["token"] : nil
+  end
 
+  def as_json(params)
+    json = super.as_json(params)
+
+    json[:token] = token
+
+    json
+  end
 
   ## STATE MACHINE ##
 
