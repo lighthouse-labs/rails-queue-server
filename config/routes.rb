@@ -134,7 +134,7 @@ LaserShark::Application.routes.draw do
     end
   end
 
-  resources :assessment_tests, only: [:index]
+  get '/assessment_tests', to: redirect('/admin/programming_tests')
 
   resources :lectures, only: [:index]
 
@@ -209,6 +209,8 @@ LaserShark::Application.routes.draw do
         delete :archive, action: :unarchive
       end
     end
+
+    resource :programming_tests, only: [:show]
 
     resources :prep_stats, only: [:index]
 
