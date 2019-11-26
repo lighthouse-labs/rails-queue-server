@@ -54,7 +54,7 @@ window.ProgrammingTests.SummaryTable = class SummaryTable extends React.Componen
 
     for (let key in examStats) {
       let rowData = examStats[key]
-      let studentLink = `/admin/exams/${code}/students/${key}`
+      let studentLink = `/admin/programming_tests/submissions/${key}`
       rows.push(
         <tr key={key}>
           <td>

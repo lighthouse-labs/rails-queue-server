@@ -210,7 +210,9 @@ LaserShark::Application.routes.draw do
       end
     end
 
-    resource :programming_tests, only: [:show]
+    resource :programming_tests, only: [:show] do
+      get '/submissions/:enrollment_id', to: 'programming_tests#submissions'
+    end
 
     resources :prep_stats, only: [:index]
 

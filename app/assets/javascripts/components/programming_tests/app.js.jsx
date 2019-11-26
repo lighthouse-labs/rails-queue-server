@@ -25,16 +25,7 @@ window.ProgrammingTests.App = class App extends React.Component {
 
     return (
       <div>
-        <ul className="nav nav-tabs" role="tablist" id="programmingTestTab">
-          {programmingTests.map(test =>
-            <ProgrammingTests.TabItem
-              key={test.code}
-              test={test}
-              active={test.code === selectedTab}
-              onSelected={this._handleTabSelected}
-            />
-          )}
-        </ul>
+        <ProgrammingTests.TabList programmingTests={programmingTests} selectedTab={selectedTab} onTabSelected={this._handleTabSelected} />
 
         <ProgrammingTests.ShowExamPage students={students} code={selectedTab} />
       </div>
@@ -43,48 +34,5 @@ window.ProgrammingTests.App = class App extends React.Component {
 
   _handleTabSelected = (tab) => {
     this.setState({ selectedTab: tab })
-  }
-}
-
-window.ProgrammingTests.TabItem = class TabItem extends React.Component {
-  static propTypes = {
-    active: PropTypes.bool,
-    test: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      code: PropTypes.string.isRequired
-    }).isRequired,
-    onSelected: PropTypes.func
-  }
-
-  static defaultProps = {
-    active: false
-  }
-
-  render() {
-    const { test, active } = this.props
-
-    return (
-      <li className="nav-item" role="presentation">
-        <a
-          className={"nav-link" + (active ? " active" : "")}
-          href="#"
-          aria-controls={test.code}
-          role="tab"
-          data-toggle="tab"
-          onClick={this._handleOnClick}
-        >
-          {test.name}
-        </a>
-      </li>
-    )
-  }
-
-  _handleOnClick = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-
-    const { onSelected, test } = this.props
-
-    onSelected && onSelected(test.code)
   }
 }

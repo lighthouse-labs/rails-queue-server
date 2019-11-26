@@ -21,13 +21,16 @@ window.ProgrammingTests.ShowExamPage = class ShowExamPage extends React.Componen
 
   componentDidMount() {
     this._fetchData()
-    this._setPoller();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.code !== prevProps.code) {
       this._fetchData();
     }
+  }
+
+  componentWillUnmount() {
+    this._cancelPoller()
   }
 
   render() {
@@ -91,6 +94,8 @@ window.ProgrammingTests.ShowExamPage = class ShowExamPage extends React.Componen
       .then(resp => resp.json())
       .then(json => {
         this.setState({ examStats: json })
+      })
+      .finally(() => {
         this._setPoller()
       })
   }
