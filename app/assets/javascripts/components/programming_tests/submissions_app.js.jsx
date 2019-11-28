@@ -56,7 +56,7 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
 
     this.setState({ fetching: true })
 
-    const url = `http://localhost:3000/api/exams/${selectedTest}/students/${enrollmentId}`
+    const url = `http://localhost:3000/api/v2/stats/${selectedTest}/students/${enrollmentId}`
 
     fetch(url)
       .then(resp => resp.json())

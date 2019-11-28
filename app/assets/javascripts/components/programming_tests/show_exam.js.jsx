@@ -89,7 +89,7 @@ window.ProgrammingTests.ShowExamPage = class ShowExamPage extends React.Componen
 
     const ids = students.map(s => s.enrollmentId)
 
-    const url = `http://localhost:3000/api/exams/${code}/?studentIds=${ids}`
+    const url = `http://localhost:3000/api/v2/stats/${code}/?studentIds=${ids}`
     fetch(url)
       .then(resp => resp.json())
       .then(json => {
