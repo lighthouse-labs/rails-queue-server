@@ -48,13 +48,13 @@ window.ProgrammingTests.SummaryTable = class SummaryTable extends React.Componen
   }
 
   _renderTableRows = () => {
-    const { code, students, examStats } = this.props
+    const { students, examStats } = this.props
     const rows = []
     const getStudentName = (id) => students.filter(s => s.enrollmentId === id)[0].name
 
     for (let key in examStats) {
-      let rowData = examStats[key]
-      let studentLink = `/admin/programming_tests/submissions/${key}`
+      const rowData = examStats[key]
+      const studentLink = `/admin/programming_tests/submissions/${key}`
       rows.push(
         <tr key={key}>
           <td>
@@ -65,9 +65,9 @@ window.ProgrammingTests.SummaryTable = class SummaryTable extends React.Componen
           {this._renderQuestionScoreCells(rowData)}
           {this._renderFormattedScore(rowData, 'initial_total')}
           {this._renderFormattedScore(rowData, 'final_total')}
-          <td>{rowData.count_submissions}</td>
+          <td>{rowData.count_submissions ? rowData.count_submissions : 0}</td>
           <td title={moment(rowData.last_submission).toString()}>
-            {moment(rowData.last_submission).fromNow()}
+            {rowData.last_submission ? moment(rowData.last_submission).fromNow() : '-'}
           </td>
         </tr>
       )
