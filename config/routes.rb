@@ -169,6 +169,12 @@ LaserShark::Application.routes.draw do
     resources :assistances, only: [:index]
     resources :tech_interviews, only: [:index]
     resources :cohort_switcher, only: [:index]
+
+    resources :cohorts, only: [] do
+      resources :programming_tests, only: [:show] do
+        resources :student_submissions, only: [:show]
+      end
+    end
   end
 
   # ADMIN
@@ -208,10 +214,6 @@ LaserShark::Application.routes.draw do
         post :archive
         delete :archive, action: :unarchive
       end
-    end
-
-    resource :programming_tests, only: [:show] do
-      get '/submissions/:enrollment_id', to: 'programming_tests#submissions'
     end
 
     resources :prep_stats, only: [:index]

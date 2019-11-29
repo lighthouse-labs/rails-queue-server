@@ -1,9 +1,13 @@
-window.ProgrammingTests || (window.ProgrammingTests = {})
+window.ProgrammingTests || (window.ProgrammingTests = {});
 
-window.ProgrammingTests.ShowExamPage = class ShowExamPage extends React.Component {
+window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
   static propTypes = {
     code: PropTypes.string.isRequired,
-    students: PropTypes.arrayOf(ProgrammingTests.StudentValidator).isRequired,
+    students: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      enrollmentId: PropTypes.string.isRequired,
+      detailsPath: PropTypes.string.isRequired
+    })).isRequired,
     pollTimeout: PropTypes.number
   }
 
@@ -39,7 +43,7 @@ window.ProgrammingTests.ShowExamPage = class ShowExamPage extends React.Componen
     const expectedIds = students.map(s => s.enrollmentId)
 
     return (
-      <React.Fragment>
+      <div>
         <ProgrammingTests.SummaryTable
           code={code}
           examStats={this.state.examStats}
@@ -49,7 +53,7 @@ window.ProgrammingTests.ShowExamPage = class ShowExamPage extends React.Componen
           <strong>Missing Students:</strong>
         </span>
         <div>{this._renderMissingStudents(students, expectedIds, gotStudentIds)}</div>
-      </React.Fragment>
+      </div>
     )
   }
 
@@ -101,10 +105,7 @@ window.ProgrammingTests.ShowExamPage = class ShowExamPage extends React.Componen
   }
 
   _cancelPoller = () => {
-    if (this.poller) {
-      clearTimeout(this.poller);
-      this.poller = null;
-    }
+    clearTimeout(this.poller);
   }
 
   _setPoller = () => {

@@ -140,4 +140,8 @@ module ApplicationHelper
     end
   end
 
+  def active_programming_tests
+    ProgrammingTest.active
+  end
+
 end

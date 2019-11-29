@@ -50,16 +50,16 @@ window.ProgrammingTests.SummaryTable = class SummaryTable extends React.Componen
   _renderTableRows = () => {
     const { students, examStats } = this.props
     const rows = []
-    const getStudentName = (id) => students.filter(s => s.enrollmentId === id)[0].name
+    const getStudent = (id) => students.filter(s => s.enrollmentId === id)[0]
 
     for (let key in examStats) {
       const rowData = examStats[key]
-      const studentLink = `/admin/programming_tests/submissions/${key}`
+      const student = getStudent(key)
       rows.push(
         <tr key={key}>
           <td>
-            <a href={studentLink}>
-              <strong>{getStudentName(key)}</strong>
+            <a href={student.detailsPath}>
+              <strong>{student.name}</strong>
             </a>
           </td>
           {this._renderQuestionScoreCells(rowData)}

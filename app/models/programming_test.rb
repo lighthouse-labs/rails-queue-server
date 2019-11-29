@@ -16,6 +16,10 @@ class ProgrammingTest < ApplicationRecord
 
   after_commit :fetch_config
 
+  def name
+    test_activities.try(:first).name
+  end
+
   protected
 
   def fetch_config

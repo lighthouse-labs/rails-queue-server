@@ -2,8 +2,11 @@ window.ProgrammingTests || (window.ProgrammingTests = {})
 
 window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Component {
   static propTypes = {
-    enrollmentId: PropTypes.string.isRequired,
-    programmingTests: PropTypes.arrayOf(PropTypes.object).isRequired,
+    student: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      enrollmentId: PropTypes.string.isRequired,
+    }).isRequired,
+    code: PropTypes.string.isRequired,
     pollTimeout: PropTypes.number
   }
 
@@ -15,8 +18,8 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
     super(props)
 
     this.state = {
-      selectedTest: props && props.programmingTests && props.programmingTests[0] && props.programmingTests[0].code || null,
       submissionData: [],
+      summaryData: [],
       fetching: false
     }
   }
@@ -25,43 +28,31 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
     this._fetchData()
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.selectedTest !== prevState.selectedTest) {
-      this.setState({ submissionData: [] })
-      this._cancelPoller()
-      this._fetchData()
-    }
-  }
-
   componentWillUnmount() {
     this._cancelPoller()
   }
 
   render() {
-    const { programmingTests } = this.props
-    const { selectedTest, submissionData } = this.state
+    const { code, student } = this.props
+    const { submissionData, summaryData } = this.state
 
     return (
       <div>
-        <ProgrammingTests.TabList programmingTests={programmingTests} selectedTab={selectedTest} onTabSelected={(test) => this.setState({ selectedTest: test })} />
-
+        <ProgrammingTests.SummaryTable code={code} examStats={summaryData} students={[student]} />
         <ProgrammingTests.SubmissionsList questions={submissionData} />
       </div>
     )
   }
 
   _fetchData = () => {
-    const { enrollmentId } = this.props
-    const { selectedTest } = this.state
-
     this.setState({ fetching: true })
 
-    const url = `http://localhost:3000/api/v2/stats/${selectedTest}/students/${enrollmentId}`
-
-    fetch(url)
-      .then(resp => resp.json())
-      .then(json => {
-        this.setState({ submissionData: json })
+    Promise.all([
+      this._fetchStudentSubmission(),
+      this._fetchStudentSummary()
+    ])
+      .then(([submissions, summary]) => {
+        this.setState({ submissionData: submissions, summaryData: summary })
       })
       .finally(() => {
         this._setPoller()
@@ -69,11 +60,25 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
       })
   }
 
+  _fetchStudentSummary = () => {
+    const { student, code } = this.props
+
+    const url = `http://localhost:3000/api/v2/stats/${code}/?studentIds=${student.enrollmentId}`
+    return fetch(url)
+      .then(resp => resp.json())
+  }
+
+  _fetchStudentSubmission = () => {
+    const { student, code } = this.props
+
+    const url = `http://localhost:3000/api/v2/stats/${code}/students/${student.enrollmentId}`
+
+    return fetch(url)
+      .then(resp => resp.json())
+  }
+
   _cancelPoller = () => {
-    if (this.poller) {
-      clearTimeout(this.poller)
-      this.poller = null;
-    }
+    clearTimeout(this.poller)
   }
 
   _setPoller = () => {
