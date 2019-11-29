@@ -39,8 +39,8 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
 
   render() {
     const { code, students } = this.props
-    const gotStudentIds = Object.keys(this.state.examStats)
-    const expectedIds = students.map(s => s.enrollmentId)
+    const { examStats } = this.state
+    const studentIds = Object.keys(examStats)
 
     return (
       <div>
@@ -49,41 +49,9 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
           examStats={this.state.examStats}
           students={students}
         />
-        <span>
-          <strong>Missing Students:</strong>
-        </span>
-        <div>{this._renderMissingStudents(students, expectedIds, gotStudentIds)}</div>
+
+        <ProgrammingTests.MissingStudentsList students={students} recieved={studentIds} />
       </div>
-    )
-  }
-
-  _renderMissingStudents = (students, expected, received) => {
-    const nameMap = students.reduce((obj, student) => {
-      obj[student.enrollmentId] = student.name
-      return obj
-    }, {})
-
-    const a = new Set(expected)
-    const b = new Set(received)
-    const missing = new Set([...a].filter(x => !b.has(x)))
-    const arrLabels = []
-    for (const username of missing) {
-      arrLabels.push(
-        <li className="list-group-item" key={username}>{nameMap[username]}</li>
-      )
-    }
-    if (arrLabels.length === 0) {
-      return (
-        <span>
-          <i>(None)</i>
-        </span>
-      )
-    }
-
-    return (
-      <ul className="list-group">
-        {arrLabels}
-      </ul>
     )
   }
 
@@ -114,5 +82,48 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
     this.poller = setTimeout(() => {
       this._fetchData();
     }, pollTimeout * 1000)
+  }
+}
+
+window.ProgrammingTests.MissingStudentsList = class MissingStudentsList extends React.Component {
+  render() {
+    const { recieved } = this.props
+
+    if (recieved.length === 0) {
+      return null;
+    }
+
+    return (
+      <div>
+        <strong>Missing Students:</strong>
+
+        {this._renderMissingStudents()}
+      </div>
+    )
+  }
+
+  _renderMissingStudents = () => {
+    const { students, received } = this.props
+    const nameMap = students.reduce((obj, student) => {
+      obj[student.enrollmentId] = student.name
+      return obj
+    }, {})
+    const expected = Object.keys(nameMap)
+
+    const a = new Set(expected)
+    const b = new Set(received)
+    const missing = new Set([...a].filter(x => !b.has(x)))
+    const arrLabels = []
+    for (const username of missing) {
+      arrLabels.push(
+        <li className="list-group-item" key={username}>{nameMap[username]}</li>
+      )
+    }
+
+    return (
+      <ul className="list-group">
+        {arrLabels}
+      </ul>
+    )
   }
 }
