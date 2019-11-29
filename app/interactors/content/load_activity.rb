@@ -15,6 +15,8 @@ class Content::LoadActivity
 
     # QUIZ
     quiz = load_quiz if quiz?
+    # Test
+    programming_test = load_programming_test if test?
 
     # ACTIVITY
     activity = Activity.find_or_initialize_by(uuid: uuid)
@@ -24,7 +26,27 @@ class Content::LoadActivity
 
     if quiz?
       activity = activity.becomes(QuizActivity)
-      activity.quiz = quiz if quiz
+      if quiz
+        activity.quiz = quiz
+        # line below is needed to not have issue noticed here:
+        #   https://github.com/lighthouse-labs/compass/pull/932#issuecomment-551342225
+        quiz.quiz_activities.push activity
+      end
+    end
+
+    if test?
+      activity = activity.becomes TestActivity
+      if programming_test
+        activity.programming_test = programming_test
+        # line below is needed to not have issue noticed here:
+        #   https://github.com/lighthouse-labs/compass/pull/932#issuecomment-551342225
+        programming_test.test_activities.push activity
+      end
+    end
+
+    if test?
+      activity = activity.becomes TestActivity
+      activity.programming_test = programming_test if programming_test
     end
 
     @records.push activity
@@ -35,6 +57,10 @@ class Content::LoadActivity
 
   def quiz?
     @data['type'] == 'Quiz'
+  end
+
+  def test?
+    @data['type'] == 'Test'
   end
 
   # There's intentionally no AR mass assignment
@@ -133,6 +159,8 @@ class Content::LoadActivity
           'LecturePlan'
         when 'breakout'
           'LecturePlan'
+        when 'test'
+          'TestActivity'
         else
           # make sure this is a valid Activity type, and if so, roll with it
           t.strip.gsub(/\s+/, '_').classify
@@ -147,6 +175,10 @@ class Content::LoadActivity
 
   def load_quiz
     Content::LoadQuiz.call(repo: @repo, log: @log, data: @data, records: @records).quiz
+  end
+
+  def load_programming_test
+    Content::LoadProgrammingTest.call(repo: @repo, log: @log, data: @data, records: @records).programming_test
   end
 
 end
