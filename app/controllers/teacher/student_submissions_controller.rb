@@ -6,6 +6,7 @@ class Teacher::StudentSubmissionsController < Teacher::BaseController
 
   def show
     @student = Student.find params[:id]
+    @attempts = ProgrammingTestAttempt.includes(:programming_test).where(student: @student, cohort: @cohort)
   end
 
   private
@@ -16,10 +17,6 @@ class Teacher::StudentSubmissionsController < Teacher::BaseController
 
   def load_programming_test
     @programming_test = ProgrammingTest.find params[:programming_test_id]
-  end
-
-  def load_programming_tests
-    @programming_tests = ProgrammingTest.active
   end
 
 end

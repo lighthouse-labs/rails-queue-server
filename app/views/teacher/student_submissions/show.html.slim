@@ -7,8 +7,8 @@ header.page-header
 h2 = "#{@student.full_name} (#{@cohort.name})"
 
 ul#programmingTestTabs.nav.nav-tabs[role="tablist"]
-  - @programming_tests.each do |pt|
+  - @attempts.each do |attempt|
     li.nav-item[role="presentation"]
-      = link_to pt.name, teacher_cohort_programming_test_student_submission_path(@cohort, pt, @student), class: "nav-link #{'active' if @programming_test == pt}"
+      = link_to attempt.programming_test.name, teacher_cohort_programming_test_student_submission_path(@cohort, attempt.programming_test, @student), class: "nav-link #{'active' if @programming_test == attempt.programming_test}"
 
 == react_component('ProgrammingTests.SubmissionsApp', { student: { enrollmentId: @student.enrollment_id(@cohort), name: @student.full_name }, code: @programming_test.exam_code } )
