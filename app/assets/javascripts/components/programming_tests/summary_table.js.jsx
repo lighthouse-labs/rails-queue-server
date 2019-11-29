@@ -7,6 +7,12 @@ window.ProgrammingTests.SummaryTable = class SummaryTable extends React.Componen
   }
 
   render() {
+    const { examStats } = this.props
+
+    if (Object.keys(examStats).length === 0) {
+      return <ProgrammingTests.EmptySummaryTable />
+    }
+
     return (
       <table className="table table-striped table-bordered table-hover">
         <thead>
@@ -101,6 +107,16 @@ window.ProgrammingTests.SummaryTable = class SummaryTable extends React.Componen
       <td>
         <strong>{totalScore}</strong> ({percentage}%)
       </td>
+    )
+  }
+}
+
+window.ProgrammingTests.EmptySummaryTable = class EmptySummaryTable extends React.Component {
+  render() {
+    return (
+      <div className="alert alert-warning">
+        No one has started this exam yet.
+      </div>
     )
   }
 }

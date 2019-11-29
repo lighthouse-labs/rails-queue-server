@@ -19,7 +19,7 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
 
     this.state = {
       submissionData: [],
-      summaryData: [],
+      summaryData: {},
       fetching: false
     }
   }

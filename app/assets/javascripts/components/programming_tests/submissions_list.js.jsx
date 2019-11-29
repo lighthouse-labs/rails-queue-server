@@ -7,10 +7,15 @@ window.ProgrammingTests.SubmissionsList = class SubmissionsList extends React.Co
 
   render() {
     const { questions } = this.props
+    const questionKeys = Object.keys(questions)
+
+    if (questionKeys.length === 0) {
+      return <ProgrammingTests.EmptySubmissionList />
+    }
 
     return (
       <div>
-        {Object.keys(questions).map(questionNumber => (
+        {questionKeys.map(questionNumber => (
           <ProgrammingTests.QuestionDetail
             key={questionNumber}
             question={questions[questionNumber]}
@@ -20,6 +25,17 @@ window.ProgrammingTests.SubmissionsList = class SubmissionsList extends React.Co
     )
   }
 }
+
+window.ProgrammingTests.EmptySubmissionList = class EmptySubmissionList extends React.Component {
+  render() {
+    return (
+      <div className="alert alert-warning">
+        There are no submissions at this time.
+      </div>
+    )
+  }
+}
+
 
 window.ProgrammingTests.QuestionDetail = class QuestionDetail extends React.Component {
   render() {
