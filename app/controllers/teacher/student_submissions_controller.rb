@@ -2,7 +2,6 @@ class Teacher::StudentSubmissionsController < Teacher::BaseController
 
   before_action :load_cohort
   before_action :load_programming_test
-  before_action :load_programming_tests
 
   def show
     @student = Student.find params[:id]
