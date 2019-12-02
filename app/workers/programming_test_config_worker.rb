@@ -7,7 +7,7 @@ class ProgrammingTestConfigWorker
   sidekiq_options queue: 'default', retry: 0
 
   def perform(programming_test_id)
-    programming_test = ProgrammingTest.find(programming_test_id)
+    @programming_test = ProgrammingTest.find(programming_test_id)
 
     return unless programming_test.config.nil?
 
@@ -25,12 +25,12 @@ class ProgrammingTestConfigWorker
 
   private
 
-  def proctor_host_url
-    ENV.fetch('PROCTOLOGIST_URL')
+  def proctor_host_url(pt)
+    pt.cohort.program.proctor_url
   end
 
-  def proctor_auth_token
-    ENV.fetch('PROCTOLOGIST_READ_ONLY_TOKEN')
+  def proctor_auth_token(pt)
+    pt.cohort.program.proctor_read_token
   end
 
   def api_connector

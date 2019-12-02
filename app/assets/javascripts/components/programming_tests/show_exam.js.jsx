@@ -8,7 +8,11 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
       enrollmentId: PropTypes.string.isRequired,
       detailsPath: PropTypes.string.isRequired
     })).isRequired,
-    pollTimeout: PropTypes.number
+    pollTimeout: PropTypes.number,
+    proctorConfig: PropTypes.shape({
+      baseUrl: PropTypes.string.isRequired,
+      token: PropTypes.string.isRequired
+    }).isRequired
   }
 
   static defaultProps = {
@@ -56,13 +60,13 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
   }
 
   _fetchData = () => {
-    const { code, students } = this.props
+    const { code, students, proctorConfig } = this.props
     this._cancelPoller()
 
     const ids = students.map(s => s.enrollmentId)
 
-    const url = `http://localhost:3000/api/v2/stats/${code}/?studentIds=${ids}`
-    fetch(url)
+    const url = `${proctorConfig.baseUrl}/api/v2/stats/${code}/?studentIds=${ids}`
+    fetch(url, { headers: { 'Authorization': `Token token="${proctorConfig.token}"` } })
       .then(resp => resp.json())
       .then(json => {
         this.setState({ examStats: json })

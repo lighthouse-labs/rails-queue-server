@@ -6,6 +6,10 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
       name: PropTypes.string.isRequired,
       enrollmentId: PropTypes.string.isRequired,
     }).isRequired,
+    proctorConfig: PropTypes.shape({
+      baseUrl: PropTypes.string.isRequired,
+      token: PropTypes.string.isRequired
+    }).isRequired,
     code: PropTypes.string.isRequired,
     pollTimeout: PropTypes.number
   }
@@ -61,19 +65,19 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
   }
 
   _fetchStudentSummary = () => {
-    const { student, code } = this.props
+    const { student, code, proctorConfig } = this.props
 
-    const url = `http://localhost:3000/api/v2/stats/${code}/?studentIds=${student.enrollmentId}`
-    return fetch(url)
+    const url = `${proctorConfig.baseUrl}/api/v2/stats/${code}/?studentIds=${student.enrollmentId}`
+    return fetch(url, { headers: { 'Authorization': `Token token="${proctorConfig.token}"` } })
       .then(resp => resp.json())
   }
 
   _fetchStudentSubmission = () => {
-    const { student, code } = this.props
+    const { student, code, proctorConfig } = this.props
 
-    const url = `http://localhost:3000/api/v2/stats/${code}/students/${student.enrollmentId}`
+    const url = `${proctorConfig.baseUrl}/api/v2/stats/${code}/students/${student.enrollmentId}`
 
-    return fetch(url)
+    return fetch(url, { headers: { 'Authorization': `Token token="${proctorConfig.token}"` } })
       .then(resp => resp.json())
   }
 

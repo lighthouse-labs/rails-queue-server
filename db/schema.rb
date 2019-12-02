@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191108163249) do
+ActiveRecord::Schema.define(version: 20191202152130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -470,6 +470,9 @@ ActiveRecord::Schema.define(version: 20191108163249) do
     t.string   "curriculum_team_email"
     t.boolean  "has_advanced_lectures"
     t.string   "teacher_invite_code"
+    t.string   "proctor_url"
+    t.string   "proctor_write_token"
+    t.string   "proctor_read_token"
   end
 
   create_table "questions", force: :cascade do |t|

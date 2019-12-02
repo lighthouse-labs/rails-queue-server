@@ -11,4 +11,4 @@ ul#programmingTestTabs.nav.nav-tabs[role="tablist"]
     li.nav-item[role="presentation"]
       = link_to pt.name, teacher_cohort_programming_test_path(@cohort, pt), class: "nav-link #{'active' if @programming_test == pt}"
 
-== react_component('ProgrammingTests.ShowExam', { code: @programming_test.exam_code, students: active_students(@cohort, @programming_test) } )
+== react_component('ProgrammingTests.ShowExam', { code: @programming_test.exam_code, students: active_students(@cohort, @programming_test), proctorConfig: { baseUrl: @cohort.program.proctor_url, token: @cohort.program.proctor_read_token } } )

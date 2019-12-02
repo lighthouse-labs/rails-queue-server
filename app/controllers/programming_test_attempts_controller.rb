@@ -57,11 +57,11 @@ class ProgrammingTestAttemptsController < ApplicationController
   end
 
   def proctor_host_url
-    ENV.fetch('PROCTOLOGIST_URL')
+    cohort.program.proctor_url
   end
 
   def proctor_auth_token
-    ENV.fetch('PROCTOLOGIST_TOKEN')
+    cohort.program.proctor_write_token
   end
 
   def api_connector
