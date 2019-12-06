@@ -10,7 +10,7 @@
       = form_tag(enrol_in_cohort_admin_user_path(user, method: :post)) do
         .modal-body
           .list-group data-user-id="#{user.id}"
-          - cohorts.upcoming.most_recent_first.each.with_index do |cohort, i|
+          - cohorts.starts_between(6.month.ago, 6.month.from_now).most_recent_first.each.with_index do |cohort, i|
             .form-check
               - id = "user_#{user.id}_cohort_#{cohort.code}"
               = radio_button_tag('code', cohort.code, i == 0, id: id, class: 'form-check-input')
