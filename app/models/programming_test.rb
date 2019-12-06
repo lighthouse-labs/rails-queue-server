@@ -24,6 +24,10 @@ class ProgrammingTest < ApplicationRecord
     try(:config) && config["type"]
   end
 
+  def attempt_for(student, cohort)
+    attempts.where(student: student, cohort: cohort).order(:created_at).first
+  end
+
   protected
 
   def fetch_config

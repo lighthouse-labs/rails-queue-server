@@ -144,4 +144,14 @@ module ApplicationHelper
     ProgrammingTest.active
   end
 
+  def programming_test_attempt_status_label_class(attempt)
+    if attempt.in_state?(:ready)
+      'badge-success'
+    elsif attempt.in_state?(:errored)
+      'badge-danger'
+    else
+      'badge-secondary'
+    end
+  end
+
 end

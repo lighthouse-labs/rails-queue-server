@@ -8,7 +8,7 @@ class ProgrammingTestAttempt < ApplicationRecord
   belongs_to :cohort
   belongs_to :programming_test
 
-  delegate :current_state, :transition_to, to: :state_machine
+  delegate :current_state, :transition_to, :in_state?, to: :state_machine
 
   ## VALIDATIONS ##
 
@@ -28,6 +28,17 @@ class ProgrammingTestAttempt < ApplicationRecord
     json[:token] = token
 
     json
+  end
+
+  def status
+    case current_state
+    when 'ready'
+      'Started'
+    when 'errored'
+      'Error'
+    when 'pending'
+      'Pending'
+    end
   end
 
   ## STATE MACHINE ##
