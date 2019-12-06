@@ -201,6 +201,7 @@ LaserShark::Application.routes.draw do
       end
       # admins can make other users admins / non-admins
       resource :adminification, only: [:create, :destroy]
+      resource :proctor_visibility, only: [:create, :destroy]
     end
     resources :cohorts, except: [:destroy] do
       resources :curriculum_breaks, only: [:new, :create, :edit, :update, :destroy]
