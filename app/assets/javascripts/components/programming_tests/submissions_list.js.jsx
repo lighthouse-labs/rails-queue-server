@@ -2,11 +2,12 @@ window.ProgrammingTests || (window.ProgrammingTests = {})
 
 window.ProgrammingTests.SubmissionsList = class SubmissionsList extends React.Component {
   static propTypes = {
-    questions: PropTypes.array.isRequired
+    questions: PropTypes.array.isRequired,
+    type: PropTypes.string.isRequired
   }
 
   render() {
-    const { questions } = this.props
+    const { questions, type } = this.props
     const questionKeys = Object.keys(questions)
 
     if (questionKeys.length === 0) {
@@ -18,6 +19,7 @@ window.ProgrammingTests.SubmissionsList = class SubmissionsList extends React.Co
         {questionKeys.map(questionNumber => (
           <ProgrammingTests.QuestionDetail
             key={questionNumber}
+            type={type}
             question={questions[questionNumber]}
           />
         ))}
@@ -39,7 +41,7 @@ window.ProgrammingTests.EmptySubmissionList = class EmptySubmissionList extends 
 
 window.ProgrammingTests.QuestionDetail = class QuestionDetail extends React.Component {
   render() {
-    const { question } = this.props
+    const { question, type } = this.props
 
     return (
       <div className="card">
@@ -56,7 +58,7 @@ window.ProgrammingTests.QuestionDetail = class QuestionDetail extends React.Comp
 
           <h4>Student Code</h4>
 
-          <ProgrammingTests.CodeView code={question.student_code} />
+          <ProgrammingTests.CodeView type={type} code={question.student_code} />
         </div>
       </div>
     )
@@ -65,7 +67,8 @@ window.ProgrammingTests.QuestionDetail = class QuestionDetail extends React.Comp
 
 window.ProgrammingTests.CodeView = class CodeView extends React.Component {
   static propTypes = {
-    code: PropTypes.string.isRequired
+    code: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired
   }
 
   constructor() {
@@ -81,7 +84,7 @@ window.ProgrammingTests.CodeView = class CodeView extends React.Component {
     this.editor.setTheme('ace/theme/monokai')
     this.editor.setReadOnly(true)
 
-    const editorSession = ace.createEditSession(code, 'ace/mode/javascript')
+    const editorSession = ace.createEditSession(code, this._getEditorMode())
     this.editor.setSession(editorSession)
   }
 
@@ -89,7 +92,7 @@ window.ProgrammingTests.CodeView = class CodeView extends React.Component {
     const { code } = this.props
 
     if (code !== prevProps.code) {
-      const editSession = ace.createEditSession(code, 'ace/mode/javascript')
+      const editSession = ace.createEditSession(code, this._getEditorMode())
       this.editor.setSession(editSession)
     }
   }
@@ -98,6 +101,19 @@ window.ProgrammingTests.CodeView = class CodeView extends React.Component {
     return (
       <div ref={this.editorRef} style={{ width: "100%", position: 'relative', height: '400px' }} />
     )
+  }
+
+  _getEditorMode = () => {
+    const { type } = this.props
+
+    switch (type) {
+      case "js":
+        return 'ace/mode/javascript'
+      case "sql":
+        return 'ace/mode/sql'
+      case "ruby":
+        return 'ace/mode/ruby'
+    }
   }
 }
 

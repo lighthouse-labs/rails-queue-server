@@ -11,6 +11,7 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
       token: PropTypes.string.isRequired
     }).isRequired,
     code: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     pollTimeout: PropTypes.number
   }
 
@@ -37,13 +38,13 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
   }
 
   render() {
-    const { code, student } = this.props
+    const { code, type, student } = this.props
     const { submissionData, summaryData } = this.state
 
     return (
       <div>
         <ProgrammingTests.SummaryTable code={code} examStats={summaryData} students={[student]} />
-        <ProgrammingTests.SubmissionsList questions={submissionData} />
+        <ProgrammingTests.SubmissionsList type={type} questions={submissionData} />
       </div>
     )
   }

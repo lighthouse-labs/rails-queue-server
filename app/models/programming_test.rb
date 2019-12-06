@@ -20,6 +20,10 @@ class ProgrammingTest < ApplicationRecord
     test_activities.try(:first).name
   end
 
+  def type
+    try(:config) && config["type"]
+  end
+
   protected
 
   def fetch_config
