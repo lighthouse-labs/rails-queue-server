@@ -67,9 +67,9 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
           li
             button.btn.btn-primary.disabled
               | Disabled while Impersonating
-        - elsif prep_assistance?
+        - elsif prep_assistance_url
           li
-            a.btn.navbar-btn.btn-primary href="http://web-prep-help.lighthouselabs.ca/" target="_blank"
+            a.btn.navbar-btn.btn-primary href=prep_assistance_url target="_blank"
               | Need Help?
         - elsif student_with_queue?
           = render '/layouts/nav/request_assistance_button'

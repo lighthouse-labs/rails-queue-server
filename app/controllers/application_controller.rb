@@ -74,6 +74,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :prep_assistance?
 
+  def prep_assistance_url
+    current_user&.enrolled_and_prepping? && @program&.prep_assistance_url
+  end
+  helper_method :prep_assistance_url
+
   def alumni?
     student? && current_user.alumni?
   end
