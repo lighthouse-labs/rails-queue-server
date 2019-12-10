@@ -19,6 +19,33 @@ describe CurriculumDay, type: :model do
       end
     end
 
+    describe '#unlocked?' do
+      context "for a cohort over the holiday break" do
+        let(:program) { create :program, weeks: 12, weekends: true, curriculum_unlocking: 'weekly' }
+        let(:cohort) { create :cohort, start_date: Date.new(2019, 11, 25), program: program }
+        let(:timezone) { 'Pacific Time (US & Canada)' }
+
+        describe 'when initialized as "w04e"' do
+          subject(:curriculum_day) { CurriculumDay.new('w04e', cohort) }
+          it 'it picks the correct saturday date for weekend' do
+            expect(curriculum_day.date).to eq(Date.new(2019, 12, 21)) # saturday
+          end
+
+          it 'should be unlocked after that date' do
+            travel_to Time.new(2019, 12, 27, 12, 00, 00) do
+              expect(curriculum_day.unlocked?(timezone)).to eq(true)
+            end
+          end
+
+          it 'should be unlocked after that date' do
+            travel_to Time.new(2019, 12, 30, 12, 00, 00) do
+              expect(curriculum_day.unlocked?(timezone)).to eq(true)
+            end
+          end
+        end
+      end
+    end
+
     context "when initialized as a w01d1 type string" do
       describe "where we are on 'w01d3'" do
         subject(:curriculum_day) do

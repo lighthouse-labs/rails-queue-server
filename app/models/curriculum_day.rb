@@ -73,12 +73,9 @@ class CurriculumDay
     return false unless @cohort
     return false if @cohort.start_date > Date.current
     if program.curriculum_unlocking == 'weekly'
-      # 53rd week can roll over into the new year, preventing access from remaining days of that week.
-      # if Jan 1st is a thursday, it will prevent access until the week ends.
-      #
       # Allowing access on Sunday night as well.
       next_weekend = CurriculumDay.new(DateTime.now.sunday + 6.days, @cohort)
-      unlocked_based_on_current_week? || unlocked_based_on_year? || unlocked_based_on_sunday_night?(timezone, next_weekend)
+      unlocked_based_on_current_week? || unlocked_based_on_year? || unlocked_based_on_sunday_night?(timezone, next_weekend) || unlock_based_on_last_week_of_year?
     else # assume daily
       date <= today.date
     end
@@ -86,6 +83,17 @@ class CurriculumDay
 
   def unlocked_based_on_current_week?
     date.cweek <= today.date.cweek && date.year <= today.date.year
+  end
+
+  def unlock_based_on_last_week_of_year?
+    # force week 53 for last few days of dec if ruby logic does not
+    week = today.date.cweek
+    month = today.date.month
+    if (month == 12) && (week == 1)
+      date.cweek <= 53 && date.year <= today.date.year
+    else
+      false
+    end
   end
 
   def unlocked_based_on_year?
