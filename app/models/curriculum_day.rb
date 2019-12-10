@@ -260,7 +260,7 @@ class CurriculumDay
     if week == 1 && date.month == 12
       week = 52
     #First week of January is incorrectly identified as 52nd week
-    elsif week > 52 && date.month == 1
+    elsif week >= 52 && date.month == 1
       week = 1
     end
     week
