@@ -20,7 +20,7 @@ describe CurriculumDay, type: :model do
     end
 
     describe '#unlocked?' do
-      context "for a cohort over the holiday break" do
+      context "for a cohort over the holiday break 2019" do
         let(:program) { create :program, weeks: 12, weekends: true, curriculum_unlocking: 'weekly' }
         let(:cohort) { create :cohort, start_date: Date.new(2019, 11, 25), program: program }
         let(:timezone) { 'Pacific Time (US & Canada)' }
@@ -39,6 +39,27 @@ describe CurriculumDay, type: :model do
 
           it 'should be unlocked after that date' do
             travel_to Time.new(2019, 12, 30, 12, 00, 00) do
+              expect(curriculum_day.unlocked?(timezone)).to eq(true)
+            end
+          end
+        end
+      end
+
+      context "for a cohort over the holiday break 2020" do
+        let(:program) { create :program, weeks: 12, weekends: true, curriculum_unlocking: 'weekly' }
+        let(:cohort) { create :cohort, start_date: Date.new(2020, 11, 25), program: program }
+        let(:timezone) { 'Pacific Time (US & Canada)' }
+
+        describe 'when initialized as "w12d5"' do
+          subject(:curriculum_day) { CurriculumDay.new('w12d5', cohort) }
+          it 'should be locked in January' do
+            travel_to Time.new(2021, 1, 1, 12, 00, 00) do
+              expect(curriculum_day.unlocked?(timezone)).to eq(false)
+            end
+          end
+
+          it 'should be unlocked after that date' do
+            travel_to Time.new(2021, 4, 30, 12, 00, 00) do
               expect(curriculum_day.unlocked?(timezone)).to eq(true)
             end
           end

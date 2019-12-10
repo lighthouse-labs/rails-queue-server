@@ -75,25 +75,14 @@ class CurriculumDay
     if program.curriculum_unlocking == 'weekly'
       # Allowing access on Sunday night as well.
       next_weekend = CurriculumDay.new(DateTime.now.sunday + 6.days, @cohort)
-      unlocked_based_on_current_week? || unlocked_based_on_year? || unlocked_based_on_sunday_night?(timezone, next_weekend) || unlock_based_on_last_week_of_year?
+      unlocked_based_on_current_week? || unlocked_based_on_year? || unlocked_based_on_sunday_night?(timezone, next_weekend)
     else # assume daily
       date <= today.date
     end
   end
 
   def unlocked_based_on_current_week?
-    date.cweek <= today.date.cweek && date.year <= today.date.year
-  end
-
-  def unlock_based_on_last_week_of_year?
-    # force week 53 for last few days of dec if ruby logic does not
-    week = today.date.cweek
-    month = today.date.month
-    if (month == 12) && (week == 1)
-      date.cweek <= 53 && date.year <= today.date.year
-    else
-      false
-    end
+    correctCweek(date) <= correctCweek(today.date) && date.year <= today.date.year
   end
 
   def unlocked_based_on_year?
@@ -263,6 +252,18 @@ class CurriculumDay
     hour = user_current_time.strftime("%H").to_i
     ## Sunday after 8PM, users local time
     day_of_week == 'Sunday' && hour >= 20
+  end
+
+  def correctCweek(date)
+    week = date.cweek
+    #Last week of december is incorrectly identified as 1st week
+    if week == 1 && date.month == 12
+      week = 52
+    #First week of January is incorrectly identified as 52nd week
+    elsif week > 52 && date.month == 1
+      week = 1
+    end
+    week
   end
 
 end
