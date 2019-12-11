@@ -85,7 +85,7 @@ class CurriculumDay
   end
 
   def unlocked_based_on_current_week?
-    date.cweek <= today.date.cweek && date.year <= today.date.year
+    correctCweek(date) <= correctCweek(today.date) && date.year <= today.date.year
   end
 
   def unlocked_based_on_year?
@@ -255,6 +255,18 @@ class CurriculumDay
     hour = user_current_time.strftime("%H").to_i
     ## Sunday after 8PM, users local time
     day_of_week == 'Sunday' && hour >= 20
+  end
+
+  def correctCweek(date)
+    week = date.cweek
+    #Last week of december is incorrectly identified as 1st week
+    if week == 1 && date.month == 12
+      week = 53
+    #First week of January is incorrectly identified as 52nd week
+    elsif week >= 52 && date.month == 1
+      week = 1
+    end
+    week
   end
 
 end
