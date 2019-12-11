@@ -13,7 +13,7 @@ class SocialIcon extends React.Component {
   }
 
   componentDidMount() {
-    window.$(this.iconRef.current.tooltip());
+    window.$(this.iconRef.current).tooltip();
   }
   render() {
     const { company, handle, url } = this.props;
