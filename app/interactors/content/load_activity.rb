@@ -44,11 +44,6 @@ class Content::LoadActivity
       end
     end
 
-    if test?
-      activity = activity.becomes TestActivity
-      activity.programming_test = programming_test if programming_test
-    end
-
     @records.push activity
     activity
   end
