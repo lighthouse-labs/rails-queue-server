@@ -14,7 +14,7 @@ class Content::DownloadRepoArchive
   def call
     require 'open-uri'
 
-    determine_sha unless @sha
+    determine_sha if @sha.blank?
     @log.info "SHA: #{@sha}"
 
     # https://developer.github.com/v3/repos/contents/#get-archive-link
