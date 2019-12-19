@@ -6,6 +6,9 @@ header.page-header
 
 h2 = "#{@student.full_name} (#{@cohort.name})"
 
+.alert.alert-secondary 
+  = link_to "Back to Dashboard", teacher_cohort_programming_test_path(@cohort, @programming_test)
+
 ul#programmingTestTabs.nav.nav-tabs[role="tablist"]
   - @attempts.each do |attempt|
     li.nav-item[role="presentation"]
