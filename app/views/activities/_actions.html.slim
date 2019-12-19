@@ -37,6 +37,6 @@
               td = "No" 
             td = "Completed #{time_ago_in_words(student.completed_at(@activity))} ago" if student.completed_activity?(@activity)
 
-- if @activity.test_activity?
+- if @activity.test_activity? && student?
   .actions.programming-test-activity
     == react_component('TestActivityAttempts.App', { programming_test: @activity.programming_test })
