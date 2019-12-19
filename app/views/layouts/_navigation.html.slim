@@ -32,7 +32,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             i.fa.fa-fw.fa-life-ring
             span.non-tablet-label
               | Teachers
-        - if current_user.can_view_programming_tests?
+        - if current_user.can_view_programming_tests? || admin?
           = render 'layouts/nav/programming_tests_dropdown'
 
       - if active_student? || alumni?
