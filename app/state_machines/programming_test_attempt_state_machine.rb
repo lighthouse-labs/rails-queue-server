@@ -7,5 +7,6 @@ class ProgrammingTestAttemptStateMachine
   state :errored
 
   transition from: :pending, to: [:errored, :ready]
+  transition from: :errored, to: :pending
 
 end

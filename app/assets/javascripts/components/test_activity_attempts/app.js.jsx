@@ -13,7 +13,8 @@ window.TestActivityAttempts.App = class App extends React.Component {
 
     this.state = {
       token: null,
-      loading: true
+      loading: true,
+      error: null
     }
   }
 
@@ -34,13 +35,17 @@ window.TestActivityAttempts.App = class App extends React.Component {
   }
 
   render() {
-    const { loading, token } = this.state
+    const { loading, token, error } = this.state
+
+    if (loading) {
+      return <span>Loading ...</span>
+    }
 
     return (
       <React.Fragment>
-        {loading && <span>Loading ...</span>}
-        {!loading && token && <TokenDisplay token={token} />}
-        {!loading && token === null && <button
+        {error && !token && <TestActivityAttempts.ErrorMessage message={error} />}
+        {token && !error && <TestActivityAttempts.TokenDisplay token={token} />}
+        {token === null && <button
           className="btn btn-primary"
           onClick={this._handleCreateAttempt}
         >
@@ -61,21 +66,26 @@ window.TestActivityAttempts.App = class App extends React.Component {
       method: 'POST',
       url
     }).done((resp, _, xhr) => {
-      this.setState({ token: resp.attempt.token })
+      this.setState({ token: resp.attempt.token, error: null })
     }).fail((xhr, _, error) => {
-      console.log('Got an error', error, xhr.status)
+      this.setState({ error: xhr.responseJSON.error })
     }).always(() => {
       this.setState({ loading: false })
     })
   }
 }
 
-const TokenDisplay = ({ token }) => (
+window.TestActivityAttempts.TokenDisplay = ({ token }) => (
   <div>
     <div>Use this code to start the test:</div>
-    <div>
+    <div className="exam-token">
       <code>{token}</code>
     </div>
   </div>
 )
 
+window.TestActivityAttempts.ErrorMessage = ({ message }) => (
+  <div className="alert alert-danger">
+    {message}
+  </div>
+)

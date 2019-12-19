@@ -18,8 +18,32 @@ class ProgrammingTestAttempt < ApplicationRecord
 
   ## HELPERS ##
 
+  def ready?
+    current_state == 'ready'
+  end
+
+  def errored?
+    current_state == 'errored'
+  end
+
+  def pending?
+    current_state == 'pending'
+  end
+
   def token
-    current_state == 'ready' ? programming_test_attempt_transitions.last.metadata["token"] : nil
+    ready? ? programming_test_attempt_transitions.last.metadata["token"] : nil
+  end
+
+  def token=(token)
+    transition_to(:ready, token: token)
+  end
+
+  def errored=(error)
+    transition_to(:errored, error)
+  end
+
+  def reset
+    transition_to(:pending)
   end
 
   def as_json(params)

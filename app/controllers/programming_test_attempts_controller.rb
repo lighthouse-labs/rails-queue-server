@@ -23,26 +23,33 @@ class ProgrammingTestAttemptsController < ApplicationController
       cohort:  cohort
     )
 
-    if attempt.persisted? && attempt.current_state == 'ready'
-      render json: { attempt: attempt }
-      return
+    if attempt.persisted?
+      if attempt.ready?
+        return render json: { attempt: attempt }
+      elsif attempt.errored?
+        attempt.reset
+      end
     end
 
     unless attempt.save
-      render json: { message: 'Unable to save attempt', errors: attempt.errors }, status: 500
-      return
+      return render json: { message: 'Unable to save attempt', errors: attempt.errors }, status: :internal_server_error
     end
 
-    response = api_connector.put proctor_url_for_attempt do |req|
-      req.body = attempt_request_body
-    end
+    begin
+      response = api_connector.put proctor_url_for_attempt do |req|
+        req.body = attempt_request_body
+      end
 
-    if response.success?
-      attempt.transition_to(:ready, token: response.body["examToken"])
-      render json: { attempt: attempt }
-    else
-      attempt.transition_to(:errored, response.body)
-      render json: { error: response.body }, status: :internal_server_error
+      if response.success?
+        attempt.token = response.body["examToken"]
+        render json: { attempt: attempt }
+      else
+        attempt.errored = response.body
+        render json: { error: response.body }, status: :internal_server_error
+      end
+    rescue StandardError => error
+      attempt.errored = error
+      render json: { error: 'Error connecting to proctor server, please let your instructor know' }, status: :internal_server_error
     end
   end
 
