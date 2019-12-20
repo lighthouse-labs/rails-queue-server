@@ -113,7 +113,6 @@ window.ProgrammingTests.MissingStudentsList = class MissingStudentsList extends 
       return obj
     }, {})
     const expected = Object.keys(nameMap)
-    debugger;
 
     const a = new Set(expected)
     const b = new Set(received)
