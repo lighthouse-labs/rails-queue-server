@@ -15,7 +15,7 @@ class Content::LoadActivity
 
     # QUIZ
     quiz = load_quiz if quiz?
-    # Test
+    # TEST
     programming_test = load_programming_test if test?
 
     # ACTIVITY

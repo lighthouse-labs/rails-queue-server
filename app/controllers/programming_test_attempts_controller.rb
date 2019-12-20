@@ -32,7 +32,8 @@ class ProgrammingTestAttemptsController < ApplicationController
     end
 
     unless attempt.save
-      return render json: { message: 'Unable to save attempt', errors: attempt.errors }, status: :internal_server_error
+      attempt.errored = attempt.errors.full_messages
+      return render json: { error: 'Error starting your test, please let your instructor know and try again' }, status: :internal_server_error
     end
 
     begin
@@ -45,11 +46,11 @@ class ProgrammingTestAttemptsController < ApplicationController
         render json: { attempt: attempt }
       else
         attempt.errored = response.body
-        render json: { error: response.body }, status: :internal_server_error
+        render json: { error: 'Error starting your test, please let your instructor know and try again' }, status: :internal_server_error
       end
     rescue StandardError => error
-      attempt.errored = error
-      render json: { error: 'Error connecting to proctor server, please let your instructor know' }, status: :internal_server_error
+      attempt.errored = error.backtrace
+      render json: { error: 'Error connecting to proctor server, please let your instructor know and try again.' }, status: :internal_server_error
     end
   end
 
