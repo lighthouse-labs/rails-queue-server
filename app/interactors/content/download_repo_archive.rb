@@ -14,12 +14,14 @@ class Content::DownloadRepoArchive
   def call
     require 'open-uri'
 
-    determine_sha unless @sha
+    determine_sha if @sha.blank?
     @log.info "SHA: #{@sha}"
 
     # https://developer.github.com/v3/repos/contents/#get-archive-link
     # https://github.com/octokit/octokit.rb/blob/master/lib/octokit/client/contents.rb#L152
     remote_archive_location = github.archive_link(@repo.full_name, ref: @sha)
+
+    @log.info "Downloading Repo From: #{remote_archive_location}"
 
     local_dir = Rails.root.join('tmp', "curriculum", Time.now.to_i.to_s)
     tarball_path = local_dir.join('archive.tar.gz')
@@ -39,9 +41,14 @@ class Content::DownloadRepoArchive
       untar(tar, content_path)
     end
 
-    repo_dir = Dir.glob(content_path.join('*')).detect { |f| File.directory? f }
-
-    raise "Error: Expected " if repo_dir.blank?
+    repo_dir = File.join(content_path, "#{@repo.github_username}-#{@repo.github_repo}-#{@sha}")
+    @log.info "Assuming final repo contents directory to be: #{repo_dir} ..."
+    unless File.directory? repo_dir
+      # in case that's not a valid directory, fall back to the first directory we can find (old behavior) - KV
+      repo_dir = Dir.glob(content_path.join('*')).detect { |f| File.directory? f }
+      raise "Error: Expected to find repo directory but could not" if repo_dir.blank?
+      @log.info "Bad assumption. Directory not found. Switching to #{repo_dir}"
+    end
 
     # we only care about the contents within
     context.repo_dir = File.join(repo_dir, 'data')
