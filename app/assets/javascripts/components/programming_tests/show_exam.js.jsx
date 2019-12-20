@@ -54,7 +54,7 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
           students={students}
         />
 
-        <ProgrammingTests.MissingStudentsList students={students} recieved={studentIds} />
+        <ProgrammingTests.MissingStudentsList students={students} received={studentIds} />
       </div>
     )
   }
@@ -91,9 +91,9 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
 
 window.ProgrammingTests.MissingStudentsList = class MissingStudentsList extends React.Component {
   render() {
-    const { recieved } = this.props
+    const { received } = this.props
 
-    if (recieved.length === 0) {
+    if (received.length === 0) {
       return null;
     }
 
@@ -113,6 +113,7 @@ window.ProgrammingTests.MissingStudentsList = class MissingStudentsList extends 
       return obj
     }, {})
     const expected = Object.keys(nameMap)
+    debugger;
 
     const a = new Set(expected)
     const b = new Set(received)
