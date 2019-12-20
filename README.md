@@ -24,6 +24,7 @@ Welcome to Compass! Lighthouse Lab's website for hosting our curriculum to stude
   - [Start the Server](#server)
   - [Getting the Queue to work](#queue)
   - [Setting up iOS or Part-time](#ios-and-part-time-support)
+  - [[Optional] Proctor Setup](#proctor-setup)
 2. [Project Management Process](#pm-process)
   - [for Lead Dev](#for-lead-dev)
   - [for Contributors](#for-contributors-and-junior-devs)
@@ -135,6 +136,16 @@ Reasoning:
   - Program should curriculum unlocking weekly, else it does not handle well if the start is not a Monday. Also allows students to look ahead
   - Program false flags on projects on interviews and projects (no interviews/projects)
   - Every cohort needs to setup for weekdays column, for example `'1,3'`, these should match up with the Program's days per week.
+
+### Proctor Setup
+
+To setup compass to work with the proctor server, there are a few things you will need to configure:
+
+- On the `Program` model:
+  - Set `proctor_url` to the Base URL of your proctor server, i.e. `http://localhost:3000`
+  - Set `proctor_read_token` and `proctor_write_token` to be the same as the `READ_TOKEN` and `WRITE_TOKEN` values respectiveley from the proctor server. I would suggest to use something like `rails secret` to generate these tokens.
+- Make sure your `sidekiq` instance is running, a background worker is used to cache the config for each `ProgrammingTest` after a deploy is ran.
+- Run a curriculum deploy to update all the `ProgrammingTest` models, see the next section for instructions on that.
 
 ## Curriculum Development
 
