@@ -7,57 +7,76 @@
     = render 'activity_title', activity_presenter: activity_presenter, showing_details: true
 
   dl class="row"
-    dt class="col-sm-3" Name
-    dd class="col-sm-9" #{@activity.name || "N/A"}
+    - if @activity.name
+      dt class="col-sm-3" Name
+      dd class="col-sm-9" #{@activity.name}
 
-    dt class="col-sm-3" UUID
-    dd class="col-sm-9" #{@activity.uuid || "N/A"}
+    - if @activity.uuid
+      dt class="col-sm-3" UUID
+      dd class="col-sm-9" #{@activity.uuid}
 
-    dt class="col-sm-3" Type
-    dd class="col-sm-9" #{@activity.type || "N/A"}
+    - if @activity.type
+      dt class="col-sm-3" Type
+      dd class="col-sm-9" #{@activity.type}
 
     - if (day || @activity.project?)
-      dt class="col-sm-3" Day
-      dd class="col-sm-9" #{@activity.day || "N/A"}
+      - if @activity.day
+          dt class="col-sm-3" Day
+          dd class="col-sm-9" #{@activity.day}
 
-    dt class="col-sm-3" Start Time
-    dd class="col-sm-9" #{@activity.start_time || "N/A"}
+    - if @activity.start_time
+      dt class="col-sm-3" Start Time
+      dd class="col-sm-9" #{@activity.start_time}
 
-    dt class="col-sm-3" Duration
-    dd class="col-sm-9" #{@activity.duration || "N/A"}
+    - if @activity.average_time_spent
+      dt class="col-sm-3" Average Time Spent
+      dd class="col-sm-9" #{@activity.average_time_spent}
 
-    dt class="col-sm-3" Gist URL
-    dd class="col-sm-9" #{@activity.gist_url || "N/A"}
+    - if @activity.duration
+      dt class="col-sm-3" Estimated Duration
+      dd class="col-sm-9" #{@activity.duration}
 
-    dt class="col-sm-3" Media Filename
-    dd class="col-sm-9" #{@activity.media_filename || "N/A"}
+    - if @activity.gist_url
+      dt class="col-sm-3" Gist URL
+      dd class="col-sm-9" #{@activity.gist_url}
+
+    - if @activity.media_filename
+      dt class="col-sm-3" Media Filename
+      dd class="col-sm-9" #{@activity.media_filename}
 
     dt class="col-sm-3" Allow Submissions
-    dd class="col-sm-9" #{@activity.allow_submissions || "N/A"}
+    dd class="col-sm-9" #{@activity.allow_submissions}
 
     dt class="col-sm-3" Allow Feedback
-    dd class="col-sm-9" #{@activity.allow_feedback? || "N/A"}
+    dd class="col-sm-9" #{@activity.allow_feedback?}
 
-    dt class="col-sm-3" Probability of code review
-    dd class="col-sm-9" #{@activity.code_review_percent || "N/A"}%
+    - if @activity.code_review_percent
+      dt class="col-sm-3" Probability of code review
+      dd class="col-sm-9" #{@activity.code_review_percent}%
 
-    dt class="col-sm-3" Evaluates Code
-    dd class="col-sm-9" #{@activity.evaluates_code || "N/A"}
+    - if @activity.evaluates_code
+      dt class="col-sm-3" Evaluates Code
+      dd class="col-sm-9" #{@activity.evaluates_code}
 
-    dt class="col-sm-3" Remote Content
-    dd class="col-sm-9" #{@activity.remote_content || "N/A"}
+    - if @activity.remote_content
+      dt class="col-sm-3" Remote Content
+      dd class="col-sm-9" #{@activity.remote_content}
 
-    dt class="col-sm-3" Content Repository
-    dd class="col-sm-9" #{@activity.content_repository || "N/A"}
+    - if @activity.content_repository
+      dt class="col-sm-3" Content Repository
+      dd class="col-sm-9" #{@activity.content_repository}
 
-    dt class="col-sm-3" Content File Path
-    dd class="col-sm-9" #{@activity.content_file_path || "N/A"}
+    - if @activity.content_file_path
+      dt class="col-sm-3" Content File Path
+      dd class="col-sm-9" #{@activity.content_file_path}
 
-    dt class="col-sm-3" Created
-    dd class="col-sm-9" #{@activity.created_at.strftime("%Y/%m/%d %I:%M%p %Z") || "N/A"}
+    - if @activity.created_at
+      dt class="col-sm-3" Created
+      dd class="col-sm-9" #{@activity.created_at.strftime("%Y/%m/%d %I:%M%p %Z")}
 
-    dt class="col-sm-3" Updated
-    dd class="col-sm-9" #{@activity.updated_at.strftime("%Y/%m/%d %I:%M%p %Z") || "N/A"}
+    - if @activity.updated_at
+      dt class="col-sm-3" Updated
+      dd class="col-sm-9" #{@activity.updated_at.strftime("%Y/%m/%d %I:%M%p %Z")}
 
 = simple_form_for @activity, as: :activity, url: @form_url,
   html: { id: 'activity-form', class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
