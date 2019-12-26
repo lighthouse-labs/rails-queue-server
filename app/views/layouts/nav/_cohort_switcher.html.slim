@@ -7,6 +7,9 @@ li.dropdown.cohort
       .divider-title = location.name
       .dropdown-divider
       - cohorts.each do |c|
-        = link_to c.name, [:switch_to, c], method: :put, class: "dropdown-item #{'active' if c == cohort}"
+        = link_to([:switch_to, c], method: :put, class: "dropdown-item #{'active' if c == cohort}") do
+            = c.name
+            - if c.active?
+              small = " (W#{c.curriculum_day.week})"
     .dropdown-divider
     = link_to 'Other...', teacher_cohort_switcher_index_path, class: 'dropdown-item'
