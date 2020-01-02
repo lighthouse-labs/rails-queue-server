@@ -20,7 +20,7 @@ class Teacher::StudentSubmissionsController < Teacher::BaseController
   end
 
   def check_permissions
-    redirect_to '/', alert: 'Not Allowed, Champ.' unless current_user.can_view_programming_tests?
+    redirect_to '/', alert: 'Not Allowed, Champ.' unless current_user.can_view_programming_tests? || current_user.admin? || current_user.super_admin?
   end
 
 end
