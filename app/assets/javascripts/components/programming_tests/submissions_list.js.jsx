@@ -111,7 +111,7 @@ window.ProgrammingTests.CodeView = class CodeView extends React.Component {
         return 'ace/mode/javascript'
       case "sql":
         return 'ace/mode/sql'
-      case "ruby":
+      case "rb":
         return 'ace/mode/ruby'
     }
   }
