@@ -6,6 +6,13 @@ header.page-header
 
 h2 = @cohort.name
 
+- if @cohort.start_date < Date.new(2020, 01, 01)
+  .alert.alert-warning
+    h3 Missing Data?
+    p 
+      | This cohort started before January 1st, 2020 which means that some of your data might be missing. The old dashboard for this programming test is accessible&nbsp;
+      b = link_to "here", url_for_proctologist(@programming_test.exam_code, @cohort), target: "blank"
+
 ul#programmingTestTabs.nav.nav-tabs[role="tablist"]
   - @programming_tests.each do |pt|
     li.nav-item[role="presentation"]
