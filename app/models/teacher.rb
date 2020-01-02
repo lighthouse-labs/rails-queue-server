@@ -45,4 +45,8 @@ class Teacher < User
     !teaching_assistances.currently_active.empty? || !evaluations.in_progress_evaluations.empty? || !tech_interviews.in_progress.empty?
   end
 
+  def current_enrollment_id
+    github_username
+  end
+
 end

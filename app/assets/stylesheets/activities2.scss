@@ -20,6 +20,22 @@
 
   .actions {
     margin-bottom: 20px;
+
+    &.programming-test-activity {
+      display: flex;
+      background: #555;
+      color: #fff;
+      padding: 1em 0;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.3em;
+      text-align: center;
+      height: 8em;
+
+      & .exam-token {
+        font-size: 1.5em;
+      }
+    }
   }
 
   .nextandprev {
@@ -155,3 +171,4 @@
     }
   }
 }
+

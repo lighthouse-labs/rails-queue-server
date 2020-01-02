@@ -85,4 +85,12 @@ class Student < User
     self.quiz_submissions.where(quiz_id: quiz).where(initial: true).first
   end
 
+  def current_enrollment_id
+    enrollment_id(cohort)
+  end
+
+  def enrollment_id(cohort)
+    "#{github_username}-#{cohort.id}"
+  end
+
 end
