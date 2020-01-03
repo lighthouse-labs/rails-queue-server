@@ -1,4 +1,5 @@
 - provide :container, 'fluid'
+- provide :body_class, 'teacher-programming-tests'
 - title "Admin Programming Tests"
 
 header.page-header
@@ -6,8 +7,9 @@ header.page-header
 
 h2 = "#{@student.full_name} (#{@cohort.name})"
 
-.alert.alert-secondary 
-  = link_to "Back to Dashboard", teacher_cohort_programming_test_path(@cohort, @programming_test)
+.actions.card.my-2
+  .card-header
+    = link_to "« Back to All #{@cohort.name} Students", teacher_cohort_programming_test_path(@cohort, @programming_test), class: 'btn btn-secondary'
 
 ul#programmingTestTabs.nav.nav-tabs[role="tablist"]
   - @attempts.each do |attempt|
