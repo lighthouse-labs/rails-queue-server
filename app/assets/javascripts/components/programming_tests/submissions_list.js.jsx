@@ -44,7 +44,7 @@ window.ProgrammingTests.QuestionDetail = class QuestionDetail extends React.Comp
     const { question, type } = this.props
 
     return (
-      <div className="card">
+      <div className="card my-2">
         <div className="card-header">Question {question.question_number} ({moment(question.created_at).fromNow()})</div>
 
         <div className="card-body">

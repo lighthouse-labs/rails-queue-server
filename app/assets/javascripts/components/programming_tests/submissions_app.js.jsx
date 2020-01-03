@@ -25,7 +25,7 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
     this.state = {
       submissionData: [],
       summaryData: {},
-      fetching: false
+      isFetching: false
     }
   }
 
@@ -39,18 +39,18 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
 
   render() {
     const { code, type, student } = this.props
-    const { submissionData, summaryData } = this.state
+    const { submissionData, summaryData, isFetching } = this.state
 
     return (
       <div>
-        <ProgrammingTests.SummaryTable code={code} examStats={summaryData} students={[student]} />
+        <ProgrammingTests.SummaryTable code={code} examStats={summaryData} students={[student]} isFetching={isFetching} />
         <ProgrammingTests.SubmissionsList type={type} questions={submissionData} />
       </div>
     )
   }
 
   _fetchData = () => {
-    this.setState({ fetching: true })
+    this.setState({ isFetching: true })
 
     Promise.all([
       this._fetchStudentSubmission(),
@@ -61,7 +61,7 @@ window.ProgrammingTests.SubmissionsApp = class SubmissionsApp extends React.Comp
       })
       .finally(() => {
         this._setPoller()
-        this.setState({ fetching: false })
+        this.setState({ isFetching: false })
       })
   }
 

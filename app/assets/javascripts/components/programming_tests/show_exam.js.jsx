@@ -23,7 +23,8 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
     super(props)
 
     this.state = {
-      examStats: {}
+      examStats: {},
+      isFetching: false
     }
   }
 
@@ -43,7 +44,7 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
 
   render() {
     const { code, students } = this.props
-    const { examStats } = this.state
+    const { examStats, isFetching } = this.state
     const studentIds = Object.keys(examStats)
 
     return (
@@ -52,6 +53,7 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
           code={code}
           examStats={this.state.examStats}
           students={students}
+          isFetching={isFetching}
         />
 
         <ProgrammingTests.MissingStudentsList students={students} received={studentIds} />
@@ -62,6 +64,7 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
   _fetchData = () => {
     const { code, students, proctorConfig } = this.props
     this._cancelPoller()
+    this.setState({ isFetching: true })
 
     const ids = students.map(s => s.enrollmentId)
 
@@ -73,6 +76,7 @@ window.ProgrammingTests.ShowExam = class ShowExam extends React.Component {
       })
       .finally(() => {
         this._setPoller()
+        this.setState({ isFetching: false })
       })
   }
 
