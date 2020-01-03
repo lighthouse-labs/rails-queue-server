@@ -1,26 +1,26 @@
 - provide :container, 'fluid'
+- provide :body_class, 'teacher-programming-tests'
 - title "Admin Programming Tests"
 
-#programming-tests
-  header.page-header
-    h1 Programming Tests
+header.page-header
+  h1 Programming Tests
 
-  h2 = @cohort.name
+h2 = @cohort.name
 
-  - if @cohort.start_date < Date.new(2020, 01, 01)
-    .alert.alert-warning
-      h3 Missing Data?
-      p 
-        | This cohort started before January 1st, 2020 which means that some of your data might be missing. The old dashboard for this programming test is accessible&nbsp;
-        b = link_to "here", url_for_proctologist(@programming_test.exam_code, @cohort), target: "blank"
+- if @cohort.start_date < Date.new(2020, 01, 01)
+  .alert.alert-warning
+    h3 Missing Data?
+    p 
+      | This cohort started before January 1st, 2020 which means that some of your data might be missing. The old dashboard for this programming test is accessible&nbsp;
+      b = link_to "here", url_for_proctologist(@programming_test.exam_code, @cohort), target: "blank"
 
-  ul#programmingTestTabs.nav.nav-tabs[role="tablist"]
-    - @programming_tests.each do |pt|
-      li.nav-item[role="presentation"]
-        = link_to teacher_cohort_programming_test_path(@cohort, pt), class: "nav-link #{'active' if @programming_test == pt}"
-          = pt.name
-          - unless @active_programming_tests.include?(pt)
-            i.fas.fa-archive[data-toggle="tooltip" title="Archived"] 
-            
+ul#programmingTestTabs.nav.nav-tabs[role="tablist"]
+  - @programming_tests.each do |pt|
+    li.nav-item[role="presentation"]
+      = link_to teacher_cohort_programming_test_path(@cohort, pt), class: "nav-link #{'active' if @programming_test == pt}"
+        = pt.name
+        - unless @active_programming_tests.include?(pt)
+          i.fas.fa-archive[data-toggle="tooltip" title="Archived"] 
+          
 
-  == react_component('ProgrammingTests.ShowExam', { code: @programming_test.exam_code, students: active_students(@cohort, @programming_test), proctorConfig: { baseUrl: @cohort.program.proctor_url, token: @cohort.program.proctor_read_token } } )
+== react_component('ProgrammingTests.ShowExam', { code: @programming_test.exam_code, students: active_students(@cohort, @programming_test), proctorConfig: { baseUrl: @cohort.program.proctor_url, token: @cohort.program.proctor_read_token } } )
