@@ -1,0 +1,29 @@
+body.teacher-programming-tests {
+  .loading-indicator i {
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  table.summary-table {
+    font-size: 0.9em;
+
+    .loading-indicator {
+      visibility: hidden;
+      margin: 0 0.25em;
+    }
+
+    .loading .loading-indicator {
+      visibility: visible;
+    }
+  }
+}
+

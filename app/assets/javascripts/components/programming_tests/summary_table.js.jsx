@@ -3,7 +3,8 @@ window.ProgrammingTests || (window.ProgrammingTests = {})
 window.ProgrammingTests.SummaryTable = class SummaryTable extends React.Component {
   static propTypes = {
     code: PropTypes.string.isRequired,
-    examStats: PropTypes.object
+    examStats: PropTypes.object,
+    isFetching: PropTypes.bool.isRequired
   }
 
   render() {
@@ -14,7 +15,7 @@ window.ProgrammingTests.SummaryTable = class SummaryTable extends React.Componen
     }
 
     return (
-      <table className="table table-striped table-bordered table-hover">
+      <table className="table table-striped table-bordered table-hover summary-table">
         <thead>
           <tr>{this._renderTableHeaders()}</tr>
         </thead>
@@ -26,8 +27,11 @@ window.ProgrammingTests.SummaryTable = class SummaryTable extends React.Componen
   }
 
   _renderTableHeaders = () => {
-    const { examStats } = this.props
-    let headers = ['Student']
+    const { examStats, isFetching } = this.props
+    const studentHeader = <span className={isFetching ? "loading" : ''}>
+      Student <LoadingIndicator />
+    </span>
+    let headers = [studentHeader]
     let questionHeaders
     for (let key in examStats) {
       questionHeaders = []
