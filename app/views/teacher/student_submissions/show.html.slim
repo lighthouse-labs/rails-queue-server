@@ -1,17 +1,18 @@
 - provide :container, 'fluid'
 - title "Admin Programming Tests"
 
-header.page-header
-  h1 Programming Tests
+#programming-tests
+  header.page-header
+    h1 Programming Tests
 
-h2 = "#{@student.full_name} (#{@cohort.name})"
+  h2 = "#{@student.full_name} (#{@cohort.name})"
 
-.alert.alert-secondary 
-  = link_to "Back to Dashboard", teacher_cohort_programming_test_path(@cohort, @programming_test)
+  .breadcrumbs
+    = link_to "« Back to All #{@cohort.name} Students", teacher_cohort_programming_test_path(@cohort, @programming_test), class: 'btn btn-secondary'
 
-ul#programmingTestTabs.nav.nav-tabs[role="tablist"]
-  - @attempts.each do |attempt|
-    li.nav-item[role="presentation"]
-      = link_to attempt.programming_test.name, teacher_cohort_programming_test_student_submission_path(@cohort, attempt.programming_test, @student), class: "nav-link #{'active' if @programming_test == attempt.programming_test}"
+  ul#programmingTestTabs.nav.nav-tabs[role="tablist"]
+    - @attempts.each do |attempt|
+      li.nav-item[role="presentation"]
+        = link_to attempt.programming_test.name, teacher_cohort_programming_test_student_submission_path(@cohort, attempt.programming_test, @student), class: "nav-link #{'active' if @programming_test == attempt.programming_test}"
 
-== react_component('ProgrammingTests.SubmissionsApp', { student: { enrollmentId: @student.enrollment_id(@cohort), name: @student.full_name }, code: @programming_test.exam_code, type: @programming_test.type, proctorConfig: { baseUrl: @cohort.program.proctor_url, token: @cohort.program.proctor_read_token } } )
+  == react_component('ProgrammingTests.SubmissionsApp', { student: { enrollmentId: @student.enrollment_id(@cohort), name: @student.full_name }, code: @programming_test.exam_code, type: @programming_test.type, proctorConfig: { baseUrl: @cohort.program.proctor_url, token: @cohort.program.proctor_read_token } } )
