@@ -7,7 +7,7 @@ header.page-header
 
 h2 = "#{@student.full_name} (#{@cohort.name})"
 
-.actions.card
+.actions.card.my-2
   .card-header
     = link_to "« Back to All #{@cohort.name} Students", teacher_cohort_programming_test_path(@cohort, @programming_test), class: 'btn btn-secondary'
 
