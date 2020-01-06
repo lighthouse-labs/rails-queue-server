@@ -7,15 +7,15 @@
     = render 'activity_title', activity_presenter: activity_presenter, showing_details: true
 
   dl class="row"
-    - if @activity.name
+    - if @activity.name?
       dt class="col-sm-3" Name
       dd class="col-sm-9" #{@activity.name}
 
-    - if @activity.uuid
+    - if @activity.uuid?
       dt class="col-sm-3" UUID
       dd class="col-sm-9" #{@activity.uuid}
 
-    - if @activity.type
+    - if @activity.type?
       dt class="col-sm-3" Type
       dd class="col-sm-9" #{@activity.type}
 
@@ -24,23 +24,23 @@
           dt class="col-sm-3" Day
           dd class="col-sm-9" #{@activity.day}
 
-    - if @activity.start_time
+    - if @activity.start_time?
       dt class="col-sm-3" Start Time
       dd class="col-sm-9" #{@activity.start_time}
 
-    - if @activity.average_time_spent
+    - if @activity.average_time_spent?
       dt class="col-sm-3" Average Time Spent
       dd class="col-sm-9" #{@activity.average_time_spent}
 
-    - if @activity.duration
+    - if @activity.duration?
       dt class="col-sm-3" Estimated Duration
       dd class="col-sm-9" #{@activity.duration}
 
-    - if @activity.gist_url
+    - if @activity.gist_url?
       dt class="col-sm-3" Gist URL
       dd class="col-sm-9" #{@activity.gist_url}
 
-    - if @activity.media_filename
+    - if @activity.media_filename?
       dt class="col-sm-3" Media Filename
       dd class="col-sm-9" #{@activity.media_filename}
 
@@ -50,31 +50,31 @@
     dt class="col-sm-3" Allow Feedback
     dd class="col-sm-9" #{@activity.allow_feedback?}
 
-    - if @activity.code_review_percent
+    - if @activity.code_review_percent?
       dt class="col-sm-3" Probability of code review
       dd class="col-sm-9" #{@activity.code_review_percent}%
 
-    - if @activity.evaluates_code
+    - if @activity.evaluates_code?
       dt class="col-sm-3" Evaluates Code
       dd class="col-sm-9" #{@activity.evaluates_code}
 
-    - if @activity.remote_content
+    - if @activity.remote_content?
       dt class="col-sm-3" Remote Content
       dd class="col-sm-9" #{@activity.remote_content}
 
-    - if @activity.content_repository
+    - if @activity.content_repository?
       dt class="col-sm-3" Content Repository
       dd class="col-sm-9" #{@activity.content_repository}
 
-    - if @activity.content_file_path
+    - if @activity.content_file_path?
       dt class="col-sm-3" Content File Path
       dd class="col-sm-9" #{@activity.content_file_path}
 
-    - if @activity.created_at
+    - if @activity.created_at?
       dt class="col-sm-3" Created
       dd class="col-sm-9" #{@activity.created_at.strftime("%Y/%m/%d %I:%M%p %Z")}
 
-    - if @activity.updated_at
+    - if @activity.updated_at?
       dt class="col-sm-3" Updated
       dd class="col-sm-9" #{@activity.updated_at.strftime("%Y/%m/%d %I:%M%p %Z")}
 
