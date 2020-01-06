@@ -20,7 +20,7 @@
       dd class="col-sm-9" #{@activity.type}
 
     - if (day || @activity.project?)
-      - if @activity.day
+      - if @activity.day?
           dt class="col-sm-3" Day
           dd class="col-sm-9" #{@activity.day}
 
@@ -45,7 +45,7 @@
       dd class="col-sm-9" #{@activity.media_filename}
 
     dt class="col-sm-3" Allow Submissions
-    dd class="col-sm-9" #{@activity.allow_submissions}
+    dd class="col-sm-9" #{@activity.allow_submissions?}
 
     dt class="col-sm-3" Allow Feedback
     dd class="col-sm-9" #{@activity.allow_feedback?}
