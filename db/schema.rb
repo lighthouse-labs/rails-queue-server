@@ -77,11 +77,11 @@ ActiveRecord::Schema.define(version: 20191206173406) do
     t.integer  "sentiment"
     t.float    "rating"
     t.text     "detail"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.boolean  "legacy_note"
     t.datetime "deleted_at"
-    t.integer  "version",     default: 2
+    t.integer  "version"
     t.index ["activity_id"], name: "index_activity_feedbacks_on_activity_id", using: :btree
     t.index ["deleted_at"], name: "index_activity_feedbacks_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
