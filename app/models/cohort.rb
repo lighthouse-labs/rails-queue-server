@@ -103,7 +103,7 @@ class Cohort < ApplicationRecord
   end
 
   def completed_activity(activity)
-    students.map{|s| s.completed_activity?(activity)}.count(true)
+    students.map { |s| s.completed_activity?(activity) }.count(true)
   end
 
   private
