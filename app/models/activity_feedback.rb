@@ -9,7 +9,7 @@ class ActivityFeedback < ApplicationRecord
   validates :activity, presence: true
   validate :at_least_some_feedback
 
-  after_initialize :set_default_version
+  after_initialize :set_default_feedback_version
 
   scope :reverse_chronological_order, -> { order("activity_feedbacks.updated_at DESC") }
   scope :rated, -> { where.not(rating: nil) }
@@ -136,7 +136,7 @@ class ActivityFeedback < ApplicationRecord
 
   # sets default activity_feedback version to # should be updated when feedback hint changes
   def set_default_version
-    self.version ||= 2
+    self.feedback_version ||= 2
   end
 
   def at_least_some_feedback
