@@ -4,7 +4,7 @@ window.bindRatyElements = =>
   # Make viewer raty divs
   $('div.raty-viewer').raty
     readOnly: true,
-    hints: ['Very Problematic', 'Problematic', 'Average', 'Good', 'Great'],
+    hints: ['Nonsensical or Otherwise useless', 'Barely got any of it', 'Got some of it', 'Got most of it', 'Totally got it!'],
     starOn: "<%= asset_path('duck-on-small.png') %>",
     starOff: "<%= asset_path('duck-off-small.png') %>",
     starHalf: "<%= asset_path('duck-half-small.png') %>",
@@ -15,7 +15,7 @@ window.bindRatyElements = =>
 
   # Make editable raty divs
   $('div.raty-editor').raty
-    hints: ['Very Problematic', 'Problematic', 'Average', 'Good', 'Great'],
+    hints: ['Nonsensical or Otherwise useless', 'Barely got any of it', 'Got some of it', 'Got most of it', 'Totally got it!'],
     starOn: "<%= asset_path('duck-on.png') %>",
     starOff: "<%= asset_path('duck-off.png') %>",
     starHalf: "<%= asset_path('duck-half.png') %>",

@@ -9,6 +9,8 @@ class ActivityFeedback < ApplicationRecord
   validates :activity, presence: true
   validate :at_least_some_feedback
 
+  after_initialize :set_default_feedback_version
+
   scope :reverse_chronological_order, -> { order("activity_feedbacks.updated_at DESC") }
   scope :rated, -> { where.not(rating: nil) }
   scope :with_details, -> { where.not(detail: [nil, '']) }
@@ -131,6 +133,11 @@ class ActivityFeedback < ApplicationRecord
   end
 
   private
+
+  # sets default activity_feedback version to # should be updated when feedback hint changes
+  def set_default_feedback_version
+    self.feedback_version ||= 2
+  end
 
   def at_least_some_feedback
     errors.add(:base, "Need at least some feedback (rating and/or detail) please!") if rating.blank? && detail.blank?
