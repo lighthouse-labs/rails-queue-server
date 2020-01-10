@@ -15,7 +15,7 @@ class Content::LoadActivity
 
     # QUIZ
     quiz = load_quiz if quiz?
-    # Test
+    # TEST
     programming_test = load_programming_test if test?
 
     # ACTIVITY
@@ -42,11 +42,6 @@ class Content::LoadActivity
         #   https://github.com/lighthouse-labs/compass/pull/932#issuecomment-551342225
         programming_test.test_activities.push activity
       end
-    end
-
-    if test?
-      activity = activity.becomes TestActivity
-      activity.programming_test = programming_test if programming_test
     end
 
     @records.push activity

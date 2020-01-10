@@ -28,11 +28,6 @@
       .card-header
         h3.card-title.tech.score.mb-0
           | Question #{index + 1}
-          - if result.skipped?
-            span.badge.badge-secondary Skipped
-          - else
-            span.badge.ml-2 class=integer_l_score_label_class(result.score)
-              = "#{result.score} / 4"
       .card-body
         strong Question
         br

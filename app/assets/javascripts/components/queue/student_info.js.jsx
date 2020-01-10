@@ -7,14 +7,14 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     project: PropTypes.object,
     when: PropTypes.string,
     showDetails: PropTypes.bool
-  }
+  };
 
   renderWhen() {
     const when = this.props.when;
     if (when) {
-      return(<TimeAgo date={when} />);
+      return <TimeAgo date={when} />;
     } else {
-      return(<span>Never Helped</span>);
+      return <span>Never Helped</span>;
     }
   }
 
@@ -31,25 +31,41 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
     let badges = [null];
 
     if (cohort && cohort.week)
-      badges.push(<a key="weekbadge" className="badge badge-light" href={`/cohorts/${cohort.id}/students`}>W{cohort.week}</a>);
+      badges.push(
+        <a
+          key="weekbadge"
+          className="badge badge-light"
+          href={`/cohorts/${cohort.id}/students`}
+        >
+          W{cohort.week}
+        </a>
+      );
     if (project)
-      badges.push(<a key="projectbadge" className="badge badge-light" href={`/projects/${project.slug}`}>{_.truncate(project.name, { length: 13, omission: null })}</a>);
+      badges.push(
+        <a
+          key="projectbadge"
+          className="badge badge-light"
+          href={`/projects/${project.slug}`}
+        >
+          {_.truncate(project.name, { length: 13, omission: null })}
+        </a>
+      );
 
     return (
       <div className="details">
-        { App.ReactUtils.joinElements(badges) }
-        <br/>
-        <span className="time">
-          {this.renderWhen()}
-        </span>
+        {App.ReactUtils.joinElements(badges)}
+        <br />
+        <span className="time">{this.renderWhen()}</span>
       </div>
     );
   }
 
   pronoun(student) {
-    return (
-      student.pronoun ? <span title="Pronoun" className="pronoun">({student.pronoun})</span> : null
-    );
+    return student.pronoun ? (
+      <span title="Pronoun" className="pronoun">
+        ({student.pronoun})
+      </span>
+    ) : null;
   }
 
   render() {
@@ -58,19 +74,19 @@ window.Queue.StudentInfo = class StudentInfo extends React.Component {
 
     return (
       <div className="assistee clearfix">
-        <a href={`/teacher/students/${student.id}`} title='Details'>
+        <a href={`/teacher/students/${student.id}`} title="Details">
           <img className="avatar" src={student.avatarUrl} />
         </a>
         <div className="info">
           <div className="name">
-            {student.firstName} {student.lastName}
+            &nbsp;
+            {student.firstName} {student.lastName} {this.pronoun(student)}
             <br />
-            {this.pronoun(student)}
+            <Queue.SocialIcons user={student} />
           </div>
           {this.renderDetails()}
         </div>
       </div>
     );
   }
-}
-
+};

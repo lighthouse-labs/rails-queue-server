@@ -77,6 +77,10 @@ class User < ApplicationRecord
     super_admin? && !user.super_admin?
   end
 
+  def can_allow_view_programming_tests?
+    super_admin?
+  end
+
   def prospect?
     true
   end

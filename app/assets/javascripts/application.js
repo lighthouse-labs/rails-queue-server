@@ -23,6 +23,7 @@
 //= require ace/theme-monokai
 //= require ace/mode-markdown
 //= require ace/mode-javascript
+//= require ace/mode-sql
 //= require prism
 //= require moment.min
 //= require autosize

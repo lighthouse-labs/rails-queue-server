@@ -47,6 +47,7 @@ class Admin::CohortsController < Admin::BaseController
     @projects = Project.active
     @milestones = Activity.active.prep.milestone.chronological_for_project
     @milestone_count = @milestones.count
+    @programming_tests = ProgrammingTest.active
   end
 
   private

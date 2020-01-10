@@ -9,5 +9,8 @@ li.nav-item.dropdown
     - dropdown_cohorts.each do |location, cohorts|
       .divider-title = location.name
       - cohorts.each do |c|
-        = link_to cohort_link(c), cohort_students_path(c), class: "dropdown-item #{'active' if cohort == c}"
+        = link_to(cohort_students_path(c), class: "dropdown-item #{'active' if cohort == c}") do
+            = cohort_link(c)
+            - if c.active?
+              small = " (W#{c.curriculum_day.week})"
       .dropdown-divider

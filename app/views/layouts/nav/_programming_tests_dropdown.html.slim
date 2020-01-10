@@ -1,0 +1,11 @@
+li.nav-item.dropdown
+  = link_to '#', :class => 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown', title: 'Programming Tests'
+    i.fas.fa-edit
+    span.non-tablet-label
+      | Programming Tests
+  .dropdown-menu.scrollable-menu
+    - dropdown_cohorts.each do |location, cohorts|
+      .divider-title = location.name
+      - cohorts.each do |c|
+        = link_to cohort_link(c), teacher_cohort_programming_test_path(c, active_programming_tests.first), class: "dropdown-item #{'active' if cohort == c}"
+      .dropdown-divider

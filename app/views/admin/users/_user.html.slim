@@ -58,6 +58,13 @@
           = link_to icon('fas', 'user'), impersonate_session_path(id: user.id), method: :put, class: 'btn btn-outline-primary btn-sm user-impersonate-button', title: 'Impersonate', 'data-toggle' => 'tooltip'
           - if current_user.can_adminify?(user)
             = link_to icon('fas', 'lock'), admin_user_adminification_path(user), method: :post, class: 'btn btn-outline-secondary btn-sm', title: 'Grant Admin Privileges', data: { toggle: 'tooltip' }
+
+        - if user.is_a?(Teacher) && current_user.can_allow_view_programming_tests?
+          - if user.can_view_programming_tests
+            = link_to icon('fas', 'edit'), admin_user_proctor_visibility_path(user), method: :delete, class: 'btn btn-outline-warning btn-sm', title: 'Disable Visibility of Programming Test Results', data: { toggle: 'tooltip' }
+          - else
+            = link_to icon('fas', 'edit'), admin_user_proctor_visibility_path(user), method: :post, class: 'btn btn-outline-secondary btn-sm', title: 'Enable Visibility of Programming Test Results', data: { toggle: 'tooltip' }
+        
         - if user.prospect?
           span.assign-cohort-button title='Enrol in Cohort' data-toggle='tooltip'
             .btn.btn-outline-info.btn-sm data-toggle='modal' data-target="#enrolment-modal-#{user.id}"

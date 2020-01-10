@@ -23,7 +23,7 @@ end
 
 # repo_name = "iOS-Curriculum"
 # repo_name = "web-pt-frontend-curriculum"
-repo_name = "2016-web-curriculum-activities"
+repo_name = "2019-web-bootcamp"
 
 @repo = ContentRepository.find_or_create_by!(
   github_username: "lighthouse-labs",

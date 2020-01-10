@@ -134,13 +134,17 @@ LaserShark::Application.routes.draw do
     end
   end
 
-  resources :assessment_tests, only: [:index]
+  get '/assessment_tests', to: redirect('/admin/programming_tests')
 
   resources :lectures, only: [:index]
 
   resource :github_education, controller: 'github_education', only: [:show] do
     put :claim
     put :skip
+  end
+
+  resources :programming_tests, only: [] do
+    resource :attempt, controller: :programming_test_attempts, only: [:show, :create]
   end
 
   # Wallboard
@@ -165,6 +169,12 @@ LaserShark::Application.routes.draw do
     resources :assistances, only: [:index]
     resources :tech_interviews, only: [:index]
     resources :cohort_switcher, only: [:index]
+
+    resources :cohorts, only: [] do
+      resources :programming_tests, only: [:show] do
+        resources :student_submissions, only: [:show]
+      end
+    end
   end
 
   # ADMIN
@@ -191,6 +201,7 @@ LaserShark::Application.routes.draw do
       end
       # admins can make other users admins / non-admins
       resource :adminification, only: [:create, :destroy]
+      resource :proctor_visibility, only: [:create, :destroy]
     end
     resources :cohorts, except: [:destroy] do
       resources :curriculum_breaks, only: [:new, :create, :edit, :update, :destroy]
