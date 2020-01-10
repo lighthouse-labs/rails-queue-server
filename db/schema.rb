@@ -77,11 +77,10 @@ ActiveRecord::Schema.define(version: 20191219204806) do
     t.integer  "sentiment"
     t.float    "rating"
     t.text     "detail"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.boolean  "legacy_note"
     t.datetime "deleted_at"
-    t.integer  "feedback_version"
     t.index ["activity_id"], name: "index_activity_feedbacks_on_activity_id", using: :btree
     t.index ["deleted_at"], name: "index_activity_feedbacks_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
@@ -418,29 +417,6 @@ ActiveRecord::Schema.define(version: 20191219204806) do
     t.index ["user_id"], name: "index_prep_assistance_requests_on_user_id", using: :btree
   end
 
-  create_table "programming_test_attempt_transitions", force: :cascade do |t|
-    t.string   "to_state",                   null: false
-    t.text     "metadata",    default: "{}"
-    t.integer  "sort_key",                   null: false
-    t.integer  "attempt_id",                 null: false
-    t.boolean  "most_recent",                null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.index ["attempt_id", "most_recent"], name: "index_transitions_parent_most_recent", unique: true, where: "most_recent", using: :btree
-    t.index ["attempt_id", "sort_key"], name: "index_transitions_parent_sort", unique: true, using: :btree
-  end
-
-  create_table "programming_test_attempts", force: :cascade do |t|
-    t.integer  "student_id",          null: false
-    t.integer  "cohort_id",           null: false
-    t.integer  "programming_test_id", null: false
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.index ["cohort_id"], name: "index_programming_test_attempts_on_cohort_id", using: :btree
-    t.index ["programming_test_id"], name: "index_programming_test_attempts_on_programming_test_id", using: :btree
-    t.index ["student_id"], name: "index_programming_test_attempts_on_student_id", using: :btree
-  end
-
   create_table "programming_tests", force: :cascade do |t|
     t.string   "exam_code",  null: false
     t.string   "uuid",       null: false
@@ -473,10 +449,10 @@ ActiveRecord::Schema.define(version: 20191219204806) do
     t.string   "curriculum_team_email"
     t.boolean  "has_advanced_lectures"
     t.string   "teacher_invite_code"
+    t.string   "prep_assistance_url"
     t.string   "proctor_url"
     t.string   "proctor_write_token"
     t.string   "proctor_read_token"
-    t.string   "prep_assistance_url"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -763,9 +739,6 @@ ActiveRecord::Schema.define(version: 20191219204806) do
   add_foreign_key "outcome_results", "users"
   add_foreign_key "prep_assistance_requests", "activities"
   add_foreign_key "prep_assistance_requests", "users"
-  add_foreign_key "programming_test_attempts", "cohorts"
-  add_foreign_key "programming_test_attempts", "programming_tests"
-  add_foreign_key "programming_test_attempts", "users", column: "student_id"
   add_foreign_key "questions", "outcomes"
   add_foreign_key "quiz_submissions", "quizzes"
   add_foreign_key "sections", "content_repositories"
