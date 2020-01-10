@@ -65,7 +65,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
           = render 'layouts/nav/new_issue_button'
           = render 'layouts/nav/duty_toggle_button' if @program.try :has_queue?
           = render 'layouts/nav/queue_button'
-        - elsif impersonating? && (active_student? || prep_assistance?)
+        - elsif impersonating? && (active_student? || prep_assistance_url)
           li
             button.btn.btn-primary.disabled
               | Disabled while Impersonating
