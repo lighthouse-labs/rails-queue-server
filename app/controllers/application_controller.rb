@@ -69,10 +69,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :student_with_queue?
 
-  def prep_assistance?
-    @program&.prep_assistance? && current_user&.enrolled_and_prepping?
+  def url_for_prep_assistance
+    current_user&.enrolled_and_prepping? && @program&.prep_assistance_url
   end
-  helper_method :prep_assistance?
+  helper_method :url_for_prep_assistance
 
   def alumni?
     student? && current_user.alumni?
