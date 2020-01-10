@@ -135,7 +135,7 @@ class ActivityFeedback < ApplicationRecord
   private
 
   # sets default activity_feedback version to # should be updated when feedback hint changes
-  def set_default_version
+  def set_default_feedback_version
     self.feedback_version ||= 2
   end
 
