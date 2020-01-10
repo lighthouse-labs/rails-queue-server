@@ -77,10 +77,11 @@ ActiveRecord::Schema.define(version: 20191219204806) do
     t.integer  "sentiment"
     t.float    "rating"
     t.text     "detail"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.boolean  "legacy_note"
     t.datetime "deleted_at"
+    t.integer  "feedback_version"
     t.index ["activity_id"], name: "index_activity_feedbacks_on_activity_id", using: :btree
     t.index ["deleted_at"], name: "index_activity_feedbacks_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
@@ -472,10 +473,10 @@ ActiveRecord::Schema.define(version: 20191219204806) do
     t.string   "curriculum_team_email"
     t.boolean  "has_advanced_lectures"
     t.string   "teacher_invite_code"
-    t.string   "prep_assistance_url"
     t.string   "proctor_url"
     t.string   "proctor_write_token"
     t.string   "proctor_read_token"
+    t.string   "prep_assistance_url"
   end
 
   create_table "questions", force: :cascade do |t|
