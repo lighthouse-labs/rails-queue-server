@@ -1,5 +1,19 @@
 # Change Log
 
+## [2019.10.19.2130u](https://github.com/lighthouse-labs/compass/tree/2019.10.19.2130u) (2019-12-18)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.27.2145u...2019.10.19.2130u)
+
+**Merged pull requests:**
+
+- Fix issue with manual curriculum deployments failing [\#978](https://github.com/lighthouse-labs/compass/pull/978) ([kvirani](https://github.com/kvirani))
+- Support lack of prep content [\#977](https://github.com/lighthouse-labs/compass/pull/977) ([kvirani](https://github.com/kvirani))
+- Curriculum Deployment Fix - Fix occasional fails [\#976](https://github.com/lighthouse-labs/compass/pull/976) ([kvirani](https://github.com/kvirani))
+- 941 curric break fix 2 [\#970](https://github.com/lighthouse-labs/compass/pull/970) ([tborsa](https://github.com/tborsa))
+- Autosaving ProgrammingTest's activities causes errors on deploy [\#969](https://github.com/lighthouse-labs/compass/pull/969) ([daegren](https://github.com/daegren))
+- Admin enrol a student options now include prev & upcoming 6 month cohorts [\#964](https://github.com/lighthouse-labs/compass/pull/964) ([tborsa](https://github.com/tborsa))
+- Slack usernames now shown on Queue page [\#940](https://github.com/lighthouse-labs/compass/pull/940) ([hafbau](https://github.com/hafbau))
+- Programming Tests [\#932](https://github.com/lighthouse-labs/compass/pull/932) ([daegren](https://github.com/daegren))
+
 ## [2019.10.27.2145u](https://github.com/lighthouse-labs/compass/tree/2019.10.27.2145u) (2019-10-27)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.16.2200u...2019.10.27.2145u)
 

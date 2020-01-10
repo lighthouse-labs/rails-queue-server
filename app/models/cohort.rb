@@ -102,6 +102,10 @@ class Cohort < ApplicationRecord
     program.has_queue? && active? && !disable_queue_days.include?(curriculum_day.to_s)
   end
 
+  def completed_activity(activity)
+    students.map { |s| s.completed_activity?(activity) }.count(true)
+  end
+
   private
 
   def part_time_requires_weekdays

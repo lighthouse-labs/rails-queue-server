@@ -83,36 +83,55 @@ tr.student-row class=css_class
       | attempts
 
   td
-    - total_score, count = 0, 0
-    - interview_templates.each do |interview_template|
-      - if interview = interview_template.completed_interview_for(student, @cohort)
-        - if interview.average_score?
-          - total_score += interview.average_score.round(1)
-          - count += 1
-        = link_to interview do
-          span.tech-interview.badge class=l_score_label_class(interview.average_score) title=(interview.average_score || "??") data-toggle="tooltip"
+    div
+      div
+        | Tech Interviews:
+      - total_score, count = 0, 0
+      - interview_templates.each do |interview_template|
+        - if interview = interview_template.completed_interview_for(student, @cohort)
+          - if interview.average_score?
+            - total_score += interview.average_score.round(1)
+            - count += 1
+          = link_to interview do
+            span.tech-interview.badge class=l_score_label_class(interview.average_score) title=(interview.average_score || "??") data-toggle="tooltip"
+              = "W#{interview_template.week}"
+        - else
+          span.tech-interview.badge.badge-secondary title="Not Completed" data-toggle="tooltip"
             = "W#{interview_template.week}"
-      - else
-        span.tech-interview.badge.badge-secondary title="Not Completed" data-toggle="tooltip"
-          = "W#{interview_template.week}"
 
-    - if count > 0
-      - avg = (total_score.to_f / count).round(2)
-      br
-      br
-      span.badge class=l_score_label_class(avg) = "L: #{avg}"
+      - if count > 0
+        - avg = (total_score.to_f / count).round(2)
+        br
+        br
+        span.badge class=l_score_label_class(avg) = "L: #{avg}"
 
-  td
-    - @projects.each_with_index do |project, i|
-      - if eval = project.last_evaluation(student, @cohort)
-        = link_to [project, eval] do
-          - title = "#{project.name}: #{eval.status}"
-          - title << " (score: #{eval.final_score} / 4)" if eval.final_score? && eval.final_score > 1
-          span.code-review.badge class=project_eval_status_label_class(eval) title=title data-toggle='tooltip'
-            | P#{i+1}
-            - if eval.final_score? && eval.final_score > 1
-              = " (#{eval.final_score})"
-      - else
-          - title = "#{project.name}: Not Submitted"
-          span.code-review.badge.badge-secondary title=title data-toggle='tooltip'
-            | P#{i+1}
+    div
+      div 
+        | Projects:
+      - @projects.each_with_index do |project, i|
+        - if eval = project.last_evaluation(student, @cohort)
+          = link_to [project, eval] do
+            - title = "#{project.name}: #{eval.status}"
+            - title << " (score: #{eval.final_score} / 4)" if eval.final_score? && eval.final_score > 1
+            span.code-review.badge class=project_eval_status_label_class(eval) title=title data-toggle='tooltip'
+              | P#{i+1}
+              - if eval.final_score? && eval.final_score > 1
+                = " (#{eval.final_score})"
+        - else
+            - title = "#{project.name}: Not Submitted"
+            span.code-review.badge.badge-secondary title=title data-toggle='tooltip'
+              | P#{i+1}
+    div
+      div
+        | Programming Tests:
+      - @programming_tests.each_with_index do |pt, i|
+        - if attempt = pt.attempt_for(student, @cohort)
+          = link_to teacher_cohort_programming_test_student_submission_path(@cohort, pt, student)
+            - title = "#{pt.name}: #{attempt.status}"
+            span.programming-test.badge class=programming_test_attempt_status_label_class(attempt) title=title data-toggle="tooltip"
+              | T#{i+1}
+        - else
+          - title = "#{pt.name}: Not Started"
+          span.programming-test.badge.badge-secondary title=title data-toggle='tooltip'
+            | T#{i+1}
+

@@ -12,6 +12,14 @@
 
 - if teacher?
   .collapse#student-progress
+    .row.progress-row
+      .col-sm-4
+        strong
+          = "Completions"
+      .col-sm-8
+        .progress
+          .progress-bar role="progressbar" style="width: #{cohort.completed_activity(@activity)}%" aria-valuenow=cohort.completed_activity(@activity) aria-valuemin="0" aria-valuemax="100"
+          .progress-label.badge.badge-secondary = "#{cohort.completed_activity(@activity)}/#{cohort.students.length()}"
     table.table
       thead
         th style="min-width:220px" Student
@@ -20,7 +28,7 @@
         th Completed
         th Submission Time
       tbody
-        - cohort.students.sort_by { |student| student.completed_activity?(@activity) ? 0 : 1 }.each do |student|
+        - cohort.students.sort_by { |student| [student.location_id, student.first_name] }.each do |student|
           tr
             td
               .student-info
@@ -36,3 +44,7 @@
             -else
               td = "No" 
             td = "Completed #{time_ago_in_words(student.completed_at(@activity))} ago" if student.completed_activity?(@activity)
+
+- if @activity.test_activity? && student?
+  .actions.programming-test-activity
+    == react_component('TestActivityAttempts.App', { programming_test: @activity.programming_test })
