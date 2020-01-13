@@ -27,8 +27,9 @@ h3.my-3
             | &nbsp;
             = link_to 'Students', admin_students_path(cohort_id: cohort), class: 'btn btn-sm btn-info'
             | &nbsp;
-            = link_to 'Programming Tests', teacher_cohort_programming_test_path(cohort, active_programming_tests.first), class: 'btn btn-sm btn-info'
-            | &nbsp;
+            - if @program.has_programming_tests? && active_programming_tests.any?
+              = link_to 'Programming Tests', teacher_cohort_programming_test_path(cohort, active_programming_tests.first), class: 'btn btn-sm btn-info'
+              | &nbsp;
             = link_to 'Edit', edit_admin_cohort_path(cohort), class: 'btn btn-sm btn-warning'
 
 .row
