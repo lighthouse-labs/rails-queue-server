@@ -1,5 +1,35 @@
 # Change Log
 
+## [2020-01-13-0330u](https://github.com/lighthouse-labs/compass/tree/2020-01-13-0330u) (2020-01-13)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.01.02.2000u...2020-01-13-0330u)
+
+**Merged pull requests:**
+
+- Fix for fact that not all compass instances have programming tests [\#997](https://github.com/lighthouse-labs/compass/pull/997) ([kvirani](https://github.com/kvirani))
+- Show loading indicator in Summary Table when fetching data from proctor [\#992](https://github.com/lighthouse-labs/compass/pull/992) ([daegren](https://github.com/daegren))
+- Add support for SQL syntax highlighting [\#991](https://github.com/lighthouse-labs/compass/pull/991) ([daegren](https://github.com/daegren))
+- Make the "back to dashboard" link more verbose [\#990](https://github.com/lighthouse-labs/compass/pull/990) ([daegren](https://github.com/daegren))
+- Added average time spent, and removed N/A's from activity details [\#981](https://github.com/lighthouse-labs/compass/pull/981) ([tborsa](https://github.com/tborsa))
+- 937 sorted activities submission list [\#980](https://github.com/lighthouse-labs/compass/pull/980) ([tborsa](https://github.com/tborsa))
+- Prep assistance button dynamic for different programs [\#968](https://github.com/lighthouse-labs/compass/pull/968) ([tborsa](https://github.com/tborsa))
+- rephrased feedback question [\#959](https://github.com/lighthouse-labs/compass/pull/959) ([hafbau](https://github.com/hafbau))
+
+## [2020.01.02.2000u](https://github.com/lighthouse-labs/compass/tree/2020.01.02.2000u) (2020-01-02)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.01.02.1630u...2020.01.02.2000u)
+
+**Merged pull requests:**
+
+- For cohorts older than Jan 1st, 2020 show a link to the old deprecated dashboard [\#985](https://github.com/lighthouse-labs/compass/pull/985) ([daegren](https://github.com/daegren))
+
+## [2020.01.02.1630u](https://github.com/lighthouse-labs/compass/tree/2020.01.02.1630u) (2020-01-02)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.19.2130u...2020.01.02.1630u)
+
+**Merged pull requests:**
+
+- Remove student facing TI question scores [\#983](https://github.com/lighthouse-labs/compass/pull/983) ([tborsa](https://github.com/tborsa))
+- Added curriculum week to cohort nav dropdowns [\#982](https://github.com/lighthouse-labs/compass/pull/982) ([tborsa](https://github.com/tborsa))
+- Compass & Proctor Integration [\#963](https://github.com/lighthouse-labs/compass/pull/963) ([daegren](https://github.com/daegren))
+
 ## [2019.10.19.2130u](https://github.com/lighthouse-labs/compass/tree/2019.10.19.2130u) (2019-12-18)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.27.2145u...2019.10.19.2130u)
 
