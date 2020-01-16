@@ -9,6 +9,8 @@ class Cohort < ApplicationRecord
   # only supports one break per cohort
   has_one :curriculum_break
 
+  acts_as_paranoid
+
   validates :name, presence: true
   validates :start_date, presence: true
   validates :program, presence: true
