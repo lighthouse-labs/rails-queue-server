@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191219204806) do
+ActiveRecord::Schema.define(version: 20200116193010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,6 +193,8 @@ ActiveRecord::Schema.define(version: 20191219204806) do
     t.string   "weekdays"
     t.text     "disable_queue_days",     default: [], null: false, array: true
     t.boolean  "local_assistance_queue"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_cohorts_on_deleted_at", using: :btree
     t.index ["location_id"], name: "index_cohorts_on_location_id", using: :btree
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
     t.index ["start_date"], name: "index_cohorts_on_start_date", using: :btree
@@ -473,10 +475,10 @@ ActiveRecord::Schema.define(version: 20191219204806) do
     t.string   "curriculum_team_email"
     t.boolean  "has_advanced_lectures"
     t.string   "teacher_invite_code"
-    t.string   "prep_assistance_url"
     t.string   "proctor_url"
     t.string   "proctor_write_token"
     t.string   "proctor_read_token"
+    t.string   "prep_assistance_url"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -763,6 +765,9 @@ ActiveRecord::Schema.define(version: 20191219204806) do
   add_foreign_key "outcome_results", "users"
   add_foreign_key "prep_assistance_requests", "activities"
   add_foreign_key "prep_assistance_requests", "users"
+  add_foreign_key "programming_test_attempts", "cohorts"
+  add_foreign_key "programming_test_attempts", "programming_tests"
+  add_foreign_key "programming_test_attempts", "users", column: "student_id"
   add_foreign_key "questions", "outcomes"
   add_foreign_key "quiz_submissions", "quizzes"
   add_foreign_key "sections", "content_repositories"
