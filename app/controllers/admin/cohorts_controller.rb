@@ -50,6 +50,12 @@ class Admin::CohortsController < Admin::BaseController
     @programming_tests = ProgrammingTest.active
   end
 
+  def destroy
+    @cohort = Cohort.find(params[:id])
+    @cohort.destroy if @cohort.students.length < 1
+    redirect_to admin_cohorts_path
+  end
+
   private
 
   def handle_disable_queue_days
