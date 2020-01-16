@@ -63,14 +63,11 @@ class EvaluationPresenter < BasePresenter
   end
 
   def project(include_link = nil)
-    result = tag("div")
-    result += view_button if evaluation
-    result += nbsp_escape_false
-    result += state_marking_button
+    evaluation ? result = view_button + nbsp_escape_false : result = nbsp_escape_false
+    result += state_marking_button if current_user.is_a?(Teacher)
     if include_link
       result += tag('br')
-      result += tag('small')
-      result += project_name
+      result += content_tag('small', project_name)
     end
     content_tag(:div, result)
   end
