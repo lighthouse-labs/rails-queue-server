@@ -111,7 +111,7 @@ class Cohort < ApplicationRecord
   end
 
   def cohort_without_students?
-    @cohort.students.size < 1
+    students.size < 1
   end
 
   private
