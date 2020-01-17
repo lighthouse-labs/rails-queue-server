@@ -34,6 +34,8 @@ class ActivitiesController < ApplicationController
 
     @lectures = @activity.lectures if @activity.has_lectures?
 
+    @number_of_active_students = cohort.students&.active.size
+
     ## Stolen from days#show (need to DRY) - KV
     load_day_schedule
   end
