@@ -63,7 +63,7 @@ class EvaluationPresenter < BasePresenter
   end
 
   def project(include_link = nil)
-    evaluation ? result = view_button + nbsp_escape_false : result = nbsp_escape_false
+    result = evaluation ? view_button + nbsp_escape_false : nbsp_escape_false
     result += state_marking_button if current_user.is_a?(Teacher)
     if include_link
       result += tag('br')
