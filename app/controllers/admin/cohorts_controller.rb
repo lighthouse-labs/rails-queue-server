@@ -51,11 +51,13 @@ class Admin::CohortsController < Admin::BaseController
   end
 
   def destroy
-    if @cohort.destroy
+    @cohort.destroy
+    if @cohort.deleted_at?
       flash[:notice] = "Successfully soft-deleted #{@cohort.name_with_location} cohort"
-      redirect_to :back
+      redirect_to admin_cohorts_path
     else 
-      flash[:notice] = "Could not soft-deleted #{@cohort.name_with_location} cohort"
+      flash[:alert] = "Could not soft-delete #{@cohort.name_with_location} cohort"
+      redirect_to :back
     end
   end
 
