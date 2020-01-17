@@ -1,6 +1,6 @@
 class Admin::CohortsController < Admin::BaseController
 
-  before_action :require_cohort, only: [:edit, :update, :show]
+  before_action :require_cohort, only: [:edit, :update, :show, :destroy]
   before_action :check_limited, only: [:show]
 
   def index
@@ -51,9 +51,12 @@ class Admin::CohortsController < Admin::BaseController
   end
 
   def destroy
-    @cohort = Cohort.find(params[:id])
-    @cohort.destroy if @cohort.students.length < 1
-    redirect_to admin_cohorts_path
+    if @cohort.destroy
+      flash[:notice] = "Successfully soft-deleted #{@cohort.name_with_location} cohort"
+      redirect_to :back
+    else 
+      flash[:notice] = "Could not soft-deleted #{@cohort.name_with_location} cohort"
+    end
   end
 
   private
