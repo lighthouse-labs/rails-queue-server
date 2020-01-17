@@ -45,9 +45,11 @@ header.page-header
         p There are no breaks in this cohort
         = link_to "Add a Break", new_admin_cohort_curriculum_break_path(@cohort), class: 'btn btn-primary'
 
-  - if @cohort.students.count < 1
-    .card.mb-3
-      .card-header
-        h5 Delete Cohort
+  .card.mb-3
+    .card-header
+      h5 Delete Cohort
+      - if @cohort.cohort_without_students?
         p There are no students in this cohort, you can delete it. 
-        = link_to 'Delete', admin_cohort_path(@cohort), data: {confirm: "Are you sure you want to do DELETE this cohort?"}, method: 'delete', class: 'btn btn-danger'
+      - else
+        p You cannot delete this cohort while it has students.
+      = link_to_if @cohort.cohort_without_students?, 'Delete', admin_cohort_path(@cohort), data: {confirm: "Are you sure you want to do DELETE this cohort?"}, method: 'delete', class: 'btn btn-danger'
