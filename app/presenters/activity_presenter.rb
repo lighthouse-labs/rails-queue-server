@@ -47,7 +47,7 @@ class ActivityPresenter < BasePresenter
   end
 
   def submissions_text
-    activity.allow_submissions? ? "Submissions" : "Completions"
+    activity.allow_submissions? ? "Submissions" : "Completions #{cohort.completed_activity(activity)}/#{cohort.students.active.size}"
   end
 
   def submission_form
