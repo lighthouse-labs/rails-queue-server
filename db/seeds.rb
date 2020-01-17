@@ -9,6 +9,7 @@ Rails.logger.info "SEEDING"
   p.has_projects = true
   p.has_interviews = true
   p.has_code_reviews = true
+  p.has_programming_tests = true
   p.has_queue = true
   p.has_advanced_lectures = true
   p.teacher_invite_code = 'ggg'

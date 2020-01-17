@@ -32,7 +32,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
             i.fa.fa-fw.fa-life-ring
             span.non-tablet-label
               | Teachers
-        - if current_user.can_view_programming_tests? || admin?
+        - if @program&.has_programming_tests? && (current_user.can_view_programming_tests? || admin?)
           = render 'layouts/nav/programming_tests_dropdown'
 
       - if active_student? || alumni?
@@ -65,7 +65,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
           = render 'layouts/nav/new_issue_button'
           = render 'layouts/nav/duty_toggle_button' if @program.try :has_queue?
           = render 'layouts/nav/queue_button'
-        - elsif impersonating? && (active_student? || prep_assistance_url)
+        - elsif impersonating? && active_student?
           li
             button.btn.btn-primary.disabled
               | Disabled while Impersonating

@@ -479,6 +479,7 @@ ActiveRecord::Schema.define(version: 20200116193010) do
     t.string   "proctor_write_token"
     t.string   "proctor_read_token"
     t.string   "prep_assistance_url"
+    t.boolean  "has_programming_tests"
   end
 
   create_table "questions", force: :cascade do |t|
