@@ -5,6 +5,8 @@
   - activity_classes.push("toc-activity__is-stretch") if item.stretch?
   li class=(activity_classes.join(" "))
     = link_to workbook_activity_path(@workbook, activity), class: 'toc-activity--label' do
+      span.toc-activity--icon
+        i.text-muted class= icon_for(activity)
       span.toc-activity--name
         - if item.stretch?
           i.fa.fa-trophy data-toggle='tooltip' title='Stretch'
