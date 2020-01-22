@@ -18,8 +18,9 @@
           = "Completions"
       .col-sm-8
         .progress
-          .progress-bar role="progressbar" style="width: #{cohort.completed_activity(@activity)}%" aria-valuenow=cohort.completed_activity(@activity) aria-valuemin="0" aria-valuemax="100"
-          .progress-label.badge.badge-secondary = "#{cohort.completed_activity(@activity)}/#{cohort.students.length()}"
+          - number_of_active_students = cohort.students&.active.size
+          .progress-bar role="progressbar" style="width: #{100 * cohort.completed_activity(@activity)/number_of_active_students}%" aria-valuenow=cohort.completed_activity(@activity) aria-valuemin="0" aria-valuemax="100"
+          .progress-label.badge.badge-secondary = "#{cohort.completed_activity(@activity)}/#{number_of_active_students}"
     table.table
       thead
         th style="min-width:220px" Student
