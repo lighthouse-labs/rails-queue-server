@@ -9,6 +9,8 @@ class Cohort < ApplicationRecord
   # only supports one break per cohort
   has_one :curriculum_break
 
+  acts_as_paranoid
+
   validates :name, presence: true
   validates :start_date, presence: true
   validates :program, presence: true
@@ -20,6 +22,8 @@ class Cohort < ApplicationRecord
                     presence:   true,
                     format:     { with: /\A[-a-z]+\z/, allow_blank: true },
                     length:     { minimum: 3, allow_blank: true }
+
+  before_destroy :can_destroy?
 
   include PgSearch
   include DisableQueueDayValidators
@@ -104,6 +108,10 @@ class Cohort < ApplicationRecord
 
   def completed_activity(activity)
     students.map { |s| s.completed_activity?(activity) }.count(true)
+  end
+
+  def can_destroy?
+    students.size < 1
   end
 
   private

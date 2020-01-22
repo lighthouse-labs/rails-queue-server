@@ -1,6 +1,6 @@
 class Admin::CohortsController < Admin::BaseController
 
-  before_action :require_cohort, only: [:edit, :update, :show]
+  before_action :require_cohort, only: [:edit, :update, :show, :destroy]
   before_action :check_limited, only: [:show]
 
   def index
@@ -48,6 +48,17 @@ class Admin::CohortsController < Admin::BaseController
     @milestones = Activity.active.prep.milestone.chronological_for_project
     @milestone_count = @milestones.count
     @programming_tests = ProgrammingTest.active
+  end
+
+  def destroy
+    @cohort.destroy
+    if @cohort.deleted_at?
+      flash[:notice] = "Successfully soft-deleted #{@cohort.name_with_location} cohort"
+      redirect_to admin_cohorts_path
+    else 
+      flash[:alert] = "Could not soft-delete #{@cohort.name_with_location} cohort"
+      redirect_to :back
+    end
   end
 
   private

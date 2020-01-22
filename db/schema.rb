@@ -475,10 +475,10 @@ ActiveRecord::Schema.define(version: 20200116193010) do
     t.string   "curriculum_team_email"
     t.boolean  "has_advanced_lectures"
     t.string   "teacher_invite_code"
-    t.string   "prep_assistance_url"
     t.string   "proctor_url"
     t.string   "proctor_write_token"
     t.string   "proctor_read_token"
+    t.string   "prep_assistance_url"
     t.boolean  "has_programming_tests"
   end
 
