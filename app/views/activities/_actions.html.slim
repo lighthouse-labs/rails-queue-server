@@ -19,8 +19,11 @@
       .col-sm-8
         .progress
           - number_of_active_students = cohort.students&.active.size
-          .progress-bar role="progressbar" style="width: #{100 * cohort.completed_activity(@activity)/number_of_active_students}%" aria-valuenow=cohort.completed_activity(@activity) aria-valuemin="0" aria-valuemax="100"
-          .progress-label.badge.badge-secondary = "#{cohort.completed_activity(@activity)}/#{number_of_active_students}"
+          - number_of_completions = cohort.completed_activity(@activity)
+          - percent_done = 100 * (number_of_active_students > 0 ? number_of_completions.to_f / number_of_active_students.to_f : 1)
+          - percent_done = [100, percent_done].min
+          .progress-bar role="progressbar" style="width: #{percent_done}%" aria-valuenow=number_of_completions aria-valuemin="0" aria-valuemax="100"
+          .progress-label.badge.badge-secondary = "#{number_of_completions}/#{number_of_active_students}"
     table.table
       thead
         th style="min-width:220px" Student
@@ -37,13 +40,13 @@
             - if @activity.allow_submissions?
               td = link_to shortened_github_url(student.github_url(@activity)), student.github_url(@activity) if student.completed_activity?(@activity)
             -if student.completed_activity?(@activity)
-              td 
+              td
                 -if @activity.quiz?
                   = "#{student.initial_submission_for_quiz(@activity.quiz).percent} Initial"
                 -else
                   = 'Yes'
             -else
-              td = "No" 
+              td = "No"
             td = "Completed #{time_ago_in_words(student.completed_at(@activity))} ago" if student.completed_activity?(@activity)
 
 - if @activity.test_activity? && student?
