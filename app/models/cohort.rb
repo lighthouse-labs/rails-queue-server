@@ -23,7 +23,7 @@ class Cohort < ApplicationRecord
                     format:     { with: /\A[-a-z]+\z/, allow_blank: true },
                     length:     { minimum: 3, allow_blank: true }
 
-  before_destroy :cohort_without_students?
+  before_destroy :can_destroy?
 
   include PgSearch
   include DisableQueueDayValidators
@@ -110,7 +110,7 @@ class Cohort < ApplicationRecord
     students.map { |s| s.completed_activity?(activity) }.count(true)
   end
 
-  def cohort_without_students?
+  def can_destroy?
     students.size < 1
   end
 
