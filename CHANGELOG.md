@@ -1,5 +1,16 @@
 # Change Log
 
+## [2020.01.22.2215u](https://github.com/lighthouse-labs/compass/tree/2020.01.22.2215u) (2020-01-22)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020-01-13-0330u...2020.01.22.2215u)
+
+**Merged pull requests:**
+
+- Icons added for Workbook nav [\#1007](https://github.com/lighthouse-labs/compass/pull/1007) ([tborsa](https://github.com/tborsa))
+- Enhance and fix bugs with activities submission list on activities\#show [\#1005](https://github.com/lighthouse-labs/compass/pull/1005) ([tborsa](https://github.com/tborsa))
+- Allow for empty cohorts to be \(soft\) deleted [\#1001](https://github.com/lighthouse-labs/compass/pull/1001) ([tborsa](https://github.com/tborsa))
+- Fixed cancel button not showing up for evaluations [\#1000](https://github.com/lighthouse-labs/compass/pull/1000) ([tborsa](https://github.com/tborsa))
+- HotFix: Fix 500 error when impersonating prep-only student [\#998](https://github.com/lighthouse-labs/compass/pull/998) ([kvirani](https://github.com/kvirani))
+
 ## [2020-01-13-0330u](https://github.com/lighthouse-labs/compass/tree/2020-01-13-0330u) (2020-01-13)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.01.02.2000u...2020-01-13-0330u)
 
