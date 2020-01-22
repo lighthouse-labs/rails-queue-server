@@ -8,7 +8,7 @@
       = evaluation_presenter.stats
     td
       = evaluation_presenter.date_submitted
-    td
+    td.d-flex.align-items-start
       = evaluation_presenter.project(include_link = true)
-       - if my_evaluation.cancellable?
-        = link_to 'Cancel', cancel_project_evaluation_path(@project, eval), class: 'btn btn-danger btn-sm', method: :delete, data: { confirm: 'Are you sure?' }
+      - if my_evaluation.cancellable?
+        = link_to 'Cancel', cancel_project_evaluation_path(@project, my_evaluation), class: 'btn btn-danger btn-sm', method: :delete, data: { confirm: 'Are you sure?' }
