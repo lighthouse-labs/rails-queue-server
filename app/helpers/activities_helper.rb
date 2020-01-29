@@ -48,8 +48,11 @@ module ActivitiesHelper
       prep_activity_path(:prep, activity)
     elsif activity.teachers_only?
       activity_path(activity)
-    else
+    elsif activity.day
       day_activity_path(activity.day, activity)
+    else
+      # day_activity_path(activity.day, activity)
+      activity_by_uuid_path(activity.uuid)
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200116193010) do
+ActiveRecord::Schema.define(version: 20200129213707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -551,8 +551,10 @@ ActiveRecord::Schema.define(version: 20200116193010) do
     t.string   "end_day"
     t.string   "background_image_url"
     t.string   "background_image_darkness"
+    t.integer  "workbook_id"
     t.index ["content_repository_id"], name: "index_sections_on_content_repository_id", using: :btree
     t.index ["uuid"], name: "index_sections_on_uuid", unique: true, using: :btree
+    t.index ["workbook_id"], name: "index_sections_on_workbook_id", using: :btree
   end
 
   create_table "skills", force: :cascade do |t|
@@ -772,6 +774,7 @@ ActiveRecord::Schema.define(version: 20200116193010) do
   add_foreign_key "questions", "outcomes"
   add_foreign_key "quiz_submissions", "quizzes"
   add_foreign_key "sections", "content_repositories"
+  add_foreign_key "sections", "workbooks"
   add_foreign_key "tech_interview_questions", "outcomes"
   add_foreign_key "tech_interview_questions", "tech_interview_templates"
   add_foreign_key "tech_interview_results", "tech_interview_questions"
