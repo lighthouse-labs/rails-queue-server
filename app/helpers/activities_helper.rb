@@ -48,7 +48,7 @@ module ActivitiesHelper
       prep_activity_path(:prep, activity)
     elsif activity.teachers_only?
       activity_path(activity)
-    elsif activity.day
+    elsif activity.day?
       day_activity_path(activity.day, activity)
     else
       # day_activity_path(activity.day, activity)
@@ -61,7 +61,7 @@ module ActivitiesHelper
       workbook_path(workbook)
     elsif activity.section && activity.section.type == "Prep"
       prep_index_path
-    elsif activity.day
+    elsif activity.day?
       day_path(activity.day)
     else
       root_path
