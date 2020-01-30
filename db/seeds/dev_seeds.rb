@@ -72,11 +72,11 @@ if Rails.env.development?
   20.times do |_n|
     ActivityFeedback.create!(
       user:     User.all.order('random()').first,
-      activity: Activity.prep.active.order('random()').first,
+      activity: Activity.prep.active.order('random()').first || Activity.active.order('random()').first,
       rating:   rand(1..5),
       detail:   Faker::Lorem.paragraph
     )
-  end
+  end if Activity.active.any?
 
   Cohort.all.each do |cohort|
     x = cohort == Cohort.find_by(code: 'vanj') ? 20 : 10
@@ -149,7 +149,7 @@ if Rails.env.development?
 
     # create one Lecture record for the finished cohort for each LecturePlan and Breakout
     next unless cohort == Cohort.find_by(code: 'vanc')
-    Activity.all.each do |activity|
+    Activity.active.all.each do |activity|
       next unless activity.has_lectures?
       teacher = @teachers.sample
       Lecture.create!(

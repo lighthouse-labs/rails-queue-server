@@ -5,22 +5,37 @@ h1.day-heading
   small
 h5
   small.text-muted = "#{day.date.strftime("%a %b #{day.date.day}")}"
-
 hr
 
-ul#toc.list-unstyled
+/ Backstory / Context for this Kludge by KV:
+/   For DA PT course, we put all the content into a workbook. Since there's a capstone project in this course as well, a quick hack/kludge was to associate the project to the workbook where all its activities reside.
+- if workbook = project.workbook
 
-  - activities_by_day = project.activities.chronological_for_project.active.group_by(&:day)
-  - activities_by_day.each do |day, activities|
+  ul#toc.list-unstyled
+    - activities = project.activities.chronological_for_project.active
     = render 'shared/menus/section',
-      key: day,
+      key: 'activities',
       activities: activities,
       current_activity: @activity,
-      title: day.upcase,
+      workbook: workbook,
+      title: 'Activities',
       expanded: true,
       show_info: true,
       display_count: true
 
+- else
+
+  ul#toc.list-unstyled
+    - activities_by_day = project.activities.chronological_for_project.active.group_by(&:day)
+    - activities_by_day.each do |day, activities|
+      = render 'shared/menus/section',
+        key: day || 'Activities',
+        activities: activities,
+        current_activity: @activity,
+        title: (day || 'Activities').upcase,
+        expanded: true,
+        show_info: true,
+        display_count: true
 
 hr
 

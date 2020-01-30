@@ -118,7 +118,7 @@ class ActivityPresenter < BasePresenter
     if prep?
       edit_prep_activity_path(activity.section, activity)
     elsif project?
-      edit_project_activity_path(activity.day, activity)
+      edit_project_activity_path(activity.section.slug, activity)
     elsif activity.day?
       edit_day_activity_path(activity.day, activity)
     end

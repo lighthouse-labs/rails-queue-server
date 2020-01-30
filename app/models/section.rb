@@ -3,6 +3,8 @@ class Section < ApplicationRecord
   has_many :activities
   has_many :activity_submissions, through: :activities
   belongs_to :content_repository # when remote content
+  # a project or section could be linked to a workbook, but keep in mind that workbooks have their own modules to organize their "sections". Section isn't used for that - kV
+  belongs_to :workbook
 
   default_scope { order(order: :asc) }
 

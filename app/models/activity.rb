@@ -115,6 +115,8 @@ class Activity < ApplicationRecord
       activities = activities.where(section: section)
     elsif day?
       activities = activities.where(day: day)
+    elsif section
+      activities = activities.where(section: section)
     end
 
     @next = activities.first
@@ -128,6 +130,8 @@ class Activity < ApplicationRecord
       activities = activities.where(section: section)
     elsif day?
       activities = activities.where(day: day)
+    elsif section
+      activities = activities.where(section: section)
     end
 
     @prev = activities.last

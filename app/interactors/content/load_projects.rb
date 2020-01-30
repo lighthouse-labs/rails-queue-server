@@ -83,6 +83,7 @@ class Content::LoadProjects
     attrs = {
       name:                      attributes['name'],
       slug:                      attributes['slug'],
+      workbook:                  workbook(attributes['workbook']),
       order:                     attributes['order'],
       start_day:                 attributes['start_day'],
       end_day:                   attributes['end_day'],
@@ -105,6 +106,16 @@ class Content::LoadProjects
     section = Project.find_or_initialize_by(uuid: uuid)
     section.assign_attributes(attrs)
     section
+  end
+
+
+  def workbook(uuid)
+    uuid &&
+      (scan_for_record_by_uuid(uuid) || Workbook.find_by(uuid: uuid))
+  end
+
+  def scan_for_record_by_uuid(uuid)
+    @records.detect { |r| r.uuid == uuid }
   end
 
 end
