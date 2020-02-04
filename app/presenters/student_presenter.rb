@@ -104,7 +104,7 @@ class StudentPresenter < UserPresenter
       {
         name:                 p.name,
         activity_submissions: p.activity_submissions.proper.where(user_id: student.id).count,
-        total_activities:     p.activities.count,
+        total_activities:     p.activities.active.countable_as_submission.count,
         quiz_average:         average_quiz_score_for_section(p)
       }
     end
