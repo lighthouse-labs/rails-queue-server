@@ -597,7 +597,7 @@ DEPENDENCIES
   newrelic_rpm
   octokit
   omniauth
-  omniauth-github
+  omniauth-github (>= 1.4.0)
   paranoia (~> 2.4)
   pg
   pg_search
