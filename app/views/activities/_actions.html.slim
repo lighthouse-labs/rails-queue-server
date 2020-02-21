@@ -49,8 +49,9 @@
               td = "No"
             td = "Completed #{time_ago_in_words(student.completed_at(@activity))} ago" if student.completed_activity?(@activity)
 
-.actions.programming-test-activity
   - if @activity.test_activity? && student?
+    .actions.programming-test-activity
       == react_component('TestActivityAttempts.App', { programming_test: @activity.programming_test })
-  - else 
+  - elsif  @activity.test_activity? && current_user.can_view_programming_tests 
+    .actions.programming-test-activity
       = link_to 'Test Dashboard', teacher_cohort_programming_test_path(cohort, @activity.programming_test), class:'btn btn-primary'
