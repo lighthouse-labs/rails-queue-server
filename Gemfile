@@ -54,7 +54,7 @@ gem 'teaspoon-mocha'
 gem 'phantomjs'
 
 gem 'omniauth'
-gem 'omniauth-github'
+gem 'omniauth-github', '>= 1.4.0'
 
 gem 'faraday'
 gem 'faraday_middleware'
