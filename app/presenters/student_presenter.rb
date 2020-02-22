@@ -38,10 +38,19 @@ class StudentPresenter < UserPresenter
   def prep_activity_stats
     stats = StudentStats.new(student).prep_activity_stats
     render 'stats', title:    'Activities',
-                    count:    stats[:core][:completed] + stats[:stretch][:completed],
-                    max:      stats[:core][:total] + stats[:stretch][:total],
+                    count:    stats[:core][:completed],
+                    max:      stats[:core][:total],
                     avg:      nil,
                     progress: stats[:core][:ratio]
+  end
+
+  def prep_stretch_stats
+    stats = StudentStats.new(student).prep_activity_stats
+    render 'stats', title:    'Stretch',
+                    count:    stats[:stretch][:completed],
+                    max:      stats[:stretch][:total],
+                    avg:      nil,
+                    progress: stats[:stretch][:ratio]
   end
 
   def prep_quiz_stats
@@ -104,7 +113,7 @@ class StudentPresenter < UserPresenter
       {
         name:                 p.name,
         activity_submissions: p.activity_submissions.proper.where(user_id: student.id).count,
-        total_activities:     p.activities.count,
+        total_activities:     p.activities.active.countable_as_submission.count,
         quiz_average:         average_quiz_score_for_section(p)
       }
     end
