@@ -1,5 +1,20 @@
 # Change Log
 
+## [2020.02.22.2015u](https://github.com/lighthouse-labs/compass/tree/2020.02.22.2015u) (2020-02-22)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.01.22.2215u...2020.02.22.2015u)
+
+**Merged pull requests:**
+
+- No escape characters in html title [\#1024](https://github.com/lighthouse-labs/compass/pull/1024) ([tborsa](https://github.com/tborsa))
+- 1002 admin test link to proctor [\#1023](https://github.com/lighthouse-labs/compass/pull/1023) ([tborsa](https://github.com/tborsa))
+- Activity Details 500 fix [\#1022](https://github.com/lighthouse-labs/compass/pull/1022) ([tborsa](https://github.com/tborsa))
+- Fix assistances page activity links [\#1021](https://github.com/lighthouse-labs/compass/pull/1021) ([tborsa](https://github.com/tborsa))
+- Update omniauth-github [\#1019](https://github.com/lighthouse-labs/compass/pull/1019) ([tborsa](https://github.com/tborsa))
+- Updated h1 in students\#index [\#1017](https://github.com/lighthouse-labs/compass/pull/1017) ([kvirani](https://github.com/kvirani))
+- 1012 inaccurate activity stats [\#1016](https://github.com/lighthouse-labs/compass/pull/1016) ([tborsa](https://github.com/tborsa))
+- Support for project being linked to a workbook [\#1015](https://github.com/lighthouse-labs/compass/pull/1015) ([kvirani](https://github.com/kvirani))
+- Hotfix new "divide by 0" server \(500\) error and other edge cases [\#1011](https://github.com/lighthouse-labs/compass/pull/1011) ([kvirani](https://github.com/kvirani))
+
 ## [2020.01.22.2215u](https://github.com/lighthouse-labs/compass/tree/2020.01.22.2215u) (2020-01-22)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020-01-13-0330u...2020.01.22.2215u)
 
