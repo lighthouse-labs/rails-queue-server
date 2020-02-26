@@ -25,31 +25,31 @@ header.page-header
       = f.submit 'Update', class: 'btn btn-primary', style: 'margin-right: 10px;'
       = link_to '&laquo; Cancel'.html_safe, [:admin, :cohorts]
 
-  .curriculum-break.card.mb-3
-    .card-header
-      h5 Cohort Break
-      - if @cohort.curriculum_break
-        p
-          strong Reason:
-          = @cohort.curriculum_break.reason
-        p
-          strong Starts On:
-          = @cohort.curriculum_break.starts_on
-        p
-          strong Number of Weeks:
-          = @cohort.curriculum_break.num_weeks
-        = link_to "Edit", edit_admin_cohort_curriculum_break_path(@cohort, @cohort.curriculum_break), class: 'btn btn-primary'
-        | &nbsp;
-        = link_to "Delete", admin_cohort_curriculum_break_path(@cohort, @cohort.curriculum_break), data: { confrim: "You sure? :|" }, method: 'delete', class: 'btn btn-danger'
-      - else
-        p There are no breaks in this cohort
-        = link_to "Add a Break", new_admin_cohort_curriculum_break_path(@cohort), class: 'btn btn-primary'
+.curriculum-break.card.mb-3
+  .card-header
+    h5 Cohort Break
+    - if @cohort.curriculum_break
+      p
+        strong Reason:
+        = @cohort.curriculum_break.reason
+      p
+        strong Starts On:
+        = @cohort.curriculum_break.starts_on
+      p
+        strong Number of Weeks:
+        = @cohort.curriculum_break.num_weeks
+      = link_to "Edit", edit_admin_cohort_curriculum_break_path(@cohort, @cohort.curriculum_break), class: 'btn btn-primary'
+      | &nbsp;
+      = link_to "Delete", admin_cohort_curriculum_break_path(@cohort, @cohort.curriculum_break), data: { confrim: "You sure? :|" }, method: 'delete', class: 'btn btn-danger'
+    - else
+      p There are no breaks in this cohort
+      = link_to "Add a Break", new_admin_cohort_curriculum_break_path(@cohort), class: 'btn btn-primary'
 
-  .card.mb-3
-    .card-header
-      h5 Delete Cohort
-      - if @cohort.can_destroy?
-        p There are no students in this cohort, you can delete it. 
-      - else
-        p You cannot delete this cohort while it has students.
-      = button_to 'Delete', admin_cohort_path(@cohort), data: {confirm: "Are you sure you want to do DELETE this cohort?"}, method: 'delete', class: 'btn btn-danger', disabled: !@cohort.can_destroy?
+.card.mb-3
+  .card-header
+    h5 Delete Cohort
+    - if @cohort.can_destroy?
+      p There are no students in this cohort, you can delete it.
+    - else
+      p You cannot delete this cohort while it has students.
+    = button_to 'Delete', admin_cohort_path(@cohort), data: {confirm: "Are you sure you want to do DELETE this cohort?"}, method: 'delete', class: 'btn btn-danger', disabled: !@cohort.can_destroy?
