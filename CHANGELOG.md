@@ -1,5 +1,16 @@
 # Change Log
 
+## [Unreleased](https://github.com/lighthouse-labs/compass/tree/HEAD)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.02.26.2030u...HEAD)
+
+**Merged pull requests:**
+
+- Hotfix updating of cohorts causing them to get \(soft\)deleted [\#1032](https://github.com/lighthouse-labs/compass/pull/1032) ([kvirani](https://github.com/kvirani))
+
+## [2020.02.26.2030u](https://github.com/lighthouse-labs/compass/tree/2020.02.26.2030u) (2020-02-22)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.02.22.2015u...2020.02.26.2030u)
+
 ## [2020.02.22.2015u](https://github.com/lighthouse-labs/compass/tree/2020.02.22.2015u) (2020-02-22)
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.01.22.2215u...2020.02.22.2015u)
 
