@@ -30,3 +30,9 @@
 
     td.details
       = assistance_presenter.duration
+
+    td.details
+          - if assistance.flag 
+            span class="fa fa-flag"  style="color: red"
+            
+          
