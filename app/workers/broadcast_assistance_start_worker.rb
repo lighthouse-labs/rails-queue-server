@@ -11,7 +11,7 @@ class BroadcastAssistanceStartWorker
     request = AssistanceRequest.find request_id
 
     # Let the student know it's started
-    UserChannel.broadcast_to request.requestor, type: "AssistanceStarted", object: { assistor: UserSerializer.new(assistor).as_json, conference: conference_link}
+    UserChannel.broadcast_to request.requestor, type: "AssistanceStarted", object: { assistor: UserSerializer.new(assistor).as_json, conference: conference_link }
     # The teacher is now busy
     RequestQueue::BroadcastTeacherBusy.call(assistor: assistor)
     # Everyone in the queue should have their position changed
