@@ -25,12 +25,11 @@
               p == markdown(question.question)
               .submission-answer
                 h4.text-muted = "Possible Answers"
-                .list-group id="list-tab" role="tablist"
+                .list-group 
                   - question.options.each_with_index do |option, option_index|
-                      = radio_button_tag "quiz_submission[answers_attributes][#{question_index}][option_id]", option.id, @quiz_submission.option_selected?(option)
-                      = label_tag "quiz_submission[answers_attributes][#{question_index}][option_id]_#{option.id}" do
-                        .list-group-item id="#{option.id}" 
-                          p ==  markdown(option.answer)
-                            
+                    = radio_button_tag "quiz_submission[answers_attributes][#{question_index}][option_id]", option.id, @quiz_submission.option_selected?(option)
+                    = label_tag "quiz_submission[answers_attributes][#{question_index}][option_id]_#{option.id}" do
+                      .list-group-item id="#{option.id}" 
+                        p ==  markdown(option.answer)                            
         .form-group.text-center
           = f.submit 'Submit', class: 'btn btn-lg btn-primary'
