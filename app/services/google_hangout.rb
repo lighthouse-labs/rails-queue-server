@@ -16,39 +16,23 @@ class GoogleHangout
   
   end
 
-  def create_hangout
+  def create_hangout(asssistor, assistee)
 
     # Initialize the API
     service = Google::Apis::CalendarV3::CalendarService.new
     service.client_options.application_name = @APPLICATION_NAME
     service.authorization = @authorizer
 
-    # # Fetch the next 10 events for the user
-    # calendar_id = "primary"
-    # response = service.list_events(calendar_id,
-    #                               max_results:   10,
-    #                               single_events: true,
-    #                               order_by:      "startTime",
-    #                               time_min:      DateTime.now.rfc3339)
-    # puts "Upcoming events:"
-    # puts "No upcoming events found" if response.items.empty?
-    # response.items.each do |event|
-    #   start = event.start.date || event.start.date_time
-    #   puts "-------------------------- #{event.conference_data&.entry_points.inspect} -----------------------------"
-    #   p event
-    # end
-
+    now = DateTime.now
     event = Google::Apis::CalendarV3::Event.new(
-      summary: "test meet event",
-      location: '800 Howard St., San Francisco, CA 94103',
-      description: 'A chance to hear more about Google\'s developer products.',
+      summary: "Assistance Request Between #{asssistor.full_name} and #{assistee.full_name}",
+      location: "#{assistee.location&.name}",
+      description: 'This event was automatically created by the HangoutsCreator Service Account',
       start: Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: '2020-05-28T09:00:00-07:00',
-        time_zone: 'America/Los_Angeles'
+        date_time: "#{now}",
       ),
       end: Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: '2020-05-28T17:00:00-07:00',
-        time_zone: 'America/Los_Angeles'
+        date_time: "#{now.new_offset('+00:30')}",
       ),
       # attendees: [
       #   Google::Apis::CalendarV3::EventAttendee.new(

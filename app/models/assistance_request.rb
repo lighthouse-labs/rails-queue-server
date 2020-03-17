@@ -80,7 +80,7 @@ class AssistanceRequest < ApplicationRecord
       assistor: assistor,
       assistee: requestor,
       activity: activity,
-      conference_link: google_hangout.create_hangout
+      conference_link: google_hangout.create_hangout(assistor, requestor)
     )
     assistance.save! ? assistance : nil
   end
