@@ -6,6 +6,7 @@ class window.RequestButtonPresenter
     @ar_create = $('#create-assistance-request')
     @ar_create_button = @ar_create.find('button')
     @ar_cancel = $('#cancel-assistance-request')
+    @ar_conference = $('#assistance-request-conference')
     @ar_cancel_button = @ar_cancel.find('button')
 
   render: ->
@@ -28,12 +29,18 @@ class window.RequestButtonPresenter
   updateQueuePosition: (position) ->
     @ar_cancel_button.text('No. ' + position + ' in Request Queue')
 
-  assistanceStarted: (assistor) ->
-    @ar_cancel_button.text(assistor.firstName + ' ' + assistor.lastName + ' assisting')
+  assistanceStarted: (data) ->
+    @assistor = data.assistor
+    @conference_link = data.conference
+    @ar_conference.removeClass('d-none')
+    @ar_cancel_button.text('assisting')
+    @ar_conference.attr('href', @conference_link)
+    @ar_cancel_button.text(@assistor.firstName + ' ' + @assistor.lastName + ' assisting')
 
   assistanceEnded: ->
     @ar_create.removeClass('d-none')
     @ar_cancel.addClass('d-none')
+    @ar_conference.addClass('d-none')
 
   assistanceRequested: (position) ->
     @ar_create.addClass('d-none')
