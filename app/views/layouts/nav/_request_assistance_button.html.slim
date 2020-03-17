@@ -1,7 +1,7 @@
 li#assistance-request-module
 
   span#cancel-assistance-request class = (!(current_user.waiting_for_assistance? || current_user.being_assisted?) ? 'd-none' : '')
-    a#assistance-request-conference href = "#{current_user.current_assistance_conference}" class = (!current_user.being_assisted? ? 'd-none' : '')
+    a#assistance-request-conference href = "#{current_user.current_assistance_conference}" target = "_blank" class = (!current_user.being_assisted? ? 'd-none' : '')
       i.fa.fa-fw.fa-video
     = button_to '#', class: 'navbar-btn btn btn-outline-warning cancel-request-assistance-button', :'data-toggle' => 'tooltip', :'data-placement' => 'bottom', title: 'Cancel this Assistance Request' do
       - if current_user.being_assisted?
