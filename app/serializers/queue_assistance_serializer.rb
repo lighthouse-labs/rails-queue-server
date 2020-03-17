@@ -2,7 +2,7 @@ class QueueAssistanceSerializer < ActiveModel::Serializer
 
   format_keys :lower_camel
 
-  attributes :id, :start_at, :type
+  attributes :id, :start_at, :type, :conference_link
 
   has_one :assistance_request, serializer: AssistanceRequestSerializer
   has_one :assistor, serializer: UserSerializer
