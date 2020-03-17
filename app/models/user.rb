@@ -140,7 +140,7 @@ class User < ApplicationRecord
   end
 
   def current_assistance_conference
-    assistances.currently_active.in_progress_requests.order_by_start.last.try(:conference_link)
+    assistances.currently_active.order_by_start.last.try(:conference_link)
   end
 
   def waiting_for_assistance?
