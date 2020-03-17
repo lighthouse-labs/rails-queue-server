@@ -27,6 +27,7 @@ class window.RequestButtonPresenter
     @ar_cancel_button.removeAttr('disabled')
 
   updateQueuePosition: (position) ->
+    @ar_conference.addClass('d-none')
     @ar_cancel_button.text('No. ' + position + ' in Request Queue')
 
   assistanceStarted: (data) ->
