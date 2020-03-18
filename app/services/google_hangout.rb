@@ -9,7 +9,6 @@ class GoogleHangout
     scope = ['https://www.googleapis.com/auth/admin.directory.resource.calendar', 'https://www.googleapis.com/auth/calendar']
 
     @authorizer = Google::Auth::ServiceAccountCredentials.make_creds(
-      json_key_io: File.open(@CREDENTIALS_PATH),
       scope:       scope
     )
 
