@@ -51,6 +51,12 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
 
         - if active_student?
           li.nav-item.nav-item-feedback
+            = link_to feedbacks_path, title: 'Live Lecture', class: 'nav-link'
+              i.fa.fa-fw.fa-video
+              span.feedback-count.badge.badge-pill.badge-warning class="#{'d-none' if pending_feedbacks_count == 0}" = "!"
+              | Live Stream
+
+          li.nav-item.nav-item-feedback
             = link_to feedbacks_path, title: 'Feedback', class: 'nav-link'
               i.fa.fa-fw.fa-comment
               span.feedback-count.badge.badge-pill.badge-danger class="#{'d-none' if pending_feedbacks_count == 0}" = pending_feedbacks_count

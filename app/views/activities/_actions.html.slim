@@ -9,6 +9,10 @@
 - if teacher? && @activity.has_lectures?
   .actions.bg-light.p-3.rounded
     = link_to '+ Lecture', new_activity_lecture_path(@activity), class: 'btn btn-secondary btn-new-lecture'
+    | &nbsp;
+    = link_to new_activity_lecture_path(@activity, cohort), title: 'Live', class: 'btn btn-warning btn-new-lecture-stream'
+      i.fa.fa-fw.fa-video
+      = " Go Live"
 
 - if teacher?
   .collapse#student-progress
