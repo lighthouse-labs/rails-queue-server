@@ -28,7 +28,7 @@ window.Queue.Assistance = class Assistance extends React.Component {
     const assistance = this.props.assistance;
     const buttons = [null];
     if (window.current_user.id === assistance.assistor.id) {
-      buttons.push(<a key="conference" className="btn btn-sm btn-primary btn-hover-danger" href={assistance.conferenceLink} target="_blank" disabled={this.state.disabled}><i className="fa fa-fw fa-video"></i></a>);
+      assistance.conferenceLink && buttons.push(<a key="conference" className="btn btn-sm btn-primary btn-hover-danger" href={assistance.conferenceLink} target="_blank" disabled={this.state.disabled}><i className="fa fa-fw fa-video"></i></a>);
       buttons.push(<button key="cancel" className="btn btn-sm btn-light btn-hover-danger" onClick={this.handleCancelAssisting} disabled={this.state.disabled}>Cancel</button>);
       buttons.push(<button key="finish" className="btn btn-sm btn-secondary btn-main"onClick={this.handleEndAssisting} disabled={this.state.disabled}>Finish</button>);
     }

@@ -33,9 +33,12 @@ class window.RequestButtonPresenter
   assistanceStarted: (data) ->
     @assistor = data.assistor
     @conference_link = data.conference
-    @ar_conference.removeClass('d-none')
+
+    if @conference_link
+      @ar_conference.removeClass('d-none')
+      @ar_conference.attr('href', @conference_link)
+
     @ar_cancel_button.text('assisting')
-    @ar_conference.attr('href', @conference_link)
     @ar_cancel_button.text(@assistor.firstName + ' ' + @assistor.lastName + ' assisting')
 
   assistanceEnded: ->
