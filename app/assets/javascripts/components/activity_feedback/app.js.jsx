@@ -118,7 +118,6 @@ window.ActivityFeedback.App = class App extends React.Component {
       loading:            true,
       paginationOptions:  { page: 1 }
     });
-    console.log(this.state)
     this._onFilterChange(newFilterOptions);
   }
 
