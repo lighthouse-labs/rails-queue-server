@@ -14,6 +14,18 @@ class ActivityFeedbacksController < ApplicationController
 
     @activity_feedbacks = @activity_feedbacks.where(rating: ratings) unless ratings.size == 5
 
+    if params[:cohort] != 'false'
+      students = []
+      @cohort = Cohort.find(params[:cohort])
+      @activity_feedbacks.each do |fb|
+        puts fb.inspect
+        if (Student.exists?(fb.user_id) && @cohort.students.exists?(fb.user_id))
+          students.push(fb.user_id)
+        end
+      end
+      @activity_feedbacks = @activity_feedbacks.where(user_id: students)
+    end
+    
     @activity_feedbacks = @activity_feedbacks.notable if params[:requireFeedback] == 'true'
 
     # render json: @activity_feedbacks
