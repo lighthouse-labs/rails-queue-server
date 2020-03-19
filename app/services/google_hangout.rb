@@ -5,56 +5,47 @@ class GoogleHangout
 
   def initialize
     @APPLICATION_NAME = "CompassHangoutsMeet".freeze
-    @CREDENTIALS_PATH = './compasshangoutsmeet-ab3be389f157.json'.freeze
-    scope = ['https://www.googleapis.com/auth/admin.directory.resource.calendar', 'https://www.googleapis.com/auth/calendar']
+    scope = 'https://www.googleapis.com/auth/calendar.events'
 
-    @authorizer = Google::Auth::ServiceAccountCredentials.make_creds(
+    @authorizer = ::Google::Auth::ServiceAccountCredentials.make_creds(
       scope: scope
     )
-
-    @authorizer.fetch_access_token!
   end
 
-  def create_hangout(asssistor, assistee)
-    # Initialize the API
+  def create_hangout(assistor, assistee)
     begin
+      @authorizer.sub = ENV["GOOGLE_SUB_EMAIL"] if assistee.email.split('@').last == 'lighthouselabs.com' || assistor.email.split('@').last == 'lighthouselabs.com'
+      @authorizer.fetch_access_token!
+
       service = Google::Apis::CalendarV3::CalendarService.new
-      service.client_options.application_name = @APPLICATION_NAME
       service.authorization = @authorizer
 
       now = DateTime.now
+
       event = Google::Apis::CalendarV3::Event.new(
-        summary:         "Assistance Request Between #{asssistor.full_name} and #{assistee.full_name}",
-        location:        (assistee.location&.name).to_s,
-        description:     'This event was automatically created by the HangoutsCreator Service Account',
-        start:           Google::Apis::CalendarV3::EventDateTime.new(
+        summary:           "Assistance Request Between #{assistor.full_name} and #{assistee.full_name}",
+        location:          (assistee.location&.name).to_s,
+        description:       'This event was automatically created by the HangoutsCreator Service Account',
+        guests_can_modify: true,
+        start:             Google::Apis::CalendarV3::EventDateTime.new(
           date_time: now.to_s
         ),
-        end:             Google::Apis::CalendarV3::EventDateTime.new(
+        end:               Google::Apis::CalendarV3::EventDateTime.new(
           date_time: now.new_offset('+00:30').to_s
         ),
         # attendees: [
         #   Google::Apis::CalendarV3::EventAttendee.new(
-        #     email: 'travis@lighthouselabs.com'
+        #     email: assistor.email
+        #   ),
+        #   Google::Apis::CalendarV3::EventAttendee.new(
+        #     email: assistee.email
         #   )
         # ],
-        ## for google hangouts
-        conference_data: {
+        conference_data:   {
           create_request: {
             request_id: SecureRandom.uuid
           }
-        },
-        # #for google meets
-        # conference_data: {
-        #   conference_solution: {
-        #       key: {
-        #         type: 'hangoutsMeet'
-        #       }
-        #   },
-        #   create_request: {
-        #      request_id: SecureRandom.uuid
-        #   }
-        # },
+        }
       )
 
       result = service.insert_event('primary', event, conference_data_version: 1)
@@ -62,6 +53,7 @@ class GoogleHangout
       puts "Error creating hangout"
       return nil
     end
+
     uri_from_event(result)
   end
 
