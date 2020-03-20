@@ -33,11 +33,8 @@ window.ActivityFeedback.Filters = class Filters extends React.Component {
   }
   _toggleCohort = () => {
     const opts = this.props.filterOptions;
-    let newCohort = false;
-    if  (opts.cohort === false) {
-      newCohort = this.props.cohortID;
-    } 
-    this.props.changeFilters({ cohort: newCohort });
+    let cohort = opts.cohort ? false : this.props.cohortID;
+    this.props.changeFilters({ cohort: cohort });
   }
   _showAll = () => {
     if (this._isShowingAll()) return;
@@ -106,16 +103,7 @@ window.ActivityFeedback.Filters = class Filters extends React.Component {
             !opts.four &&
             !opts.five)
   }
-  _isShowingCohortOnly() {
-    const opts = this.props.filterOptions;
-    return( opts.cohort &&
-            opts.requireFeedback &&
-            opts.one &&
-            opts.two &&
-            opts.three &&
-            opts.four &&
-            opts.five)
-  }
+
   render() {
     const on = this.props.filterOptions;
 
