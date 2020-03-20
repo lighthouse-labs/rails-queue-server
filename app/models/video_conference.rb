@@ -7,12 +7,27 @@ class VideoConference < ApplicationRecord
   validates_presence_of :start_time, :duration, :status, :zoom_meeting_id, :start_url, :join_url
   validates :status, :inclusion=> { :in => ['waiting', 'started', 'broadcast', 'finished'] }
 
-  scope :core,    -> { where(stretch: [nil, false]) }
-  scope :stretch, -> { where(stretch: true) }
-  scope :milestone, -> { where(milestone: true) }
+  # should be vaidation for only one active video_conference per user
+
+  scope :for_cohort,   ->(cohort) { where(cohort: cohort) }
+  scope :for_activity,   ->(activity) { where(activity: activity) }
+  scope :active,   ->{ where(status: ['waiting', 'started', 'broadcast']) }
+  scope :broadcasting,   ->{ where(status: ['broadcast']) }
 
   def active?
-    status == 'active'
+    ['waiting', 'started', 'broadcast'].include? status
+  end
+
+  def broadcasting?
+    status == 'broadcast'
+  end
+
+  def is_host?(potential_host)
+    user.attributes == potential_host.attributes
+  end
+
+  def host
+    user
   end
 
   # Given the start_time and duration, return the end_time
