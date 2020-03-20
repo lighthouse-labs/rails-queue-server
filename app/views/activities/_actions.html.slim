@@ -5,20 +5,9 @@
         div
           = render 'completion_status'
 
-
 - if teacher? && @activity.has_lectures?
   .actions.bg-light.p-3.rounded.d-flex
     = link_to '+ Lecture', new_activity_lecture_path(@activity), class: 'btn btn-secondary btn-new-lecture'
-    | &nbsp;
-
-    = form_for :video_conference, url: teacher_video_conferences_path, html: {method: :post} do |f|
-        = f.hidden_field :cohort_id, value: cohort.id
-        = f.hidden_field :activity_id, value: @activity.id
-        = f.hidden_field :topic, value: @activity.name
-        = f.hidden_field :duration, value: 140
-        = button_tag(type: 'submit', class: 'btn btn-warning btn-new-lecture-stream') do
-          i.fa.fa-fw.fa-video
-          = " Go Live"
 
 - if teacher?
   .collapse#student-progress
