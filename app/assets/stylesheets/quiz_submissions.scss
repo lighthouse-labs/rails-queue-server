@@ -7,16 +7,18 @@
   margin-top: 3rem;
 }
 
-div input[type="radio"]:checked+label {
+.new_quiz_submission {
+  div input[type="radio"]:checked+label {
   background-color: #007bff;
-}
-label .list-group-item {
-  background-color: rgba(127, 127, 127, .1);
+  }
+  .list-group input[type="radio"] {
+    display: none;
+  }
+  label .list-group-item {
+    background-color: rgba(127, 127, 127, .1);
+  }
 }
 
-.list-group input[type="radio"] {
-  display: none;
-}
 .submission-question {
   border-bottom: 1px solid $gray-lighter;
   margin-bottom: 4rem;
