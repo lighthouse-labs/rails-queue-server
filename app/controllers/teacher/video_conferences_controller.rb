@@ -19,15 +19,18 @@ class Teacher::VideoConferencesController < Teacher::BaseController
     video_conference = VideoConference.find(params[:id])
 
     zoom_update = true
+    old_status = video_conference.status
     if conference_params[:status] == 'finished' && video_conference.status != 'finished'
       # use zoom api to finish conference
       zoom = ZoomMeetings.new
       zoom_update = zoom.end_meeting(video_conference)
-    elsif conference_params[:status] == 'broadcast' && video_conference.status != 'broadcast'
-      # action cable to update cohort on new conference
     end
 
     if zoom_update && video_conference.update_attributes(conference_params)
+      if conference_params[:status] == 'broadcast' && old_status != 'broadcast'
+        # action cable to update cohort on new conference
+        VideoConferenceChannel.update_conference(video_conference, VideoConferenceChannel.channel_name_from_cohort(video_conference.cohort))
+      end
       flash[:notice] = "Video Conference Updated"
     else
       flash[:alert] = "Video Conferene Could not be Updated"
