@@ -27,7 +27,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
     end
 
     if zoom_update && video_conference.update_attributes(conference_params)
-      if conference_params[:status] == 'broadcast' && old_status != 'broadcast'
+      if conference_params[:status] =! old_status
         # action cable to update cohort on new conference
         VideoConferenceChannel.update_conference(video_conference, VideoConferenceChannel.channel_name_from_cohort(video_conference.cohort))
       end
