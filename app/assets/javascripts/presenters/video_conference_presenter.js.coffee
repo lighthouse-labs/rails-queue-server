@@ -7,17 +7,19 @@ class window.VideoConferencePresenter
     @conference_nav_badge = $('#video-conference-nav .conference-count')
 
   render: ->
-    switch @object.status
-      when "waiting" then @conferenceWaiting(@object)
-      when "broadcast" then @conferenceBroadcasting(@object)
-      when "finished" then @conferenceEnded(@object)
+    console.log("recieved stuff", @object)
+    @videoConference = @object.videoConference
+    switch @videoConference.status
+      when "waiting" then @conferenceWaiting(@videoConference)
+      when "broadcast" then @conferenceBroadcasting(@videoConference)
+      when "finished" then @conferenceEnded(@videoConference)
 
   conferenceWaiting: ->
     @conference_nav.removeClass('d-none')
     @conference_nav_link.attr('href', @object.activity ? "/activities/#{@object.activity_id}" : @object.join_url)
     @conference_nav_badge.text('?')
 
-  conferenceBroadcast: ->
+  conferenceBroadcasting: ->
     @conference_nav.removeClass('d-none')
     @conference_nav_link.attr('href', @object.join_url)
     @conference_nav_badge.text('!')
