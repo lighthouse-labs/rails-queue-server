@@ -135,10 +135,9 @@ class ZoomMeetings
       duration: duration,
       agenda: 'a lecture about ',
       settings: {
-        # host_video: true,
+        host_video: true,
         mute_upon_entry: true,
-        join_before_host: true,
-        approval_type: 0,
+        approval_type: 2,
         audio: 'both',
         enforce_login: false,
         waiting_room: true
