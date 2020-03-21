@@ -7,21 +7,26 @@ class window.VideoConferencePresenter
     @conference_nav_badge = $('#video-conference-nav .conference-count')
 
   render: ->
-    console.log("recieved stuff", @object)
     @videoConference = @object.videoConference
     switch @videoConference.status
       when "waiting" then @conferenceWaiting(@videoConference)
       when "broadcast" then @conferenceBroadcasting(@videoConference)
-      when "finished" then @conferenceEnded(@videoConference)
+      when "finished" then @conferenceFinished(@videoConference)
 
-  conferenceWaiting: ->
+  conferenceWaiting: (videoConference) ->
+    if window.current_user.id == videoConference.userId
+      @conference_nav.removeClass('d-none')
+      @activity_link = if videoConference.activityId then "/activities/#{videoConference.activityId}" else videoConference.joinUrl
+      @conference_nav_link.attr('href', @activity_link)
+      @conference_nav_badge.text('?')
+    else
+      @conference_nav.addClass('d-none')
+    
+  conferenceBroadcasting: (videoConference) ->
     @conference_nav.removeClass('d-none')
-    @conference_nav_link.attr('href', @object.activity ? "/activities/#{@object.activity_id}" : @object.join_url)
-    @conference_nav_badge.text('?')
-
-  conferenceBroadcasting: ->
-    @conference_nav.removeClass('d-none')
-    @conference_nav_link.attr('href', @object.join_url)
+    @activity_link = if videoConference.activityId then "/activities/#{videoConference.activityId}" else videoConference.joinUrl
+    console.log(@activity_link)
+    @conference_nav_link.attr('href', @activity_link)
     @conference_nav_badge.text('!')
 
   conferenceFinished: ->

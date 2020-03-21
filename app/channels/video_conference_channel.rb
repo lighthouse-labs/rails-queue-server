@@ -10,10 +10,6 @@ class VideoConferenceChannel < ApplicationCable::Channel
   end
 
   def self.update_conference(video_conference, channel)
-    puts 'broadcast to cohort~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-    puts channel
-    puts '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-
     ActionCable.server.broadcast channel, type:   "VideoConferenceUpdate", object: VideoConferenceSerializer.new(video_conference).as_json
   end
 
