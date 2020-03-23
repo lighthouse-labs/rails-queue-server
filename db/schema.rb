@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200318200011) do
+ActiveRecord::Schema.define(version: 20200323175649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 20200318200011) do
     t.boolean  "flag"
     t.integer  "secs_in_queue"
     t.string   "conference_link"
+    t.string   "conference_type"
     t.index ["activity_id"], name: "index_assistances_on_activity_id", using: :btree
     t.index ["assistee_id"], name: "index_assistances_on_assistee_id", using: :btree
     t.index ["assistor_id"], name: "index_assistances_on_assistor_id", using: :btree
@@ -716,6 +717,7 @@ ActiveRecord::Schema.define(version: 20200318200011) do
     t.integer  "activity_id"
     t.integer  "cohort_id"
     t.integer  "user_id"
+    t.string   "zoom_host_id"
     t.index ["activity_id"], name: "index_video_conferences_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_video_conferences_on_cohort_id", using: :btree
     t.index ["user_id"], name: "index_video_conferences_on_user_id", using: :btree
