@@ -7,7 +7,15 @@ class VideoConference < ApplicationRecord
   validates_presence_of :start_time, :duration, :status, :zoom_meeting_id, :start_url, :join_url
   validates :status, :inclusion=> { :in => ['waiting', 'started', 'broadcast', 'finished'] }
 
-  # should be vaidation for only one active video_conference per user
+  validates :cohort, uniqueness: {
+    scope:   [:activity_id, :active],
+    message: "only one active conference per cohort activity"
+  }
+  
+  validates :user_id, uniqueness: {
+    scope:   [:active],
+    message: "only one active conference per user"
+  }
 
   scope :for_cohort,   ->(cohort) { where(cohort: cohort) }
   scope :for_activity,   ->(activity) { where(activity: activity) }
