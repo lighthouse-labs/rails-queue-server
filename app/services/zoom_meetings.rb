@@ -88,6 +88,7 @@ class ZoomMeetings
         return false 
       end
     end
+    update_user_license({"id" => video_conference.zoom_host_id}, @BASIC)
     return true
 
   end
