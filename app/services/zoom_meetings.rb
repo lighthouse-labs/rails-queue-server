@@ -38,9 +38,7 @@ class ZoomMeetings
       if user
         # if user is paid create meeting
         if user['type'] == @LICENSED
-          ### make sure user does not have a meeting already created
-
-          return book_meeting(user, start_time, duration, topic)
+          return host_user.hosting_active_video_conference? ? {error: { message:'User already has an active video conference.'}} : book_meeting(user, start_time, duration, topic)
         else
           #if use is not paid try to assign license
           if update_user_license(user, @LICENSED)

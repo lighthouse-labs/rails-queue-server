@@ -252,6 +252,10 @@ class User < ApplicationRecord
     video_conferences&.active&.last || cohort&.video_conferences&.broadcasting&.last
   end
 
+  def hosting_active_video_conference?
+    video_conferences&.active.present?
+  end
+
   class << self
 
     def authenticate_via_github(auth)
