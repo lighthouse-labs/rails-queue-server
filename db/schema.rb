@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200317175821) do
+ActiveRecord::Schema.define(version: 20200323170058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 20200317175821) do
     t.boolean  "flag"
     t.integer  "secs_in_queue"
     t.string   "conference_link"
+    t.string   "conference_type"
     t.index ["activity_id"], name: "index_assistances_on_activity_id", using: :btree
     t.index ["assistee_id"], name: "index_assistances_on_assistee_id", using: :btree
     t.index ["assistor_id"], name: "index_assistances_on_assistor_id", using: :btree
@@ -706,6 +707,21 @@ ActiveRecord::Schema.define(version: 20200317175821) do
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
+  create_table "video_conferences", force: :cascade do |t|
+    t.datetime "start_time"
+    t.integer  "duration"
+    t.string   "status"
+    t.string   "zoom_meeting_id"
+    t.string   "start_url"
+    t.string   "join_url"
+    t.integer  "activity_id"
+    t.integer  "cohort_id"
+    t.integer  "user_id"
+    t.index ["activity_id"], name: "index_video_conferences_on_activity_id", using: :btree
+    t.index ["cohort_id"], name: "index_video_conferences_on_cohort_id", using: :btree
+    t.index ["user_id"], name: "index_video_conferences_on_user_id", using: :btree
+  end
+
   create_table "work_module_items", force: :cascade do |t|
     t.string   "uuid",           null: false
     t.integer  "work_module_id"
@@ -784,6 +800,9 @@ ActiveRecord::Schema.define(version: 20200317175821) do
   add_foreign_key "tech_interviews", "tech_interview_templates"
   add_foreign_key "user_activity_outcomes", "item_outcomes", column: "activity_outcome_id"
   add_foreign_key "user_activity_outcomes", "users"
+  add_foreign_key "video_conferences", "activities"
+  add_foreign_key "video_conferences", "cohorts"
+  add_foreign_key "video_conferences", "users"
   add_foreign_key "work_module_items", "activities"
   add_foreign_key "work_module_items", "work_modules"
   add_foreign_key "work_modules", "workbooks"

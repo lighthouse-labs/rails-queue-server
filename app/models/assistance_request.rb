@@ -75,14 +75,15 @@ class AssistanceRequest < ApplicationRecord
     return false if assistor.blank? || assistance.present?
 
     google_hangout = GoogleHangout.new
-
+    google_hangout = google_hangout.create_hangout(assistor, requestor)
     self.assistance = Assistance.new(
       assistor:        assistor,
       assistee:        requestor,
       activity:        activity,
-      conference_link: google_hangout.create_hangout(assistor, requestor)
+      conference_link: google_hangout[:uri],
+      conference_type: google_hangout[:type]
     )
-    assistance.save! ? assistance : nil
+    assistance if assistance.save!
   end
 
   def end_assistance(notes)
