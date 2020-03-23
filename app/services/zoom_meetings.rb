@@ -135,7 +135,6 @@ class ZoomMeetings
       duration: duration,
       agenda: 'a lecture about ',
       settings: {
-        host_video: true,
         mute_upon_entry: true,
         approval_type: 2,
         audio: 'both',
