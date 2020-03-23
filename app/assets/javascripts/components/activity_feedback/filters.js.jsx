@@ -33,8 +33,8 @@ window.ActivityFeedback.Filters = class Filters extends React.Component {
   }
   _toggleCohort = () => {
     const opts = this.props.filterOptions;
-    let cohort = !opts.cohort ? this.props.cohortID : false;
-    this.props.changeFilters({ cohort: cohort });
+    let cohort = !opts.cohort;
+    this.props.changeFilters({ cohort: cohort, cohortID: this.props.cohortID });
   }
   _showAll = () => {
     if (this._isShowingAll()) return;

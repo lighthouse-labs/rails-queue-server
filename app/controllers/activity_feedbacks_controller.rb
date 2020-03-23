@@ -6,7 +6,7 @@ class ActivityFeedbacksController < ApplicationController
   respond_to :json
 
   def index
-    params[:cohort] != 'false' && cohort = Cohort.find(params[:cohort])
+    params[:cohort] != 'false' && cohort = Cohort.find(params[:cohortID])
     @activity_feedbacks = @activity.activity_feedbacks.includes(:user).page(params[:page]).per(params[:limit] || 25)
 
     ratings = [:one, :two, :three, :four, :five].each_with_index.collect do |num, i|
