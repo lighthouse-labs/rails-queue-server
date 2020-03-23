@@ -1,18 +1,9 @@
 class Teacher::VideoConferencesController < Teacher::BaseController
 
-  def index
-    
-    zoom = ZoomMeetings.new
-
-    res = zoom.create_meeting(@current_user, 130, 'Lecture')
-
-    if res[:error]
-      #send error
-      
-    end
-
-    render json: { test: 'stuff' }
-
+  def show
+    @video_conference = VideoConference.find params[:id]
+    session[:cohort_id] = @video_conference.cohort.id if @video_conference.cohort?
+    redirect_to activity_path(@video_conference.activity)
   end
 
   def update

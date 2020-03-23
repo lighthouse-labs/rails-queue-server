@@ -169,7 +169,7 @@ LaserShark::Application.routes.draw do
     resources :assistances, only: [:index]
     resources :tech_interviews, only: [:index]
     resources :cohort_switcher, only: [:index]
-    resources :video_conferences
+    resources :video_conferences, only: [:show, :update, :create]
 
     resources :cohorts, only: [] do
       resources :programming_tests, only: [:show] do

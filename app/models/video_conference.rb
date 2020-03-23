@@ -38,6 +38,10 @@ class VideoConference < ApplicationRecord
     user
   end
 
+  def cohort?
+    cohort.present?
+  end
+
   # Given the start_time and duration, return the end_time
   def end_time
     Time.parse(start_time) + duration.minutes
