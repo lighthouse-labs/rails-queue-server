@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200323205940) do
+ActiveRecord::Schema.define(version: 20200323225853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -483,6 +484,7 @@ ActiveRecord::Schema.define(version: 20200323205940) do
     t.string   "proctor_read_token"
     t.boolean  "has_programming_tests"
     t.boolean  "has_assistance_hangouts"
+    t.hstore   "google_app_credentials"
   end
 
   create_table "questions", force: :cascade do |t|
