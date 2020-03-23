@@ -14,7 +14,8 @@ class GoogleHangout
 
   def create_hangout(assistor, assistee)
     begin
-      @authorizer.sub = ENV["GOOGLE_SUB_EMAIL"] if assistee.email.split('@').last == 'lighthouselabs.com' || assistor.email.split('@').last == 'lighthouselabs.com'
+      google_org_domain = ENV["GOOGLE_SUB_EMAIL"].split('@').last
+      @authorizer.sub = ENV["GOOGLE_SUB_EMAIL"] if assistee.email.split('@').last == google_org_domain || assistor.email.split('@').last == google_org_domain
       @authorizer.fetch_access_token!
 
       service = Google::Apis::CalendarV3::CalendarService.new
