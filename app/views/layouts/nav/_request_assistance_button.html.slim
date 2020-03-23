@@ -2,7 +2,7 @@ li#assistance-request-module
 
   span#cancel-assistance-request class = (!(current_user.waiting_for_assistance? || current_user.being_assisted?) ? 'd-none' : '')
     - conference_link = current_user.current_assistance_conference
-    a#assistance-request-conference href = "#{conference_link}" target = "_blank" class = (!(current_user.being_assisted? && conference_link) ? 'd-none' : '')
+    a.navbar-btn.btn.btn-outline-primary#assistance-request-conference href = "#{conference_link}" target = "_blank" class = (!(current_user.being_assisted? && conference_link) ? 'd-none' : '') data-toggle='tooltip' data-placement='bottom' title="Google Hangout with #{current_user.current_assistor.try(:full_name) || 'TA'}"
       i.fa.fa-fw.fa-video
     = button_to '#', class: 'navbar-btn btn btn-outline-warning cancel-request-assistance-button', :'data-toggle' => 'tooltip', :'data-placement' => 'bottom', title: 'Cancel this Assistance Request' do
       - if current_user.being_assisted?

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200323170058) do
+ActiveRecord::Schema.define(version: 20200323205940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -482,6 +482,7 @@ ActiveRecord::Schema.define(version: 20200323170058) do
     t.string   "proctor_write_token"
     t.string   "proctor_read_token"
     t.boolean  "has_programming_tests"
+    t.boolean  "has_assistance_hangouts"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -717,6 +718,7 @@ ActiveRecord::Schema.define(version: 20200323170058) do
     t.integer  "activity_id"
     t.integer  "cohort_id"
     t.integer  "user_id"
+    t.string   "zoom_host_id"
     t.index ["activity_id"], name: "index_video_conferences_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_video_conferences_on_cohort_id", using: :btree
     t.index ["user_id"], name: "index_video_conferences_on_user_id", using: :btree
