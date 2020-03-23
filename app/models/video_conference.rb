@@ -8,13 +8,14 @@ class VideoConference < ApplicationRecord
   validates :status, :inclusion=> { :in => ['waiting', 'started', 'broadcast', 'finished'] }
 
   validates :cohort, uniqueness: {
-    scope:   [:activity_id, :active],
-    message: "only one active conference per cohort activity"
+    scope:   [:activity_id],
+    message: "only one active conference per cohort activity",
+    conditions: -> { where(status: ['waiting', 'started', 'broadcast']) }
   }
   
   validates :user_id, uniqueness: {
-    scope:   [:active],
-    message: "only one active conference per user"
+    message: "only one active conference per user",
+    conditions: -> { where(status: ['waiting', 'started', 'broadcast']) }
   }
 
   scope :for_cohort,   ->(cohort) { where(cohort: cohort) }
@@ -40,6 +41,11 @@ class VideoConference < ApplicationRecord
 
   def cohort?
     cohort.present?
+  end
+
+  def student_link
+    link = Rails.application.routes.url_helpers.activity_path(activity) if activity
+    link ||= join_url
   end
 
   # Given the start_time and duration, return the end_time
