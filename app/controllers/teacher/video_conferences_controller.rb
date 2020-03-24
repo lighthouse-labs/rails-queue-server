@@ -3,9 +3,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
   def show
     @video_conference = VideoConference.find params[:id]
     session[:cohort_id] = @video_conference.cohort.id if @video_conference.cohort?
-    redirect_to activity_path(@video_conference.activity) if @video_conference.activity?
-    # Redirect to conference video page when it is added
-    redirect_to :root
+    redirect_to @video_conference.activity_id? ? activity_path(@video_conference.activity) : :root
   end
 
   def update
@@ -32,8 +30,12 @@ class Teacher::VideoConferencesController < Teacher::BaseController
   end
 
   def create
+    activity = Activity.find_by_id conference_params[:activity_id]
+    cohort = Cohort.find_by_id conference_params[:cohort_id]
     if @current_user.hosting_active_video_conference?
       res = { error: { message: 'User already has an active video conference.' } }
+    elsif activity&.active_conference_for_cohort(cohort)
+      res = { error: { message: 'There is already a conference for that cohort and activity.' } }
     else
       zoom = ZoomMeetings.new
       res = zoom.create_meeting(@current_user, conference_params[:start_time], conference_params[:duration], conference_params[:topic])
@@ -51,8 +53,8 @@ class Teacher::VideoConferencesController < Teacher::BaseController
         zoom_host_id:    res['host_id'],
         start_url:       res['start_url'],
         join_url:        res['join_url'],
-        cohort_id:       conference_params[:cohort_id],
-        activity_id:     conference_params[:activity_id]
+        cohort_id:       cohort&.id,
+        activity_id:     activity&.id
       )
       conference.user = current_user
 
