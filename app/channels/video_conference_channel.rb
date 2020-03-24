@@ -4,13 +4,13 @@ class VideoConferenceChannel < ApplicationCable::Channel
     stream_from channel_name
   end
 
-  def update_conference(status, video_conference_id)
+  def update_conference(_status, video_conference_id)
     video_conference = VideoConference.find(video_conference_id)
     ActionCable.server.broadcast channel_name, type: "VideoConferenceUpdate", object: VideoConferenceSerializer.new(video_conference).as_json
   end
 
   def self.update_conference(video_conference, channel)
-    ActionCable.server.broadcast channel, type:   "VideoConferenceUpdate", object: VideoConferenceSerializer.new(video_conference).as_json
+    ActionCable.server.broadcast channel, type: "VideoConferenceUpdate", object: VideoConferenceSerializer.new(video_conference).as_json
   end
 
   def self.channel_name_from_cohort(cohort)
@@ -20,8 +20,7 @@ class VideoConferenceChannel < ApplicationCable::Channel
   protected
 
   def channel_name
-    cohort_name = cohort.name
-    "video-conferences-#{cohort_name}"
+    VideoConferenceChannel.channel_name_from_cohort(cohort)
   end
 
 end

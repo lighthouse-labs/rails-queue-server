@@ -21,8 +21,7 @@ window.connectToVideoConferenceSocket = ->
   return unless App.cable
   App.videoConferenceChannel = App.cable.subscriptions.create "VideoConferenceChannel",
     updateConference: (status, conferenceId) ->
-      #not needed for now
-      @perform 'update_conference', status: reason, activity_id: conferenceId
+      @perform 'update_conference', status: status, video_conference_id: conferenceId
 
     received: (data) ->
       new VideoConferenceChannelHandler(data).processResponse()

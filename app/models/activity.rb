@@ -208,7 +208,7 @@ class Activity < ApplicationRecord
   end
 
   def active_conference_for_cohort(cohort)
-    video_conferences.for_cohort(cohort).active.last
+    video_conferences&.for_cohort(cohort)&.active&.last
   end
 
   protected

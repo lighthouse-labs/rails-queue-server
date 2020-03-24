@@ -8,7 +8,7 @@ class Cohort < ApplicationRecord
   has_many :tech_interviews
 
   has_many :video_conferences
-  
+
   # only supports one break per cohort
   has_one :curriculum_break
 
@@ -114,7 +114,7 @@ class Cohort < ApplicationRecord
   end
 
   def can_destroy?
-    students.size < 1
+    students.empty?
   end
 
   private
