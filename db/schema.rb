@@ -477,10 +477,10 @@ ActiveRecord::Schema.define(version: 20200324163100) do
     t.string   "curriculum_team_email"
     t.boolean  "has_advanced_lectures"
     t.string   "teacher_invite_code"
-    t.string   "prep_assistance_url"
     t.string   "proctor_url"
     t.string   "proctor_write_token"
     t.string   "proctor_read_token"
+    t.string   "prep_assistance_url"
     t.boolean  "has_programming_tests"
     t.boolean  "has_assistance_hangouts"
     t.jsonb    "settings"
@@ -709,22 +709,6 @@ ActiveRecord::Schema.define(version: 20200324163100) do
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
-  create_table "video_conferences", force: :cascade do |t|
-    t.datetime "start_time"
-    t.integer  "duration"
-    t.string   "status"
-    t.string   "zoom_meeting_id"
-    t.string   "start_url"
-    t.string   "join_url"
-    t.integer  "activity_id"
-    t.integer  "cohort_id"
-    t.integer  "user_id"
-    t.string   "zoom_host_id"
-    t.index ["activity_id"], name: "index_video_conferences_on_activity_id", using: :btree
-    t.index ["cohort_id"], name: "index_video_conferences_on_cohort_id", using: :btree
-    t.index ["user_id"], name: "index_video_conferences_on_user_id", using: :btree
-  end
-
   create_table "work_module_items", force: :cascade do |t|
     t.string   "uuid",           null: false
     t.integer  "work_module_id"
@@ -803,9 +787,6 @@ ActiveRecord::Schema.define(version: 20200324163100) do
   add_foreign_key "tech_interviews", "tech_interview_templates"
   add_foreign_key "user_activity_outcomes", "item_outcomes", column: "activity_outcome_id"
   add_foreign_key "user_activity_outcomes", "users"
-  add_foreign_key "video_conferences", "activities"
-  add_foreign_key "video_conferences", "cohorts"
-  add_foreign_key "video_conferences", "users"
   add_foreign_key "work_module_items", "activities"
   add_foreign_key "work_module_items", "work_modules"
   add_foreign_key "work_modules", "workbooks"
