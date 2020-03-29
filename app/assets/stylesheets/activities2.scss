@@ -6,8 +6,36 @@
       border-right: none;
     }
 
+    &.bg-note {
+      background-color: #FFC857;
+      &:hover {
+        background-color: darken(#FFC857, 10%);
+      }
+    }
+
+    &.bg-core {
+      background-color: #31BC81;
+      &:hover {
+        background-color: darken(#31BC81, 10%);
+      }
+    }
+
+    &.bg-stretch {
+      background-color: #4B3F72;
+      &:hover {
+        background-color: darken(#4B3F72, 10%);
+      }
+    }
+
     &.bg-purple {
       background-color: lighten($purple, 20%);
+      &:hover {
+        background-color: darken($purple, 20%);
+      }
+    }
+
+    &.bg-faded {
+      opacity: 0.2;
     }
 
     &.bg-secondary {
