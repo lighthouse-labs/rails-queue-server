@@ -7,7 +7,7 @@
 
   section.activity-details data-uuid=@activity.uuid
 
-    = render 'activities/progress_bar' if @activities && @activity.bootcamp?
+    = render 'activities/progress_bar' if @activities && @activity.bootcamp? && !@workbook
     = render 'activity_title', activity_presenter: activity_presenter
     = render 'actions', activity_presenter: activity_presenter
 

@@ -21,7 +21,7 @@ header.splash {
     }
 
     &.task {
-      background-color: #370031;
+      background-color: #3f4f5f;
     }
 
     &.lecture_plan {
@@ -37,7 +37,7 @@ header.splash {
     }
 
     &.quiz_activity, &.test_activity {
-      background-color: #618B4A;
+      background-color: #99621E;
     }
 
     &.video {
@@ -45,7 +45,7 @@ header.splash {
     }
 
     &.pinned_note, &.note, &.day_info {
-      background-color: #054A29;
+      background-color: darken(#FFC857, 20%);
     }
 
     &.stretch {

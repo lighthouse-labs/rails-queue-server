@@ -13,6 +13,13 @@
       }
     }
 
+    &.bg-lecture {
+      background-color: lighten(#832232, 20%);
+      &:hover {
+        background-color: darken(#832232, 20%);
+      }
+    }
+
     &.bg-core {
       background-color: #31BC81;
       &:hover {
@@ -21,9 +28,9 @@
     }
 
     &.bg-stretch {
-      background-color: #4B3F72;
+      background-color: #6457A6;
       &:hover {
-        background-color: darken(#4B3F72, 10%);
+        background-color: darken(#6457A6, 10%);
       }
     }
 
@@ -36,7 +43,11 @@
 
     &.bg-faded {
       opacity: 0.2;
+      &.bg-active {
+        opacity: 0.7;
+      }
     }
+
 
     &.bg-secondary {
       background-color: #aaa !important;

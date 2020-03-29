@@ -3,16 +3,17 @@
 - current_index = activities.index(@activity)
 div.activity-progress.progress.mb-2 style="height: 1.0rem"
   - activities.each_with_index do |activity, i|
-    - width =  activity.approx_duration ? (activity.approx_duration.to_f / total.to_f * 100).round(1) : 10
+    - duration = [(activity&.approx_duration&.to_f || 15), 15].max
+    - width = (duration / total.to_f * 100).round(1)
     - classes = []
-    - (classes << 'progress-bar-striped') if activity == @activity
+    - (classes << 'progress-bar-striped bg-active') if activity == @activity
     - if activity.completable?
       - classes << (activity.stretch? ? 'bg-stretch' : 'bg-core')
       - (classes << 'bg-faded') unless current_user&.completed_activity?(activity)
     - else
       - if activity.has_lectures?
         - classes << 'bg-lecture'
-      - else 
+      - else
         - classes << 'bg-note'
 
     a.progress-bar href="/#{activity.uuid}" class=classes.join(' ') title=activity.name data-toggle="tooltip" role="progressbar" style="width: #{width}%" aria-valuenow="#{width}" aria-valuemin="0" aria-valuemax="100"
