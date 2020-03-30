@@ -56,6 +56,7 @@ class ZoomMeetings
   rescue StandardError => err
     puts "Error creating zoom"
     puts err
+    Raven.capture_exception(err)
     { error: { message: 'internal server error', details: err } }
   end
 
