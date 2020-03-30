@@ -155,12 +155,14 @@ ActiveRecord::Schema.define(version: 20200324182802) do
     t.integer  "assistee_id"
     t.integer  "rating"
     t.text     "student_notes"
-    t.boolean  "imported",      default: false
+    t.boolean  "imported",        default: false
     t.integer  "activity_id"
     t.integer  "cohort_id"
     t.string   "day"
     t.boolean  "flag"
     t.integer  "secs_in_queue"
+    t.string   "conference_link"
+    t.string   "conference_type"
     t.index ["activity_id"], name: "index_assistances_on_activity_id", using: :btree
     t.index ["assistee_id"], name: "index_assistances_on_assistee_id", using: :btree
     t.index ["assistor_id"], name: "index_assistances_on_assistor_id", using: :btree
@@ -481,6 +483,8 @@ ActiveRecord::Schema.define(version: 20200324182802) do
     t.string   "prep_assistance_url"
     t.boolean  "has_programming_tests"
     t.boolean  "has_zoom_conferences"
+    t.boolean  "has_assistance_hangouts"
+    t.jsonb    "settings"
   end
 
   create_table "questions", force: :cascade do |t|

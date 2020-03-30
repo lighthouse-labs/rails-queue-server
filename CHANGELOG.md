@@ -1,17 +1,22 @@
-# Change Log
+# Changelog
 
-## [Unreleased](https://github.com/lighthouse-labs/compass/tree/HEAD)
+## [2020.03.26.0400u](https://github.com/lighthouse-labs/compass/tree/2020.03.26.0400u) (2020-03-25)
 
-[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.02.26.2030u...HEAD)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.02.26.2030u...2020.03.26.0400u)
 
 **Merged pull requests:**
 
+- Hangouts creation for Assistance Requests [\#1038](https://github.com/lighthouse-labs/compass/pull/1038) ([tborsa](https://github.com/tborsa))
+- add playback speed options to exercise video player [\#1037](https://github.com/lighthouse-labs/compass/pull/1037) ([DraconianLore](https://github.com/DraconianLore))
+- Show flagged Assistance Requests in Admin/teacher views [\#1034](https://github.com/lighthouse-labs/compass/pull/1034) ([DraconianLore](https://github.com/DraconianLore))
 - Hotfix updating of cohorts causing them to get \(soft\)deleted [\#1032](https://github.com/lighthouse-labs/compass/pull/1032) ([kvirani](https://github.com/kvirani))
 
 ## [2020.02.26.2030u](https://github.com/lighthouse-labs/compass/tree/2020.02.26.2030u) (2020-02-22)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.02.22.2015u...2020.02.26.2030u)
 
 ## [2020.02.22.2015u](https://github.com/lighthouse-labs/compass/tree/2020.02.22.2015u) (2020-02-22)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.01.22.2215u...2020.02.22.2015u)
 
 **Merged pull requests:**
@@ -27,6 +32,7 @@
 - Hotfix new "divide by 0" server \(500\) error and other edge cases [\#1011](https://github.com/lighthouse-labs/compass/pull/1011) ([kvirani](https://github.com/kvirani))
 
 ## [2020.01.22.2215u](https://github.com/lighthouse-labs/compass/tree/2020.01.22.2215u) (2020-01-22)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020-01-13-0330u...2020.01.22.2215u)
 
 **Merged pull requests:**
@@ -38,20 +44,25 @@
 - HotFix: Fix 500 error when impersonating prep-only student [\#998](https://github.com/lighthouse-labs/compass/pull/998) ([kvirani](https://github.com/kvirani))
 
 ## [2020-01-13-0330u](https://github.com/lighthouse-labs/compass/tree/2020-01-13-0330u) (2020-01-13)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.01.02.2000u...2020-01-13-0330u)
+
+**Fixed bugs:**
+
+- Show loading indicator in Summary Table when fetching data from proctor [\#992](https://github.com/lighthouse-labs/compass/pull/992) ([daegren](https://github.com/daegren))
+- Add support for SQL syntax highlighting [\#991](https://github.com/lighthouse-labs/compass/pull/991) ([daegren](https://github.com/daegren))
+- Make the "back to dashboard" link more verbose [\#990](https://github.com/lighthouse-labs/compass/pull/990) ([daegren](https://github.com/daegren))
 
 **Merged pull requests:**
 
 - Fix for fact that not all compass instances have programming tests [\#997](https://github.com/lighthouse-labs/compass/pull/997) ([kvirani](https://github.com/kvirani))
-- Show loading indicator in Summary Table when fetching data from proctor [\#992](https://github.com/lighthouse-labs/compass/pull/992) ([daegren](https://github.com/daegren))
-- Add support for SQL syntax highlighting [\#991](https://github.com/lighthouse-labs/compass/pull/991) ([daegren](https://github.com/daegren))
-- Make the "back to dashboard" link more verbose [\#990](https://github.com/lighthouse-labs/compass/pull/990) ([daegren](https://github.com/daegren))
 - Added average time spent, and removed N/A's from activity details [\#981](https://github.com/lighthouse-labs/compass/pull/981) ([tborsa](https://github.com/tborsa))
 - 937 sorted activities submission list [\#980](https://github.com/lighthouse-labs/compass/pull/980) ([tborsa](https://github.com/tborsa))
 - Prep assistance button dynamic for different programs [\#968](https://github.com/lighthouse-labs/compass/pull/968) ([tborsa](https://github.com/tborsa))
 - rephrased feedback question [\#959](https://github.com/lighthouse-labs/compass/pull/959) ([hafbau](https://github.com/hafbau))
 
 ## [2020.01.02.2000u](https://github.com/lighthouse-labs/compass/tree/2020.01.02.2000u) (2020-01-02)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.01.02.1630u...2020.01.02.2000u)
 
 **Merged pull requests:**
@@ -59,6 +70,7 @@
 - For cohorts older than Jan 1st, 2020 show a link to the old deprecated dashboard [\#985](https://github.com/lighthouse-labs/compass/pull/985) ([daegren](https://github.com/daegren))
 
 ## [2020.01.02.1630u](https://github.com/lighthouse-labs/compass/tree/2020.01.02.1630u) (2020-01-02)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.19.2130u...2020.01.02.1630u)
 
 **Merged pull requests:**
@@ -68,6 +80,7 @@
 - Compass & Proctor Integration [\#963](https://github.com/lighthouse-labs/compass/pull/963) ([daegren](https://github.com/daegren))
 
 ## [2019.10.19.2130u](https://github.com/lighthouse-labs/compass/tree/2019.10.19.2130u) (2019-12-18)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.27.2145u...2019.10.19.2130u)
 
 **Merged pull requests:**
@@ -82,6 +95,7 @@
 - Programming Tests [\#932](https://github.com/lighthouse-labs/compass/pull/932) ([daegren](https://github.com/daegren))
 
 ## [2019.10.27.2145u](https://github.com/lighthouse-labs/compass/tree/2019.10.27.2145u) (2019-10-27)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.16.2200u...2019.10.27.2145u)
 
 **Merged pull requests:**
@@ -91,6 +105,7 @@
 - 939 career service activity flag [\#953](https://github.com/lighthouse-labs/compass/pull/953) ([tborsa](https://github.com/tborsa))
 
 ## [2019.10.16.2200u](https://github.com/lighthouse-labs/compass/tree/2019.10.16.2200u) (2019-10-16)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.11.1930u...2019.10.16.2200u)
 
 **Merged pull requests:**
@@ -101,6 +116,7 @@
 - Added quiz percentage to teacher activities show [\#943](https://github.com/lighthouse-labs/compass/pull/943) ([tborsa](https://github.com/tborsa))
 
 ## [2019.10.11.1930u](https://github.com/lighthouse-labs/compass/tree/2019.10.11.1930u) (2019-10-11)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.10.02.1700u...2019.10.11.1930u)
 
 **Merged pull requests:**
@@ -111,6 +127,7 @@
 - Improve project eval UI \(tables and details\) [\#927](https://github.com/lighthouse-labs/compass/pull/927) ([tborsa](https://github.com/tborsa))
 
 ## [2019.10.02.1700u](https://github.com/lighthouse-labs/compass/tree/2019.10.02.1700u) (2019-10-02)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.09.23.1500u...2019.10.02.1700u)
 
 **Merged pull requests:**
@@ -120,6 +137,7 @@
 - Reverse Transition - Phase 2 - Remove Unneeded Columns [\#931](https://github.com/lighthouse-labs/compass/pull/931) ([jmatsuba](https://github.com/jmatsuba))
 
 ## [2019.09.23.1500u](https://github.com/lighthouse-labs/compass/tree/2019.09.23.1500u) (2019-09-19)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.09.09.1140u...2019.09.23.1500u)
 
 **Merged pull requests:**
@@ -129,6 +147,7 @@
 - Fix \#920 Added pagination to teachers page [\#923](https://github.com/lighthouse-labs/compass/pull/923) ([tborsa](https://github.com/tborsa))
 
 ## [2019.09.09.1140u](https://github.com/lighthouse-labs/compass/tree/2019.09.09.1140u) (2019-09-06)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.28.1030...2019.09.09.1140u)
 
 **Merged pull requests:**
@@ -141,33 +160,31 @@
 - Hardcoding in all the proctored exams [\#912](https://github.com/lighthouse-labs/compass/pull/912) ([daegren](https://github.com/daegren))
 - Add CSV API Endpoint for Tech interviews \(data analysis\) [\#911](https://github.com/lighthouse-labs/compass/pull/911) ([JBorts](https://github.com/JBorts))
 - Fix \#815: don't break grid by overriding max-width [\#909](https://github.com/lighthouse-labs/compass/pull/909) ([vaz](https://github.com/vaz))
-- Support for Username/Password \(OmniAuth Identity\) [\#908](https://github.com/lighthouse-labs/compass/pull/908) ([JBorts](https://github.com/JBorts))
-- Week 4-5 Archive Blacklist [\#903](https://github.com/lighthouse-labs/compass/pull/903) ([jmatsuba](https://github.com/jmatsuba))
 - Activity Time Spent Importer Fix [\#880](https://github.com/lighthouse-labs/compass/pull/880) ([jmatsuba](https://github.com/jmatsuba))
 
 ## [2019.06.28.1030](https://github.com/lighthouse-labs/compass/tree/2019.06.28.1030) (2019-06-28)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/transition-stable...2019.06.28.1030)
 
-**Merged pull requests:**
+**Fixed bugs:**
 
 - Minor TI UI improvements / fixes [\#899](https://github.com/lighthouse-labs/compass/pull/899) ([kvirani](https://github.com/kvirani))
-- Activity Search Fix - Transition [\#897](https://github.com/lighthouse-labs/compass/pull/897) ([jmatsuba](https://github.com/jmatsuba))
-- start\_day and end\_day Need a cohort on the transition branch [\#896](https://github.com/lighthouse-labs/compass/pull/896) ([jmatsuba](https://github.com/jmatsuba))
 - Fix placeholder bug in new interactive question textarea [\#893](https://github.com/lighthouse-labs/compass/pull/893) ([kvirani](https://github.com/kvirani))
-- Support for togglable answers where an answer is prompted first [\#892](https://github.com/lighthouse-labs/compass/pull/892) ([kvirani](https://github.com/kvirani))
-- Project background image support [\#891](https://github.com/lighthouse-labs/compass/pull/891) ([kvirani](https://github.com/kvirani))
-- Updated Calls to Quiz.day [\#890](https://github.com/lighthouse-labs/compass/pull/890) ([jmatsuba](https://github.com/jmatsuba))
-- Transition Stretch Bug Fix [\#888](https://github.com/lighthouse-labs/compass/pull/888) ([jmatsuba](https://github.com/jmatsuba))
 
 ## [transition-stable](https://github.com/lighthouse-labs/compass/tree/transition-stable) (2019-06-20)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.16.0945...transition-stable)
 
 **Merged pull requests:**
 
+- Support for togglable answers where an answer is prompted first [\#892](https://github.com/lighthouse-labs/compass/pull/892) ([kvirani](https://github.com/kvirani))
+- Project background image support [\#891](https://github.com/lighthouse-labs/compass/pull/891) ([kvirani](https://github.com/kvirani))
+- Updated Calls to Quiz.day [\#890](https://github.com/lighthouse-labs/compass/pull/890) ([jmatsuba](https://github.com/jmatsuba))
 - 10 wk Archive Blacklist \(weeks 1-3\) [\#886](https://github.com/lighthouse-labs/compass/pull/886) ([jmatsuba](https://github.com/jmatsuba))
 - Only request read access to user profile [\#885](https://github.com/lighthouse-labs/compass/pull/885) ([kvirani](https://github.com/kvirani))
 
 ## [2019.06.16.0945](https://github.com/lighthouse-labs/compass/tree/2019.06.16.0945) (2019-06-16)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.10.2345...2019.06.16.0945)
 
 **Merged pull requests:**
@@ -175,6 +192,7 @@
 - Activities\#show UI tweaks for Teachers [\#884](https://github.com/lighthouse-labs/compass/pull/884) ([kvirani](https://github.com/kvirani))
 
 ## [2019.06.10.2345](https://github.com/lighthouse-labs/compass/tree/2019.06.10.2345) (2019-06-11)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.03.1630...2019.06.10.2345)
 
 **Merged pull requests:**
@@ -182,6 +200,7 @@
 - Activity title background [\#883](https://github.com/lighthouse-labs/compass/pull/883) ([kvirani](https://github.com/kvirani))
 
 ## [2019.06.03.1630](https://github.com/lighthouse-labs/compass/tree/2019.06.03.1630) (2019-06-03)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.02.1030...2019.06.03.1630)
 
 **Merged pull requests:**
@@ -190,6 +209,7 @@
 - Add return to evaluations controller add\_where\_clause [\#878](https://github.com/lighthouse-labs/compass/pull/878) ([JBorts](https://github.com/JBorts))
 
 ## [2019.06.02.1030](https://github.com/lighthouse-labs/compass/tree/2019.06.02.1030) (2019-06-02)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.05.29.1230...2019.06.02.1030)
 
 **Merged pull requests:**
@@ -198,6 +218,7 @@
 - Mocha tests now support block level scoped function definitions [\#875](https://github.com/lighthouse-labs/compass/pull/875) ([kvirani](https://github.com/kvirani))
 
 ## [2019.05.29.1230](https://github.com/lighthouse-labs/compass/tree/2019.05.29.1230) (2019-05-29)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.05.26.1600...2019.05.29.1230)
 
 **Merged pull requests:**
@@ -206,6 +227,7 @@
 - Fixing missing font-awesome icons [\#872](https://github.com/lighthouse-labs/compass/pull/872) ([daegren](https://github.com/daegren))
 
 ## [2019.05.26.1600](https://github.com/lighthouse-labs/compass/tree/2019.05.26.1600) (2019-05-26)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.05.13.1715...2019.05.26.1600)
 
 **Merged pull requests:**
@@ -221,6 +243,7 @@
 - Migrate evaluations csv to new filtered field mapping model [\#857](https://github.com/lighthouse-labs/compass/pull/857) ([JBorts](https://github.com/JBorts))
 
 ## [2019.05.13.1715](https://github.com/lighthouse-labs/compass/tree/2019.05.13.1715) (2019-05-14)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.05.13.1400...2019.05.13.1715)
 
 **Merged pull requests:**
@@ -228,6 +251,7 @@
 - Fix evaluations csv [\#856](https://github.com/lighthouse-labs/compass/pull/856) ([JBorts](https://github.com/JBorts))
 
 ## [2019.05.13.1400](https://github.com/lighthouse-labs/compass/tree/2019.05.13.1400) (2019-05-13)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.25.1030...2019.05.13.1400)
 
 **Merged pull requests:**
@@ -236,6 +260,7 @@
 - updating prism to latest, and including react syntax highlighting [\#852](https://github.com/lighthouse-labs/compass/pull/852) ([daegren](https://github.com/daegren))
 
 ## [2019.04.25.1030](https://github.com/lighthouse-labs/compass/tree/2019.04.25.1030) (2019-04-25)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.23.2130...2019.04.25.1030)
 
 **Merged pull requests:**
@@ -243,6 +268,7 @@
 - Changes includes to joins in Feedback scopes [\#851](https://github.com/lighthouse-labs/compass/pull/851) ([JBorts](https://github.com/JBorts))
 
 ## [2019.04.23.2130](https://github.com/lighthouse-labs/compass/tree/2019.04.23.2130) (2019-04-24)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.04.21.1215...2019.04.23.2130)
 
 **Merged pull requests:**
@@ -251,6 +277,7 @@
 - Allowing CSV endpoint to select which fields it wants [\#847](https://github.com/lighthouse-labs/compass/pull/847) ([JBorts](https://github.com/JBorts))
 
 ## [2019.04.21.1215](https://github.com/lighthouse-labs/compass/tree/2019.04.21.1215) (2019-04-21)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.03.06.1630...2019.04.21.1215)
 
 **Merged pull requests:**
@@ -259,6 +286,7 @@
 - Allow code evaluation linter to support ES6 code [\#843](https://github.com/lighthouse-labs/compass/pull/843) ([daegren](https://github.com/daegren))
 
 ## [2019.03.06.1630](https://github.com/lighthouse-labs/compass/tree/2019.03.06.1630) (2019-03-07)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.17.1715...2019.03.06.1630)
 
 **Merged pull requests:**
@@ -267,6 +295,7 @@
 - New Feature for GitHub Education pack [\#839](https://github.com/lighthouse-labs/compass/pull/839) ([kvirani](https://github.com/kvirani))
 
 ## [2019.01.17.1715](https://github.com/lighthouse-labs/compass/tree/2019.01.17.1715) (2019-01-18)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.10.1145...2019.01.17.1715)
 
 **Merged pull requests:**
@@ -275,6 +304,7 @@
 - Create a CSV end point where assistance requests and feedbacks can be loaded into Google Sheets [\#741](https://github.com/lighthouse-labs/compass/pull/741) ([JBorts](https://github.com/JBorts))
 
 ## [2019.01.10.1145](https://github.com/lighthouse-labs/compass/tree/2019.01.10.1145) (2019-01-08)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.01.04.1700...2019.01.10.1145)
 
 **Merged pull requests:**
@@ -285,6 +315,7 @@
 - Fix 500 error with admin/curriculum\_feedbacks CSV download [\#814](https://github.com/lighthouse-labs/compass/pull/814) ([kvirani](https://github.com/kvirani))
 
 ## [2019.01.04.1700](https://github.com/lighthouse-labs/compass/tree/2019.01.04.1700) (2019-01-05)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.15.1345...2019.01.04.1700)
 
 **Merged pull requests:**
@@ -295,6 +326,7 @@
 - Moved teacher invite code to programs model [\#809](https://github.com/lighthouse-labs/compass/pull/809) ([kvirani](https://github.com/kvirani))
 
 ## [2018.12.15.1345](https://github.com/lighthouse-labs/compass/tree/2018.12.15.1345) (2018-12-15)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.12.1830...2018.12.15.1345)
 
 **Merged pull requests:**
@@ -302,6 +334,7 @@
 - New Activity feedback UI and UX for students \*and\* teachers! w00t [\#808](https://github.com/lighthouse-labs/compass/pull/808) ([kvirani](https://github.com/kvirani))
 
 ## [2018.12.12.1830](https://github.com/lighthouse-labs/compass/tree/2018.12.12.1830) (2018-12-13)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.08.1945...2018.12.12.1830)
 
 **Merged pull requests:**
@@ -309,6 +342,7 @@
 - Various queue 2.0 patches [\#807](https://github.com/lighthouse-labs/compass/pull/807) ([kvirani](https://github.com/kvirani))
 
 ## [2018.12.08.1945](https://github.com/lighthouse-labs/compass/tree/2018.12.08.1945) (2018-12-09)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.08.1800...2018.12.08.1945)
 
 **Merged pull requests:**
@@ -316,6 +350,7 @@
 - Improve and refactor top nav [\#804](https://github.com/lighthouse-labs/compass/pull/804) ([kvirani](https://github.com/kvirani))
 
 ## [2018.12.08.1800](https://github.com/lighthouse-labs/compass/tree/2018.12.08.1800) (2018-12-09)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.12.08.0815...2018.12.08.1800)
 
 **Merged pull requests:**
@@ -323,6 +358,7 @@
 - Improve responsiveness on xs breakpoint for days\#show [\#803](https://github.com/lighthouse-labs/compass/pull/803) ([kvirani](https://github.com/kvirani))
 
 ## [2018.12.08.0815](https://github.com/lighthouse-labs/compass/tree/2018.12.08.0815) (2018-12-08)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.11.15.1645...2018.12.08.0815)
 
 **Merged pull requests:**
@@ -330,6 +366,7 @@
 - New Assistance Request Queue \(rebuilt\) [\#802](https://github.com/lighthouse-labs/compass/pull/802) ([kvirani](https://github.com/kvirani))
 
 ## [2018.11.15.1645](https://github.com/lighthouse-labs/compass/tree/2018.11.15.1645) (2018-11-16)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.10.17.0715...2018.11.15.1645)
 
 **Merged pull requests:**
@@ -339,6 +376,7 @@
 - Fix issue with latest release where student could not resubmit project [\#793](https://github.com/lighthouse-labs/compass/pull/793) ([kvirani](https://github.com/kvirani))
 
 ## [2018.10.17.0715](https://github.com/lighthouse-labs/compass/tree/2018.10.17.0715) (2018-10-17)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.10.14.1645...2018.10.17.0715)
 
 **Merged pull requests:**
@@ -347,6 +385,7 @@
 - Side nav logic drastically changed [\#791](https://github.com/lighthouse-labs/compass/pull/791) ([kvirani](https://github.com/kvirani))
 
 ## [2018.10.14.1645](https://github.com/lighthouse-labs/compass/tree/2018.10.14.1645) (2018-10-14)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.09.27.1800...2018.10.14.1645)
 
 **Merged pull requests:**
@@ -354,6 +393,7 @@
 - Layout / responsiveness improvements [\#789](https://github.com/lighthouse-labs/compass/pull/789) ([kvirani](https://github.com/kvirani))
 
 ## [2018.09.27.1800](https://github.com/lighthouse-labs/compass/tree/2018.09.27.1800) (2018-09-28)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.30.1615...2018.09.27.1800)
 
 **Merged pull requests:**
@@ -363,6 +403,7 @@
 - Fix next/prev buttons; 2 birds! [\#782](https://github.com/lighthouse-labs/compass/pull/782) ([kvirani](https://github.com/kvirani))
 
 ## [2018.08.30.1615](https://github.com/lighthouse-labs/compass/tree/2018.08.30.1615) (2018-08-30)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.30.1015...2018.08.30.1615)
 
 **Merged pull requests:**
@@ -370,6 +411,7 @@
 - 746 s3 videos [\#773](https://github.com/lighthouse-labs/compass/pull/773) ([kvirani](https://github.com/kvirani))
 
 ## [2017.08.30.1015](https://github.com/lighthouse-labs/compass/tree/2017.08.30.1015) (2018-08-30)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.25.1030...2017.08.30.1015)
 
 **Merged pull requests:**
@@ -377,6 +419,7 @@
 - UI UPDATE: New Prep Course Side Nav [\#754](https://github.com/lighthouse-labs/compass/pull/754) ([JoelCodes](https://github.com/JoelCodes))
 
 ## [2018.08.25.1030](https://github.com/lighthouse-labs/compass/tree/2018.08.25.1030) (2018-08-25)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.22.1715...2018.08.25.1030)
 
 **Merged pull requests:**
@@ -386,6 +429,7 @@
 - Fix Filter to Search Lectures With Video [\#761](https://github.com/lighthouse-labs/compass/pull/761) ([krsnachandra](https://github.com/krsnachandra))
 
 ## [2018.08.22.1715](https://github.com/lighthouse-labs/compass/tree/2018.08.22.1715) (2018-08-23)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.20.1845...2018.08.22.1715)
 
 **Merged pull requests:**
@@ -395,6 +439,7 @@
 - Easy performance improvements \(part 1\) [\#764](https://github.com/lighthouse-labs/compass/pull/764) ([kvirani](https://github.com/kvirani))
 
 ## [2018.08.20.1845](https://github.com/lighthouse-labs/compass/tree/2018.08.20.1845) (2018-08-21)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.08.01.1630...2018.08.20.1845)
 
 **Merged pull requests:**
@@ -407,6 +452,7 @@
 - Lecture Search Feature [\#699](https://github.com/lighthouse-labs/compass/pull/699) ([krsnachandra](https://github.com/krsnachandra))
 
 ## [2018.08.01.1630](https://github.com/lighthouse-labs/compass/tree/2018.08.01.1630) (2018-08-01)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.07.30.2115...2018.08.01.1630)
 
 **Merged pull requests:**
@@ -415,6 +461,7 @@
 - Fix Undefined Name Sentry Error [\#734](https://github.com/lighthouse-labs/compass/pull/734) ([krsnachandra](https://github.com/krsnachandra))
 
 ## [2018.07.30.2115](https://github.com/lighthouse-labs/compass/tree/2018.07.30.2115) (2018-07-30)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.07.23.1530...2018.07.30.2115)
 
 **Merged pull requests:**
@@ -432,6 +479,7 @@
 - Streamline the UI / UX of lecture recordings & notes \(for students AND teachers\) [\#651](https://github.com/lighthouse-labs/compass/pull/651) ([kvirani](https://github.com/kvirani))
 
 ## [2018.07.23.1530](https://github.com/lighthouse-labs/compass/tree/2018.07.23.1530) (2018-07-23)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.06.13.1345...2018.07.23.1530)
 
 **Merged pull requests:**
@@ -452,6 +500,7 @@
 - Weekly Digest of Negative Curriculum Feedback [\#649](https://github.com/lighthouse-labs/compass/pull/649) ([krsnachandra](https://github.com/krsnachandra))
 
 ## [2018.06.13.1345](https://github.com/lighthouse-labs/compass/tree/2018.06.13.1345) (2018-06-13)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.06.06.1615...2018.06.13.1345)
 
 **Merged pull requests:**
@@ -464,6 +513,7 @@
 - Admissions Can Enrol a Student in a Cohort [\#620](https://github.com/lighthouse-labs/compass/pull/620) ([krsnachandra](https://github.com/krsnachandra))
 
 ## [2018.06.06.1615](https://github.com/lighthouse-labs/compass/tree/2018.06.06.1615) (2018-06-06)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.06.02.1730...2018.06.06.1615)
 
 **Merged pull requests:**
@@ -471,6 +521,7 @@
 - Student Feedback Submission Fixed [\#664](https://github.com/lighthouse-labs/compass/pull/664) ([krsnachandra](https://github.com/krsnachandra))
 
 ## [2018.06.02.1730](https://github.com/lighthouse-labs/compass/tree/2018.06.02.1730) (2018-06-03)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.18.0800...2018.06.02.1730)
 
 **Merged pull requests:**
@@ -484,6 +535,7 @@
 - Activity Feedback Ducks Now Labelled [\#637](https://github.com/lighthouse-labs/compass/pull/637) ([krsnachandra](https://github.com/krsnachandra))
 
 ## [2018.05.18.0800](https://github.com/lighthouse-labs/compass/tree/2018.05.18.0800) (2018-05-18)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.17.0710...2018.05.18.0800)
 
 **Merged pull requests:**
@@ -496,6 +548,7 @@
 - Assistances Show on Student Profile \(Teacher View\) [\#598](https://github.com/lighthouse-labs/compass/pull/598) ([krsnachandra](https://github.com/krsnachandra))
 
 ## [2018.05.17.0710](https://github.com/lighthouse-labs/compass/tree/2018.05.17.0710) (2018-05-16)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.09.0715...2018.05.17.0710)
 
 **Merged pull requests:**
@@ -504,6 +557,7 @@
 - hotfix for turbolinks in the code that I moved around [\#634](https://github.com/lighthouse-labs/compass/pull/634) ([kvirani](https://github.com/kvirani))
 
 ## [2018.05.09.0715](https://github.com/lighthouse-labs/compass/tree/2018.05.09.0715) (2018-05-07)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.05.03.0730...2018.05.09.0715)
 
 **Merged pull requests:**
@@ -513,6 +567,7 @@
 - The site feels faster [\#615](https://github.com/lighthouse-labs/compass/pull/615) ([kvirani](https://github.com/kvirani))
 
 ## [2018.05.03.0730](https://github.com/lighthouse-labs/compass/tree/2018.05.03.0730) (2018-05-01)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.04.17.0745...2018.05.03.0730)
 
 **Merged pull requests:**
@@ -523,6 +578,7 @@
 - Satellite Cohorts Can Request Assistance From Local Mentors [\#594](https://github.com/lighthouse-labs/compass/pull/594) ([krsnachandra](https://github.com/krsnachandra))
 
 ## [2018.04.17.0745](https://github.com/lighthouse-labs/compass/tree/2018.04.17.0745) (2018-04-17)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.04.09.1515...2018.04.17.0745)
 
 **Merged pull requests:**
@@ -534,6 +590,7 @@
 - Accidentally found a bug in the error condition [\#590](https://github.com/lighthouse-labs/compass/pull/590) ([kvirani](https://github.com/kvirani))
 
 ## [2018.04.09.1515](https://github.com/lighthouse-labs/compass/tree/2018.04.09.1515) (2018-04-09)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.03.14.1345...2018.04.09.1515)
 
 **Merged pull requests:**
@@ -552,6 +609,7 @@
 - Stretch Note is Now Customized for Prep or Bootcamp Exercises [\#573](https://github.com/lighthouse-labs/compass/pull/573) ([krsnachandra](https://github.com/krsnachandra))
 
 ## [2018.03.14.1345](https://github.com/lighthouse-labs/compass/tree/2018.03.14.1345) (2018-03-14)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.03.13.0645...2018.03.14.1345)
 
 **Merged pull requests:**
@@ -562,6 +620,7 @@
 - Add Created and Updated Fields to Activities Edit Page [\#567](https://github.com/lighthouse-labs/compass/pull/567) ([krsnachandra](https://github.com/krsnachandra))
 
 ## [2018.03.13.0645](https://github.com/lighthouse-labs/compass/tree/2018.03.13.0645) (2018-03-13)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.03.08.1345...2018.03.13.0645)
 
 **Merged pull requests:**
@@ -572,6 +631,7 @@
 - Add Stats to Admin Assistances [\#546](https://github.com/lighthouse-labs/compass/pull/546) ([ahache](https://github.com/ahache))
 
 ## [2018.03.08.1345](https://github.com/lighthouse-labs/compass/tree/2018.03.08.1345) (2018-03-08)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.02.27.0900...2018.03.08.1345)
 
 **Merged pull requests:**
@@ -582,6 +642,7 @@
 - Unlock Curriculum at 8pm on Sunday [\#545](https://github.com/lighthouse-labs/compass/pull/545) ([ahache](https://github.com/ahache))
 
 ## [2018.02.27.0900](https://github.com/lighthouse-labs/compass/tree/2018.02.27.0900) (2018-02-26)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.02.21.1330...2018.02.27.0900)
 
 **Merged pull requests:**
@@ -590,7 +651,12 @@
 - Restore Feedback Modal for Prep Code Submission Activities [\#543](https://github.com/lighthouse-labs/compass/pull/543) ([ahache](https://github.com/ahache))
 
 ## [2018.02.21.1330](https://github.com/lighthouse-labs/compass/tree/2018.02.21.1330) (2018-02-21)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.02.06.1145...2018.02.21.1330)
+
+**Fixed bugs:**
+
+- Fixed 2 Admin sections were open to anyone \(security issue\) [\#534](https://github.com/lighthouse-labs/compass/pull/534) ([kvirani](https://github.com/kvirani))
 
 **Merged pull requests:**
 
@@ -598,9 +664,9 @@
 - Replace all mentions of `compass.dev` with `compass.local` [\#541](https://github.com/lighthouse-labs/compass/pull/541) ([daegren](https://github.com/daegren))
 - HTTP to HTTPS in YouTube Recording iframe  [\#540](https://github.com/lighthouse-labs/compass/pull/540) ([ahache](https://github.com/ahache))
 - Compass UI: Removed Flat UI and Upgraded to Bootstrap 4 [\#537](https://github.com/lighthouse-labs/compass/pull/537) ([jmatsuba](https://github.com/jmatsuba))
-- Fixed 2 Admin sections were open to anyone \(security issue\) [\#534](https://github.com/lighthouse-labs/compass/pull/534) ([kvirani](https://github.com/kvirani))
 
 ## [2018.02.06.1145](https://github.com/lighthouse-labs/compass/tree/2018.02.06.1145) (2018-02-06)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.01.29.1130...2018.02.06.1145)
 
 **Merged pull requests:**
@@ -610,6 +676,7 @@
 - Auto Archive Deleted Curriculum Data on Deploy [\#433](https://github.com/lighthouse-labs/compass/pull/433) ([ahache](https://github.com/ahache))
 
 ## [2018.01.29.1130](https://github.com/lighthouse-labs/compass/tree/2018.01.29.1130) (2018-01-29)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2018.01.22.0930...2018.01.29.1130)
 
 **Merged pull requests:**
@@ -624,6 +691,7 @@
 - Update ruby and rails to latest minor versions [\#463](https://github.com/lighthouse-labs/compass/pull/463) ([kvirani](https://github.com/kvirani))
 
 ## [2018.01.22.0930](https://github.com/lighthouse-labs/compass/tree/2018.01.22.0930) (2018-01-19)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.12.19.1530...2018.01.22.0930)
 
 **Merged pull requests:**
@@ -648,6 +716,7 @@
 - Update Compass Icon Link for Prep Users [\#440](https://github.com/lighthouse-labs/compass/pull/440) ([ahache](https://github.com/ahache))
 
 ## [2017.12.19.1530](https://github.com/lighthouse-labs/compass/tree/2017.12.19.1530) (2017-12-19)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.12.14.0930...2017.12.19.1530)
 
 **Merged pull requests:**
@@ -657,6 +726,7 @@
 - Reorder Project Evaluations Based on Due Date and Student Strength [\#455](https://github.com/lighthouse-labs/compass/pull/455) ([ahache](https://github.com/ahache))
 
 ## [2017.12.14.0930](https://github.com/lighthouse-labs/compass/tree/2017.12.14.0930) (2017-12-14)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.11.24.1300...2017.12.14.0930)
 
 **Merged pull requests:**
@@ -671,6 +741,7 @@
 - 10 Weeks - Support Holiday Breaks in Cohort [\#398](https://github.com/lighthouse-labs/compass/pull/398) ([jmatsuba](https://github.com/jmatsuba))
 
 ## [2017.11.24.1300](https://github.com/lighthouse-labs/compass/tree/2017.11.24.1300) (2017-11-24)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.11.20.1330...2017.11.24.1300)
 
 **Merged pull requests:**
@@ -683,6 +754,7 @@
 - Additional Seed Data Added [\#385](https://github.com/lighthouse-labs/compass/pull/385) ([ahache](https://github.com/ahache))
 
 ## [2017.11.20.1330](https://github.com/lighthouse-labs/compass/tree/2017.11.20.1330) (2017-11-20)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.11.14.1530...2017.11.20.1330)
 
 **Merged pull requests:**
@@ -692,6 +764,7 @@
 - Adds Slack Posts on Deploy Failure  [\#421](https://github.com/lighthouse-labs/compass/pull/421) ([jmatsuba](https://github.com/jmatsuba))
 
 ## [2017.11.14.1530](https://github.com/lighthouse-labs/compass/tree/2017.11.14.1530) (2017-11-10)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.10.27.0915...2017.11.14.1530)
 
 **Merged pull requests:**
@@ -704,6 +777,7 @@
 - Mark Activity Complete UI and User Flow Change [\#376](https://github.com/lighthouse-labs/compass/pull/376) ([ahache](https://github.com/ahache))
 
 ## [2017.10.27.0915](https://github.com/lighthouse-labs/compass/tree/2017.10.27.0915) (2017-10-26)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.09.26.0915...2017.10.27.0915)
 
 **Merged pull requests:**
@@ -721,7 +795,12 @@
 - Admin Users\#Index Names Now Link to Profiles [\#369](https://github.com/lighthouse-labs/compass/pull/369) ([ahache](https://github.com/ahache))
 
 ## [2017.09.26.0915](https://github.com/lighthouse-labs/compass/tree/2017.09.26.0915) (2017-09-25)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.29.0645...2017.09.26.0915)
+
+**Fixed bugs:**
+
+- Replaced Regex in /routes.rb to Accommodate UUID v1 [\#349](https://github.com/lighthouse-labs/compass/pull/349) ([wesley-wong](https://github.com/wesley-wong))
 
 **Merged pull requests:**
 
@@ -729,9 +808,9 @@
 - Admins can now Impersonate non admins [\#359](https://github.com/lighthouse-labs/compass/pull/359) ([wesley-wong](https://github.com/wesley-wong))
 - Revert regex change in cohort model, change faker code in cohort factory [\#357](https://github.com/lighthouse-labs/compass/pull/357) ([wesley-wong](https://github.com/wesley-wong))
 - Activity search now searches through :instructions column [\#353](https://github.com/lighthouse-labs/compass/pull/353) ([wesley-wong](https://github.com/wesley-wong))
-- Replaced Regex in /routes.rb to Accommodate UUID v1 [\#349](https://github.com/lighthouse-labs/compass/pull/349) ([wesley-wong](https://github.com/wesley-wong))
 
 ## [2017.08.29.0645](https://github.com/lighthouse-labs/compass/tree/2017.08.29.0645) (2017-08-28)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.10.1100...2017.08.29.0645)
 
 **Merged pull requests:**
@@ -747,6 +826,7 @@
 - Project Evaluations UI/UX Improvements [\#296](https://github.com/lighthouse-labs/compass/pull/296) ([wesley-wong](https://github.com/wesley-wong))
 
 ## [2017.08.10.1100](https://github.com/lighthouse-labs/compass/tree/2017.08.10.1100) (2017-08-09)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.08.02.1130...2017.08.10.1100)
 
 **Merged pull requests:**
@@ -759,6 +839,7 @@
 - Assistances index for Admins [\#246](https://github.com/lighthouse-labs/compass/pull/246) ([wesley-wong](https://github.com/wesley-wong))
 
 ## [2017.08.02.1130](https://github.com/lighthouse-labs/compass/tree/2017.08.02.1130) (2017-08-01)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.25.1030...2017.08.02.1130)
 
 **Merged pull requests:**
@@ -769,6 +850,7 @@
 - RSpec Testing [\#279](https://github.com/lighthouse-labs/compass/pull/279) ([wesley-wong](https://github.com/wesley-wong))
 
 ## [2017.07.25.1030](https://github.com/lighthouse-labs/compass/tree/2017.07.25.1030) (2017-07-24)
+
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.17.1500...2017.07.25.1030)
 
 **Merged pull requests:**
@@ -778,20 +860,6 @@
 - Incomplete activities now exclude [\#298](https://github.com/lighthouse-labs/compass/pull/298) ([wesley-wong](https://github.com/wesley-wong))
 - Incomplete activities fix, footer fix [\#295](https://github.com/lighthouse-labs/compass/pull/295) ([wesley-wong](https://github.com/wesley-wong))
 
-## [2017.07.17.1500](https://github.com/lighthouse-labs/compass/tree/2017.07.17.1500) (2017-07-17)
-[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2017.07.10.0930...2017.07.17.1500)
-
-**Merged pull requests:**
-
-- hotfix - migration fix - explicitly use a cast in the migration [\#293](https://github.com/lighthouse-labs/compass/pull/293) ([jmatsuba](https://github.com/jmatsuba))
-- Ugly Project Nav [\#291](https://github.com/lighthouse-labs/compass/pull/291) ([wesley-wong](https://github.com/wesley-wong))
-- Updated readme to include Queue setup [\#290](https://github.com/lighthouse-labs/compass/pull/290) ([wesley-wong](https://github.com/wesley-wong))
-- A simple white footer [\#288](https://github.com/lighthouse-labs/compass/pull/288) ([wesley-wong](https://github.com/wesley-wong))
-- Project Evaluation Rubric Order / Changed Fix [\#286](https://github.com/lighthouse-labs/compass/pull/286) ([jmatsuba](https://github.com/jmatsuba))
-- Update Readme with new Tag Syntax [\#275](https://github.com/lighthouse-labs/compass/pull/275) ([jmatsuba](https://github.com/jmatsuba))
-- Project Evals Queue Logic Change [\#256](https://github.com/lighthouse-labs/compass/pull/256) ([jmatsuba](https://github.com/jmatsuba))
-- Student Incomplete activities [\#254](https://github.com/lighthouse-labs/compass/pull/254) ([wesley-wong](https://github.com/wesley-wong))
 
 
-
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*

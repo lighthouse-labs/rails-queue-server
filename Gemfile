@@ -56,6 +56,9 @@ gem 'phantomjs'
 gem 'omniauth'
 gem 'omniauth-github', '>= 1.4.0'
 
+gem 'googleauth', '>= 0.9'
+gem 'google-api-client', '>= 0.36.3'
+
 gem 'faraday'
 gem 'faraday_middleware'
 
@@ -112,7 +115,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'dotenv-rails'
   gem 'spring-commands-rspec'
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '~>4.10'
   gem 'rspec-rails', '~> 3.6'
   gem 'rspec-collection_matchers'
   gem 'rails-controller-testing'
