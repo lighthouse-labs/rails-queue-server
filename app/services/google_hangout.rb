@@ -55,6 +55,7 @@ class GoogleHangout
   rescue StandardError => err
     puts "Error creating hangout"
     puts err.inspect
+    Raven.capture_exception(err)
     nil
   end
 
