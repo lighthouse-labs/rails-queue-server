@@ -139,6 +139,10 @@ class User < ApplicationRecord
     assistance_requests.where(type: nil).in_progress_requests.newest_requests_first.first.try(:assistance).try(:assistor)
   end
 
+  def current_assistance_conference
+    assistances.currently_active.order_by_start.last&.conference_link
+  end
+
   def waiting_for_assistance?
     assistance_requests.where(type: nil).open_requests.exists?
   end
