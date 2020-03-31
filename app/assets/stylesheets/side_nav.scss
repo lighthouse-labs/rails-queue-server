@@ -160,6 +160,9 @@ nav.side-nav {
         border-radius: 5px;
       }
     }
+    .completed-activities {
+      color: $brand-secondary;
+    }
   }
   *[data-toggle=collapse][aria-expanded=true] > .toc-angle {
     transform: rotate(90deg);

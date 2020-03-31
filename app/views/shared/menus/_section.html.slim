@@ -39,12 +39,20 @@
                 span.toc-activity--icon
                   i.text-muted class=icon_for(activity)
                 span.toc-activity--name
-
                   = activity.name
                   / - if activity.stretch?
                     / | &nbsp;
                     / i.fa.fa-trophy data-toggle='tooltip' title='Stretch'
 
-                span.toc-activity--tags
-                  - if current_user.completed_activity?(activity)
-                    i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
+                  span.toc-activity--tags
+                    - if teacher?
+                      - if activity.section && activity.section.type == 'TeacherSection'
+                        - if current_user.completed_activity?(activity)
+                          i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
+                      - else
+                        - if activity.type != 'PinnedNote' && activity.type != 'LecturePlan'
+                          .completed-activities
+                            = completed_students(activity)
+                    - else
+                      - if current_user.completed_activity?(activity)
+                        i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
