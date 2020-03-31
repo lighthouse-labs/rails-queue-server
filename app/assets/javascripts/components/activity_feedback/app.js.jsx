@@ -18,7 +18,8 @@ window.ActivityFeedback.App = class App extends React.Component {
         page: 1
       },
       filterOptions: {
-        cohort: false,
+        cohortID: this.props.cohort,
+        filterByCohort: false,
         requireFeedback: true,
         one: true,
         two: true,
@@ -125,7 +126,6 @@ window.ActivityFeedback.App = class App extends React.Component {
     return(
       <div className="activity-feedback-app">
         <ActivityFeedback.Filters meta={this.state.meta}
-                                  cohortID={this.props.cohort}
                                   filterOptions={this.state.filterOptions}
                                   changeFilters={this._changeFilters} />
 
