@@ -8,8 +8,9 @@ class RequestQueue::StartAssistance
   end
 
   def call
-    context.fail! unless @assistance_request.start_assistance(@assistor)
-    BroadcastAssistanceStartWorker.perform_async(@assistance_request.id, @assistor.id)
+    assistance = @assistance_request.start_assistance(@assistor)
+    context.fail! unless assistance
+    BroadcastAssistanceStartWorker.perform_async(@assistance_request.id, @assistor.id, assistance&.conference_link)
   end
 
 end
