@@ -50,8 +50,8 @@
                         - if current_user.completed_activity?(activity)
                           i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
                       - else
-                        - if activity.type != 'PinnedNote' && activity.type != 'LecturePlan'
-                          .completed-activities
+                        - if activity.completable?
+                          span.completed-activities data-toggle='tooltip' title='Cohort Completion'
                             = completed_students(activity)
                     - else
                       - if current_user.completed_activity?(activity)

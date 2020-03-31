@@ -162,6 +162,8 @@ nav.side-nav {
     }
     .completed-activities {
       color: $brand-secondary;
+      float: right;
+      font-weight: 400;
     }
   }
   *[data-toggle=collapse][aria-expanded=true] > .toc-angle {
