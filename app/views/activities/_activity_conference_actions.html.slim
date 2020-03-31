@@ -1,0 +1,31 @@
+- conference = activity.active_conference_for_cohort(cohort)
+- if teacher?
+  .video-conference-actions.d-flex.flex-wrap
+    - if conference && conference.is_host?(current_user)
+      - if !conference&.broadcasting?
+        = form_for :video_conference, url: teacher_video_conference_path(conference), html: {method: :put} do |f|
+            = f.hidden_field :status, value: 'broadcast'
+            = button_tag(type: 'submit', class: 'btn btn-warning btn-new-lecture-stream') do
+              i.fa.fa-fw.fa-video
+              = " Broadcast Conference"
+      -else
+        = form_for :video_conference, url: teacher_video_conference_path(conference), html: {method: :put} do |f|
+          = f.hidden_field :status, value: 'waiting'
+          = button_tag(type: 'submit', class: 'btn btn-warning btn-new-lecture-stream') do
+            i.fa.fa-fw.fa-video
+            = " Stop Broadcast"
+      = form_for :video_conference, url: teacher_video_conference_path(conference), html: {method: :put} do |f|
+        = f.hidden_field :status, value: 'finished'
+        = button_tag(type: 'submit', class: 'btn btn-danger btn-new-lecture-stream') do
+          i.fa.fa-fw.fa-video
+          = " End Conference"
+      
+    - elsif !conference
+      = form_for :video_conference, url: teacher_video_conferences_path, html: {method: :post} do |f|
+        = f.hidden_field :cohort_id, value: cohort.id
+        = f.hidden_field :activity_id, value: activity.id
+        = f.hidden_field :topic, value: activity.name
+        = f.hidden_field :duration, value: 140
+        = button_tag(type: 'submit', class: 'btn btn-warning btn-new-lecture-stream') do
+          i.fa.fa-fw.fa-video
+          = " Create Lecture Conference"

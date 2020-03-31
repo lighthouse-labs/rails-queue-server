@@ -24,5 +24,3 @@ header.splash.jumbotron.text-center.text-light.py-5 class=activity_class.join(' 
         = link_to 'Back To Content', activity_path(@activity), style: 'color: white'
       - else
         = activity_presenter.details_link
-  - if @program&.has_zoom_conferences
-    = render 'activity_conference', activity: @activity

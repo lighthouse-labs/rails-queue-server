@@ -1,23 +1,23 @@
-.video-conference-container {
-  padding: 1rem;
-  padding-bottom: 0;
-  .video-conference-actions{
-    justify-content: center;
-    button{
-      margin-right: 1rem;
-    }
+
+.video-conference-actions{
+  margin-top: -1rem;
+  button{
+    margin-right: 1rem;
+    margin-top: 1rem;
   }
-  .video-conference-info {
-    position: relative;
-    background-color: white;
-    margin-top: 2rem;
-    padding: 1rem;
-    h3 {
-      position: absolute;
-      top: -1.2rem;
-      left: 0;
-      font-size: 1rem;
-    }
+}
+
+.video-conference-info {
+  position: relative;
+  background-color: white;
+  margin-top: 2rem;
+  padding: 1rem;
+  flex-direction: column;
+  h3 {
+    font-size: 1rem;
+  }
+  .conferences{
+    display: flex;
     .teacher-info {
       font-size: 0.7rem;
       font-weight: 500;
@@ -40,9 +40,8 @@
   position: relative;
   .conference-count{
     position: absolute;
-    top: 1px;
-    left: 18px;
-    opacity: 0.8;
-    border-radius: 50%;
+    top: 0px;
+    left: 14px;
+    opacity: 0.6;
   }
 }

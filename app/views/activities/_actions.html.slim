@@ -6,9 +6,10 @@
           = render 'completion_status'
 
 - if teacher? && @activity.has_lectures?
-  .actions.bg-light.p-3.rounded.d-flex
-    = link_to '+ Lecture', new_activity_lecture_path(@activity), class: 'btn btn-secondary btn-new-lecture'
-
+  .actions.bg-light.p-3.rounded.d-flex.flex-wrap
+    = link_to '+ Lecture Notes', new_activity_lecture_path(@activity), class: 'btn btn-secondary btn-new-lecture mr-2 mb-2'
+    - if @program&.has_zoom_conferences
+      = render 'activity_conference_actions', activity: @activity
 - if teacher?
   .collapse#student-progress
     .row.progress-row
@@ -54,3 +55,5 @@
 - elsif @activity.test_activity? && current_user.can_view_programming_tests?
   .actions.programming-test-activity
     = link_to 'Test Dashboard', teacher_cohort_programming_test_path(cohort, @activity.programming_test), class:'btn btn-primary'
+
+= render 'activity_conference', activity: @activity
