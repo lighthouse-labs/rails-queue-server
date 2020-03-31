@@ -12,8 +12,11 @@ class Teacher::VideoConferencesController < Teacher::BaseController
     zoom_update = true
     old_status = video_conference.status
     if conference_params[:status] == 'finished' && video_conference.status != 'finished'
-      zoom = ZoomMeetings.new
-      zoom_update = zoom.end_meeting(video_conference)
+      end_zoom_meeting = ZoomMeeting::EndUserMeeting.call(
+        video_conference: video_conference
+      )
+
+      zoom_update = end_zoom_meeting.success?
     end
 
     if zoom_update && video_conference.update(conference_params)
@@ -23,36 +26,41 @@ class Teacher::VideoConferencesController < Teacher::BaseController
       end
       flash[:notice] = "Video Conference Updated"
     else
-      flash[:alert] = "Video Conferene Could not be Updated"
+      flash[:alert] = "Video Conference Could not be Updated"
     end
 
     redirect_back fallback_location: root_path
   end
 
   def create
-    activity = Activity.find_by_id conference_params[:activity_id]
-    cohort = Cohort.find_by_id conference_params[:cohort_id]
+    activity = Activity.find_by id: conference_params[:activity_id]
+    cohort = Cohort.find_by id: conference_params[:cohort_id]
     if @current_user.hosting_active_video_conference?
-      res = { error: { message: 'User already has an active video conference.' } }
+      error = 'User already has an active video conference.'
     elsif activity&.active_conference_for_cohort(cohort)
-      res = { error: { message: 'There is already a conference for that cohort and activity.' } }
+      error = 'There is already a conference for that cohort and activity.'
     else
-      zoom = ZoomMeetings.new
-      res = zoom.create_meeting(@current_user, conference_params[:start_time], conference_params[:duration], conference_params[:topic])
+      create_zoom_meeting = ZoomMeeting::CreateUserMeeting.call(
+        user:     @current_user,
+        duration: conference_params[:duration].to_i,
+        topic:    conference_params[:topic]
+      )
+      error = create_zoom_meeting.error if create_zoom_meeting.failure?
     end
 
-    if res[:error]
-      flash[:alert] = (res[:error][:message]).to_s
+    if error
+      flash[:alert] = error
     else
+      meeting = create_zoom_meeting.meeting
       VideoConference.create
       conference = VideoConference.new(
-        start_time:      res['start_time'],
-        duration:        res['duration'],
+        start_time:      meeting['start_time'],
+        duration:        meeting['duration'],
         status:          'waiting',
-        zoom_meeting_id: res['id'],
-        zoom_host_id:    res['host_id'],
-        start_url:       res['start_url'],
-        join_url:        res['join_url'],
+        zoom_meeting_id: meeting['id'],
+        zoom_host_id:    meeting['host_id'],
+        start_url:       meeting['start_url'],
+        join_url:        meeting['join_url'],
         cohort_id:       cohort&.id,
         activity_id:     activity&.id
       )
