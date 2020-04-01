@@ -15,3 +15,9 @@
         = link_to conference.join_url, class: 'btn btn-outline-warning', target: '_blank'
           i.fa.fa-fw.fa-video
           = " Zoom Link"
+        - if conference.password?
+          .password
+            i.fa.fa-fw.fa-key.text-warning
+            span.badge.badge-warning.text-white
+              = conference.password
+      

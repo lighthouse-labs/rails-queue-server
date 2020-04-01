@@ -41,9 +41,10 @@ class Teacher::VideoConferencesController < Teacher::BaseController
       error = 'There is already a conference for that cohort and activity.'
     else
       create_zoom_meeting = ZoomMeeting::CreateUserMeeting.call(
-        user:     @current_user,
-        duration: conference_params[:duration].to_i,
-        topic:    conference_params[:topic]
+        user:         @current_user,
+        duration:     conference_params[:duration].to_i,
+        topic:        conference_params[:topic],
+        use_password: conference_params[:use_password]
       )
       error = create_zoom_meeting.error if create_zoom_meeting.failure?
     end
@@ -61,6 +62,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
         zoom_host_id:    meeting['host_id'],
         start_url:       meeting['start_url'],
         join_url:        meeting['join_url'],
+        password:        meeting['password'],
         cohort_id:       cohort&.id,
         activity_id:     activity&.id
       )
@@ -80,7 +82,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
 
   def conference_params
     params.require(:video_conference).permit(
-      :cohort_id, :activity_id, :topic, :duration, :start_time, :status
+      :cohort_id, :activity_id, :topic, :duration, :start_time, :status, :use_password
     )
    end
 

@@ -8,6 +8,7 @@ class ZoomMeeting::BookMeeting
     @user = context.user
     @topic = context.topic
     @duration = context.duration
+    @use_password = context.use_password
   end
 
   def call
@@ -15,7 +16,7 @@ class ZoomMeeting::BookMeeting
     request = Net::HTTP::Post.new(url)
     request["authorization"] = "Bearer #{@token}"
     request["content-type"] = "application/json"
-    request.body = {
+    options = {
       topic:      @topic,
       type:       2,
       start_time: Time.now,
@@ -28,7 +29,9 @@ class ZoomMeeting::BookMeeting
         enforce_login:   false,
         waiting_room:    true
       }
-    }.to_json
+    }
+    options[:password] = Faker::Hacker.adjective if @use_password == 'true'
+    request.body = options.to_json
     response = @http.request(request)
     body = JSON.parse(response.body)
 
