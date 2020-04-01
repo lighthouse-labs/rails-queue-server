@@ -193,15 +193,13 @@ ActiveRecord::Schema.define(version: 20200401184639) do
     t.integer  "location_id"
     t.boolean  "limited"
     t.string   "weekdays"
-    t.text     "disable_queue_days",       default: [], null: false, array: true
+    t.text     "disable_queue_days",     default: [], null: false, array: true
     t.boolean  "local_assistance_queue"
     t.datetime "deleted_at"
-    t.integer  "student_notes_webhook_id"
     t.index ["deleted_at"], name: "index_cohorts_on_deleted_at", using: :btree
     t.index ["location_id"], name: "index_cohorts_on_location_id", using: :btree
     t.index ["program_id"], name: "index_cohorts_on_program_id", using: :btree
     t.index ["start_date"], name: "index_cohorts_on_start_date", using: :btree
-    t.index ["student_notes_webhook_id"], name: "index_cohorts_on_student_notes_webhook_id", using: :btree
   end
 
   create_table "content_repositories", force: :cascade do |t|
@@ -582,16 +580,6 @@ ActiveRecord::Schema.define(version: 20200401184639) do
     t.datetime "updated_at"
   end
 
-  create_table "student_notes", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "teacher_id"
-    t.text     "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_student_notes_on_student_id", using: :btree
-    t.index ["teacher_id"], name: "index_student_notes_on_teacher_id", using: :btree
-  end
-
   create_table "tech_interview_questions", force: :cascade do |t|
     t.string   "uuid"
     t.integer  "tech_interview_template_id"
@@ -739,12 +727,6 @@ ActiveRecord::Schema.define(version: 20200401184639) do
     t.index ["user_id"], name: "index_video_conferences_on_user_id", using: :btree
   end
 
-  create_table "webhooks", force: :cascade do |t|
-    t.string "name"
-    t.string "webhook"
-    t.string "service"
-  end
-
   create_table "work_module_items", force: :cascade do |t|
     t.string   "uuid",           null: false
     t.integer  "work_module_id"
@@ -815,8 +797,6 @@ ActiveRecord::Schema.define(version: 20200401184639) do
   add_foreign_key "quiz_submissions", "quizzes"
   add_foreign_key "sections", "content_repositories"
   add_foreign_key "sections", "workbooks"
-  add_foreign_key "student_notes", "users", column: "student_id"
-  add_foreign_key "student_notes", "users", column: "teacher_id"
   add_foreign_key "tech_interview_questions", "outcomes"
   add_foreign_key "tech_interview_questions", "tech_interview_templates"
   add_foreign_key "tech_interview_results", "tech_interview_questions"
