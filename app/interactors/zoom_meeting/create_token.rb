@@ -3,10 +3,10 @@ class ZoomMeeting::CreateToken
   include Interactor
 
   def call
-    @USER_ID = ENV["ZOOM_USER_ID"]
-    @API_KEY = ENV["ZOOM_API_KEY"]
-    @API_SECRET = ENV["ZOOM_API_SECRET"]
-    context.license_pool_group = ENV["ZOOM_LICENSE_POOL_GROUP"]
+    credentials = Program.first&.settings.try(:[], 'zoom_credentials')
+    @API_KEY = credentials["api_key"]
+    @API_SECRET = credentials["api_secret"]
+    context.license_pool_group = credentials["license_pool_group"]
 
     payload = {
       iss: @API_KEY,
