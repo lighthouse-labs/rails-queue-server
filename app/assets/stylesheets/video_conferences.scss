@@ -1,7 +1,16 @@
 
 .video-conference-actions{
-  margin-top: -1rem;
-  button{
+  margin-top: 1rem;
+  h4{
+    width: 100%;
+    margin-bottom: -0.5rem;
+  }
+  form{
+    .w-auto{
+      width: auto;
+    }
+  }
+  button, select{
     margin-right: 1rem;
     margin-top: 1rem;
   }
@@ -19,18 +28,28 @@
   .conferences{
     display: flex;
     .teacher-info {
-      font-size: 0.7rem;
+      font-size: 0.9rem;
       font-weight: 500;
       text-align: left;
-      width: 300px;
+      width: 400px;
     }
-    .btn {
-      width: 100%;
+    .video-info{
       display: flex;
-      justify-content: center;
-      align-items: center;
-      i{
-        margin-right: 1rem;
+      flex-direction: column;
+      width: 100%;
+      .password{
+        display: flex;
+        padding-top: 0.51rem;
+        font-size: 0.9rem;
+      }
+      .btn {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        i{
+          margin-right: 1rem;
+        }
       }
     }
   }

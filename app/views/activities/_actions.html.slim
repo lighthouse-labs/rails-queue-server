@@ -6,8 +6,8 @@
           = render 'completion_status'
 
 - if teacher? && @activity.has_lectures?
-  .actions.bg-light.p-3.rounded.d-flex.flex-wrap
-    = link_to '+ Lecture Notes', new_activity_lecture_path(@activity), class: 'btn btn-secondary btn-new-lecture mr-2 mb-2'
+  .actions.bg-light.p-3.rounded
+    = link_to '+ Lecture Notes', new_activity_lecture_path(@activity), class: 'btn btn-secondary btn-new-lecture mr-4'
     - if @program&.has_zoom_conferences
       = render 'activity_conference_actions', activity: @activity
 - if teacher?

@@ -11,6 +11,7 @@
         = mail_to conference.host.email, conference.host.email, class: 'email'
         br
           span.badge.badge-primary = conference.host.location.name
-      = link_to conference.join_url, class: 'btn btn-outline-warning', target: '_blank'
-        i.fa.fa-fw.fa-video
-        = " Zoom Link"
+      .video-info
+        = link_to conference.join_url, class: 'btn btn-outline-warning', target: '_blank'
+          i.fa.fa-fw.fa-video
+          = " Zoom Link"

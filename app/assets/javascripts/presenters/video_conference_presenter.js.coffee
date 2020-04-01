@@ -18,7 +18,7 @@ class window.VideoConferencePresenter
       @conference_nav.removeClass('d-none')
       @activity_link = if videoConference.activityId then "/activities/#{videoConference.activityId}" else videoConference.joinUrl
       @conference_nav_link.attr('href', @activity_link)
-      @conference_nav_badge.text('?')
+      @conference_nav_badge.text('Test')
     else
       @conference_nav.addClass('d-none')
     
@@ -27,7 +27,7 @@ class window.VideoConferencePresenter
     @activity_link = if videoConference.activityId then "/activities/#{videoConference.activityId}" else videoConference.joinUrl
     console.log(@activity_link)
     @conference_nav_link.attr('href', @activity_link)
-    @conference_nav_badge.text('!')
+    @conference_nav_badge.text('Live!')
 
   conferenceFinished: ->
     @conference_nav.addClass('d-none')
