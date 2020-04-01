@@ -16,6 +16,7 @@ class window.VideoConferencePresenter
   conferenceWaiting: (videoConference) ->
     if window.current_user.id == videoConference.userId
       @conference_nav.removeClass('d-none')
+      @conference_nav.attr('title', 'Pending Conference')
       @activity_link = if videoConference.activityId then "/activities/#{videoConference.activityId}" else videoConference.joinUrl
       @conference_nav_link.attr('href', @activity_link)
       @conference_nav_badge.text('Test')
@@ -24,6 +25,7 @@ class window.VideoConferencePresenter
     
   conferenceBroadcasting: (videoConference) ->
     @conference_nav.removeClass('d-none')
+    @conference_nav.attr('title', 'Live Conference')
     @activity_link = if videoConference.activityId then "/activities/#{videoConference.activityId}" else videoConference.joinUrl
     console.log(@activity_link)
     @conference_nav_link.attr('href', @activity_link)
