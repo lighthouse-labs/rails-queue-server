@@ -9,9 +9,9 @@
 
 .new_quiz_submission {
   div input[type="radio"]:checked+label {
-  background-color: #007bff;
-  border-radius: 0.25rem;
-  color: #000;
+    background-color: #007bff;
+    border-radius: 0.25rem;
+    color: #000;
   }
   .list-group input[type="radio"] {
     display: none;
