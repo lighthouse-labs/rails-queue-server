@@ -161,10 +161,12 @@ nav.side-nav {
       }
     }
     .completed-activities {
-      color: $brand-secondary;
+      color: $brand-primary;
       float: right;
       font-weight: 400;
       font-style: normal;
+      font-size: .8em;
+      line-height: 1em;
     }
   }
   *[data-toggle=collapse][aria-expanded=true] > .toc-angle {
