@@ -26,7 +26,7 @@ class ZoomMeeting::UpdateUserLicense
       }.to_json
       response = @http.request(request)
 
-      context.fail!(error: "No zoom licenses available") if response.body
+      context.fail!(error: "No zoom licenses available") unless response.code.to_i == 204
     end
   end
 
