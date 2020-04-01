@@ -2,7 +2,7 @@
 
 # Fails on first run if you dont have the migration run yet, hence using .try
 begin
-  creds = Program.first.try(:settings) if  ActiveRecord::Base.connection.table_exists?('programs')
+  creds = Program.first.try(:settings) if  ActiveRecord::Base.connection.table_exists? 'programs'
   creds ||= {}
   google_creds = creds['google_app_credentials'] || {}
   ENV['GOOGLE_ACCOUNT_TYPE'] ||= google_creds['GOOGLE_ACCOUNT_TYPE']
