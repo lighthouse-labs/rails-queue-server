@@ -1,7 +1,7 @@
 # Instead of having these in the .env, due to the multi line private key which causes a bug in dokku that prevents deployment, we've put these secrets into the Programs table. Perhaps they are better there anyway? - KV
 
 # Fails on first run if you dont have the migration run yet, hence using .try
-creds = Program.first.try(:settings) if  ActiveRecord::Base.connected? && ActiveRecord::Base.connection.table_exists? 'programs'
+creds = Program.first.try(:settings) if  ActiveRecord::Base.connected? && ActiveRecord::Base.connection.table_exists?('programs')
 creds ||= {}
 google_creds = creds['google_app_credentials'] || {}
 ENV['GOOGLE_ACCOUNT_TYPE'] ||= google_creds['GOOGLE_ACCOUNT_TYPE']
