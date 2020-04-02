@@ -6,6 +6,7 @@ class ActivityFeedbacksController < ApplicationController
   respond_to :json
 
   def index
+    filterByCohort = Cohort.find(params[:cohortID]) if params[:filterByCohort] != 'false'
     @activity_feedbacks = @activity.activity_feedbacks.includes(:user).page(params[:page]).per(params[:limit] || 25)
 
     ratings = [:one, :two, :three, :four, :five].each_with_index.collect do |num, i|
@@ -14,6 +15,8 @@ class ActivityFeedbacksController < ApplicationController
 
     @activity_feedbacks = @activity_feedbacks.where(rating: ratings) unless ratings.size == 5
 
+    @activity_feedbacks = @activity_feedbacks.where(user_id: cohort.students.select(:id)) if filterByCohort
+    
     @activity_feedbacks = @activity_feedbacks.notable if params[:requireFeedback] == 'true'
 
     # render json: @activity_feedbacks
