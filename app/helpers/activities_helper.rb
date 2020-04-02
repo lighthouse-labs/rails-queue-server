@@ -208,7 +208,7 @@ module ActivitiesHelper
     end
   end
 
-  def activity_or_project_background_image_css(image_url, darkness=nil)
+  def activity_or_project_background_image_css(image_url, darkness = nil)
     darkness = darkness.split(',')
     style = []
     style << "linear-gradient(rgba(0, 0, 0, #{darkness[0]}), rgba(0, 0, 0, #{darkness[1] || darkness[0]}))" if darkness.present?

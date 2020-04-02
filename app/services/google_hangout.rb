@@ -64,7 +64,7 @@ class GoogleHangout
     entry_points = event&.conference_data&.entry_points
     uri = nil
     entry_points&.each do |point|
-      return {uri: point.uri, type: event&.conference_data&.conference_solution&.key&.type} if point.entry_point_type == 'video'
+      return { uri: point.uri, type: event&.conference_data&.conference_solution&.key&.type } if point.entry_point_type == 'video'
     end
   end
 

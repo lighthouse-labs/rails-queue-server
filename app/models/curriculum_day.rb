@@ -259,10 +259,10 @@ class CurriculumDay
 
   def correct_cweek(date)
     week = date.cweek
-    #Last week of december is incorrectly identified as 1st week
+    # Last week of december is incorrectly identified as 1st week
     if week == 1 && date.month == 12
       week = 53
-    #First week of January is incorrectly identified as 52nd week
+    # First week of January is incorrectly identified as 52nd week
     elsif week >= 52 && date.month == 1
       week = 1
     end

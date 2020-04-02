@@ -55,7 +55,7 @@ class Admin::CohortsController < Admin::BaseController
     if @cohort.deleted_at?
       flash[:notice] = "Successfully soft-deleted #{@cohort.name_with_location} cohort"
       redirect_to admin_cohorts_path
-    else 
+    else
       flash[:alert] = "Could not soft-delete #{@cohort.name_with_location} cohort"
       redirect_to :back
     end
