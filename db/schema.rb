@@ -87,24 +87,6 @@ ActiveRecord::Schema.define(version: 20200402171355) do
     t.index ["user_id"], name: "index_activity_feedbacks_on_user_id", using: :btree
   end
 
-  create_table "activity_messages", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "cohort_id"
-    t.integer  "activity_id"
-    t.string   "kind",          limit: 50
-    t.string   "day",           limit: 5
-    t.string   "subject",       limit: 1000
-    t.text     "body"
-    t.text     "teacher_notes"
-    t.boolean  "for_students"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["activity_id"], name: "index_activity_messages_on_activity_id", using: :btree
-    t.index ["cohort_id"], name: "index_activity_messages_on_cohort_id", using: :btree
-    t.index ["day"], name: "index_activity_messages_on_day", using: :btree
-    t.index ["user_id"], name: "index_activity_messages_on_user_id", using: :btree
-  end
-
   create_table "activity_submissions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "activity_id"
