@@ -36,13 +36,14 @@
 
           li class=(activity_classes.join(" "))
               = link_to activity_path(activity), class: 'toc-activity--label' do
-                span.toc-activity--icon
-                  i.text-muted class=icon_for(activity)
-                span.toc-activity--name
-                  = activity.name
-                  / - if activity.stretch?
-                    / | &nbsp;
-                    / i.fa.fa-trophy data-toggle='tooltip' title='Stretch'
+                div.left-nav-activities
+                  span.toc-activity--icon
+                    i.text-muted class=icon_for(activity)
+                  span.toc-activity--name
+                    = activity.name
+                    / - if activity.stretch?
+                      / | &nbsp;
+                      / i.fa.fa-trophy data-toggle='tooltip' title='Stretch'
 
                   span.toc-activity--tags
                     - if teacher?
