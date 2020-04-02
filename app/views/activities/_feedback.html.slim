@@ -19,6 +19,6 @@
     h5#feedback-form.card-header Student Feedback
     .card-body
       .card-text
-        == react_component("ActivityFeedback.App", { activityId: @activity.id })
+        == react_component("ActivityFeedback.App", { activityId: @activity.id, cohort: @cohort.id })
 
 
