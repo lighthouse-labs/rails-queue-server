@@ -8,7 +8,7 @@
           = image_tag conference.host.avatar_url, class: 'avatar'
         = link_to conference.host.full_name, teacher_path(conference.host)
         br
-        = mail_to conference.host.email, conference.host.email, class: 'email'
+        = mail_to conference.zoom_host_email, conference.zoom_host_email, class: 'email'
         br
           span.badge.badge-primary = conference.host.location.name
       .video-info

@@ -42,6 +42,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
     else
       create_zoom_meeting = ZoomMeeting::CreateUserMeeting.call(
         user:         @current_user,
+        email:        conference_params[:email],
         duration:     conference_params[:duration].to_i,
         topic:        conference_params[:topic],
         use_password: conference_params[:use_password]
@@ -60,6 +61,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
         status:          'waiting',
         zoom_meeting_id: meeting['id'],
         zoom_host_id:    meeting['host_id'],
+        zoom_host_email: conference_params[:email].empty? ? @current_user.email : conference_params[:email],
         start_url:       meeting['start_url'],
         join_url:        meeting['join_url'],
         password:        meeting['password'],
@@ -82,7 +84,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
 
   def conference_params
     params.require(:video_conference).permit(
-      :cohort_id, :activity_id, :topic, :duration, :start_time, :status, :use_password
+      :cohort_id, :activity_id, :topic, :duration, :start_time, :status, :use_password, :email
     )
    end
 
