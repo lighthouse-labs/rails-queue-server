@@ -20,19 +20,12 @@
                 = conference.join_url
             a.copy-to-clipboard.bg-primary data-toggle='tooltip' data-placement='bottom' title="Copy to clipboard"
               i.far.fa-clipboard
-          p.label Password
-          .clipboard-container
-            .clip-content
-              a.text-dark
-                = conference.password
-            a.copy-to-clipboard.bg-primary data-toggle='tooltip' data-placement='bottom' title="Copy to clipboard"
-              i.far.fa-clipboard
-        / = link_to conference.join_url, class: 'btn btn-outline-warning', target: '_blank'
-        /   i.fa.fa-fw.fa-video
-        /   = " Zoom Link"
-        / - if conference.password?
-        /   .password
-        /     i.fa.fa-fw.fa-key.text-warning
-        /     span.badge.badge-warning.text-white
-        /       = conference.password
+          - if conference.password?
+            p.label Password
+            .clipboard-container
+              .clip-content
+                a.text-dark
+                  = conference.password
+              a.copy-to-clipboard.bg-primary data-toggle='tooltip' data-placement='bottom' title="Copy to clipboard"
+                i.far.fa-clipboard
       
