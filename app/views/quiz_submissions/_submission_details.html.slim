@@ -15,10 +15,9 @@ hr
           - question.options.each_with_index do |option, option_index|
             div class="list-group-item #{option.correct? ? 'list-group-item-success' : option.selected?(submission) ? 'list-group-item-danger' : ''}"
               .list-group-item-heading
-                input type="radio" disabled=(!option.selected?(submission)) checked=(option.selected?(submission))
-                b = " Option #{option_index + 1} "
                 - if option.correct? || option.selected?(submission)
-                  = "#{option.selected?(submission) ? 'selected, ' : ''}#{option.correct? ? 'correct' : 'incorrect'}"
+                  b.submission-choices = "#{option.selected?(submission) ? 'selected, ' : ''}#{option.correct? ? 'correct' : 'incorrect'}"
+                  br
               .list-group-item-text
                 div == markdown(option.answer)
                 - if option.selected?(submission) || option.correct?
