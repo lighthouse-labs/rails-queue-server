@@ -75,4 +75,4 @@
 //= require more_search_filters
 //= require video
 //= require prism_width_hack
-
+//= require clipboard_copy

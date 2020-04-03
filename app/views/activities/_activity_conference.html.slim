@@ -1,9 +1,9 @@
 - conference = activity.active_conference_for_cohort(cohort)
 - if conference&.broadcasting? || conference&.active? && teacher?
   .video-conference-info.d-flex.rounded.bg-light
-    h3 Live Conference
     .conferences
       .teacher-info
+        h3 Live Conference
         = link_to teacher_path(conference.host) do
           = image_tag conference.host.avatar_url, class: 'avatar'
         = link_to conference.host.full_name, teacher_path(conference.host)
@@ -11,13 +11,28 @@
         = mail_to conference.zoom_host_email, conference.zoom_host_email, class: 'email'
         br
           span.badge.badge-primary = conference.host.location.name
-      .video-info
-        = link_to conference.join_url, class: 'btn btn-outline-warning', target: '_blank'
-          i.fa.fa-fw.fa-video
-          = " Zoom Link"
-        - if conference.password?
-          .password
-            i.fa.fa-fw.fa-key.text-warning
-            span.badge.badge-warning.text-white
-              = conference.password
+      .center-video-info
+        .video-info
+          p.label Zoom Link
+          .clipboard-container
+            .clip-content
+              a.text-dark
+                = conference.join_url
+            a.copy-to-clipboard.bg-primary data-toggle='tooltip' data-placement='bottom' title="Copy to clipboard"
+              i.far.fa-clipboard
+          p.label Password
+          .clipboard-container
+            .clip-content
+              a.text-dark
+                = conference.password
+            a.copy-to-clipboard.bg-primary data-toggle='tooltip' data-placement='bottom' title="Copy to clipboard"
+              i.far.fa-clipboard
+        / = link_to conference.join_url, class: 'btn btn-outline-warning', target: '_blank'
+        /   i.fa.fa-fw.fa-video
+        /   = " Zoom Link"
+        / - if conference.password?
+        /   .password
+        /     i.fa.fa-fw.fa-key.text-warning
+        /     span.badge.badge-warning.text-white
+        /       = conference.password
       
