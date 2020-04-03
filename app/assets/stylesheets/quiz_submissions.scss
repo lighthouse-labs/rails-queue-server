@@ -34,10 +34,13 @@
   padding-bottom: 4rem;
 }
 .submission-choices {
-  float: right;
+  position: absolute;
+  right: 20px;
   border-radius: 20px;
-  padding: .1em .5em;
-  background-color: rgba(0, 0, 0, 0.2);
+  font-size: 2em;
+}
+.quiz-result-unselected {
+  background-color: rgba(127, 127, 127, .3);
 }
 
 .attempts {

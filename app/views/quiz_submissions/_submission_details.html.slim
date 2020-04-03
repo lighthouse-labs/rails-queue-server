@@ -13,10 +13,10 @@ hr
         h4.text-muted = "Question ##{question_index + 1} answer"
         .list-group
           - question.options.each_with_index do |option, option_index|
-            div class="list-group-item #{option.correct? ? 'list-group-item-success' : option.selected?(submission) ? 'list-group-item-danger' : ''}"
+            div class="list-group-item #{option.selected?(submission) ? 'list-group-item-primary' : option.correct? ? 'list-group-item-success' :  'quiz-result-unselected'}"
               .list-group-item-heading
-                - if option.correct? || option.selected?(submission)
-                  b.submission-choices = "#{option.selected?(submission) ? 'selected, ' : ''}#{option.correct? ? 'correct' : 'incorrect'}"
+                - if option.selected?(submission)
+                  b.submission-choices = "#{option.correct? ? '✅' : '❌'}"
                   br
               .list-group-item-text
                 div == markdown(option.answer)
