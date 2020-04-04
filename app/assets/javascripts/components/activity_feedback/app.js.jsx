@@ -18,6 +18,8 @@ window.ActivityFeedback.App = class App extends React.Component {
         page: 1
       },
       filterOptions: {
+        cohortID: this.props.cohort,
+        filterByCohort: false,
         requireFeedback: true,
         one: true,
         two: true,
@@ -56,7 +58,6 @@ window.ActivityFeedback.App = class App extends React.Component {
   _fetchAndThen(options, then) {
     this._abortRequest();
     this.setState({ loading: true });
-
     const url = `/activities/${this.props.activityId}/activity_feedbacks.json`;
     this.xhr = $.getJSON(url, options);
     this.xhr.then(json => {
@@ -118,7 +119,6 @@ window.ActivityFeedback.App = class App extends React.Component {
       loading:            true,
       paginationOptions:  { page: 1 }
     });
-
     this._onFilterChange(newFilterOptions);
   }
 
