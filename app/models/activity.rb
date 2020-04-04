@@ -196,6 +196,10 @@ class Activity < ApplicationRecord
     false
   end
 
+  def has_lecture_for_cohort?(cohort)
+    lectures.where(cohort: cohort).any?
+  end
+
   # Also could be overwritten by sub classes
   def create_outcome_results?
     evaluates_code?

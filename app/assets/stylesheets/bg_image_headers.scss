@@ -12,46 +12,54 @@ header.splash {
     background-position: center;
   }
 
-  &.colored {
+}
 
+.colored {
+
+  background-color: #112932;
+
+  &.reading, &.walkthrough {
+    background-color: #1A5E63; //#B3CDD1;//#9FA4C4;
+  }
+
+  &.assignment {
+    background-color: darken(#31BC81, 10%);
+  }
+
+  &.task {
+    background-color: #3f4f5f;
+  }
+
+  &.lecture_plan, &.breakout {
+    background-color: #832232;
+  }
+
+  &.exercise {
+    background-color: #48284A;
+  }
+
+  &.challenge, &.problem {
     background-color: #112932;
+  }
 
-    &.reading, &.walkthrough {
-      background-color: #1A5E63; //#B3CDD1;//#9FA4C4;
-    }
+  &.test_activity {
+    background-color: #99621E;
+  }
 
-    &.task {
-      background-color: #3f4f5f;
-    }
+  &.quiz_activity {
+    background-color: #008DD5;
+  }
 
-    &.lecture_plan {
-      background-color: #832232;
-    }
+  &.video {
+    background-color: #7AA095;
+  }
 
-    &.exercise {
-      background-color: #48284A;
-    }
+  &.pinned_note, &.note, &.day_info {
+    background-color: darken(#FFC857, 20%);
+  }
 
-    &.challenge, &.problem {
-      background-color: #112932;
-    }
-
-    &.quiz_activity, &.test_activity {
-      background-color: #99621E;
-    }
-
-    &.video {
-      background-color: #7AA095;
-    }
-
-    &.pinned_note, &.note, &.day_info {
-      background-color: darken(#FFC857, 20%);
-    }
-
-    &.stretch {
-      background-color: #6457A6;
-    }
-
+  &.stretch {
+    background-color: #6457A6;
   }
 
 }

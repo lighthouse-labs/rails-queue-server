@@ -34,20 +34,16 @@
       }
     }
 
-    &.bg-purple {
-      background-color: lighten($purple, 20%);
-      &:hover {
-        background-color: darken($purple, 20%);
-      }
-    }
-
     &.bg-faded {
-      opacity: 0.2;
+      opacity: 0.4;
       &.bg-active {
         opacity: 0.7;
       }
     }
 
+    &:hover {
+      opacity: 0.8;
+    }
 
     &.bg-secondary {
       background-color: #aaa !important;
