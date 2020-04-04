@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200402171355) do
+ActiveRecord::Schema.define(version: 20200404182750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -722,6 +722,7 @@ ActiveRecord::Schema.define(version: 20200402171355) do
     t.string   "zoom_host_id"
     t.string   "password"
     t.string   "zoom_host_email"
+    t.string   "name"
     t.index ["activity_id"], name: "index_video_conferences_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_video_conferences_on_cohort_id", using: :btree
     t.index ["user_id"], name: "index_video_conferences_on_user_id", using: :btree

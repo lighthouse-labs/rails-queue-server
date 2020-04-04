@@ -46,8 +46,16 @@
       font-size: 0.7rem;
       font-weight: 500;
       text-align: left;
-      min-width: 220px;
+      min-width: 230px;
       margin-bottom: 1rem;
+      .time-since {
+        display: block;
+        background-color: #f1f1f1;
+        padding: 0.5rem;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 0.5rem;
+      }
       .avatar{
         border-radius: 5px;
         border-width: 0;

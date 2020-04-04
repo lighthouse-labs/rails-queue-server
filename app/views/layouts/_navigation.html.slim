@@ -51,7 +51,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top role="navigation" data
 
         - if @program&.has_feature?('has_zoom_conferences')
           - conference = current_user.active_video_conference
-          li class="nav-item nav-item-video-conference #{'d-none' unless conference}" id='video-conference-nav' data-toggle='tooltip' data-placement='bottom' title="#{conference&.broadcasting? ? 'Live Conference' : 'Pending Conference'}" 
+          li class="nav-item nav-item-video-conference #{'d-none' unless conference}" id='video-conference-nav' data-toggle='tooltip' data-placement='bottom' title="#{conference&.broadcasting? ? "Live #{conference&.name} Conference" : "Pending #{conference&.name} Conference"}" 
             = link_to teacher? && conference ? teacher_video_conference_path(conference) : conference&.student_link, title: 'Live Lecture', class: 'nav-link'
               i.fa.fa-fw.fa-video
               span.conference-count.badge.badge-pill.badge-warning =  conference&.broadcasting? ? "Live!" : "Test"

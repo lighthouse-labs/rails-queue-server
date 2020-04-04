@@ -43,6 +43,17 @@ class VideoConference < ApplicationRecord
     cohort.present?
   end
 
+  def public_status
+    case status
+    when 'finished'
+      'Finished'
+    when 'waiting', 'started'
+      'Pending'
+    else
+      'Broadcasting'
+    end
+  end
+
   def student_link
     link = Rails.application.routes.url_helpers.activity_path(activity) if activity
     link ||= join_url

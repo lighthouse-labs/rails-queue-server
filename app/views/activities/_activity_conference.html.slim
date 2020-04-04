@@ -3,7 +3,11 @@
   .video-conference-info.d-flex.rounded.bg-light
     .conferences
       .teacher-info
-        h3 Live Conference
+        h3 
+          = "Conference "
+          span class=(conference.public_status == 'Pending' ? 'text-warning' : 'text-success') 
+            = conference.public_status
+
         = link_to teacher_path(conference.host) do
           = image_tag conference.host.avatar_url, class: 'avatar'
         = link_to conference.host.full_name, teacher_path(conference.host)
@@ -11,6 +15,8 @@
         = mail_to conference.zoom_host_email, conference.zoom_host_email, class: 'email'
         br
           span.badge.badge-primary = conference.host.location.name
+        small.time-since
+          = "#{conference.host.full_name} started this conference #{time_ago_in_words(conference.start_time) } ago"
       .center-video-info
         .video-info
           p.label Zoom Link

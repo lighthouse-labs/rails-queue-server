@@ -17,6 +17,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
       )
 
       zoom_update = end_zoom_meeting.success?
+
     end
 
     if zoom_update && video_conference.update(conference_params)
@@ -24,9 +25,26 @@ class Teacher::VideoConferencesController < Teacher::BaseController
         # action cable to update cohort on new conference
         VideoConferenceChannel.update_conference(video_conference, VideoConferenceChannel.channel_name_from_cohort(video_conference.cohort))
       end
-      flash[:notice] = "Video Conference Updated"
+
+      flash[:notice] = case conference_params[:status]
+                       when 'finished'
+                         "Video Conference Ended"
+                       when 'waiting'
+                         "Video Conference In Test Mode"
+                       when 'started'
+                         "Video Conference Started"
+                       when 'broadcast'
+                         "Video Conference Broadcasting"
+                       else
+                         "Video Conference Updated"
+                       end
+
     else
-      flash[:alert] = "Video Conference Could not be Updated"
+      flash[:alert] = if end_zoom_meeting.error == "Sorry, you cannot delete this meeting since it's in progress."
+                        "Please end the meeting in zoom first"
+                      else
+                        "Video Conference Could not be Updated"
+                      end
     end
 
     redirect_back fallback_location: root_path
@@ -56,6 +74,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
       meeting = create_zoom_meeting.meeting
       VideoConference.create
       conference = VideoConference.new(
+        name:            meeting['topic'],
         start_time:      meeting['start_time'],
         duration:        meeting['duration'],
         status:          'waiting',
@@ -65,7 +84,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
         start_url:       meeting['start_url'],
         join_url:        meeting['join_url'],
         password:        meeting['password'],
-        cohort_id:       cohort&.id,
+        cohort_id:       conference_params[:cohort_id] || cohort&.id,
         activity_id:     activity&.id
       )
       conference.user = current_user
@@ -84,7 +103,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
 
   def conference_params
     params.require(:video_conference).permit(
-      :cohort_id, :activity_id, :topic, :duration, :start_time, :status, :use_password, :email
+      :cohort_id, :activity_id, :topic, :duration, :start_time, :status, :use_password, :email, :cohort_id
     )
    end
 

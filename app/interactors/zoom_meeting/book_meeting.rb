@@ -27,7 +27,8 @@ class ZoomMeeting::BookMeeting
         approval_type:   2,
         audio:           'both',
         enforce_login:   false,
-        waiting_room:    true
+        waiting_room:    true,
+        auto_recording:  'cloud'
       }
     }
     options[:password] = Faker::Hacker.adjective if @use_password == 'true'
