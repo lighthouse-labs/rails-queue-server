@@ -31,7 +31,7 @@ class ZoomMeeting::BookMeeting
         auto_recording:  'cloud'
       }
     }
-    options[:password] = Faker::Hacker.adjective if @use_password == 'true'
+    options[:password] = Faker::Hacker.noun[0...10] if @use_password == 'true'
     request.body = options.to_json
     response = @http.request(request)
     body = JSON.parse(response.body)
