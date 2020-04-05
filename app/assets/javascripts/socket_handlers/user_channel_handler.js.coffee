@@ -34,3 +34,6 @@ class window.UserChannelHandler
     if(!App.teacherChannel || (App.teacherChannel && App.teacherChannel.consumer.connection.disconnected))
       # Connect to the teachers socket when we know the user has connected
       window.connectToTeachersSocket()
+    
+    if(!App.videoConferenceChannel || (App.videoConferenceChannel && App.videoConferenceChannel.consumer.connection.disconnected))
+      window.connectToVideoConferenceSocket()

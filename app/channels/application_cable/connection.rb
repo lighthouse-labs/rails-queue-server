@@ -3,9 +3,12 @@ module ApplicationCable
   class Connection < ActionCable::Connection::Base
 
     identified_by :current_user
+    identified_by :cohort
 
     def connect
       self.current_user = find_verified_user
+      self.cohort = Cohort.find_by(id: @request.session[:cohort_id]) if @request.session[:cohort_id]
+      self.cohort ||= current_user.try(:cohort)
     end
 
     protected
