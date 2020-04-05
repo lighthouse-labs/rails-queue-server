@@ -19,7 +19,7 @@ class ZoomMeeting::BookMeeting
     options = {
       topic:      @topic,
       type:       2,
-      start_time: Time.now,
+      start_time: Time.current,
       duration:   @duration,
       agenda:     'A zoom meeting created in Compass.',
       settings:   {
