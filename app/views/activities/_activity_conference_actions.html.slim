@@ -1,25 +1,6 @@
 - conference = activity.active_conference_for_cohort(cohort)
 - if teacher?
-  - if conference && conference.is_host?(current_user)
-    - if !conference&.broadcasting?
-      = form_for :video_conference, url: teacher_video_conference_path(conference), html: {method: :put} do |f|
-          = f.hidden_field :status, value: 'broadcast'
-          = button_tag(type: 'submit', class: 'btn btn-warning btn-new-lecture-stream', :"data-toggle" => 'tooltip', :"data-placement" => 'bottom', :"title" => "Broadcasting will publicize the conference to it's cohort") do
-            i.fa.fa-fw.fa-video
-            = " Broadcast"
-    -else
-      = form_for :video_conference, url: teacher_video_conference_path(conference), html: {method: :put} do |f|
-        = f.hidden_field :status, value: 'waiting'
-        = button_tag(type: 'submit', class: 'btn btn-warning btn-new-lecture-stream') do
-          i.fa.fa-fw.fa-video
-          = " Stop Broadcast"
-    = form_for :video_conference, url: teacher_video_conference_path(conference), html: {method: :put} do |f|
-      = f.hidden_field :status, value: 'finished'
-      = button_tag(type: 'submit', class: 'btn btn-danger btn-new-lecture-stream') do
-        i.fa.fa-fw.fa-video
-        = " End"
-    
-  - elsif !conference
+  - unless conference
     = button_tag(class: 'btn btn-warning btn-new-lecture-stream', :'data-toggle' => "collapse", :'data-target' => "#conference-form") do
         i.fa.fa-fw.fa-video
         = " Create Zoom Conference"
