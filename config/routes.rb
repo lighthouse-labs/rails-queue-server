@@ -56,6 +56,8 @@ LaserShark::Application.routes.draw do
 
   post 'github-hook' => 'github_webhook_events#create'
 
+  post 'zoom-hook' => 'zoom_webhook_events#create'
+
   root to: 'home#show'
   get '/welcome', to: 'welcome#show'
 
