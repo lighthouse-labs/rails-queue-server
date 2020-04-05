@@ -181,7 +181,7 @@ class Activity < ApplicationRecord
   end
 
   def quiz?
-    self.is_a?(QuizActivity)
+    is_a?(QuizActivity)
   end
 
   def bootcamp?

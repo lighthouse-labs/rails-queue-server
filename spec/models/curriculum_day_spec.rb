@@ -32,13 +32,13 @@ describe CurriculumDay, type: :model do
           end
 
           it 'should be unlocked after that date' do
-            travel_to Time.new(2019, 12, 27, 12, 00, 00) do
+            travel_to Time.new(2019, 12, 27, 12, 0o0, 0o0) do
               expect(curriculum_day.unlocked?(timezone)).to eq(true)
             end
           end
 
           it 'should be unlocked after that date' do
-            travel_to Time.new(2019, 12, 30, 12, 00, 00) do
+            travel_to Time.new(2019, 12, 30, 12, 0o0, 0o0) do
               expect(curriculum_day.unlocked?(timezone)).to eq(true)
             end
           end
@@ -53,13 +53,13 @@ describe CurriculumDay, type: :model do
         describe 'when initialized as "w12d5"' do
           subject(:curriculum_day) { CurriculumDay.new('w12d5', cohort) }
           it 'should be locked in January' do
-            travel_to Time.new(2021, 1, 1, 12, 00, 00) do
+            travel_to Time.new(2021, 1, 1, 12, 0o0, 0o0) do
               expect(curriculum_day.unlocked?(timezone)).to eq(false)
             end
           end
 
           it 'should be unlocked after that date' do
-            travel_to Time.new(2021, 4, 30, 12, 00, 00) do
+            travel_to Time.new(2021, 4, 30, 12, 0o0, 0o0) do
               expect(curriculum_day.unlocked?(timezone)).to eq(true)
             end
           end
