@@ -13,4 +13,8 @@ class Program < ApplicationRecord
     days_per_week < 5
   end
 
+  def has_feature?(feature_flag)
+    settings['features'] && settings['features'][feature_flag.to_s].to_s.casecmp('true').zero?
+  end
+
 end

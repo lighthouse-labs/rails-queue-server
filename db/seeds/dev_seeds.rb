@@ -69,14 +69,16 @@ if Rails.env.development?
 
   # Prep course curriculum feedback
 
-  20.times do |_n|
-    ActivityFeedback.create!(
-      user:     User.all.order('random()').first,
-      activity: Activity.prep.active.order('random()').first || Activity.active.order('random()').first,
-      rating:   rand(1..5),
-      detail:   Faker::Lorem.paragraph
-    )
-  end if Activity.active.any?
+  if Activity.active.any?
+    20.times do |_n|
+      ActivityFeedback.create!(
+        user:     User.all.order('random()').first,
+        activity: Activity.prep.active.order('random()').first || Activity.active.order('random()').first,
+        rating:   rand(1..5),
+        detail:   Faker::Lorem.paragraph
+      )
+    end
+  end
 
   Cohort.all.each do |cohort|
     x = cohort == Cohort.find_by(code: 'vanj') ? 20 : 10

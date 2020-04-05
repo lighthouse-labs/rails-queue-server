@@ -1,0 +1,19 @@
+- conference = activity.active_conference_for_cohort(cohort)
+- if teacher?
+  - unless conference
+    = button_tag(class: 'btn btn-warning btn-new-lecture-stream', :'data-toggle' => "collapse", :'data-target' => "#conference-form") do
+        i.fa.fa-fw.fa-video
+        = " Create Zoom Conference"
+    = form_for :video_conference, url: teacher_video_conferences_path, html: {method: :post, class: 'create-conference collapse', id: 'conference-form'} do |f|
+      i.fa.fa-fw.fa-info-circle.mt-2 data-toggle="tooltip" data-placement="bottom" title="Use the same email you use with zoom, you can set your default in the edit profile page"
+      = f.hidden_field :cohort_id, value: cohort.id
+      = f.hidden_field :activity_id, value: activity.id
+      = f.hidden_field :topic, value: activity.name
+      = f.email_field :email, placeholder: current_user.email, class: 'form-control'
+      = f.select :duration, [['1 hour', 80], ['2 hours', 140], ['3 hours', 200], ['4 hours', 260]], {selected: 140}, class: 'form-control'
+      = f.select :use_password, [['Password', true], ['No Password', false]], {selected: true}, class: 'form-control w-auto'
+      = f.select(:cohort_id, Cohort.is_active.collect{|a| [a.name, a.id]}, {selected:cohort.id }, class: 'form-control w-auto')
+      = button_tag(type: 'submit', class: 'btn btn-danger btn-new-lecture-stream') do
+        i.fa.fa-fw.fa-video
+        = " Start"
+ 

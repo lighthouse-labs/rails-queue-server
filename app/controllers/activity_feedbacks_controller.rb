@@ -16,7 +16,7 @@ class ActivityFeedbacksController < ApplicationController
     @activity_feedbacks = @activity_feedbacks.where(rating: ratings) unless ratings.size == 5
 
     @activity_feedbacks = @activity_feedbacks.where(user_id: cohort.students.select(:id)) if filterByCohort
-    
+
     @activity_feedbacks = @activity_feedbacks.notable if params[:requireFeedback] == 'true'
 
     # render json: @activity_feedbacks
