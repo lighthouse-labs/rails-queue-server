@@ -82,7 +82,7 @@ class Student < User
   end
 
   def initial_submission_for_quiz(quiz)
-    self.quiz_submissions.where(quiz_id: quiz).where(initial: true).first
+    quiz_submissions.where(quiz_id: quiz).where(initial: true).first
   end
 
   def current_enrollment_id

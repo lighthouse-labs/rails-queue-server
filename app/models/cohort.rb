@@ -111,7 +111,7 @@ class Cohort < ApplicationRecord
   end
 
   def can_destroy?
-    students.size < 1
+    students.empty?
   end
 
   private
