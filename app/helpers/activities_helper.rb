@@ -188,6 +188,15 @@ module ActivitiesHelper
     end
   end
 
+  def show_activity_as_completed?(activity)
+    (!teacher? || activity.section&.is_a?(TeacherSection)) && 
+      current_user.completed_activity?(activity)
+  end
+
+  def show_activity_completion_stats?(activity)
+    (teacher? || admin?) && activity.completable?
+  end
+
   # FIXME: Not used, remove if un-needed
   def activity_type_options
     %w[

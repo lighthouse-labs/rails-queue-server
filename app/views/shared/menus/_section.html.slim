@@ -36,15 +36,14 @@
 
           li class=(activity_classes.join(" "))
               = link_to activity_path(activity), class: 'toc-activity--label' do
-                span.toc-activity--icon
-                  i.text-muted class=icon_for(activity)
-                span.toc-activity--name
-
-                  = activity.name
-                  / - if activity.stretch?
-                    / | &nbsp;
-                    / i.fa.fa-trophy data-toggle='tooltip' title='Stretch'
-
-                span.toc-activity--tags
-                  - if current_user.completed_activity?(activity)
-                    i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
+                .left-nav-activities
+                  span.toc-activity--icon
+                    i.text-muted class=icon_for(activity)
+                  span.toc-activity--name = activity.name
+                    
+                  span.toc-activity--tags
+                    - if show_activity_as_completed?(activity)
+                      i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
+                    - elsif show_activity_completion_stats?(activity)
+                      span.completed-activities data-toggle='tooltip' title="Completion stats for #{cohort.name}"
+                        = completed_students(activity)
