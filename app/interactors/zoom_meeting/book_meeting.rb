@@ -27,7 +27,7 @@ class ZoomMeeting::BookMeeting
         approval_type:   2,
         audio:           'both',
         enforce_login:   false,
-        waiting_room:    true,
+        waiting_room:    false,
         auto_recording:  'cloud'
       }
     }
