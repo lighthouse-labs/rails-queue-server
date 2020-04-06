@@ -26,8 +26,12 @@
       if (timeSpent) {
         $("form").submit(function() {
           $(this).submit(function() {
+            $('.modal').hide();
+            $('.modal-backdrop').hide();
             return false;
           });
+          $('.modal').hide();
+          $('.modal-backdrop').hide();
           return true;
         });
       }
