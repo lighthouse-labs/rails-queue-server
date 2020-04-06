@@ -19,8 +19,7 @@ $ ->
     alert(xhr.responseText)
 
   $(document).on('ajax:success', '#new_activity_submission_with_optional_feedback', (e, data, status, xhr) ->
-    $('.modal').hide();
-    $('.modal-backdrop').hide();
+    $('#new-activity-submission-modal').modal('toggle');
     Turbolinks.visit(nextPath)
   ).on 'ajax:error', (e, xhr, status, error) ->
     $('#new_activity_submission_with_optional_feedback .remote-form-errors').removeClass('d-none').find('.error-messages').html xhr.responseText
