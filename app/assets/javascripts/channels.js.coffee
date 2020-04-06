@@ -17,6 +17,15 @@ window.connectToTeachersSocket = ->
     disconnected: ->
       new TeacherChannelHandler().disconnected()
 
+window.connectToVideoConferenceSocket = ->
+  return unless App.cable
+  App.videoConferenceChannel = App.cable.subscriptions.create "VideoConferenceChannel",
+    updateConference: (status, conferenceId) ->
+      @perform 'update_conference', status: status, video_conference_id: conferenceId
+
+    received: (data) ->
+      new VideoConferenceChannelHandler(data).processResponse()
+
 $ ->
   return unless App.cable
   App.userChannel = App.cable.subscriptions.create "UserChannel",

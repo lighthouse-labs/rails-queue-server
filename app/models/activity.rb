@@ -19,6 +19,8 @@ class Activity < ApplicationRecord
 
   has_many :answers, class_name: ActivityAnswer
 
+  has_many :video_conferences
+
   include PgSearch
   pg_search_scope :by_keywords,
                   against:            [:name, :day, :type, :instructions],
@@ -181,7 +183,7 @@ class Activity < ApplicationRecord
   end
 
   def quiz?
-    self.is_a?(QuizActivity)
+    is_a?(QuizActivity)
   end
 
   def bootcamp?
@@ -203,6 +205,10 @@ class Activity < ApplicationRecord
 
   def test_activity?
     is_a?(TestActivity)
+  end
+
+  def active_conference_for_cohort(cohort)
+    video_conferences&.for_cohort(cohort)&.active&.last
   end
 
   protected

@@ -80,3 +80,14 @@
     display: none
   }
 }
+
+.live-lecture-container {
+  margin: 0 1rem 2rem 1rem;
+  .btn {
+    width: 100%;
+  }
+}
+
+.btn.btn-warning.btn-new-lecture-stream {
+  color: white;
+}

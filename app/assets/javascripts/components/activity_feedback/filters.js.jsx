@@ -31,10 +31,15 @@ window.ActivityFeedback.Filters = class Filters extends React.Component {
     const opts = this.props.filterOptions;
     this.props.changeFilters({ requireFeedback: !opts.requireFeedback });
   }
-
+  _toggleCohort = () => {
+    const opts = this.props.filterOptions;
+    let filterByCohort = !opts.filterByCohort;
+    this.props.changeFilters({ filterByCohort: filterByCohort });
+  }
   _showAll = () => {
     if (this._isShowingAll()) return;
     this.props.changeFilters({
+      filterByCohort: false,
       requireFeedback: false,
       one: true,
       two: true,
@@ -70,7 +75,8 @@ window.ActivityFeedback.Filters = class Filters extends React.Component {
 
   _isShowingAll() {
     const opts = this.props.filterOptions;
-    return( !opts.requireFeedback &&
+    return( !opts.filterByCohort &&
+            !opts.requireFeedback &&
             opts.one &&
             opts.two &&
             opts.three &&
@@ -109,6 +115,9 @@ window.ActivityFeedback.Filters = class Filters extends React.Component {
           <button type="button" onClick={this._showCriticalOnly} className={`btn ${this._isShowingCriticalOnly() ? 'btn-primary' : 'btn-light'}`}>Critical</button>
         </div>
         <div className="btn-group mb-2 mr-2" role="group" aria-label="First group">
+          <button type="button" onClick={this._toggleCohort} className={`btn ${on.filterByCohort ? 'btn-primary' : 'btn-light'}`} title="Show selected cohort only" data-toggle="tooltip">
+          <i className="fa fa-users" />
+          </button>
           <button type="button" onClick={this._toggleFeedbackRequirement} className={`btn ${on.requireFeedback ? 'btn-primary' : 'btn-light'}`} title="Show only feedback which contains text (10 characters or more)" data-toggle="tooltip">
             <i className="fa fa-comments" />
           </button>

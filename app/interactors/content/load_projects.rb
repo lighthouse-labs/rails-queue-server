@@ -108,7 +108,6 @@ class Content::LoadProjects
     section
   end
 
-
   def workbook(uuid)
     uuid &&
       (scan_for_record_by_uuid(uuid) || Workbook.find_by(uuid: uuid))
