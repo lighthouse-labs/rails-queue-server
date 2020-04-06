@@ -14,7 +14,7 @@ class Program < ApplicationRecord
   end
 
   def has_feature?(feature_flag)
-    settings['features'] && settings['features'][feature_flag.to_s].to_s.casecmp('true').zero?
+    settings? && settings['features'].present? && settings['features'][feature_flag.to_s].to_s.casecmp('true').zero?
   end
 
 end
