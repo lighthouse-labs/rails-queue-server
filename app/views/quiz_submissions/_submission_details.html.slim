@@ -6,19 +6,19 @@ hr
   .alert.alert-info.text-center The quiz that this submission is for has been deleted.
 - else
   - submission.quiz.questions.each_with_index do |question, question_index|
-    .submission-question
-      h3.text-primary = "Question ##{question_index + 1}"
-      == markdown(question.question)
-      .submission-answer
-        h4.text-muted = "Question ##{question_index + 1} answer"
-        .list-group
-          - question.options.each_with_index do |option, option_index|
-            div class="list-group-item #{option.selected?(submission) ? 'list-group-item-primary' : option.correct? ? 'list-group-item-success' :  'quiz-result-unselected'}"
-              .list-group-item-heading
+    .submission-question.card
+      .card-header
+        h3.text-primary = "Question ##{question_index + 1}"
+      .card-body
+        p == markdown(question.question)
+        .submission-answer
+          h4.text-muted = "Question ##{question_index + 1} answer"
+          .list-group
+            - question.options.each_with_index do |option, option_index|
+            
+              div class="list-group-item quiz-results #{option.correct? ? 'list-group-item-success' : option.selected?(submission) ? 'list-group-item-danger' : 'list-group-item-secondary'} #{option.selected?(submission) ? 'chosen-answer' : ''}"
                 - if option.selected?(submission)
-                  b.submission-choices = "#{option.correct? ? '✅' : '❌'}"
-                  br
-              .list-group-item-text
+                  i class="submission-choices fas #{option.correct? ? 'fa-check correct-answer' : 'fa-times incorrect-answer'}"
                 div == markdown(option.answer)
                 - if option.selected?(submission) || option.correct?
                   .explanation == markdown(option.explanation)

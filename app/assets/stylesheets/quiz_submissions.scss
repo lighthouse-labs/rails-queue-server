@@ -5,11 +5,14 @@
 
 .submission-answer {
   margin-top: 3rem;
+  .chosen-answer {
+    border: 5px inset #007bffa1;
+  }
 }
 
 .new_quiz_submission {
   div input[type="radio"]:checked+label {
-    background-color: #007bff;
+    background-color: #007bffa1;
     border-radius: 0.25rem;
     color: #000;
   }
@@ -26,6 +29,14 @@
     cursor: pointer;
   }
 }
+.quiz-results {
+    margin-bottom: 0.5em;
+    border-radius: 0.25em;
+    p {
+      margin-bottom: 0;
+    }
+  }
+
 
 .submission-question {
   border-bottom: 1px solid $gray-lighter;
@@ -38,9 +49,16 @@
   right: 20px;
   border-radius: 20px;
   font-size: 2em;
-}
-.quiz-result-unselected {
-  background-color: rgba(127, 127, 127, .3);
+  transform: translate(-50%,-50%);
+  top: 50%;
+  opacity: 0.5;
+  .correct-answer {
+    color: #155724;
+  }
+  .incorrect-answer {
+    color: #721c24;
+  }
+  
 }
 
 .attempts {
