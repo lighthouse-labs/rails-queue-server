@@ -7,7 +7,7 @@
 
   / BTW allow_submissions really means "require github url" these days ;P - KV
   - if @activity.allow_submissions?
-    = form.input :github_url, label: 'Submission url', placeholder: "From the browser's address bar. Eg: https://github.com/lighthouse-labs/ios-prep-book"
+    = form.input :github_url, label: 'Submission URL', placeholder: "From the browser's address bar. Eg: https://github.com/lighthouse-labs/ios-prep-book"
 
   = form.input :time_spent, as: :integer, label: 'Time spent in minutes', placeholder: 'How long did it take you? Your best approximation (in minutes) please!'
 

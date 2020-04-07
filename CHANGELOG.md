@@ -1,5 +1,15 @@
 # Changelog
 
+## [2020.04.07.0015u](https://github.com/lighthouse-labs/compass/tree/2020.04.07.0015u) (2020-04-06)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.05.2115u...2020.04.07.0015u)
+
+**Merged pull requests:**
+
+- Allow students to join zoom meeting without asking [\#1070](https://github.com/lighthouse-labs/compass/pull/1070) ([tborsa](https://github.com/tborsa))
+- Activity submissions: change github url label to submission url [\#1069](https://github.com/lighthouse-labs/compass/pull/1069) ([DraconianLore](https://github.com/DraconianLore))
+- Fix/goolge app initializer [\#1066](https://github.com/lighthouse-labs/compass/pull/1066) ([tborsa](https://github.com/tborsa))
+
 ## [2020.04.05.2115u](https://github.com/lighthouse-labs/compass/tree/2020.04.05.2115u) (2020-04-05)
 
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.03.26.0400u...2020.04.05.2115u)
