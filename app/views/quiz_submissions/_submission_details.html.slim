@@ -16,9 +16,9 @@ hr
           .list-group.quiz-results
             - question.options.each_with_index do |option, option_index|
             
-              div class="list-group-item #{option.correct? ? 'list-group-item-success' : option.selected?(submission) ? 'list-group-item-danger' : 'unselected-answer'}"
+              div class="list-group-item #{option.correct? ? 'list-group-item-success  text-success' : option.selected?(submission) ? 'list-group-item-danger text-danger' : 'unselected-answer'}"
                 - if option.selected?(submission)
-                  i class="submission-choices fas #{option.correct? ? 'fa-check correct-answer' : 'fa-times incorrect-answer'}"
+                  i class="submission-choices fas #{option.correct? ? 'fa-check correct-answer text-success' : 'fa-times incorrect-answer text-danger'}"
                 div == markdown(option.answer)
                 - if option.selected?(submission) || option.correct?
                   .explanation == markdown(option.explanation)
