@@ -1,5 +1,29 @@
 # Changelog
 
+## [2020.04.07.0015u](https://github.com/lighthouse-labs/compass/tree/2020.04.07.0015u) (2020-04-06)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.05.2115u...2020.04.07.0015u)
+
+**Merged pull requests:**
+
+- Allow students to join zoom meeting without asking [\#1070](https://github.com/lighthouse-labs/compass/pull/1070) ([tborsa](https://github.com/tborsa))
+- Activity submissions: change github url label to submission url [\#1069](https://github.com/lighthouse-labs/compass/pull/1069) ([DraconianLore](https://github.com/DraconianLore))
+- Fix/goolge app initializer [\#1066](https://github.com/lighthouse-labs/compass/pull/1066) ([tborsa](https://github.com/tborsa))
+
+## [2020.04.05.2115u](https://github.com/lighthouse-labs/compass/tree/2020.04.05.2115u) (2020-04-05)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.03.26.0400u...2020.04.05.2115u)
+
+**Merged pull requests:**
+
+- General Rubocop lint [\#1063](https://github.com/lighthouse-labs/compass/pull/1063) ([tborsa](https://github.com/tborsa))
+- Guard google app initializer agianst no db connection [\#1060](https://github.com/lighthouse-labs/compass/pull/1060) ([tborsa](https://github.com/tborsa))
+- Show completions on left nav\(teacher view\) [\#1058](https://github.com/lighthouse-labs/compass/pull/1058) ([DraconianLore](https://github.com/DraconianLore))
+- Videojs turbolinks fix [\#1057](https://github.com/lighthouse-labs/compass/pull/1057) ([tborsa](https://github.com/tborsa))
+- Remote changes/zoom lecture integration [\#1051](https://github.com/lighthouse-labs/compass/pull/1051) ([tborsa](https://github.com/tborsa))
+- add cohort filters for activitiy feedback [\#1043](https://github.com/lighthouse-labs/compass/pull/1043) ([DraconianLore](https://github.com/DraconianLore))
+- Quiz UI improvement [\#1035](https://github.com/lighthouse-labs/compass/pull/1035) ([DraconianLore](https://github.com/DraconianLore))
+
 ## [2020.03.26.0400u](https://github.com/lighthouse-labs/compass/tree/2020.03.26.0400u) (2020-03-25)
 
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.02.26.2030u...2020.03.26.0400u)

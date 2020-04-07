@@ -1,4 +1,5 @@
 module TeachersHelper
+
   def url_for_proctologist(test, cohort)
     student_usernames = cohort.students.active.map do |s|
       if s.rolled_in?(cohort)
@@ -15,4 +16,5 @@ module TeachersHelper
 
     url.to_s
   end
+
 end
