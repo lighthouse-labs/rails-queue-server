@@ -13,10 +13,10 @@ hr
         p == markdown(question.question)
         .submission-answer
           h4.text-muted = "Question ##{question_index + 1} answer"
-          .list-group
+          .list-group.quiz-results
             - question.options.each_with_index do |option, option_index|
             
-              div class="list-group-item quiz-results #{option.correct? ? 'list-group-item-success' : option.selected?(submission) ? 'list-group-item-danger' : 'list-group-item-secondary'} #{option.selected?(submission) ? 'chosen-answer' : ''}"
+              div class="list-group-item #{option.correct? ? 'list-group-item-success' : option.selected?(submission) ? 'list-group-item-danger' : 'unselected-answer'}"
                 - if option.selected?(submission)
                   i class="submission-choices fas #{option.correct? ? 'fa-check correct-answer' : 'fa-times incorrect-answer'}"
                 div == markdown(option.answer)
