@@ -9,9 +9,10 @@
 
 .new_quiz_submission {
   div input[type="radio"]:checked+label {
-    background-color: #007bff;
+    background-color: #007bffa1;
     border-radius: 0.25rem;
     color: #000;
+    border: 1px solid #007bff;
   }
   .list-group input[type="radio"] {
     display: none;
@@ -33,6 +34,7 @@
     
     p {
       margin-bottom: 0;
+      margin-right: 2em;
     }
   }
   .unselected-answer {
@@ -49,18 +51,11 @@
 }
 .submission-choices {
   position: absolute;
-  right: 20px;
+  right: 0;
   border-radius: 20px;
   font-size: 2em;
   transform: translate(-50%,-50%);
   top: 50%;
-  .correct-answer {
-    color: #155724;
-  }
-  .incorrect-answer {
-    color: #721c24;
-  }
-  
 }
 
 .attempts {
