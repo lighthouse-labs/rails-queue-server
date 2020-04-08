@@ -12,7 +12,7 @@ class ZoomMeeting::GetUser
       next unless @email == user['email']
       context.user = user
       context.update_user_stack ||= []
-      context.update_user_stack.push(user: user, license: 2) unless user['type'].to_i == 2
+      context.update_user_stack.push(user: user, license: 2)
       break
     end
     context.fail!(error: "#{@email} does not have a zoom account with the organization.") unless context.user['pmi']
