@@ -197,6 +197,7 @@ class Activity < ApplicationRecord
   end
 
   def has_lecture_for_cohort?(cohort)
+    return false unless cohort
     lectures.where(cohort: cohort).any?
   end
 

@@ -12,10 +12,10 @@
 
       - if activity.completable?
         - classes << (activity.stretch? ? 'bg-stretch' : 'bg-core')
-        - (classes << 'bg-faded') unless current_user&.completed_activity?(activity)
+        - classes << (current_user&.completed_activity?(activity) ? 'bg-completed' : 'bg-faded')
       - elsif activity.has_lectures?
         - classes << 'bg-lecture'
-        - (classes << 'bg-faded') unless @cohort && activity.has_lecture_for_cohort?(@cohort)
+        - classes << (activity.has_lecture_for_cohort?(@cohort) ? 'bg-completed' : 'bg-faded' )
       - else
         - classes << 'bg-note'
 
