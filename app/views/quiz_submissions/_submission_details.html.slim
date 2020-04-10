@@ -6,20 +6,19 @@ hr
   .alert.alert-info.text-center The quiz that this submission is for has been deleted.
 - else
   - submission.quiz.questions.each_with_index do |question, question_index|
-    .submission-question
-      h3.text-primary = "Question ##{question_index + 1}"
-      == markdown(question.question)
-      .submission-answer
-        h4.text-muted = "Question ##{question_index + 1} answer"
-        .list-group
-          - question.options.each_with_index do |option, option_index|
-            div class="list-group-item #{option.correct? ? 'list-group-item-success' : option.selected?(submission) ? 'list-group-item-danger' : ''}"
-              .list-group-item-heading
-                input type="radio" disabled=(!option.selected?(submission)) checked=(option.selected?(submission))
-                b = " Option #{option_index + 1} "
-                - if option.correct? || option.selected?(submission)
-                  = "#{option.selected?(submission) ? 'selected, ' : ''}#{option.correct? ? 'correct' : 'incorrect'}"
-              .list-group-item-text
+    .submission-question.card
+      .card-header
+        h3.text-primary = "Question ##{question_index + 1}"
+      .card-body
+        p == markdown(question.question)
+        .submission-answer
+          h4.text-muted = "Question ##{question_index + 1} answer"
+          .list-group.quiz-results
+            - question.options.each_with_index do |option, option_index|
+            
+              div class="list-group-item #{option.correct? ? 'list-group-item-success  text-success' : option.selected?(submission) ? 'list-group-item-danger text-danger' : 'unselected-answer'}"
+                - if option.selected?(submission)
+                  i class="submission-choices fas #{option.correct? ? 'fa-check correct-answer text-success' : 'fa-times incorrect-answer text-danger'}"
                 div == markdown(option.answer)
                 - if option.selected?(submission) || option.correct?
                   .explanation == markdown(option.explanation)

@@ -160,8 +160,22 @@ nav.side-nav {
         border-radius: 5px;
       }
     }
+    .completed-activities {
+      color: $brand-primary;
+      float: right;
+      font-weight: 400;
+      font-style: normal;
+      font-size: .8em;
+      margin-left: 10px;
+    }
   }
   *[data-toggle=collapse][aria-expanded=true] > .toc-angle {
     transform: rotate(90deg);
+  }
+  .left-nav-activities {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
   }
 }

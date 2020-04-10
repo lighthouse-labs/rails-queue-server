@@ -1,0 +1,170 @@
+
+.lecture-actions{
+  padding-top: 0 !important;
+  h4{
+    width: 100%;
+    margin-bottom: -0.5rem;
+  }
+  form{
+    flex-wrap: wrap;
+    align-items: center;
+    .w-auto{
+      width: auto;
+    }
+    .form-control{
+      width: auto;
+    }
+  }
+  .create-conference.collapsing{
+    display: flex;
+  }
+  .create-conference.collapse{
+    display: none;
+    &.show {
+      display: flex;
+    }
+  }
+  button, select, input, a, .fa-info-circle{
+    margin-right: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.video-conferences {
+  position: relative;
+  margin-top: 2rem;
+  padding: 0;
+  flex-direction: column;
+  justify-content: space-evenly;
+  h3 {
+    font-size: 1rem;
+  }
+  .conference{
+    border: 1px solid #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    .conference-row{
+      padding: 1rem;
+      display: flex;
+      &.footer{
+        border: 1px solid #e9e9e9;
+        margin: -1px;
+        border-radius: 0 0 5px 5px;
+        background-color: white;
+        button, a {
+          margin-right: 1rem;
+        }
+      }
+      .left-video-info{
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-align: left;
+        min-width: 230px;
+        margin-bottom: 1rem;
+        .teacher-info {
+          min-height: 60px;
+          .avatar{
+            border-radius: 5px;
+            border-width: 0;
+          }
+        }
+        .time-since {
+          display: block;
+          background-color: #f1f1f1;
+          padding: 0.5rem;
+          border-radius: 5px;
+          font-weight: bold;
+          margin-top: 0.5rem;
+          margin-right: 1rem;
+        }
+      }
+      .center-video-info{
+        display: flex;
+        width: 100%;
+        min-width: 0;
+        justify-content: center;
+        .video-info{
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          flex: 1;
+          min-width: 0;
+          height: 100%;
+          justify-content: center;
+          align-items: flex-start;
+          max-width: 600px;
+          .label{
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin: 0.25rem 0;
+          }
+          .clipboard-container{
+            background-color: #f1f1f1;
+            border: 1px solid #e9e9e9;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+            .clip-content{
+              margin-left: 1rem;
+              margin-right: 1rem;
+              width: 100%;
+              overflow-x: scroll;
+              text-align: center;
+              -ms-overflow-style: none;
+              min-width: 0;
+              flex: 1;
+              &::-webkit-scrollbar {
+                display: none;
+              }
+              a{
+                font-size: 0.8rem;
+                font-weight: 500;
+                word-break: keep-all;
+                white-space: nowrap;
+              }
+            }
+            .copy-to-clipboard{
+              padding: 0.5rem 1rem;
+              color: white;
+            }
+          }
+          .password{
+            display: flex;
+            padding-top: 0.51rem;
+            font-size: 0.9rem;
+          }
+          .btn {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            i{
+              margin-right: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.nav-item-video-conference {
+  position: relative;
+  .conference-count{
+    position: absolute;
+    top: 0px;
+    left: 14px;
+    opacity: 0.6;
+  }
+}
+@media (max-width: 768px) {
+  .video-conferences .conference .header{
+    flex-direction: column;
+    .center-video-info{
+      justify-content: flex-start;
+    }
+  }
+}

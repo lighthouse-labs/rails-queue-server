@@ -30,6 +30,8 @@ class User < ApplicationRecord
   has_many :tech_interviews, foreign_key: 'interviewee_id'
   has_many :performed_tech_interviews, foreign_key: 'interviewer_id', class_name: 'TechInterviewResult'
 
+  has_many :video_conferences
+
   scope :order_by_last_assisted_at, -> {
     order("last_assisted_at ASC NULLS FIRST")
   }
@@ -248,6 +250,14 @@ class User < ApplicationRecord
 
   def github_education_pack_actioned?
     github_education_action.present?
+  end
+
+  def active_video_conference
+    video_conferences&.active&.last || cohort&.video_conferences&.broadcasting&.last
+  end
+
+  def hosting_active_video_conference?
+    video_conferences&.active.present?
   end
 
   class << self

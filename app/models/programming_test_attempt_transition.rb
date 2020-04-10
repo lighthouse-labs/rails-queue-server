@@ -1,4 +1,5 @@
 class ProgrammingTestAttemptTransition < ApplicationRecord
+
   include Statesman::Adapters::ActiveRecordTransition
 
   belongs_to :attempt, class_name: 'ProgrammingTestAttempt', inverse_of: :programming_test_attempt_transitions
@@ -9,7 +10,8 @@ class ProgrammingTestAttemptTransition < ApplicationRecord
 
   def update_most_recent
     last_transition = attempt.transitions.order(:sort_key).last
-    return unless last_transition.present?
+    return if last_transition.blank?
     last_transition.update_column(:most_recent, true)
   end
+
 end
