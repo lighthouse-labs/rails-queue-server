@@ -6,7 +6,6 @@
     - activities.each_with_index do |activity, i|
       - duration = [(activity&.approx_duration&.to_f || 15), 15].max
       - width = (duration / total.to_f * 100).round(1)
-      / - classes = ['colored', activity.type.to_s.underscore]
       - classes = []
       - (classes << 'progress-bar-striped bg-active') if activity == @activity
 
