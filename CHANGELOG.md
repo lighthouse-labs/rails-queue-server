@@ -1,5 +1,13 @@
 # Changelog
 
+## [2020.04.10.1815u](https://github.com/lighthouse-labs/compass/tree/2020.04.10.1815u) (2020-04-10)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.09.1430u...2020.04.10.1815u)
+
+**Merged pull requests:**
+
+- Progress bar for students to see their daily progress [\#1075](https://github.com/lighthouse-labs/compass/pull/1075) ([kvirani](https://github.com/kvirani))
+
 ## [2020.04.09.1430u](https://github.com/lighthouse-labs/compass/tree/2020.04.09.1430u) (2020-04-09)
 
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.07.0015u...2020.04.09.1430u)
