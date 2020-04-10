@@ -30,10 +30,10 @@
     }
 
     &.bg-lecture {
-      background-color: #0A2472;
-      border-color: darken(#0A2472, 1%);
+      background-color: lighten(#0A2472, 30%);
+      border-color: lighten(#0A2472, 10%);
       &:hover {
-        background-color: lighten(#0A2472, 10%);
+        background-color: lighten(#0A2472, 5%);
       }
     }
 
