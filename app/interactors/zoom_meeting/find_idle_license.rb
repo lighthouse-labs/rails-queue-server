@@ -30,7 +30,7 @@ class ZoomMeeting::FindIdleLicense
       # check if the account is available for the next two hours
       meetings.each do |meeting|
         event_start = Time.parse(meeting['start_time'])
-        available = false unless (event_start > Time.now + @duration.minutes) || (Time.now > event_start + meeting['duration'].minutes)
+        available = false unless (event_start > Time.current + @duration.minutes) || (Time.current > event_start + meeting['duration'].minutes)
       end
 
       if available

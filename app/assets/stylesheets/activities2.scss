@@ -1,15 +1,62 @@
 .activity-progress {
   .progress-bar {
-    border-right: 1px solid white;
+    // border-right: 1px solid white;
+
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-top-style: solid;
+    border-bottom-style: solid;
+
+    &:first-child {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      border-left-style: solid;
+      border-left-width: 2px;
+    }
 
     &:last-child {
-      border-right: none;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-right-style: solid;
+      border-right-width: 2px;
     }
 
-    &.bg-purple {
-      background-color: lighten($purple, 20%);
+    &.bg-note {
+      background-color: lighten(#FFC857, 10%);
+      border-color: darken(#FFC857, 10%);
+      &:hover {
+        background-color: lighten(#FFC857, 10%);
+      }
     }
 
+    &.bg-lecture {
+      background-color: lighten(#0A2472, 30%);
+      border-color: lighten(#0A2472, 10%);
+      &:hover {
+        background-color: lighten(#0A2472, 5%);
+      }
+    }
+
+    &.bg-core {
+      background-color: #31BC81;
+      border-color: darken(#31BC81, 10%);
+      &:hover {
+        background-color: lighten(#31BC81, 10%);
+      }
+    }
+
+    &.bg-stretch {
+      background-color: #6457A6;
+      border-color: darken(#6457A6, 5%);
+      &:hover {
+        background-color: lighten(#6457A6, 10%);
+      }
+    }
+
+    &.bg-faded:not(.bg-active):not(:hover) {
+      background-color: white;
+    }
+    
     &.bg-secondary {
       background-color: #aaa !important;
     }
