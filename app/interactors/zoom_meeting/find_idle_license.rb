@@ -5,8 +5,6 @@ class ZoomMeeting::FindIdleLicense
   before do
     @token = context.token
     @http = context.http
-    @user = context.user
-    @user ||= {}
     @users = context.users
     @duration = context.options[:duration].to_i
     @license_pool_group = context.license_pool_group
