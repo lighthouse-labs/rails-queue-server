@@ -7,10 +7,9 @@ class Teacher::VideoConferencesController < Teacher::BaseController
   end
 
   def update
-
     zoom_update = ZoomMeeting::UpdateVideoConference.call(
       video_conference_id: params[:id],
-      options: conference_params
+      options:             conference_params
     )
 
     if zoom_update.success?
@@ -47,7 +46,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
 
       if create_zoom_meeting.warnings.present?
         warning_message = ''
-        create_zoom_meeting.warnings.each do |type, message|
+        create_zoom_meeting.warnings.each do |_type, message|
           warning_message += " #{message}"
         end
         flash[:alert] = warning_message
@@ -56,7 +55,7 @@ class Teacher::VideoConferencesController < Teacher::BaseController
     else
       flash[:alert] = create_zoom_meeting.error
     end
-    
+
     redirect_back fallback_location: root_path
   end
 

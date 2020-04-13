@@ -26,7 +26,7 @@ class ZoomMeeting::CreateVideoConference
       cohort_id:       @cohort&.id,
       activity_id:     @activity&.id
     )
-    
+
     conference.user = @host
 
     if context.warnings[:update_user_license]

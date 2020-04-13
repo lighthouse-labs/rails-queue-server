@@ -12,7 +12,7 @@ class ZoomMeeting::BookMeeting
   end
 
   def call
-    context.fail!(error: 'Could not create a zoom meeting with that user.') unless @user.present?
+    context.fail!(error: 'Could not create a zoom meeting with that user.') if @user.blank?
     url = URI("https://api.zoom.us/v2/users/#{@user['id']}/meetings?type=live")
     request = Net::HTTP::Post.new(url)
     request["authorization"] = "Bearer #{@token}"

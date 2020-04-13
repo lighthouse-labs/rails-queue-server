@@ -15,7 +15,7 @@ class ZoomMeeting::NewMeetingSetup
       context.fail!(error: 'There is already a conference for that cohort and activity.')
     end
 
-    context.email = @options[:email].present? ? @options[:email] : @options[:host].email
+    context.email = @options[:email].presence || @options[:host].email
   end
 
 end

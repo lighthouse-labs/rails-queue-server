@@ -10,7 +10,7 @@ class ZoomWebhookEventsController < ApplicationController
     if params[:event] == 'meeting.ended'
       zoom_update = ZoomMeeting::UpdateVideoConference.call(
         zoom_meeting_id: params[:payload].dig('object', 'id'),
-        options: {status: 'finished'}
+        options:         { status: 'finished' }
       )
     end
   end
