@@ -53,8 +53,6 @@ class GoogleHangout
     result = service.insert_event('primary', event, conference_data_version: 1)
     event_details(result)
   rescue StandardError => err
-    puts "Error creating hangout"
-    puts err.inspect
     Raven.capture_exception(err)
     nil
   end
