@@ -38,7 +38,7 @@ class LecturesController < ApplicationController
     @lecture = result.lecture
 
     if result.success?
-      redirect_to activity_lecture_path(@activity, @lecture), notice: "Created! #{@cohort.name} students notified via e-mail."
+      redirect_to activity_lecture_path(@activity, @lecture), notice: "Created! #{@lecture.cohort.name} students notified via e-mail."
     else
       load_day_schedule
       render :new
