@@ -3,10 +3,10 @@
 - present @activity, nil, { workbook: @workbook } do |activity_presenter|
 
   = activity_presenter.render_sidenav
-  / = render 'progress_bar' if @activity.bootcamp?
-
+  
   section.activity-details data-uuid=@activity.uuid
 
+    = render 'activities/progress_bar' if student? && @activities && @activity.bootcamp? && !@workbook
     = render 'activity_title', activity_presenter: activity_presenter
     = render 'actions', activity_presenter: activity_presenter
 
