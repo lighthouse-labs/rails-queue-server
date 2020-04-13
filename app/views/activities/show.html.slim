@@ -19,7 +19,7 @@
     - if @activity.archived?
       .alert.alert-danger
         strong ARCHIVED ACTIVITY
-        p This activity is archived and not presented in the curriculum list to students.
+        p This activity is archived, you may still view it but are unable to submit or place feedback. 
 
     - if @activity.cs?
       .alert.alert-info
@@ -58,9 +58,11 @@
         h2 Teacher Notes
         == markdown @activity.teacher_notes
 
-    = render 'submission_bar', activity_presenter: activity_presenter
+    -unless @activity.archived
+      = render 'submission_bar', activity_presenter: activity_presenter
     = render 'next_and_prev', activity_presenter: activity_presenter
-    = render 'feedback' if @activity.allow_feedback?
+    -unless @activity.archived
+      = render 'feedback' if @activity.allow_feedback?
 
     - if @lectures.present?
       hr
