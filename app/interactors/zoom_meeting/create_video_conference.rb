@@ -11,7 +11,6 @@ class ZoomMeeting::CreateVideoConference
   end
 
   def call
-    VideoConference.create
     conference = VideoConference.new(
       name:            @meeting['topic'],
       start_time:      @meeting['start_time'],
