@@ -57,12 +57,9 @@
       .instructions.teacher-notes.text-white.bg-dark
         h2 Teacher Notes
         == markdown @activity.teacher_notes
-
-    -unless @activity.archived
-      = render 'submission_bar', activity_presenter: activity_presenter
+    = render 'submission_bar', activity_presenter: activity_presenter unless @activity.archived?
     = render 'next_and_prev', activity_presenter: activity_presenter
-    -unless @activity.archived
-      = render 'feedback' if @activity.allow_feedback?
+    = render 'feedback' if @activity.allow_feedback? && !@activity.archived?
 
     - if @lectures.present?
       hr
