@@ -14,6 +14,7 @@ class ZoomMeeting::FindIdleLicense
   def call
     context.user = nil
     return if @user['type'].to_i == 2 || @user['group_ids'].nil? || @user['group_ids']&.exclude?(@license_pool_group)
+    
     @users.each do |user|
       # check if user is in the pool of licensed users
       next unless user['group_ids']&.include?(@license_pool_group) && user['type'].to_i == 2

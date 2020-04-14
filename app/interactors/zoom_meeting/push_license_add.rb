@@ -1,4 +1,3 @@
-
 class ZoomMeeting::PushLicenseAdd
 
   include Interactor

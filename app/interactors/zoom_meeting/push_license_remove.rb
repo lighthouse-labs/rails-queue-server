@@ -1,4 +1,3 @@
-
 class ZoomMeeting::PushLicenseRemove
 
   include Interactor

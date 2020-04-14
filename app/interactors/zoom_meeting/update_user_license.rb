@@ -23,9 +23,7 @@ class ZoomMeeting::UpdateUserLicense
 
       next if user['type']&.to_i == license_type
       if user['group_ids'].nil? || user['group_ids']&.exclude?(@license_pool_group)
-        if license_type == 2
-          context.warnings[:update_user_license] = @warning_text + "If you want to create a licensed meeting for #{user['email']} assign them a license in zoom or add them to the zoom compass group."
-        end
+        context.warnings[:update_user_license] = @warning_text + "If you want to create a licensed meeting for #{user['email']} assign them a license in zoom or add them to the zoom compass group." if license_type == 2
         next
       end
 
