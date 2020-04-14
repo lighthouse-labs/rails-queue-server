@@ -157,6 +157,9 @@ th .desc {
 .teacher_feedbacks_section {
   border-bottom: 1px solid black;
   clear: both;
+  .col-md-2 {
+    margin-bottom: 5px;
+  }
 }
 
 .feedback-rating-column {
