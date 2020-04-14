@@ -46,8 +46,8 @@ br
           i.fas.fa-laptop-code
             span.teacher-details data-toggle="tooltip" data-placement="right" title="Average Rating"
               = avg_ratings_or_na(project_eval_feedbacks, 5)
-              
-      .row
+
+      .row.teacher-feedback-list
         table.table
           thead
             tr
@@ -55,7 +55,6 @@ br
               th Student Name
               th Feedback Type
               th Rating
-              th
           tbody
             - feedbacks.each do |teacher_feedback|
               - present teacher_feedback do |teacher_feedback_presenter|
@@ -72,6 +71,6 @@ br
                       small
                         em
                           article.read-more = teacher_feedback_presenter.notes
-                    td
+           
 
 = link_to "Download CSV", admin_teacher_feedbacks_path({format: :csv}.merge(safe_params)), class: "btn btn-success"
