@@ -22,3 +22,20 @@
     }
   }
 }
+
+.teacher-feedback-stats {
+  .stat {
+    min-width: 5em;
+    width: 5em;
+    margin: 0 5px;
+    .card-body {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    h3 {
+      font-size: 12px;
+    }
+  }
+}
