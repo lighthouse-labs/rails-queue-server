@@ -39,7 +39,6 @@ window.ActivityFeedback.Filters = class Filters extends React.Component {
   _showAll = () => {
     if (this._isShowingAll()) return;
     this.props.changeFilters({
-      filterByCohort: false,
       requireFeedback: false,
       one: true,
       two: true,
