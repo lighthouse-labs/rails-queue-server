@@ -20,7 +20,11 @@ class QueueTechInterviewProgressSerializer < ActiveModel::Serializer
   private
 
   def students
-    Student.active.where(cohort_id: object.cohort, location_id: object.cohort.current_location)
+    if defined? object.cohort.current_location
+      Student.active.where(cohort_id: object.cohort, location_id: object.cohortcurrent_location)
+    else
+      Student.active.where(cohort_id: object.cohort)
+    end
   end
 
   def tech_interviews

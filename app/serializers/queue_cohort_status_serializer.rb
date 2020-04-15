@@ -24,7 +24,11 @@ class QueueCohortStatusSerializer < ActiveModel::Serializer
   private
 
   def students
-    Student.active.where(cohort_id: object, location_id: object.current_location)
+    if defined? object.current_location
+      Student.active.where(cohort_id: object, location_id: object.current_location)
+    else
+      Student.active.where(cohort_id: object)
+    end
   end
 
 end
