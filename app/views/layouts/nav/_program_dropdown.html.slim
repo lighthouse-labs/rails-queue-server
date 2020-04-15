@@ -3,10 +3,12 @@ li class="nav-item dropdown"
     i.fa.fa-fw.fa-flag
     span.non-tablet-label
       | Program
-  div class="dropdown-menu" aria-labelledby="nav-program-dropdown"
-    = link_to day_path('today'), class: 'dropdown-item', title: 'Schedule'
-      i.fa.fa-fw.fa-calendar
-      | Schedule
+
+  .dropdown-menu aria-labelledby="nav-program-dropdown"
+    - if @program&.has_schedule?
+      = link_to day_path('today'), class: 'dropdown-item', title: 'Schedule'
+        i.fa.fa-fw.fa-calendar
+        | Schedule
 
     = link_to lectures_path, class: 'dropdown-item', title: 'Lectures'
       i.fa.fa-fw.fa-tv
