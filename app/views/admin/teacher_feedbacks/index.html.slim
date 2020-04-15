@@ -59,7 +59,7 @@ br
             - feedbacks.each do |teacher_feedback|
               - present teacher_feedback do |teacher_feedback_presenter|
                 tr
-                  td = teacher_feedback_presenter.date
+                  td.admin-teacher-feedback-date-column = teacher_feedback_presenter.date
                   td = teacher_feedback_presenter.student_full_name
                   td = teacher_feedback_presenter.feedbackable_type
                   td = render 'feedback_rating', rating: teacher_feedback_presenter.rating

@@ -186,10 +186,14 @@ th .desc {
 .in-place-edit-text-area {
   font-size: 12px;
 }
+.admin-teacher-feedback-date-column {
+  white-space: nowrap;
+}
 .feedback-stars {
   font-size: calc(24px + .5vw);
-  line-height: calc(12px + .5vw);
+  line-height: calc(16px + .5vw);
   cursor: default;
+  word-wrap: anywhere;
   .red {
     display: inline;
     color: #e74c3c;
