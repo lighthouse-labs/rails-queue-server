@@ -10,6 +10,8 @@ class AssistanceRequest < ApplicationRecord
   # used for code review requests only (set in CodeReviewRequest class) - KV
   belongs_to :activity_submission
 
+  has_many :queue_tasks
+
   before_validation :set_assistor_location_id, on: :create
 
   validates :requestor, presence: true
