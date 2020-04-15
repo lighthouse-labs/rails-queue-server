@@ -440,7 +440,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.2.0)
       json (~> 1.4)
-    react-rails (2.4.7)
+    react-rails (2.6.1)
       babel-transpiler (>= 0.7.0)
       connection_pool
       execjs
@@ -650,7 +650,7 @@ DEPENDENCIES
   rb-fchange
   rb-fsevent
   rb-inotify
-  react-rails
+  react-rails (>= 2.5.0)
   redcarpet
   redis
   responders
