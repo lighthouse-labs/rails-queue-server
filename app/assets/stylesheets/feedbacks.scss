@@ -172,9 +172,6 @@ th .desc {
 .admin-curriculum-feedback-date-column, .admin-curriculum-feedback-student-column {
   width: 145px;
 }
-.admin-teacher-feedback-date-column {
-  width: 140px;
-}
 .admin-teacher-stat {
   text-align: center;
 }
@@ -188,4 +185,29 @@ th .desc {
 }
 .in-place-edit-text-area {
   font-size: 12px;
+}
+.feedback-stars {
+  font-size: calc(24px + .5vw);
+  line-height: calc(12px + .5vw);
+  cursor: default;
+  .red {
+    display: inline;
+    color: #e74c3c;
+  }
+  .orange {
+    display: inline;
+    color: #fd7e14;
+  }
+  .yellow {
+    display: inline;
+    color: #ffc107;
+  }
+  .blue {
+    display: inline;
+    color: #17a2b8;
+  }
+  .green {
+    display: inline;
+    color: #2ecc71;
+  }
 }

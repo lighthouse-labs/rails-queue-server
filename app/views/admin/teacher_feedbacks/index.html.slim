@@ -59,11 +59,10 @@ br
             - feedbacks.each do |teacher_feedback|
               - present teacher_feedback do |teacher_feedback_presenter|
                 tr
-                  td.admin-teacher-feedback-date-column = teacher_feedback_presenter.date
+                  td = teacher_feedback_presenter.date
                   td = teacher_feedback_presenter.student_full_name
                   td = teacher_feedback_presenter.feedbackable_type
-                  td
-                    .raty-viewer data-score="#{teacher_feedback_presenter.rating}"
+                  td = render 'feedback_rating', rating: teacher_feedback_presenter.rating
                 - if teacher_feedback.notes.present?
                   tr
                     td
