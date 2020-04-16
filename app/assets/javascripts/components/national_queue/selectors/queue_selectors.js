@@ -1,3 +1,5 @@
+window.NationalQueue = window.NationalQueue || {};
+
 const selectActive = (tasks) => {
  return tasks.filter((task) => {
   return true

@@ -24,11 +24,11 @@ window.NationalQueue.InProgressList = ({tasks}) => {
   }
 
   const renderTasks = (tasks) => {
-    return items.map(renderItem);
+    return tasks.map(renderItem);
   }
 
   return (
-    <NationalQueue.ListGroup count={items.length} title="In Progress">
+    <NationalQueue.ListGroup count={tasks.length} title="In Progress">
       {renderTasks(tasks)}
     </NationalQueue.ListGroup>
   );
