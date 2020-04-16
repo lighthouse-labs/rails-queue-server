@@ -1,27 +1,37 @@
-window.Queue || (window.Queue = {});
+window.NationalQueue = window.NationalQueue || {};
 
-window.Queue.AssistanceButton = ({user}) => {
-  console.log(user);
-
-
+window.NationalQueue.AssistanceButton = ({user}) => {
+  const queueContext =  window.NationalQueue.queueContext;
+  const queueSocket = useContext(queueContext);
 
   const requestAssistance =  (e) => {
-    e.preventDefault()
     reasonTextField = 4 //$(@).closest('form').find('textarea')
     reason = reasonTextField.val()
     activityId = 5 //$(@).closest('form').find('select').val()
-    window.App.userChannel.requestAssistance(reason, activityId)
+    // window.App.userChannel.requestAssistance(reason, activityId)
+    queueSocket.requestAssistance(user, reason, activityId);
     reasonTextField.val('')
   }
-
+  
   const cancelAssistance = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-
     if (true) { //pop up if user wants to cancel
-      window.App.userChannel.cancelAssistanceRequest()
+      // window.App.userChannel.cancelAssistanceRequest()
+      queueSocket.cancelAssistance(user);
     }
   }
+
+  const handleAssistanceButton = (e) => {
+    e.preventDefault();
+    e.stopPropagation()
+    if (user.waitingForAssistance) {
+      cancelAssistance();
+    } else if (user.beingAssisted) {
+      //finishAssistance();
+    } else {
+      requestAssistance()
+    }
+  }
+
 
   const assistorName = () => {
     return (user.currentAssistor && user.currentAssistor.first_name) ? `${user.currentAssistor.first_name} ${user.currentAssistor.last_name}` : 'TA';
@@ -64,7 +74,8 @@ window.Queue.AssistanceButton = ({user}) => {
           <button 
             className={`navbar-btn btn ${button.style} cancel-request-assistance-button`}
             data-toggle='tooltip' 
-            data-placement='bottom' 
+            data-placement='bottom'
+            onClick={handleAssistanceButton}
             title={button.title}
             ref={ref => $(ref).tooltip()}
           >

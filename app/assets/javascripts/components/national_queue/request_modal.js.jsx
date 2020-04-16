@@ -1,190 +1,203 @@
 window.NationalQueue = window.NationalQueue || {};
 const useState = React.useState;
+const useRef = React.useRef;
 
-window.NationalQueue.RequestModal = ({assistance}) => {
-  const [settings, setSettings] = useState({
-    notesValid: null,
-    ratingValid: null,
-    disabled: false
+window.NationalQueue.RequestModal = ({assistance, student}) => {
+  const modalRef = useRef();
+  const [formInfo, setFormInfo] = useState({
+    disabled: false,
+    values: {
+      notes: '',
+      rating: '',
+      notify: false
+    }
   });
 
-  // open = () => {
-  //   $(this.refs.modal).modal();
-  // }
+  const close = () => {
+    $(modalRef.current).modal('hide');
+  }
 
-  // close = () => {
-  //   $(this.refs.modal).modal('hide');
-  // }
+  const setNotes = (e) => {
+    setFormInfo((currentInputs) => (
+      {
+        ...currentInputs,
+        values: {
+          ...currentInputs.values,
+          notes: e.target.value
+        }
+      }
+    ));
+  }
 
-  // setNotesError = () => {
-  //   this.setState({ notesValid: this.notesIsValid() });
-  // }
+  const setRating = (e) => {
+    setFormInfo((currentInputs) => (
+      {
+        ...currentInputs,
+        values: {
+          ...currentInputs.values,
+          rating: e.target.value
+        }
+      }
+    ));
+  }
 
-  // setRatingError = () => {
-  //   this.setState({ ratingValid: this.ratingIsValid() });
-  // }
+  const setNotify = (e) => {
+    setFormInfo((currentInputs) => (
+      {
+        ...currentInputs,
+        values: {
+          ...currentInputs.values,
+          notify: e.target.value
+        }
+      }
+    ));
+  }
 
-  // ratingIsValid = () => {
-  //   const rating = this.refs.rating.value;
-  //   return rating !== '';
-  // }
+  const ratingIsValid = (rating) => {
+    return rating !== '';
+  }
 
-  // notesIsValid = () => {
-  //   const notes = this.refs.notes.value;
-  //   return notes.trim() !== '';
-  // }
+  const notesIsValid = (notes) => {
+    return notes.trim() !== '';
+  }
 
-  // formIsValid = () => {
-  //   return this.notesIsValid() && this.ratingIsValid();
-  // }
+  const formIsValid = () => {
+    return notesIsValid(formInfo.values.notes) && ratingIsValid(formInfo.values.rating);
+  }
 
-  // handleEndAssistance = () => {
-  //   const notes      = this.refs.notes.value;
-  //   const rating     = this.refs.rating.value;
-  //   const notify     = this.refs.notify.checked;
+  const handleEndAssistance = () => {
+    const notes      = formInfo.values.notes;
+    const rating     = formInfo.values.rating;
+    const notify     = formInfo.values.notify;
 
-  //   if(!this.formIsValid()){
-  //     this.setNotesError();
-  //     this.setRatingError();
-  //     return;
-  //   }
+    if(!formIsValid()){
+      return;
+    }
 
-  //   if (this.props.assistance) {
-  //     this.endAssistance(this.props.assistance, notes, rating, notify);
-  //   } else {
-  //     this.providedAssistance(this.props.student, notes, rating, notify);
-  //   }
-  // }
+    if (assistance) {
+      endAssistance(assistance, notes, rating, notify);
+    } else {
+      providedAssistance(student, notes, rating, notify);
+    }
+  }
 
-  // endAssistance(assistance, notes, rating, notify) {
-  //   this.postAndClose('/queue/end_assistance.json', {
-  //     assistance_id: assistance.id,
-  //     notes: notes,
-  //     rating: rating,
-  //     notify: notify ? true : null
-  //   });
-  // }
+  const endAssistance = (assistance, notes, rating, notify) => {
+    postAndClose('/queue/end_assistance.json', {
+      assistance_id: assistance.id,
+      notes: notes,
+      rating: rating,
+      notify: notify ? true : null
+    });
+  }
 
-  // providedAssistance(student, notes, rating, notify) {
-  //   this.postAndClose('/queue/provided_assistance.json', {
-  //     student_id: student.id,
-  //     notes: notes,
-  //     rating: rating,
-  //     notify: notify ? true : null
-  //   });
-  // }
+  const providedAssistance = (student, notes, rating, notify) => {
+    postAndClose('/queue/provided_assistance.json', {
+      student_id: student.id,
+      notes: notes,
+      rating: rating,
+      notify: notify ? true : null
+    });
+  }
 
-  // postAndClose(url, params) {
-  //   this.setState({ disabled: true });
-  //   $.post(url, params, 'json')
-  //     .done((data) => {
-  //       this.close();
-  //     })
-  //     .fail((xhr, data, txt) => {
-  //       let error = xhr.statusText;
-  //       if (xhr.responseJSON) {
-  //         error = xhr.responseJSON.error;
-  //       }
-  //       alert('Could not complete action: ' + error);
-  //     })
-  //     .always(() => {
-  //       this.setState({ disabled: false });
-  //     });
-  // }
+  const postAndClose = (url, params) => {
+    setFormInfo((currentInputs) => (
+      {
+        ...currentInputs,
+        disabled: true
+      }
+    ));
+    $.post(url, params, 'json')
+      .done((data) => {
+        close();
+      })
+      .fail((xhr, data, txt) => {
+        let error = xhr.statusText;
+        if (xhr.responseJSON) {
+          error = xhr.responseJSON.error;
+        }
+        alert('Could not complete action: ' + error);
+      })
+      .always(() => {
+        setFormInfo((currentInputs) => (
+          {
+            ...currentInputs,
+            disabled: false
+          }
+        ));
+      });
+  }
 
-  // renderReason(assistanceRequest) {
-  //   if(assistanceRequest.reason) {
-  //     return (
-  //       <div className="form-group">
-  //         <b>Original reason:</b>
-  //         {assistanceRequest.reason}
-  //       </div>
-  //     );
-  //   }
-  // }
+  const renderReason = (assistanceRequest) => {
+    if(assistanceRequest.reason) {
+      return (
+        <div className="form-group">
+          <b>Original reason:</b>
+          {assistanceRequest.reason}
+        </div>
+      );
+    }
+  }
 
-  // render() {
-  //   const assistance = this.props.assistance;
-  //   let assistanceRequest;
+  let assistanceRequest = assistance && assistance.assistanceRequest
 
-  //   if(assistance)
-  //     assistanceRequest = assistance.assistanceRequest;
+  return (
+    <div className="modal fade" ref={modalRef}>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h4 className="modal-title">Log Assistance</h4>
+            <button type="button" className="close" onClick={close}>
+              <span aria-hidden="true">&times;</span>
+              <span className="sr-only">Close</span>
+            </button>
+          </div>
+          <div className="modal-body">
 
-  //   const disabled = this.state.disabled;
+            { assistanceRequest && renderReason(assistanceRequest) }
 
-  //   let notesFieldClass = '';
-  //   if (this.state.notesValid === true) {
-  //     notesFieldClass = 'is-valid';
-  //   } else if (this.state.notesValid === false) {
-  //     notesFieldClass = 'is-invalid';
-  //   }
+            <fieldset disabled={formInfo.disabled}>
+              <div className={formInfo.notesValid ? "form-group" : "form-group has-error"}>
+                <label>Notes</label>
+                <textarea
+                  onChange={setNotes}
+                  className={`form-control ${notesIsValid(fromInfo.notes) ? 'is_valid' : 'is_invalid'}`}
+                  placeholder="How did the assistance go?"
+                  value={inputs.notes}>
+                </textarea>
+              </div>
 
-  //   let ratingFieldClass = '';
-  //   if (this.state.ratingValid === true) {
-  //     ratingFieldClass = 'is-valid';
-  //   } else if (this.state.ratingValid === false) {
-  //     ratingFieldClass = 'is-invalid';
-  //   }
-
-  //   return (
-  //     <div className="modal fade" ref="modal">
-  //       <div className="modal-dialog">
-  //         <div className="modal-content">
-  //           <div className="modal-header">
-  //             <h4 className="modal-title">Log Assistance</h4>
-  //             <button type="button" className="close" onClick={this.close}>
-  //               <span aria-hidden="true">&times;</span>
-  //               <span className="sr-only">Close</span>
-  //             </button>
-  //           </div>
-  //           <div className="modal-body">
-
-  //             { assistanceRequest && this.renderReason(assistanceRequest) }
-
-  //             <fieldset disabled={disabled}>
-  //               <div className={this.state.notesValid ? "form-group" : "form-group has-error"}>
-  //                 <label>Notes</label>
-  //                 <textarea
-  //                   onChange={this.setNotesError}
-  //                   className={`form-control ${notesFieldClass}`}
-  //                   placeholder="How did the assistance go?"
-  //                   ref="notes">
-  //                 </textarea>
-  //               </div>
-
-  //               <div className={this.state.ratingValid ? "form-group" : "form-group has-error"}>
-  //                 <label>Rating</label>
-  //                 <select
-  //                   onChange={this.setRatingError}
-  //                   className={`form-control ${ratingFieldClass}`}
-  //                   ref="rating"
-  //                   required="true">
-  //                     <option value=''>Please Select</option>
-  //                     <option value="1">L1 | Struggling</option>
-  //                     <option value="2">L2 | Slightly behind</option>
-  //                     <option value="3">L3 | On track</option>
-  //                     <option value="4">L4 | Excellent (Needs stretch)</option>
-  //                 </select>
-  //               </div>
-  //               <div className="form-group">
-  //                 <label className="checkbox">
-  //                   <span className="icons">
-  //                     <span className="first-icon fui-checkbox-unchecked"></span>
-  //                     <span className="second-icon fui-checkbox-checked"></span>
-  //                   </span>
-  //                   <input className="notify-checkbox" type="checkbox" ref="notify" /> Notify Education Team about this
-  //                 </label>
-  //               </div>
-  //             </fieldset>
-  //           </div>
-  //           <div className="modal-footer">
-  //             <button type="button" className="btn btn-default" onClick={this.close} disabled={disabled}>Cancel</button>
-  //             <button type="button" className="btn btn-primary" onClick={this.handleEndAssistance} disabled={disabled}>End Assistance</button>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+              <div className={formInfo.ratingValid ? "form-group" : "form-group has-error"}>
+                <label>Rating</label>
+                <select
+                  onChange={setRating}
+                  className={`form-control ${ratingIsValid(fromInfo.rating) ? 'is_valid' : 'is_invalid'}`}
+                  value={formInput.values.rating}
+                  required="true">
+                    <option value=''>Please Select</option>
+                    <option value="1">L1 | Struggling</option>
+                    <option value="2">L2 | Slightly behind</option>
+                    <option value="3">L3 | On track</option>
+                    <option value="4">L4 | Excellent (Needs stretch)</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label className="checkbox">
+                  <span className="icons">
+                    <span className="first-icon fui-checkbox-unchecked"></span>
+                    <span className="second-icon fui-checkbox-checked"></span>
+                  </span>
+                  <input className="notify-checkbox" type="checkbox" onChange={setNotify} value={formInput.values.notify} /> Notify Education Team about this
+                </label>
+              </div>
+            </fieldset>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-default" onClick={close} disabled={formInfo.disabled}>Cancel</button>
+            <button type="button" className="btn btn-primary" onClick={handleEndAssistance} disabled={formInfo.disabled}>End Assistance</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
 }
