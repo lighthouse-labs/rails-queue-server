@@ -60,7 +60,11 @@ br
               - present teacher_feedback do |teacher_feedback_presenter|
                 tr
                   td.admin-teacher-feedback-date-column = teacher_feedback_presenter.date
-                  td = teacher_feedback_presenter.student_full_name
+                  td
+                    - if current_user.super_admin?
+                      = teacher_feedback_presenter.student_full_name
+                    - else
+                      i.hidden-student Not Available
                   td = teacher_feedback_presenter.feedbackable_type
                   td = render 'feedback_rating', rating: teacher_feedback_presenter.rating
                 - if teacher_feedback.notes.present?

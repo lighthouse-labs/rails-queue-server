@@ -189,6 +189,9 @@ th .desc {
 .admin-teacher-feedback-date-column {
   white-space: nowrap;
 }
+.hidden-student {
+  color: gray;
+}
 .feedback-stars {
   font-size: calc(24px + .5vw);
   line-height: calc(16px + .5vw);
