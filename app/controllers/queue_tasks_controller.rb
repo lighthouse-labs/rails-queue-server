@@ -3,17 +3,8 @@ class QueueTasksController < ApplicationController
   before_action :teacher_required
 
   def show
-    respond_to do |format|
-      user = User.find_by_id(params[:user_id])
-      format.html
-      format.json do
-        render json:  {
-          queue: QueueTasksSerializer.new(user.queue_tasks).as_json,
-          students: 5,
-          in_progress: 10,
-        }
-      end
-    end
+    queue_tasks = QueueTask.teachers_queue_or_in_progress(current_user)
+    render json: queue_tasks, each_serializer: QueueTaskSerializer 
   end
 
   def students
@@ -32,26 +23,28 @@ class QueueTasksController < ApplicationController
   def evaluations
     # Can filter for what students the teacher has access to in the future
     evaluations = Evaluation.incomplete.student_priority
-    render json: cohorts, each_serializer: EvaluationSerializer, root: 'evaluations'
+    render json: evaluations, each_serializer: EvaluationSerializer, root: 'evaluations'
+  end
+
+  def tech_interviews
+    # Can filter for what students the teacher has access to in the future
+    tech_interviews = TechInterview.in_progress
+    render json: tech_interviews, each_serializer: TechInterviewSerializer, root: 'techInterviews'
   end
 
   # TODO: Turn it into an interactor instead of controller doing a whole bunch of logic
   def provided_assistance
-    respond_to do |format|
-      format.json do
-        student = Student.find params[:student_id]
-        assistance_request = AssistanceRequest.new(requestor: student, reason: "Offline assistance requested")
-        if assistance_request.save
-          assistance_request.start_assistance(current_user)
-          assistance = assistance_request.reload.assistance
-          assistance.end(params[:notes], params[:notify], params[:rating])
-          render json: { success: true }
-        else
-          render json: { success: false, error: assistance_request.errors.full_messages.first }, status: :forbidden
-        end
-        RequestQueue::BroadcastUpdate.call(program: Program.first)
-      end
+    student = Student.find params[:student_id]
+    assistance_request = AssistanceRequest.new(requestor: student, reason: "Offline assistance requested")
+    if assistance_request.save
+      assistance_request.start_assistance(current_user)
+      assistance = assistance_request.reload.assistance
+      assistance.end(params[:notes], params[:notify], params[:rating])
+      render json: { success: true }
+    else
+      render json: { success: false, error: assistance_request.errors.full_messages.first }, status: :forbidden
     end
+    RequestQueue::BroadcastUpdate.call(program: Program.first)
   end
 
   # TODO: Turn it into an interactor instead of controller doing a whole bunch of logic
