@@ -1,14 +1,18 @@
-class UserSerializer < ActiveModel::Serializer
-
-  # for #avatar_url to work, since it assumes image_path will work
-  include ActionView::Helpers::AssetTagHelper
+class QueueTaskSerializer < ActiveModel::Serializer
 
   format_keys :lower_camel
-  root false
+  root true
 
-  attributes :sequence
+  attributes  :sequence,
+              :in_progress
 
   has_one :teacher, serializer: UserSerializer
   has_one :assistance_request, serializer: AssistanceRequestSerializer
+
+  protected
+
+  def in_progress
+    object.in_progress?
+  end
 
 end
