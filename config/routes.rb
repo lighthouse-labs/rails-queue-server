@@ -34,6 +34,8 @@ LaserShark::Application.routes.draw do
     post 'end_assistance'
     get 'students'
     get 'cohorts'
+    get 'evaluations'
+    get 'tech_interviews'
   end
 
   resources :quiz_submissions, only: [:show]
