@@ -19,6 +19,8 @@ class Teacher < User
     where(id: teacher_id)
   }
 
+  scope :on_duty, -> { where(on_duty: true) }
+
   validates :bio,             length: { maximum: 1000 }
   validates :quirky_fact,     length: { maximum: 255 }
   validates :specialties,     length: { maximum: 255 }

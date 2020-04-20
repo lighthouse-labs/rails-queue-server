@@ -92,6 +92,12 @@ class AssistanceRequest < ApplicationRecord
     assistance if assistance.save!
   end
 
+  def assign_task(assistor)
+    return false if assistor.blank? || assistance.present?
+
+    self.queue_tasks.create(user: assistor)
+  end
+
   def end_assistance(notes)
     return if assistance.blank?
     assistance.end(notes)
@@ -108,6 +114,16 @@ class AssistanceRequest < ApplicationRecord
 
   def in_progress?
     canceled_at.nil? && assistance && assistance.end_at.nil?
+  end
+
+  def state
+    if in_progress?
+      'in_progress'
+    elsif open?
+      'pending'
+    else
+      'closed'
+    end
   end
 
   def position_in_queue

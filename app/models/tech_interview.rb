@@ -59,6 +59,16 @@ class TechInterview < ApplicationRecord
     completed_at?
   end
 
+  def state
+    if in_progress?
+      'in_progress'
+    elsif queued?
+      'pending'
+    else
+      'closed'
+    end
+  end
+
   # in minutes
   def duration
     (completed_at - started_at).to_i
