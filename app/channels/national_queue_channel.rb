@@ -1,6 +1,21 @@
 class NationalQueueChannel < ApplicationCable::Channel
 
+  def self.broadcast_to(model, message)
+    # add sequence number and store messages
+    message[:sequence] = 1
+    super(model, message)
+  end
+
+  def self.broadcast(broadcasting, message)
+    # add sequence number and store messages
+    message[:sequence] = 1
+    ActionCable.server.broadcast broadcasting , message
+  end
+
   def subscribed
+    stream_for current_user
+    NationalQueueChannel.broadcast_to current_user, type:   "requestUpdate",
+                                           object: NationalQueueAssistanceRequestSerializer.new(current_user.assistance_requests.newest_requests_first.first).as_json
     stream_from 'student-national-queue'
     if current_user&.is_a?(Teacher)
       stream_from 'teacher-national-queue'
@@ -22,6 +37,7 @@ class NationalQueueChannel < ApplicationCable::Channel
 
   def cancel_assistance_request(data)
     NationalQueue::UpdateRequest.call(
+      requestor: current_user,
       options: {
         type: 'cancel',
         request_id: data["request_id"]
@@ -29,8 +45,9 @@ class NationalQueueChannel < ApplicationCable::Channel
     )
   end
 
-  def cancel_assisting(data)
+  def cancel_assistance(data)
     NationalQueue::UpdateRequest.call(
+      requestor: current_user,
       options: {
         type: 'cancel_assistance',
         request_id: data["request_id"]
@@ -40,10 +57,10 @@ class NationalQueueChannel < ApplicationCable::Channel
 
   def start_assisting(data)
     NationalQueue::UpdateRequest.call(
+      assistor: current_user,
       options: {
         type: 'start_assistance',
         request_id: data["request_id"],
-        assistor: current_user
       }
     )
   end
