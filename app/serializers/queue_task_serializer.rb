@@ -1,18 +1,33 @@
 class QueueTaskSerializer < ActiveModel::Serializer
 
+  root false
   format_keys :lower_camel
-  root true
 
-  attributes  :sequence,
-              :in_progress
-
-  has_one :teacher, serializer: UserSerializer
-  has_one :assistance_request, serializer: AssistanceRequestSerializer
+  attributes  :id,
+              :teacher,
+              :state,
+              :started_at,
+              :type
+  has_one :assistance_request, serializer: NationalQueueAssistanceRequestSerializer
 
   protected
 
-  def in_progress
-    object.in_progress?
+  def teacher
+    # add more so serializer can be used on evaluations and tech interviews
+    teacher = object.user
+    UserSerializer.new(teacher).as_json
+  end
+
+  def state
+    object.state
+  end
+
+  def started_at
+    object.assistance_request.start_at
+  end
+
+  def type
+    'Assistance'
   end
 
 end
