@@ -1,8 +1,8 @@
 window.NationalQueue = window.NationalQueue || {};
 
 window.NationalQueue.InProgressList = ({tasks}) => {
-  const renderAssistance = (assistance) => {
-    return <NationalQueue.Assistance key={`assistance-${assistance.id}`} assistance={assistance} />
+  const renderAssistance = (task) => {
+    return <NationalQueue.Assistance key={`assistance-${task.id}`} task={task} />
   }
 
   const renderEvaluation = (evaluation) => {

@@ -2,202 +2,135 @@ window.NationalQueue = window.NationalQueue || {};
 const useState = React.useState;
 const useRef = React.useRef;
 
-window.NationalQueue.RequestModal = ({assistance, student}) => {
+window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
   const modalRef = useRef();
   const [formInfo, setFormInfo] = useState({
-    disabled: false,
+    status: 'open',
     values: {
-      notes: '',
-      rating: '',
-      notify: false
+      reason: '',
+      activityId: null
     }
   });
 
-  const close = () => {
-    $(modalRef.current).modal('hide');
-  }
-
-  const setNotes = (e) => {
+  const setReason = (e) => {
+    const reason = e.target.value;
     setFormInfo((currentInputs) => (
       {
         ...currentInputs,
         values: {
           ...currentInputs.values,
-          notes: e.target.value
+          reason
         }
       }
     ));
   }
 
-  const setRating = (e) => {
+  const setActivityId = (e) => {
+    const activityId = e.target.value;
     setFormInfo((currentInputs) => (
       {
         ...currentInputs,
         values: {
           ...currentInputs.values,
-          rating: e.target.value
+          activityId
         }
       }
     ));
   }
 
-  const setNotify = (e) => {
-    setFormInfo((currentInputs) => (
-      {
-        ...currentInputs,
-        values: {
-          ...currentInputs.values,
-          notify: e.target.value
-        }
-      }
-    ));
+  const reasonIsValid = (reason) => {
+    return reason !== '';
   }
 
-  const ratingIsValid = (rating) => {
-    return rating !== '';
-  }
-
-  const notesIsValid = (notes) => {
+  const activityIsValid = (activityId) => {
     return notes.trim() !== '';
   }
 
   const formIsValid = () => {
-    return notesIsValid(formInfo.values.notes) && ratingIsValid(formInfo.values.rating);
+    return reasonIsValid(formInfo.values.notes) && activityIsValid(formInfo.values.rating);
   }
 
-  const handleEndAssistance = () => {
-    const notes      = formInfo.values.notes;
-    const rating     = formInfo.values.rating;
-    const notify     = formInfo.values.notify;
-
-    if(!formIsValid()){
-      return;
-    }
-
-    if (assistance) {
-      endAssistance(assistance, notes, rating, notify);
-    } else {
-      providedAssistance(student, notes, rating, notify);
-    }
-  }
-
-  const endAssistance = (assistance, notes, rating, notify) => {
-    postAndClose('/queue/end_assistance.json', {
-      assistance_id: assistance.id,
-      notes: notes,
-      rating: rating,
-      notify: notify ? true : null
-    });
-  }
-
-  const providedAssistance = (student, notes, rating, notify) => {
-    postAndClose('/queue/provided_assistance.json', {
-      student_id: student.id,
-      notes: notes,
-      rating: rating,
-      notify: notify ? true : null
-    });
-  }
-
-  const postAndClose = (url, params) => {
+  const closeRequest = () => {
+    // $(modalRef.current).modal('hide');
+    hide();
     setFormInfo((currentInputs) => (
       {
         ...currentInputs,
-        disabled: true
+        values: {
+          reason: '',
+          activityId: null
+        }
       }
     ));
-    $.post(url, params, 'json')
-      .done((data) => {
-        close();
-      })
-      .fail((xhr, data, txt) => {
-        let error = xhr.statusText;
-        if (xhr.responseJSON) {
-          error = xhr.responseJSON.error;
-        }
-        alert('Could not complete action: ' + error);
-      })
-      .always(() => {
-        setFormInfo((currentInputs) => (
-          {
-            ...currentInputs,
-            disabled: false
-          }
-        ));
-      });
   }
 
-  const renderReason = (assistanceRequest) => {
-    if(assistanceRequest.reason) {
-      return (
-        <div className="form-group">
-          <b>Original reason:</b>
-          {assistanceRequest.reason}
-        </div>
-      );
-    }
+  const requestAssistance = () => {
+    setFormInfo((currentInputs) => (
+      {
+        ...currentInputs,
+        status: 'pending'
+      }
+    ));
+    queueSocket.requestAssistance(formInfo.values.reason, formInfo.values.activityId);
+    closeRequest();
   }
 
-  let assistanceRequest = assistance && assistance.assistanceRequest
+  const activityOptions = () => {
+    const activities = [1,2,3];
+    return activities.map((activity, index) => {
+      return <option key={index} value="127">test activity</option>
+    })
+  }
 
-  return (
-    <div className="modal fade" ref={modalRef}>
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h4 className="modal-title">Log Assistance</h4>
-            <button type="button" className="close" onClick={close}>
-              <span aria-hidden="true">&times;</span>
-              <span className="sr-only">Close</span>
-            </button>
-          </div>
-          <div className="modal-body">
-
-            { assistanceRequest && renderReason(assistanceRequest) }
-
-            <fieldset disabled={formInfo.disabled}>
-              <div className={formInfo.notesValid ? "form-group" : "form-group has-error"}>
-                <label>Notes</label>
-                <textarea
-                  onChange={setNotes}
-                  className={`form-control ${notesIsValid(fromInfo.notes) ? 'is_valid' : 'is_invalid'}`}
-                  placeholder="How did the assistance go?"
-                  value={inputs.notes}>
-                </textarea>
-              </div>
-
-              <div className={formInfo.ratingValid ? "form-group" : "form-group has-error"}>
-                <label>Rating</label>
-                <select
-                  onChange={setRating}
-                  className={`form-control ${ratingIsValid(fromInfo.rating) ? 'is_valid' : 'is_invalid'}`}
-                  value={formInput.values.rating}
-                  required="true">
-                    <option value=''>Please Select</option>
-                    <option value="1">L1 | Struggling</option>
-                    <option value="2">L2 | Slightly behind</option>
-                    <option value="3">L3 | On track</option>
-                    <option value="4">L4 | Excellent (Needs stretch)</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label className="checkbox">
-                  <span className="icons">
-                    <span className="first-icon fui-checkbox-unchecked"></span>
-                    <span className="second-icon fui-checkbox-checked"></span>
-                  </span>
-                  <input className="notify-checkbox" type="checkbox" onChange={setNotify} value={formInput.values.notify} /> Notify Education Team about this
+  return show && (
+    <React.Fragment>
+      <div className="modal-backdrop fade show"></div>
+      <div className="modal fade show" style={{display: 'block'}}>
+        <div className="modal-dialog" >
+          <div className="modal-content" >
+            <div className="modal-header" >
+              <h4 className="modal-title">
+                Bring in the big guns
+              </h4>
+              <button className="close" type='button' data-dismiss='modal'>
+                <span  aria-hidden='true'>
+                  &times;
+                </span>
+                <span className="sr-only">
+                  Close
+                </span>
+              </button>
+            </div>
+            <form id='assistance-request-form'>
+              <div className="modal-body" >
+                <label> 
+                  Description
                 </label>
+                <div className="form-group" >
+                  <textarea value={formInfo.values.reason} onChange={setReason} name="reason" placeholder='What do you need assistance with?'class='form-control' />
+                </div>
+                <label>
+                  Activity
+                </label>
+                <div className="form-group" >
+                  <select value={formInfo.values.activity_id} onChange={setActivityId} name="activity_id" className='form-control'>
+                    <option value="" disabled>Which activity?</option>
+                    {activityOptions()}
+                  </select>
+                </div>
               </div>
-            </fieldset>
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-default" onClick={close} disabled={formInfo.disabled}>Cancel</button>
-            <button type="button" className="btn btn-primary" onClick={handleEndAssistance} disabled={formInfo.disabled}>End Assistance</button>
+              <div className="modal-footer" >
+                <button onClick={closeRequest}className="btn btn-outline-danger" type='button' data-dismiss='modal'>
+                  Cancel
+                </button>
+                <button onClick={requestAssistance}className="btn btn-primary" type='button' data-dismiss='modal'>
+                  Request Assistance
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
-
 }

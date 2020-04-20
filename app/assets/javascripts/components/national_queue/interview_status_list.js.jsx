@@ -12,7 +12,6 @@ window.NationalQueue.InterviewStatusList = ({user}) => {
       method: 'GET',
       url
     }).done(resp => {
-      console.log(resp.cohorts);
       setCohorts(resp.cohorts);
     }).always(() => {
       // setLoading(false);

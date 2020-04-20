@@ -1,15 +1,17 @@
 window.NationalQueue = window.NationalQueue || {};
 const useState = React.useState;
 const useRef = React.useRef;
+const useContext = React.useContext;
 
-window.NationalQueue.Assistance = ({assistance}) => {
+window.NationalQueue.Assistance = ({task}) => {
+  const queueContext =  window.NationalQueue.QueueContext;
+  const queueSocket = useContext(queueContext);
   const [disabled, setDisabled] = useState(false);
-  const requestModalRef = useRef();
+  const asssistanceModalRef = useRef();
 
   const handleCancelAssisting = () => {
     setDisabled(true);
-    App.queue.cancelAssisting(assistance);
-    ga('send', 'event', 'cancel-assistance', 'click');
+    queueSocket.cancelAssistance(task.assistanceRequest);
   }
 
   const handleEndAssisting = () => {
@@ -17,14 +19,14 @@ window.NationalQueue.Assistance = ({assistance}) => {
   }
 
   const openModal = () => {
-    requestModalRef.current.open();
+    $(asssistanceModalRef.current).modal('show');
   }
 
   const actionButtons = () => {
     const buttons = [null];
-    if (window.current_user.id === assistance.assistor.id) {
-      assistance.conferenceLink && buttons.push(
-        <a key="conference" className="btn btn-sm btn-primary btn-hover-danger" href={assistance.conferenceLink} target="_blank" disabled={disabled}>
+    if (window.current_user.id === task.teacher.id) {
+      task.assistanceRequest.conferenceLink && buttons.push(
+        <a key="conference" className="btn btn-sm btn-primary btn-hover-danger" href={task.assistanceRequest.conferenceLink} target="_blank" disabled={disabled}>
           <i className="fa fa-fw fa-video"></i>
           &nbsp;Google Hangout
         </a>
@@ -43,9 +45,9 @@ window.NationalQueue.Assistance = ({assistance}) => {
     );
   }
 
-  const request = assistance.assistanceRequest;
-  const student = assistance.assistee;
-  const assistor = assistance.assistor;
+  const request = task.assistanceRequest;
+  const student = task.assistanceRequest.requestor;
+  const assistor = task.teacher;
 
   return (
     <NationalQueue.QueueItem type='Assistance' disabled={disabled}>
@@ -54,15 +56,15 @@ window.NationalQueue.Assistance = ({assistance}) => {
                           showDetails={true}
                           when={request.startAt} />
 
-      <NationalQueue.TeacherInfo teacher={assistor} when={assistance.startAt} />
+      <NationalQueue.TeacherInfo teacher={assistor} when={request.startAt} />
 
       <div className="blurb">
         {App.ReactUtils.renderActivityDetails(request.activity)}
-        {App.ReactUtils.renderQuote(assistance.assistanceRequest.reason)}
+        {App.ReactUtils.renderQuote(request.reason)}
       </div>
       {renderActions()}
 
-      <NationalQueue.RequestModal assistance={assistance} ref={requestModalRef} />
+      <NationalQueue.AssistanceModal request={request} setRef={asssistanceModalRef} />
     </NationalQueue.QueueItem>
   )
 }

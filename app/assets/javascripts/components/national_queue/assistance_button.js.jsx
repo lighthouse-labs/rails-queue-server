@@ -1,95 +1,126 @@
 window.NationalQueue = window.NationalQueue || {};
+const useState = React.useState;
+const useRef = React.useRef;
+const useEffect = React.useEffect;
 
-window.NationalQueue.AssistanceButton = ({user}) => {
-  const queueContext =  window.NationalQueue.queueContext;
-  const queueSocket = useContext(queueContext);
-
-  const requestAssistance =  (e) => {
-    reasonTextField = 4 //$(@).closest('form').find('textarea')
-    reason = reasonTextField.val()
-    activityId = 5 //$(@).closest('form').find('select').val()
-    // window.App.userChannel.requestAssistance(reason, activityId)
-    queueSocket.requestAssistance(user, reason, activityId);
-    reasonTextField.val('')
+const requestState = (update) => {
+  let state = {};
+  update = update && update.object;
+  if (!update || update.state === 'closed'){
+    state.status = 'none';
+  } else if (update.state === 'in_progress') {
+    state.status = 'in-progress';
+    state.assistorName = update.assistor.fullName
+    state.conferenceLink = update.conferenceLink
+  } else {
+    state.status = 'waiting'
+    state.position = update.positionInQueue
   }
-  
+  return state;
+}
+
+const buttonInfo = (requestState) => {
+  if (requestState.status === 'in-progress') {
+    return {
+      style: 'btn-outline-warning',
+      text: `${requestState.assistorName} assisting`,
+      title: 'Finish this Assistance Request'
+    }      
+  } else if (requestState.status === 'waiting') {
+    return {
+      style: 'btn-outline-warning',
+      text: `No. ${requestState.position} in Request Queue`,
+      title: 'Cancel Assistance Request'
+    }      
+  } else {
+    return {
+      style: 'btn-primary',
+      text: 'Request Assistance',
+      title: 'Request Assistance'
+    }
+  }
+}
+
+window.NationalQueue.AssistanceButton = () => {
+  const useQueueSocket =  window.NationalQueue.useQueueSocket;
+  const queueSocket = useQueueSocket();
+  const requestButton = useRef();
+  const conferenceButton = useRef();
+  const [requestModal, setRequestModal] = useState({
+    render: false,
+    show: false
+  });
+
+  const currentRequestState = requestState(queueSocket.requestUpdates.slice(-1)[0]);
+
+  useEffect(() => {
+    $(requestButton.current).tooltip();
+    $(conferenceButton.current).tooltip();
+  }, [currentRequestState, requestButton, conferenceButton]);
+
+  const showAssistanceModal =  (e) => {
+    setRequestModal({
+      render: true,
+      show: true
+    });
+  }
+
+  const hideAssistanceModal = () => {
+    setRequestModal({
+      render: true,
+      show: false
+    });
+  }
+
   const cancelAssistance = (e) => {
     if (true) { //pop up if user wants to cancel
-      // window.App.userChannel.cancelAssistanceRequest()
-      queueSocket.cancelAssistance(user);
+      queueSocket.cancelAssistanceRequest();
     }
   }
 
   const handleAssistanceButton = (e) => {
     e.preventDefault();
     e.stopPropagation()
-    if (user.waitingForAssistance) {
+    if (currentRequestState.status === 'waiting') {
       cancelAssistance();
-    } else if (user.beingAssisted) {
+    } else if (currentRequestState.status === 'in-progress') {
       //finishAssistance();
     } else {
-      requestAssistance()
+      showAssistanceModal()
     }
   }
 
-
-  const assistorName = () => {
-    return (user.currentAssistor && user.currentAssistor.first_name) ? `${user.currentAssistor.first_name} ${user.currentAssistor.last_name}` : 'TA';
-  }
-
-  const buttonText = () => {
-    if(user.beingAssisted){
-      return assistorName() + ' assisting';
-    }else if(user.waitingForAssistance){
-      return `No. ${user.positionInQueue || 1} in Request Queue`
-    }else {
-      return "Request Assistance";
-    }
-  }
-
-  const buttonInfo = () => {
-    return {
-      style: (user.waitingForAssistance || user.beingAssisted) ? 'btn-outline-warning' : 'btn-primary',
-      text: buttonText(),
-      title: user.beingAssisted ? 'Finish this Assistance Request' : 'Cancel Assistance Request'
-    }
-  }
-
-  const button = buttonInfo();
+  const button = buttonInfo(currentRequestState);
   return (
       <li id="assistance-request-module">
         <span id="assistance-request-actions">
           <a 
-            className={`navbar-btn btn btn-outline-primary ${!(user.beingAssisted && user.currentAssistanceConference) && 'd-none'}`} 
+            className={`navbar-btn btn btn-outline-primary ${!(currentRequestState.conferenceLink) && 'd-none'}`} 
             id="assistance-request-conference" 
-            href={user.currentAssistanceConference} 
+            href={currentRequestState.conferenceLink} 
             target="_blank" 
             data-toggle='tooltip' 
             data-placement='bottom' 
-            title={`Google Hangout with ${assistorName()}`}
-            ref={ref => $(ref).tooltip()}
+            title={`Google Hangout with ${currentRequestState.assistorName}`}
+            ref={conferenceButton}
           >
             <i className="fa fa-fw fa-video"></i>
           </a>
           <button 
-            className={`navbar-btn btn ${button.style} cancel-request-assistance-button`}
+            className={`navbar-btn btn ${button.style}`}
             data-toggle='tooltip' 
             data-placement='bottom'
             onClick={handleAssistanceButton}
             title={button.title}
-            ref={ref => $(ref).tooltip()}
+            ref={requestButton}
           >
             {button.text}
           </button>
         </span>
 
-        {/* <span id="create-assistance-request" className={((user.waiting_for_assistance || user.being_assisted) ? 'd-none' : '')}>
-
-          <button className="btn navbar-btn btn-primary" data-toggle="modal" data-target="#assistance-request-reason-modal" onclick="ga('send', 'event', 'request-assistance', 'click', 'student-requested-assistance');">
-            {buttonText()}
-          </button>
-        </span> */}
-
+        {
+          requestModal.render && <NationalQueue.RequestModal queueSocket={queueSocket} show={requestModal.show} hide={hideAssistanceModal} />
+        }
 
       </li>
 

@@ -2,10 +2,10 @@ window.NationalQueue = window.NationalQueue || {};
 const useRef = React.useRef;
 
 window.NationalQueue.Student = ({student}) => {
-  const requestModalRef = useRef();
+  const assistanceModalRef = useRef();
 
   const openModal = () => {
-    requestModalRef.current.open();
+    assistanceModalRef.current.open();
   }
 
   return(
@@ -16,7 +16,7 @@ window.NationalQueue.Student = ({student}) => {
         <button className="btn btn-sm btn-light btn-main" onClick={openModal}>Assistance / Note</button>
       </div>
 
-      {/* <NationalQueue.RequestModal student={student} ref={requestModalRef} /> */}
+      {/* <NationalQueue.AssistanceModal student={student} ref={assistanceModalRef} /> */}
     </NationalQueue.QueueItem>
   )
 }

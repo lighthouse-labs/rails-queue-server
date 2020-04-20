@@ -9,17 +9,17 @@ window.NationalQueue.StudentsList = ({user}) => {
   
   useEffect(() => {
     const url = `/queue_tasks/students`
-    $.ajax({
-      dataType: 'json',
-      method: 'GET',
-      url
-    }).done(resp => {
-      console.log(resp);
-      //get studnts 
-      setStudents(resp.students);
-    }).always(() => {
-      setLoading(false);
-    })
+    // $.ajax({
+    //   dataType: 'json',
+    //   method: 'GET',
+    //   url
+    // }).done(resp => {
+    //   console.log(resp);
+    //   //get studnts 
+    //   setStudents(resp.students);
+    // }).always(() => {
+    //   setLoading(false);
+    // })
   }, []);
 
   const renderStudent = (student) => {

@@ -1,24 +1,24 @@
 window.NationalQueue = window.NationalQueue || {};
 const useEffect = React.useEffect;
 const useState = React.useState;
-
+const useContext = React.useContext;
 
 window.NationalQueue.PendingAssistanceRequest = ({request}) => {
+  const queueContext =  window.NationalQueue.QueueContext;
+  const queueSocket = useContext(queueContext);
   const [disabled, setDisabled] = useState(false);
 
   const handleCancelAssistance = () => {
     // TODO: use more js-centric confirm vs browser confirm
     if(confirm("Are you sure you want to cancel this Request?")) {
       setDisabled(true);
-      App.NationalQueue.cancelAssistanceRequest(props.request);
-      ga('send', 'event', 'cancel-assistance', 'click');
+      queueSocket.cancelAssistanceRequest(request);
     }
   }
 
   const handleStartAssisting = () => {
     setDisabled(true);
-    App.NationalQueue.startAssisting(props.request);
-    ga('send', 'event', 'start-assistance', 'click');
+    queueSocket.startAssisting(request);
   }
 
   const actionButtons = () => {

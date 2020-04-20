@@ -2,18 +2,19 @@ window.Queue = window.Queue || {};
 const useEffect = React.useEffect;
 const useState = React.useState;
 
-window.NationalQueue.OpenRequestsList = ({requests}) => {
+window.NationalQueue.OpenRequestsList = ({tasks}) => {
   
-  const renderRequest = (request) => {
+  const renderRequest = (task) => {
+    const request = task.assistanceRequest;
     return <NationalQueue.PendingAssistanceRequest key={`request-${request.id}`} request={request} />
   }
 
   const renderRequests = () => {
-    return requests.map(renderRequest);
+    return tasks.map(renderRequest);
   }
 
   return (
-    <NationalQueue.ListGroup count={requests.length} title="Open Requests">
+    <NationalQueue.ListGroup count={tasks.length} title="Open Requests">
       {renderRequests()}
     </NationalQueue.ListGroup>
   );

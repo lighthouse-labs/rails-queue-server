@@ -1,16 +1,36 @@
 window.NationalQueue = window.NationalQueue || {};
 const useState = React.useState;
+const useReducer = React.useReducer;
 const useEffect = React.useEffect;
 
-window.NationalQueue.useTasks = (user) => {
+
+window.NationalQueue.useTasks = (updates, user) => {
   // no imports have to load in selectors here
-  const {selectActive, selectPending, selectInProgress} = window.NationalQueue.QueueSelectors;
+  const {selectOpen, selectPending, selectInProgress, tasksWithUpdates} = window.NationalQueue.QueueSelectors;
+  // reducer should be moved outside of hook, but without imports selectors have to be required inside hook
+  const taskReducer = (state, action) => {
+    switch (action.type) {
+      case 'setTasks':
+        return {...state, tasks: action.data};
+      case 'addUpdates':
+        let updates = action.data;
+        let lastUpdate = state.lastUpdate;
+
+        for (let index = updates.length -1; index >= 0; index --) {
+          if (updates[index].sequence <= lastUpdate) {
+            updates = updates.slice(index+1);
+            break;
+          } else {
+            lastUpdate = updates[index].sequence;
+          }
+        }
+        return {...state, tasks: tasksWithUpdates(state.tasks, updates), lastUpdate};
+      default:
+        throw new Error();
+    }
+  };
+  const [taskState, dispatchTaskState] = useReducer(taskReducer, {tasks: [], lastUpdate: 0});
   
-  const [tasks, setTasks] = useState({
-    evaluations: [],
-    queueTasks: [],
-    interviews: []
-  });
 
   useEffect(() => {
     // eventually evaluations assistances and interviews could be linked to queue_tasks
@@ -29,42 +49,37 @@ window.NationalQueue.useTasks = (user) => {
         "Content-Type": "application/json"
       }
     })
-    Promise.all([evaluationsRequest, tasksRequest, interviewsRequest])
-      .then(responses => responses.map(response => response.json()))
+    Promise.all([ tasksRequest, evaluationsRequest, interviewsRequest])
+      .then(responses => Promise.all(responses.map(response => response.json())))
       .then((responses) => {
-        console.log(responses[0].body);
-        console.log(responses[1].body);
-        console.log(responses[2].body);
-
-        // setTasks({
-        //   evaluations: JSON.parse(responses[0].body).evaluations,
-        //   queueTasks: JSON.parse(responses[1].body).tasks,
-        //   interviews: JSON.parse(responses[2].body).interviews
-        // })
+        const tasks = responses[0].tasks || [];
+        const evaluations = responses[1].evaluations || [];
+        const interviews = responses[2].interviews || [];
+        let taskList = tasks.concat(evaluations).concat(interviews);
+        taskList = _(taskList).sortBy((item) => {
+          return (item.startAt || item.startedAt || item.createdAt)
+        }).reverse();
+        dispatchTaskState({type: "setTasks", data: Array.from(taskList)});
       });
 
   }, [])
 
-  const allTasks = () => {
-    let taskList = tasks.queueTasks.concat(tasks.evaluations).concat(tasks.interviews);
-    taskList = _(taskList).sortBy((item) => {
-      return (item.startAt || item.startedAt || item.createdAt)
-    }).reverse();
-    return Array.from(taskList);
-  }
+  useEffect(() => {
+    console.log("useeffect triggered in use task for update", updates);
+    dispatchTaskState({type: 'addUpdates', data: updates});
+  },[updates]);
 
   const pendingEvaluations = () => {
-    return selectPending(tasks.evaluations);
+    return selectPending(taskState.tasks);
   }
 
   const inProgress = () => {
-    return selectInProgress(allTasks());
+    return selectInProgress(taskState.tasks);
   }
 
   const openTasks = () => {
-    return selectActive(allTasks());
+    return selectOpen(taskState.tasks, user);
   }
-
 
   return {
     pendingEvaluations,

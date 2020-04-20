@@ -1,14 +1,16 @@
 window.NationalQueue = window.NationalQueue || {};
+const useContext = React.useContext;
 
 window.NationalQueue.Lists = ({user}) => {
-  const {openTasks, inProgress, pendingEvaluations} = window.NationalQueue.useTasks()
-
+  const queueContext =  window.NationalQueue.QueueContext;
+  const {queueUpdates} = useContext(queueContext);
+  const {openTasks, inProgress, pendingEvaluations} = window.NationalQueue.useTasks(queueUpdates, user)
 
   return (
     <div className="queue-by-location">
       <div className="row">
         <div className="col-lg-11">
-          <NationalQueue.OpenRequestsList requests={openTasks()} />
+          <NationalQueue.OpenRequestsList tasks={openTasks()} />
           <hr/>
         </div>
       </div>

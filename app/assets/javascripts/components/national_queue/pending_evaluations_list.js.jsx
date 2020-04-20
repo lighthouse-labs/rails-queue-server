@@ -12,7 +12,6 @@ window.NationalQueue.PendingEvaluationsList = ({user}) => {
       method: 'GET',
       url
     }).done(resp => {
-      console.log(resp.evaluations);
       setEvaluations(resp.evaluations);
     }).always(() => {
       // setLoading(false);
