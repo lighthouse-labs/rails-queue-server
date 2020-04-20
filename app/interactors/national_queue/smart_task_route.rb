@@ -1,4 +1,4 @@
-class RequestQueue::SmartTaskRoute
+class NationalQueue::SmartTaskRoute
 
   include Interactor
 
@@ -8,7 +8,7 @@ class RequestQueue::SmartTaskRoute
 
   def call
     updates = []
-    if @assistance_request.queue_tasks.empty?
+    if !@assistance_request.canceled_at? && @assistance_request.queue_tasks.empty?
       # start with stupid smart routing. 
       Teacher.on_duty.each do |teacher| 
         task = @assistance_request.assign_task(teacher)

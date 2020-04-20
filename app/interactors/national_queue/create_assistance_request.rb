@@ -1,4 +1,4 @@
-class RequestQueue::CreateAssistanceRequest
+class NationalQueue::CreateAssistanceRequest
 
   include Interactor
 

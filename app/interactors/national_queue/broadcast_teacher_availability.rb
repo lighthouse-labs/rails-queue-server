@@ -3,11 +3,11 @@ class NationalQueue::BroadcastTeacherAvailability
   include Interactor
 
   before do
-    @assistor = context.assistance_request.assistance&.assistor
+    @assistor = context.assistor
   end
 
   def call
-    NationalQueueChannel.broadcast "student-national-queue", type:   "TeacherUpdate",
+    NationalQueueChannel.broadcast "student-national-queue", type:   "teacherUpdate",
                                               object: UserSerializer.new(@assistor).as_json if @assistor
   end
 

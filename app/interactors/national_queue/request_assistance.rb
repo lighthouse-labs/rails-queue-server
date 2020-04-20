@@ -5,6 +5,6 @@ class NationalQueue::RequestAssistance
   organize  NationalQueue::CreateAssistanceRequest,
             NationalQueue::BroadcastStudentQueueUpdate,
             NationalQueue::SmartTaskRoute,
-            NationalQueue::BroadcastTeacherQueueUpdates
+            NationalQueue::BroadcastTeacherQueueUpdate
 
 end

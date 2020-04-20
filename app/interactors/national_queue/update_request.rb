@@ -6,6 +6,6 @@ class NationalQueue::UpdateRequest
             NationalQueue::BroadcastStudentQueueUpdate,
             NationalQueue::BroadcastTeacherAvailability,
             NationalQueue::SmartTaskRoute,
-            NationalQueue::BroadcastTeacherQueueUpdates
+            NationalQueue::BroadcastTeacherQueueUpdate
 
 end
