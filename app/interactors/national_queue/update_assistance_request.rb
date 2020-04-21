@@ -20,6 +20,8 @@ class NationalQueue::UpdateAssistanceRequest
       success = @assistance_request.end_assistance
     when 'cancel_assistance'
       success = @assistance_request.cancel_assistance
+    when 'finish_assistance'
+      success = @assistance_request.assistance.end(@options[:notes], @options[:notify], @options[:rating])
     end
     context.fail! unless success
     context.assistor ||= @assistance_request.assistance&.assistor

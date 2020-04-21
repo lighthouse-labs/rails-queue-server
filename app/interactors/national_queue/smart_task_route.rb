@@ -9,11 +9,16 @@ class NationalQueue::SmartTaskRoute
   def call
     updates = []
     if !@assistance_request.canceled_at? && @assistance_request.queue_tasks.empty?
-      # start with stupid smart routing. 
-      Teacher.on_duty.each do |teacher| 
-        task = @assistance_request.assign_task(teacher)
-        updates.push({task: task, shared: false})
-      end
+      smart_task_result = SmartQueueRouter::RouteTask.call(
+        assistance_request: @assistance_request
+      )
+      puts '~~~~~~'
+      puts smart_task_result.inspect
+      puts smart_task_result.success?
+      puts '----------'
+      context.fail! unless smart_task_result.success?
+      
+      updates = smart_task_result.assigned_tasks
     else
       # later may re assign tasks
       @assistance_request.queue_tasks.each do |task|

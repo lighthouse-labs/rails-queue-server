@@ -17,4 +17,8 @@ class NationalQueue::CreateAssistanceRequest
     context.fail! unless ar.save
   end
 
+  def rollback
+    context.assistance_request.cancel
+  end
+
 end
