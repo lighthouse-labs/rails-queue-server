@@ -1,13 +1,15 @@
-window.Queue = window.Queue || {};
+window.NationalQueue = window.NationalQueue || {};
 const useState = React.useState;
+const useContext = React.useContext;
 
-window.Queue.PendingEvaluation = ({evaluation}) => {
+window.NationalQueue.PendingEvaluation = ({evaluation}) => {
+  const queueContext =  window.NationalQueue.QueueContext;
+  const queueSocket = useContext(queueContext);
   const [disabled, setDisabled] = useState(false);
 
   const handleStartEvaluating = () => {
-    // setDisabled(true);
-    // App.queue.startEvaluating(evaluation);
-    // ga('send', 'event', 'start-marking', 'click');
+    setDisabled(true);
+    queueSocket.startEvaluating(evaluation);
   }
 
   const renderResubmissionLabel = (evaluation) => {

@@ -1,9 +1,7 @@
 window.NationalQueue = window.NationalQueue || {};
-const useState = React.useState;
-const useRef = React.useRef;
+const useEffect = useEffect();
 
 window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
-  const modalRef = useRef();
   const [formInfo, setFormInfo] = useState({
     status: 'open',
     values: {
@@ -11,6 +9,11 @@ window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
       activityId: null
     }
   });
+  const [activityOptions, setActivityOptions] = useState([]);
+
+  useEffect(() => {
+
+  }, []);
 
   const setReason = (e) => {
     const reason = e.target.value;
@@ -76,8 +79,7 @@ window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
   }
 
   const activityOptions = () => {
-    const activities = [1,2,3];
-    return activities.map((activity, index) => {
+    return activityOptions.map((activity, index) => {
       return <option key={index} value="127">test activity</option>
     })
   }

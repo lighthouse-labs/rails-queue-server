@@ -1,13 +1,15 @@
 window.NationalQueue = window.NationalQueue || {};
 const useState = React.useState;
+const useContext = React.useContext;
 
 window.NationalQueue.Evaluation = ({evaluation}) => {
   const [disabled, setDisabled] = useState(false);
+  const queueContext =  window.NationalQueue.QueueContext;
+  const queueSocket = useContext(queueContext);
 
   const handleCancelEvaluating = () => {
     setDisabled(true);
-    App.queue.cancelEvaluating(evaluation);
-    ga('send', 'event', 'cancel-marking', 'click');
+    queueSocket.cancelEvaluating(evaluation)
   }
 
   const renderEvaluator = (evaluator, evaluation) => {
@@ -25,8 +27,7 @@ window.NationalQueue.Evaluation = ({evaluation}) => {
     );
   }
 
-  const actionButtons = () => {
-    const evaluation = evaluation;
+  const actionButtons = (evaluation) => {
     const project = evaluation.project;
 
     const buttons = [null];
@@ -40,7 +41,7 @@ window.NationalQueue.Evaluation = ({evaluation}) => {
   const renderActions = () => {
     return(
       <div className="actions float-right">
-        { App.ReactUtils.joinElements(actionButtons(), null) }
+        { App.ReactUtils.joinElements(actionButtons(evaluation), null) }
       </div>
     );
   }

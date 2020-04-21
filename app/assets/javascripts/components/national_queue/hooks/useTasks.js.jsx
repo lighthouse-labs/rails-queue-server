@@ -65,9 +65,9 @@ window.NationalQueue.useTasks = (updates, user) => {
   }, [])
 
   useEffect(() => {
-    console.log("useeffect triggered in use task for update", updates);
     dispatchTaskState({type: 'addUpdates', data: updates});
   },[updates]);
+
 
   const pendingEvaluations = () => {
     return selectPending(taskState.tasks);

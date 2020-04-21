@@ -43,7 +43,6 @@ const reducer = (state, action) => {
 window.NationalQueue.useQueueSocket = (user) => {
   // no imports have to load in selectors here  
   const [queueChannel, dispatchQueueChannel] = useReducer(reducer, initialState);
-
   useEffect(() => {
     // connect to student or teacher channel
     const channel = App.cable.subscriptions.create({ channel: "NationalQueueChannel"}, {
@@ -67,6 +66,15 @@ window.NationalQueue.useQueueSocket = (user) => {
       },
       cancelAssistance(request) {
         this.perform('cancel_assistance', {request_id: request.id});
+      },
+      finishAssistance(request, notes, notify, rating) {
+        this.perform('finish_assistance', {request_id: request.id, notes, notify, rating});
+      },
+      cancelEvaluating(evaluation) {
+        this.perform('cancel_evaluating', {evaluation_id: evaluation.id});
+      },
+      startEvaluating(evaluation) {
+        this.perform('start_evaluating', {evaluation_id: evaluation.id});
       }
     });
 
@@ -93,12 +101,27 @@ window.NationalQueue.useQueueSocket = (user) => {
     queueChannel.channel.cancelAssistance(request)
   }
 
+  const finishAssistance = (request, notes, notify, rating) => {
+    queueChannel.channel.finishAssistance(request, notes, notify, rating);
+  }
+
+  const cancelEvaluating = (evaluation) => {
+      queueChannel.channel.cancelEvaluating(evaluation);
+  }
+
+  const startEvaluating = (evaluation) => {
+    queueChannel.channel.startEvaluating(evaluation);
+}
+
   return {
     requestAssistance,
     cancelAssistanceRequest,
     startAssisting,
     cancelAssistance,
     queueChannel,
+    finishAssistance,
+    cancelEvaluating,
+    startEvaluating,
     requestUpdates: queueChannel.requestUpdates,
     queueUpdates: queueChannel.queueUpdates,
     teacherUpdates:queueChannel.teacherUpdates

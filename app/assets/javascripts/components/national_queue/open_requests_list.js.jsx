@@ -5,7 +5,7 @@ const useState = React.useState;
 window.NationalQueue.OpenRequestsList = ({tasks}) => {
   
   const renderRequest = (task) => {
-    const request = task.assistanceRequest;
+    const request = task.taskObject;
     return <NationalQueue.PendingAssistanceRequest key={`request-${request.id}`} request={request} />
   }
 

@@ -1,13 +1,12 @@
 window.NationalQueue = window.NationalQueue || {};
 const useState = React.useState;
-const useRef = React.useRef;
 const useContext = React.useContext;
 
 window.NationalQueue.Assistance = ({task}) => {
   const queueContext =  window.NationalQueue.QueueContext;
   const queueSocket = useContext(queueContext);
   const [disabled, setDisabled] = useState(false);
-  const asssistanceModalRef = useRef();
+  const [showModal, setShowModal] = useState(false);
 
   const handleCancelAssisting = () => {
     setDisabled(true);
@@ -19,7 +18,7 @@ window.NationalQueue.Assistance = ({task}) => {
   }
 
   const openModal = () => {
-    $(asssistanceModalRef.current).modal('show');
+    setShowModal(true);
   }
 
   const actionButtons = () => {
@@ -64,7 +63,7 @@ window.NationalQueue.Assistance = ({task}) => {
       </div>
       {renderActions()}
 
-      <NationalQueue.AssistanceModal request={request} setRef={asssistanceModalRef} />
+      {showModal && <NationalQueue.AssistanceModal request={request} hide={() => {setShowModal(false)}} />}
     </NationalQueue.QueueItem>
   )
 }

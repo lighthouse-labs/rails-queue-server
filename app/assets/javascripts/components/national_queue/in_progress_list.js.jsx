@@ -6,11 +6,11 @@ window.NationalQueue.InProgressList = ({tasks}) => {
   }
 
   const renderEvaluation = (evaluation) => {
-    return <NationalQueue.Evaluation key={`evaluation-${evaluation.id}`} evaluation={evaluation} />
+    return <NationalQueue.Evaluation key={`evaluation-${evaluation.id}`} evaluation={evaluation.taskObject} />
   }
 
   const renderInterview = (interview) => {
-    return <NationalQueue.Interview key={`interview-${interview.id}`} interview={interview} />
+    return <NationalQueue.Interview key={`interview-${interview.id}`} interview={interview.taskObject} />
   }
 
   const renderItem = (item) => {
