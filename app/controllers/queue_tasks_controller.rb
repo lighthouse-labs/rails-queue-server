@@ -1,6 +1,6 @@
 class QueueTasksController < ApplicationController
 
-  before_action :teacher_required
+  before_action :teacher_required, except: :day_activities
 
   def show
     puts 'getting queue tasks'
@@ -37,10 +37,7 @@ class QueueTasksController < ApplicationController
   end
 
   def day_activities
-    grouped_options_for_select(
-      current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :id).group_by { |d| d[1] },
-      @activity.try(:id)
-    )
+    render json: current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :id).group_by { |d| d[1] }
   end
 
   # TODO: Turn it into an interactor instead of controller doing a whole bunch of logic

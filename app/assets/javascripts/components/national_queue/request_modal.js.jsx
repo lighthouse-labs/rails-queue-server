@@ -1,5 +1,5 @@
 window.NationalQueue = window.NationalQueue || {};
-const useEffect = useEffect();
+const useEffect = React.useEffect;
 
 window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
   const [formInfo, setFormInfo] = useState({
@@ -12,7 +12,16 @@ window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
   const [activityOptions, setActivityOptions] = useState([]);
 
   useEffect(() => {
-
+    const url = `/queue_tasks/day_activities`
+    $.ajax({
+      dataType: 'json',
+      method: 'GET',
+      url
+    }).done(resp => {
+      setActivityOptions(resp);
+    }).always(() => {
+      // setLoading(false);
+    })
   }, []);
 
   const setReason = (e) => {
@@ -78,10 +87,22 @@ window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
     closeRequest();
   }
 
-  const activityOptions = () => {
-    return activityOptions.map((activity, index) => {
-      return <option key={index} value="127">test activity</option>
+  const activitySelects = (activities) => {
+    return activities.map((activity, index) => {
+      return <option key={index} value={activity[2]}>{activity[0]}</option>
     })
+  }
+
+  const activitySelectGroups = () => {
+    const options = [];
+    for (let group in activityOptions) {
+      options.push(
+        <optgroup key={group} label={group}>
+          {activitySelects(activityOptions[group])}
+        </optgroup>
+      )
+    }
+    return options;
   }
 
   return show && (
@@ -98,7 +119,7 @@ window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
                 <span  aria-hidden='true'>
                   &times;
                 </span>
-                <span className="sr-only">
+                <span onClick={closeRequest} className="sr-only">
                   Close
                 </span>
               </button>
@@ -117,7 +138,7 @@ window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
                 <div className="form-group" >
                   <select value={formInfo.values.activity_id} onChange={setActivityId} name="activity_id" className='form-control'>
                     <option value="" disabled>Which activity?</option>
-                    {activityOptions()}
+                    {activitySelectGroups()}
                   </select>
                 </div>
               </div>
