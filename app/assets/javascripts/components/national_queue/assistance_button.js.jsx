@@ -56,6 +56,8 @@ window.NationalQueue.AssistanceButton = () => {
   useEffect(() => {
     $(requestButton.current).tooltip();
     $(conferenceButton.current).tooltip();
+    $(requestButton.current).tooltip('hide');
+    $(conferenceButton.current).tooltip('hide');
   }, [currentRequestState, requestButton, conferenceButton]);
 
   const showAssistanceModal =  (e) => {
@@ -102,6 +104,7 @@ window.NationalQueue.AssistanceButton = () => {
             data-toggle='tooltip' 
             data-placement='bottom' 
             title={`Google Hangout with ${currentRequestState.assistorName}`}
+            data-original-title={`Google Hangout with ${currentRequestState.assistorName}`}
             ref={conferenceButton}
           >
             <i className="fa fa-fw fa-video"></i>
@@ -111,6 +114,7 @@ window.NationalQueue.AssistanceButton = () => {
             data-toggle='tooltip' 
             data-placement='bottom'
             onClick={handleAssistanceButton}
+            data-original-title={button.title}
             title={button.title}
             ref={requestButton}
           >
