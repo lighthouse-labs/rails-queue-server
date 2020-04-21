@@ -32,6 +32,8 @@ class User < ApplicationRecord
 
   has_many :video_conferences
 
+  has_many :queue_tasks
+
   scope :order_by_last_assisted_at, -> {
     order("last_assisted_at ASC NULLS FIRST")
   }

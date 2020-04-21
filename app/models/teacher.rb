@@ -8,8 +8,6 @@ class Teacher < User
 
   has_many :tech_interviews, class_name: TechInterview, foreign_key: :interviewer_id
 
-  has_many :queue_tasks
-
   scope :filter_by_location, ->(location_id) {
     includes(:location)
       .where(locations: { id: location_id })
@@ -17,6 +15,11 @@ class Teacher < User
 
   scope :filter_by_teacher, ->(teacher_id) {
     where(id: teacher_id)
+  }
+
+  scope :has_assisted_student, ->(student) {
+    includes(:teaching_assistances)
+      .where(assistances: {assistee_id: student.id})
   }
 
   scope :on_duty, -> { where(on_duty: true) }
