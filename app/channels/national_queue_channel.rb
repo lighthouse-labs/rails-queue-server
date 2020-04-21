@@ -1,14 +1,15 @@
 class NationalQueueChannel < ApplicationCable::Channel
-
+  @@message_sequence ||= 0
+  
   def self.broadcast_to(model, message)
     # add sequence number and store messages
-    message[:sequence] = 1
+    message[:sequence] = @@message_sequence += 1
     super(model, message)
   end
 
   def self.broadcast(broadcasting, message)
     # add sequence number and store messages
-    message[:sequence] = 1
+    message[:sequence] = @@message_sequence += 1
     ActionCable.server.broadcast broadcasting , message
   end
 
@@ -65,33 +66,45 @@ class NationalQueueChannel < ApplicationCable::Channel
     )
   end
 
+  def finish_assistance(data)
+    NationalQueue::UpdateRequest.call(
+      assistor: current_user,
+      options: {
+        type: 'finish_assistance',
+        request_id: data["request_id"],
+        note: data["notes"],
+        notify: data["notify"],
+        rating: data["rating"]
+      }
+    )
+  end
+
   def start_evaluating(data)
-    # evaluation = Evaluation.find_by id: data["evaluation_id"]
-    # if evaluation&.grabbable_by?(current_user)
-    #   evaluation.teacher = current_user
-    #   if evaluation.transition_to(:in_progress)
-    #     BroadcastMarking.call(evaluation:          evaluation,
-    #                           evaluator:           current_user,
-    #                           user:                current_user,
-    #                           edit_evaluation_url: edit_project_evaluation_path(evaluation.project, evaluation))
-    #   end
-    # end
+    NationalQueue::UpdateEvaluation.call(
+      assistor: current_user,
+      options: {
+        type: 'start_evaluating',
+        evaluation_id: data["evaluation_id"]
+      }
+    )
   end
 
   def cancel_evaluating(data)
-    # evaluation = Evaluation.find_by id: data["evaluation_id"]
-    # if evaluation&.can_requeue?
-    #   evaluation.teacher = nil
-    #   BroadcastMarking.call(evaluation: evaluation) if evaluation.transition_to(:pending)
-    # end
+    NationalQueue::UpdateEvaluation.call(
+      assistor: current_user,
+      options: {
+        type: 'cancel_evaluating',
+        evaluation_id: data["evaluation_id"]
+      }
+    )
   end
 
   def cancel_interviewing(data)
-    # interview = TechInterview.find_by id: data["interview_id"]
-    # StopTechInterview.call(
-    #   tech_interview: interview,
-    #   user:           current_user
-    # )
+    interview = TechInterview.find_by id: data["interview_id"]
+    StopTechInterview.call(
+      tech_interview: interview,
+      user:           current_user
+    )
   end
 
 end
