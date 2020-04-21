@@ -1,0 +1,50 @@
+.queue-by-location {
+  align-items: flex-start;
+  max-width: 1700px;
+  margin: auto;
+  height: 80vh;
+  .queue-top {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .queue-bottom {
+    flex: 1 1 auto;
+    height: 70%;
+  }
+  .queue-title {
+    font-family: 'Pacifico', cursive;
+  }
+  .queue-row {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+  }
+  .queue-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 25px;
+    &.left {
+      margin-right: 2rem;
+    }
+    .card {
+      min-height: 25px;
+      overflow: hidden;
+    }
+  }
+  .list-group {
+    max-height: 100%;
+    overflow-y: scroll !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .queue-by-location {
+    .row {
+      flex-direction: column;
+    }
+    .queue-column.left {
+      margin-right: 0rem;
+    }
+  }
+}
