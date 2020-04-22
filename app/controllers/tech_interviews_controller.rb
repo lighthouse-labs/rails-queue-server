@@ -27,6 +27,14 @@ class TechInterviewsController < ApplicationController
 
     # should not fail, throw 500 / unexpected error if so
     if result.success?
+      # send msg to national queue, evaually all logic above should be done in the interactor
+      NationalQueue::UpdateTechInterview.call(
+        assistor: current_user,
+        options: {
+          type: 'start_interview',
+          tech_interview_id: @tech_interview.id
+        }
+      )
       redirect_to edit_tech_interview_path(@tech_interview)
     else
       raise result.error
