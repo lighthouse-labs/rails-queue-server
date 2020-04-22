@@ -1,17 +1,6 @@
-class NationalQueueChannel < ApplicationCable::Channel
-  @@message_sequence ||= 0
-  
-  def self.broadcast_to(model, message)
-    # add sequence number and store messages
-    message[:sequence] = @@message_sequence += 1
-    super(model, message)
-  end
-
-  def self.broadcast(broadcasting, message)
-    # add sequence number and store messages
-    message[:sequence] = @@message_sequence += 1
-    ActionCable.server.broadcast broadcasting , message
-  end
+class NationalQueueChannel < ApplicationCable::UpdateChannel
+  @@updates_type = 'queueUpdate'
+  @@max_updates_length = 10
 
   def subscribed
     stream_for current_user
@@ -21,11 +10,6 @@ class NationalQueueChannel < ApplicationCable::Channel
     if current_user&.is_a?(Teacher)
       stream_from 'teacher-national-queue'
     end
-    @update_sequence = 0;
-  end
-
-  def unsubscribed
-    # cleanup
   end
 
   def request_assistance(data)
@@ -99,11 +83,13 @@ class NationalQueueChannel < ApplicationCable::Channel
     )
   end
 
-  def cancel_interviewing(data)
-    interview = TechInterview.find_by id: data["interview_id"]
-    StopTechInterview.call(
-      tech_interview: interview,
-      user:           current_user
+  def cancel_interview(data)
+    NationalQueue::UpdateTechInterview.call(
+      assistor: current_user,
+      options: {
+        type: 'cancel_interview',
+        tech_interview_id: data["tech_interview_id"]
+      }
     )
   end
 
