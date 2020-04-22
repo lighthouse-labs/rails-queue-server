@@ -3,13 +3,13 @@ class QueueTasksController < ApplicationController
   before_action :teacher_required, except: :day_activities
 
   def show
-    puts 'getting queue tasks'
-    queue_tasks = QueueTask.teachers_queue_or_in_progress(current_user)
+    queue_tasks = current_user.admin? ? QueueTask.open_or_in_progress_tasks : QueueTask.teachers_queue_or_in_progress(current_user)
+    queue_tasks += Evaluation.incomplete.student_priority
+    queue_tasks += TechInterview.in_progress
     render json: queue_tasks, each_serializer: QueueTaskSerializer, root: 'tasks'
   end
 
   def students
-    puts 'getting students'
     # Can filter for what students the teacher has access to in the future
     cohorts = Program.first.cohorts.is_active
     students = Student.joins(:cohort).merge(cohorts).distinct.to_a
@@ -20,20 +20,6 @@ class QueueTasksController < ApplicationController
     # Can filter for what students the teacher has access to in the future
     cohorts = Program.first.cohorts.is_active
     render json: cohorts, each_serializer: QueueCohortStatusSerializer, root: 'cohorts'
-  end
-
-  def evaluations
-    puts 'getting evaluations'
-    # Can filter for what students the teacher has access to in the future
-    evaluations = Evaluation.incomplete.student_priority
-    render json: evaluations, each_serializer: QueueTaskSerializer, root: 'evaluations'
-  end
-
-  def tech_interviews
-    puts 'getting tech interviews'
-    # Can filter for what students the teacher has access to in the future
-    tech_interviews = TechInterview.in_progress
-    render json: tech_interviews, each_serializer: QueueTaskSerializer, root: 'interviews'
   end
 
   def day_activities

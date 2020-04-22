@@ -3,7 +3,7 @@ const useEffect = React.useEffect;
 const useState = React.useState;
 const useContext = React.useContext;
 
-window.NationalQueue.PendingAssistanceRequest = ({request}) => {
+window.NationalQueue.PendingAssistanceRequest = ({request, teachers}) => {
   const queueContext =  window.NationalQueue.QueueContext;
   const queueSocket = useContext(queueContext);
   const [disabled, setDisabled] = useState(false);
@@ -36,6 +36,17 @@ window.NationalQueue.PendingAssistanceRequest = ({request}) => {
     );
   }
 
+  const renderAssignees = () => {
+    if (teachers) {
+      return (
+        <div className="blurb">
+          <strong> Assigned to: &nbsp;</strong>
+          {teachers.map((teacher, i) => <span key={i}>{teacher.firstName} {teacher.lastName}{teachers.length > i + 1 && ', '}</span>)}
+        </div>
+      )
+    }
+  }
+
   const student = request.requestor;
   return (
     <NationalQueue.QueueItem type='Request' disabled={disabled}>
@@ -47,6 +58,7 @@ window.NationalQueue.PendingAssistanceRequest = ({request}) => {
       <div className="blurb">
         {App.ReactUtils.renderActivityDetails(request.activity)}
         {App.ReactUtils.renderQuote(request.reason)}
+        {renderAssignees()}
       </div>
       {renderActions()}
     </NationalQueue.QueueItem>

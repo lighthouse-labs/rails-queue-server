@@ -10,7 +10,7 @@ window.NationalQueue.Assistance = ({task}) => {
 
   const handleCancelAssisting = () => {
     setDisabled(true);
-    queueSocket.cancelAssistance(task.assistanceRequest);
+    queueSocket.cancelAssistance(task.taskObject);
   }
 
   const handleEndAssisting = () => {
@@ -24,8 +24,8 @@ window.NationalQueue.Assistance = ({task}) => {
   const actionButtons = () => {
     const buttons = [null];
     if (window.current_user.id === task.teacher.id) {
-      task.assistanceRequest.conferenceLink && buttons.push(
-        <a key="conference" className="btn btn-sm btn-primary btn-hover-danger" href={task.assistanceRequest.conferenceLink} target="_blank" disabled={disabled}>
+      task.taskObject.conferenceLink && buttons.push(
+        <a key="conference" className="btn btn-sm btn-primary btn-hover-danger" href={task.taskObject.conferenceLink} target="_blank" disabled={disabled}>
           <i className="fa fa-fw fa-video"></i>
           &nbsp;Google Hangout
         </a>
@@ -44,8 +44,8 @@ window.NationalQueue.Assistance = ({task}) => {
     );
   }
 
-  const request = task.assistanceRequest;
-  const student = task.assistanceRequest.requestor;
+  const request = task.taskObject;
+  const student = task.taskObject.requestor;
   const assistor = task.teacher;
 
   return (

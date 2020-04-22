@@ -6,6 +6,21 @@ const selectOpen = (tasks, user) => {
  })
 }
 
+const selectAllOpen = (tasks, user) => {
+  const matches = {};
+  return tasks.filter((task, index) => {
+    if (task.state === 'pending' && task.type === 'Assistance'){
+      if (matches[task.taskObject.id]) {
+        matches[task.taskObject.id].teachers.push(task.teacher);
+      } else {
+        task.teachers = [task.teacher];
+        matches[task.taskObject.id] = task;
+        return true;
+      } 
+    }
+  })
+ }
+
 const selectPending = (tasks) => {
   return tasks.filter((task) => {
     return task.state === 'pending' && task.type === 'ProjectEvaluation';
@@ -40,6 +55,7 @@ const tasksWithUpdates = (tasks, updates) => {
 
 window.NationalQueue.QueueSelectors =  {
   selectOpen,
+  selectAllOpen,
   selectPending,
   selectInProgress,
   tasksWithUpdates

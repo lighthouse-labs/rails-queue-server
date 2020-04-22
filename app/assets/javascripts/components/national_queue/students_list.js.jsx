@@ -14,7 +14,6 @@ window.NationalQueue.StudentsList = ({user}) => {
       method: 'GET',
       url
     }).done(resp => {
-      console.log(resp);
       //get studnts 
       setStudents(resp.students);
     }).always(() => {

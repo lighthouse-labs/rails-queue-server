@@ -1,17 +1,27 @@
 window.NationalQueue = window.NationalQueue || {};
 const useContext = React.useContext;
+const useState = React.useState;
 
 window.NationalQueue.Lists = ({user}) => {
   const queueContext =  window.NationalQueue.QueueContext;
-  const {queueUpdates} = useContext(queueContext);
-  const {openTasks, inProgress, pendingEvaluations} = window.NationalQueue.useTasks(queueUpdates, user)
+  const [adminQueue, setAdminQueue] = useState(false);
+  const {queueUpdates, queueChannel} = useContext(queueContext);
+  const {myOpenTasks, allOpenTasks, inProgress, pendingEvaluations} = window.NationalQueue.useTasks(queueUpdates, user)
 
   return (
     <div className="queue-by-location">
       <div className="queue-column queue-top">
-        <h2 className="queue-title" >the queue</h2>
+        <div className="queue-row">
+          <h2 className="queue-title" >{`the ${adminQueue ? 'admin ' : ''}queue`} {queueChannel.connected || <i className="fas fa-spinner text-primary"></i>}</h2>
+          {user.admin &&
+            <label className="switch">
+              <input type="checkbox" value={adminQueue} onClick={e => setAdminQueue(!adminQueue)}/>
+              <span className="slider round"></span>
+            </label>
+          }
+        </div>
         <div className="queue-column mb-3">
-          <NationalQueue.OpenRequestsList tasks={openTasks()} />
+          <NationalQueue.OpenRequestsList tasks={adminQueue ? allOpenTasks() : myOpenTasks()} admin={adminQueue} />
         </div>
       </div>
       <div className="queue-row queue-bottom">
@@ -20,7 +30,7 @@ window.NationalQueue.Lists = ({user}) => {
           <NationalQueue.PendingEvaluationsList tasks={pendingEvaluations()} />
           <NationalQueue.InterviewStatusList user={user} />
         </div>
-        <div className="queue-column">
+        <div className="queue-column right">
           <NationalQueue.StudentsList user={user} />
         </div>
       </div>

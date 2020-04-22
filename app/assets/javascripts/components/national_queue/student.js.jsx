@@ -16,7 +16,7 @@ window.NationalQueue.Student = ({student}) => {
         <button className="btn btn-sm btn-light btn-main" onClick={openModal}>Assistance / Note</button>
       </div>
 
-      {showModal && <NationalQueue.AssistanceModal hide={()=> setShowModal(false)}student={student} ref={assistanceModalRef} />}
+      {showModal && <NationalQueue.AssistanceModal hide={()=> setShowModal(false)}student={student} />}
     </NationalQueue.QueueItem>
   )
 }

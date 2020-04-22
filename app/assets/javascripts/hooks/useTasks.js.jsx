@@ -6,7 +6,7 @@ const useEffect = React.useEffect;
 
 window.NationalQueue.useTasks = (updates, user) => {
   // no imports have to load in selectors here
-  const {selectOpen, selectPending, selectInProgress, tasksWithUpdates} = window.NationalQueue.QueueSelectors;
+  const {selectOpen, selectAllOpen, selectPending, selectInProgress, tasksWithUpdates} = window.NationalQueue.QueueSelectors;
   // reducer should be moved outside of hook, but without imports selectors have to be required inside hook
   const taskReducer = (state, action) => {
     switch (action.type) {
@@ -33,33 +33,18 @@ window.NationalQueue.useTasks = (updates, user) => {
   
 
   useEffect(() => {
-    // eventually evaluations assistances and interviews could be linked to queue_tasks
-    const evaluationsRequest = fetch(`/queue_tasks/evaluations`, {
+    fetch(`/queue_tasks`, {
       headers: {
         "Content-Type": "application/json"
       }
     })
-    const tasksRequest = fetch(`/queue_tasks`, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    const interviewsRequest = fetch(`/queue_tasks/tech_interviews`, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    Promise.all([ tasksRequest, evaluationsRequest, interviewsRequest])
-      .then(responses => Promise.all(responses.map(response => response.json())))
-      .then((responses) => {
-        const tasks = responses[0].tasks || [];
-        const evaluations = responses[1].evaluations || [];
-        const interviews = responses[2].interviews || [];
-        let taskList = tasks.concat(evaluations).concat(interviews);
-        taskList = _(taskList).sortBy((item) => {
+      .then(response => response.json())
+      .then((response) => {
+        let tasks = response.tasks || [];
+        tasks = _(tasks).sortBy((item) => {
           return (item.startAt || item.startedAt || item.createdAt)
         }).reverse();
-        dispatchTaskState({type: "setTasks", data: Array.from(taskList)});
+        dispatchTaskState({type: "setTasks", data: Array.from(tasks)});
       });
 
   }, [])
@@ -77,14 +62,19 @@ window.NationalQueue.useTasks = (updates, user) => {
     return selectInProgress(taskState.tasks);
   }
 
-  const openTasks = () => {
+  const myOpenTasks = () => {
     return selectOpen(taskState.tasks, user);
+  }
+
+  const allOpenTasks = () => {
+    return selectAllOpen(taskState.tasks, user);
   }
 
   return {
     pendingEvaluations,
     inProgress,
-    openTasks
+    myOpenTasks,
+    allOpenTasks
   }
 
 }

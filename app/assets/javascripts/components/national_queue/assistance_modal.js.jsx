@@ -86,22 +86,32 @@ window.NationalQueue.AssistanceModal = ({request, student, hide}) => {
   }
 
   const endAssistance = (request, notes, notify, rating) => {
+    setFormInfo(current => ({...current, disabled: true}));
     queueSocket.finishAssistance(request, notes, notify, rating);
-    // postAndClose('/queue/end_assistance.json', {
-    //   assistance_id: assistance.id,
-    //   notes: notes,
-    //   rating: rating,
-    //   notify: notify ? true : null
-    // });
   }
 
   const providedAssistance = (student, notes, rating, notify) => {
-    // postAndClose('/queue/provided_assistance.json', {
-    //   student_id: student.id,
-    //   notes: notes,
-    //   rating: rating,
-    //   notify: notify ? true : null
-    // });
+    setFormInfo(current => ({...current, disabled: true}));
+    const params = {
+      student_id: student.id,
+      notes: notes,
+      rating: rating,
+      notify: notify ? true : null
+    }
+    $.post('/queue/provided_assistance.json', params, 'json')
+      .done((data) => {
+        close();
+      })
+      .fail((xhr, data, txt) => {
+        let error = xhr.statusText;
+        if (xhr.responseJSON) {
+          error = xhr.responseJSON.error;
+        }
+        alert('Could not complete action: ' + error);
+      })
+      .always(() => {
+        setFormInfo(current => ({...current, disabled: false}));
+      });
   }
 
   const renderReason = (assistanceRequest) => {
@@ -150,7 +160,7 @@ window.NationalQueue.AssistanceModal = ({request, student, hide}) => {
                     onChange={setRating}
                     className={`form-control ${ratingIsValid(formInfo.values.rating) ? 'is_valid' : 'is_invalid'}`}
                     value={formInfo.values.rating}
-                    required="true">
+                    required={true}>
                       <option value=''>Please Select</option>
                       <option value="1">L1 | Struggling</option>
                       <option value="2">L2 | Slightly behind</option>

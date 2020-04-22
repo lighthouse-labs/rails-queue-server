@@ -24,7 +24,8 @@ class UserSerializer < ActiveModel::Serializer
              :being_assisted?,
              :current_assistance_conference,
              :current_assistor,
-             :position_in_queue
+             :position_in_queue,
+             :admin
 
   has_one :location, serializer: MyLocationSerializer
   has_one :cohort

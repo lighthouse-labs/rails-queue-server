@@ -130,7 +130,7 @@ window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
                   Description
                 </label>
                 <div className="form-group" >
-                  <textarea value={formInfo.values.reason} onChange={setReason} name="reason" placeholder='What do you need assistance with?'class='form-control' />
+                  <textarea value={formInfo.values.reason} onChange={setReason} name="reason" placeholder='What do you need assistance with?'className='form-control' />
                 </div>
                 <label>
                   Activity
