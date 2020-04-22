@@ -2,6 +2,7 @@ window.NationalQueue = window.NationalQueue || {};
 const useState = React.useState;
 const useEffect = React.useEffect;
 const useReducer = React.useReducer;
+const useContext = React.useContext;
 
 const initialState = {
   connected: false,
@@ -33,7 +34,7 @@ const reducer = (state, action) => {
     case 'connect':
       return {...state, connected: true};
     case 'setChannel':
-      return {...state, channel: action.data };
+      return {...state, channel: action.data.socket, connected: action.data.connected };
     case 'socketMessage':
       const updates = Array.isArray(action.data.object) ? action.data.object : [{object: action.data.object, sequence: action.data.sequence}]
       return messageLookup[action.data.type](state, updates)
@@ -43,89 +44,64 @@ const reducer = (state, action) => {
 }
 
 window.NationalQueue.useQueueSocket = (user) => {
-  // no imports have to load in selectors here  
+  const socketContext = window.NationalQueue.SocketContext;
+  const socketHandler = useContext(socketContext);
   const [queueChannel, dispatchQueueChannel] = useReducer(reducer, initialState);
-  useEffect(() => {
-    // connect to student or teacher channel
-    // dont like this, should not use global to store channel, but need the channel to persist
-    window.NationalQueue.channel = window.NationalQueue.channel || App.cable.subscriptions.create({ channel: "NationalQueueChannel"}, {
-      received(data) {
-        dispatchQueueChannel({type: 'socketMessage', data});
-      },
-      disconnected() {
-        dispatchQueueChannel({type: 'disconnect'});
-      },
-      connected() {
-        dispatchQueueChannel({type: 'connect'});
-        if (queueChannel.lastUpdate > 0) {
-          this.perform('get_missed_updates', lastUpdate)
-        }
-      },
-      requestAssistance(reason, activityId) {
-        this.perform('request_assistance', {reason: reason, activity_id: activityId});
-      },
-      cancelAssistanceRequest(request) {
-        this.perform('cancel_assistance_request', {request_id: request && request.id});
-      },
-      startAssisting(request) {
-        this.perform('start_assisting', {request_id: request.id});
-      },
-      cancelAssistance(request) {
-        this.perform('cancel_assistance', {request_id: request.id});
-      },
-      finishAssistance(request, notes, notify, rating) {
-        this.perform('finish_assistance', {request_id: request.id, notes, notify, rating});
-      },
-      cancelEvaluating(evaluation) {
-        this.perform('cancel_evaluating', {evaluation_id: evaluation.id});
-      },
-      startEvaluating(evaluation) {
-        this.perform('start_evaluating', {evaluation_id: evaluation.id});
-      },
-      cancelInterview(interview) {
-        this.perform('cancel_interview', {tech_interview_id: interview.id});
-      }
-    });
 
-    dispatchQueueChannel({type: 'setChannel', data: window.NationalQueue.channel});
+  useEffect(() => {
+    // set up handlers for action cable
+    socketHandler.onRecieved = (data) => {
+      dispatchQueueChannel({type: 'socketMessage', data});
+    };
+    socketHandler.onConnected = () => {
+      dispatchQueueChannel({type: 'connect'});
+      if (queueChannel.lastUpdate > 0) {
+        queueChannel.channel.perform('get_missed_updates', lastUpdate)
+      }
+    };
+    socketHandler.onDisconnect = () => {
+      dispatchQueueChannel({type: 'disconnect'});
+    };
+
+    dispatchQueueChannel({type: 'setChannel', data: socketHandler});
     
     return () => {
-      // no clean up possible because channel has to stay live when component is not rendered
-      // & no root component to mount the hook/context
-      // window.NationalQueue.channel.unsubscribe();
+      socketHandler.onRecieved = null;
+      socketHandler.onConnected = null;
+      socketHandler.onDisconnect = null;
     }
   }, [])
 
   const requestAssistance = (reason, activityId) => {
-    queueChannel.channel.requestAssistance(reason, activityId);
+    queueChannel.channel.perform('request_assistance', {reason: reason, activity_id: activityId});
   }
 
   const cancelAssistanceRequest = (request) => {
-    queueChannel.channel.cancelAssistanceRequest(request)
+    queueChannel.channel.perform('cancel_assistance_request', {request_id: request && request.id});
   }
 
   const startAssisting = (request) => {
-    queueChannel.channel.startAssisting(request)
+    queueChannel.channel.perform('start_assisting', {request_id: request.id});
   }
 
   const cancelAssistance = (request) => {
-    queueChannel.channel.cancelAssistance(request)
+    queueChannel.channel.perform('cancel_assistance', {request_id: request.id});
   }
 
   const finishAssistance = (request, notes, notify, rating) => {
-    queueChannel.channel.finishAssistance(request, notes, notify, rating);
+    queueChannel.channel.perform('finish_assistance', {request_id: request.id, notes, notify, rating});
   }
 
   const cancelEvaluating = (evaluation) => {
-      queueChannel.channel.cancelEvaluating(evaluation);
+    queueChannel.channel.perform('cancel_evaluating', {evaluation_id: evaluation.id});
   }
 
   const startEvaluating = (evaluation) => {
-    queueChannel.channel.startEvaluating(evaluation);
+    queueChannel.channel.perform('start_evaluating', {evaluation_id: evaluation.id});
   }
 
   const cancelInterview = (interview) => {
-    queueChannel.channel.cancelInterview(interview);
+    queueChannel.channel.perform('cancel_interview', {tech_interview_id: interview.id});
   }
 
   return {
