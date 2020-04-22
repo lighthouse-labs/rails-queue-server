@@ -17,12 +17,12 @@ class NationalQueue::SmartTaskRoute
       puts smart_task_result.success?
       puts '----------'
       context.fail! unless smart_task_result.success?
-      
+
       updates = smart_task_result.assigned_tasks
     else
       # later may re assign tasks
       @assistance_request.queue_tasks.each do |task|
-        updates.push({task: task, shared: public_task(task)})
+        updates.push({ task: task, shared: public_task(task) })
       end
     end
     context.updates = updates

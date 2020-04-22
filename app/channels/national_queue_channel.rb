@@ -1,15 +1,14 @@
 class NationalQueueChannel < ApplicationCable::UpdateChannel
+
   @@updates_type = 'queueUpdate'
   @@max_updates_length = 10
 
   def subscribed
     stream_for current_user
     NationalQueueChannel.broadcast_to current_user, type:   "requestUpdate",
-                                           object: NationalQueueAssistanceRequestSerializer.new(current_user.assistance_requests.newest_requests_first.first).as_json
+                                                    object: NationalQueueAssistanceRequestSerializer.new(current_user.assistance_requests.newest_requests_first.first).as_json
     stream_from 'student-national-queue'
-    if current_user&.is_a?(Teacher)
-      stream_from 'teacher-national-queue'
-    end
+    stream_from 'teacher-national-queue' if current_user&.is_a?(Teacher)
   end
 
   def request_assistance(data)
@@ -23,8 +22,8 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def cancel_assistance_request(data)
     NationalQueue::UpdateRequest.call(
       requestor: current_user,
-      options: {
-        type: 'cancel',
+      options:   {
+        type:       'cancel',
         request_id: data["request_id"]
       }
     )
@@ -33,8 +32,8 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def cancel_assistance(data)
     NationalQueue::UpdateRequest.call(
       assistor: current_user,
-      options: {
-        type: 'cancel_assistance',
+      options:  {
+        type:       'cancel_assistance',
         request_id: data["request_id"]
       }
     )
@@ -43,9 +42,9 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def start_assisting(data)
     NationalQueue::UpdateRequest.call(
       assistor: current_user,
-      options: {
-        type: 'start_assistance',
-        request_id: data["request_id"],
+      options:  {
+        type:       'start_assistance',
+        request_id: data["request_id"]
       }
     )
   end
@@ -53,12 +52,12 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def finish_assistance(data)
     NationalQueue::UpdateRequest.call(
       assistor: current_user,
-      options: {
-        type: 'finish_assistance',
+      options:  {
+        type:       'finish_assistance',
         request_id: data["request_id"],
-        note: data["notes"],
-        notify: data["notify"],
-        rating: data["rating"]
+        note:       data["notes"],
+        notify:     data["notify"],
+        rating:     data["rating"]
       }
     )
   end
@@ -66,8 +65,8 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def start_evaluating(data)
     NationalQueue::UpdateEvaluation.call(
       assistor: current_user,
-      options: {
-        type: 'start_evaluating',
+      options:  {
+        type:          'start_evaluating',
         evaluation_id: data["evaluation_id"]
       }
     )
@@ -76,8 +75,8 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def cancel_evaluating(data)
     NationalQueue::UpdateEvaluation.call(
       assistor: current_user,
-      options: {
-        type: 'cancel_evaluating',
+      options:  {
+        type:          'cancel_evaluating',
         evaluation_id: data["evaluation_id"]
       }
     )
@@ -86,8 +85,8 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def cancel_interview(data)
     NationalQueue::UpdateTechInterview.call(
       assistor: current_user,
-      options: {
-        type: 'cancel_interview',
+      options:  {
+        type:              'cancel_interview',
         tech_interview_id: data["tech_interview_id"]
       }
     )

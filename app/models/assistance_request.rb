@@ -95,11 +95,12 @@ class AssistanceRequest < ApplicationRecord
   def assign_task(assistor)
     return false if assistor.blank? || assistance.present?
 
-    self.queue_tasks.create(user: assistor)
+    queue_tasks.create(user: assistor)
   end
 
   def end_assistance(notes)
     return if assistance.blank?
+
     assistance.end(notes)
   end
 

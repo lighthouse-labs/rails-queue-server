@@ -1,4 +1,5 @@
 class NationalQueue::UpdateInterviewRecord
+
   include Interactor
 
   before do
@@ -9,7 +10,7 @@ class NationalQueue::UpdateInterviewRecord
 
   def call
     context.updates ||= []
-    
+
     case @options[:type]
     when 'cancel_interview'
       context.assistor = @interview.interviewer
@@ -21,12 +22,13 @@ class NationalQueue::UpdateInterviewRecord
       @interview.started_at = nil
       TechInterviewResult.where(tech_interview_id: @interview.id).delete_all
 
-      context.updates.push({task: @interview, shared: true}) if success = @interview.save
+      context.updates.push({ task: @interview, shared: true }) if success = @interview.save
     when 'start_interview'
-      context.updates.push({task: @interview, shared: true})
+      context.updates.push({ task: @interview, shared: true })
       success = true
     end
 
     context.fail! unless success
   end
+
 end

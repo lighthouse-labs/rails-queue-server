@@ -1,4 +1,5 @@
 class SmartQueueRouter::TeacherSkillsScore
+
   include Interactor
 
   before do

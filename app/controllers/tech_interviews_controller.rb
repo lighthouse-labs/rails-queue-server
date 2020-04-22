@@ -30,8 +30,8 @@ class TechInterviewsController < ApplicationController
       # send msg to national queue, evaually all logic above should be done in the interactor
       NationalQueue::UpdateTechInterview.call(
         assistor: current_user,
-        options: {
-          type: 'start_interview',
+        options:  {
+          type:              'start_interview',
           tech_interview_id: @tech_interview.id
         }
       )

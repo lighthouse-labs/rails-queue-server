@@ -41,7 +41,7 @@ class QueueTaskSerializer < ActiveModel::Serializer
   def started_at
     if object.is_a? QueueTask
       object.assistance_request&.start_at
-    else 
+    else
       object.started_at
     end
   end

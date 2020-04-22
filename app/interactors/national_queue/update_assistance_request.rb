@@ -27,4 +27,5 @@ class NationalQueue::UpdateAssistanceRequest
     context.assistor ||= @assistance_request.assistance&.assistor
     context.assistance_request = @assistance_request
   end
+
 end

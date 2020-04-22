@@ -13,8 +13,6 @@ class TechInterviewSerializer < ActiveModel::Serializer
     'TechInterview'
   end
 
-  def state
-    object.state
-  end
+  delegate :state, to: :object
 
 end

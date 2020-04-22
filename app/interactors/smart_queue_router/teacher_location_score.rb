@@ -12,7 +12,7 @@ class SmartQueueRouter::TeacherLocationScore
   end
 
   def call
-    @teachers.each do |id, teacher|
+    @teachers.each do |_id, teacher|
       teacher[:routing_score] ||= 0
       teacher[:routing_score] += teacher[:object].queue_tasks.open_tasks.count <= @max_queue_size ? teacher[:object].queue_tasks.open_tasks.count * @task_penalty : -500
       teacher[:routing_score] += teacher[:object].assistances.currently_active.count * @assistance_penalty
@@ -22,7 +22,7 @@ class SmartQueueRouter::TeacherLocationScore
 
     puts 'availabilioty~~~~~~~~~~~~~~~~~~~'
     puts @teachers.inspect
-    puts '~~~~~~~~~~~~~~~~~~~'       
+    puts '~~~~~~~~~~~~~~~~~~~'
   end
 
 end
