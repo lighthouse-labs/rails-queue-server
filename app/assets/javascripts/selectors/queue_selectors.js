@@ -2,14 +2,12 @@ window.NationalQueue = window.NationalQueue || {};
 
 const selectOpen = (tasks, user) => {
  return tasks.filter((task) => {
-  return (task.teacher && task.teacher.id === user.id) && task.state === 'pending' && task.type !== 'ProjectEvaluation';
+  return (task.teacher && task.teacher.id === user.id) && task.state === 'pending' && task.type === 'Assistance';
  })
 }
 
 const selectPending = (tasks) => {
-  console.log('select pending', tasks);
   return tasks.filter((task) => {
-    console.log('task', task.state, task.type)
     return task.state === 'pending' && task.type === 'ProjectEvaluation';
   })
 }

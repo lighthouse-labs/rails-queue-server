@@ -5,6 +5,7 @@ const useReducer = React.useReducer;
 
 const initialState = {
   connected: false,
+  lastUpdate: 0,
   channel: {},
   requestUpdates: [],
   queueUpdates: [],
@@ -12,16 +13,16 @@ const initialState = {
 };
 
 const messageLookup = {
-  'queueUpdate': (state, update) => {
-    console.log('Queue updated recieved', update);
-    return {...state, queueUpdates: [...state.queueUpdates, update]}
+  'queueUpdate': (state, updates) => {
+    console.log('Queue updated recieved', updates);
+    return {...state, lastUpdate: updates[updates.length - 1].sequence, queueUpdates: [...state.queueUpdates, ...updates]}
   },
-  'teacherUpdate': (state, update) => {
-    return {...state, teacherUpdates: [...state.teacherUpdates, update]}
+  'teacherUpdate': (state, updates) => {
+    return {...state, lastUpdate: updates[updates.length - 1].sequence, teacherUpdates: [...state.teacherUpdates, ...updates]}
   },
-  'requestUpdate': (state, update) => {
-    console.log('Request updated recieved', update);
-    return {...state, requestUpdates: [...state.requestUpdates, update]}
+  'requestUpdate': (state, updates) => {
+    console.log('Request updated recieved', updates);
+    return {...state, lastUpdate: updates[updates.length - 1].sequence, requestUpdates: [...state.requestUpdates, ...updates]}
   }
 }
 
@@ -34,7 +35,8 @@ const reducer = (state, action) => {
     case 'setChannel':
       return {...state, channel: action.data };
     case 'socketMessage':
-      return messageLookup[action.data.type](state, {object: action.data.object, sequence: action.data.sequence})
+      const updates = Array.isArray(action.data.object) ? action.data.object : [{object: action.data.object, sequence: action.data.sequence}]
+      return messageLookup[action.data.type](state, updates)
     default:
       throw new Error();
   }
@@ -45,7 +47,8 @@ window.NationalQueue.useQueueSocket = (user) => {
   const [queueChannel, dispatchQueueChannel] = useReducer(reducer, initialState);
   useEffect(() => {
     // connect to student or teacher channel
-    const channel = App.cable.subscriptions.create({ channel: "NationalQueueChannel"}, {
+    // dont like this, should not use global to store channel, but need the channel to persist
+    window.NationalQueue.channel = window.NationalQueue.channel || App.cable.subscriptions.create({ channel: "NationalQueueChannel"}, {
       received(data) {
         dispatchQueueChannel({type: 'socketMessage', data});
       },
@@ -54,6 +57,9 @@ window.NationalQueue.useQueueSocket = (user) => {
       },
       connected() {
         dispatchQueueChannel({type: 'connect'});
+        if (queueChannel.lastUpdate > 0) {
+          this.perform('get_missed_updates', lastUpdate)
+        }
       },
       requestAssistance(reason, activityId) {
         this.perform('request_assistance', {reason: reason, activity_id: activityId});
@@ -75,13 +81,18 @@ window.NationalQueue.useQueueSocket = (user) => {
       },
       startEvaluating(evaluation) {
         this.perform('start_evaluating', {evaluation_id: evaluation.id});
+      },
+      cancelInterview(interview) {
+        this.perform('cancel_interview', {tech_interview_id: interview.id});
       }
     });
 
-    dispatchQueueChannel({type: 'setChannel', data: channel});
+    dispatchQueueChannel({type: 'setChannel', data: window.NationalQueue.channel});
     
     return () => {
-      channel.unsubscribe();
+      // no clean up possible because channel has to stay live when component is not rendered
+      // & no root component to mount the hook/context
+      // window.NationalQueue.channel.unsubscribe();
     }
   }, [])
 
@@ -111,7 +122,11 @@ window.NationalQueue.useQueueSocket = (user) => {
 
   const startEvaluating = (evaluation) => {
     queueChannel.channel.startEvaluating(evaluation);
-}
+  }
+
+  const cancelInterview = (interview) => {
+    queueChannel.channel.cancelInterview(interview);
+  }
 
   return {
     requestAssistance,
@@ -122,6 +137,7 @@ window.NationalQueue.useQueueSocket = (user) => {
     finishAssistance,
     cancelEvaluating,
     startEvaluating,
+    cancelInterview,
     requestUpdates: queueChannel.requestUpdates,
     queueUpdates: queueChannel.queueUpdates,
     teacherUpdates:queueChannel.teacherUpdates
