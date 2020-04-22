@@ -32,7 +32,7 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
 
   def cancel_assistance(data)
     NationalQueue::UpdateRequest.call(
-      requestor: current_user,
+      assistor: current_user,
       options: {
         type: 'cancel_assistance',
         request_id: data["request_id"]

@@ -7,10 +7,10 @@ class NationalQueue::BroadcastTeacherAvailability
   end
 
   def call
-    if @assistor.busy?
+    if @assistor&.busy?
       ActionCable.server.broadcast "teachers-national",  type:   "TeacherBusy",
                                                 object: UserSerializer.new(@assistor).as_json
-    else
+    elsif @assistor
       ActionCable.server.broadcast "teachers-national",  type:   "TeacherAvailable",
                                                 object: UserSerializer.new(@assistor).as_json
     end
