@@ -5,6 +5,7 @@ class SmartQueueRouter::RouteTask
   organize  SmartQueueRouter::RouterSettings,
             SmartQueueRouter::GetOnDutyTeachers,
             SmartQueueRouter::TeacherAvailabilityScore,
+            SmartQueueRouter::TeacherLocationScore,
             SmartQueueRouter::TeacherPreviousAssistanceScore,
             SmartQueueRouter::AssignTask
 

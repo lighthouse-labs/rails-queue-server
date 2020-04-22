@@ -4,23 +4,17 @@ class SmartQueueRouter::TeacherLocationScore
 
   before do
     @teachers = context.teachers
-    @max_queue_size = context.max_queue_size
-    @task_penalty = context.task_penalty
-    @assistance_penalty = context.assistance_penalty
-    @evaluation_penalty = context.evaluation_penalty
-    @tech_interview_penalty = context.tech_interview_penalty
+    @same_location_bonus= ccontext.same_location_bonus
+    @assistee = context.assistance_request.requestor
   end
 
   def call
     @teachers.each do |_id, teacher|
       teacher[:routing_score] ||= 0
-      teacher[:routing_score] += teacher[:object].queue_tasks.open_tasks.count <= @max_queue_size ? teacher[:object].queue_tasks.open_tasks.count * @task_penalty : -500
-      teacher[:routing_score] += teacher[:object].assistances.currently_active.count * @assistance_penalty
-      teacher[:routing_score] += teacher[:object].evaluations.in_progress_evaluations.count * @evaluation_penalty
-      teacher[:routing_score] += teacher[:object].tech_interviews.in_progress.count * @tech_interview_penalty
+      teacher[:routing_score] += @same_location_bonus if teacher[:object].location == @assistee.location
     end
 
-    puts 'availabilioty~~~~~~~~~~~~~~~~~~~'
+    puts 'Location Score~~~~~~~~~~~~~~~~~~~'
     puts @teachers.inspect
     puts '~~~~~~~~~~~~~~~~~~~'
   end
