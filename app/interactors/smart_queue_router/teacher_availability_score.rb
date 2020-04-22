@@ -20,7 +20,7 @@ class SmartQueueRouter::TeacherAvailabilityScore
       teacher[:routing_score] += teacher[:object].tech_interviews.in_progress.count * @tech_interview_penalty
     end
 
-    puts 'availabilioty~~~~~~~~~~~~~~~~~~~'
+    puts 'Availability Score~~~~~~~~~~~~~~~~~~~'
     puts @teachers.inspect
     puts '~~~~~~~~~~~~~~~~~~~'
   end

@@ -20,11 +20,6 @@ class UserSerializer < ActiveModel::Serializer
              :pronoun,
              :remote,
              :on_duty,
-             :waiting_for_assistance?,
-             :being_assisted?,
-             :current_assistance_conference,
-             :current_assistor,
-             :position_in_queue,
              :admin
 
   has_one :location, serializer: MyLocationSerializer

@@ -26,21 +26,6 @@ class QueueTasksController < ApplicationController
     render json: current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :id).group_by { |d| d[1] }
   end
 
-  # TODO: Turn it into an interactor instead of controller doing a whole bunch of logic
-  def provided_assistance
-    student = Student.find params[:student_id]
-    assistance_request = AssistanceRequest.new(requestor: student, reason: "Offline assistance requested")
-    if assistance_request.save
-      assistance_request.start_assistance(current_user)
-      assistance = assistance_request.reload.assistance
-      assistance.end(params[:notes], params[:notify], params[:rating])
-      render json: { success: true }
-    else
-      render json: { success: false, error: assistance_request.errors.full_messages.first }, status: :forbidden
-    end
-    RequestQueue::BroadcastUpdate.call(program: Program.first)
-  end
-
   private
 
   def teacher_required

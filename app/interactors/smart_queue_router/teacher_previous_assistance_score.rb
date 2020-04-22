@@ -19,7 +19,7 @@ class SmartQueueRouter::TeacherPreviousAssistanceScore
       @teachers[teacher.id][:routing_score] += Math.log(assistances.count, 2) * rating_points * context.rating_multiplier
     end
 
-    puts 'pervious assist~~~~~~~~~~~~~~~~~~~'
+    puts 'Pervious Assist Score~~~~~~~~~~~~~~~~~~~'
     puts @teachers.inspect
     puts '~~~~~~~~~~~~~~~~~~~'
   end

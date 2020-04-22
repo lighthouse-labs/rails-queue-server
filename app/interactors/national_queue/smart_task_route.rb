@@ -12,10 +12,6 @@ class NationalQueue::SmartTaskRoute
       smart_task_result = SmartQueueRouter::RouteTask.call(
         assistance_request: @assistance_request
       )
-      puts '~~~~~~'
-      puts smart_task_result.inspect
-      puts smart_task_result.success?
-      puts '----------'
       context.fail! unless smart_task_result.success?
 
       updates = smart_task_result.assigned_tasks
