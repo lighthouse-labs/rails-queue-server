@@ -50,7 +50,7 @@ const tasksWithUpdates = (tasks, updates) => {
   }
   return Array.from(_(tasks).sortBy((item) => {
     return (item.startAt || item.startedAt || item.createdAt)
-  }).reverse());
+  }));
 }
 
 window.NationalQueue.QueueSelectors =  {

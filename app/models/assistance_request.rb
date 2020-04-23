@@ -128,7 +128,7 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def position_in_queue
-    self.class.open_requests.where(type: nil).for_location(assistor_location).where('assistance_requests.id < ?', id).count + 1 if open?
+    queue_tasks&.map(&:position_in_queue).max if open?
   end
 
   # this offline assistance request record thing is annoying and silly, but bigger code debt to fix/remove at a later time - KV

@@ -27,4 +27,8 @@ class QueueTask < ApplicationRecord
     end
   end
 
+  def position_in_queue
+    user.queue_tasks.open_tasks.where('queue_tasks.id < ?', id).count + 1 if open?
+  end
+
 end
