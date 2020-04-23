@@ -4,6 +4,7 @@ class NationalQueue::SmartTaskRoute
 
   before do
     @assistance_request = context.assistance_request
+    @assistor = context.assistor
   end
 
   def call
@@ -25,7 +26,7 @@ class NationalQueue::SmartTaskRoute
   end
 
   def public_task(task)
-    task.user == task.assistance_request.assistance&.assistor
+    task.user == @assistor
   end
 
 end

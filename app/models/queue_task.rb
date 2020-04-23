@@ -17,6 +17,14 @@ class QueueTask < ApplicationRecord
 
   delegate :in_progress?, to: :assistance_request
 
-  delegate :state, to: :assistance_request
+  def state
+    if assistance_request.open?
+      'pending'
+    elsif assistance_request.in_progress? && user === assistance_request.assistance&.assistor
+      'in_progress'
+    else
+      'closed'
+    end
+  end
 
 end
