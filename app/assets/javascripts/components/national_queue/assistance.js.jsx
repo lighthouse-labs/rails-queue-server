@@ -37,11 +37,11 @@ window.NationalQueue.Assistance = ({task}) => {
   }
 
   const renderActions = () => {
-    return(
+    return (
       <div className="actions float-right">
         { App.ReactUtils.joinElements(actionButtons(), null) }
       </div>
-    );
+    )
   }
 
   const request = task.taskObject;
@@ -67,4 +67,3 @@ window.NationalQueue.Assistance = ({task}) => {
     </NationalQueue.QueueItem>
   )
 }
-

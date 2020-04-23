@@ -74,7 +74,7 @@ window.NationalQueue.AssistanceModal = ({request, student, hide}) => {
     const rating     = formInfo.values.rating;
     const notify     = formInfo.values.notify;
 
-    if(!formIsValid()){
+    if (!formIsValid()) {
       return;
     }
 
@@ -115,7 +115,7 @@ window.NationalQueue.AssistanceModal = ({request, student, hide}) => {
   }
 
   const renderReason = (assistanceRequest) => {
-    if(assistanceRequest.reason) {
+    if (assistanceRequest.reason) {
       return (
         <div className="form-group">
           <b>Original reason:</b>
@@ -124,7 +124,6 @@ window.NationalQueue.AssistanceModal = ({request, student, hide}) => {
       );
     }
   }
-
 
   return (
     <React.Fragment>
@@ -187,6 +186,5 @@ window.NationalQueue.AssistanceModal = ({request, student, hide}) => {
         </div>
       </div>
     </React.Fragment>
-  );
-
+  )
 }

@@ -31,6 +31,5 @@ window.NationalQueue.InProgressList = ({tasks}) => {
     <NationalQueue.ListGroup count={tasks.length} title="In Progress">
       {renderTasks(tasks)}
     </NationalQueue.ListGroup>
-  );
+  )
 }
-

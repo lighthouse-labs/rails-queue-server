@@ -39,5 +39,5 @@ window.NationalQueue.TeacherInfo = ({teacher, when}) => {
         </div>
       </div>
     </div>
-  );
+  )
 }

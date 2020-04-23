@@ -15,5 +15,5 @@ window.NationalQueue.App = ({user}) => {
         <NationalQueue.Lists key={`location-${location.id}`} user={user} />
       </NationalQueue.QueueContext.Provider>
     </div>
-  );
+  )
 }

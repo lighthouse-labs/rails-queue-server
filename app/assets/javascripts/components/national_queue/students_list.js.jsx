@@ -14,7 +14,6 @@ window.NationalQueue.StudentsList = ({user}) => {
       method: 'GET',
       url
     }).done(resp => {
-      //get studnts 
       setStudents(resp.students);
     }).always(() => {
       setLoading(false);
@@ -33,6 +32,5 @@ window.NationalQueue.StudentsList = ({user}) => {
     <NationalQueue.ListGroup count={students.length} title="Students">
       { renderStudents() }
     </NationalQueue.ListGroup>
-  );
+  )
 }
-

@@ -72,5 +72,5 @@ window.NationalQueue.StudentInfo = ({student, activity, project, when, showDetai
         {renderDetails()}
       </div>
     </div>
-  );
-};
+  )
+}

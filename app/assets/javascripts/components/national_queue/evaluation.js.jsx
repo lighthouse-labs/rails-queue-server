@@ -13,7 +13,7 @@ window.NationalQueue.Evaluation = ({evaluation}) => {
   }
 
   const renderEvaluator = (evaluator, evaluation) => {
-    return(
+    return (
       <div className="assister clearfix">
         <div className="arrow"><span>&#10551;</span></div>
         <img className="avatar" src={evaluator.avatarUrl} />
@@ -24,7 +24,7 @@ window.NationalQueue.Evaluation = ({evaluation}) => {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   const actionButtons = (evaluation) => {
@@ -39,11 +39,11 @@ window.NationalQueue.Evaluation = ({evaluation}) => {
   }
 
   const renderActions = () => {
-    return(
+    return (
       <div className="actions float-right">
         { App.ReactUtils.joinElements(actionButtons(evaluation), null) }
       </div>
-    );
+    )
   }
 
   const project = evaluation.project;
@@ -64,6 +64,5 @@ window.NationalQueue.Evaluation = ({evaluation}) => {
       </div>
       {renderActions()}
     </NationalQueue.QueueItem>
-  );
+  )
 }
-

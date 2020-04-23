@@ -16,4 +16,3 @@ window.NationalQueue.PendingInterview = ({interview}) => {
     </NationalQueue.QueueItem>
   )
 }
-

@@ -11,6 +11,5 @@ window.NationalQueue.CohortInterviewStatuses = ({cohort}) => {
     <div>
       {cohort.interviewStatuses.map(renderInterviewStatus)}
     </div>
-  );
+  )
 }
-

@@ -35,5 +35,5 @@ window.NationalQueue.Lists = ({user}) => {
         </div>
       </div>
     </div>
-  );
+  )
 }

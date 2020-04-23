@@ -30,7 +30,7 @@ const SocialIcon = ({company, handle, url}) => {
 }
 
 window.NationalQueue.SocialIcons = ({user}) => {
-  return(
+  return (
     <ul className="list-inline social-icons">
       {user.email && <SocialIcon
         handle={user.email}
@@ -44,5 +44,5 @@ window.NationalQueue.SocialIcons = ({user}) => {
       />}
       {user.slack && <SocialIcon handle={user.slack} company="slack" />}
     </ul>
-  );
+  )
 }

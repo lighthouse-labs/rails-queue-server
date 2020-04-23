@@ -47,4 +47,3 @@ window.NationalQueue.InterviewStatus = ({interviewStatus, cohort}) => {
     </NationalQueue.QueueItem>
   );
 }
-

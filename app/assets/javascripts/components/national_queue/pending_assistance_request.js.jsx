@@ -10,7 +10,7 @@ window.NationalQueue.PendingAssistanceRequest = ({request, teachers}) => {
 
   const handleCancelAssistance = () => {
     // TODO: use more js-centric confirm vs browser confirm
-    if(confirm("Are you sure you want to cancel this Request?")) {
+    if (confirm("Are you sure you want to cancel this Request?")) {
       setDisabled(true);
       queueSocket.cancelAssistanceRequest(request);
     }
@@ -64,4 +64,3 @@ window.NationalQueue.PendingAssistanceRequest = ({request, teachers}) => {
     </NationalQueue.QueueItem>
   )
 }
-

@@ -129,5 +129,5 @@ window.NationalQueue.AssistanceButton = () => {
       }
 
     </li>
-  );
-};
+  )
+}

@@ -56,4 +56,3 @@ window.NationalQueue.Interview = ({interview}) => {
     </NationalQueue.QueueItem>
   )
 }
-

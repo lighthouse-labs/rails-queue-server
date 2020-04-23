@@ -17,5 +17,5 @@ window.NationalQueue.OpenRequestsList = ({tasks, admin}) => {
     <NationalQueue.ListGroup count={tasks.length} title="Open Requests">
       {renderRequests()}
     </NationalQueue.ListGroup>
-  );
+  )
 }

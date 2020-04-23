@@ -18,7 +18,6 @@ window.NationalQueue.PendingEvaluation = ({evaluation}) => {
     }
   }
 
-
   return (
     <NationalQueue.QueueItem type='Submission' disabled={disabled}>
 
@@ -41,4 +40,3 @@ window.NationalQueue.PendingEvaluation = ({evaluation}) => {
     </NationalQueue.QueueItem>
   )
 }
-

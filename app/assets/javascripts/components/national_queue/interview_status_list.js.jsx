@@ -30,6 +30,5 @@ window.NationalQueue.InterviewStatusList = ({user}) => {
     <NationalQueue.ListGroup count={cohorts.length} title="Tech Interview Status">
       { renderInterviewStatuses() }
     </NationalQueue.ListGroup>
-  );
+  )
 }
-

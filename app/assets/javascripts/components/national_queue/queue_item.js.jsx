@@ -8,5 +8,5 @@ window.NationalQueue.QueueItem = ({type, label, children, disabled}) => {
       </div>
       { children }
     </li>
-  );
+  )
 }

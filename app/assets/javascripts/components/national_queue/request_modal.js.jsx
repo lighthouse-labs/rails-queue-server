@@ -50,18 +50,6 @@ window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
     ));
   }
 
-  const reasonIsValid = (reason) => {
-    return reason !== '';
-  }
-
-  const activityIsValid = (activityId) => {
-    return notes.trim() !== '';
-  }
-
-  const formIsValid = () => {
-    return reasonIsValid(formInfo.values.notes) && activityIsValid(formInfo.values.rating);
-  }
-
   const closeRequest = () => {
     hide();
     setFormInfo((currentInputs) => (
@@ -154,5 +142,5 @@ window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
         </div>
       </div>
     </React.Fragment>
-  );
+  )
 }
