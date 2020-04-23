@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200404182750) do
+ActiveRecord::Schema.define(version: 20200414172242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -505,6 +505,15 @@ ActiveRecord::Schema.define(version: 20200404182750) do
     t.index ["quiz_id"], name: "index_questions_quizzes_on_quiz_id", using: :btree
   end
 
+  create_table "queue_tasks", force: :cascade do |t|
+    t.integer "assistance_request_id"
+    t.integer "user_id"
+    t.integer "sequence"
+    t.index ["assistance_request_id"], name: "index_queue_tasks_on_assistance_request_id", using: :btree
+    t.index ["sequence"], name: "index_queue_tasks_on_sequence", unique: true, using: :btree
+    t.index ["user_id"], name: "index_queue_tasks_on_user_id", using: :btree
+  end
+
   create_table "quiz_submissions", force: :cascade do |t|
     t.string   "uuid"
     t.datetime "created_at", null: false
@@ -795,6 +804,8 @@ ActiveRecord::Schema.define(version: 20200404182750) do
   add_foreign_key "programming_test_attempts", "programming_tests"
   add_foreign_key "programming_test_attempts", "users", column: "student_id"
   add_foreign_key "questions", "outcomes"
+  add_foreign_key "queue_tasks", "assistance_requests"
+  add_foreign_key "queue_tasks", "users"
   add_foreign_key "quiz_submissions", "quizzes"
   add_foreign_key "sections", "content_repositories"
   add_foreign_key "sections", "workbooks"
