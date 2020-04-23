@@ -3,7 +3,6 @@ window.NationalQueue = window.NationalQueue || {};
 window.NationalQueue.StudentInfo = ({student, activity, project, when, showDetails}) => {
 
   const renderWhen = () => {
-    const when = when;
     if (when) {
       return <TimeAgo date={when} />;
     } else {
