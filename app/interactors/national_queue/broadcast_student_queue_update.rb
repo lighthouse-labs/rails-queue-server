@@ -7,7 +7,7 @@ class NationalQueue::BroadcastStudentQueueUpdate
   end
 
   def call
-    if @assistance_request.in_progress?
+    unless @assistance_request.assistance&.end_at?
       Student.has_open_requests.each do |student|
         NationalQueueChannel.broadcast_to student, type: "requestUpdate", object: NationalQueueAssistanceRequestSerializer.new(student.assistance_requests.open_or_in_progress_requests.first).as_json
       end
