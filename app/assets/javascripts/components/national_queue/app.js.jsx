@@ -17,4 +17,3 @@ window.NationalQueue.App = ({user}) => {
     </div>
   );
 }
-

@@ -75,7 +75,7 @@ window.NationalQueue.AssistanceButton = () => {
   }
 
   const cancelAssistance = (e) => {
-    if (true) { //pop up if user wants to cancel
+    if (confirm("Are you sure you want to cancel this Request?")) {
       queueSocket.cancelAssistanceRequest();
     }
   }
@@ -86,7 +86,7 @@ window.NationalQueue.AssistanceButton = () => {
     if (currentRequestState.status === 'waiting') {
       cancelAssistance();
     } else if (currentRequestState.status === 'in-progress') {
-      //finishAssistance();
+      // future option for student to finish in progress AR
       cancelAssistance();
     } else {
       showAssistanceModal()
@@ -95,40 +95,39 @@ window.NationalQueue.AssistanceButton = () => {
 
   const button = buttonInfo(currentRequestState);
   return (
-      <li id="assistance-request-module">
-        <span id="assistance-request-actions">
-          <a 
-            className={`navbar-btn btn btn-outline-primary ${!(currentRequestState.conferenceLink) && 'd-none'}`} 
-            id="assistance-request-conference" 
-            href={currentRequestState.conferenceLink} 
-            target="_blank" 
-            data-toggle='tooltip' 
-            data-placement='bottom' 
-            title={`Google Hangout with ${currentRequestState.assistorName}`}
-            data-original-title={`Google Hangout with ${currentRequestState.assistorName}`}
-            ref={conferenceButton}
-          >
-            <i className="fa fa-fw fa-video"></i>
-          </a>
-          <button 
-            className={`navbar-btn btn ${button.style}`}
-            data-toggle='tooltip' 
-            data-placement='bottom'
-            onClick={handleAssistanceButton}
-            data-original-title={button.title}
-            title={button.title}
-            ref={requestButton}
-            disabled={!queueSocket.queueChannel.connected}
-          >
-            {queueSocket.queueChannel.connected ? button.text : <i className="fas fa-spinner queue-loader"></i>}
-          </button>
-        </span>
+    <li id="assistance-request-module">
+      <span id="assistance-request-actions">
+        <a 
+          className={`navbar-btn btn btn-outline-primary ${!(currentRequestState.conferenceLink) && 'd-none'}`} 
+          id="assistance-request-conference" 
+          href={currentRequestState.conferenceLink} 
+          target="_blank" 
+          data-toggle='tooltip' 
+          data-placement='bottom' 
+          title={`Google Hangout with ${currentRequestState.assistorName}`}
+          data-original-title={`Google Hangout with ${currentRequestState.assistorName}`}
+          ref={conferenceButton}
+        >
+          <i className="fa fa-fw fa-video"></i>
+        </a>
+        <button 
+          className={`navbar-btn btn ${button.style}`}
+          data-toggle='tooltip' 
+          data-placement='bottom'
+          onClick={handleAssistanceButton}
+          data-original-title={button.title}
+          title={button.title}
+          ref={requestButton}
+          disabled={!queueSocket.queueChannel.connected}
+        >
+          {queueSocket.queueChannel.connected ? button.text : <i className="fas fa-spinner queue-loader"></i>}
+        </button>
+      </span>
 
-        {
-          requestModal.render && <NationalQueue.RequestModal queueSocket={queueSocket} show={requestModal.show} hide={hideAssistanceModal} />
-        }
+      {
+        requestModal.render && <NationalQueue.RequestModal queueSocket={queueSocket} show={requestModal.show} hide={hideAssistanceModal} />
+      }
 
-      </li>
-
+    </li>
   );
 };
