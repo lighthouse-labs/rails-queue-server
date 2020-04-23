@@ -13,17 +13,26 @@ const initialState = {
   teacherUpdates: []
 };
 
+const resetSequence = (updates) => {
+  const offset = updates[updates.length -1].sequence;
+  return updates.map(update => {
+    return {...update, sequence: update.sequence - offset};
+  })
+}
+
 const messageLookup = {
   'queueUpdate': (state, updates) => {
     console.log('Queue updated recieved', updates);
-    return {...state, lastUpdate: updates[updates.length - 1].sequence, queueUpdates: [...state.queueUpdates, ...updates]}
+    return {...state, lastUpdate: updates[updates.length - 1].sequence, queueUpdates: [...updates]}
   },
   'teacherUpdate': (state, updates) => {
-    return {...state, lastUpdate: updates[updates.length - 1].sequence, teacherUpdates: [...state.teacherUpdates, ...updates]}
+    // not used yet
+    return {...state, lastUpdate: updates[updates.length - 1].sequence, teacherUpdates: [...updates]}
   },
   'requestUpdate': (state, updates) => {
     console.log('Request updated recieved', updates);
-    return {...state, lastUpdate: updates[updates.length - 1].sequence, requestUpdates: [...state.requestUpdates, ...updates]}
+    const sequence = updates[updates.length - 1].sequence;
+    return {...state, lastUpdate: sequence, requestUpdates: [...state.requestUpdates, ...updates]}
   }
 }
 

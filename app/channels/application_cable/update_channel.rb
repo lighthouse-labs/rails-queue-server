@@ -32,6 +32,7 @@ module ApplicationCable
     def get_missed_updates(sequence)
       if current_user&.is_a?(Teacher)
         updates = [*@@general_updates, *@@user_updates[current_user.id]].sort_by { |update| update[:sequence] }
+        sequence = 0 if sequence > @@message_sequence
         general_updates = missed_updates(updates, sequence)
         UpdateChannel.broadcast_to current_user, { type: @@updates_type, object: updates }, true
         # user has been sent updates so free up memory

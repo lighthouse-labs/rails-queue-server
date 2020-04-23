@@ -6,7 +6,7 @@ const selectOpen = (tasks, user) => {
  })
 }
 
-const selectAllOpen = (tasks, user) => {
+const selectAllOpen = (tasks) => {
   const matches = {};
   return tasks.filter((task, index) => {
     if (task.state === 'pending' && task.type === 'Assistance'){

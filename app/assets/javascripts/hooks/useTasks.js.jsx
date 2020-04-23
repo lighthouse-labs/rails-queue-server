@@ -11,26 +11,14 @@ window.NationalQueue.useTasks = (updates, user) => {
   const taskReducer = (state, action) => {
     switch (action.type) {
       case 'setTasks':
-        return {...state, tasks: action.data};
+        return action.data;
       case 'addUpdates':
-        let updates = action.data;
-        let lastUpdate = state.lastUpdate;
-
-        for (let index = updates.length -1; index >= 0; index --) {
-          if (updates[index].sequence <= lastUpdate) {
-            updates = updates.slice(index+1);
-            break;
-          } else {
-            lastUpdate = updates[index].sequence;
-          }
-        }
-        return {...state, tasks: tasksWithUpdates(state.tasks, updates), lastUpdate};
+        return tasksWithUpdates(state, action.data);
       default:
         throw new Error();
     }
   };
-  const [taskState, dispatchTaskState] = useReducer(taskReducer, {tasks: [], lastUpdate: 0});
-  
+  const [taskState, dispatchTaskState] = useReducer(taskReducer, []);
 
   useEffect(() => {
     fetch(`/queue_tasks`, {
@@ -55,19 +43,19 @@ window.NationalQueue.useTasks = (updates, user) => {
 
 
   const pendingEvaluations = () => {
-    return selectPending(taskState.tasks);
+    return selectPending(taskState);
   }
 
   const inProgress = () => {
-    return selectInProgress(taskState.tasks);
+    return selectInProgress(taskState);
   }
 
   const myOpenTasks = () => {
-    return selectOpen(taskState.tasks, user);
+    return selectOpen(taskState, user);
   }
 
   const allOpenTasks = () => {
-    return selectAllOpen(taskState.tasks, user);
+    return selectAllOpen(taskState, user);
   }
 
   return {
