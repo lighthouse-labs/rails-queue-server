@@ -17,14 +17,6 @@
   }
   .queue-title {
     font-family: 'Pacifico', cursive;
-    .fa-spinner {
-      font-size: 1.5rem;
-      animation: spin 1.2s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
   }
   .queue-row {
     display: flex;
@@ -112,6 +104,15 @@
   .slider.round:before {
     border-radius: 50%;
   }
+}
+
+.fa-spinner.queue-loader {
+  font-size: 1.4rem;
+  animation: spin 1.2s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @media (max-width: 800px) {

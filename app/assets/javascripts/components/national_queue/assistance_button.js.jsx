@@ -24,7 +24,7 @@ const buttonInfo = (requestState) => {
     return {
       style: 'btn-outline-warning',
       text: `${requestState.assistorName} assisting`,
-      title: 'Finish this Assistance Request'
+      title: 'Cancel Assistance Request'
     }      
   } else if (requestState.status === 'waiting') {
     return {
@@ -87,6 +87,7 @@ window.NationalQueue.AssistanceButton = () => {
       cancelAssistance();
     } else if (currentRequestState.status === 'in-progress') {
       //finishAssistance();
+      cancelAssistance();
     } else {
       showAssistanceModal()
     }
@@ -117,8 +118,9 @@ window.NationalQueue.AssistanceButton = () => {
             data-original-title={button.title}
             title={button.title}
             ref={requestButton}
+            disabled={!queueSocket.queueChannel.connected}
           >
-            {button.text}
+            {queueSocket.queueChannel.connected ? button.text : <i className="fas fa-spinner queue-loader"></i>}
           </button>
         </span>
 

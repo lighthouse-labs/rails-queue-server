@@ -12,7 +12,7 @@ window.NationalQueue.Lists = ({user}) => {
     <div className="queue-by-location">
       <div className="queue-column queue-top">
         <div className="queue-row">
-          <h2 className="queue-title" >{`the ${adminQueue ? 'admin ' : ''}queue`} {queueChannel.connected || <i className="fas fa-spinner text-primary"></i>}</h2>
+          <h2 className="queue-title" >{`the ${adminQueue ? 'admin ' : ''}queue`} {queueChannel.connected || <i className="fas fa-spinner text-primary queue-loader"></i>}</h2>
           {user.admin &&
             <label className="switch">
               <input type="checkbox" value={adminQueue} onClick={e => setAdminQueue(!adminQueue)}/>
