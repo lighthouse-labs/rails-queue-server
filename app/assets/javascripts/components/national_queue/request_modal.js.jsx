@@ -63,7 +63,6 @@ window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
   }
 
   const closeRequest = () => {
-    // $(modalRef.current).modal('hide');
     hide();
     setFormInfo((currentInputs) => (
       {
@@ -115,11 +114,11 @@ window.NationalQueue.RequestModal = ({queueSocket, show, hide}) => {
               <h4 className="modal-title">
                 Bring in the big guns
               </h4>
-              <button className="close" type='button' data-dismiss='modal'>
+              <button className="close" onClick={closeRequest} type='button' data-dismiss='modal'>
                 <span  aria-hidden='true'>
                   &times;
                 </span>
-                <span onClick={closeRequest} className="sr-only">
+                <span className="sr-only">
                   Close
                 </span>
               </button>

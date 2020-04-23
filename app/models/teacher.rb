@@ -20,6 +20,7 @@ class Teacher < User
   scope :has_assisted_student, ->(student) {
     includes(:teaching_assistances)
       .where(assistances: { assistee_id: student.id })
+      .where('assistances.end_at IS NOT NULL')
   }
 
   scope :on_duty, -> { where(on_duty: true) }

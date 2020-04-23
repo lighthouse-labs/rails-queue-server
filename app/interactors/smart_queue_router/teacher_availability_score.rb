@@ -21,7 +21,9 @@ class SmartQueueRouter::TeacherAvailabilityScore
     end
 
     puts 'Availability Score~~~~~~~~~~~~~~~~~~~'
-    puts @teachers.inspect
+    @teachers.each do |_id, teacher|
+      puts "#{teacher[:object].first_name}: #{teacher[:routing_score]}"
+    end
     puts '~~~~~~~~~~~~~~~~~~~'
   end
 

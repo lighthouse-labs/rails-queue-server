@@ -4,7 +4,7 @@ class SmartQueueRouter::TeacherLocationScore
 
   before do
     @teachers = context.teachers
-    @same_location_bonus= ccontext.same_location_bonus
+    @same_location_bonus = context.same_location_bonus
     @assistee = context.assistance_request.requestor
   end
 
@@ -15,7 +15,9 @@ class SmartQueueRouter::TeacherLocationScore
     end
 
     puts 'Location Score~~~~~~~~~~~~~~~~~~~'
-    puts @teachers.inspect
+    @teachers.each do |_id, teacher|
+      puts "#{teacher[:object].first_name}: #{teacher[:routing_score]}"
+    end
     puts '~~~~~~~~~~~~~~~~~~~'
   end
 

@@ -1,15 +1,19 @@
 .queue-by-location {
   align-items: flex-start;
-  max-width: 1700px;
+  max-width: 1300px;
   margin: auto;
   height: 80vh;
   .queue-top {
     flex: 1 1 auto;
     min-height: 0;
+    max-height: 500px;
   }
   .queue-bottom {
     flex: 1 1 auto;
-    height: 70%;
+    min-height: 0;
+    .queue-column {
+      max-height: 460px;
+    }
   }
   .queue-title {
     font-family: 'Pacifico', cursive;
@@ -110,9 +114,9 @@
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 800px) {
   .queue-by-location {
-    .row {
+    .queue-row {
       flex-direction: column;
     }
     .queue-column.left {

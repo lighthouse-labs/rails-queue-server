@@ -10,7 +10,9 @@ class SmartQueueRouter::AssignTask
 
   def call
     puts '~~~~~~~~~~~~~~~~~~~'
-    puts @teachers.inspect
+    @teachers.each do |_id, teacher|
+      puts "#{teacher[:object].first_name}: #{teacher[:routing_score]}"
+    end
     puts '~~~~~~~~~~~~~~~~~~~'
 
     Hash[@teachers.sort_by { |_k, teacher| teacher[:routing_score] }.reverse]
