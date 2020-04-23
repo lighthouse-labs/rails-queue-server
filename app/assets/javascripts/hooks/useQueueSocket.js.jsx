@@ -65,12 +65,20 @@ window.NationalQueue.useQueueSocket = (user) => {
     socketHandler.onConnected = () => {
       dispatchQueueChannel({type: 'connect'});
       if (queueChannel.lastUpdate > 0) {
-        queueChannel.channel.perform('get_missed_updates', lastUpdate)
+        // re-establishing connection
+        socketHandler.socket.perform('get_missed_updates', lastUpdate);
+      } else {
+        socketHandler.socket.perform('assistance_request_state');
       }
     };
     socketHandler.onDisconnect = () => {
       dispatchQueueChannel({type: 'disconnect'});
     };
+
+    if (socketHandler.connected) {
+      // socket connected before hook was initialized
+      socketHandler.socket.perform('assistance_request_state');
+    }
 
     dispatchQueueChannel({type: 'setChannel', data: socketHandler});
     
