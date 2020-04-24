@@ -262,6 +262,10 @@ class User < ApplicationRecord
     video_conferences&.active.present?
   end
 
+  def assigned_ar?(assistance_request)
+    queue_tasks.where(assistance_request: assistance_request).exists?
+  end
+  
   class << self
 
     def authenticate_via_github(auth)
