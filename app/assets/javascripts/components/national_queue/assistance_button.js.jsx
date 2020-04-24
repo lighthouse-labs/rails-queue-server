@@ -29,7 +29,7 @@ const buttonInfo = (requestState) => {
   } else if (requestState.status === 'waiting') {
     return {
       style: 'btn-outline-warning',
-      text: `No. ${requestState.position} in Request Queue`,
+      text: requestState.position ? `No. ${requestState.position} in Request Queue` : 'In Request Queue',
       title: 'Cancel Assistance Request'
     }      
   } else {
