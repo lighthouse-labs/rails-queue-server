@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200408235313) do
+ActiveRecord::Schema.define(version: 20200415153940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -484,6 +484,7 @@ ActiveRecord::Schema.define(version: 20200408235313) do
     t.boolean  "has_programming_tests"
     t.boolean  "has_assistance_hangouts"
     t.jsonb    "settings"
+    t.boolean  "has_schedule",                    default: true
   end
 
   create_table "questions", force: :cascade do |t|

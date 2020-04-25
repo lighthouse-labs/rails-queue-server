@@ -12,11 +12,15 @@ tr
 
   td = cohort_status(cohort)
   td
-    = link_to 'Dashboard', [:admin, cohort], class: 'btn btn-sm btn-primary'
-    | &nbsp;
-    = link_to 'Students', admin_students_path(cohort_id: cohort), class: 'btn btn-sm btn-info'
-    | &nbsp;
-    - if @program.has_programming_tests? && active_programming_tests.any?
-      = link_to 'Programming Tests', teacher_cohort_programming_test_path(cohort, active_programming_tests.first), class: 'btn btn-sm btn-info'
+    span.dash-button title="Dashboard" data-toggle='tooltip' 
+      = link_to '', [:admin, cohort], class: 'btn btn-sm btn-primary fas fa-tasks'
       | &nbsp;
-    = link_to 'Edit', edit_admin_cohort_path(cohort), class: 'btn btn-sm btn-warning'
+    span.dash-button title="Students" data-toggle='tooltip'
+      = link_to '', admin_students_path(cohort_id: cohort), class: 'btn btn-sm btn-info fas fa-users'
+      | &nbsp;
+    span.dash-button title="Programming Tests" data-toggle='tooltip'
+      - if @program.has_programming_tests? && active_programming_tests.any?
+        = link_to '', teacher_cohort_programming_test_path(cohort, active_programming_tests.first), class: 'btn btn-sm btn-info fas fa-file-code'
+        | &nbsp;
+    span.dash-button title="Edit" data-toggle='tooltip'
+      = link_to '', edit_admin_cohort_path(cohort), class: 'btn btn-sm btn-warning far fa-edit'
