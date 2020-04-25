@@ -22,7 +22,6 @@ const resetSequence = (updates) => {
 
 const messageLookup = {
   'queueUpdate': (state, updates) => {
-    console.log('Queue updated recieved', updates);
     return {...state, lastUpdate: updates[updates.length - 1].sequence, queueUpdates: [...updates]}
   },
   'teacherUpdate': (state, updates) => {
@@ -30,7 +29,6 @@ const messageLookup = {
     return {...state, lastUpdate: updates[updates.length - 1].sequence, teacherUpdates: [...updates]}
   },
   'requestUpdate': (state, updates) => {
-    console.log('Request updated recieved', updates);
     const sequence = updates[updates.length - 1].sequence;
     return {...state, lastUpdate: sequence, requestUpdates: [...state.requestUpdates, ...updates]}
   }

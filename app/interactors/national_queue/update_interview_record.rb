@@ -13,15 +13,12 @@ class NationalQueue::UpdateInterviewRecord
 
     case @options[:type]
     when 'cancel_interview'
+      context.fail! unless @assistor.admin? || @interview.interviewer == @assistor
+
       context.assistor = @interview.interviewer
-
-      # FIXME: Doesn't do a permission check using @user
-      #        And also should be in a db transaction
-      #        See StartTechInterview interactor/service-obj for eg
-      #        - KV
       @interview.started_at = nil
-      TechInterviewResult.where(tech_interview_id: @interview.id).delete_all
-
+      context.interview_results = TechInterviewResult.where(tech_interview_id: @interview.id)
+      context.interview_results.delete_all
       context.updates.push({ task: @interview, shared: true }) if success = @interview.save
     when 'start_interview'
       context.updates.push({ task: @interview, shared: true })
@@ -29,6 +26,17 @@ class NationalQueue::UpdateInterviewRecord
     end
 
     context.fail! unless success
+  end
+
+  def rollback
+    case @options[:type]
+    when 'cancel_interview'
+      contex.interview_results.each do |interview_result|
+        TechInterviewResult.new(interview_result.attributes_hash).save
+      end
+    when 'start_interview'
+      # add when interview creation is moved to this interactor
+    end
   end
 
 end
