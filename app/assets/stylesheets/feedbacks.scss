@@ -161,9 +161,25 @@ th .desc {
     margin-bottom: 5px;
   }
 }
+
 .teacher-feedback-list {
   margin: auto;
   width: 95%;
+
+  .admin-teacher-feedback-date-column {
+    white-space: nowrap;
+  }
+
+  .hidden-student {
+    color: gray;
+  }
+
+  .feedback-stars {
+    font-size: calc(24px + .5vw);
+    line-height: calc(16px + .5vw);
+    cursor: default;
+    word-wrap: anywhere;
+  }  
 }
 
 .feedback-rating-column {
@@ -185,36 +201,4 @@ th .desc {
 }
 .in-place-edit-text-area {
   font-size: 12px;
-}
-.admin-teacher-feedback-date-column {
-  white-space: nowrap;
-}
-.hidden-student {
-  color: gray;
-}
-.feedback-stars {
-  font-size: calc(24px + .5vw);
-  line-height: calc(16px + .5vw);
-  cursor: default;
-  word-wrap: anywhere;
-  .red {
-    display: inline;
-    color: #e74c3c;
-  }
-  .orange {
-    display: inline;
-    color: #fd7e14;
-  }
-  .yellow {
-    display: inline;
-    color: #ffc107;
-  }
-  .blue {
-    display: inline;
-    color: #17a2b8;
-  }
-  .green {
-    display: inline;
-    color: #2ecc71;
-  }
 }
