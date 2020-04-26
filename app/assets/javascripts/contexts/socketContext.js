@@ -1,5 +1,5 @@
 window.NationalQueue = window.NationalQueue || {};
-const notify = function(title, options) {
+const notify = (title, options) => {
   console.log("notify", title, options);
   if (!("Notification" in window)) {
     console.log('notifications not supported');
@@ -14,12 +14,12 @@ const notify = function(title, options) {
   }
 }
 
-const notificationBody = function(request) {
+const notificationBody = (request) => {
   const week = request.requestor.cohort.week;
   return `[Week ${week}] ${request.reason}\r\n(Notified b/c you're marked as on duty)`;
 }
 
-const notificationHandler = function(data) {
+const notificationHandler = (data) => {
   console.log("notificatin attempt", data);
   if (data.type === 'queueUpdate') {
     const update = Array.isArray(data.object) ? data.object[data.object.length - 1] : data.object;
@@ -51,8 +51,8 @@ const socketHandler = {
     }
   }),
   connected: false,
-  onRecieved: function() {},
-  onDisconnect: function() {},
-  onConnect: function() {}
+  onRecieved: () => {},
+  onDisconnect: () => {},
+  onConnect: () => {}
 }
 window.NationalQueue.SocketContext = React.createContext(socketHandler);
