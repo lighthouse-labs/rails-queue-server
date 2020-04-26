@@ -157,6 +157,29 @@ th .desc {
 .teacher_feedbacks_section {
   border-bottom: 1px solid black;
   clear: both;
+  .col-md-2 {
+    margin-bottom: 5px;
+  }
+}
+
+.teacher-feedback-list {
+  margin: auto;
+  width: 95%;
+
+  .admin-teacher-feedback-date-column {
+    white-space: nowrap;
+  }
+
+  .hidden-student {
+    color: gray;
+  }
+
+  .feedback-stars {
+    font-size: calc(24px + .5vw);
+    line-height: calc(16px + .5vw);
+    cursor: default;
+    word-wrap: anywhere;
+  }  
 }
 
 .feedback-rating-column {
@@ -164,9 +187,6 @@ th .desc {
 }
 .admin-curriculum-feedback-date-column, .admin-curriculum-feedback-student-column {
   width: 145px;
-}
-.admin-teacher-feedback-date-column {
-  width: 140px;
 }
 .admin-teacher-stat {
   text-align: center;
