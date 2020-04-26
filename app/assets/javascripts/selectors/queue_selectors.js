@@ -1,14 +1,14 @@
 window.NationalQueue = window.NationalQueue || {};
 
-const selectOpen = (tasks, user) => {
- return tasks.filter((task) => {
+const selectOpen = function(tasks, user) {
+ return tasks.filter(function(task) {
   return (task.teacher && task.teacher.id === user.id) && task.state === 'pending' && task.type === 'Assistance';
  })
 }
 
-const selectAllOpen = (tasks) => {
+const selectAllOpen = function(tasks) {
   const matches = {};
-  return tasks.filter((task, index) => {
+  return tasks.filter(function(task) {
     if (task.state === 'pending' && task.type === 'Assistance'){
       if (matches[task.taskObject.id]) {
         matches[task.taskObject.id].teachers.push(task.teacher);
@@ -21,19 +21,19 @@ const selectAllOpen = (tasks) => {
   })
  }
 
-const selectPending = (tasks) => {
-  return tasks.filter((task) => {
+const selectPending = function(tasks) {
+  return tasks.filter(function(task) {
     return task.state === 'pending' && task.type === 'ProjectEvaluation';
   })
 }
 
-const selectInProgress = (tasks) => {
-  return tasks.filter((task) => {
+const selectInProgress = function(tasks) {
+  return tasks.filter(function(task) {
     return task.state === 'in_progress';
   })
 }
 
-const tasksWithUpdates = (tasks, updates) => {
+const tasksWithUpdates = function(tasks, updates) {
   tasks = [...tasks];
   for (update of updates) {
     let updated = false;
@@ -48,7 +48,7 @@ const tasksWithUpdates = (tasks, updates) => {
       tasks.push(update.object);
     }
   }
-  return Array.from(_(tasks).sortBy((item) => {
+  return Array.from(_(tasks).sortBy(function(item) {
     return (item.startAt || item.startedAt || item.createdAt)
   }));
 }
