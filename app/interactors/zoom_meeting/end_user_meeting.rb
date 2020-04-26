@@ -4,6 +4,9 @@ class ZoomMeeting::EndUserMeeting
 
   organize  ZoomMeeting::CreateToken,
             ZoomMeeting::EndMeeting,
+            ZoomMeeting::GetPoolUsers,
+            ZoomMeeting::GetUser,
+            ZoomMeeting::PushLicenseRemove,
             ZoomMeeting::UpdateUserLicense
 
 end

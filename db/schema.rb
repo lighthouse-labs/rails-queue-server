@@ -724,6 +724,7 @@ ActiveRecord::Schema.define(version: 20200415153940) do
     t.string   "password"
     t.string   "zoom_host_email"
     t.string   "name"
+    t.boolean  "licensed"
     t.index ["activity_id"], name: "index_video_conferences_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_video_conferences_on_cohort_id", using: :btree
     t.index ["user_id"], name: "index_video_conferences_on_user_id", using: :btree

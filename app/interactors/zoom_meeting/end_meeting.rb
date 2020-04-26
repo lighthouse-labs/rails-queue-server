@@ -15,12 +15,13 @@ class ZoomMeeting::EndMeeting
     request["content-type"] = "application/json"
     response = @http.request(request)
 
-    unless response.code.to_i == 204
-      body = JSON.parse(response.body)
-      context.fail!(error: body['message'])
+    if response.code.to_i == 404
+      context.warnings ||= {}
+      context.warnings[:end_meeting] = JSON.parse(response.body)['message']
+    elsif response.code.to_i != 204
+      context.fail!(error: JSON.parse(response.body)['message'])
     end
-    context.update_user_stack ||= []
-    context.update_user_stack.push(user: { "id" => @video_conference.zoom_host_id }, license: 1)
+    context.email = @video_conference.zoom_host_email
   end
 
 end
