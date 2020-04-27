@@ -12,10 +12,16 @@ class QuizSubmissionsController < ApplicationController
       @quiz_submission = result.quiz_submission
       if params[:activity_id].present?
         @activity = Activity.find params[:activity_id]
+        puts '##########################################################'
+        puts '##########################################################'
+
         if @activity.day?
           redirect_to day_activity_path(@activity.day, @activity)
-        else
+        elsif @activity.prep?
           redirect_to prep_activity_path(@activity.section, @activity)
+        else
+          @workbook = Workbook.find(WorkModule.find(WorkModuleItem.where(activity: @activity).to_a[0].work_module_id).workbook_id)
+          redirect_to workbook_activity_path(@workbook, @activity)
         end
       else
         redirect_to quiz_submission_path(@quiz_submission.id, section_id: params[:section_id], day: params[:day])
