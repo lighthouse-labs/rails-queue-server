@@ -16,9 +16,11 @@ class QuizSubmissionsController < ApplicationController
           redirect_to day_activity_path(@activity.day, @activity)
         elsif @activity.prep?
           redirect_to prep_activity_path(@activity.section, @activity)
+        elsif params[:workbook]
+          @workbook = Workbook.find(params[:workbook])
+          redirect_to workbook_activity_path(@workbook, @activity, workbook: @workbook.id)
         else
-          @workbook = Workbook.find(WorkModule.find(WorkModuleItem.where(activity: @activity).to_a[0].work_module_id).workbook_id)
-          redirect_to workbook_activity_path(@workbook, @activity)
+          redirect_to quiz_submission_path(@quiz_submission.id, section_id: params[:section_id], day: params[:day])
         end
       else
         redirect_to quiz_submission_path(@quiz_submission.id, section_id: params[:section_id], day: params[:day])
@@ -37,7 +39,7 @@ class QuizSubmissionsController < ApplicationController
   private
 
   def submission_params
-    params.require(:quiz_submission).permit(answers_attributes: [:option_id])
+    params.require(:quiz_submission).permit(answers_attributes: [:option_id]).permit(:workbook)
   end
 
   def require_quiz

@@ -19,7 +19,7 @@ class WorkbooksController < ApplicationController
   def redirect_to_first_activity
     @work_module = @workbook.work_modules.active.first
     @activity    = @work_module.work_module_items.active.first.try(:activity)
-    redirect_to workbook_activity_path(@workbook, @activity)
+    redirect_to workbook_activity_path(@workbook, @activity, workbook: @workbook.id)
   end
 
 end

@@ -10,7 +10,7 @@
       p.text-center Your submission was successfully collected. Below is a summary or your answers along with the correct options.
       hr
       = render 'submission_details', submission: @quiz_submission
-      - back = @quiz_submission.quiz.bootcamp? ? "Back to #{@quiz_submission.quiz.day} Activities" : "Back to Workbook"
+      - back = @quiz_submission.quiz.bootcamp? ? "Back to #{@quiz_submission.quiz.day} Activities" : "Back to Quiz"
       - back_path = @quiz_submission.quiz.bootcamp? ? day_path(@quiz_submission.quiz.day) : activity_path(@quiz_submission.quiz.quiz_activities.active.first)
       = link_to back, back_path, class: "btn btn-success quiz-submission-link"
       = link_to "Retake Quiz", new_quiz_quiz_submission_path(@quiz_submission.quiz), class: "btn btn-success quiz-submission-link float-right"

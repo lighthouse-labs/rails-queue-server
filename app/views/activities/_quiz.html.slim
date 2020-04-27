@@ -10,7 +10,7 @@ hr
 - if submission = @activity.quiz.latest_submission_by(current_user)
   = render 'quiz_submissions/submission_summary', submission: submission
   p.text-center
-    = link_to 'View Details', quiz_submission_path(submission.id), class: 'btn btn-success btn-sm'
+    = link_to 'View Details', quiz_submission_path(submission.id, workbook: params[:workbook]), class: 'btn btn-success btn-sm'
   - btn_label = "I'm ready for another go at this!"
 - else
   p.alert
@@ -18,7 +18,7 @@ hr
   - btn_label = "I'm ready, let's do this!"
 
 p.text-center
-  = link_to btn_label, new_quiz_quiz_submission_path(@activity.quiz, activity_id: @activity.id), class: 'btn btn-success btn-lg'
+  = link_to btn_label, new_quiz_quiz_submission_path(@activity.quiz, activity_id: @activity.id, workbook: params[:workbook]), class: 'btn btn-success btn-lg'
 
 hr
 
