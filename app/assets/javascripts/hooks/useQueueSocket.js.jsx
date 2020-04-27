@@ -44,7 +44,7 @@ const reducer = (state, action) => {
       return {...state, channel: action.data.socket, connected: action.data.connected };
     case 'socketMessage':
       const updates = Array.isArray(action.data.object) ? action.data.object : [{object: action.data.object, sequence: action.data.sequence}]
-      return messageLookup[action.data.type](state, updates)
+      return updates.length > 0 ? messageLookup[action.data.type](state, updates) : state
     default:
       throw new Error();
   }
@@ -54,17 +54,18 @@ window.NationalQueue.useQueueSocket = (user) => {
   const socketContext = window.NationalQueue.SocketContext;
   const socketHandler = useContext(socketContext);
   const [queueChannel, dispatchQueueChannel] = useReducer(reducer, initialState);
-
+  
   useEffect(() => {
     // set up handlers for action cable
     socketHandler.onRecieved = (data) => {
+      console.log('recieved', data);
       dispatchQueueChannel({type: 'socketMessage', data});
     };
     socketHandler.onConnected = () => {
       dispatchQueueChannel({type: 'connect'});
       if (queueChannel.lastUpdate > 0) {
         // re-establishing connection
-        socketHandler.socket.perform('get_missed_updates', lastUpdate);
+        socketHandler.socket.perform('get_missed_updates', {sequence: queueChannel.lastUpdate});
       } else {
         socketHandler.socket.perform('assistance_request_state');
       }
@@ -73,7 +74,7 @@ window.NationalQueue.useQueueSocket = (user) => {
       dispatchQueueChannel({type: 'disconnect'});
     };
 
-    if (socketHandler.connected) {
+    if (socketHandler.connected && queueChannel.lastUpdate === 0) {
       // socket connected before hook was initialized
       socketHandler.socket.perform('assistance_request_state');
     }
@@ -85,7 +86,7 @@ window.NationalQueue.useQueueSocket = (user) => {
       socketHandler.onConnected = null;
       socketHandler.onDisconnect = null;
     }
-  }, [])
+  }, [queueChannel.lastUpdate])
 
   const requestAssistance = (reason, activityId) => {
     queueChannel.channel.perform('request_assistance', {reason: reason, activity_id: activityId});

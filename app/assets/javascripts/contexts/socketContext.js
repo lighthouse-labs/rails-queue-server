@@ -23,7 +23,7 @@ const notificationHandler = (data) => {
   console.log("notificatin attempt", data);
   if (data.type === 'queueUpdate') {
     const update = Array.isArray(data.object) ? data.object[data.object.length - 1] : data.object;
-    if (update.state === 'pending' && update.type === 'Assistance') {
+    if (update && update.state === 'pending' && update.type === 'Assistance') {
       const assistanceRequest = update.taskObject;
       const title = `Assistance Requested by ${assistanceRequest.requestor.firstName} ${assistanceRequest.requestor.lastName}`;
       const options = {

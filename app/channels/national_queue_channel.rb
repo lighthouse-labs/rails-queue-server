@@ -1,6 +1,7 @@
 class NationalQueueChannel < ApplicationCable::UpdateChannel
 
   @@updates_type = 'queueUpdate'
+  @@public_channel = 'teacher-national-queue'
   @@max_updates_length = 10
 
   def subscribed
