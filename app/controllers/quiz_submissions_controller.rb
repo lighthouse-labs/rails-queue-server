@@ -12,9 +12,6 @@ class QuizSubmissionsController < ApplicationController
       @quiz_submission = result.quiz_submission
       if params[:activity_id].present?
         @activity = Activity.find params[:activity_id]
-        puts '##########################################################'
-        puts '##########################################################'
-
         if @activity.day?
           redirect_to day_activity_path(@activity.day, @activity)
         elsif @activity.prep?
