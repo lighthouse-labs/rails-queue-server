@@ -19,6 +19,7 @@ class SmartQueueRouter::AssignQueue
       desired_task_assignment = @settings[:desired_task_assignment] || 5
       top_results = Hash[score_result.teachers.sort_by { |_k, teacher| teacher[:routing_score] }.reverse.first desired_task_assignment]
       if top_results[@assistor.id]
+        next if @assistor.assigned_ar?(assistance_request)
         task = assistance_request.assign_task(@assistor)
         next unless task
         assigned_tasks.push({ task: task, shared: false })
