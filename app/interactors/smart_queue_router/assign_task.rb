@@ -15,7 +15,7 @@ class SmartQueueRouter::AssignTask
     end
     puts '~~~~~~~~~~~~~~~~~~~'
 
-    Hash[@teachers.sort_by { |_k, teacher| teacher[:routing_score] }.reverse]
+    @teachers.sort_by { |_k, teacher| teacher[:routing_score] }.reverse
 
     assigned_tasks = []
     @teachers.each do |_k, teacher|

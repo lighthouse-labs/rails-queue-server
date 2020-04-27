@@ -88,7 +88,7 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
 
   def cancel_interview(data)
     NationalQueue::UpdateTechInterview.call(
-      assistor: current_user,
+      interviewer: current_user,
       options:  {
         type:              'cancel_interview',
         tech_interview_id: data["tech_interview_id"]

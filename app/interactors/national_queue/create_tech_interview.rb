@@ -1,8 +1,8 @@
-class NationalQueue::UpdateTechInterview
+class NationalQueue::CreateTechInterview
 
   include Interactor::Organizer
 
-  organize  TechInterview::UpdateInterviewRecord,
+  organize  TechInterview::CreateTechInterview,
             NationalQueue::AfterTechInterview,
             NationalQueue::BroadcastTeacherAvailability,
             NationalQueue::BroadcastTeacherQueueUpdate
