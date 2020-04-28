@@ -7,7 +7,7 @@
 
 - if teacher? && ( @activity.has_lectures? || @activity.test_activity?)
   .lecture-actions.bg-light.p-3.rounded.d-flex.flex-wrap
-    = link_to '+ Lecture Notes', new_activity_lecture_path(@activity), class: 'btn btn-secondary btn-new-lecture mr-4'
+    = link_to '+ Lecture Notes', new_activity_lecture_path(@activity, workbook: params[:workbook]), class: 'btn btn-secondary btn-new-lecture mr-4'
     - if @program&.has_feature?('has_zoom_conferences')
       = render 'activity_conference_actions', activity: @activity
 - if teacher?

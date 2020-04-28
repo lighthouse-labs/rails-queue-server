@@ -35,7 +35,7 @@ class Lecture < ApplicationRecord
   validates :cohort, presence: true
   validates :presenter, presence: true
   validates :subject, presence: true, length: { maximum: 100 }
-  validates :day, presence: true, format: { with: DAY_REGEX, allow_blank: true }
+  validates :day, format: { with: DAY_REGEX, allow_blank: true }
   validates :body, presence: true
   validate :ensure_program_has_recordings_bucket, if: :s3?, on: :create
 
