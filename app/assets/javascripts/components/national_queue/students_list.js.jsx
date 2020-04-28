@@ -2,11 +2,11 @@ window.Queue = window.Queue || {};
 const useEffect = React.useEffect;
 const useState = React.useState;
 
-
-window.NationalQueue.StudentsList = ({user}) => {
+window.NationalQueue.StudentsList = ({user, setOpen, open, updates}) => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+  const {studentsWithUpdates} = window.NationalQueue.QueueSelectors;
+
   useEffect(() => {
     const url = `/queue_tasks/students`
     $.ajax({
@@ -25,11 +25,12 @@ window.NationalQueue.StudentsList = ({user}) => {
   }
 
   const renderStudents = () => {
+    // const updatedStudents = studentsWithUpdates(students, updates);
     return students.map(renderStudent);
   }
 
   return (
-    <NationalQueue.ListGroup count={students.length} title="Students">
+    <NationalQueue.ListGroup open={open} toggleOpen={()=>setOpen(!open)} count={students.length} title="Students">
       { renderStudents() }
     </NationalQueue.ListGroup>
   )

@@ -5,21 +5,20 @@ const checkCollapsed = (title) => {
   return window.localStorage.getItem(`${title} - collapsed`) === 'y';
 }
 
-window.NationalQueue.ListGroup = ({children, count, title}) => {
+window.NationalQueue.ListGroup = ({children, count, title, open, toggleOpen}) => {
   const [collapsed, setCollapsed] = useState(checkCollapsed(title));
 
   const handleToggleCollapse = () => {
+    toggleOpen();
     if (collapsed) {
-      setCollapsed(false);
       window.localStorage.setItem(`${title} - collapsed`, 'n');
     } else {
-      setCollapsed(true);
       window.localStorage.setItem(`${title} - collapsed`, 'y');
     }
   }
 
   return(
-    <div className={`card card-default ${collapsed ? 'collapsed' : ''}`}>
+    <div className={`card card-default ${open && count > 0 ? 'open' : 'collapsed'}`}>
       <div className="card-header clearfix" onClick={handleToggleCollapse}>
         <h5 className="card-title">
           <span className="count">{count}</span>

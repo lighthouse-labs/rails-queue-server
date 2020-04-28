@@ -2,7 +2,7 @@ window.NationalQueue = window.NationalQueue || {};
 const useEffect = React.useEffect;
 const useState = React.useState;
 
-window.NationalQueue.InterviewStatusList = ({user}) => {
+window.NationalQueue.InterviewStatusList = ({user, setOpen, open}) => {
   const [cohorts, setCohorts] = useState([]);
 
   useEffect(()=>{
@@ -26,8 +26,12 @@ window.NationalQueue.InterviewStatusList = ({user}) => {
     return cohorts.map(renderInterviewStatus);
   }
 
+  const toggleOpen = () => {
+    return open === 'interviews' ? setOpen(false) : setOpen('interviews')
+  }
+
   return (
-    <NationalQueue.ListGroup count={cohorts.length} title="Tech Interview Status">
+    <NationalQueue.ListGroup open={open === 'interviews'} toggleOpen={toggleOpen} count={cohorts.length} title="Tech Interview Status">
       { renderInterviewStatuses() }
     </NationalQueue.ListGroup>
   )
