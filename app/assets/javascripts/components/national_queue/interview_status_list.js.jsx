@@ -2,8 +2,9 @@ window.NationalQueue = window.NationalQueue || {};
 const useEffect = React.useEffect;
 const useState = React.useState;
 
-window.NationalQueue.InterviewStatusList = ({user, setOpen, open}) => {
+window.NationalQueue.InterviewStatusList = ({user, setOpen, open, updates}) => {
   const [cohorts, setCohorts] = useState([]);
+  const {cohortsWithUpdates} = window.NationalQueue.QueueSelectors;
 
   useEffect(()=>{
     const url = `/queue_tasks/cohorts`
@@ -23,7 +24,8 @@ window.NationalQueue.InterviewStatusList = ({user, setOpen, open}) => {
   }
 
   const renderInterviewStatuses = () => {
-    return cohorts.map(renderInterviewStatus);
+    const updatedCohorts = cohortsWithUpdates(cohorts, updates);
+    return updatedCohorts.map(renderInterviewStatus);
   }
 
   const toggleOpen = () => {

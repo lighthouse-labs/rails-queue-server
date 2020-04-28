@@ -22,6 +22,13 @@ class TechInterview::UpdateInterviewRecord
       context.tech_interview = @tech_interview
       success = @tech_interview.save
     when 'complete_interview'
+      result = TechInterview::CompleteInterview.call(
+        params:         @options[:params],
+        tech_interview: @tech_interview,
+        interviewer:    @interviewer
+      )
+      context.tech_interview = result.tech_interview
+      success = result.success?
     end
 
     context.fail! unless success

@@ -10,7 +10,6 @@ window.NationalQueue.Lists = ({user}) => {
   const {error, myOpenTasks, allOpenTasks, inProgress, pendingEvaluations} = window.NationalQueue.useTasks(queueUpdates, user)
 
   const openRow = (position) => {
-    console.log('position', position);
     return openRows[position] ? 'open' : '';
   }
 
@@ -36,7 +35,7 @@ window.NationalQueue.Lists = ({user}) => {
           <div className="queue-column left">
             <NationalQueue.InProgressList open={openRows.bottom} setOpen={(open) => setOpenRows({...openRows, bottom: open})} tasks={inProgress()} />
             <NationalQueue.PendingEvaluationsList open={openRows.bottom} setOpen={(open) => setOpenRows({...openRows, bottom: open})} tasks={pendingEvaluations()} />
-            <NationalQueue.InterviewStatusList open={openRows.bottom} setOpen={(open) => setOpenRows({...openRows, bottom: open})} user={user} />
+            <NationalQueue.InterviewStatusList open={openRows.bottom} setOpen={(open) => setOpenRows({...openRows, bottom: open})} user={user} updates={queueUpdates} />
           </div>
           <div className="queue-column right">
             <NationalQueue.StudentsList open={openRows.students} setOpen={(open) => setOpenRows({...openRows, students: open})} user={user} updates={queueUpdates} />
