@@ -81,7 +81,7 @@ window.NationalQueue.AssistanceModal = ({request, student, hide}) => {
     if (request) {
       endAssistance(request, notes, notify, rating);
     } else {
-      providedAssistance(student, notes, rating, notify);
+      providedAssistance(student, notes, notify, rating);
     }
   }
 
@@ -90,28 +90,10 @@ window.NationalQueue.AssistanceModal = ({request, student, hide}) => {
     queueSocket.finishAssistance(request, notes, notify, rating);
   }
 
-  const providedAssistance = (student, notes, rating, notify) => {
+  const providedAssistance = (student, notes, notify, rating) => {
     setFormInfo(current => ({...current, disabled: true}));
-    const params = {
-      student_id: student.id,
-      notes: notes,
-      rating: rating,
-      notify: notify ? true : null
-    }
-    $.post('/queue/provided_assistance.json', params, 'json')
-      .done((data) => {
-        close();
-      })
-      .fail((xhr, data, txt) => {
-        let error = xhr.statusText;
-        if (xhr.responseJSON) {
-          error = xhr.responseJSON.error;
-        }
-        alert('Could not complete action: ' + error);
-      })
-      .always(() => {
-        setFormInfo(current => ({...current, disabled: false}));
-      });
+    queueSocket.provideAssistance(student, notes, notify, rating);
+    hide();
   }
 
   const renderReason = (assistanceRequest) => {

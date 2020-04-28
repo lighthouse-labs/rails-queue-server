@@ -67,6 +67,18 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
     )
   end
 
+  def provide_assistance(data)
+    NationalQueue::ProvideAssistance.call(
+      assistor:     current_user,
+      requestor_id: data["requestor_id"],
+      options:  {
+        note:       data["notes"],
+        notify:     data["notify"],
+        rating:     data["rating"]
+      }
+    )
+  end
+
   def start_evaluating(data)
     NationalQueue::UpdateEvaluation.call(
       assistor: current_user,

@@ -120,6 +120,10 @@ window.NationalQueue.useQueueSocket = (user) => {
     queueChannel.channel.perform('cancel_interview', {tech_interview_id: interview.id});
   }
 
+  const provideAssistance = (student, notes, notify, rating) => {
+    queueChannel.channel.perform('provide_assistance', {requestor_id: student.id, notes, notify, rating});
+  }
+
   return {
     requestAssistance,
     cancelAssistanceRequest,
@@ -130,6 +134,7 @@ window.NationalQueue.useQueueSocket = (user) => {
     cancelEvaluating,
     startEvaluating,
     cancelInterview,
+    provideAssistance,
     requestUpdates: queueChannel.requestUpdates,
     queueUpdates: queueChannel.queueUpdates,
     teacherUpdates:queueChannel.teacherUpdates

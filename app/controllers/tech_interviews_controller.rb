@@ -76,13 +76,16 @@ class TechInterviewsController < ApplicationController
 
   # PUT (final step submission)
   def complete
-    result = CompleteTechInterview.call(
-      params:         params,
-      tech_interview: @tech_interview,
-      interviewer:    current_user
+    result = NationalQueue::UpdateTechInterview.call(
+      interviewer: current_user,
+      options:  {
+        type:              'complete_interview',
+        tech_interview_id: @tech_interview.id,
+        params: params
+      }
     )
 
-    if @tech_interview.save
+    if result.success?
       redirect_to @tech_interview, notice: "Interview completed. Student e-mailed with feedback."
     else
       render :edit

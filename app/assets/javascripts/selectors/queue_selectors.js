@@ -53,10 +53,70 @@ const tasksWithUpdates = (tasks, updates) => {
   }));
 }
 
+const studentsWithUpdates = (students, updates) => {
+  students = [...students];
+  for (update of updates) {
+    const task = update.object;
+    if (task.type === 'Assistance' && task.taskObject.assistor) {
+      for (student of students) {
+        if (updateForStudent(task, student)) {
+          student.lastAssistedAt = Date.now();
+          break;
+        }
+      }
+    }
+  }
+  return Array.from(_(students).sortBy((student) => {
+    return (student.lastAssistedAt)
+  }));
+}
+
+const cohortsWithUpdates = (cohorts, updates) => {
+  cohorts = [...cohorts];
+  for (update of updates) {
+    const task = update.object;
+    if (task.type === 'TechInterview' && task.taskObject.completedAt) {
+      for ([index, cohort] of cohorts.entries()) {
+        if (cohort.id === task.taskObject.interviewee.cohort.id) {
+          cohorts[index] = {...cohort, interviewStatuses: updateInterviewStatuses(cohort.interviewStatuses, task.taskObject)};
+        }
+      }
+    }
+  }
+  return cohorts;
+}
+
+const updateInterviewStatuses = (interviewStatuses, interview) => {
+  interviewStatuses = [...interviewStatuses];
+  for ([index, interviewStatus] of interviewStatuses.entries()) {
+    if (interview.techInterviewTemplate.week === interviewStatus.week) {
+      const incomplete = interviewStatus.incompleteStudentIds;
+      const studentPosition = incomplete.indexOf(interview.interviewee.id);
+
+      if (studentPosition >= 0) {
+        const incompleteStudentIds = [...incomplete];
+        incompleteStudentIds.splice(studentPosition, 1)
+        interviewStatuses[index] = {
+          ...interviewStatus,
+          incompleteStudentIds,
+          completedStudentIds: [...interviewStatus.completedStudentIds, interview.interviewee.id]
+        }
+      }
+    }
+  }
+  return interviewStatuses;
+}
+
+const updateForStudent = (task, student) => {
+  return  task.taskObject.requestor.id === student.id;
+}
+
 window.NationalQueue.QueueSelectors =  {
   selectOpen,
   selectAllOpen,
   selectPending,
   selectInProgress,
-  tasksWithUpdates
+  tasksWithUpdates,
+  studentsWithUpdates,
+  cohortsWithUpdates
 }

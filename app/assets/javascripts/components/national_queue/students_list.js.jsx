@@ -25,8 +25,8 @@ window.NationalQueue.StudentsList = ({user, setOpen, open, updates}) => {
   }
 
   const renderStudents = () => {
-    // const updatedStudents = studentsWithUpdates(students, updates);
-    return students.map(renderStudent);
+    const updatedStudents = studentsWithUpdates(students, updates);
+    return updatedStudents.map(renderStudent);
   }
 
   return (

@@ -16,6 +16,8 @@ class QueueTaskSerializer < ActiveModel::Serializer
     # add more so serializer can be used on evaluations and tech interviews
     if object.is_a? QueueTask
       teacher = object.user
+    elsif object.is_a? AssistanceRequest
+      teacher = object.assistance&.assistor
     elsif object.is_a? TechInterview
       teacher = object.interviewer
     elsif object.is_a? Evaluation
@@ -27,6 +29,8 @@ class QueueTaskSerializer < ActiveModel::Serializer
   def task_object
     if object.is_a? QueueTask
       NationalQueueAssistanceRequestSerializer.new(object.assistance_request).as_json
+    elsif object.is_a? AssistanceRequest
+      NationalQueueAssistanceRequestSerializer.new(object).as_json
     elsif object.is_a? TechInterview
       TechInterviewSerializer.new(object).as_json
     elsif object.is_a? Evaluation
@@ -34,20 +38,18 @@ class QueueTaskSerializer < ActiveModel::Serializer
     end
   end
 
-  def state
-    object.state
-  end
-
   def started_at
     if object.is_a? QueueTask
       object.assistance_request&.start_at
+    elsif object.is_a? AssistanceRequest
+      object.start_at
     else
       object.started_at
     end
   end
 
   def type
-    if object.is_a? QueueTask
+    if object.is_a?(QueueTask) || object.is_a?(AssistanceRequest)
       "Assistance"
     elsif object.is_a? TechInterview
       'TechInterview'
