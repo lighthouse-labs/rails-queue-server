@@ -11,14 +11,16 @@ window.NationalQueue.useTasks = (updates, user) => {
   const taskReducer = (state, action) => {
     switch (action.type) {
       case 'setTasks':
-        return action.data;
+        return {...state, tasks: action.data};
       case 'addUpdates':
-        return tasksWithUpdates(state, action.data);
+        return {...state, tasks: tasksWithUpdates(state.tasks, action.data)};
+      case 'error':
+        return {...state, error: action.data}
       default:
         throw new Error();
     }
   };
-  const [taskState, dispatchTaskState] = useReducer(taskReducer, []);
+  const [taskState, dispatchTaskState] = useReducer(taskReducer, {tasks: [], error: null});
 
   useEffect(() => {
     fetch(`/queue_tasks`, {
@@ -26,7 +28,13 @@ window.NationalQueue.useTasks = (updates, user) => {
         "Content-Type": "application/json"
       }
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status === 200) {
+          return response.json()
+        } else {
+          dispatchTaskState({type: 'error', data: 'Could not fetch queue data!'})
+        }
+      })
       .then((response) => {
         let tasks = response.tasks || [];
         tasks = _(tasks).sortBy((item) => {
@@ -43,26 +51,27 @@ window.NationalQueue.useTasks = (updates, user) => {
 
 
   const pendingEvaluations = () => {
-    return selectPending(taskState);
+    return selectPending(taskState.tasks);
   }
 
   const inProgress = () => {
-    return selectInProgress(taskState);
+    return selectInProgress(taskState.tasks);
   }
 
   const myOpenTasks = () => {
-    return selectOpen(taskState, user);
+    return selectOpen(taskState.tasks, user);
   }
 
   const allOpenTasks = () => {
-    return selectAllOpen(taskState, user);
+    return selectAllOpen(taskState.tasks, user);
   }
 
   return {
     pendingEvaluations,
     inProgress,
     myOpenTasks,
-    allOpenTasks
+    allOpenTasks,
+    error: taskState.error
   }
 
 }
