@@ -13,9 +13,6 @@ class WorkbooksController < ApplicationController
   private
 
   def require_workbook
-    puts '#################################################'
-    puts params
-    puts '#################################################'
     if params[:workbook]
       @workbook = Workbook.available_to(current_user).find(params[:workbook])
     else
