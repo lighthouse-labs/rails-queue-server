@@ -5,6 +5,8 @@
       .conference-row.header
         .left-video-info
           h3 
+            - unless conference&.licensed
+              = "Basic "
             = "Conference "
             span class=(conference.public_status == 'Pending' ? 'text-warning' : 'text-success') 
               = conference.public_status
@@ -17,8 +19,12 @@
             br
               span.badge.badge-primary = conference.host.location.name
           small.time-since
-            = "#{conference.host.full_name} started this #{conference.duration/60} hour conference #{time_ago_in_words(conference.start_time) } ago for the #{conference.cohort.name} cohort"
-
+            = "#{conference.host.full_name} started this #{conference.duration/60}h #{conference.duration % 60}min conference #{time_ago_in_words(conference.start_time) } ago for the #{conference.cohort.name} cohort."
+            -if teacher? && !conference&.licensed?
+              br
+              span.text-warning
+                | This is a basic conference, limited to free zoom features.
+          
         .center-video-info
           .video-info
             p.label Zoom Link

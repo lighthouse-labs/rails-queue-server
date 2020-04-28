@@ -1,5 +1,39 @@
 # Changelog
 
+## [2020.04.27.0600u](https://github.com/lighthouse-labs/compass/tree/2020.04.27.0600u) (2020-04-26)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.10.1815u...2020.04.27.0600u)
+
+**Merged pull requests:**
+
+- Allow workbook-centric Compass \(disable daily schedule\) [\#1088](https://github.com/lighthouse-labs/compass/pull/1088) ([kvirani](https://github.com/kvirani))
+- UI Improvement: Admin view - Teacher feedback [\#1086](https://github.com/lighthouse-labs/compass/pull/1086) ([DraconianLore](https://github.com/DraconianLore))
+- Adjust cohort filters [\#1085](https://github.com/lighthouse-labs/compass/pull/1085) ([DraconianLore](https://github.com/DraconianLore))
+- Admin - Cohort Dashboard tidy up [\#1081](https://github.com/lighthouse-labs/compass/pull/1081) ([DraconianLore](https://github.com/DraconianLore))
+- Zoom/better creation flow [\#1080](https://github.com/lighthouse-labs/compass/pull/1080) ([tborsa](https://github.com/tborsa))
+- show correct cohort after lecture notes submission [\#1079](https://github.com/lighthouse-labs/compass/pull/1079) ([DraconianLore](https://github.com/DraconianLore))
+- disable submission and feedback on archived activities [\#1078](https://github.com/lighthouse-labs/compass/pull/1078) ([DraconianLore](https://github.com/DraconianLore))
+- rubocop upgrade from 0.56 to 0.81 [\#1077](https://github.com/lighthouse-labs/compass/pull/1077) ([kvirani](https://github.com/kvirani))
+- Error handling for invalid google creds [\#1052](https://github.com/lighthouse-labs/compass/pull/1052) ([tborsa](https://github.com/tborsa))
+
+## [2020.04.10.1815u](https://github.com/lighthouse-labs/compass/tree/2020.04.10.1815u) (2020-04-10)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.09.1430u...2020.04.10.1815u)
+
+**Merged pull requests:**
+
+- Progress bar for students to see their daily progress [\#1075](https://github.com/lighthouse-labs/compass/pull/1075) ([kvirani](https://github.com/kvirani))
+
+## [2020.04.09.1430u](https://github.com/lighthouse-labs/compass/tree/2020.04.09.1430u) (2020-04-09)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.07.0015u...2020.04.09.1430u)
+
+**Merged pull requests:**
+
+- Fix Compass Zoom bug where Lecture licenses are incorrectly removed [\#1073](https://github.com/lighthouse-labs/compass/pull/1073) ([tborsa](https://github.com/tborsa))
+- 1050 mark completed dialog bug [\#1067](https://github.com/lighthouse-labs/compass/pull/1067) ([DraconianLore](https://github.com/DraconianLore))
+- Quiz results UI update [\#1064](https://github.com/lighthouse-labs/compass/pull/1064) ([DraconianLore](https://github.com/DraconianLore))
+
 ## [2020.04.07.0015u](https://github.com/lighthouse-labs/compass/tree/2020.04.07.0015u) (2020-04-06)
 
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.05.2115u...2020.04.07.0015u)

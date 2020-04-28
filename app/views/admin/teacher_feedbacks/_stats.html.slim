@@ -1,0 +1,57 @@
+.summary-stats.teacher-feedback-stats
+  .stat.card
+    .card-body
+      h3 Total
+      span 
+        = feedbacks.count
+  .stat.card
+    .card-body
+      h3 Completed
+      span 
+        = feedbacks.completed.count
+  
+  .stat.card
+    .card-body
+      h3 Pending
+      span 
+        = feedbacks.pending.not_expired.count
+  
+  .stat.card
+    .card-body
+      h3 Expired
+      span 
+        = feedbacks.pending.not_expired.count
+  
+  .stat.card
+    .card-body data-toggle="tooltip" data-placement="bottom" title="Average Rating"
+      h3 Lecture
+      span 
+        - lecture_feedbacks = feedbacks.completed.lecture
+        = avg_ratings_or_na(lecture_feedbacks, 5)
+  
+  .stat.card
+    .card-body data-toggle="tooltip" data-placement="bottom" title="Average Rating"
+      h3 Breakout
+      span 
+        - breakout_feedbacks = @feedbacks.completed.breakout
+        = avg_ratings_or_na(breakout_feedbacks, 5)  
+  .stat.card
+    .card-body data-toggle="tooltip" data-placement="bottom" title="Average Rating"
+      h3 Assistance
+      span 
+        - assistance_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'Assistance' }
+        = avg_ratings_or_na(assistance_feedbacks, 5)
+  .stat.card
+    .card-body data-toggle="tooltip" data-placement="bottom" title="Average Rating"
+      h3 Tech Interview
+      span 
+        - tech_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'TechInterview' }
+        = avg_ratings_or_na(tech_feedbacks, 5)  
+  .stat.card
+    .card-body data-toggle="tooltip" data-placement="bottom" title="Average Rating"
+      h3 Project Eval
+      span 
+        - project_eval_feedbacks = @feedbacks.completed.find_all{ |feedback| feedback.feedbackable_type === 'Evaluation' }
+        = avg_ratings_or_na(project_eval_feedbacks, 5)
+
+  

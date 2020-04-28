@@ -96,6 +96,7 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
   gem 'rubocop'
+  gem 'rubocop-rails', require: false
   # listen creates too many fsevent_watch processes and kills my laptop. Removing this until resolved - KV
   # gem 'listen', '~> 3.1.5'
   gem 'spring-watcher-listen', '~> 2.0.1'

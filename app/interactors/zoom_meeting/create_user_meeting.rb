@@ -2,11 +2,16 @@ class ZoomMeeting::CreateUserMeeting
 
   include Interactor::Organizer
 
-  organize  ZoomMeeting::CreateToken,
+  organize  ZoomMeeting::NewMeetingSetup,
+            ZoomMeeting::CreateToken,
             ZoomMeeting::GetPoolUsers,
             ZoomMeeting::GetUser,
-            ZoomMeeting::FindIdleLicense,
+            ZoomMeeting::BookMeeting,
+            ZoomMeeting::PushLicenseAdd,
             ZoomMeeting::UpdateUserLicense,
-            ZoomMeeting::BookMeeting
+            ZoomMeeting::FindIdleLicense,
+            ZoomMeeting::PushLicenseRemove,
+            ZoomMeeting::UpdateUserLicense,
+            ZoomMeeting::CreateVideoConference
 
 end

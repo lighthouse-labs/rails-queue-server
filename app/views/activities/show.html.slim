@@ -3,10 +3,10 @@
 - present @activity, nil, { workbook: @workbook } do |activity_presenter|
 
   = activity_presenter.render_sidenav
-  / = render 'progress_bar' if @activity.bootcamp?
-
+  
   section.activity-details data-uuid=@activity.uuid
 
+    = render 'activities/progress_bar' if student? && @activities && @activity.bootcamp? && !@workbook
     = render 'activity_title', activity_presenter: activity_presenter
     = render 'actions', activity_presenter: activity_presenter
 
@@ -19,7 +19,7 @@
     - if @activity.archived?
       .alert.alert-danger
         strong ARCHIVED ACTIVITY
-        p This activity is archived and not presented in the curriculum list to students.
+        p This activity is archived, you may still view it but are unable to submit or place feedback. 
 
     - if @activity.cs?
       .alert.alert-info
@@ -57,10 +57,9 @@
       .instructions.teacher-notes.text-white.bg-dark
         h2 Teacher Notes
         == markdown @activity.teacher_notes
-
-    = render 'submission_bar', activity_presenter: activity_presenter
+    = render 'submission_bar', activity_presenter: activity_presenter unless @activity.archived?
     = render 'next_and_prev', activity_presenter: activity_presenter
-    = render 'feedback' if @activity.allow_feedback?
+    = render 'feedback' if @activity.allow_feedback? && !@activity.archived?
 
     - if @lectures.present?
       hr

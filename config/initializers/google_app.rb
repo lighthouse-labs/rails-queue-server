@@ -11,6 +11,6 @@ begin
   ENV['GOOGLE_CLIENT_EMAIL'] ||= google_creds['GOOGLE_CLIENT_EMAIL']
   ENV['GOOGLE_CLIENT_ID'] ||= google_creds['GOOGLE_CLIENT_ID']
   ENV['GOOGLE_SUB_EMAIL'] ||= google_creds['GOOGLE_SUB_EMAIL']
-rescue
+rescue StandardError
   puts "Could not initialize google app credentials"
 end
