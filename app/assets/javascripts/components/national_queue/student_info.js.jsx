@@ -21,13 +21,16 @@ window.NationalQueue.StudentInfo = ({student, activity, project, when, showDetai
 
     if (cohort && cohort.week)
       badges.push(
-        <a
-          key="weekbadge"
-          className="badge badge-light"
-          href={`/cohorts/${cohort.id}/students`}
-        >
-          W{cohort.week}
-        </a>
+        <React.Fragment>
+          <span className="badge badge-light">{student.location && student.location.name}</span>
+          <a
+            key="weekbadge"
+            className="badge badge-light"
+            href={`/cohorts/${cohort.id}/students`}
+          >
+            W{cohort.week}
+          </a>
+        </React.Fragment>
       );
     if (project)
       badges.push(
