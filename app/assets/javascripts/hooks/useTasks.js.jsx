@@ -39,7 +39,7 @@ window.NationalQueue.useTasks = (updates, user) => {
         let tasks = response.tasks || [];
         tasks = _(tasks).sortBy((item) => {
           return (item.startAt || item.startedAt || item.createdAt)
-        }).reverse();
+        });
         dispatchTaskState({type: "setTasks", data: Array.from(tasks)});
       });
 

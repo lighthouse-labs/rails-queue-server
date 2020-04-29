@@ -94,6 +94,8 @@ main {
 }
 
 .teacher-holder {
+  max-height: 85vh;
+  overflow-y: scroll;
   z-index: 1;
   p {
     padding: 0.25rem 1.5rem;
