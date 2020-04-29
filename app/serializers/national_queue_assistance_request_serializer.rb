@@ -2,7 +2,7 @@ class NationalQueueAssistanceRequestSerializer < ActiveModel::Serializer
 
   root false
   format_keys :lower_camel
-  attributes :id, :reason, :start_at, :position_in_queue, :canceled_at, :state, :assistor, :conference_link
+  attributes :id, :reason, :start_at, :position_in_queue, :canceled_at, :state, :assistor, :conference_link, :assistance_start
 
   has_one :activity, serializer: ActivitySerializer
   has_one :requestor, serializer: UserSerializer
@@ -17,4 +17,7 @@ class NationalQueueAssistanceRequestSerializer < ActiveModel::Serializer
     object.assistance&.conference_link
   end
 
+  def assistance_start
+    object.assistance&.start_at
+  end
 end
