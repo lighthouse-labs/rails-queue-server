@@ -28,7 +28,7 @@ window.NationalQueue.Lists = ({user}) => {
             }
           </div>
           <div className="queue-column">
-            <NationalQueue.OpenRequestsList open={openRows.top} setOpen={(open) => setOpenRows({...openRows, top: open})} tasks={adminQueue ? allOpenTasks() : myOpenTasks()} admin={adminQueue} />
+            <NationalQueue.OpenRequestsList open={openRows.top} setOpen={(open) => setOpenRows({...openRows, top: open})} tasks={adminQueue ? allOpenTasks() : myOpenTasks()} admin={adminQueue} user={user} />
           </div>
         </div>
         <div className={"queue-row queue-bottom " + (openRow('bottom') || openRow('students'))}>

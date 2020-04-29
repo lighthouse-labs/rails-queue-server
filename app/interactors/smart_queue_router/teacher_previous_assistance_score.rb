@@ -15,6 +15,7 @@ class SmartQueueRouter::TeacherPreviousAssistanceScore
       # Positive points for ratings >= 3 negative points for < 3
       rating_points = average_rating < 2 ? average_rating - 2 : average_rating - 1
       history_scale = assistances.count < 2 ? 1 : Math.log(assistances.count, 2)
+      @teachers[teacher.id][:routing_score] ||= 0
       @teachers[teacher.id][:routing_score] += history_scale * rating_points * context.rating_multiplier
     end
 
