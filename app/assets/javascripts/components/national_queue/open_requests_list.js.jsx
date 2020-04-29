@@ -20,8 +20,12 @@ window.NationalQueue.OpenRequestsList = ({tasks, admin, open, setOpen, user}) =>
     return  <div className="alert alert-danger"><strong>You must be on duty to be assigned a queue!</strong></div>
   }
 
+  const isOpen = () => {
+    return open || (!user.onDuty && !admin);
+  }
+
   return (
-    <NationalQueue.ListGroup open={open || !user.onDuty} toggleOpen={toggleOpen} count={user.onDuty ? tasks.length : 1} title="Open Requests">
+    <NationalQueue.ListGroup open={isOpen()} toggleOpen={toggleOpen} count={(user.onDuty || admin) ? tasks.length : '!'} title="Open Requests">
       {user.onDuty || admin ? renderRequests() : offDutyWarning()}
     </NationalQueue.ListGroup>
   )
