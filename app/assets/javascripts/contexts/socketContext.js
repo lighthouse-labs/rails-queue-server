@@ -1,6 +1,5 @@
 window.NationalQueue = window.NationalQueue || {};
 const notify = (title, options) => {
-  console.log("notify", title, options);
   if (!("Notification" in window)) {
     console.log('notifications not supported');
   } else if (Notification.permission === "granted") {
@@ -20,7 +19,6 @@ const notificationBody = (request) => {
 }
 
 const notificationHandler = (data) => {
-  console.log("notificatin attempt", data);
   if (data.type === 'queueUpdate') {
     const update = Array.isArray(data.object) ? data.object[data.object.length - 1] : data.object;
     if (update && update.state === 'pending' && update.type === 'Assistance') {

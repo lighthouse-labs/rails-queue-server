@@ -21,8 +21,8 @@ window.NationalQueue.StudentInfo = ({student, activity, project, when, showDetai
 
     if (cohort && cohort.week)
       badges.push(
-        <React.Fragment>
-          <span className="badge badge-light">{student.location && student.location.name}</span>
+        <React.Fragment key="badgegroup">
+          <span key="locationbadge" className="badge badge-light">{student.location && student.location.name}</span>
           <a
             key="weekbadge"
             className="badge badge-light"
