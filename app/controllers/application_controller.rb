@@ -101,6 +101,13 @@ class ApplicationController < ActionController::Base
   end
   helper_method :teachers_on_duty
 
+  def all_teachers_on_duty
+    return [] unless current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student))
+
+    Teacher.where(on_duty: true)
+  end
+  helper_method :all_teachers_on_duty
+
   def cohort
     if impersonating?
       @cohort = Cohort.find_by(id: session[:cohort_id])

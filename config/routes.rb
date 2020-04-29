@@ -29,6 +29,13 @@ LaserShark::Application.routes.draw do
     post 'end_assistance'
   end
 
+  resource :queue_tasks, only: [:show], controller: 'queue_tasks' do
+    post 'provided_assistance'
+    get 'students'
+    get 'cohorts'
+    get 'day_activities'
+  end
+
   resources :quiz_submissions, only: [:show]
 
   resources :quizzes, only: [:index, :show, :new, :create, :destroy] do

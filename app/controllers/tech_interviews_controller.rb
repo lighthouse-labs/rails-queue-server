@@ -17,26 +17,24 @@ class TechInterviewsController < ApplicationController
   end
 
   def create
-    @tech_interview = @interview_template.pending_interview_for(@interviewee) ||
-                      @interview_template.tech_interviews.new(interviewee: @interviewee, cohort: @interviewee.cohort)
-
-    result = StartTechInterview.call(
-      tech_interview: @tech_interview,
-      interviewer:    current_user
+    result = NationalQueue::CreateTechInterview.call(
+      interviewer: current_user,
+      interviewee: @interviewee,
+      tech_interview_template: @interview_template
     )
 
     # should not fail, throw 500 / unexpected error if so
     if result.success?
-      redirect_to edit_tech_interview_path(@tech_interview)
+      redirect_to edit_tech_interview_path(result.tech_interview)
     else
       raise result.error
     end
   end
 
   def start
-    result = StartTechInterview.call(
-      tech_interview: @tech_interview,
-      interviewer:    current_user
+    result = NationalQueue::CreateTechInterview.call(
+      interviewer: current_user,
+      tech_interview: @tech_interview
     )
 
     if result.success?
@@ -48,9 +46,12 @@ class TechInterviewsController < ApplicationController
 
   # interviewer decided to undo the start (return to queue)
   def stop
-    result = StopTechInterview.call(
-      tech_interview: @tech_interview,
-      user:           current_user
+    result = NationalQueue::UpdateTechInterview.call(
+      interviewer: current_user,
+      options:  {
+        type:              'cancel_interview',
+        tech_interview_id: @tech_interview.id
+      }
     )
 
     if result.success?
@@ -75,13 +76,16 @@ class TechInterviewsController < ApplicationController
 
   # PUT (final step submission)
   def complete
-    result = CompleteTechInterview.call(
-      params:         params,
-      tech_interview: @tech_interview,
-      interviewer:    current_user
+    result = NationalQueue::UpdateTechInterview.call(
+      interviewer: current_user,
+      options:  {
+        type:              'complete_interview',
+        tech_interview_id: @tech_interview.id,
+        params: params
+      }
     )
 
-    if @tech_interview.save
+    if result.success?
       redirect_to @tech_interview, notice: "Interview completed. Student e-mailed with feedback."
     else
       render :edit

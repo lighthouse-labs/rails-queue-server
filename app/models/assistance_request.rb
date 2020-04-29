@@ -10,6 +10,8 @@ class AssistanceRequest < ApplicationRecord
   # used for code review requests only (set in CodeReviewRequest class) - KV
   belongs_to :activity_submission
 
+  has_many :queue_tasks
+
   before_validation :set_assistor_location_id, on: :create
 
   validates :requestor, presence: true
@@ -90,8 +92,15 @@ class AssistanceRequest < ApplicationRecord
     assistance if assistance.save!
   end
 
+  def assign_task(assistor)
+    return false if assistor.blank? || assistance.present?
+
+    queue_tasks.create(user: assistor)
+  end
+
   def end_assistance(notes)
     return if assistance.blank?
+
     assistance.end(notes)
   end
 
@@ -108,8 +117,18 @@ class AssistanceRequest < ApplicationRecord
     canceled_at.nil? && assistance && assistance.end_at.nil?
   end
 
+  def state
+    if in_progress?
+      'in_progress'
+    elsif open?
+      'pending'
+    else
+      'closed'
+    end
+  end
+
   def position_in_queue
-    self.class.open_requests.where(type: nil).for_location(assistor_location).where('assistance_requests.id < ?', id).count + 1 if open?
+    queue_tasks&.map(&:position_in_queue).max if open?
   end
 
   # this offline assistance request record thing is annoying and silly, but bigger code debt to fix/remove at a later time - KV

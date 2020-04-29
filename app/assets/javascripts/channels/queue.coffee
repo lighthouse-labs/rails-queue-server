@@ -108,4 +108,4 @@ class Queue
 
 if window.current_user?.type is 'Teacher'
   window.App ||= {}
-  window.App.queue = new Queue(window.App.desktopNotifier)
+  # window.App.queue = new Queue(window.App.desktopNotifier)
