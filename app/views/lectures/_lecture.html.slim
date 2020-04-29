@@ -7,8 +7,8 @@
       = lecture.subject
       - if local_assigns[:show_curriculum_day]
         small.text-muted
-          | &nbsp;-&nbsp;
-          = lecture.day.upcase
+          = lecture.day ? " - #{lecture.day.upcase}" : ''
+
       br
       small
         - if lecture.presenter
