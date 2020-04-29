@@ -10,12 +10,10 @@ window.NationalQueue.Lists = ({user}) => {
   const {error, myOpenTasks, allOpenTasks, inProgress, pendingEvaluations} = window.NationalQueue.useTasks(queueUpdates, user)
 
   const openRow = (position, number = 1, force) => {
-    console.log(position, number, force)
     return ((openRows[position] && number > 0) || force) ? 'open' : '';
   }
 
   const openTasks =  adminQueue ? allOpenTasks() : myOpenTasks();
-  console.log(user);
   return (
     <React.Fragment>
       {error && <div class="alert alert-danger"><strong>{error}</strong></div>}
