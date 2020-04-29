@@ -9,15 +9,18 @@ window.NationalQueue.Lists = ({user}) => {
   const {queueUpdates, queueChannel} = useContext(queueContext);
   const {error, myOpenTasks, allOpenTasks, inProgress, pendingEvaluations} = window.NationalQueue.useTasks(queueUpdates, user)
 
-  const openRow = (position) => {
-    return openRows[position] ? 'open' : '';
+  const openRow = (position, number = 1, force) => {
+    console.log(position, number, force)
+    return ((openRows[position] && number > 0) || force) ? 'open' : '';
   }
 
+  const openTasks =  adminQueue ? allOpenTasks() : myOpenTasks();
+  console.log(user);
   return (
     <React.Fragment>
       {error && <div class="alert alert-danger"><strong>{error}</strong></div>}
       <div className="queue-by-location">
-        <div className={"queue-column queue-top mb-3 " + openRow('top')}>
+        <div className={"queue-column queue-top mb-3 " + openRow('top', openTasks.length, !user.onDuty)}>
           <div className="queue-row">
             <h2 className="queue-title" >{`the ${adminQueue ? 'admin ' : ''}queue`} {queueChannel.connected || <i className="fas fa-spinner text-primary queue-loader"></i>}</h2>
             {user.admin &&
@@ -28,7 +31,7 @@ window.NationalQueue.Lists = ({user}) => {
             }
           </div>
           <div className="queue-column">
-            <NationalQueue.OpenRequestsList open={openRows.top} setOpen={(open) => setOpenRows({...openRows, top: open})} tasks={adminQueue ? allOpenTasks() : myOpenTasks()} admin={adminQueue} user={user} />
+            <NationalQueue.OpenRequestsList open={openRows.top} setOpen={(open) => setOpenRows({...openRows, top: open})} tasks={openTasks} admin={adminQueue} user={user} />
           </div>
         </div>
         <div className={"queue-row queue-bottom " + (openRow('bottom') || openRow('students'))}>

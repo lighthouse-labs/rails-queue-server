@@ -1,9 +1,8 @@
 window.Queue = window.Queue || {};
-const useEffect = React.useEffect;
 const useState = React.useState;
 
 window.NationalQueue.OpenRequestsList = ({tasks, admin, open, setOpen, user}) => {
-  
+
   const renderRequest = (task) => {
     const request = task.taskObject;
     return <NationalQueue.PendingAssistanceRequest key={`request-${request.id}`} teachers={admin && task.teachers} request={request} />
@@ -18,11 +17,11 @@ window.NationalQueue.OpenRequestsList = ({tasks, admin, open, setOpen, user}) =>
   }
 
   const offDutyWarning = () => {
-    return  <div class="alert alert-danger"><strong>You must be on duty to be assigned a queue! <br></br> (will need to refresh to remove this message, sorry!)</strong></div>
+    return  <div className="alert alert-danger"><strong>You must be on duty to be assigned a queue!</strong></div>
   }
 
   return (
-    <NationalQueue.ListGroup open={open} toggleOpen={toggleOpen} count={tasks.length} title="Open Requests">
+    <NationalQueue.ListGroup open={open || !user.onDuty} toggleOpen={toggleOpen} count={user.onDuty ? tasks.length : 1} title="Open Requests">
       {user.onDuty || admin ? renderRequests() : offDutyWarning()}
     </NationalQueue.ListGroup>
   )
