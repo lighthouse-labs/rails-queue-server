@@ -44,6 +44,10 @@ window.NationalQueue.Assistance = ({task}) => {
     )
   }
 
+  const when = () => {
+    return request.assistanceStart ? request.assistanceStart : request.startAt
+  }
+
   const request = task.taskObject;
   const student = task.taskObject.requestor;
   const assistor = task.teacher;
@@ -53,9 +57,9 @@ window.NationalQueue.Assistance = ({task}) => {
 
       <NationalQueue.StudentInfo  student={student}
                           showDetails={true}
-                          when={request.startAt} />
+                          when={when()} />
 
-      <NationalQueue.TeacherInfo teacher={assistor} when={request.startAt} />
+      <NationalQueue.TeacherInfo teacher={assistor} when={when()} />
 
       <div className="blurb">
         {App.ReactUtils.renderActivityDetails(request.activity)}
