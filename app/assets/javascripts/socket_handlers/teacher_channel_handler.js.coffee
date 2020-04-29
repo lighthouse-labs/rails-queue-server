@@ -27,7 +27,6 @@ class window.TeacherChannelHandler
       @addTeacherToSidebar(teacher)
 
   teacherOnDuty: ->
-    console.log("got an on duty")
     @addTeacherToSidebar(@object)
     @markMeAsOnDuty() if @teacherIsMe(@object)
 

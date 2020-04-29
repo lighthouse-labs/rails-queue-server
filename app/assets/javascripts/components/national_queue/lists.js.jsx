@@ -18,7 +18,7 @@ window.NationalQueue.Lists = ({user}) => {
     <React.Fragment>
       {error && <div class="alert alert-danger"><strong>{error}</strong></div>}
       <div className="queue-by-location">
-        <div className={"queue-column queue-top mb-3 " + openRow('top', openTasks.length, !user.onDuty)}>
+        <div className={"queue-column queue-top mb-3 " + openRow('top', openTasks.length, !user.onDuty && !adminQueue)}>
           <div className="queue-row">
             <h2 className="queue-title" >{`the ${adminQueue ? 'admin ' : ''}queue`} {queueChannel.connected || <i className="fas fa-spinner text-primary queue-loader"></i>}</h2>
             {user.admin &&
