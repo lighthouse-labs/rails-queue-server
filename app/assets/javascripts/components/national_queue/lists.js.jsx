@@ -24,7 +24,14 @@ window.NationalQueue.Lists = ({user}) => {
             {user.admin &&
               <label className="switch">
                 <input type="checkbox" value={adminQueue} onClick={e => setAdminQueue(!adminQueue)}/>
-                <span className="slider round"></span>
+                <span 
+                  className="slider round"
+                  data-toggle='tooltip' 
+                  data-placement='bottom' 
+                  title={`Toggle Admin Queue`}
+                  data-original-title={`Toggle Admin Queue`}
+                  ref={(ref) => $(ref).tooltip()}
+                ></span>
               </label>
             }
           </div>

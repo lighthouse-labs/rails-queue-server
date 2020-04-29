@@ -21,7 +21,7 @@ const notificationBody = (request) => {
 const notificationHandler = (data) => {
   if (data.type === 'queueUpdate') {
     const update = Array.isArray(data.object) ? data.object[data.object.length - 1] : data.object;
-    if (update && update.state === 'pending' && update.type === 'Assistance') {
+    if (shouldUpdate(window.current_user, update)) {
       const assistanceRequest = update.taskObject;
       const title = `Assistance Requested by ${assistanceRequest.requestor.firstName} ${assistanceRequest.requestor.lastName}`;
       const options = {
@@ -31,6 +31,10 @@ const notificationHandler = (data) => {
       notify(title, options);
     }
   }
+}
+
+const shouldUpdate = (user, update) => {
+  return (user.onDuty && !user.busy) && update && update.state === 'pending' && update.type === 'Assistance' && user.id === update.teacher.id;
 }
 
 const socketHandler = {
