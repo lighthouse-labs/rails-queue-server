@@ -58,7 +58,6 @@ window.NationalQueue.useQueueSocket = (user) => {
   useEffect(() => {
     // set up handlers for action cable
     socketHandler.onRecieved = (data) => {
-      console.log('recieved', data);
       dispatchQueueChannel({type: 'socketMessage', data});
     };
     socketHandler.onConnected = () => {
