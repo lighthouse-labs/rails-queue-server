@@ -60,7 +60,7 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
       options:  {
         type:       'finish_assistance',
         request_id: data["request_id"],
-        note:       data["notes"],
+        notes:       data["notes"],
         notify:     data["notify"],
         rating:     data["rating"]
       }
