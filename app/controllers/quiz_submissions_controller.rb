@@ -1,6 +1,7 @@
 class QuizSubmissionsController < ApplicationController
 
   before_action :require_quiz, only: [:new, :create]
+  before_action :load_workbook
 
   def new
     @quiz_submission = @quiz.quiz_submissions.new
@@ -16,9 +17,8 @@ class QuizSubmissionsController < ApplicationController
           redirect_to day_activity_path(@activity.day, @activity)
         elsif @activity.prep?
           redirect_to prep_activity_path(@activity.section, @activity)
-        elsif params[:workbook]
-          @workbook = Workbook.find(params[:workbook])
-          redirect_to workbook_activity_path(@workbook, @activity, workbook: @workbook.id)
+        elsif @workbook
+          redirect_to workbook_activity_path(@workbook, @activity)
         else
           redirect_to quiz_submission_path(@quiz_submission.id, section_id: params[:section_id], day: params[:day])
         end
@@ -44,6 +44,10 @@ class QuizSubmissionsController < ApplicationController
 
   def require_quiz
     @quiz = Quiz.find(params[:quiz_id])
+  end
+
+  def load_workbook
+    @workbook = Workbook.available_to(current_user).find_by!(slug: params[:workbook_id]) if params[:workbook_id]
   end
 
 end
