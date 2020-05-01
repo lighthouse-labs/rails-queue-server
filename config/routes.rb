@@ -33,6 +33,7 @@ LaserShark::Application.routes.draw do
     post 'provided_assistance'
     get 'students'
     get 'cohorts'
+    get 'teachers'
     get 'day_activities'
   end
 

@@ -22,6 +22,11 @@ class QueueTasksController < ApplicationController
     render json: cohorts, each_serializer: QueueCohortStatusSerializer, root: 'cohorts'
   end
 
+  def teachers
+    teachers = Teacher.on_duty
+    render json: teachers, each_serializer: UserSerializer, root: 'teachers'
+  end
+
   def day_activities
     render json: current_user.visible_bootcamp_activities.assistance_worthy.pluck(:name, :day, :id).group_by { |d| d[1] }
   end
