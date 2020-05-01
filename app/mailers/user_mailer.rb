@@ -6,8 +6,19 @@ class UserMailer < ActionMailer::Base
 
   def new_lecture(lecture)
     @lecture = lecture
+    @workbook = lecture.workbook # optional
     students = @lecture.cohort.students.active
-    mail  subject: "#{@lecture.day ? @lecture.day.upcase : 'Upcoming'} Lecture: #{@lecture.subject}",
+    subject = "Lecture: #{@lecture.subject}"
+
+    subject << if @lecture.day
+                 " - #{@lecture.day.upcase}"
+               elsif @workbook
+                 " - #{@workbook.name}"
+               else
+                 " - #{@lecture.program&.name}"
+               end
+
+    mail  subject: subject,
           to:      @lecture.cohort.teacher_email_group || ENV['INSTRUCTOR_EMAIL_GROUP'] || ENV['EMAIL_SENDER'],
           bcc:     students.pluck(:email)
   end
@@ -36,7 +47,7 @@ class UserMailer < ActionMailer::Base
     @interviewer    = tech_interview.interviewer
     @interviewee    = tech_interview.interviewee
 
-    feedback_email  = @interviewee.cohort.location.feedback_email
+    feedback_email = @interviewee.cohort.location.feedback_email
 
     mail  subject:  "LHL Week #{@tech_interview.week} Interview: #{@interviewee.full_name}",
           to:       @interviewee.email,

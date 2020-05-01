@@ -7,6 +7,7 @@ class Lecture < ApplicationRecord
   belongs_to :presenter, class_name: Teacher
   belongs_to :cohort
   belongs_to :activity
+  belongs_to :workbook, optional: true
 
   pg_search_scope :by_keywords,
                   against: [:subject, :body],
@@ -61,7 +62,7 @@ class Lecture < ApplicationRecord
   end
 
   def program
-    cohort&.program || Program.first
+    cohort&.program || activity&.program || Program.first
   end
 
   ## CLASS METHODS
