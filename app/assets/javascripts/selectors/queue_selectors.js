@@ -34,23 +34,24 @@ const selectInProgress = (tasks) => {
 }
 
 const tasksWithUpdates = (tasks, updates) => {
-  tasks = [...tasks];
+  tasks = {...tasks};
   for (update of updates) {
-    let updated = false;
-    for ([index, task] of tasks.entries()) {
-      if (task.id === update.object.id && task.type === update.object.type) {
-        tasks[index] = update.object;
-        updated = true;
-        break;
-      }
-    }
-    if (!updated) {
-      tasks.push(update.object);
+    tasks[update.object.id+update.object.type] = update.object;
+  }
+  return tasks;
+}
+
+const teachersWithUpdates = (teachers, updates) => {
+  teachers = {...teachers};
+  for (update of updates) {
+    const teacher = update.object;
+    if (teacher.onDuty) {
+      teachers[teacher.id] = teacher;
+    } else {
+      delete teachers[teacher.id];
     }
   }
-  return Array.from(_(tasks).sortBy((item) => {
-    return (item.startAt || item.startedAt || item.createdAt)
-  }));
+  return teachers;
 }
 
 const studentsWithUpdates = (students, updates) => {
@@ -117,6 +118,7 @@ window.NationalQueue.QueueSelectors =  {
   selectPending,
   selectInProgress,
   tasksWithUpdates,
+  teachersWithUpdates,
   studentsWithUpdates,
   cohortsWithUpdates
 }
