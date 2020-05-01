@@ -19,6 +19,7 @@ window.NationalQueue.ListGroup = ({children, count, title, open, toggleOpen}) =>
 
   return(
     <div className={`card card-default ${open && (count > 0 || count === '!') ? 'open' : 'collapsed'}`}>
+      <div className="card-header-border"></div>
       <div className="card-header clearfix" onClick={handleToggleCollapse}>
         <h5 className="card-title">
           <span className="count">{count}</span>

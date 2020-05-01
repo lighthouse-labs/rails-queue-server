@@ -18,26 +18,24 @@ window.NationalQueue.Lists = ({user}) => {
     <React.Fragment>
       {error && <div class="alert alert-danger"><strong>{error}</strong></div>}
       <div className="queue-by-location">
+        <div className="queue-header">
+          <h2 className="queue-title" >{`the ${adminQueue ? 'admin ' : ''}queue`} {queueChannel.connected || <i className="fas fa-spinner text-primary queue-loader"></i>}</h2>
+          {user.admin &&
+            <label className="switch">
+              <input type="checkbox" value={adminQueue} onClick={e => setAdminQueue(!adminQueue)}/>
+              <span 
+                className="slider round"
+                data-toggle='tooltip' 
+                data-placement='bottom' 
+                title={`Toggle Admin Queue`}
+                data-original-title={`Toggle Admin Queue`}
+                ref={(ref) => $(ref).tooltip()}
+              ></span>
+            </label>
+          }
+        </div>
         <div className={"queue-column queue-top mb-3 " + openRow('top', openTasks.length, !user.onDuty && !adminQueue)}>
-          <div className="queue-row">
-            <h2 className="queue-title" >{`the ${adminQueue ? 'admin ' : ''}queue`} {queueChannel.connected || <i className="fas fa-spinner text-primary queue-loader"></i>}</h2>
-            {user.admin &&
-              <label className="switch">
-                <input type="checkbox" value={adminQueue} onClick={e => setAdminQueue(!adminQueue)}/>
-                <span 
-                  className="slider round"
-                  data-toggle='tooltip' 
-                  data-placement='bottom' 
-                  title={`Toggle Admin Queue`}
-                  data-original-title={`Toggle Admin Queue`}
-                  ref={(ref) => $(ref).tooltip()}
-                ></span>
-              </label>
-            }
-          </div>
-          <div className="queue-column">
-            <NationalQueue.OpenRequestsList open={openRows.top} setOpen={(open) => setOpenRows({...openRows, top: open})} tasks={openTasks} admin={adminQueue} user={user} />
-          </div>
+          <NationalQueue.OpenRequestsList open={openRows.top} setOpen={(open) => setOpenRows({...openRows, top: open})} tasks={openTasks} admin={adminQueue} user={user} />
         </div>
         <div className={"queue-row queue-bottom " + (openRow('bottom') || openRow('students'))}>
           <div className="queue-column left">
