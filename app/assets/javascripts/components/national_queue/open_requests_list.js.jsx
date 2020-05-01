@@ -5,7 +5,7 @@ window.NationalQueue.OpenRequestsList = ({tasks, admin, open, setOpen, user}) =>
 
   const renderRequest = (task) => {
     const request = task.taskObject;
-    return <NationalQueue.PendingAssistanceRequest key={`request-${request.id}`} teachers={admin && task.teachers} request={request} />
+    return <NationalQueue.PendingAssistanceRequest key={`request-${request.id}`} teachers={admin === 'admin' && task.teachers} request={request} />
   }
 
   const renderRequests = () => {

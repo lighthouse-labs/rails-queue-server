@@ -1,6 +1,6 @@
 window.NationalQueue = window.NationalQueue || {};
 
-window.NationalQueue.InProgressList = ({tasks, open, setOpen}) => {
+window.NationalQueue.InProgressList = ({tasks}) => {
   const renderAssistance = (task) => {
     return <NationalQueue.Assistance key={`assistance-${task.id}`} task={task} />
   }
@@ -27,12 +27,8 @@ window.NationalQueue.InProgressList = ({tasks, open, setOpen}) => {
     return tasks.map(renderItem);
   }
 
-  const toggleOpen = () => {
-    return open === 'in-progress' ? setOpen(false) : setOpen('in-progress')
-  }
-
   return (
-    <NationalQueue.ListGroup open={open === 'in-progress'} toggleOpen={toggleOpen} count={tasks.length} title="In Progress">
+    <NationalQueue.ListGroup count={tasks.length} title="In Progress">
       {renderTasks(tasks)}
     </NationalQueue.ListGroup>
   )

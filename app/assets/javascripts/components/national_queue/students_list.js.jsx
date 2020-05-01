@@ -2,7 +2,7 @@ window.Queue = window.Queue || {};
 const useEffect = React.useEffect;
 const useState = React.useState;
 
-window.NationalQueue.StudentsList = ({user, setOpen, open, updates}) => {
+window.NationalQueue.StudentsList = ({updates}) => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const {studentsWithUpdates} = window.NationalQueue.QueueSelectors;
@@ -30,7 +30,7 @@ window.NationalQueue.StudentsList = ({user, setOpen, open, updates}) => {
   }
 
   return (
-    <NationalQueue.ListGroup open={open} toggleOpen={()=>setOpen(!open)} count={students.length} title="Students">
+    <NationalQueue.ListGroup count={students.length} title="Students">
       { renderStudents() }
     </NationalQueue.ListGroup>
   )
