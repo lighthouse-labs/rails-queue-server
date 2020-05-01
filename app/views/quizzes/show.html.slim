@@ -17,7 +17,7 @@ article.page-content
   .row
     .col-md-6
       h2 Submissions
-      - if @submission_stats.empty?
+      - if @submission_stats.blank?
         p There are currently no submissions for this quiz.
       - else
         .table-responsive
