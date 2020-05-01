@@ -6,6 +6,7 @@ const useContext = React.useContext;
 
 const initialState = {
   connected: false,
+  refresh: 0,
   lastUpdate: 0,
   channel: {},
   requestUpdates: [],
@@ -25,12 +26,14 @@ const messageLookup = {
     return {...state, lastUpdate: updates[updates.length - 1].sequence, queueUpdates: [...updates]}
   },
   'teacherUpdate': (state, updates) => {
-    // not used yet
     return {...state, lastUpdate: updates[updates.length - 1].sequence, teacherUpdates: [...updates]}
   },
   'requestUpdate': (state, updates) => {
     const sequence = updates[updates.length - 1].sequence;
     return {...state, lastUpdate: sequence, requestUpdates: [...state.requestUpdates, ...updates]}
+  },
+  'refresh': (state, updates) => {
+    return {...state, queueUpdates: [], refresh: state.lastUpdate}
   }
 }
 
@@ -44,7 +47,7 @@ const reducer = (state, action) => {
       return {...state, channel: action.data.socket, connected: action.data.connected };
     case 'socketMessage':
       const updates = Array.isArray(action.data.object) ? action.data.object : [{object: action.data.object, sequence: action.data.sequence}]
-      return updates.length > 0 ? messageLookup[action.data.type](state, updates) : state
+      return (updates.length > 0 && messageLookup[action.data.type]) ? messageLookup[action.data.type](state, updates) : state
     default:
       throw new Error();
   }
@@ -123,6 +126,14 @@ window.NationalQueue.useQueueSocket = (user) => {
     queueChannel.channel.perform('provide_assistance', {requestor_id: student.id, notes, notify, rating});
   }
 
+  const toggleDuty = (user) => {
+    if (user.onDuty)
+      App.teacherChannel.offDuty(user);
+    else {
+      App.teacherChannel.onDuty(user);
+    }
+  }
+
   return {
     requestAssistance,
     cancelAssistanceRequest,
@@ -134,6 +145,8 @@ window.NationalQueue.useQueueSocket = (user) => {
     startEvaluating,
     cancelInterview,
     provideAssistance,
+    toggleDuty,
+    refresh: queueChannel.refresh,
     requestUpdates: queueChannel.requestUpdates,
     queueUpdates: queueChannel.queueUpdates,
     teacherUpdates:queueChannel.teacherUpdates

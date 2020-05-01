@@ -31,12 +31,16 @@ module ApplicationCable
     end
 
     def get_missed_updates(data)
-      
       if current_user&.is_a?(Teacher)
         updates = [*@@general_updates, *@@user_updates[current_user.id]].sort_by { |update| update[:sequence] }
         sequence = data["sequence"] > @@message_sequence ? 0 : data["sequence"]
         updates = missed_updates(updates, sequence)
-        self.class.broadcast_to current_user, { type: @@updates_type, object: updates }, true
+        if updates.length > 0 && updates[0][:sequence] > sequence
+          self.class.broadcast_to current_user, { type: @@updates_type, object: updates }, true
+          self.class.broadcast_to current_user, { type: 'refresh'}, true
+        else
+          self.class.broadcast_to current_user, { type: @@updates_type, object: updates }, true
+        end
         # user has been sent updates so free up memory
         @@user_updates.delete(current_user.id)
       end
