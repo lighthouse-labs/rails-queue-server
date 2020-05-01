@@ -26,7 +26,7 @@ class NationalQueue::SmartTaskRoute
   end
 
   def public_task(task)
-    task.user == @assistor
+    task.user.id == @assistor.id
   end
 
 end
