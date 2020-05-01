@@ -2,11 +2,11 @@
 window.connectToTeachersSocket = ->
   return unless App.cable
   App.teacherChannel = App.cable.subscriptions.create "TeacherChannel",
-    onDuty: ->
-      @perform 'on_duty'
+    onDuty: (user) ->
+      @perform 'on_duty', user_id: user && user.id
 
-    offDuty: ->
-      @perform 'off_duty'
+    offDuty: (user) ->
+      @perform 'off_duty', user_id: user && user.id
 
     received: (data) ->
       new TeacherChannelHandler(data).processResponse()

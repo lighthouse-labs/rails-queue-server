@@ -49,9 +49,13 @@ class window.TeacherChannelHandler
 
   markMeAsOnDuty: ->
     window.current_user.onDuty = true
+    $('.on-duty-link').attr('hidden', true)
+    $('.off-duty-link').removeAttr('hidden')
 
   markMeAsOffDuty: ->
     window.current_user.onDuty = false
+    $('.off-duty-link').attr('hidden', true)
+    $('.on-duty-link').removeAttr('hidden')
 
   addTeacherToSidebar: (teacher) ->
     if $('.teacher-images').find("\#teacher_#{teacher.id}").length is 0

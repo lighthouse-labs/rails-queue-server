@@ -4,19 +4,21 @@ class TeacherChannel < ApplicationCable::Channel
     stream_from channel_name
   end
 
-  def on_duty
-    if current_user.is_a?(Teacher)
-      NationalQueue::OnDuty.call( assistor: current_user)
+  def on_duty(data)
+    user = data['user_id'] ? User.find_by(id: data['user_id']) : current_user
+    if user.is_a?(Teacher)
+      NationalQueue::OnDuty.call( assistor: user)
       ActionCable.server.broadcast channel_name, type:   "TeacherOnDuty",
-                                                 object: UserSerializer.new(current_user).as_json
+                                                 object: UserSerializer.new(user).as_json
     end
   end
 
-  def off_duty
-    if current_user.is_a?(Teacher)
-      NationalQueue::OffDuty.call( assistor: current_user)
+  def off_duty(data)
+    user = data['user_id'] ? User.find_by(id: data['user_id']) : current_user
+    if user.is_a?(Teacher)
+      NationalQueue::OffDuty.call( assistor: user)
       ActionCable.server.broadcast channel_name, type:   "TeacherOffDuty",
-                                                 object: UserSerializer.new(current_user).as_json
+                                                 object: UserSerializer.new(user).as_json
     end
   end
 
