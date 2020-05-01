@@ -3,7 +3,7 @@ class TechInterviewSerializer < ActiveModel::Serializer
   root false
   format_keys :lower_camel
 
-  attributes :id, :created_at, :started_at, :completed_at, :type
+  attributes :id, :created_at, :started_at, :completed_at, :type, :state
 
   has_one :tech_interview_template, serializer: TechInterviewTemplateSerializer
   has_one :interviewer, serializer: TeacherSerializer
@@ -12,5 +12,7 @@ class TechInterviewSerializer < ActiveModel::Serializer
   def type
     'TechInterview'
   end
+
+  delegate :state, to: :object
 
 end

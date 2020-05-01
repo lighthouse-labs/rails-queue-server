@@ -2,15 +2,15 @@ li.dropdown.nav-item.current-user
   = link_to '#', class: 'dropdown-toggle nav-link', :'data-toggle' => 'dropdown' do
     i.fa.fa-fw.fa-list
     span.teacher-count
-      = teachers_on_duty.length 
+      = all_teachers_on_duty.length 
     span.teacher-text
-      = teachers_on_duty.length == 1 ? ' Teacher on duty' : ' Teachers on duty'
+      = all_teachers_on_duty.length == 1 ? ' Teacher on duty' : ' Teachers on duty'
   .dropdown-menu.dropdown-menu-right.dropdown-teacher
     .teacher-holder data-turbolinks-permanent="true"
       p.dropdown-item Teachers on duty
       div.dropdown-divider
       div.teacher-images
-        - teachers_on_duty.each do |teacher|
+        - all_teachers_on_duty.each do |teacher|
           = link_to teacher do
             = image_tag avatar_for(teacher), { \
               id: "teacher_#{teacher.id}", \
