@@ -13,6 +13,8 @@
           | &nbsp;
         = activity.name
       span.toc-activity--tags
-        - if current_user.completed_activity?(activity)
+        - if show_activity_as_completed?(activity)
           i.fa.fa-check.text-muted data-toggle='tooltip' title='Completed :)'
-
+        - elsif show_activity_completion_stats?(activity)
+          span.completed-activities data-toggle='tooltip' title="Completion stats for #{cohort.name}"
+            = completed_students(activity)
