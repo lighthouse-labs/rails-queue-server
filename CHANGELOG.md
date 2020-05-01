@@ -1,5 +1,51 @@
 # Changelog
 
+## [Unreleased](https://github.com/lighthouse-labs/compass/tree/HEAD)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.30.17.03u...HEAD)
+
+**Merged pull requests:**
+
+- FIX: lecture creation workflow - workbooks [\#1100](https://github.com/lighthouse-labs/compass/pull/1100) ([DraconianLore](https://github.com/DraconianLore))
+- FIX: Workbooks quiz redirects [\#1098](https://github.com/lighthouse-labs/compass/pull/1098) ([DraconianLore](https://github.com/DraconianLore))
+- show completion to teachers and admin in workbooks [\#1093](https://github.com/lighthouse-labs/compass/pull/1093) ([DraconianLore](https://github.com/DraconianLore))
+
+## [2020.04.30.17.03u](https://github.com/lighthouse-labs/compass/tree/2020.04.30.17.03u) (2020-04-30)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.30.16.23u...2020.04.30.17.03u)
+
+## [2020.04.30.16.23u](https://github.com/lighthouse-labs/compass/tree/2020.04.30.16.23u) (2020-04-30)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.29.5523u...2020.04.30.16.23u)
+
+## [2020.04.29.5523u](https://github.com/lighthouse-labs/compass/tree/2020.04.29.5523u) (2020-04-30)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.29.2211u...2020.04.29.5523u)
+
+## [2020.04.29.2211u](https://github.com/lighthouse-labs/compass/tree/2020.04.29.2211u) (2020-04-29)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.29.1953u...2020.04.29.2211u)
+
+## [2020.04.29.1953u](https://github.com/lighthouse-labs/compass/tree/2020.04.29.1953u) (2020-04-29)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.29.1852u...2020.04.29.1953u)
+
+## [2020.04.29.1852u](https://github.com/lighthouse-labs/compass/tree/2020.04.29.1852u) (2020-04-29)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.29.1718u...2020.04.29.1852u)
+
+## [2020.04.29.1718u](https://github.com/lighthouse-labs/compass/tree/2020.04.29.1718u) (2020-04-29)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.29.1545u...2020.04.29.1718u)
+
+## [2020.04.29.1545u](https://github.com/lighthouse-labs/compass/tree/2020.04.29.1545u) (2020-04-29)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.27.0600u...2020.04.29.1545u)
+
+**Merged pull requests:**
+
+- National queue [\#1099](https://github.com/lighthouse-labs/compass/pull/1099) ([tborsa](https://github.com/tborsa))
+
 ## [2020.04.27.0600u](https://github.com/lighthouse-labs/compass/tree/2020.04.27.0600u) (2020-04-26)
 
 [Full Changelog](https://github.com/lighthouse-labs/compass/compare/2020.04.10.1815u...2020.04.27.0600u)
@@ -206,18 +252,25 @@
 
 ## [2019.09.09.1140u](https://github.com/lighthouse-labs/compass/tree/2019.09.09.1140u) (2019-09-06)
 
-[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.28.1030...2019.09.09.1140u)
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.11.4.1025...2019.09.09.1140u)
 
 **Merged pull requests:**
 
 - use active scope when loading teachers [\#922](https://github.com/lighthouse-labs/compass/pull/922) ([kvirani](https://github.com/kvirani))
 - Fix 913 Fontawesome icon fix & 914 Remove Feedback Button [\#919](https://github.com/lighthouse-labs/compass/pull/919) ([tborsa](https://github.com/tborsa))
 - updated capybara, webdrivers, selenium gems [\#918](https://github.com/lighthouse-labs/compass/pull/918) ([kvirani](https://github.com/kvirani))
-- Fix broken specs [\#917](https://github.com/lighthouse-labs/compass/pull/917) ([kvirani](https://github.com/kvirani))
 - Added Validation so Part-Time Programs require 'weekdays' [\#916](https://github.com/lighthouse-labs/compass/pull/916) ([tborsa](https://github.com/tborsa))
-- Hardcoding in all the proctored exams [\#912](https://github.com/lighthouse-labs/compass/pull/912) ([daegren](https://github.com/daegren))
 - Add CSV API Endpoint for Tech interviews \(data analysis\) [\#911](https://github.com/lighthouse-labs/compass/pull/911) ([JBorts](https://github.com/JBorts))
 - Fix \#815: don't break grid by overriding max-width [\#909](https://github.com/lighthouse-labs/compass/pull/909) ([vaz](https://github.com/vaz))
+
+## [2019.11.4.1025](https://github.com/lighthouse-labs/compass/tree/2019.11.4.1025) (2019-09-04)
+
+[Full Changelog](https://github.com/lighthouse-labs/compass/compare/2019.06.28.1030...2019.11.4.1025)
+
+**Merged pull requests:**
+
+- Fix broken specs [\#917](https://github.com/lighthouse-labs/compass/pull/917) ([kvirani](https://github.com/kvirani))
+- Hardcoding in all the proctored exams [\#912](https://github.com/lighthouse-labs/compass/pull/912) ([daegren](https://github.com/daegren))
 - Activity Time Spent Importer Fix [\#880](https://github.com/lighthouse-labs/compass/pull/880) ([jmatsuba](https://github.com/jmatsuba))
 
 ## [2019.06.28.1030](https://github.com/lighthouse-labs/compass/tree/2019.06.28.1030) (2019-06-28)
