@@ -24,14 +24,14 @@ class window.TeacherChannelHandler
 
   userConnected: ->
     for teacher in @object
-      @addTeacherToSidebar(teacher) if @teacherInLocation(teacher)
+      @addTeacherToSidebar(teacher)
 
   teacherOnDuty: ->
-    @addTeacherToSidebar(@object) if @teacherInLocation(@object)
+    @addTeacherToSidebar(@object)
     @markMeAsOnDuty() if @teacherIsMe(@object)
 
   teacherOffDuty: ->
-    @removeTeacherFromSidebar(@object) if @teacherInLocation(@object)
+    @removeTeacherFromSidebar(@object)
     @markMeAsOffDuty() if @teacherIsMe(@object)
 
   teacherBusy: ->

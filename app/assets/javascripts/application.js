@@ -46,6 +46,9 @@
 //= require_tree ./socket_handlers/
 //= require admin
 
+//= require_tree ./selectors
+//= require_tree ./hooks
+//= require_tree ./contexts
 //= require components
 //= require_tree ./presenters
 //= require_tree ./admin

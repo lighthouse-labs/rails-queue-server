@@ -3,6 +3,7 @@ class LecturesController < ApplicationController
   include CourseCalendar
 
   before_action :retrieve_activity, except: [:index]
+  before_action :load_workbook
   before_action :require_lecture, only: [:edit, :update, :destroy, :show]
   before_action :teacher_required, only: [:edit, :update, :destroy, :new, :create]
   before_action :check_if_day_unlocked, only: [:show]
@@ -33,12 +34,13 @@ class LecturesController < ApplicationController
     result = Lecture::Complete.call(
       activity:       @activity,
       lecture_params: lecture_params,
-      presenter:      @teacher
+      presenter:      @teacher,
+      workbook:       @workbook
     )
     @lecture = result.lecture
 
     if result.success?
-      redirect_to activity_lecture_path(@activity, @lecture), notice: "Created! #{@lecture.cohort.name} students notified via e-mail."
+      redirect_to activity_lecture_path(@activity, @lecture, workbook_id: @workbook), notice: "Created! #{@lecture.cohort.name} students notified via e-mail."
     else
       load_day_schedule
       render :new
@@ -52,7 +54,7 @@ class LecturesController < ApplicationController
 
   def update
     if @lecture.update(lecture_params)
-      redirect_to activity_lecture_path(@activity, @lecture), notice: 'Updated!'
+      redirect_to activity_lecture_path(@activity, @lecture, workbook_id: @workbook), notice: 'Updated!'
     else
       load_day_schedule
       render :edit
@@ -60,7 +62,7 @@ class LecturesController < ApplicationController
   end
 
   def destroy
-    path = activity_path(@activity)
+    path = activity_path(@activity, workbook_id: @workbook)
     if @lecture.destroy
       redirect_to path, notice: 'Lecture deleted'
     else
@@ -76,6 +78,10 @@ class LecturesController < ApplicationController
 
   def require_lecture
     @lecture = @activity.lectures.find(params[:id])
+  end
+
+  def load_workbook
+    @workbook = Workbook.available_to(current_user).find_by!(slug: params[:workbook_id]) if params[:workbook_id]
   end
 
   def teacher_required

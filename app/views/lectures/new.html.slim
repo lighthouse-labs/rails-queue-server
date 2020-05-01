@@ -1,21 +1,27 @@
 - title "New Lecture for #{@activity.name}"
 
 - content_for :side_nav do
-  == render 'shared/menus/bootcamp_day_menu'
+  - if @activity.bootcamp? 
+    = render 'shared/menus/bootcamp_day_menu'
+  - elsif @workbook
+    = render 'workbooks/side_menu'
 
 section.activity-details
-  h1 = @activity.name
+  h1 = "New Lecture for: #{@activity.name}"
 
   .well
     .actions
       .form-group
         .form-inline
           .left-actions
-            = link_to day_activity_path(@activity.day, @activity), class: 'btn btn-previous'
-              | &laquo; Cancel
+            - if @activity.bootcamp?
+              = link_to day_activity_path(@activity.day, @activity), class: 'btn btn-previous'
+            - else
+              = link_to :back, class: 'btn btn-previous'
+                | &laquo; Cancel
 
 
-  = simple_form_for [@activity, @lecture], url: activity_lectures_path(@activity) do |f|
+  = simple_form_for [@activity, @lecture], url: activity_lectures_path(@activity, workbook_id: @workbook) do |f|
     == render f
 
     = f.submit 'Submit', class: 'btn btn-primary'

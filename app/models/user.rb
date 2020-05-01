@@ -32,6 +32,8 @@ class User < ApplicationRecord
 
   has_many :video_conferences
 
+  has_many :queue_tasks
+
   scope :order_by_last_assisted_at, -> {
     order("last_assisted_at ASC NULLS FIRST")
   }
@@ -260,6 +262,10 @@ class User < ApplicationRecord
     video_conferences&.active.present?
   end
 
+  def assigned_ar?(assistance_request)
+    queue_tasks.where(assistance_request: assistance_request).exists?
+  end
+  
   class << self
 
     def authenticate_via_github(auth)

@@ -17,6 +17,14 @@ class Teacher < User
     where(id: teacher_id)
   }
 
+  scope :has_assisted_student, ->(student) {
+    includes(:teaching_assistances)
+      .where(assistances: { assistee_id: student.id })
+      .where('assistances.end_at IS NOT NULL')
+  }
+
+  scope :on_duty, -> { where(on_duty: true) }
+
   validates :bio,             length: { maximum: 1000 }
   validates :quirky_fact,     length: { maximum: 255 }
   validates :specialties,     length: { maximum: 255 }

@@ -14,6 +14,7 @@ class QueueStudentSerializer < ActiveModel::Serializer
              :last_assisted_at,
              :pronoun
 
+  has_one :location, serializer: MyLocationSerializer
   has_one :cohort
 
   # Delegates to method in AvatarHelper

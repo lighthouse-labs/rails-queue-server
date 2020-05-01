@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200415153940) do
+ActiveRecord::Schema.define(version: 20200501183412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -341,9 +341,11 @@ ActiveRecord::Schema.define(version: 20200415153940) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.boolean  "legacy",                     default: false
+    t.integer  "workbook_id"
     t.index ["activity_id"], name: "index_lectures_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_lectures_on_cohort_id", using: :btree
     t.index ["presenter_id"], name: "index_lectures_on_presenter_id", using: :btree
+    t.index ["workbook_id"], name: "index_lectures_on_workbook_id", using: :btree
   end
 
   create_table "locations", force: :cascade do |t|
@@ -504,6 +506,15 @@ ActiveRecord::Schema.define(version: 20200415153940) do
     t.integer "quiz_id"
     t.index ["question_id"], name: "index_questions_quizzes_on_question_id", using: :btree
     t.index ["quiz_id"], name: "index_questions_quizzes_on_quiz_id", using: :btree
+  end
+
+  create_table "queue_tasks", force: :cascade do |t|
+    t.integer "assistance_request_id"
+    t.integer "user_id"
+    t.integer "sequence"
+    t.index ["assistance_request_id"], name: "index_queue_tasks_on_assistance_request_id", using: :btree
+    t.index ["sequence"], name: "index_queue_tasks_on_sequence", unique: true, using: :btree
+    t.index ["user_id"], name: "index_queue_tasks_on_user_id", using: :btree
   end
 
   create_table "quiz_submissions", force: :cascade do |t|
@@ -788,6 +799,7 @@ ActiveRecord::Schema.define(version: 20200415153940) do
   add_foreign_key "deployments", "content_repositories"
   add_foreign_key "lectures", "activities"
   add_foreign_key "lectures", "cohorts"
+  add_foreign_key "lectures", "workbooks"
   add_foreign_key "options", "questions"
   add_foreign_key "outcome_results", "outcomes"
   add_foreign_key "outcome_results", "users"
@@ -797,6 +809,8 @@ ActiveRecord::Schema.define(version: 20200415153940) do
   add_foreign_key "programming_test_attempts", "programming_tests"
   add_foreign_key "programming_test_attempts", "users", column: "student_id"
   add_foreign_key "questions", "outcomes"
+  add_foreign_key "queue_tasks", "assistance_requests"
+  add_foreign_key "queue_tasks", "users"
   add_foreign_key "quiz_submissions", "quizzes"
   add_foreign_key "sections", "content_repositories"
   add_foreign_key "sections", "workbooks"

@@ -12,7 +12,7 @@ class QuizSubmissionsController < ApplicationController
       @quiz_submission = result.quiz_submission
       if params[:activity_id].present?
         @activity = Activity.find params[:activity_id]
-        if @activity.day?
+        if @activity.bootcamp?
           redirect_to day_activity_path(@activity.day, @activity)
         elsif @activity.prep?
           redirect_to prep_activity_path(@activity.section, @activity)

@@ -1,7 +1,11 @@
 - title "Edit Lecture: #{@lecture.subject}"
 
 - content_for :side_nav do
-  == render 'shared/menus/bootcamp_day_menu'
+  - if @activity.bootcamp? 
+    = render 'shared/menus/bootcamp_day_menu'
+  - elsif @workbook
+    = render 'workbooks/side_menu'
+
 
 h1
   = "Edit Lecture: #{@lecture.subject}"
@@ -11,6 +15,6 @@ h1
     strong
       = @lecture.activity.name
 
-  = simple_form_for [@activity, @lecture], url: activity_lecture_path(@activity, @lecture) do |form|
+  = simple_form_for [@activity, @lecture], url: activity_lecture_path(@activity, @lecture, workbook_id: @workbook) do |form|
     == render form
     = form.submit 'Update', class: 'btn btn-primary'
