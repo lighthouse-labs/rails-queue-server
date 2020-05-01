@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200414172242) do
+ActiveRecord::Schema.define(version: 20200501183412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -341,9 +341,11 @@ ActiveRecord::Schema.define(version: 20200414172242) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.boolean  "legacy",                     default: false
+    t.integer  "workbook_id"
     t.index ["activity_id"], name: "index_lectures_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_lectures_on_cohort_id", using: :btree
     t.index ["presenter_id"], name: "index_lectures_on_presenter_id", using: :btree
+    t.index ["workbook_id"], name: "index_lectures_on_workbook_id", using: :btree
   end
 
   create_table "locations", force: :cascade do |t|
@@ -797,6 +799,7 @@ ActiveRecord::Schema.define(version: 20200414172242) do
   add_foreign_key "deployments", "content_repositories"
   add_foreign_key "lectures", "activities"
   add_foreign_key "lectures", "cohorts"
+  add_foreign_key "lectures", "workbooks"
   add_foreign_key "options", "questions"
   add_foreign_key "outcome_results", "outcomes"
   add_foreign_key "outcome_results", "users"
