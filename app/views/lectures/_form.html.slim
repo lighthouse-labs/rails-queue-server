@@ -6,7 +6,6 @@
 
   hr
 
-
 = form.input :subject, label: 'Subject', placeholder: "Lecture topic (don't include 'WxDy')", required: true
 = form.input :youtube_url, label: 'Lecture Video', placeholder: 'YouTube Link'
 = form.association :presenter, collection: Teacher.all.order(:last_name, :first_name), label_method: :full_name, required: true
