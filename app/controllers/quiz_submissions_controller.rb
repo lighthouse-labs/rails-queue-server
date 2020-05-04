@@ -39,7 +39,7 @@ class QuizSubmissionsController < ApplicationController
   private
 
   def submission_params
-    params.require(:quiz_submission).permit(answers_attributes: [:option_id]).permit(:workbook)
+    params.require(:quiz_submission).permit(answers_attributes: [:option_id])
   end
 
   def require_quiz
