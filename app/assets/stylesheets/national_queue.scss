@@ -37,8 +37,8 @@
       align-items: center;
       max-width: 70%;
       .option {
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
         border-width: 2px;
         border-style: solid;
         border-color: $brand-success;
@@ -59,8 +59,9 @@
         }
         &.all {
           border: 0px;
-          font-size: 2rem;
+          font-size: 1.3rem;
           color: white;
+          flex-shrink: 0;
         }
         &.busy {
           border-color: $brand-warning;
@@ -69,7 +70,7 @@
       .mentors {
         display: flex;
         align-items: center;
-        overflow-x: scroll;
+        flex-wrap: wrap;
       }
     }
   }
@@ -83,12 +84,10 @@
     display: flex;
     flex-direction: column;
     min-height: 0px;
+    min-width: 350px;
     flex: 1 1 auto;
     &.left {
       margin-right: 1rem;
-    }
-    &.right {
-      min-width: 450px;
     }
     .card-header {
       background-color: #f7f7f7;
@@ -97,7 +96,7 @@
       top: 130px;
     }
     .card-header-border {
-      height: 0.5rem;
+      height: 0.25rem;
       border: 1px solid #dfdfdf;
       border-bottom: 0px;
       border-radius: 0.25rem 0.25rem 0 0;
@@ -134,10 +133,6 @@
   }
   .queue-top {
     flex: 1 1 auto;
-    min-height: 120px;
-    .card {
-      margin-bottom: 0;
-    }
   }
   .queue-bottom {
     flex: 1 3 auto;
@@ -221,12 +216,11 @@
 
 @media (max-width: 800px) {
   .queue-by-location {
-    max-height: 100%;
     .queue-row {
       flex-direction: column;
     }
     .queue-column {
-      max-height: 50vh;
+      min-width: 0;
       .card {
         min-height: 45px;
       }
@@ -235,6 +229,45 @@
       }
       &.left {
         margin-right: 0rem;
+      }
+    }
+  }
+}
+
+.national-queue-stats {
+  display: flex;
+  flex-direction: column;
+  .group {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    .info {
+      width: 100%;
+      .user-queue-activity {
+        display: flex;
+        width: 100%;
+        .hour-block {
+          display: flex;
+          flex-direction: column;
+          p {
+  
+          }
+          .half-hours {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #f7f7f7;
+          }
+        }
+      }
+      .tasks {
+        display: flex;
+        .quantity {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+      .scores {
+        display: flex;
       }
     }
   }

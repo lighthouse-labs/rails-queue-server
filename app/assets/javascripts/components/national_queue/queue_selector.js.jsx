@@ -18,11 +18,11 @@ window.NationalQueue.QueueSelector = ({teachers, userQueue, setUserQueue}) => {
           onClick={e => toggleUserQueue(teacher)}
           src={teacher.avatarUrl}
           className={selected(teacher) + (teacher.busy ? " option busy" : ' option')}
-          data-toggle='tooltip' 
-          data-placement='bottom' 
-          title={teacher.fullName}
-          data-original-title={`Toggle Admin Queue`}
-          // ref={(ref) => $(ref).tooltip()}
+          data-toggle='tooltip'
+          data-placement='bottom'
+          title={`${teacher.fullName}`}
+          data-original-title={`${teacher.fullName}`}
+          ref={(ref) => $(ref).tooltip()}
         />
       );
     });
@@ -38,7 +38,15 @@ window.NationalQueue.QueueSelector = ({teachers, userQueue, setUserQueue}) => {
           <span className="title">Mentors</span>
         </h5>
         <div className="options">
-          <div className={selected('admin') + "option all bg-primary"} onClick={e => setUserQueue('admin')}>
+          <div 
+            className={selected('admin') + "option all bg-primary"} 
+            onClick={e => setUserQueue('admin')}
+            data-toggle='tooltip' 
+            data-placement='bottom' 
+            title={'National Queue'}
+            data-original-title={`National Queue`}
+            ref={(ref) => $(ref).tooltip()}
+          >
             <i className="fas fa-globe-americas"></i>
           </div>
           <div className="mentors">
