@@ -10,7 +10,7 @@ window.NationalQueue.PendingEvaluationsList = ({tasks}) => {
   }
 
   return (
-    <NationalQueue.ListGroup count={tasks.length} title="Pending Evaluations">
+    <NationalQueue.ListGroup icon={tasks.length} title="Pending Evaluations">
       {renderEvaluations()}
     </NationalQueue.ListGroup>
   )

@@ -30,7 +30,7 @@ window.NationalQueue.StudentsList = ({updates}) => {
   }
 
   return (
-    <NationalQueue.ListGroup count={students.length} title="Students">
+    <NationalQueue.ListGroup icon={students.length} title="Students">
       { renderStudents() }
     </NationalQueue.ListGroup>
   )

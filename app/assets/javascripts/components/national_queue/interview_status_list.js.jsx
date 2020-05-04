@@ -29,7 +29,7 @@ window.NationalQueue.InterviewStatusList = ({updates}) => {
   }
 
   return (
-    <NationalQueue.ListGroup count={cohorts.length} title="Tech Interview Status">
+    <NationalQueue.ListGroup icon={cohorts.length} title="Tech Interview Status">
       { renderInterviewStatuses() }
     </NationalQueue.ListGroup>
   )
