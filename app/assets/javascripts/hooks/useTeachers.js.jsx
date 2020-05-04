@@ -26,7 +26,7 @@ window.NationalQueue.useTeachers = (updates, user) => {
         }, {})
         return {...state, teachers};
       case 'addUpdates':
-        return {...state, currentUser: updateCurrentUser(state.currentUser, action.data), tasks: teachersWithUpdates(state.teachers, action.data)};
+        return {...state, currentUser: updateCurrentUser(state.currentUser, action.data), teachers: teachersWithUpdates(state.teachers, action.data)};
       case 'error':
         return {...state, error: action.data}
       default:
@@ -59,9 +59,14 @@ window.NationalQueue.useTeachers = (updates, user) => {
     dispatchTeachersState({type: 'addUpdates', data: updates});
   },[updates]);
 
+  const teacherOnDuty = (teacher) => {
+    return teachersState.teachers[teacher.id] && teachersState.teachers[teacher.id].onDuty;
+  }
+
   return {
     currentUser: teachersState.currentUser,
     teachers: Object.values(teachersState.teachers),
+    teacherOnDuty,
     error: teachersState.error
   }
 

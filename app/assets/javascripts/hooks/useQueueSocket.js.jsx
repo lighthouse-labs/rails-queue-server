@@ -26,7 +26,7 @@ const messageLookup = {
     return {...state, lastUpdate: updates[updates.length - 1].sequence, queueUpdates: [...updates]}
   },
   'teacherUpdate': (state, updates) => {
-    return {...state, lastUpdate: updates[updates.length - 1].sequence, teacherUpdates: [...updates]}
+    return {...state, teacherUpdates: [...updates]}
   },
   'requestUpdate': (state, updates) => {
     const sequence = updates[updates.length - 1].sequence;
@@ -48,6 +48,8 @@ const reducer = (state, action) => {
     case 'socketMessage':
       const updates = Array.isArray(action.data.object) ? action.data.object : [{object: action.data.object, sequence: action.data.sequence}]
       return (updates.length > 0 && messageLookup[action.data.type]) ? messageLookup[action.data.type](state, updates) : state
+    case 'refresh':
+      return {...state, queueUpdates: [], refresh: new Date()}
     default:
       throw new Error();
   }
@@ -67,7 +69,8 @@ window.NationalQueue.useQueueSocket = (user) => {
       dispatchQueueChannel({type: 'connect'});
       if (queueChannel.lastUpdate > 0) {
         // re-establishing connection
-        socketHandler.socket.perform('get_missed_updates', {sequence: queueChannel.lastUpdate});
+        dispatchQueueChannel({type: 'refresh'});
+        // socketHandler.socket.perform('get_missed_updates', {sequence: queueChannel.lastUpdate});
       } else {
         socketHandler.socket.perform('assistance_request_state');
       }
