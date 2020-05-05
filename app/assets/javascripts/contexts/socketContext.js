@@ -37,7 +37,7 @@ const shouldUpdate = (user, update) => {
   return (user.onDuty && !user.busy) && update && update.state === 'pending' && update.type === 'Assistance' && user.id === update.teacher.id;
 }
 
-if(window.App?.cable) {
+if (window.App && window.App.cable) {
   const socketHandler = {
     socket: App.cable.subscriptions.create({ channel: "NationalQueueChannel"}, {
       received(data) {
