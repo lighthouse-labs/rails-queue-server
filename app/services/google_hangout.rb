@@ -24,17 +24,17 @@ class GoogleHangout
 
     now = DateTime.now
 
-    event = Google::Apis::CalendarV3::Event.new(
-      summary:           "Assistance Request Between #{assistor.full_name} and #{assistee.full_name}",
-      location:          (assistee.location&.name).to_s,
-      description:       'This event was automatically created by the HangoutsCreator Service Account',
-      guests_can_modify: true,
-      start:             Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: now.to_s
-      ),
-      end:               Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: now.new_offset('+00:30').to_s
-      ),
+    event = {
+      summary:         "Assistance Request Between #{assistor.full_name} and #{assistee.full_name}",
+      location:        assistee.location&.name.to_s,
+      description:     'This event was automatically created by the HangoutsCreator Service Account',
+      guestsCanModify: true,
+      start:           {
+        dateTime: now.to_s
+      },
+      end:             {
+        dateTime: now.new_offset('+00:30').to_s
+      },
       # attendees: [
       #   Google::Apis::CalendarV3::EventAttendee.new(
       #     email: assistor.email
@@ -43,17 +43,18 @@ class GoogleHangout
       #     email: assistee.email
       #   )
       # ],
-      conference_data:   {
-        create_request: {
-          request_id: SecureRandom.uuid
+      conferenceData:  {
+        createRequest: {
+          conferenceSolutionKey: { type: 'eventHangout' },
+          requestId:             SecureRandom.uuid
         }
       }
-    )
+    }.to_json
 
-    result = service.insert_event('primary', event, conference_data_version: 1)
+    result = service.insert_event('primary', event, conference_data_version: 1, options: { skip_serialization: true })
     event_details(result)
-  rescue StandardError => err
-    Raven.capture_exception(err)
+  rescue StandardError => e
+    Raven.capture_exception(e)
     nil
   end
 
