@@ -25,14 +25,14 @@ class GoogleHangout
     now = DateTime.now
 
     event = {
-      summary:           "Assistance Request Between #{assistor.full_name} and #{assistee.full_name}",
-      location:          (assistee.location&.name).to_s,
-      description:       'This event was automatically created by the HangoutsCreator Service Account',
+      summary:         "Assistance Request Between #{assistor.full_name} and #{assistee.full_name}",
+      location:        assistee.location&.name.to_s,
+      description:     'This event was automatically created by the HangoutsCreator Service Account',
       guestsCanModify: true,
-      start: {
+      start:           {
         dateTime: now.to_s
       },
-      end:   {
+      end:             {
         dateTime: now.new_offset('+00:30').to_s
       },
       # attendees: [
@@ -43,18 +43,18 @@ class GoogleHangout
       #     email: assistee.email
       #   )
       # ],
-      conferenceData:   {
+      conferenceData:  {
         createRequest: {
-          conferenceSolutionKey: {type: 'eventHangout'},
-          requestId: SecureRandom.uuid
+          conferenceSolutionKey: { type: 'eventHangout' },
+          requestId:             SecureRandom.uuid
         }
       }
     }.to_json
 
-    result = service.insert_event('primary', event, conference_data_version: 1, options: {skip_serialization: true})
+    result = service.insert_event('primary', event, conference_data_version: 1, options: { skip_serialization: true })
     event_details(result)
-  rescue StandardError => err
-    Raven.capture_exception(err)
+  rescue StandardError => e
+    Raven.capture_exception(e)
     nil
   end
 
