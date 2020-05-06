@@ -5,6 +5,16 @@ const useEffect = React.useEffect;
 window.NationalQueue.QueueSettings = ({user}) => {
   const [queueSettings, setQueueSettings] = useState({});
   const [status, setStatus] = useState({});
+  const descriptions = {
+    task_penalty: "The deduction to a mentors score for each queue task.",
+    assistance_penalty: "The deduction to a mentors score for each ongoing assistance.",
+    evaluation_penalty: "The deduction to a mentors score for each ongoing evaluation.",
+    tech_interview_penalty: "The deduction to a mentors score for each ongoing tech interview.",
+    same_location_bonus: "Bonus score for a mentor being in the same location as a student.",
+    rating_multiplier: "Give a higher or lower weight to how important previous positive assistances are.",
+    desired_task_assignment: "The router will try to assign an assistance request to this many queues.",
+    max_queue_size: "The router will try to keep mentor's queue size within this limit."
+  }
 
   useEffect(() => {
     setStatus({loading: true});
@@ -47,132 +57,45 @@ window.NationalQueue.QueueSettings = ({user}) => {
     return <i className="fas fa-cogs"></i>
   }
 
-  return(
+  const snakeToTitle = (str) => {
+    let words = str.split('_');
+    return words = words.map((word) => {
+      return word[0].toUpperCase() + word.slice(1);
+    }).join(' ');
+  }
+
+  const option = (name) => {
+    return (
+      <div className="option">
+        <div className="description">
+          <label>{snakeToTitle(name)}</label>
+          <small>{descriptions[name]}</small>
+        </div>
+        <input 
+          className="form-control" 
+          type="number" 
+          name={name} 
+          onChange={e => setQueueSettings({...queueSettings, [name]: e.target.value})} 
+          value={queueSettings[name] || 0}
+          min={-100}
+          max={100}
+        />
+      </div>
+    );
+  }
+
+  const options = () => {
+    console.log('what', queueSettings)
+    return Object.keys(queueSettings).map((name) => option(name));
+  }
+
+  return (
     <NationalQueue.ListGroup icon={icon()} title='Queue Settings'>
       <div className="national-queue-stats p-4">
         {(status.error || status.message) && <div className={`alert ${status.error ? 'alert-danger' : 'alert-success'}`}><strong>{status.error || status.message}</strong></div>}
         <h2>Queue Router Weights</h2>
         <form onSubmit={changeSettings} className="queue-weights">
-          <div className="option">
-            <div className="description">
-              <label>Task Penalty</label>
-              <small>The deduction to a mentors score for each queue task.</small>
-            </div>
-            <input 
-              className="form-control" 
-              type="number" 
-              name="task_penalty" 
-              onChange={e => setQueueSettings({...queueSettings, task_penalty: e.target.value})} 
-              value={queueSettings.task_penalty || 0}
-              min="-100" 
-              max="0"
-            />
-          </div>
-          <div className="option">
-            <div className="description">
-              <label>Assistance Penalty</label>
-              <small>The deduction to a mentors score for each ongoing assistance.</small>
-            </div>
-            <input 
-              className="form-control" 
-              type="number" 
-              name="assistance_penalty" 
-              onChange={e => setQueueSettings({...queueSettings, assistance_penalty: e.target.value})} 
-              value={queueSettings.assistance_penalty || 0}
-              min="-100" 
-              max="0"
-            />
-          </div>
-          <div className="option">
-            <div className="description">
-              <label>Evaluation Penalty</label>
-              <small>The deduction to a mentors score for each ongoing evaluation.</small>
-            </div>
-            <input 
-              className="form-control" 
-              type="number" 
-              name="evaluation_penalty" 
-              onChange={e => setQueueSettings({...queueSettings, evaluation_penalty: e.target.value})} 
-              value={queueSettings.evaluation_penalty || 0}
-              min="-100" 
-              max="0"
-            />
-          </div>
-          <div className="option">
-            <div className="description">
-              <label>Tech Interview Penalty</label>
-              <small>The deduction to a mentors score for each ongoing tech interview.</small>
-            </div>
-            <input 
-              className="form-control" 
-              type="number" 
-              name="tech_interview_penalty" 
-              onChange={e => setQueueSettings({...queueSettings, tech_interview_penalty: e.target.value})} 
-              value={queueSettings.tech_interview_penalty || 0}
-              min="-100" 
-              max="0"
-            />
-          </div>
-          <div className="option">
-            <div className="description">
-              <label>Same Location Bonus</label>
-              <small>Bonus score for a mentor being in the same location as a student.</small>
-            </div>
-            <input 
-              className="form-control" 
-              type="number" 
-              name="same_location_bonus" 
-              onChange={e => setQueueSettings({...queueSettings, same_location_bonus: e.target.value})} 
-              value={queueSettings.same_location_bonus || 0}
-              min="0" 
-              max="100"
-            />
-          </div>
-          <div className="option">
-            <div className="description">
-              <label>Rating Multiplier</label>
-              <small>Give a higher or lower weight to how important previous positive assistances are.</small>
-            </div>
-            <input 
-              className="form-control" 
-              type="number" 
-              name="rating_multiplier" 
-              onChange={e => setQueueSettings({...queueSettings, rating_multiplier: e.target.value})} 
-              value={queueSettings.rating_multiplier || 0}
-              min="0" 
-              max="100"
-            />
-          </div>
-          <div className="option">
-            <div className="description">
-              <label>Desired Task Assignment</label>
-              <small>The router will try to assign an assistance request to this many queues.</small>
-            </div>
-            <input 
-              className="form-control" 
-              type="number" 
-              name="desired_task_assignment" 
-              onChange={e => setQueueSettings({...queueSettings, desired_task_assignment: e.target.value})} 
-              value={queueSettings.desired_task_assignment || 0}
-              min="0" 
-              max="100"
-            />
-          </div>
-          <div className="option">
-            <div className="description">
-              <label>Max Queue Size</label>
-              <small>The router will try to keep mentor's queue size within this limit.</small>
-            </div>
-            <input 
-              className="form-control" 
-              type="number" 
-              name="max_queue_size" 
-              onChange={e => setQueueSettings({...queueSettings, max_queue_size: e.target.value})} 
-              value={queueSettings.max_queue_size || 0}
-              min="0" 
-              max="100"
-            />
-          </div>
+          {options()}
           <div className="option">
             <div className="description">
             </div>
@@ -181,5 +104,5 @@ window.NationalQueue.QueueSettings = ({user}) => {
         </form>
       </div>
     </NationalQueue.ListGroup>
-  )
+  );
 }

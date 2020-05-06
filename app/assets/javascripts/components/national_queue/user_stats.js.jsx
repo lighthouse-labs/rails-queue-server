@@ -50,10 +50,10 @@ window.NationalQueue.UserStats = ({user}) => {
          <i onClick={(e) => changeTimeRange(e, 'week')} className={"fas fa-calendar-week" + (timeFilter === 'week' ? ' selected' : '')}></i>
          <i onClick={(e) => changeTimeRange(e, 'month')} className={"fas fa-calendar-alt" + (timeFilter === 'month' ? ' selected' : '')}></i>
       </div>
-    )
+    );
   }
 
-  return(
+  return (
     <NationalQueue.ListGroup icon={icon()} title={user.fullName} header={timeOptions()}>
       <div className="national-queue-stats">
         <div className="group">
@@ -64,5 +64,5 @@ window.NationalQueue.UserStats = ({user}) => {
         </div>
       </div>
     </NationalQueue.ListGroup>
-  )
+  );
 }

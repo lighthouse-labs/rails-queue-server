@@ -17,7 +17,7 @@ window.NationalQueue.ListGroup = ({children, icon, title, header}) => {
     }
   }
 
-  return(
+  return (
     <div className={`card card-default ${collapsed ? 'collapsed' : 'open'}`}>
       <div className="card-header-back"></div>
       <div className="card-header-border"></div>
@@ -32,5 +32,5 @@ window.NationalQueue.ListGroup = ({children, icon, title, header}) => {
         { children }
       </ul>
     </div>
-  )
+  );
 }

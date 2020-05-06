@@ -28,7 +28,7 @@ window.NationalQueue.QueueSelector = ({teachers, userQueue, setUserQueue}) => {
     });
   }
 
-  return(
+  return (
     <div className={`card card-default queue-selector open mb-3`}>
       <div className="card-header-back"></div>
       <div className="card-header-border"></div>
@@ -55,5 +55,5 @@ window.NationalQueue.QueueSelector = ({teachers, userQueue, setUserQueue}) => {
         </div>
       </div>
     </div>
-  )
+  );
 }

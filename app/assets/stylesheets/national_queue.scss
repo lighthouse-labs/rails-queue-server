@@ -101,7 +101,7 @@
       background-color: #f7f7f7;
       position: sticky;
       z-index: 10;
-      top: 7.9rem;
+      top: 7.8rem;
       display:flex;
       justify-content: space-between;
     }
@@ -115,15 +115,16 @@
       margin-top: -0.25rem;
       position: sticky;
       z-index: 11;
-      top: 7.9rem;
+      top: 8rem;
     }
     .card-header-back {
-      height: 0.25rem;
+      height: 0.35rem;
       width: calc(100% + 2px);
       margin-left: -1px;
       position: sticky;
       top: 7.8rem;
-      border: 2px solid white;
+      border: 0.2rem solid white;
+      border-top: 0.25rem solid white;
       border-bottom: 0;
       z-index: 11;
     }

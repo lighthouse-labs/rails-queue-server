@@ -41,18 +41,21 @@ window.NationalQueue.QueueMenu = ({user, queueState, setUserQueue, changeView, t
   }
 
   const queueSettings = () => {
-    return (user.superAdmin && <i 
-      className={`fas ${queueState.view === 'settings' ? 'fa-tasks' : 'fa-cogs'}`}
-      onClick={toggleQueueSettings}
-      data-toggle='tooltip' 
-      data-placement='bottom' 
-      title={`${queueState.view === 'settings' ? 'Queue View' : 'Queue Settings'}`}
-      data-original-title={`${queueState.view === 'settings' ? 'Queue View' : 'Queue Settings'}`}
-      ref={(ref) => $(ref).tooltip()}
-    />)
+    return (
+      user.superAdmin && 
+      <i 
+        className={`fas ${queueState.view === 'settings' ? 'fa-tasks' : 'fa-cogs'}`}
+        onClick={toggleQueueSettings}
+        data-toggle='tooltip'
+        data-placement='bottom'
+        title={`${queueState.view === 'settings' ? 'Queue View' : 'Queue Settings'}`}
+        data-original-title={`${queueState.view === 'settings' ? 'Queue View' : 'Queue Settings'}`}
+        ref={(ref) => $(ref).tooltip()}
+      />
+    );
   }
 
-  return(
+  return (
     <div className="queue-header">
       <div className="navigation">
         <h2 className="queue-title" >{queueName()}</h2>
@@ -74,7 +77,6 @@ window.NationalQueue.QueueMenu = ({user, queueState, setUserQueue, changeView, t
             ></span>
           </label>
         }
-
         <button
           className={"btn " + dutyClass()}
           onClick={toggleDuty} 
@@ -90,5 +92,5 @@ window.NationalQueue.QueueMenu = ({user, queueState, setUserQueue, changeView, t
         </button>
       </div>
     </div>
-  )
+  );
 }

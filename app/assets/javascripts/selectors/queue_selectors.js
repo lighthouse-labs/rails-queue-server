@@ -3,7 +3,7 @@ window.NationalQueue = window.NationalQueue || {};
 const selectOpen = (tasks, user) => {
  return tasks.filter((task) => {
   return (task.teacher && task.teacher.id === user.id) && task.state === 'pending' && task.type === 'Assistance';
- })
+ });
 }
 
 const selectAllOpen = (tasks) => {
@@ -18,19 +18,19 @@ const selectAllOpen = (tasks) => {
         return true;
       } 
     }
-  })
+  });
  }
 
 const selectPending = (tasks) => {
   return tasks.filter((task) => {
     return task.state === 'pending' && task.type === 'ProjectEvaluation';
-  })
+  });
 }
 
 const selectInProgress = (tasks) => {
   return tasks.filter((task) => {
     return task.state === 'in_progress';
-  })
+  });
 }
 
 const tasksWithUpdates = (tasks, updates) => {
@@ -68,7 +68,7 @@ const studentsWithUpdates = (students, updates) => {
     }
   }
   return Array.from(_(students).sortBy((student) => {
-    return (student.lastAssistedAt)
+    return (student.lastAssistedAt);
   }));
 }
 
@@ -103,6 +103,7 @@ const updateInterviewStatuses = (interviewStatuses, interview) => {
           completedStudentIds: [...interviewStatus.completedStudentIds, interview.interviewee.id]
         }
       }
+
     }
   }
   return interviewStatuses;

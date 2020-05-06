@@ -1,11 +1,11 @@
 window.Queue = window.Queue || {};
 const useState = React.useState;
 
-window.NationalQueue.OpenRequestsList = ({tasks, admin, user}) => {
+window.NationalQueue.OpenRequestsList = ({tasks, userQueue, user}) => {
 
   const renderRequest = (task) => {
     const request = task.taskObject;
-    return <NationalQueue.PendingAssistanceRequest key={`request-${request.id}`} teachers={admin === 'admin' && task.teachers} request={request} />
+    return <NationalQueue.PendingAssistanceRequest key={`request-${request.id}`} teachers={userQueue === 'admin' && task.teachers} request={request} />
   }
 
   const renderRequests = () => {
@@ -17,8 +17,8 @@ window.NationalQueue.OpenRequestsList = ({tasks, admin, user}) => {
   }
 
   return (
-    <NationalQueue.ListGroup icon={(user.onDuty || admin) ? tasks.length : '!'} title="Open Requests">
-      {user.onDuty || admin ? renderRequests() : offDutyWarning()}
+    <NationalQueue.ListGroup icon={(user.onDuty || userQueue) ? tasks.length : '!'} title="Open Requests">
+      {user.onDuty || userQueue ? renderRequests() : offDutyWarning()}
     </NationalQueue.ListGroup>
-  )
+  );
 }

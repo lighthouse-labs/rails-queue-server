@@ -3,7 +3,6 @@ const useState = React.useState;
 const useReducer = React.useReducer;
 const useEffect = React.useEffect;
 
-
 window.NationalQueue.useTasks = (updates, user, refresh) => {
   // no imports have to load in selectors here
   const {selectOpen, selectAllOpen, selectPending, selectInProgress, tasksWithUpdates} = window.NationalQueue.QueueSelectors;
@@ -23,7 +22,7 @@ window.NationalQueue.useTasks = (updates, user, refresh) => {
       default:
         throw new Error();
     }
-  };
+  }
   const [taskState, dispatchTaskState] = useReducer(taskReducer, {tasks: [], error: null});
 
   useEffect(() => {
@@ -34,20 +33,20 @@ window.NationalQueue.useTasks = (updates, user, refresh) => {
     })
       .then(response => {
         if (response.status === 200) {
-          return response.json()
+          return response.json();
         } else {
-          dispatchTaskState({type: 'error', data: 'Could not fetch queue data!'})
+          dispatchTaskState({type: 'error', data: 'Could not fetch queue data!'});
         }
       })
       .then((response) => {
         let tasks = response.tasks || [];
         tasks = _(tasks).sortBy((item) => {
-          return (item.startAt || item.startedAt || item.createdAt)
+          return (item.startAt || item.startedAt || item.createdAt);
         });
         dispatchTaskState({type: "setTasks", data: Array.from(tasks)});
       });
 
-  }, [refresh])
+  }, [refresh]);
 
   useEffect(() => {
     dispatchTaskState({type: 'addUpdates', data: updates});
@@ -55,7 +54,7 @@ window.NationalQueue.useTasks = (updates, user, refresh) => {
 
   const arrayOfTasks = () => {
     return Array.from(_(Object.values(taskState.tasks)).sortBy((item) => {
-      return (item.startAt || item.startedAt || item.createdAt)
+      return (item.startAt || item.startedAt || item.createdAt);
     }));
   }
 

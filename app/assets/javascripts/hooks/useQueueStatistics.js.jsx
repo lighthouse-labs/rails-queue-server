@@ -38,7 +38,7 @@ window.NationalQueue.useQueueStatistics = (user) => {
         dispatchStatistics({type: "setTasks", data: response});
       });
 
-  }, [user])
+  }, [user]);
 
   const setTimeFilter = (time) => {
     dispatchStatistics({type: 'setTimeFilter', data: time});
@@ -56,7 +56,7 @@ window.NationalQueue.useQueueStatistics = (user) => {
       } else {
         return today.isSame(queueTaskDate, "week");
       }
-    })
+    });
   }
 
   const userAssistances = (queueTasks) => {
@@ -92,7 +92,7 @@ window.NationalQueue.useQueueStatistics = (user) => {
         return sumDifference;
       }
     }, '-');
-    return sumTime === '-' ? sumTime : Math.round((sumTime/1000/60))/tasksWithValidDifference + ' min';
+    return sumTime === '-' ? sumTime : Math.round((sumTime / 1000 / 60)) / tasksWithValidDifference + ' min';
   }
 
   const queueTasks = filteredQueueTasks();

@@ -38,13 +38,17 @@ window.NationalQueue.Lists = ({user}) => {
       {error && <div class="alert alert-danger"><strong>{error}</strong></div>}
       <div className="queue-by-location">
         <NationalQueue.QueueMenu user={currentUser} toggleDuty={handleToggleDuty} queueState={queueState} changeView={changeView} setUserQueue={setUserQueue} connected={queueChannel.connected} />
-        {queueState.view === 'settings' && currentUser.superAdmin && <NationalQueue.QueueSettings user={currentUser} />}
+        {queueState.view === 'settings' && currentUser.superAdmin && 
+          <div className="queue-column">
+            <NationalQueue.QueueSettings user={currentUser} />
+          </div>
+        }
         {queueState.view === 'queue' &&
           <React.Fragment>
             <div className="queue-column queue-top mt-3 ">
               {queueState.userQueue && <NationalQueue.QueueSelector teachers={teachers} userQueue={queueState.userQueue} setUserQueue={setUserQueue} />}
               {queueState.userQueue && queueState.userQueue !== 'admin' && <NationalQueue.UserStats user={queueState.userQueue || currentUser} />}
-              <NationalQueue.OpenRequestsList tasks={openTasks} admin={queueState.userQueue} user={currentUser} />
+              <NationalQueue.OpenRequestsList tasks={openTasks} userQueue={queueState.userQueue} user={currentUser} />
             </div>
             <div className="queue-row queue-bottom ">
               <div className="queue-column left">
@@ -60,5 +64,5 @@ window.NationalQueue.Lists = ({user}) => {
         }
       </div>
     </React.Fragment>
-  )
+  );
 }
