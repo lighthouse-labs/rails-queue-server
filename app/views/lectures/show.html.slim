@@ -1,7 +1,11 @@
 - title "#{@lecture.subject}"
 
 - content_for :side_nav do
-  == render 'shared/menus/bootcamp_day_menu'
+  - if @activity.bootcamp? 
+    = render 'shared/menus/bootcamp_day_menu'
+  - elsif @workbook
+    = render 'workbooks/side_menu'
+
 
 - present @lecture do |lecture_presenter|
   .lecture-show
@@ -14,15 +18,15 @@
       .card.mb-4
         .card-header
           .btn-collection
-            = link_to activity_path(@activity), class: 'btn btn-info btn-sm', title: 'Back'
+            = link_to activity_path(@activity, workbook_id: @workbook), class: 'btn btn-info btn-sm', title: 'Back'
               | &laquo; Lecture Plan
 
             - if teacher?
               .float-right
-                = link_to edit_activity_lecture_path(@activity, @lecture), class: 'btn btn-warning btn-sm', title: "Edit"
+                = link_to edit_activity_lecture_path(@activity, @lecture, workbook_id: @workbook), class: 'btn btn-warning btn-sm', title: "Edit"
                   i.fa.fa-edit
                   | &nbsp; Edit
-                = link_to activity_lecture_path(@activity, @lecture), method: :delete, class: 'btn btn-danger btn-sm', title: "Delete", data: {confirm: 'Are you sure?'}
+                = link_to activity_lecture_path(@activity, @lecture, workbook_id: @workbook), method: :delete, class: 'btn btn-danger btn-sm', title: "Delete", data: {confirm: 'Are you sure?'}
                   i.fa.fa-times
                   | &nbsp; Delete
 

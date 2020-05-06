@@ -106,7 +106,8 @@ class ActivitiesController < ApplicationController
   end
 
   def new
-    @activity = Activity.new(day: params[:day_number])
+    day = params[:day_number] || nil
+    @activity = Activity.new(day: day)
     if @section
       @activity.section = @section
       @form_url = [@section, :activities]

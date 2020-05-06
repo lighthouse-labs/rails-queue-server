@@ -5,7 +5,7 @@ class QueueTasksController < ApplicationController
 
   def index
     queue_tasks = current_user.admin? ? QueueTask.open_or_in_progress_tasks : QueueTask.teachers_queue_or_in_progress(current_user)
-    queue_tasks += Evaluation.incomplete.student_priority
+    queue_tasks += Evaluation.incomplete.exclude_cancelled.student_priority
     queue_tasks += TechInterview.in_progress
     render json: queue_tasks, each_serializer: QueueTaskSerializer, root: 'tasks'
   end

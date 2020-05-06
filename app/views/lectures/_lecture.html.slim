@@ -7,8 +7,8 @@
       = lecture.subject
       - if local_assigns[:show_curriculum_day]
         small.text-muted
-          | &nbsp;-&nbsp;
-          = lecture.day.upcase
+          = lecture.day ? " - #{lecture.day.upcase}" : ''
+
       br
       small
         - if lecture.presenter
@@ -40,7 +40,7 @@
             == markdown(lecture.body)
           .fade-mask
 
-        = link_to activity_lecture_path(activity, lecture), class: "btn btn-primary"
+        = link_to activity_lecture_path(activity, lecture, workbook_id: @workbook), class: "btn btn-primary"
           | View &raquo;
 
   - if teacher? && lecture.teacher_notes?

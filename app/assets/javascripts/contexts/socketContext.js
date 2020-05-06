@@ -37,24 +37,26 @@ const shouldUpdate = (user, update) => {
   return (user.onDuty && !user.busy) && update && update.state === 'pending' && update.type === 'Assistance' && user.id === update.teacher.id;
 }
 
-const socketHandler = {
-  socket: App.cable.subscriptions.create({ channel: "NationalQueueChannel"}, {
-    received(data) {
-      socketHandler.onRecieved && socketHandler.onRecieved(data);
-      notificationHandler(data);
-    },
-    disconnected() {
-      socketHandler.connected = false;
-      socketHandler.onDisconnect && socketHandler.onDisconnect();
-    },
-    connected() {
-      socketHandler.connected = true;
-      socketHandler.onConnected && socketHandler.onConnected();
-    }
-  }),
-  connected: false,
-  onRecieved: () => {},
-  onDisconnect: () => {},
-  onConnect: () => {}
+if (window.App && window.App.cable) {
+  const socketHandler = {
+    socket: App.cable.subscriptions.create({ channel: "NationalQueueChannel"}, {
+      received(data) {
+        socketHandler.onRecieved && socketHandler.onRecieved(data);
+        notificationHandler(data);
+      },
+      disconnected() {
+        socketHandler.connected = false;
+        socketHandler.onDisconnect && socketHandler.onDisconnect();
+      },
+      connected() {
+        socketHandler.connected = true;
+        socketHandler.onConnected && socketHandler.onConnected();
+      }
+    }),
+    connected: false,
+    onRecieved: () => {},
+    onDisconnect: () => {},
+    onConnect: () => {}
+  }
+  window.NationalQueue.SocketContext = React.createContext(socketHandler);
 }
-window.NationalQueue.SocketContext = React.createContext(socketHandler);

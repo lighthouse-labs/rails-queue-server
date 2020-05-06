@@ -7,6 +7,7 @@ class Lecture < ApplicationRecord
   belongs_to :presenter, class_name: Teacher
   belongs_to :cohort
   belongs_to :activity
+  belongs_to :workbook, optional: true
 
   pg_search_scope :by_keywords,
                   against: [:subject, :body],
@@ -35,7 +36,7 @@ class Lecture < ApplicationRecord
   validates :cohort, presence: true
   validates :presenter, presence: true
   validates :subject, presence: true, length: { maximum: 100 }
-  validates :day, presence: true, format: { with: DAY_REGEX, allow_blank: true }
+  validates :day, format: { with: DAY_REGEX, allow_blank: true }
   validates :body, presence: true
   validate :ensure_program_has_recordings_bucket, if: :s3?, on: :create
 
@@ -61,7 +62,7 @@ class Lecture < ApplicationRecord
   end
 
   def program
-    cohort&.program || Program.first
+    cohort&.program || activity&.program || Program.first
   end
 
   ## CLASS METHODS
