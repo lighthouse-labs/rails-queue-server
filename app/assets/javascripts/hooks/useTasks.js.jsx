@@ -64,7 +64,7 @@ window.NationalQueue.useTasks = (updates, user, refresh) => {
   }
 
   const inProgress = () => {
-    return selectInProgress(arrayOfTasks());
+    return selectInProgress(arrayOfTasks()).reverse();
   }
 
   const myOpenTasks = (otherUser) => {
