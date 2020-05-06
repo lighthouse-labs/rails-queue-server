@@ -8,13 +8,23 @@
     position: sticky;
     padding-top: 2rem;
     padding-bottom: 1rem;
-    margin-top: -3rem;
+    margin-top: -1rem;
     top: 2.5rem;
     background-color: white;
     z-index: 12;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .navigation {
+      display: flex;
+      align-items: center;
+      i {
+        cursor: pointer;
+        margin: 0.5rem 0rem 0 0.5rem;
+        font-size: 1.4rem;
+        color: darkblue;
+      }
+    }
     .queue-title {
       font-family: 'Pacifico', cursive;
       margin: 0;
@@ -26,8 +36,6 @@
   }
   .queue-selector {
     .card-header {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
       padding-top: 0;
       padding-bottom: 0.5rem;
@@ -93,7 +101,9 @@
       background-color: #f7f7f7;
       position: sticky;
       z-index: 10;
-      top: 130px;
+      top: 7.9rem;
+      display:flex;
+      justify-content: space-between;
     }
     .card-header-border {
       height: 0.25rem;
@@ -105,30 +115,22 @@
       margin-top: -0.25rem;
       position: sticky;
       z-index: 11;
-      top: 131px;
+      top: 7.9rem;
     }
     .card-header-back {
       height: 0.25rem;
       width: calc(100% + 2px);
       margin-left: -1px;
       position: sticky;
-      top: -0.5rem;
-      top: 131px;
-      border-right: 2px solid white;
-      border-left: 2px solid white;
+      top: 7.8rem;
+      border: 2px solid white;
+      border-bottom: 0;
       z-index: 11;
     }
     .card {
       background-color: #f7f7f7;
       min-height: 50px;
       border-top: 0px;
-    }
-    .alert {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 200px;
-      margin: 0;
     }
   }
   .queue-top {
@@ -150,13 +152,11 @@
     height: 34px;
     margin-bottom: 0;
   }
-
   .switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
-
   .slider {
     position: absolute;
     cursor: pointer;
@@ -168,7 +168,6 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
-
   .slider:before {
     position: absolute;
     content: "";
@@ -180,31 +179,31 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
-
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #007BFF;
   }
-
   input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #007BFF;
   }
-
   input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
   }
-
-  /* Rounded sliders */
   .slider.round {
     border-radius: 34px;
   }
-
   .slider.round:before {
     border-radius: 50%;
   }
+  .alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    margin: 0;
+  }
 }
-
 .fa-spinner.queue-loader {
   font-size: 1.4rem;
   animation: spin 1.2s linear infinite;
@@ -234,24 +233,47 @@
   }
 }
 
+.queue-time-filter {
+  i {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    color: #dfdfdf;
+    &.selected {
+      color: #007bff;
+    }
+  }
+}
+
 .national-queue-stats {
   display: flex;
   flex-direction: column;
+  background-color: white;
+  h5 {
+    margin: 0;
+  }
   .group {
     display: flex;
+    align-items: center;
     width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-bottom: 0px;
+    min-height: 80px;
     justify-content: space-between;
     .info {
+      display: flex;
+      justify-content: center;
       width: 100%;
+      p {
+        margin: 0;
+      }
       .user-queue-activity {
         display: flex;
+        justify-content: center;
         width: 100%;
         .hour-block {
           display: flex;
           flex-direction: column;
-          p {
-  
-          }
           .half-hours {
             width: 100%;
             height: 50px;
@@ -261,13 +283,72 @@
       }
       .tasks {
         display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        margin-top: -1rem;
+        flex-wrap: wrap;
+        .stat {
+          display: flex;
+          margin: 1rem 0.5rem 0 0.5rem;
+        }
         .quantity {
           display: flex;
+          align-items: center;
           flex-direction: column;
+          h2 {
+            margin: 0;
+            font-size: 2rem;
+            line-height: 1.5rem;
+          }
+        }
+        i {
+          font-size: 2rem;
         }
       }
       .scores {
         display: flex;
+      }
+    }
+  }
+  .alert {
+    height: auto;
+    margin-bottom: 1rem;
+    animation-name: hide-alert;
+    animation-duration: 1s;
+    animation-delay: 3s;
+    animation-fill-mode: forwards;
+    overflow: hidden;
+    max-height: 200px;
+  }
+  @keyframes hide-alert {
+    from {  
+      opacity: 1;
+    }
+    to {  
+      height: 0px;
+      margin: 0px;
+      padding: 0px;
+      opacity: 0;
+    }
+  }
+  .queue-weights {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -1rem;
+    .option {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      label {
+        line-height: 1rem;
+        margin: 0;
+      }
+      input {
+        max-width: 5rem;
+      }
+      .description {
+        display: flex;
+        flex-direction: column;
       }
     }
   }
