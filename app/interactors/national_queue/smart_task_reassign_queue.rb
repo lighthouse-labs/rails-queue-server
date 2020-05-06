@@ -8,7 +8,7 @@ class NationalQueue::SmartTaskReassignQueue
 
   def call
     updates = []
-    context.fail! unless @assistor.update_columns(on_duty: false)
+    context.fail! unless @assistor.toggle_duty
     smart_task_result = SmartQueueRouter::ReassignQueue.call(
       assistor: @assistor
     )

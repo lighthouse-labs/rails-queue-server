@@ -33,6 +33,7 @@ class User < ApplicationRecord
   has_many :video_conferences
 
   has_many :queue_tasks
+  has_many :user_status_logs
 
   scope :order_by_last_assisted_at, -> {
     order("last_assisted_at ASC NULLS FIRST")
@@ -264,6 +265,14 @@ class User < ApplicationRecord
 
   def assigned_ar?(assistance_request)
     queue_tasks.where(assistance_request: assistance_request).exists?
+  end
+
+  def toggle_duty
+    self.on_duty = !on_duty
+    self.user_status_logs.new(
+      status: on_duty ? 'on_duty' : 'off_duty'
+    )
+    save
   end
   
   class << self
