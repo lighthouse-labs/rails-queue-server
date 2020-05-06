@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200414172242) do
+ActiveRecord::Schema.define(version: 20200506175715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -341,9 +341,11 @@ ActiveRecord::Schema.define(version: 20200414172242) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.boolean  "legacy",                     default: false
+    t.integer  "workbook_id"
     t.index ["activity_id"], name: "index_lectures_on_activity_id", using: :btree
     t.index ["cohort_id"], name: "index_lectures_on_cohort_id", using: :btree
     t.index ["presenter_id"], name: "index_lectures_on_presenter_id", using: :btree
+    t.index ["workbook_id"], name: "index_lectures_on_workbook_id", using: :btree
   end
 
   create_table "locations", force: :cascade do |t|
@@ -507,9 +509,11 @@ ActiveRecord::Schema.define(version: 20200414172242) do
   end
 
   create_table "queue_tasks", force: :cascade do |t|
-    t.integer "assistance_request_id"
-    t.integer "user_id"
-    t.integer "sequence"
+    t.integer  "assistance_request_id"
+    t.integer  "user_id"
+    t.integer  "sequence"
+    t.datetime "created_at",            default: -> { "now()" }, null: false
+    t.datetime "updated_at",            default: -> { "now()" }, null: false
     t.index ["assistance_request_id"], name: "index_queue_tasks_on_assistance_request_id", using: :btree
     t.index ["sequence"], name: "index_queue_tasks_on_sequence", unique: true, using: :btree
     t.index ["user_id"], name: "index_queue_tasks_on_user_id", using: :btree
@@ -667,6 +671,13 @@ ActiveRecord::Schema.define(version: 20200414172242) do
     t.index ["user_id"], name: "index_user_activity_outcomes_on_user_id", using: :btree
   end
 
+  create_table "user_status_logs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string   "status"
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_user_status_logs_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -797,6 +808,7 @@ ActiveRecord::Schema.define(version: 20200414172242) do
   add_foreign_key "deployments", "content_repositories"
   add_foreign_key "lectures", "activities"
   add_foreign_key "lectures", "cohorts"
+  add_foreign_key "lectures", "workbooks"
   add_foreign_key "options", "questions"
   add_foreign_key "outcome_results", "outcomes"
   add_foreign_key "outcome_results", "users"
@@ -819,6 +831,7 @@ ActiveRecord::Schema.define(version: 20200414172242) do
   add_foreign_key "tech_interviews", "tech_interview_templates"
   add_foreign_key "user_activity_outcomes", "item_outcomes", column: "activity_outcome_id"
   add_foreign_key "user_activity_outcomes", "users"
+  add_foreign_key "user_status_logs", "users"
   add_foreign_key "video_conferences", "activities"
   add_foreign_key "video_conferences", "cohorts"
   add_foreign_key "video_conferences", "users"
