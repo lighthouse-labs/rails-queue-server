@@ -8,7 +8,8 @@ class QueueTaskSerializer < ActiveModel::Serializer
               :state,
               :started_at,
               :type,
-              :task_object
+              :task_object,
+              :created_at
 
   protected
 

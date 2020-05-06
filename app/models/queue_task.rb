@@ -12,6 +12,7 @@ class QueueTask < ApplicationRecord
   scope :open_tasks, -> { joins(:assistance_request).merge(AssistanceRequest.open_requests) }
   scope :in_progress_tasks, -> { joins(:assistance_request).merge(AssistanceRequest.in_progress_requests) }
   scope :open_or_in_progress_tasks, -> { joins(:assistance_request).merge(AssistanceRequest.open_or_in_progress_requests) }
+  scope :this_month, -> { joins(:assistance_request).where(assistance_requests: {created_at: DateTime.now.beginning_of_month..DateTime.now.end_of_month}) }
 
   delegate :open?, to: :assistance_request
 

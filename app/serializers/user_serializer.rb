@@ -20,7 +20,8 @@ class UserSerializer < ActiveModel::Serializer
              :pronoun,
              :remote,
              :on_duty,
-             :admin
+             :admin,
+             :super_admin
 
   has_one :location, serializer: MyLocationSerializer
   has_one :cohort
