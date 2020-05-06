@@ -29,12 +29,14 @@ LaserShark::Application.routes.draw do
     post 'end_assistance'
   end
 
-  resource :queue_tasks, only: [:show], controller: 'queue_tasks' do
+  resources :queue_tasks, only: [:index, :show], controller: 'queue_tasks' do
     post 'provided_assistance'
-    get 'students'
-    get 'cohorts'
-    get 'teachers'
-    get 'day_activities'
+    get 'students', on: :collection
+    get 'cohorts', on: :collection
+    get 'teachers', on: :collection
+    get 'day_activities', on: :collection
+    get 'settings', on: :collection
+    put 'settings' => 'queue_tasks#update_settings',  on: :collection
   end
 
   resources :quiz_submissions, only: [:show]
