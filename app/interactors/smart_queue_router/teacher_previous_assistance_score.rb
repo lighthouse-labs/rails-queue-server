@@ -18,12 +18,6 @@ class SmartQueueRouter::TeacherPreviousAssistanceScore
       @teachers[teacher.id][:routing_score] ||= 0
       @teachers[teacher.id][:routing_score] += history_scale * rating_points * context.rating_multiplier
     end
-
-    puts 'Pervious Assist Score~~~~~~~~~~~~~~~~~~~'
-    @teachers.each do |_id, teacher|
-      puts "#{teacher[:object].first_name}: #{teacher[:routing_score]}"
-    end
-    puts '~~~~~~~~~~~~~~~~~~~'
   end
 
 end

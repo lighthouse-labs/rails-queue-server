@@ -13,12 +13,6 @@ class SmartQueueRouter::TeacherLocationScore
       teacher[:routing_score] ||= 0
       teacher[:routing_score] += @same_location_bonus if teacher[:object].location == @assistee.location
     end
-
-    puts 'Location Score~~~~~~~~~~~~~~~~~~~'
-    @teachers.each do |_id, teacher|
-      puts "#{teacher[:object].first_name}: #{teacher[:routing_score]}"
-    end
-    puts '~~~~~~~~~~~~~~~~~~~'
   end
 
 end

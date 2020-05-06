@@ -9,12 +9,6 @@ class SmartQueueRouter::AssignTask
   end
 
   def call
-    puts '~~~~~~~~~~~~~~~~~~~'
-    @teachers.each do |_id, teacher|
-      puts "#{teacher[:object].first_name}: #{teacher[:routing_score]}"
-    end
-    puts '~~~~~~~~~~~~~~~~~~~'
-
     @teachers.sort_by { |_k, teacher| teacher[:routing_score] }.reverse
 
     assigned_tasks = []

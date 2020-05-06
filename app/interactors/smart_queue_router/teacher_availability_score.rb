@@ -19,12 +19,6 @@ class SmartQueueRouter::TeacherAvailabilityScore
       teacher[:routing_score] += teacher[:object].evaluations.in_progress_evaluations.count * @evaluation_penalty
       teacher[:routing_score] += teacher[:object].tech_interviews.in_progress.count * @tech_interview_penalty
     end
-
-    puts 'Availability Score~~~~~~~~~~~~~~~~~~~'
-    @teachers.each do |_id, teacher|
-      puts "#{teacher[:object].first_name}: #{teacher[:routing_score]}"
-    end
-    puts '~~~~~~~~~~~~~~~~~~~'
   end
 
 end
