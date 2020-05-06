@@ -5,7 +5,7 @@ const checkCollapsed = (title) => {
   return window.localStorage.getItem(`${title} - collapsed`) === 'y';
 }
 
-window.NationalQueue.ListGroup = ({children, icon, title}) => {
+window.NationalQueue.ListGroup = ({children, icon, title, header}) => {
   const [collapsed, setCollapsed] = useState(checkCollapsed(title));
 
   const handleToggleCollapse = () => {
@@ -21,11 +21,12 @@ window.NationalQueue.ListGroup = ({children, icon, title}) => {
     <div className={`card card-default ${collapsed ? 'collapsed' : 'open'}`}>
       <div className="card-header-back"></div>
       <div className="card-header-border"></div>
-      <div className="card-header clearfix" onClick={handleToggleCollapse}>
+      <div className="card-header" onClick={handleToggleCollapse}>
         <h5 className="card-title">
           <span className="count">{icon}</span>
           <span className="title">{title}</span>
         </h5>
+        {header}
       </div>
       <ul className="list-group">
         { children }
