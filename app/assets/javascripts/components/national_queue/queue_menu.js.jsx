@@ -1,7 +1,7 @@
 window.NationalQueue = window.NationalQueue || {};
 
-window.NationalQueue.QueueMenu = ({user, userQueue, setUserQueue, toggleDuty, connected}) => {
-
+window.NationalQueue.QueueMenu = ({user, queueState, setUserQueue, changeView, toggleDuty, connected}) => {
+  const userQueue = queueState.userQueue;
   const queueName = () => {
     let name = ' queue';
     if (userQueue === 'admin') {
@@ -22,6 +22,10 @@ window.NationalQueue.QueueMenu = ({user, userQueue, setUserQueue, toggleDuty, co
     setUserQueue(userQueue ? null : 'admin');
   }
 
+  const toggleQueueSettings = () => {
+    changeView(queueState.view === 'settings' ? 'queue' : 'settings');
+  }
+
   const dutyClass = () => {
     const checkUser = userQueue || user;
     return checkUser && checkUser.onDuty ? 'btn-danger' : 'btn-success'
@@ -36,9 +40,25 @@ window.NationalQueue.QueueMenu = ({user, userQueue, setUserQueue, toggleDuty, co
     }
   }
 
+  const queueSettings = () => {
+    return (user.superAdmin && <i 
+      className={`fas ${queueState.view === 'settings' ? 'fa-tasks' : 'fa-cogs'}`}
+      onClick={toggleQueueSettings}
+      data-toggle='tooltip' 
+      data-placement='bottom' 
+      title={`${queueState.view === 'settings' ? 'Queue View' : 'Queue Settings'}`}
+      data-original-title={`${queueState.view === 'settings' ? 'Queue View' : 'Queue Settings'}`}
+      ref={(ref) => $(ref).tooltip()}
+    />)
+  }
+
   return(
     <div className="queue-header">
-      <h2 className="queue-title" >{queueName()} {connected || <i className="fas fa-spinner text-primary queue-loader"></i>}</h2>
+      <div className="navigation">
+        <h2 className="queue-title" >{queueName()}</h2>
+        {connected || <i className="fas fa-spinner text-primary queue-loader"></i>}
+        {queueSettings()}
+      </div>
       
       <div className="actions">
         {user.admin &&
@@ -67,7 +87,6 @@ window.NationalQueue.QueueMenu = ({user, userQueue, setUserQueue, toggleDuty, co
           ref={(ref) => $(ref).tooltip()}
         >
           <i className="fa fa-fw fa-bullhorn"></i>
-          <span className="only-on-small">Go off duty</span>
         </button>
       </div>
     </div>
