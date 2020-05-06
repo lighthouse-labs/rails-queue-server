@@ -8,7 +8,7 @@ class ZoomMeeting::GetPoolUsers
   end
 
   def call
-    url = URI("https://api.zoom.us/v2/users")
+    url = URI("https://api.zoom.us/v2/users?page_size=300")
     request = Net::HTTP::Get.new(url)
     request["authorization"] = "Bearer #{@token}"
     request["content-type"] = "application/json"
