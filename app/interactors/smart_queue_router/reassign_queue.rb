@@ -10,6 +10,9 @@ class SmartQueueRouter::ReassignQueue
   def call
     assigned_tasks = []
     assigned_assistance_requests = []
+    if @assistor.on_duty?
+      context.fail! unless @assistor.toggle_duty
+    end
     @open_tasks = @assistor.queue_tasks.open_tasks
     @open_tasks.each do |task|
       score_result = SmartQueueRouter::ScoreForAr.call({

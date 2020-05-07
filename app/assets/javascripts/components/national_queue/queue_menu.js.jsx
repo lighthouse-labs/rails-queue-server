@@ -1,6 +1,8 @@
 window.NationalQueue = window.NationalQueue || {};
+const useRef = React.useRef;
 
 window.NationalQueue.QueueMenu = ({user, queueState, setUserQueue, changeView, toggleDuty, connected}) => {
+  const dutyButtonRef = useRef();
   const userQueue = queueState.userQueue;
   const queueName = () => {
     let name = ' queue';
@@ -31,7 +33,13 @@ window.NationalQueue.QueueMenu = ({user, queueState, setUserQueue, changeView, t
     return checkUser && checkUser.onDuty ? 'btn-danger' : 'btn-success'
   }
 
+  const handleToggleDuty = () => {
+    $(dutyButtonRef.current).tooltip('hide');
+    toggleDuty();
+  }
+
   const dutyText = () => {
+    $(dutyButtonRef.current).tooltip();
     let buttonUser = userQueue || user;
     if (buttonUser === 'admin') {
       return ''
@@ -79,14 +87,14 @@ window.NationalQueue.QueueMenu = ({user, queueState, setUserQueue, changeView, t
         }
         <button
           className={"btn " + dutyClass()}
-          onClick={toggleDuty} 
+          onClick={handleToggleDuty} 
           disabled={userQueue === 'admin'}
-          href="#" 
-          data-toggle='tooltip' 
-          data-placement='bottom' 
+          data-toggle='tooltip'
+          data-placement='bottom'
+          data-trigger="hover"
           title={dutyText()}
           data-original-title={dutyText()}
-          ref={(ref) => $(ref).tooltip()}
+          ref={dutyButtonRef}
         >
           <i className="fa fa-fw fa-bullhorn"></i>
         </button>

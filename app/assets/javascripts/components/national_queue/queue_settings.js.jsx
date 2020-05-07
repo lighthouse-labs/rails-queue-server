@@ -85,7 +85,6 @@ window.NationalQueue.QueueSettings = ({user}) => {
   }
 
   const options = () => {
-    console.log('what', queueSettings)
     return Object.keys(queueSettings).map((name) => option(name));
   }
 

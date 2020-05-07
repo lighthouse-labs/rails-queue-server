@@ -8,7 +8,9 @@ class NationalQueue::SmartTaskAssignQueue
 
   def call
     updates = []
-    context.fail! unless @assistor.toggle_duty
+    if !@assistor.on_duty?
+      context.fail! unless @assistor.toggle_duty
+    end
     smart_task_result = SmartQueueRouter::AssignQueue.call(
       assistor: @assistor
     )
