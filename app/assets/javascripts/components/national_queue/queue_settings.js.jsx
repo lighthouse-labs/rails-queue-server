@@ -3,8 +3,8 @@ const useState = React.useState;
 const useEffect = React.useEffect;
 
 window.NationalQueue.QueueSettings = ({user}) => {
-  const [queueSettings, setQueueSettings] = useState({});
-  const [status, setStatus] = useState({
+  const [status, setStatus] = useState({});
+  const [queueSettings, setQueueSettings] = useState({
     task_penalty: -2,
     assistance_penalty: -1,
     evaluation_penalty: 0,
@@ -12,7 +12,7 @@ window.NationalQueue.QueueSettings = ({user}) => {
     same_location_bonus: 5,
     rating_multiplier: 1.5,
     desired_task_assignment: 5,
-    max_queue_size: 10,
+    max_queue_size: 10
   });
   const descriptions = {
     task_penalty: "The deduction to a mentors score for each queue task.",
@@ -82,7 +82,8 @@ window.NationalQueue.QueueSettings = ({user}) => {
         </div>
         <input 
           className="form-control" 
-          type="number" 
+          type="number"
+          step="0.1"
           name={name} 
           onChange={e => setQueueSettings({...queueSettings, [name]: e.target.value})} 
           value={queueSettings[name] || 0}
