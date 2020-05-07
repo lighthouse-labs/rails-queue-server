@@ -4,7 +4,16 @@ const useEffect = React.useEffect;
 
 window.NationalQueue.QueueSettings = ({user}) => {
   const [queueSettings, setQueueSettings] = useState({});
-  const [status, setStatus] = useState({});
+  const [status, setStatus] = useState({
+    task_penalty: -2,
+    assistance_penalty: -1,
+    evaluation_penalty: 0,
+    tech_interview_penalty: -3,
+    same_location_bonus: 5,
+    rating_multiplier: 1.5,
+    desired_task_assignment: 5,
+    max_queue_size: 10,
+  });
   const descriptions = {
     task_penalty: "The deduction to a mentors score for each queue task.",
     assistance_penalty: "The deduction to a mentors score for each ongoing assistance.",
@@ -24,7 +33,7 @@ window.NationalQueue.QueueSettings = ({user}) => {
       method: 'GET',
       url
     }).done(resp => {
-      setQueueSettings(resp.queueSettings);
+      setQueueSettings(settings => ({...settings, ...resp.queueSettings}));
       setStatus({});
     }).fail((resp) => {
       if(resp.status==500 || resp.status==0){
