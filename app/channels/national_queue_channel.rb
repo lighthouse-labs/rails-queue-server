@@ -13,7 +13,7 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
 
   def assistance_request_state
     NationalQueueChannel.broadcast_to current_user, type:   "requestUpdate",
-    object: NationalQueueAssistanceRequestSerializer.new(current_user.assistance_requests.newest_requests_first.first).as_json
+    object: NationalQueueAssistanceRequestSerializer.new(current_user.assistance_requests.open_or_in_progress_requests.first).as_json
   end
 
   def request_assistance(data)
