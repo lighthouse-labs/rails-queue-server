@@ -17,7 +17,7 @@ class NationalQueue::CreateAssistance
     assistance.end(@options[:note], @options[:notify], @options[:rating])
     context.assistance_request = assistance_request
     context.updates ||= []
-    context.updates.push({ task: assistance_request, shared: true})
+    context.updates.push({ task: assistance_request, shared: true })
   end
 
   def rollback

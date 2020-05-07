@@ -13,7 +13,7 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
 
   def assistance_request_state
     NationalQueueChannel.broadcast_to current_user, type:   "requestUpdate",
-    object: NationalQueueAssistanceRequestSerializer.new(current_user.assistance_requests.open_or_in_progress_requests.first).as_json
+                                                    object: NationalQueueAssistanceRequestSerializer.new(current_user.assistance_requests.open_or_in_progress_requests.first).as_json
   end
 
   def request_assistance(data)
@@ -60,7 +60,7 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
       options:  {
         type:       'finish_assistance',
         request_id: data["request_id"],
-        notes:       data["notes"],
+        notes:      data["notes"],
         notify:     data["notify"],
         rating:     data["rating"]
       }
@@ -71,10 +71,10 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
     NationalQueue::ProvideAssistance.call(
       assistor:     current_user,
       requestor_id: data["requestor_id"],
-      options:  {
-        note:       data["notes"],
-        notify:     data["notify"],
-        rating:     data["rating"]
+      options:      {
+        note:   data["notes"],
+        notify: data["notify"],
+        rating: data["rating"]
       }
     )
   end
@@ -102,7 +102,7 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def cancel_interview(data)
     NationalQueue::UpdateTechInterview.call(
       interviewer: current_user,
-      options:  {
+      options:     {
         type:              'cancel_interview',
         tech_interview_id: data["tech_interview_id"]
       }

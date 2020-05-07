@@ -35,10 +35,10 @@ module ApplicationCable
         updates = [*@@general_updates, *@@user_updates[current_user.id]].sort_by { |update| update[:sequence] }
         sequence = data["sequence"] > @@message_sequence ? 0 : data["sequence"]
         updates = missed_updates(updates, sequence)
-        if updates.length > 0 && updates[0][:sequence] < sequence
+        if !updates.empty? && updates[0][:sequence] < sequence
           self.class.broadcast_to current_user, { type: @@updates_type, object: updates }, true
         else
-          self.class.broadcast_to current_user, { type: 'refresh'}, true
+          self.class.broadcast_to current_user, { type: 'refresh' }, true
         end
         # user has been sent updates so free up memory
         @@user_updates.delete(current_user.id)

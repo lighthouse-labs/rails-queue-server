@@ -7,5 +7,5 @@ class SmartQueueRouter::ScoreForAr
             SmartQueueRouter::TeacherAvailabilityScore,
             SmartQueueRouter::TeacherLocationScore,
             SmartQueueRouter::TeacherPreviousAssistanceScore
-            
+
 end

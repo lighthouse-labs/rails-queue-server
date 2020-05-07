@@ -22,7 +22,9 @@ class SmartQueueRouter::RouterSettings
   private
 
   def get_setting(setting)
-    Float(@settings[setting]) rescue false
+    Float(@settings[setting])
+  rescue StandardError
+    false
   end
 
 end

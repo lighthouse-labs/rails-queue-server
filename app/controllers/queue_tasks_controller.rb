@@ -41,16 +41,16 @@ class QueueTasksController < ApplicationController
   def settings
     queue_settings = Program.first.settings['task_router_settings']
     queue_settings ||= {}
-    render json: {queueSettings: queue_settings}
+    render json: { queueSettings: queue_settings }
   end
 
   def update_settings
     program = Program.first
     program.settings['task_router_settings'] = queue_settings_params
     if program.save!
-      render :json => {message: 'Settings Updated'}, :status => 200 
+      render json: { message: 'Settings Updated' }, status: :ok
     else
-      render :json => {message: 'Unable to Update Queue Settings'}, :status => 500 
+      render json: { message: 'Unable to Update Queue Settings' }, status: :internal_server_error
     end
   end
 

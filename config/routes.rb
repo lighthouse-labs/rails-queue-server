@@ -36,7 +36,7 @@ LaserShark::Application.routes.draw do
     get 'teachers', on: :collection
     get 'day_activities', on: :collection
     get 'settings', on: :collection
-    put 'settings' => 'queue_tasks#update_settings',  on: :collection
+    put 'settings' => 'queue_tasks#update_settings', on: :collection
   end
 
   resources :quiz_submissions, only: [:show]

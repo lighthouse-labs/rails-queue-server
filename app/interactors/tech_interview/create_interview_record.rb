@@ -11,15 +11,14 @@ class TechInterview::CreateInterviewRecord
 
   def call
     @tech_interview ||= @tech_interview_template.pending_interview_for(@interviewee) ||
-                    @tech_interview_template.tech_interviews.new(interviewee: @interviewee, cohort: @interviewee.cohort)
+                        @tech_interview_template.tech_interviews.new(interviewee: @interviewee, cohort: @interviewee.cohort)
     context.fail! unless @tech_interview
 
     @tech_interview.interviewer = @interviewer
     @tech_interview.started_at = Time.current
-    @tech_interview.day =  CurriculumDay.new(Date.current, @interviewee.cohort).to_s
+    @tech_interview.day = CurriculumDay.new(Date.current, @interviewee.cohort).to_s
     context.fail! unless @tech_interview.save!
     context.tech_interview = @tech_interview
-    
   end
 
   def rollback
