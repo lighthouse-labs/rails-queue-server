@@ -46,9 +46,33 @@ window.NationalQueue.UserStats = ({user}) => {
   const timeOptions = () => {
     return (
       <div className="d-flex queue-time-filter">
-         <i onClick={(e) => changeTimeRange(e, 'day')} className={"fas fa-calendar-day" +  (timeFilter === 'day' ? ' selected' : '')}></i>
-         <i onClick={(e) => changeTimeRange(e, 'week')} className={"fas fa-calendar-week" + (timeFilter === 'week' ? ' selected' : '')}></i>
-         <i onClick={(e) => changeTimeRange(e, 'month')} className={"fas fa-calendar-alt" + (timeFilter === 'month' ? ' selected' : '')}></i>
+         <i 
+          onClick={(e) => changeTimeRange(e, 'day')} 
+          className={"fas fa-calendar-day" +  (timeFilter === 'day' ? ' selected' : '')}
+          data-toggle='tooltip'
+          data-placement='bottom'
+          title={'Stats for Today'}
+          data-original-title={'Stats for Today'}
+          ref={(ref) => $(ref).tooltip()}
+        />
+         <i 
+          onClick={(e) => changeTimeRange(e, 'week')} 
+          className={"fas fa-calendar-week" + (timeFilter === 'week' ? ' selected' : '')}
+          data-toggle='tooltip'
+          data-placement='bottom'
+          title={'Stats for this Week'}
+          data-original-title={'Stats for this Week'}
+          ref={(ref) => $(ref).tooltip()}
+        />
+         <i 
+          onClick={(e) => changeTimeRange(e, 'month')} 
+          className={"fas fa-calendar-alt" + (timeFilter === 'month' ? ' selected' : '')}
+          data-toggle='tooltip'
+          data-placement='bottom'
+          title={'Stats for this Month'}
+          data-original-title={'Stats for this Month'}
+          ref={(ref) => $(ref).tooltip()} 
+        />
       </div>
     );
   }

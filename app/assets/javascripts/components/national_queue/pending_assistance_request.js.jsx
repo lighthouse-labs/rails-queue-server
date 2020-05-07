@@ -3,7 +3,7 @@ const useEffect = React.useEffect;
 const useState = React.useState;
 const useContext = React.useContext;
 
-window.NationalQueue.PendingAssistanceRequest = ({request, teachers}) => {
+window.NationalQueue.PendingAssistanceRequest = ({request, teachers, admin}) => {
   const queueContext =  window.NationalQueue.QueueContext;
   const queueSocket = useContext(queueContext);
   const [disabled, setDisabled] = useState(false);
@@ -24,7 +24,9 @@ window.NationalQueue.PendingAssistanceRequest = ({request, teachers}) => {
   const actionButtons = () => {
     const buttons = [null];
     buttons.push(<button key="remove" className="btn btn-sm btn-light btn-hover-danger" onClick={handleCancelAssistance} disabled={disabled}>Remove</button>)
-    buttons.push(<button key="start" className="btn btn-sm btn-secondary btn-main" onClick={handleStartAssisting} disabled={disabled}>Start Assisting</button>)
+    if (!admin) {
+      buttons.push(<button key="start" className="btn btn-sm btn-secondary btn-main" onClick={handleStartAssisting} disabled={disabled}>Start Assisting</button>)
+    }
     return buttons;
   }
 
