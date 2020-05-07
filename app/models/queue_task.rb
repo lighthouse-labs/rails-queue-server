@@ -21,7 +21,7 @@ class QueueTask < ApplicationRecord
   def state
     if assistance_request.open?
       'pending'
-    elsif assistance_request.in_progress? && user.id == assistance_request.assistance&.assistor.id
+    elsif assistance_request.in_progress? && user == assistance_request.assistance&.assistor
       'in_progress'
     else
       'closed'
