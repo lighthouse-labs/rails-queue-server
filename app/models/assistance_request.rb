@@ -1,10 +1,12 @@
 class AssistanceRequest < ApplicationRecord
 
-  belongs_to :requestor, class_name: User
+  belongs_to :assistor, class_name: User, foreign_key: "assistor_uid", primary_key: 'uid'
+  belongs_to :requestor, class_name: User, foreign_key: "requestor_uid", primary_key: 'uid'
   belongs_to :assistance, dependent: :delete
   belongs_to :activity
   belongs_to :cohort # substitute for lack of enrollment record - KV
   belongs_to :assistor_location, class_name: Location
+  belongs_to :compass_instance
 
   # also leads to activity, but not as 'safe' (nullable)
   # used for code review requests only (set in CodeReviewRequest class) - KV

@@ -2,10 +2,9 @@ class Assistance < ApplicationRecord
 
   include PgSearch
 
-  belongs_to :assistor, class_name: User
-  belongs_to :assistee, class_name: User
+  belongs_to :assistor, class_name: User, foreign_key: "assistor_uid", primary_key: 'uid'
+  belongs_to :assistee, class_name: User, foreign_key: "assistee_uid", primary_key: 'uid'
   belongs_to :activity
-  belongs_to :cohort # substitute for lack of enrollment record - KV
 
   pg_search_scope :by_student_keywords,
                   associated_against: {
@@ -24,7 +23,6 @@ class Assistance < ApplicationRecord
 
   validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 4, allow_nil: true }
 
-  before_create :set_cohort
   before_create :set_day
   before_create :set_start_at
   before_create :set_activity

@@ -1,34 +1,25 @@
 class Feedback < ApplicationRecord
 
   belongs_to :feedbackable, polymorphic: true
-  belongs_to :activity, -> { where(feedbacks: { feedbackable_type: 'Activity' }) }, foreign_key: 'feedbackable_id'
-  belongs_to :evaluation, -> { where(feedbacks: { feedbackable_type: 'Evaluation' }) }, foreign_key: 'feedbackable_id'
-  belongs_to :student
-  belongs_to :teacher
+  belongs_to :assistor, class_name: User, foreign_key: "assistor_uid", primary_key: 'uid'
+  belongs_to :assistee, class_name: User, foreign_key: "assistee_uid", primary_key: 'uid'
 
-  scope :curriculum_feedbacks, -> { where(teacher: nil) }
-  scope :teacher_feedbacks, -> { where.not(teacher: nil) }
+  scope :assistor_feedbacks, -> { where.not(assistor: nil) }
   scope :expired, -> { where("feedbacks.created_at < ?", Time.zone.today - 1) }
   scope :not_expired, -> { where("feedbacks.created_at >= ?", Time.zone.today - 1) }
   scope :completed, -> { where.not(rating: nil) }
   scope :pending, -> { where(rating: nil) }
   scope :reverse_chronological_order, -> { order("feedbacks.updated_at DESC") }
-  scope :filter_by_student, ->(student_id) { where("student_id = ?", student_id) }
-  scope :filter_by_teacher, ->(teacher_id) { where("teacher_id = ?", teacher_id) }
-  scope :filter_by_day, ->(day) {
-    includes(:activity)
-      .where("day LIKE ?", day.downcase + "%")
-      .references(:activity)
-  }
-  scope :lecture, -> { teacher_feedbacks.joins(:activity).where(activities: { type: 'LecturePlan' }).references(:activities) }
-  scope :breakout, -> { teacher_feedbacks.joins(:activity).where(activities: { type: 'Breakout' }).references(:activities) }
+  scope :filter_by_assistor, ->(assistor_uid) { where("assistor_uid = ?", assistor_uid) }
+  scope :filter_by_assistee, ->(assistee_uid) { where("assistee_uid = ?", assistee_uid) }
+
   scope :assistance, -> { where(feedbackable_type: 'Assistance') }
   scope :direct, -> { where(feedbackable_type: nil) }
 
   scope :filter_by_program, ->(program_id) {
-    joins(student: { cohort: :program })
+    joins(assistee: { cohort: :program })
       .where(programs: { id: program_id })
-      .references(:student, :cohort, :program)
+      .references(:assistee, :cohort, :program)
   }
 
   scope :filter_by_student_location, ->(location_id) {
