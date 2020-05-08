@@ -1,2 +1,0 @@
-class TaskPresenter < ActivityPresenter
-end

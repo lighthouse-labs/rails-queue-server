@@ -1,4 +1,4 @@
-class QueueController < ApplicationController
+class QueueTasksController < Admin::BaseController
 
   before_action :teacher_required, except: :day_activities
   before_action :super_admin_required, only: :update_settings

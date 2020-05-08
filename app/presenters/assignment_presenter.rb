@@ -1,2 +1,0 @@
-class AssignmentPresenter < ActivityPresenter
-end

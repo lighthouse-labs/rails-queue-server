@@ -1,2 +1,0 @@
-class ReadingPresenter < ActivityPresenter
-end

@@ -1,2 +1,0 @@
-class HomeworkPresenter < ActivityPresenter
-end

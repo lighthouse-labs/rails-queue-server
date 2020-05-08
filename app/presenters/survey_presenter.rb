@@ -1,2 +1,0 @@
-class SurveyPresenter < ActivityPresenter
-end

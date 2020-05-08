@@ -1,2 +1,0 @@
-class PinnedNotePresenter < ActivityPresenter
-end

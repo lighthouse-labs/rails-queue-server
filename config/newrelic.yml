@@ -30,7 +30,7 @@ common: &default_settings
 # If your application has other named environments, configure them here.
 development:
   <<: *default_settings
-  app_name: Compass (Development)
+  app_name: Queue (Development)
 
 test:
   <<: *default_settings
@@ -39,7 +39,7 @@ test:
 
 staging:
   <<: *default_settings
-  app_name: Compass (Staging)
+  app_name: Queue (Staging)
 
 production:
   <<: *default_settings
