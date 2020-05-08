@@ -6,10 +6,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 
-gem 'jquery-rails'
-gem 'bootstrap', '~> 4.0.0'
-gem 'jquery-ui-rails'
-
 gem "select2-rails"
 
 gem 'turbolinks', '~> 5'
@@ -25,12 +21,7 @@ gem 'bcrypt'
 gem 'puma', '~> 3.0'
 
 gem 'kaminari'
-gem 'bootstrap4-kaminari-views'
-# gem 'readmorejs-rails'
-gem 'best_in_place', github: 'bernat/best_in_place'
-gem 'ace-rails-ap'
 
-gem 'simple_form'
 gem 'sidekiq'
 gem 'slim-rails'
 gem 'font-awesome-sass', '~> 5.6.1'
@@ -49,12 +40,8 @@ gem 'inky-rb', require: 'inky'
 gem 'premailer-rails'
 gem 'email_validator'
 
-gem 'redcarpet'
 gem 'teaspoon-mocha'
 gem 'phantomjs'
-
-gem 'omniauth'
-gem 'omniauth-github', '>= 1.4.0'
 
 gem 'googleauth', '>= 0.9'
 gem 'google-api-client', '>= 0.36.3'
@@ -62,13 +49,7 @@ gem 'google-api-client', '>= 0.36.3'
 gem 'faraday'
 gem 'faraday_middleware'
 
-gem 'octokit'
-
 gem 'default_value_for'
-
-gem 'carrierwave'
-gem 'mini_magick'
-gem 'fog'
 
 gem 'newrelic_rpm'
 gem "sentry-raven"
@@ -76,21 +57,9 @@ gem "sentry-raven"
 gem 'responders'
 gem 'rubyzip', '>= 1.0.0'
 
-gem 'slack-poster'
-
-gem 'aws-sdk-core'
-
-gem 'faker'
-
-gem 'youtube_addy'
-
-gem 'bootsnap', require: false
-
-## charting / data analytics stuff
-gem 'groupdate'
-gem 'chartkick'
-
 gem 'pg_search'
+
+gem 'ar-octopus'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
