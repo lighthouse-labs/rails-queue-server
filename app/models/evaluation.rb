@@ -1,6 +1,6 @@
 class Evaluation < ApplicationRecord
 
-  include Statesman::Adapters::ActiveRecordQueries
+  include Statesman::Adapters::ActiveRecordQueries[transition_class: EvaluationStateMachine, initial_state: :pending]
 
   belongs_to :project
   belongs_to :student
