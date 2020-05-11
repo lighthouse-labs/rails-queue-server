@@ -5,7 +5,7 @@ octopus:
     - production
   development:
     program_shards:
-      web_shard:
+      web:
         adapter:  postgresql
         host:     localhost
         encoding: unicode
@@ -13,12 +13,12 @@ octopus:
 
   staging:
     program_shards:
-      web_shard:
+      web:
         adapter:  postgresql
         host:     localhost
         encoding: unicode
         database: web_staging
-      pt_shard:
+      pt:
         adapter:  postgresql
         host:     localhost
         encoding: unicode
@@ -26,12 +26,12 @@ octopus:
 
   production:
     program_shards:
-      web_shard:
+      web:
         adapter:  postgresql
         host:     localhost
         encoding: unicode
         database: web_production
-      pt_shard:
+      pt:
         adapter:  postgresql
         host:     localhost
         encoding: unicode
