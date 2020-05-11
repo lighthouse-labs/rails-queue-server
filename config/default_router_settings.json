@@ -1,0 +1,10 @@
+{
+  "task_penalty": -2,
+  "assistance_penalty": -2,
+  "evaluation_penalty": -2,
+  "tech_interview_penalty": -2,
+  "same_location_bonus": 5,
+  "rating_multiplier": 1.5, 
+  "desired_task_assignment": 5,
+  "max_queue_size": 10
+}
