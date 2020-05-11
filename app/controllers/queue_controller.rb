@@ -30,8 +30,10 @@ class QueueController < ApplicationController
   end
 
   def teachers
-    teachers = Teacher.on_duty
-    render json: teachers, each_serializer: UserSerializer, root: 'teachers'
+    teachers = Octopus.using_group(:program_shards) do
+      teachers = Teacher.on_duty
+      render json: teachers, each_serializer: UserSerializer, root: 'teachers'
+    end
   end
 
   def day_activities
