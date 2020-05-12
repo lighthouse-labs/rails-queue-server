@@ -9,8 +9,8 @@ class Admin::AssistancesController < Admin::BaseController
 
     @assist_length_avg = @assistances.completed.average_length
     @avg_l_score = @assistances.where.not(rating: nil).average(:rating).to_f.round(1)
-    @distinct_students = @assistances.pluck(:assistee_id).uniq.count
-    @distinct_teachers = @assistances.pluck(:assistor_id).uniq.count
+    @distinct_students = @assistances.pluck(:assistee_uid).uniq.count
+    @distinct_teachers = @assistances.pluck(:assistor_uid).uniq.count
     @assistance_count = @assistances.count
     @average_secs_in_queue = @assistances.average(:secs_in_queue)
     @assistances = @assistances.page(params[:page]).per(DEFAULT_PER)

@@ -2,7 +2,7 @@ class Teacher < User
 
   has_many :feedbacks
 
-  has_many :teaching_assistances, class_name: Assistance, foreign_key: :assistor_id
+  has_many :teaching_assistances, class_name: Assistance, foreign_key: :assistor_uid
 
   has_many :evaluations
 

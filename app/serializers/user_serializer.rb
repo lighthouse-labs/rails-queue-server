@@ -18,7 +18,6 @@ class UserSerializer < ActiveModel::Serializer
              :busy,
              :last_assisted_at,
              :pronoun,
-             :remote,
              :on_duty,
              :admin,
              :super_admin
@@ -34,11 +33,8 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def busy
-    object.busy? if teacher?
-  end
-
-  def remote
-    !teacher? && (object.cohort.try(:location) != object.location)
+    # 2ADD use queue_task method to check eventually 
+    false
   end
 
   def teacher?
