@@ -1,3 +1,0 @@
-class Challenge < Activity
-
-end

@@ -1,3 +1,0 @@
-class Reading < Activity
-
-end

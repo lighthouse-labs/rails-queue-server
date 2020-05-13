@@ -1,3 +1,0 @@
-class Problem < Activity
-
-end
