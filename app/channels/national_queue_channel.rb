@@ -5,15 +5,15 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   @@max_updates_length = 10
 
   def subscribed
-    stream_for current_user
+    stream_from current_user['uid']
     stream_from 'student-national-queue'
-    stream_from 'teacher-national-queue' if current_user&.is_a?(Teacher)
-    stream_from 'admin-national-queue' if current_user&.admin?
+    stream_from 'teacher-national-queue' if current_user['access'].include?('teacher')
+    stream_from 'admin-national-queue' if current_user['access'].include?('admin')
   end
 
   def assistance_request_state
     NationalQueueChannel.broadcast_to current_user, type:   "requestUpdate",
-                                                    object: NationalQueueAssistanceRequestSerializer.new(current_user.assistance_requests.open_or_in_progress_requests.first).as_json
+                                                    object: NationalQueueAssistanceRequestSerializer.new(AssistanceRequest.for_uid(current_user['uid'])open_or_in_progress_requests.first).as_json
   end
 
   def request_assistance(data)

@@ -9,15 +9,16 @@ module ApplicationCable
     @@public_channel = 'public'
     @@max_updates_length = 10
 
-    def self.broadcast_to(model, message, ignore = false)
+    def self.broadcast_to(entity, message, ignore = false)
       # add sequence number and store messages
+      uid = entity['uid']
       message[:sequence] = @@message_sequence += 1
       if message[:type] == @@updates_type && !ignore
-        @@user_updates[model.id] ||= []
-        @@user_updates[model.id].push({ object: message[:object], sequence: message[:sequence] })
-        @@user_updates[model.id].shift(1) if @@user_updates[model.id].length > @@max_updates_length
+        @@user_updates[uid] ||= []
+        @@user_updates[uid].push({ object: message[:object], sequence: message[:sequence] })
+        @@user_updates[uid].shift(1) if @@user_updates[uid].length > @@max_updates_length
       end
-      super(model, message)
+      ActionCable.server.broadcast uid, message
     end
 
     def self.broadcast(broadcasting, message, ignore = false)
