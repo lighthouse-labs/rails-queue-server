@@ -24,25 +24,21 @@ class ApplicationController < ActionController::Base
 
   def set_raven_context
     if current_user
-      Raven.user_context('id'    => current_user.id,
-                         'email' => current_user.email)
+      Raven.user_context('id'    => current_user['uid'],
+                         'email' => current_user['fullName'])
     end
   end
 
   def current_user
     # use JWT to auth user
     authHeader = request.headers["Authorization"]
-    if authHeader.start_with?("Bearer ")
+    if authHeader&.start_with?("Bearer ")
       token = authHeader[7..-1]
       decoded_token = JWT.decode token, ENV['TOKEN_SECRET'], true, { algorithm: 'HS256' }
 
       if decoded_token
-        user_uid = decoded_token[0]['user_uid']
-        compass_instance_id = decoded_token[0]['compass_instance_id']
-        compass_instance = CompassInstance.using(:master).find_by(id: compass_instance_id)
-        current_users = Octopus.using(compass_instance.name) do
-          @current_user = User.find_by(uid: user_uid)
-        end
+        user_uid = decoded_token[0]['uid']
+        @current_user = decoded_token[0]
       end
 
     end
