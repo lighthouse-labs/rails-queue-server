@@ -21,12 +21,14 @@ class TokensController < ApplicationController
 
   def auth_compass_instance
     @compass_instance = CompassInstance.find_by(key: token_params[:key])
-    Octopus.using(@compass_instance.name) do
-      @user = User.find_by(uid: token_params['user'].try(:[], :uid))
-      if !@compass_instance || BCrypt::Password.new(@compass_instance&.secret) != token_params[:secret]
-        render json: { error: 'Incorrect key or secret.' }
-      elsif !@user
-        render json: { error: 'Invalid UID.' }
+    if !@compass_instance || BCrypt::Password.new(@compass_instance&.secret) != token_params[:secret]
+      render json: { error: 'Incorrect key or secret.' }
+    else
+      Octopus.using(@compass_instance.name) do
+        user = User.find_by(uid: token_params['user'].try(:[], :uid))
+        if !user
+          render json: { error: 'Invalid UID.' }
+        end
       end
     end
   end

@@ -1,5 +1,6 @@
 class CompassInstancesController < ApplicationController
   before_action :admin_required
+  skip_before_action :authenticate_user
 
   def create
 
