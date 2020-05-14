@@ -7,23 +7,14 @@ class UserSerializer < ActiveModel::Serializer
   format_keys :lower_camel
   root false
 
-  attributes :id,
-             :type,
-             :email,
-             :first_name,
-             :last_name,
+  attributes :uid,
              :full_name,
-             :github_username,
-             :avatar_url,
-             :busy,
-             :last_assisted_at,
              :pronoun,
-             :on_duty,
-             :admin,
-             :super_admin
-
-  has_one :location, serializer: MyLocationSerializer
-  has_one :cohort
+             :avatar_url,
+             :socials,
+             :info,
+             :info_url,
+             :access
 
   protected
 
@@ -31,14 +22,32 @@ class UserSerializer < ActiveModel::Serializer
   def avatar_url
     avatar_for(object)
   end
-
-  def busy
-    # 2ADD use queue_task method to check eventually 
-    false
+  
+  def socials
+    socials = {}
+    socials['github'] = object.github_username if object.github_username?
+    socials['email'] = object.email if object.email?
+    socials['slack'] = object.slack if object.slack?
+    socials
   end
 
-  def teacher?
-    object.is_a?(Teacher)
+  def info
+    info = {}
+    # info['location'] = object.location.name if object.location
+    # info['week'] = object.cohort.week if object.cohort&.week
+    info
+  end
+  
+  def info_url
+    # 2ADD queue info page on mentors
+  end
+
+  def access
+    access = []
+    access.push('student') if object.is_a?(Student)
+    access.push('teacher') if object.is_a?(Teacher)
+    access.push('admin') if object.admin?
+    access.push('super-admin') if object.super_admin?
   end
 
 end
