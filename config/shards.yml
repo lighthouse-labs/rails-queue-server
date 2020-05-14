@@ -10,6 +10,7 @@ octopus:
         host:     localhost
         encoding: unicode
         database: compass_development
+        pool:     10
 
   staging:
     program_shards:

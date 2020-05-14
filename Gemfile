@@ -34,7 +34,7 @@ gem 'statesman'
 gem 'awesome_print'
 gem 'logging'
 
-gem 'redis'
+gem 'redis',  '~> 3.0'
 
 gem 'inky-rb', require: 'inky'
 gem 'premailer-rails'

@@ -267,7 +267,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
-    redis (4.1.4)
+    redis (3.3.5)
     regexp_parser (1.7.0)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -447,7 +447,7 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify
   react-rails (>= 2.5.0)
-  redis
+  redis (~> 3.0)
   responders
   rspec-collection_matchers
   rspec-rails (~> 3.6)
