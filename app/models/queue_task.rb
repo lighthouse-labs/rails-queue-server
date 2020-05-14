@@ -4,10 +4,10 @@ class QueueTask < ApplicationRecord
   belongs_to :assistance_request
 
   scope :for_teacher, ->(teacher) { where(user: teacher) }
-  scope :teachers_queue_or_in_progress, ->(teacher) {
+  scope :teachers_queue_or_in_progress, ->(uid) {
     left_joins(assistance_request: :assistance)
       .where(assistance_requests: { canceled_at: nil })
-      .where("( assistances.id IS NULL AND queue_tasks.assistor_uid = ? ) OR assistances.end_at IS NULL", teacher.uid)
+      .where("( assistances.id IS NULL AND queue_tasks.assistor_uid = ? ) OR assistances.end_at IS NULL", uid)
   }
   scope :open_tasks, -> { joins(:assistance_request).merge(AssistanceRequest.open_requests) }
   scope :in_progress_tasks, -> { joins(:assistance_request).merge(AssistanceRequest.in_progress_requests) }
