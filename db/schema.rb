@@ -10,35 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200511181705) do
+ActiveRecord::Schema.define(version: 20200515163427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "assistance_requests", force: :cascade do |t|
-    t.string   "requestor_uid"
-    t.string   "assistor_uid"
+    t.jsonb    "requestor"
+    t.jsonb    "request"
     t.datetime "start_at"
     t.integer  "assistance_id"
     t.integer  "compass_instance_id"
     t.datetime "canceled_at"
     t.string   "type"
-    t.integer  "activity_submission_id"
-    t.text     "reason"
-    t.integer  "activity_id"
-    t.integer  "cohort_id"
-    t.string   "day"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.index ["assistance_id"], name: "index_assistance_requests_on_assistance_id", using: :btree
-    t.index ["assistor_uid"], name: "index_assistance_requests_on_assistor_uid", using: :btree
     t.index ["compass_instance_id"], name: "index_assistance_requests_on_compass_instance_id", using: :btree
-    t.index ["requestor_uid"], name: "index_assistance_requests_on_requestor_uid", using: :btree
   end
 
   create_table "assistances", force: :cascade do |t|
     t.string   "assistor_uid"
-    t.string   "assistee_uid"
     t.datetime "start_at"
     t.datetime "end_at"
     t.text     "notes"
@@ -46,15 +38,10 @@ ActiveRecord::Schema.define(version: 20200511181705) do
     t.datetime "updated_at"
     t.integer  "rating"
     t.text     "student_notes"
-    t.boolean  "imported",        default: false
-    t.integer  "activity_id"
-    t.integer  "cohort_id"
-    t.string   "day"
     t.boolean  "flag"
-    t.integer  "secs_in_queue"
     t.string   "conference_link"
     t.string   "conference_type"
-    t.index ["assistee_uid"], name: "index_assistances_on_assistee_uid", using: :btree
+    t.string   "resource_type"
     t.index ["assistor_uid"], name: "index_assistances_on_assistor_uid", using: :btree
   end
 
@@ -88,6 +75,7 @@ ActiveRecord::Schema.define(version: 20200511181705) do
     t.jsonb    "routing_score"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.datetime "start_at"
     t.index ["assistance_request_id"], name: "index_queue_tasks_on_assistance_request_id", using: :btree
   end
 
