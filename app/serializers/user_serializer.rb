@@ -14,6 +14,8 @@ class UserSerializer < ActiveModel::Serializer
              :socials,
              :info,
              :info_url,
+             :on_duty,
+             :busy?,
              :access
 
   protected
