@@ -15,9 +15,6 @@ class User < ApplicationRecord
   belongs_to :initial_cohort, class_name: 'Cohort' # rollover student have this set
   belongs_to :location
 
-  has_many :assistance_requests, foreign_key: :requestor_uid
-  has_many :assistances, foreign_key: :assistee_uid
-
   has_many :activity_submissions
   has_many :activity_feedbacks, dependent: :destroy
   has_many :submitted_activities, through: :activity_submissions, source: :activity
@@ -30,7 +27,7 @@ class User < ApplicationRecord
 
   has_many :video_conferences
 
-  has_many :queue_tasks
+  # has_many :queue_tasks
   has_many :user_status_logs
 
   scope :order_by_last_assisted_at, -> {
@@ -130,24 +127,16 @@ class User < ApplicationRecord
     false
   end
 
-  def being_assisted?
-    assistance_requests.where(type: nil).in_progress_requests.exists?
-  end
-
   def position_in_queue
-    assistance_requests.where(type: nil).open_requests.newest_requests_first.first.try(:position_in_queue)
-  end
-
-  def current_assistor
-    assistance_requests.where(type: nil).in_progress_requests.newest_requests_first.first.try(:assistance).try(:assistor)
+    assistance_requests.where(type: nil).pending.newest_requests_first.first.try(:position_in_queue)
   end
 
   def current_assistance_conference
-    assistances.currently_active.order_by_start.last&.conference_link
+    assistances.in_progress.order_by_start.last&.conference_link
   end
 
   def waiting_for_assistance?
-    assistance_requests.where(type: nil).open_requests.exists?
+    assistance_requests.where(type: nil).pending.exists?
   end
 
   def completion_records_for(activity)
@@ -271,6 +260,18 @@ class User < ApplicationRecord
       status: on_duty ? 'on_duty' : 'off_duty'
     )
     save
+  end
+
+  def assistances
+    Assistance.for_user(self)  
+  end
+
+  def assistance_requests
+    AssistanceRequest.requested_by(self)
+  end
+
+  def queue_tasks
+    QueueTask.for_user(self)
   end
   
   class << self
