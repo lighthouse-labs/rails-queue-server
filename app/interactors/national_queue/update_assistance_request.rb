@@ -3,7 +3,7 @@ class NationalQueue::UpdateAssistanceRequest
   include Interactor
 
   before do
-    @assistance_request = context.options[:request_id] ? AssistanceRequest.find_by(id: context.options[:request_id]) : context.requestor&.assistance_requests&.open_or_in_progress_requests.first
+    @assistance_request = context.options[:request_id] ? AssistanceRequest.find_by(id: context.options[:request_id]) : AssistanceRequest.requested_by(context.requestor['uid']).pending_or_in_progress.first
     @options = context.options
     @assistor = context.assistor
   end

@@ -7,7 +7,9 @@ class SmartQueueRouter::RouterSettings
   end
 
   def call
-    program_settings = Program.first&.settings.try(:[], 'task_router_settings')
+    puts 'router settings ++++++++++++++++++++++++++++++'
+
+    program_settings = CompassInstance.first&.settings.try(:[], 'task_router_settings')
     program_settings ||= {}
     context.task_penalty = @settings[:task_penalty] || get_setting('task_penalty') || -2
     context.assistance_penalty = @settings[:assistance_penalty] || get_setting('assistance_penalty') || -1

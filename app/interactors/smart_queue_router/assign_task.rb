@@ -9,6 +9,7 @@ class SmartQueueRouter::AssignTask
   end
 
   def call
+    puts 'assign task+++++++++++++++++'
     @teachers.sort_by { |_k, teacher| teacher[:routing_score] }.reverse
 
     assigned_tasks = []

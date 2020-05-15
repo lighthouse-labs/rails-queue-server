@@ -12,12 +12,16 @@ class SmartQueueRouter::TeacherAvailabilityScore
   end
 
   def call
-    @teachers.each do |_id, teacher|
+    puts 'availability ++++++++++++++++++++++++++++++'
+
+
+    @teachers.each do |_uid, teacher|
       teacher[:routing_score] ||= 0
-      teacher[:routing_score] += teacher[:object].queue_tasks.open_tasks.count <= @max_queue_size ? teacher[:object].queue_tasks.open_tasks.count * @task_penalty : -500
-      teacher[:routing_score] += teacher[:object].assistances.currently_active.count * @assistance_penalty
-      teacher[:routing_score] += teacher[:object].evaluations.in_progress_evaluations.count * @evaluation_penalty
-      teacher[:routing_score] += teacher[:object].tech_interviews.in_progress.count * @tech_interview_penalty
+      teacher[:routing_score] += teacher[:object].queue_tasks.pending.count * @task_penalty
+      # do this programatically so scoring buckets can be customized
+      teacher[:routing_score] += teacher[:object].teaching_assistances.in_progress.for_resource('Activity').count * @assistance_penalty
+      teacher[:routing_score] += teacher[:object].teaching_assistances.in_progress.for_resource('Evaluation').count * @evaluation_penalty
+      teacher[:routing_score] += teacher[:object].teaching_assistances.in_progress.for_resource('TechInterview').count * @tech_interview_penalty
     end
   end
 

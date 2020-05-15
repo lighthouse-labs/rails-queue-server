@@ -8,6 +8,7 @@ class NationalQueue::SmartTaskRoute
   end
 
   def call
+    puts '++smart task route +++++++++++++++++++'
     updates = []
     if !@assistance_request.canceled_at? && @assistance_request.queue_tasks.empty?
       smart_task_result = SmartQueueRouter::RouteTask.call(
@@ -26,7 +27,7 @@ class NationalQueue::SmartTaskRoute
   end
 
   def public_task(task)
-    task.user == @assistor
+    task.assistor_uid == @assistor&.uid
   end
 
 end
