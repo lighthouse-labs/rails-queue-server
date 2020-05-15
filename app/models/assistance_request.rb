@@ -61,9 +61,7 @@ class AssistanceRequest < ApplicationRecord
     google_hangout ||= {}
 
     self.assistance = Assistance.new(
-      assistor:        assistor,
-      assistee:        requestor,
-      activity:        activity,
+      assistor_uid:        assistor.try(:uid) || assistor.try(:[], 'uid'),
       conference_link: google_hangout[:uri],
       conference_type: google_hangout[:type]
     )

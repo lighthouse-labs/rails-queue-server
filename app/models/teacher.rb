@@ -50,7 +50,7 @@ class Teacher < User
   end
 
   def teaching_assistances
-    Assistance.assisted_by(self)
+    Assistance.using(:master).assisted_by(self)
   end
 
   def busy?

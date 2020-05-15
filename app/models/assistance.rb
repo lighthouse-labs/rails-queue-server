@@ -34,12 +34,8 @@ class Assistance < ApplicationRecord
     self.student_notes = student_notes
     self.end_at = Time.current
     self.flag = notify
-    save!
-    assistee.last_assisted_at = Time.current
-
     UserMailer.notify_education_manager(self).deliver_later if flag?
-
-    assistee.save
+    save!
   end
 
   def in_progress?
