@@ -11,7 +11,7 @@ class NationalQueue::CreateAssistanceRequest
     compass_instance = CompassInstance.find_by(id: @requestor['compass_instance_id'])
     ar = context.assistance_request = AssistanceRequest.new(
       requestor: @requestor,
-      request: @reason,
+      request: @request,
       compass_instance: compass_instance,
       type: 'UserRequest'
     )

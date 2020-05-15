@@ -10,10 +10,10 @@ class NationalQueue::BroadcastStudentQueueUpdate
     puts 'broadcast student queue update ++++++++++++++++++++++++++++++'
     unless @assistance_request.assistance&.end_at?
       AssistanceRequest.pending.each do |assistance_request|
-        NationalQueueChannel.broadcast_to assistance_request.requestor, type: "requestUpdate", object: AssistanceRequestSerializer.new(assistance_request).as_json
+        NationalQueueChannel.broadcast_to assistance_request.requestor, type: "requestUpdate", object: RequestSerializer.new(assistance_request).as_json
       end
     end
-    NationalQueueChannel.broadcast_to @assistance_request.requestor, type: "requestUpdate", object: AssistanceRequestSerializer.new(@assistance_request).as_json
+    NationalQueueChannel.broadcast_to @assistance_request.requestor, type: "requestUpdate", object: RequestSerializer.new(@assistance_request).as_json
   end
 
 end
