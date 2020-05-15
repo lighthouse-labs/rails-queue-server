@@ -2,7 +2,7 @@ class Teacher < User
 
   has_many :feedbacks
 
-  has_many :teaching_assistances, class_name: Assistance, foreign_key: :assistor_uid
+  # has_many :teaching_assistances, class_name: Assistance, foreign_key: :assistor_uid
 
   has_many :evaluations
 
@@ -17,9 +17,9 @@ class Teacher < User
     where(id: teacher_id)
   }
 
-  scope :has_assisted_student, ->(student) {
+  scope :has_assisted_student, ->(uid) {
     includes(:teaching_assistances)
-      .where(assistances: { assistee_id: student.id })
+      .where(assistances: { assistee_uid: uid })
       .where('assistances.end_at IS NOT NULL')
   }
 
@@ -49,8 +49,12 @@ class Teacher < User
     false
   end
 
+  def teaching_assistances
+    Assistance.assisted_by(self)
+  end
+
   def busy?
-    !teaching_assistances.currently_active.empty? || !evaluations.in_progress_evaluations.empty? || !tech_interviews.in_progress.empty?
+    !teaching_assistances.in_progress.empty?
   end
 
   def current_enrollment_id

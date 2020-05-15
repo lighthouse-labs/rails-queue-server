@@ -4,7 +4,7 @@ class QueueController < ApplicationController
   before_action :super_admin_required, only: :update_settings
 
   def index
-    queue_tasks = @current_user['access'].include?('admin') ? QueueTask.open_or_in_progress_tasks : QueueTask.teachers_queue_or_in_progress(@current_user['uid'])
+    queue_tasks = @current_user['access'].include?('admin') ? QueueTask.pending_or_in_progress : QueueTask.teachers_queue_or_in_progress(@current_user['uid'])
     render json: queue_tasks, each_serializer: QueueTaskSerializer, root: 'tasks'
   end
 

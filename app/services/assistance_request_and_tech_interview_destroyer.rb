@@ -13,7 +13,7 @@ class AssistanceRequestAndTechInterviewDestroyer
 
   def remove_assistance_requests
     Rails.logger.info "Removing Assistance Requests"
-    assistance_requests = AssistanceRequest.open_requests
+    assistance_requests = AssistanceRequest.pending
 
     Rails.logger.info "#{assistance_requests.count} entries found."
     assistance_requests.each do |ar|

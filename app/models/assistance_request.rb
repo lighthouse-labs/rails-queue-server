@@ -1,5 +1,7 @@
 class AssistanceRequest < ApplicationRecord
 
+  allow_shard :master
+
   belongs_to :assistance, dependent: :delete
   belongs_to :compass_instance
 
@@ -7,7 +9,14 @@ class AssistanceRequest < ApplicationRecord
 
   before_create :set_start_at
 
-  scope :open_requests, -> { where(canceled_at: nil).where(assistance_id: nil) }
+  scope :pending, -> { where(canceled_at: nil).where(assistance_id: nil) }
+  scope :in_progress, -> {
+    includes(:assistance)
+    .where(assistance_requests: { canceled_at: nil })
+    .where.not(assistances: { id: nil })
+    .where(assistances: { end_at: nil })
+    .references(:assistance)
+  }
   scope :closed, -> {
     where(canceled_at: nil)
     .where.not(assistance_id: nil)
@@ -15,21 +24,17 @@ class AssistanceRequest < ApplicationRecord
     .references(:assistance)
     .where.not(assistances: { end_at: nil })
   }
+  scope :pending_or_in_progress, -> {
+    includes(:assistance)
+    .where(assistance_requests: { canceled_at: nil })
+    .where("assistances.id IS NULL OR assistances.end_at IS NULL")
+    .references(:assistance)
+  }
   scope :requested_by, ->(uid) {
     where("requestor->>'uid' = ?", uid)
   }
-  scope :in_progress_requests, -> {
-    includes(:assistance)
-      .where(assistance_requests: { canceled_at: nil })
-      .where.not(assistances: { id: nil })
-      .where(assistances: { end_at: nil })
-      .references(:assistance)
-  }
-  scope :open_or_in_progress_requests, -> {
-    includes(:assistance)
-      .where(assistance_requests: { canceled_at: nil })
-      .where("assistances.id IS NULL OR assistances.end_at IS NULL")
-      .references(:assistance)
+  scope :for_resource, ->(resource) {
+    where("request->>'resource_type' = ?", resource)
   }
 
   scope :oldest_requests_first, -> { order(start_at: :asc) }
@@ -68,7 +73,7 @@ class AssistanceRequest < ApplicationRecord
   def assign_task(assistor)
     return false if assistor.blank? || assistance.present?
 
-    queue_tasks.create(user: assistor)
+    queue_tasks.create(assistor_uid: assistor.uid)
   end
 
   def end_assistance(notes)
@@ -82,7 +87,7 @@ class AssistanceRequest < ApplicationRecord
     save!
   end
 
-  def open?
+  def pending?
     assistance.nil? && canceled_at.nil?
   end
 
@@ -93,7 +98,7 @@ class AssistanceRequest < ApplicationRecord
   def state
     if in_progress?
       'in_progress'
-    elsif open?
+    elsif pending?
       'pending'
     else
       'closed'
@@ -101,7 +106,7 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def position_in_queue
-    queue_tasks&.map(&:position_in_queue).max if open?
+    queue_tasks&.map(&:position_in_queue).max if pending?
   end
 
   private

@@ -7,12 +7,13 @@ class NationalQueue::BroadcastStudentQueueUpdate
   end
 
   def call
+    puts 'broadcast student queue update ++++++++++++++++++++++++++++++'
     unless @assistance_request.assistance&.end_at?
-      Student.has_open_requests.each do |student|
-        NationalQueueChannel.broadcast_to student, type: "requestUpdate", object: NationalQueueAssistanceRequestSerializer.new(student.assistance_requests.open_or_in_progress_requests.first).as_json
+      AssistanceRequest.pending.each do |assistance_request|
+        NationalQueueChannel.broadcast_to assistance_request.requestor, type: "requestUpdate", object: AssistanceRequestSerializer.new(assistance_request).as_json
       end
     end
-    NationalQueueChannel.broadcast_to @assistance_request.requestor, type: "requestUpdate", object: NationalQueueAssistanceRequestSerializer.new(@assistance_request).as_json
+    NationalQueueChannel.broadcast_to @assistance_request.requestor, type: "requestUpdate", object: AssistanceRequestSerializer.new(@assistance_request).as_json
   end
 
 end

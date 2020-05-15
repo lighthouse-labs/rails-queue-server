@@ -9,7 +9,7 @@ class SmartQueueRouter::AssignQueue
 
   def call
     assigned_tasks = []
-    @active_requests = AssistanceRequest.open_requests.oldest_requests_first
+    @active_requests = AssistanceRequest.pending.oldest_requests_first
     @active_requests.each do |assistance_request|
       score_result = SmartQueueRouter::ScoreForAr.call({
         assistance_request: assistance_request,

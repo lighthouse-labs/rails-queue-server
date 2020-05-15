@@ -8,12 +8,12 @@ class Student < User
   validates :unlocked_until_day, format: { with: DAY_REGEX, allow_blank: true, message: 'Invalid Day Format' }, unless: :use_double_digit_week?
 
   scope :in_active_cohort, -> { joins(:cohort).merge(Cohort.is_active) }
-  scope :has_open_requests, -> {
+  scope :has_pending_requests, -> {
     joins(:assistance_requests)
       .where(assistance_requests: { type: nil, canceled_at: nil, assistance_id: nil })
       .references(:assistance_requests)
   }
-  scope :has_open_requests_in_location, ->(location) {
+  scope :has_pending_requests_in_location, ->(location) {
     joins(:assistance_requests)
       .where(assistance_requests: { type: nil, canceled_at: nil, assistance_id: nil, assistor_location_id: location })
       .references(:assistance_requests)
