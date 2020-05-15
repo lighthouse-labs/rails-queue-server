@@ -11,7 +11,7 @@ module ApplicationCable
 
     def self.broadcast_to(entity, message, ignore = false)
       # add sequence number and store messages
-      uid = entity['uid']
+      uid = entity.try(:uid) || entity.try(:[], 'uid')
       message[:sequence] = @@message_sequence += 1
       if message[:type] == @@updates_type && !ignore
         @@user_updates[uid] ||= []

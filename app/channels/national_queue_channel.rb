@@ -13,25 +13,26 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
 
   def assistance_request_state
     NationalQueueChannel.broadcast_to current_user, type:   "requestUpdate",
-                                                    object: NationalQueueAssistanceRequestSerializer.new(AssistanceRequest.for_uid(current_user['uid'])open_or_in_progress_requests.first).as_json
+                                                    object: AssistanceRequestSerializer.new(AssistanceRequest.requested_by(current_user['uid']).pending_or_in_progress.first).as_json
   end
 
   def request_assistance(data)
-    NationalQueue::RequestAssistance.call(
-      requestor:   current_user,
-      reason:      data["reason"],
-      activity_id: data["activity_id"]
+    result = NationalQueue::RequestAssistance.call(
+      requestor:    current_user,
+      request:      data["request"]
     )
+    puts(result.errors) unless result.success?
   end
 
   def cancel_assistance_request(data)
-    NationalQueue::UpdateRequest.call(
+    result = NationalQueue::UpdateRequest.call(
       requestor: current_user,
       options:   {
         type:       'cancel',
         request_id: data["request_id"]
       }
     )
+    puts(result.errors) unless result.success?
   end
 
   def cancel_assistance(data)
