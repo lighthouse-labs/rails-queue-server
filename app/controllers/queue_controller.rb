@@ -14,6 +14,19 @@ class QueueController < ApplicationController
     render json: queue_tasks, each_serializer: QueueTaskSerializer, root: 'tasks'
   end
 
+  def create
+    #  create ar and qt
+    result = NationalQueue::RequestAssistance.call(
+      requestor:    requestor_params,
+      request:      request_params
+    )
+    if result.success?
+      render json: { queueSettings: queue_settings }
+    else
+      render json: { message: 'Unable to Post Request' }, status: :internal_server_error
+    end
+  end
+
   def teachers
     teachers = Octopus.using_group(:program_shards) do
       teachers = Teacher.on_duty
@@ -55,6 +68,17 @@ class QueueController < ApplicationController
         format.json { render json: { error: 'Not Allowed.' } }
       end
     end
+  end
+
+  def requestor_params
+    info_options = params.require(:requestor)[:info].try(:permit!)
+    social_options = params.require(:requestor)[:social].try(:permit!)
+    params.require(:requestor).permit(:uid, :fullName, :pronoun, :avatarUrl, :socials, :info, :infoUrl, :access).merge(:info => info_options).merge(:social => social_options)
+  end
+
+  def request_params
+    info_options = params.require(:request)[:info].try(:permit!)
+    params.require(:request).permit(:reason, :resourceUuid, :resourceLink, :resourceName, :resourceType, :finishResourceUrl, :route).merge(:info => info_options)
   end
 
   def queue_settings_params
