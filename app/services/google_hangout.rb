@@ -13,10 +13,10 @@ class GoogleHangout
       scope: @scope
     )
 
-    if ENV["GOOGLE_SUB_EMAIL"]
-      google_org_domain = ENV["GOOGLE_SUB_EMAIL"].split('@').last
-      @authorizer.sub = ENV["GOOGLE_SUB_EMAIL"] if assistee.email.split('@').last == google_org_domain || assistor.email.split('@').last == google_org_domain
-    end
+    # if ENV["GOOGLE_SUB_EMAIL"]
+    #   google_org_domain = ENV["GOOGLE_SUB_EMAIL"].split('@').last
+    #   @authorizer.sub = ENV["GOOGLE_SUB_EMAIL"] if assistee.email.split('@').last == google_org_domain || assistor.email.split('@').last == google_org_domain
+    # end
 
     @authorizer.fetch_access_token!
     service = Google::Apis::CalendarV3::CalendarService.new
@@ -25,8 +25,8 @@ class GoogleHangout
     now = DateTime.now
 
     event = {
-      summary:         "Assistance Request Between #{assistor.full_name} and #{assistee.full_name}",
-      location:        assistee.location&.name.to_s,
+      summary:         "Assistance Request Between #{assistor.try(:full_name) || assistor.try(:[], 'fullName')} and #{assistee['fullName']}",
+      location:        assistee.dig('info', 'location'),
       description:     'This event was automatically created by the HangoutsCreator Service Account',
       guestsCanModify: true,
       start:           {
