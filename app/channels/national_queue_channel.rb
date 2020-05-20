@@ -19,7 +19,8 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def request_assistance(data)
     result = NationalQueue::RequestAssistance.call(
       requestor:    current_user,
-      request:      data["request"]
+      request:      data["request"],
+      type:         'UserRequest'
     )
     puts(result.errors) unless result.success?
   end
