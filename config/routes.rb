@@ -10,6 +10,8 @@ LaserShark::Application.routes.draw do
     put 'settings' => 'queue_tasks#update_settings', on: :collection
   end
 
+  resource :assistance_requests, only: [:create, :update]
+
   resource :token, only: [:create]
 
   resources :compass_instances, only: [:create]
