@@ -12,6 +12,7 @@ class QueueTask < ApplicationRecord
   scope :pending_or_in_progress, -> { joins(:assistance_request).merge(AssistanceRequest.pending_or_in_progress) }
   
   scope :for_user, ->(user) { where(assistor_uid: user.uid) }
+  scope :general, ->{ where(assistor_uid: nil) }
   scope :teachers_queue_or_in_progress, ->(uid) {
     left_joins(assistance_request: :assistance)
       .where(assistance_requests: { canceled_at: nil })
@@ -27,7 +28,7 @@ class QueueTask < ApplicationRecord
   def state
     if assistance_request.pending?
       'pending'
-    elsif assistance_request.in_progress? && assistor === assistance_request.assistance&.assistor
+    elsif assistance_request.in_progress? && (assistor === assistance_request.assistance&.assistor || assistor.blank?)
       'in_progress'
     else
       'closed'

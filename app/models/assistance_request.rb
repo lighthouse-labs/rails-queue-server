@@ -33,6 +33,9 @@ class AssistanceRequest < ApplicationRecord
   scope :requested_by, ->(uid) {
     where("requestor->>'uid' = ?", uid)
   }
+  scope :with_request_id, ->(id) {
+    where("request->>'id' = ?", id.to_s)
+  }
   scope :for_resource, ->(resource) {
     where("request->>'resource_type' = ?", resource)
   }
@@ -59,9 +62,9 @@ class AssistanceRequest < ApplicationRecord
       google_hangout = google_hangout.create_hangout(assistor, requestor)
     end
     google_hangout ||= {}
-
+    assistor_uid = assistor.try(:uid) || assistor.try(:[], 'uid')
     self.assistance = Assistance.new(
-      assistor_uid:        assistor.try(:uid) || assistor.try(:[], 'uid'),
+      assistor_uid:    assistor_uid,
       conference_link: google_hangout[:uri],
       conference_type: google_hangout[:type]
     )
@@ -69,9 +72,9 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def assign_task(assistor)
-    return false if assistor.blank? || assistance.present?
+    return false if assistance.present?
 
-    queue_tasks.create(assistor_uid: assistor.uid)
+    queue_tasks.create(assistor_uid: assistor&.uid)
   end
 
   def end_assistance(notes)

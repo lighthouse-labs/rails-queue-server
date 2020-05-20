@@ -11,12 +11,18 @@ class NationalQueue::SmartTaskRoute
     puts '++smart task route +++++++++++++++++++'
     updates = []
     if !@assistance_request.canceled_at? && @assistance_request.queue_tasks.empty?
-      smart_task_result = SmartQueueRouter::RouteTask.call(
-        assistance_request: @assistance_request
-      )
-      context.fail! unless smart_task_result.success?
-
-      updates = smart_task_result.assigned_tasks
+      if @assistance_request.request['route']
+        smart_task_result = SmartQueueRouter::RouteTask.call(
+          assistance_request: @assistance_request
+        )
+        context.fail! unless smart_task_result.success?
+  
+        updates = smart_task_result.assigned_tasks
+      else
+        task = @assistance_request.assign_task(@assistor)
+        context.fail!(error: 'Failed creating queue task.') unless task
+        updates.push({ task: task, shared: true })
+      end
     else
       # later may re assign tasks
       @assistance_request.queue_tasks.each do |task|
