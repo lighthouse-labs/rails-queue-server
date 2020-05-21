@@ -14,7 +14,10 @@ class AssistanceRequestsController < ApplicationController
 
   def create
     #  create ar and qt
-    assistor = params[:assostor] if params[:assostor].present?
+    if params[:assistor].present?
+      assistor =  User.using(:web).find_by(uid: assistor_params[:uid])
+      render(json: { message: 'Invalid Assistor'}, status: :internal_server_error) unless assistor.present?
+    end
     result = NationalQueue::RequestAssistance.call(
       requestor:    requestor_params,
       request:      request_params,
@@ -34,14 +37,15 @@ class AssistanceRequestsController < ApplicationController
     assitance_request = AssistanceRequest.with_request_id(request_params[:id]).first
     render json: { message: 'Unable to Update Request' }, status: :internal_server_error unless assitance_request.present?
     
-    if params[:assistor]
-      assistor_hash = assistor_params.to_h
+    if params[:assistor].present?
+      assistor =  User.using(:web).find_by(uid: assistor_params[:uid])
+      render(json: { message: 'Invalid Assistor'}, status: :internal_server_error) unless assistor.present?
       type = assitance_request.in_progress? ? 'finish_assistance' : 'start_assistance'
     else
       type = assitance_request.in_progress? ? 'cancel_assistance' : 'cancel'
     end
     result = NationalQueue::UpdateRequest.call(
-      assistor: assistor_hash,
+      assistor: assistor,
       options:   {
         type:       type,
         request_id: assitance_request.id
@@ -71,19 +75,19 @@ class AssistanceRequestsController < ApplicationController
     info_options = params.require(:requestor)[:info].try(:permit!)
     social_options = params.require(:requestor)[:social].try(:permit!)
     access_options = params.require(:requestor)[:access].try(:permit!)
-    params.require(:requestor).permit(:uid, :fullName, :pronoun, :avatarUrl, :socials, :info, :infoUrl, :access).merge(:info => info_options).merge(:social => social_options).merge(:access => access_options)
+    params.require(:requestor).permit(:uid, :fullName, :pronoun, :avatarUrl, :socials, :info, :infoUrl, :access).merge(info: info_options, social: social_options, access: access_options)
   end
 
   def assistor_params
     info_options = params.require(:assistor)[:info].try(:permit!)
     social_options = params.require(:assistor)[:social].try(:permit!)
     access_options = params.require(:assistor)[:access].try(:permit!)
-    params.require(:assistor).permit(:uid, :fullName, :pronoun, :avatarUrl, :socials, :info, :infoUrl, :access).merge(:info => info_options).merge(:social => social_options).merge(:access => access_options)
+    params.require(:assistor).permit(:uid, :fullName, :pronoun, :avatarUrl, :socials, :info, :infoUrl, :access).merge(info: info_options, social: social_options, access: access_options)
   end
 
   def request_params
     info_options = params.require(:request)[:info].try(:permit!)
-    params.require(:request).permit(:reason, :id, :resourceUuid, :resourceLink, :resourceName, :resourceType, :finishResourceUrl, :route).merge(:info => info_options)
+    params.require(:request).permit(:reason, :id, :resourceUuid, :resourceLink, :resourceName, :resourceType, :finishResourceUrl, :route).merge(info: info_options)
   end
 
 end
