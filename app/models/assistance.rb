@@ -1,6 +1,6 @@
 class Assistance < ApplicationRecord
 
-  include PgSearch
+  include PgSearch::Model
   allow_shard :master
   # belongs_to :assistor, class_name: User, foreign_key: "assistor_uid", primary_key: 'uid'
 
@@ -9,7 +9,7 @@ class Assistance < ApplicationRecord
 
   validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 4, allow_nil: true }
 
-  before_create :set_start_at
+  before_create :set_start_at, :creation_webhooks
 
   scope :in_progress, -> {
     where("end_at IS NULL")
@@ -35,6 +35,14 @@ class Assistance < ApplicationRecord
     self.end_at = Time.current
     self.flag = notify
     UserMailer.notify_education_manager(self).deliver_later if flag?
+    puts '++++++++++++++++++++++++'
+    result = Webhooks::Requests.call(
+      model:          'Assistance',
+      resource_type:  assistance_request.request['resourceType'],
+      action:         'end',
+      object:         self
+    )
+    raise 'test for now' unless result.success?
     save!
   end
 
@@ -58,6 +66,15 @@ class Assistance < ApplicationRecord
 
   def set_start_at
     self.start_at ||= Time.current
+  end
+
+  def creation_webhooks
+    Webhooks::Requests.call(
+      model:          'Assistance',
+      resource_type:  assistance_request.request['resourceType'],
+      action:         'create',
+      object:         self
+    )
   end
 
 end

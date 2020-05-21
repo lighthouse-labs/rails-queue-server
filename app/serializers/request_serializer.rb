@@ -1,5 +1,5 @@
 class RequestSerializer < ActiveModel::Serializer
-
+  
   root false
   format_keys :lower_camel
   attributes :id, :requestor, :request, :start_at, :canceled_at, :type, :state, :assistor, :conference_link, :assistance_start

@@ -4,6 +4,8 @@ class Feedback < ApplicationRecord
   belongs_to :assistor, class_name: User, foreign_key: "assistor_uid", primary_key: 'uid'
   belongs_to :assistee, class_name: User, foreign_key: "assistee_uid", primary_key: 'uid'
 
+  before_create :creation_webhooks
+
   scope :assistor_feedbacks, -> { where.not(assistor: nil) }
   scope :expired, -> { where("feedbacks.created_at < ?", Time.zone.today - 1) }
   scope :not_expired, -> { where("feedbacks.created_at >= ?", Time.zone.today - 1) }
@@ -24,6 +26,17 @@ class Feedback < ApplicationRecord
 
   def self.average_rating
     average(:rating).to_f.round(2)
+  end
+
+  private
+
+  def creation_webhooks
+    Webhooks::Requests.call(
+      model:          'Feedback',
+      resource_type:  feedbackable.class.name,
+      action:         'create',
+      object:         self
+    )
   end
 
 end

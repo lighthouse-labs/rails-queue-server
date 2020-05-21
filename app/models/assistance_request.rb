@@ -7,7 +7,7 @@ class AssistanceRequest < ApplicationRecord
 
   has_many :queue_tasks
 
-  before_create :set_start_at
+  before_create :set_start_at, :creation_webhooks
 
   scope :pending, -> { where(canceled_at: nil).where(assistance_id: nil) }
   scope :in_progress, -> {
@@ -56,7 +56,6 @@ class AssistanceRequest < ApplicationRecord
 
   def start_assistance(assistor)
     return false if assistor.blank? || assistance.present?
-
     if compass_instance.has_feature?('assistance_hangouts')
       google_hangout = GoogleHangout.new
       google_hangout = google_hangout.create_hangout(assistor, requestor)
@@ -74,7 +73,7 @@ class AssistanceRequest < ApplicationRecord
   def assign_task(assistor)
     return false if assistance.present?
 
-    queue_tasks.create(assistor_uid: assistor&.uid)
+    queue_tasks.create(assistor_uid: assistor.try(:uid) || assistor.try(:[], 'uid'))
   end
 
   def end_assistance(notes)
@@ -118,6 +117,15 @@ class AssistanceRequest < ApplicationRecord
 
   def set_start_at
     self.start_at ||= Time.current
+  end
+
+  def creation_webhooks
+    Webhooks::Requests.call(
+      model:          'AssistanceRequest',
+      resource_type:  request['resource_type'],
+      action:         'create',
+      object:         self
+    )
   end
 
 end
