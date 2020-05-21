@@ -20,6 +20,9 @@ class NationalQueue::SmartTaskRoute
         updates = smart_task_result.assigned_tasks
       else
         task = @assistance_request.assign_task(@assistor)
+        if @assistor
+          context.fail!(error: 'Failed creating assistance.') unless @assistance_request.start_assistance(@assistor)
+        end
         context.fail!(error: 'Failed creating queue task.') unless task
         updates.push({ task: task, shared: true })
       end

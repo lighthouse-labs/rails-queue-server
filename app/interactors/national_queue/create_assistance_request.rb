@@ -3,10 +3,10 @@ class NationalQueue::CreateAssistanceRequest
   include Interactor
 
   before do
-    @requestor   = context.requestor
-    @request     = context.request
-    @assistor    = context.assistor 
-    @type        = context.type
+    @requestor        = context.requestor
+    @request          = context.request
+    @assistor         = context.assistor 
+    @request_type     = context.request_type
     @compass_instance = context.compass_instance
   end
 
@@ -16,10 +16,9 @@ class NationalQueue::CreateAssistanceRequest
       requestor: @requestor,
       request: @request,
       compass_instance: compass_instance,
-      type: @type
+      type: @request_type
     )
     context.fail!(error: "Could not save AR") unless ar.save!
-    ar.start_assistance(@assistor) if @assistor
   end
 
   def rollback

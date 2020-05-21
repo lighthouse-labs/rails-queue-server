@@ -3,21 +3,31 @@ class NationalQueue::CreateAssistance
   include Interactor
 
   before do
-    @requestor   = User.find_by id: context.requestor_id
-    @assistor    = context.assistor
-    @options     = context.options
+    @requestor    = context.requestor
+    @assistor     = context.assistor
+    @options      = context.options
+    @request_type = context.request_type
   end
 
   def call
+    puts '~~~create assistance'
     context.fail! unless @requestor
-    assistance_request = AssistanceRequest.new(requestor: @requestor, reason: "Offline assistance requested")
+    compass_instance = @compass_instance 
+    compass_instance ||= CompassInstance.find_by(id: @requestor['compass_instance_id'])
+    compass_instance ||= CompassInstance.find_by(id: @assistor['compass_instance_id'])
+    assistance_request = AssistanceRequest.new(
+      requestor: @requestor,
+      compass_instance: compass_instance,
+      type: @request_type
+    )
     context.fail! unless assistance_request.save
+    task = assistance_request.assign_task(@assistor)
     assistance_request.start_assistance(@assistor)
     assistance = assistance_request.reload.assistance
     assistance.end(@options[:note], @options[:notify], @options[:rating])
     context.assistance_request = assistance_request
     context.updates ||= []
-    context.updates.push({ task: assistance_request, shared: true })
+    context.updates.push({ task: task, shared: true })
   end
 
   def rollback

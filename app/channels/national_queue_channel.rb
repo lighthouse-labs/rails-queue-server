@@ -20,7 +20,7 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
     result = NationalQueue::RequestAssistance.call(
       requestor:    current_user,
       request:      data["request"],
-      type:         'UserRequest'
+      request_type: 'UserRequest'
     )
     puts(result.errors) unless result.success?
   end
@@ -72,7 +72,8 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def provide_assistance(data)
     NationalQueue::ProvideAssistance.call(
       assistor:     current_user,
-      requestor_id: data["requestor_id"],
+      requestor:    data["requestor"],
+      request_type: 'ManualRequest',
       options:      {
         note:   data["notes"],
         notify: data["notify"],
