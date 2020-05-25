@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200516000405) do
+ActiveRecord::Schema.define(version: 20200522173201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,8 +55,6 @@ ActiveRecord::Schema.define(version: 20200516000405) do
   end
 
   create_table "feedbacks", force: :cascade do |t|
-    t.string   "assistee_uid"
-    t.string   "assistor_uid"
     t.integer  "technical_rating"
     t.integer  "style_rating"
     t.text     "notes"
@@ -65,8 +63,6 @@ ActiveRecord::Schema.define(version: 20200516000405) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "rating"
-    t.index ["assistee_uid"], name: "index_feedbacks_on_assistee_uid", using: :btree
-    t.index ["assistor_uid"], name: "index_feedbacks_on_assistor_uid", using: :btree
   end
 
   create_table "queue_tasks", force: :cascade do |t|
