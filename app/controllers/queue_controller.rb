@@ -1,10 +1,16 @@
 class QueueController < ApplicationController
 
-  before_action :teacher_required, except: :day_activities
+  before_action :teacher_required, except: :index
   before_action :super_admin_required, only: :update_settings
 
   def index
-    queue_tasks = @current_user['access'].include?('admin') ? QueueTask.pending_or_in_progress : QueueTask.teachers_queue_or_in_progress(@current_user['uid'])
+    if @current_user['access'].include?('admin')
+      queue_tasks = QueueTask.pending_or_in_progress
+    elsif @current_user['access'].include?('teacher')
+      queue_tasks = QueueTask.teachers_queue_or_in_progress(@current_user['uid'])
+    else
+      queue_tasks = QueueTask.finished.assisting(@current_user['uid'])
+    end
     render json: queue_tasks, each_serializer: QueueTaskSerializer, root: 'tasks'
   end
 
@@ -54,19 +60,13 @@ class QueueController < ApplicationController
 
   def teacher_required
     unless @current_user['access'].include?("teacher")
-      respond_to do |format|
-        format.html { redirect_to(:root, alert: 'Not allowed.') }
-        format.json { render json: { error: 'Not Allowed.' } }
-      end
+      render json: { error: 'Not Allowed.' }
     end
   end
 
   def super_admin_required
     unless @current_user['access'].include?("super_admin")
-      respond_to do |format|
-        format.html { redirect_to(:root, alert: 'Not allowed.') }
-        format.json { render json: { error: 'Not Allowed.' } }
-      end
+      render json: { error: 'Not Allowed.' }
     end
   end
 

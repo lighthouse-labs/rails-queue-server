@@ -18,12 +18,17 @@ class AssistanceRequest < ApplicationRecord
     .references(:assistance)
   }
   scope :closed, -> {
+    where.not(canceled_at: nil)
+    .or(finished)
+  }
+  scope :finished, -> {
     where(canceled_at: nil)
     .where.not(assistance_id: nil)
     .includes(:assistance)
     .references(:assistance)
     .where.not(assistances: { end_at: nil })
   }
+
   scope :pending_or_in_progress, -> {
     includes(:assistance)
     .where(assistance_requests: { canceled_at: nil })
@@ -93,6 +98,14 @@ class AssistanceRequest < ApplicationRecord
 
   def in_progress?
     canceled_at.nil? && assistance && assistance.end_at.nil?
+  end
+
+  def closed?
+    canceled_at || (assistance && assistance.end_at)
+  end
+
+  def finished?
+    canceled_at.nil? && assistance && assistance.end_at
   end
 
   def state

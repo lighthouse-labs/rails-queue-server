@@ -23,6 +23,7 @@ class Assistance < ApplicationRecord
   scope :for_user, ->(uid) {joins(:assistance_request).where("assistance_requests.requestor->>'uid' = ?", uid)}
   scope :requested_by, ->(uid) {joins(:assistance_request).where("assistance_requests.requestor->>'uid' = ?", uid)}
   scope :for_resource, ->(resource) { where(resource_type: resource)}
+  scope :without_feedback, -> { left_outer_joins(:feedback).where(feedbacks: { feedbackable_id: nil }) }
 
   scope :average_length, -> { average('EXTRACT(EPOCH FROM (assistances.end_at - assistances.start_at)) / 60.0').to_f }
 
