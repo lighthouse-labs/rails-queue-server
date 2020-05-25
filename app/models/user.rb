@@ -27,8 +27,9 @@ class User < ApplicationRecord
 
   has_many :video_conferences
 
+  # use methods instead of AR relations while users are stored in seperated db
   # has_many :queue_tasks
-  has_many :user_status_logs
+  # has_many :user_status_logs
 
   scope :order_by_last_assisted_at, -> {
     order("last_assisted_at ASC NULLS FIRST")
@@ -256,9 +257,11 @@ class User < ApplicationRecord
 
   def toggle_duty
     self.on_duty = !on_duty
-    self.user_status_logs.new(
+    status_log = UserStatusLog.new(
+      user_uid: uid,
       status: on_duty ? 'on_duty' : 'off_duty'
     )
+    status_log.save
     save
   end
 
@@ -272,6 +275,10 @@ class User < ApplicationRecord
 
   def queue_tasks
     QueueTask.for_user(self)
+  end
+
+  def user_status_logs
+    UserStatusLogs.for_user(self)
   end
   
   class << self

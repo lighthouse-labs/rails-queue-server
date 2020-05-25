@@ -1,6 +1,6 @@
 class QueueController < ApplicationController
 
-  before_action :teacher_required, except: :index
+  before_action :teacher_required, except: [:index, :teachers]
   before_action :super_admin_required, only: :update_settings
 
   def index
@@ -15,7 +15,7 @@ class QueueController < ApplicationController
   end
 
   def show
-    user = User.find_by(id: params[:id])
+    user = User.using(:web).find_by(uid: params[:uid])
     queue_tasks = user.queue_tasks.this_month
     render json: queue_tasks, each_serializer: QueueTaskSerializer, root: 'tasks'
   end

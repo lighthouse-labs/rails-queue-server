@@ -1,8 +1,8 @@
-class NationalQueue::OffDuty
+class NationalQueue::ToggleDuty
 
   include Interactor::Organizer
 
-  organize  NationalQueue::SmartTaskReassignQueue,
+  organize  NationalQueue::SmartTaskRequeue,
             NationalQueue::BroadcastTeacherAvailability,
             NationalQueue::BroadcastTeacherQueueUpdate
 

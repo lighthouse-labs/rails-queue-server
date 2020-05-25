@@ -85,9 +85,6 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   end
 
   def provide_feedback(data)
-    puts 'provide feedback~~~~~~~~~~'
-    puts data.inspect
-    puts '~~~~~~~~~~~~~'
     NationalQueue::ProvideFeedback.call(
       requestor: current_user,
       task_id:     data["task_id"],
@@ -124,6 +121,16 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
         tech_interview_id: data["tech_interview_id"]
       }
     )
+  end
+
+  def toggle_duty(data)
+    puts 'toggle duty request'
+    if  data["user_uid"] == current_user["uid"] || current_user['access'].include?("admin")
+      puts 'user allowed to toggle duty'
+      NationalQueue::ToggleDuty.call(
+        user_uid: data["user_uid"]
+      )
+    end
   end
 
 end
