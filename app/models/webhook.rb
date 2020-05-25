@@ -7,6 +7,6 @@ class Webhook < ApplicationRecord
 
   scope :for_model, -> (model) { where(model: model) }
   scope :for_action, -> (action) { where(action: action) }
-  scope :for_resource_type, -> (resource_type) { where(resource_type: resource_type) }
+  scope :for_resource_type, -> (resource_type) { where(resource_type: resource_type).or(where(resource_type: nil)) }
 
 end

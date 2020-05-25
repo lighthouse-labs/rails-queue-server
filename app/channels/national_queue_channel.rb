@@ -14,6 +14,8 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def assistance_request_state
     NationalQueueChannel.broadcast_to current_user, type:   "requestUpdate",
                                                     object: RequestSerializer.new(AssistanceRequest.requested_by(current_user['uid']).pending_or_in_progress.first).as_json
+    NationalQueueChannel.broadcast_to current_user, type:   "feedbackUpdate",
+                                                    object: Assistance.requested_by(current_user['uid']).without_feedback.count
   end
 
   def request_assistance(data)
@@ -79,6 +81,18 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
         notify: data["notify"],
         rating: data["rating"]
       }
+    )
+  end
+
+  def provide_feedback(data)
+    puts 'provide feedback~~~~~~~~~~'
+    puts data.inspect
+    puts '~~~~~~~~~~~~~'
+    NationalQueue::ProvideFeedback.call(
+      requestor: current_user,
+      task_id:     data["task_id"],
+      notes:    data["notes"],
+      rating: data["rating"]
     )
   end
 
