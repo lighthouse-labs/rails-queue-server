@@ -24,6 +24,11 @@ class Assistance < ApplicationRecord
   scope :requested_by, ->(uid) {joins(:assistance_request).where("assistance_requests.requestor->>'uid' = ?", uid)}
   scope :for_resource, ->(resource) { where(resource_type: resource)}
   scope :without_feedback, -> { left_outer_joins(:feedback).where(feedbacks: { feedbackable_id: nil }) }
+  scope :width_feedback_greater_than, -> (rating) { joins(:feedback).where("feedbacks.rating > ?", rating) }
+  scope :width_feedback_less_than, -> (rating) { joins(:feedback).where("feedbacks.rating < ?", rating) }
+  scope :average_feedback_rating, -> { joins(:feedback).average(feedbacks: {:rating}) }
+
+  scope :has_feedback, -> { joins(:feedback) }
 
   scope :average_length, -> { average('EXTRACT(EPOCH FROM (assistances.end_at - assistances.start_at)) / 60.0').to_f }
 
@@ -36,14 +41,12 @@ class Assistance < ApplicationRecord
     self.end_at = Time.current
     self.flag = notify
     UserMailer.notify_education_manager(self).deliver_later if flag?
-    puts '++++++++++++++++++++++++'
     result = Webhooks::Requests.call(
       model:          'Assistance',
       resource_type:  assistance_request.request['resourceType'],
       action:         'end',
       object:         self
     )
-    raise 'test for now' unless result.success?
     save!
   end
 

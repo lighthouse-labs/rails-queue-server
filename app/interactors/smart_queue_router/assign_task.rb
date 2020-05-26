@@ -10,19 +10,20 @@ class SmartQueueRouter::AssignTask
 
   def call
     puts 'assign task+++++++++++++++++'
-    @teachers.sort_by { |_k, teacher| teacher[:routing_score] }.reverse
+    @teachers.sort_by { |_k, teacher| teacher[:routing_score].total }.reverse
 
     assigned_tasks = []
     @teachers.each do |_k, teacher|
+      teacher[:routing_score].save!
+      next if assigned_tasks.length >= @desired_task_assignment
       task = @assistance_request.assign_task(teacher[:object])
       next unless task
 
       assigned_tasks.push({ task: task, shared: false })
-      if teacher[:routing_score] < -100
+      if teacher[:routing_score].summary['TeacherMaxQueueScore']
         # teacher's queue is greater than max queue size
         # notify EM that queue size was forced to be larget than max size
       end
-      break if assigned_tasks.length >= @desired_task_assignment
     end
     context.fail! if assigned_tasks.empty?
     if assigned_tasks.length < @desired_task_assignment

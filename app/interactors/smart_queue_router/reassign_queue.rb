@@ -24,7 +24,7 @@ class SmartQueueRouter::ReassignQueue
       assigned_assistance_requests.push(task.assistance_request)
       desired_task_assignment = @settings[:desired_task_assignment] || 5
 
-      teachers = score_result.teachers.sort_by { |_k, teacher| teacher[:routing_score] }.reverse.first desired_task_assignment
+      teachers = score_result.teachers.sort_by { |_k, teacher| teacher[:routing_score].total }.reverse.first desired_task_assignment
 
       teachers.each do |_k, teacher|
         next if teacher[:object].assigned_ar?(task.assistance_request)
@@ -33,7 +33,7 @@ class SmartQueueRouter::ReassignQueue
         next unless task
 
         assigned_tasks.push({ task: task, shared: false })
-        if teacher[:routing_score] < -100
+        if teacher[:routing_score].summary['TeacherMaxQueueScore']
           # teacher's queue is greater than max queue size
           # notify EM that queue size was forced to be larget than max size
         end

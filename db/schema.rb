@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200522175715) do
+ActiveRecord::Schema.define(version: 20200526195540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,11 +68,20 @@ ActiveRecord::Schema.define(version: 20200522175715) do
   create_table "queue_tasks", force: :cascade do |t|
     t.string   "assistor_uid"
     t.integer  "assistance_request_id"
-    t.jsonb    "routing_score"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.datetime "start_at"
     t.index ["assistance_request_id"], name: "index_queue_tasks_on_assistance_request_id", using: :btree
+  end
+
+  create_table "routing_scores", force: :cascade do |t|
+    t.string   "assistor_uid"
+    t.integer  "assistance_request_id"
+    t.jsonb    "summary"
+    t.integer  "total"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["assistance_request_id"], name: "index_routing_scores_on_assistance_request_id", using: :btree
   end
 
   create_table "user_status_logs", force: :cascade do |t|
@@ -95,5 +104,6 @@ ActiveRecord::Schema.define(version: 20200522175715) do
   add_foreign_key "assistance_requests", "assistances"
   add_foreign_key "assistance_requests", "compass_instances"
   add_foreign_key "queue_tasks", "assistance_requests"
+  add_foreign_key "routing_scores", "assistance_requests"
   add_foreign_key "webhooks", "compass_instances"
 end

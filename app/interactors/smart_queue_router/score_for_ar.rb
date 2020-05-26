@@ -5,7 +5,9 @@ class SmartQueueRouter::ScoreForAr
   organize  SmartQueueRouter::RouterSettings,
             SmartQueueRouter::GetOnDutyTeachers,
             SmartQueueRouter::TeacherAvailabilityScore,
+            SmartQueueRouter::TeacherMaxQueueScore,
+            SmartQueueRouter::TeacherAverageRatingScore,
+            SmartQueueRouter::TeacherPreviousAssistanceScore,
             SmartQueueRouter::TeacherLocationScore,
-            SmartQueueRouter::TeacherPreviousAssistanceScore
 
 end

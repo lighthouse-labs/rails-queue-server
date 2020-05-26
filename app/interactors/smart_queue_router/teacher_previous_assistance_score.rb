@@ -5,21 +5,32 @@ class SmartQueueRouter::TeacherPreviousAssistanceScore
   before do
     @teachers = context.teachers
     @requestor = context.assistance_request.requestor
+    @successfull_assistance_weight = context.successfull_assistance_weight
+    @negative_assistance_weight = context.negative_assistance_weight
   end
 
   def call
-    puts 'prev assistance ++++++++++++++++++++++++++++++'
+    puts 'negative assistance score++++++++++++++++++++++++++++++'
 
     @teachers.each do |_uid, teacher|
       assistances =  Assistance.completed.assisted_by(teacher[:object]).requested_by(@requestor['uid'])
       break if assistances.empty?
-      average_rating = assistances.where.not(rating: nil).average(:rating).to_f.round(2) || 2
-      # Positive points for ratings >= 3 negative points for < 3
-      rating_points = average_rating < 2 ? average_rating - 2 : average_rating - 1
-      history_scale = assistances.count < 2 ? 1 : Math.log(assistances.count, 2)
-      @teachers[teacher[:object].uid][:routing_score] ||= 0
-      @teachers[teacher[:object].uid][:routing_score] += history_scale * rating_points * context.rating_multiplier
+      successfull_assistances = assistances.with_feedback_greater_than(2).count || 0
+      negative_assistances = assistances.with_feedback_less_than(2).count || 0
+
+      success_score = normalize(successfull_assistances) * @successfull_assistance_weight
+      negative_score = -1 * normalize(negative_assistances) * @negative_assistance_weight
+      teacher[:routing_score].total += success_score + negative_score
+      teacher[:routing_score].summary['TeacherPreviousAssistanceScore_successfull'] = success_score
+      teacher[:routing_score].summary['TeacherPreviousAssistanceScore_negative'] = negative_score
     end
+  end
+
+  private
+
+  def normalize(quantity)
+    half_point = 5 # 5 assistances will normalize to 0.5
+    return -1 / (quantity/half_point + 1) + 1
   end
 
 end

@@ -4,7 +4,7 @@ class SmartQueueRouter::TeacherLocationScore
 
   before do
     @teachers = context.teachers
-    @same_location_bonus = context.same_location_bonus
+    @same_location_weight = context.same_location_weight
     @requestor = context.assistance_request.requestor
   end
 
@@ -12,8 +12,9 @@ class SmartQueueRouter::TeacherLocationScore
     puts 'location ++++++++++++++++++++++++++++++'
 
     @teachers.each do |_uid, teacher|
-      teacher[:routing_score] ||= 0
-      teacher[:routing_score] += @same_location_bonus if teacher[:object].location&.name == @requestor.dig('info', 'location')
+      score = teacher[:object].location&.name == @requestor.dig('info', 'location') ? 1 * @same_location_weight : 0
+      teacher[:routing_score].total += score
+      teacher[:routing_score].summary['TeacherLocationScore'] = score
     end
   end
 

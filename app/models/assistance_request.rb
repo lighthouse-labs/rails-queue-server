@@ -6,6 +6,8 @@ class AssistanceRequest < ApplicationRecord
   belongs_to :compass_instance
 
   has_many :queue_tasks
+  has_many :routing_scores
+
 
   before_create :set_start_at, :creation_webhooks
 
