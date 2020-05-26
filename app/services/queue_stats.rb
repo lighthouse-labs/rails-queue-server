@@ -105,7 +105,7 @@ class QueueStats
   end
 
   def actual_requests
-    @actual_requests ||= assistance_requests.genuine
+    @actual_requests ||= assistance_requests
   end
 
   def actuals_by_location

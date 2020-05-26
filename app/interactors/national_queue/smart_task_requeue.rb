@@ -8,7 +8,10 @@ class NationalQueue::SmartTaskRequeue
 
   def call
     updates = []
-    context.assistor = @assistor = User.using(:web).find_by(uid: @user_uid)
+    Octopus.using_group(:program_shards) do
+      context.assistor = @assistor = User.find_by(uid: @user_uid)
+      break if @assistor?
+    end
     context.fail! unless @assistor
     context.fail! unless @assistor.toggle_duty
     if @assistor.on_duty?

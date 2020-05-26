@@ -51,7 +51,11 @@ class QueueTask < ApplicationRecord
   end
 
   def assistor
-    User.using(:web).find_by(uid: assistor_uid)
+    db_results = Octopus.using_group(:program_shards) do
+      user = User.find_by(uid: assistor_uid)
+      return user if user.present?
+    end
+    nil
   end
 
 end

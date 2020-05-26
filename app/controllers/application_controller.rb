@@ -45,50 +45,21 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
-  def teacher?
-    current_user&.is_a?(Teacher)
+  def all_compass_instance_results
+    users = []
+    Octopus.using_group(:program_shards) do
+      users += yield
+    end
+    users
   end
-  helper_method :teacher?
 
-  def student?
-    current_user&.is_a?(Student)
+  def first_compass_instance_result
+    Octopus.using_group(:program_shards) do
+      users =  yield
+      return users if users.present?
+    end
   end
-  helper_method :student?
+  
 
-  def active_student?
-    student? && current_user.active_student?
-  end
-  helper_method :active_student?
-
-  def student_with_queue?
-    active_student? && current_user.cohort.active_queue?
-  end
-  helper_method :student_with_queue?
-
-  def alumni?
-    student? && current_user.alumni?
-  end
-  helper_method :alumni?
-
-  def admin?
-    current_user.try :admin?
-  end
-  helper_method :admin?
-
-  def all_teachers_on_duty
-    return [] unless current_user && (current_user.is_a?(Teacher) || current_user.is_a?(Student))
-
-    Teacher.where(on_duty: true)
-  end
-  helper_method :all_teachers_on_duty
-
-  def pending_feedbacks
-    @pending_feedbacks ||= current_user.feedbacks.pending.reverse_chronological_order.where.not(feedbackable: nil).not_expired
-  end
-  helper_method :pending_feedbacks
-
-  def pending_feedbacks_count
-    @pending_feedbacks_count ||= pending_feedbacks.count
-  end
-  helper_method :pending_feedbacks_count
+  
 end

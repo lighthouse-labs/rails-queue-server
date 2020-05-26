@@ -15,7 +15,7 @@ class AssistanceRequestsController < ApplicationController
   def create
     #  create ar and qt
     if params[:assistor].present?
-      assistor =  User.using(:web).find_by(uid: assistor_params[:uid])
+      assistor = fist_compass_instance_result { User.find_by(uid: assistor_params[:uid]) }
       render(json: { message: 'Invalid Assistor'}, status: :internal_server_error) unless assistor.present?
     end
     result = NationalQueue::RequestAssistance.call(
@@ -38,7 +38,7 @@ class AssistanceRequestsController < ApplicationController
     render json: { message: 'Unable to Update Request' }, status: :internal_server_error unless assitance_request.present?
     
     if params[:assistor].present?
-      assistor =  User.using(:web).find_by(uid: assistor_params[:uid])
+      assistor =  fist_compass_instance_result { User.find_by(uid: assistor_params[:uid]) }
       render(json: { message: 'Invalid Assistor'}, status: :internal_server_error) unless assistor.present?
       type = assitance_request.in_progress? ? 'finish_assistance' : 'start_assistance'
     else

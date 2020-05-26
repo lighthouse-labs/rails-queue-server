@@ -16,7 +16,7 @@ class QueueController < ApplicationController
   end
 
   def show
-    user = User.using(:web).find_by(uid: params[:id])
+    user = fist_compass_instance_result { User.find_by(uid: params[:id]) }
     queue_tasks = user.queue_tasks.this_month
     render json: queue_tasks, each_serializer: QueueTaskSerializer, root: 'tasks'
   end
@@ -35,10 +35,8 @@ class QueueController < ApplicationController
   end
 
   def teachers
-    teachers = Octopus.using_group(:program_shards) do
-      teachers = Teacher.on_duty
-      render json: teachers, each_serializer: UserSerializer, root: 'teachers'
-    end
+    teachers = all_compass_instance_results { Teacher.on_duty }
+    render json: teachers, each_serializer: UserSerializer, root: 'teachers'
   end
 
   def settings

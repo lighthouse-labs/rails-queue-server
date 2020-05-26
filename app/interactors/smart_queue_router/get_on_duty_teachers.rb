@@ -3,7 +3,11 @@ class SmartQueueRouter::GetOnDutyTeachers
   include Interactor
 
   def call
-    context.teachers = Teacher.using(:web).on_duty.map { |v| [v.uid, { object: v, routing_score: 0 }] }.to_h || {}
+    users = []
+    db_results = Octopus.using_group(:program_shards) do
+      users += Teacher.on_duty
+    end
+    context.teachers = users.map { |v| [v.uid, { object: v, routing_score: 0 }] }.to_h || {}
   end
 
 end

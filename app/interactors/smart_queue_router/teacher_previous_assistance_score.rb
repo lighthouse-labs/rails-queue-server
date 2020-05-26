@@ -11,7 +11,7 @@ class SmartQueueRouter::TeacherPreviousAssistanceScore
     puts 'prev assistance ++++++++++++++++++++++++++++++'
 
     @teachers.each do |_uid, teacher|
-      assistances =  Assistance.using(:master).completed.assisted_by(teacher[:object]).requested_by(@requestor['uid'])
+      assistances =  Assistance.completed.assisted_by(teacher[:object]).requested_by(@requestor['uid'])
       break if assistances.empty?
       average_rating = assistances.where.not(rating: nil).average(:rating).to_f.round(2) || 2
       # Positive points for ratings >= 3 negative points for < 3

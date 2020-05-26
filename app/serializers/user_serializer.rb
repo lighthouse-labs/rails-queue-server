@@ -16,6 +16,7 @@ class UserSerializer < ActiveModel::Serializer
              :info_url,
              :on_duty,
              :busy?,
+             :first_name,
              :access
 
   protected
