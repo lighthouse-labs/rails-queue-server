@@ -1,5 +1,6 @@
 class QueueController < ApplicationController
-
+  
+  skip_before_action :verify_authenticity_token
   before_action :teacher_required, except: [:index, :teachers]
   before_action :super_admin_required, only: :update_settings
 
@@ -15,7 +16,7 @@ class QueueController < ApplicationController
   end
 
   def show
-    user = User.using(:web).find_by(uid: params[:uid])
+    user = User.using(:web).find_by(uid: params[:id])
     queue_tasks = user.queue_tasks.this_month
     render json: queue_tasks, each_serializer: QueueTaskSerializer, root: 'tasks'
   end
@@ -41,15 +42,15 @@ class QueueController < ApplicationController
   end
 
   def settings
-    queue_settings = Program.first.settings['task_router_settings']
+    queue_settings = CompassInstance.find_by(id: @current_user['compass_instance_id'])&.settings['task_router_settings']
     queue_settings ||= {}
     render json: { queueSettings: queue_settings }
   end
 
   def update_settings
-    program = Program.first
-    program.settings['task_router_settings'] = queue_settings_params
-    if program.save!
+    compass_instance = CompassInstance.find_by(id: @current_user['compass_instance_id'])
+    compass_instance.settings['task_router_settings'] = queue_settings_params
+    if compass_instance.save!
       render json: { message: 'Settings Updated' }, status: :ok
     else
       render json: { message: 'Unable to Update Queue Settings' }, status: :internal_server_error
