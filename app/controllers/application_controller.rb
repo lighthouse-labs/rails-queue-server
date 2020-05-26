@@ -15,10 +15,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def super_admin_required
+    unless @current_user['access'].include?("super_admin")
+      render json: { error: 'Not Allowed.' }
+    end
+  end
+
   def admin_required
-    unless admin?
-      flash[:alert] = 'Access Not Allowed'
-      redirect_to :root
+    unless @current_user['access'].include?("admin")
+      render json: { error: 'Not Allowed.' }
     end
   end
 

@@ -1,7 +1,0 @@
-- if questions.find(&:options_correct).try(:answers_count)
-  span.badge.badge-success = "#{questions.find(&:options_correct).try(:answers_count)} correct"
-- elsif questions.any?
-  span.badge.badge-warning = '0 correct'
-= ' '
-- if questions.find { |s| s.options_correct.equal?(false) }.try(:answers_count)
-  span.badge.badge-danger = "#{questions.find { |s| s.options_correct.equal?(false) }.try(:answers_count) || '0'} incorrect"

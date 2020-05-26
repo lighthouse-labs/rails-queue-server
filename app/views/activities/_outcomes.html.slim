@@ -1,9 +1,0 @@
-h4 Learning Outcomes:
-
-ul
-  - activity.item_outcomes.each do |item_outcome|
-    li = item_outcome.outcome.try :text
-    - if admin? && !activity.remote_content?
-      = link_to [:admin, item_outcome], class: 'text-danger', method: 'delete' do
-        i.fa.fa-times
-hr

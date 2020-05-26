@@ -1,5 +1,5 @@
 class CompassInstancesController < ApplicationController
-  before_action :admin_required
+  before_action :queue_admin_required
   skip_before_action :authenticate_user
 
   def create
@@ -27,7 +27,7 @@ class CompassInstancesController < ApplicationController
     params.require(:compass_instance).permit(:name, :database, :type)
   end
 
-  def admin_required
+  def queue_admin_required
     # eventually add admin auth
     true
   end
