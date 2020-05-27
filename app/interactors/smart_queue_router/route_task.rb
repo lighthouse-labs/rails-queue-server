@@ -9,6 +9,7 @@ class SmartQueueRouter::RouteTask
             SmartQueueRouter::TeacherAverageRatingScore,
             SmartQueueRouter::TeacherPreviousAssistanceScore,
             SmartQueueRouter::TeacherLocationScore,
+            SmartQueueRouter::TeacherTagScore,
             SmartQueueRouter::AssignTask
 
 end

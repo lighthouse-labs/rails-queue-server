@@ -27,6 +27,9 @@ class User < ApplicationRecord
 
   has_many :video_conferences
 
+  has_many :tag_attributions, as: :taggable
+  has_many :tags, through: :tag_attributions
+
   # use methods instead of AR relations while users are stored in seperated db
   # has_many :queue_tasks
   # has_many :user_status_logs
@@ -263,6 +266,19 @@ class User < ApplicationRecord
     )
     status_log.save
     save
+  end
+
+  def set_duty(value)
+    self.on_duty = value
+    save
+  end
+
+  def all_tags
+    tags | (cohort&.tags || [])
+  end
+
+  def tagged_with?(tag)
+    all_tags.include?(tag)
   end
 
   def assistances

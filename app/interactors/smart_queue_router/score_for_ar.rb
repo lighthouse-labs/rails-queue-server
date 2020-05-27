@@ -8,6 +8,7 @@ class SmartQueueRouter::ScoreForAr
             SmartQueueRouter::TeacherMaxQueueScore,
             SmartQueueRouter::TeacherAverageRatingScore,
             SmartQueueRouter::TeacherPreviousAssistanceScore,
-            SmartQueueRouter::TeacherLocationScore,
+            SmartQueueRouter::TeacherTagScore,
+            SmartQueueRouter::TeacherLocationScore
 
 end
