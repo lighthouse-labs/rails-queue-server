@@ -28,8 +28,7 @@ class CompassInstancesController < ApplicationController
   end
 
   def queue_admin_required
-    # eventually add admin auth
-    true
+    render json: { error: 'Invalid Admin password.' } unless params[:admin_password] == ENV["ADMIN_PASSWORD"]
   end
 
 end
