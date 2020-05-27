@@ -46,6 +46,12 @@ class AssistanceRequest < ApplicationRecord
   scope :for_resource, ->(resource) {
     where("request->>'resource_type' = ?", resource)
   }
+  scope :with_routing, -> {
+    where("request->>'route' IS NOT NULL")
+  }
+  scope :without_routing, -> {
+    where("request->>'route' IS NULL")
+  }
 
   scope :oldest_requests_first, -> { order(start_at: :asc) }
   scope :newest_requests_first, -> { order(start_at: :desc) }
@@ -57,6 +63,7 @@ class AssistanceRequest < ApplicationRecord
   }
 
   def cancel
+    return if assistance.present?
     self.canceled_at = Time.current
     save
   end

@@ -23,7 +23,7 @@ class QueueTask < ApplicationRecord
   scope :teachers_queue_or_in_progress, ->(uid) {
     left_joins(assistance_request: :assistance)
       .where(assistance_requests: { canceled_at: nil })
-      .where("( assistances.id IS NULL AND queue_tasks.assistor_uid = ? ) OR assistances.end_at IS NULL", uid)
+      .where("( assistances.id IS NULL AND queue_tasks.assistor_uid IN (?) ) OR (assistances.id IS NOT NULL AND assistances.end_at IS NULL)", [nil, uid])
   }
   scope :for_resource, ->(resource) { joins(:assistance_request).where("assistance_requests.request->>'resource_type' = ?", resource) }
   scope :this_month, -> { joins(:assistance_request).where(assistance_requests: { created_at: DateTime.now.beginning_of_month..DateTime.now.end_of_month }) }

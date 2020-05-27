@@ -36,13 +36,14 @@ class UserSerializer < ActiveModel::Serializer
 
   def info
     info = {}
+    # wan't to limit queries to shards
     # info['location'] = object.location.name if object.location
     # info['week'] = object.cohort.week if object.cohort&.week
     info
   end
   
   def info_url
-    # 2ADD queue info page on mentors
+    # when mentors are moved to queue db this should link to a mentor profile page. 
   end
 
   def access

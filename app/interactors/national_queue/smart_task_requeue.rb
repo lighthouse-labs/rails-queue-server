@@ -9,11 +9,14 @@ class NationalQueue::SmartTaskRequeue
   def call
     updates = []
     Octopus.using_group(:program_shards) do
-      context.assistor = @assistor = User.find_by(uid: @user_uid)
-      break if @assistor?
+      context.assistor = User.find_by(uid: @user_uid)
+      next unless context.assistor
+      # make sure on_duty status is synchronized across shards
+      context.fail! unless @assistor ? context.assistor.set_duty(@assistor.on_duty) : context.assistor.toggle_duty
+      @assistor = context.assistor
     end
+
     context.fail! unless @assistor
-    context.fail! unless @assistor.toggle_duty
     if @assistor.on_duty?
       smart_task_result = SmartQueueRouter::AssignQueue.call(
         assistor: @assistor

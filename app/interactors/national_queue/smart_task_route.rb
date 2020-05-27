@@ -8,7 +8,6 @@ class NationalQueue::SmartTaskRoute
   end
 
   def call
-    puts '++smart task route +++++++++++++++++++'
     updates = []
     if !@assistance_request.canceled_at? && @assistance_request.queue_tasks.empty?
       if @assistance_request.request['route']
@@ -27,7 +26,11 @@ class NationalQueue::SmartTaskRoute
         updates.push({ task: task, shared: true })
       end
     else
-      # later may re assign tasks
+      # rescore pending AR's
+      smart_task_result = SmartQueueRouter::UpdateQueues.call(
+        assistance_request: @assistance_request
+      )
+      updates += smart_task_result.assigned_tasks
       @assistance_request.queue_tasks.each do |task|
         updates.push({ task: task, shared: public_task(task) })
       end
