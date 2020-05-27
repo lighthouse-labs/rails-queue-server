@@ -12,8 +12,6 @@ class SmartQueueRouter::TeacherAvailabilityScore
   end
 
   def call
-    puts 'availability ++++++++++++++++++++++++++++++'
-
     @teachers.each do |_uid, teacher|
       score = normalize(teacher[:object].queue_tasks.pending.count) * @active_task_weight
       # do this programatically so scoring buckets can be customized

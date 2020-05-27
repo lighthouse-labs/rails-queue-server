@@ -8,8 +8,6 @@ class SmartQueueRouter::RouterSettings
   end
 
   def call
-    puts 'router settings ++++++++++++++++++++++++++++++'
-
     program_settings = @assistance_request.compass_instance&.settings.try(:[], 'task_router_settings')
     program_settings ||= {}
     context.max_queue_weight = @settings[:max_queue_weight] || get_setting('max_queue_weight') || 100

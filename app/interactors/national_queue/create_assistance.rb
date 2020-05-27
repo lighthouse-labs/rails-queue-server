@@ -10,7 +10,6 @@ class NationalQueue::CreateAssistance
   end
 
   def call
-    puts '~~~create assistance'
     context.fail! unless @requestor
     compass_instance = @compass_instance 
     compass_instance ||= CompassInstance.find_by(id: @requestor['compass_instance_id'])

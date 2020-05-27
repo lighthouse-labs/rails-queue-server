@@ -124,9 +124,7 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   end
 
   def toggle_duty(data)
-    puts 'toggle duty request'
     if  data["user_uid"] == current_user["uid"] || current_user['access'].include?("admin")
-      puts 'user allowed to toggle duty'
       NationalQueue::ToggleDuty.call(
         user_uid: data["user_uid"]
       )

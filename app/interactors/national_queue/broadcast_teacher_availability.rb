@@ -7,7 +7,6 @@ class NationalQueue::BroadcastTeacherAvailability
   end
 
   def call
-    puts '+broadcast teacher availabiity++++++++++++++++++++++='
     if @assistor&.busy?
       NationalQueueChannel.broadcast "student-national-queue", type:   "teacherUpdate",
                                                                object: UserSerializer.new(@assistor).as_json

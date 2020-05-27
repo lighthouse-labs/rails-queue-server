@@ -9,8 +9,6 @@ class SmartQueueRouter::TeacherLocationScore
   end
 
   def call
-    puts 'location ++++++++++++++++++++++++++++++'
-
     @teachers.each do |_uid, teacher|
       score = teacher[:object].location&.name == @requestor.dig('info', 'location') ? 1 * @same_location_weight : 0
       teacher[:routing_score].total += score

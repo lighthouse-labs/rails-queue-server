@@ -7,7 +7,6 @@ class NationalQueue::BroadcastFeedbackQueueUpdate
   end
 
   def call
-    puts '++broadcast feedback queue update ++++++++++++++++++++='
     @updates.each do |update|
       task = update[:task]
       if task.assistance_request&.assistance&.feedback

@@ -9,8 +9,6 @@ class SmartQueueRouter::TeacherAverageRatingScore
   end
 
   def call
-    puts 'average rating ++++++++++++++++++++++++++++++'
-
     @teachers.each do |_uid, teacher|
       assistances =  Assistance.completed.assisted_by(teacher[:object])
       break if assistances.empty?

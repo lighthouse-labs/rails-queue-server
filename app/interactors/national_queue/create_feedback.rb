@@ -10,15 +10,10 @@ class NationalQueue::CreateFeedback
   end
 
   def call
-    puts '~~~create feedback'
     task = QueueTask.find_by(id: @task_id)
     context.fail! unless task
     assistance = task.assistance_request&.assistance
-    puts @requestor.inspect
-    puts task
-    puts task.assistance_request
     if @requestor['uid'] == task.assistance_request&.requestor['uid']
-      puts 'user allowed to provide feedback'
       context.fail! unless assistance.create_feedback(rating: @rating, notes: @notes)
       context.feedback = assistance.feedback
       context.updates ||= []

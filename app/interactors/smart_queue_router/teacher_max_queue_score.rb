@@ -9,7 +9,6 @@ class SmartQueueRouter::TeacherMaxQueueScore
   end
 
   def call
-    puts 'max queue score ++++++++++++++++++++++++++++++'
     @teachers.each do |_uid, teacher|
       if teacher[:object].queue_tasks.pending.count > @max_queue_size
         score =  -1 * @max_queue_weight

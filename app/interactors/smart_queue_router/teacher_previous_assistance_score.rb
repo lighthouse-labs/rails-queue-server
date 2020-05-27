@@ -10,8 +10,6 @@ class SmartQueueRouter::TeacherPreviousAssistanceScore
   end
 
   def call
-    puts 'negative assistance score++++++++++++++++++++++++++++++'
-
     @teachers.each do |_uid, teacher|
       assistances =  Assistance.completed.assisted_by(teacher[:object]).requested_by(@requestor['uid'])
       break if assistances.empty?

@@ -19,14 +19,13 @@ class Assistance < ApplicationRecord
   scope :has_assistance_request, -> { joins(:assistance_request) }
   scope :order_by_start, -> { order(:start_at) }
   scope :assisted_by, ->(user) { where(assistor_uid: user.uid) }
-  # 2ADD for user needs to be any assistance for a user not only requested ones
   scope :for_user, ->(uid) {joins(:assistance_request).where("assistance_requests.requestor->>'uid' = ?", uid)}
   scope :requested_by, ->(uid) {joins(:assistance_request).where("assistance_requests.requestor->>'uid' = ?", uid)}
   scope :for_resource, ->(resource) { where(resource_type: resource)}
   scope :without_feedback, -> { left_outer_joins(:feedback).where(feedbacks: { feedbackable_id: nil }) }
-  scope :width_feedback_greater_than, -> (rating) { joins(:feedback).where("feedbacks.rating > ?", rating) }
-  scope :width_feedback_less_than, -> (rating) { joins(:feedback).where("feedbacks.rating < ?", rating) }
-  scope :average_feedback_rating, -> { joins(:feedback).average(feedbacks: {:rating}) }
+  scope :with_feedback_greater_than, -> (rating) { joins(:feedback).where("feedbacks.rating > ?", rating) }
+  scope :with_feedback_less_than, -> (rating) { joins(:feedback).where("feedbacks.rating < ?", rating) }
+  scope :average_feedback_rating, -> { joins(:feedback).average("feedbacks.rating") }
 
   scope :has_feedback, -> { joins(:feedback) }
 

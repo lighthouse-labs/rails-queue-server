@@ -16,7 +16,7 @@ class QueueController < ApplicationController
   end
 
   def show
-    user = fist_compass_instance_result { User.find_by(uid: params[:id]) }
+    user = first_compass_instance_result { User.find_by(uid: params[:id]) }
     queue_tasks = user.queue_tasks.this_month
     render json: queue_tasks, each_serializer: QueueTaskSerializer, root: 'tasks'
   end
@@ -36,6 +36,8 @@ class QueueController < ApplicationController
 
   def teachers
     teachers = all_compass_instance_results { Teacher.on_duty }
+    # while multiple shards are used for teacher's combine duplicate teachers across shards
+    teachers = teachers.map{ |teacher| [teacher.uid, teacher] }.to_h.values
     render json: teachers, each_serializer: UserSerializer, root: 'teachers'
   end
 

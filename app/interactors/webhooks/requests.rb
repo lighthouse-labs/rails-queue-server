@@ -11,13 +11,6 @@ class Webhooks::Requests
 
   def call
     webhooks = Webhook.for_model(@model).for_action(@action).for_resource_type(@resource_type)
-    puts 'searched for webhooks~~~~~~~~~~~~~~~~~~~~~~~~'
-    puts @model
-    puts @action
-    puts @resource_type
-    puts webhooks.inspect
-    puts 'searched for webhooks~~~~~~~~~~~~~~~~~~~~~~~~'
-
     webhooks.each do |webhook|
       uri = URI.parse(webhook.url)
       request = Net::HTTP::Post.new(uri.request_uri)
@@ -34,8 +27,8 @@ class Webhooks::Requests
         }
       end
       request.body = body.to_json
+      # 2ADD re request if request failed, and make request non blocking?
       http = Net::HTTP.new(uri.host, uri.port)
-      # 2ADD re request if request failed 
       response = http.request(request)
       context.fail! unless response.code.to_i == 200
     end

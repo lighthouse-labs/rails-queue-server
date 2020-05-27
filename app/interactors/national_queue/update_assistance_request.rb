@@ -9,7 +9,6 @@ class NationalQueue::UpdateAssistanceRequest
   end
 
   def call
-    puts '~~Update assistance Request~~~~~~~~~~~~~~'
     context.fail! unless @assistance_request
     context.assistor = @assistance_request.assistance&.assistor
     case @options[:type]

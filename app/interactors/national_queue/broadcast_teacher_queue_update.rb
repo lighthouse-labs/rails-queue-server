@@ -7,7 +7,6 @@ class NationalQueue::BroadcastTeacherQueueUpdate
   end
 
   def call
-    puts '++broadcast teacher queue update ++++++++++++++++++++='
     @updates.each do |update|
       task = update[:task]
       if update[:shared]
