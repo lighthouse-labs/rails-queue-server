@@ -32,10 +32,10 @@ class Feedback < ApplicationRecord
 
   def creation_webhooks
     Webhooks::Requests.call(
-      model:          'Feedback',
-      resource_type:  feedbackable.class.name,
-      action:         'create',
-      object:         self
+      model:         'Feedback',
+      resource_type: feedbackable.class.name,
+      action:        'create',
+      object:        self
     )
   end
 

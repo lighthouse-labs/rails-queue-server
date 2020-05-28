@@ -31,7 +31,7 @@ class SmartQueueRouter::ReassignQueue
 
         task = task.assistance_request.assign_task(teacher[:object])
         next unless task
-        
+
         teacher[:routing_score].save!
         assigned_tasks.push({ task: task, shared: false })
         if teacher[:routing_score].summary['TeacherMaxQueueScore']

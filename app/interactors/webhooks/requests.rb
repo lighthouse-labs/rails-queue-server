@@ -1,5 +1,5 @@
 class Webhooks::Requests
-  
+
   include Interactor
 
   before do
@@ -18,7 +18,7 @@ class Webhooks::Requests
       request["Authorization"] = webhook.compass_instance.key
       if @object.is_a? Assistance
         body = {
-          assistance: AssistanceSerializer.new(@object).as_json,
+          assistance:        AssistanceSerializer.new(@object).as_json,
           assistanceRequest: AssistanceRequestSerializer.new(@object.assistance_request).as_json
         }
       elsif @object.is_a? Feedback
@@ -32,6 +32,6 @@ class Webhooks::Requests
       response = http.request(request)
       context.fail! unless response.code.to_i == 200
     end
-
   end
+
 end

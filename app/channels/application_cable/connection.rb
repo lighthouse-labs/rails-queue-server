@@ -16,7 +16,7 @@ module ApplicationCable
       token = request.params[:token]
       decoded_token = JWT.decode token, ENV['TOKEN_SECRET'], true, { algorithm: 'HS256' }
       reject_unauthorized_connection unless decoded_token
-      return decoded_token[0]
+      decoded_token[0]
     end
 
   end

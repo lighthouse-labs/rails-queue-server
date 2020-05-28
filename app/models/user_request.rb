@@ -1,4 +1,5 @@
 class UserRequest < AssistanceRequest
+
   validates :requestor, presence: true
 
   before_create :limit_one_per_user

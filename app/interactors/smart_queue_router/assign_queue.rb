@@ -25,6 +25,7 @@ class SmartQueueRouter::AssignQueue
 
       task = assistance_request.assign_task(@assistor)
       next unless task
+
       top_results[@assistor.uid][:routing_score].save!
       assigned_assistance_requests.push(assistance_request)
       assigned_tasks.push({ task: task, shared: false })

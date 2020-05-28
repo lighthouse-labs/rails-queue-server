@@ -14,6 +14,7 @@ class SmartQueueRouter::TeacherTagScore
     tags.each do |tag|
       tag = Tag.using(@assistance_request.compass_instance.name).find_by(id: tag['id'])
       next unless tag
+
       @teachers.each do |_id, teacher|
         if teacher[:object].tagged_with?(tag)
           # bonus

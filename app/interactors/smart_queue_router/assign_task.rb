@@ -15,6 +15,7 @@ class SmartQueueRouter::AssignTask
     @teachers.each do |_k, teacher|
       teacher[:routing_score].save!
       next if assigned_tasks.length >= @desired_task_assignment
+
       task = @assistance_request.assign_task(teacher[:object])
       next unless task
 

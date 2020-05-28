@@ -8,34 +8,33 @@ class AssistanceRequest < ApplicationRecord
   has_many :queue_tasks
   has_many :routing_scores
 
-
   before_create :set_start_at, :creation_webhooks
 
   scope :pending, -> { where(canceled_at: nil).where(assistance_id: nil) }
   scope :in_progress, -> {
     includes(:assistance)
-    .where(assistance_requests: { canceled_at: nil })
-    .where.not(assistances: { id: nil })
-    .where(assistances: { end_at: nil })
-    .references(:assistance)
+      .where(assistance_requests: { canceled_at: nil })
+      .where.not(assistances: { id: nil })
+      .where(assistances: { end_at: nil })
+      .references(:assistance)
   }
   scope :closed, -> {
     where.not(canceled_at: nil)
-    .or(finished)
+         .or(finished)
   }
   scope :finished, -> {
     where(canceled_at: nil)
-    .where.not(assistance_id: nil)
-    .includes(:assistance)
-    .references(:assistance)
-    .where.not(assistances: { end_at: nil })
+      .where.not(assistance_id: nil)
+      .includes(:assistance)
+      .references(:assistance)
+      .where.not(assistances: { end_at: nil })
   }
 
   scope :pending_or_in_progress, -> {
     includes(:assistance)
-    .where(assistance_requests: { canceled_at: nil })
-    .where("assistances.id IS NULL OR assistances.end_at IS NULL")
-    .references(:assistance)
+      .where(assistance_requests: { canceled_at: nil })
+      .where("assistances.id IS NULL OR assistances.end_at IS NULL")
+      .references(:assistance)
   }
   scope :requested_by, ->(uid) {
     where("requestor->>'uid' = ?", uid)
@@ -64,12 +63,14 @@ class AssistanceRequest < ApplicationRecord
 
   def cancel
     return if assistance.present?
+
     self.canceled_at = Time.current
     save
   end
 
   def start_assistance(assistor)
     return false if assistor.blank? || assistance.present?
+
     if compass_instance.has_feature?('assistance_hangouts')
       google_hangout = GoogleHangout.new
       google_hangout = google_hangout.create_hangout(assistor, requestor)
@@ -110,7 +111,7 @@ class AssistanceRequest < ApplicationRecord
   end
 
   def closed?
-    canceled_at || (assistance && assistance.end_at)
+    canceled_at || assistance&.end_at
   end
 
   def finished?
@@ -143,10 +144,10 @@ class AssistanceRequest < ApplicationRecord
 
   def creation_webhooks
     Webhooks::Requests.call(
-      model:          'AssistanceRequest',
-      resource_type:  request['resource_type'],
-      action:         'create',
-      object:         self
+      model:         'AssistanceRequest',
+      resource_type: request['resource_type'],
+      action:        'create',
+      object:        self
     )
   end
 

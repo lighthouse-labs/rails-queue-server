@@ -1,10 +1,9 @@
 class AssistanceRequestsController < ApplicationController
+
   skip_before_action :authenticate_user
   before_action :credentials_required
 
-  def index
-    
-  end
+  def index; end
 
   def show
     user = User.find_by(id: params[:id])
@@ -16,17 +15,17 @@ class AssistanceRequestsController < ApplicationController
     #  create ar and qt
     if params[:assistor].present?
       assistor = first_compass_instance_result { User.find_by(uid: assistor_params[:uid]) }
-      render(json: { message: 'Invalid Assistor'}, status: :internal_server_error) unless assistor.present?
+      render(json: { message: 'Invalid Assistor' }, status: :internal_server_error) if assistor.blank?
     end
     result = NationalQueue::RequestAssistance.call(
-      requestor:    requestor_params,
-      request:      request_params,
-      assistor:     assistor,
-      type:         'ResourceRequest',
+      requestor:        requestor_params,
+      request:          request_params,
+      assistor:         assistor,
+      type:             'ResourceRequest',
       compass_instance: @compass_instance
     )
     if result.success?
-      render json: { message: 'Request created'}
+      render json: { message: 'Request created' }
     else
       render json: { message: 'Unable to Post Request' }, status: :internal_server_error
     end
@@ -34,24 +33,24 @@ class AssistanceRequestsController < ApplicationController
 
   def update
     assitance_request = AssistanceRequest.with_request_id(request_params[:id]).first
-    render json: { message: 'Unable to Update Request' }, status: :internal_server_error unless assitance_request.present?
-    
+    render json: { message: 'Unable to Update Request' }, status: :internal_server_error if assitance_request.blank?
+
     if params[:assistor].present?
-      assistor =  first_compass_instance_result { User.find_by(uid: assistor_params[:uid]) }
-      render(json: { message: 'Invalid Assistor'}, status: :internal_server_error) unless assistor.present?
+      assistor = first_compass_instance_result { User.find_by(uid: assistor_params[:uid]) }
+      render(json: { message: 'Invalid Assistor' }, status: :internal_server_error) if assistor.blank?
       type = assitance_request.in_progress? ? 'finish_assistance' : 'start_assistance'
     else
       type = assitance_request.in_progress? ? 'cancel_assistance' : 'cancel'
     end
     result = NationalQueue::UpdateRequest.call(
       assistor: assistor,
-      options:   {
+      options:  {
         type:       type,
         request_id: assitance_request.id
       }
     )
     if result.success?
-      render json: { message: 'Request updated'}
+      render json: { message: 'Request updated' }
     else
       render json: { message: 'Unable to Update Request' }, status: :internal_server_error
     end
@@ -61,9 +60,7 @@ class AssistanceRequestsController < ApplicationController
 
   def credentials_required
     @compass_instance = CompassInstance.find_by(key: credentials_params[:key])
-    if !@compass_instance || BCrypt::Password.new(@compass_instance&.secret) != credentials_params[:secret]
-      render json: { error: 'Incorrect key or secret.' }
-    end
+    render json: { error: 'Incorrect key or secret.' } if !@compass_instance || BCrypt::Password.new(@compass_instance&.secret) != credentials_params[:secret]
   end
 
   def credentials_params

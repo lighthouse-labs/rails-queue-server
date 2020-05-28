@@ -19,12 +19,12 @@ class Assistance < ApplicationRecord
   scope :has_assistance_request, -> { joins(:assistance_request) }
   scope :order_by_start, -> { order(:start_at) }
   scope :assisted_by, ->(user) { where(assistor_uid: user.uid) }
-  scope :for_user, ->(uid) {joins(:assistance_request).where("assistance_requests.requestor->>'uid' = ?", uid)}
-  scope :requested_by, ->(uid) {joins(:assistance_request).where("assistance_requests.requestor->>'uid' = ?", uid)}
-  scope :for_resource, ->(resource) { where(resource_type: resource)}
+  scope :for_user, ->(uid) { joins(:assistance_request).where("assistance_requests.requestor->>'uid' = ?", uid) }
+  scope :requested_by, ->(uid) { joins(:assistance_request).where("assistance_requests.requestor->>'uid' = ?", uid) }
+  scope :for_resource, ->(resource) { where(resource_type: resource) }
   scope :without_feedback, -> { left_outer_joins(:feedback).where(feedbacks: { feedbackable_id: nil }) }
-  scope :with_feedback_greater_than, -> (rating) { joins(:feedback).where("feedbacks.rating > ?", rating) }
-  scope :with_feedback_less_than, -> (rating) { joins(:feedback).where("feedbacks.rating < ?", rating) }
+  scope :with_feedback_greater_than, ->(rating) { joins(:feedback).where("feedbacks.rating > ?", rating) }
+  scope :with_feedback_less_than, ->(rating) { joins(:feedback).where("feedbacks.rating < ?", rating) }
   scope :average_feedback_rating, -> { joins(:feedback).average("feedbacks.rating") }
 
   scope :has_feedback, -> { joins(:feedback) }
@@ -41,10 +41,10 @@ class Assistance < ApplicationRecord
     self.flag = notify
     UserMailer.notify_education_manager(self).deliver_later if flag?
     result = Webhooks::Requests.call(
-      model:          'Assistance',
-      resource_type:  assistance_request.request['resourceType'],
-      action:         'end',
-      object:         self
+      model:         'Assistance',
+      resource_type: assistance_request.request['resourceType'],
+      action:        'end',
+      object:        self
     )
     save!
   end
@@ -77,10 +77,10 @@ class Assistance < ApplicationRecord
 
   def creation_webhooks
     Webhooks::Requests.call(
-      model:          'Assistance',
-      resource_type:  assistance_request.request['resourceType'],
-      action:         'create',
-      object:         self
+      model:         'Assistance',
+      resource_type: assistance_request.request['resourceType'],
+      action:        'create',
+      object:        self
     )
   end
 

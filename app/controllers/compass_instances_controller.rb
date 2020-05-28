@@ -1,24 +1,23 @@
 class CompassInstancesController < ApplicationController
+
   before_action :queue_admin_required
   skip_before_action :authenticate_user
 
   def create
-
     compass_instance = CompassInstance.new(compass_instance_params)
     file = File.join(Rails.root, 'config', 'default_router_settings.json')
     default_settings = File.read(file)
-    
+
     compass_instance.settings = default_settings
     compass_instance.key = SecureRandom.hex(8)
     secret = SecureRandom.hex(16)
     compass_instance.secret = BCrypt::Password.create(secret)
 
     if compass_instance.save!
-      render json: {key: compass_instance.key, secret: secret}
+      render json: { key: compass_instance.key, secret: secret }
     else
       render json: { error: 'Something Went Wrong.' }
     end
-
   end
 
   private

@@ -9,22 +9,18 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_user
-    if !current_user
+    unless current_user
       session[:attempted_url] = request.url
       render json: { message: 'Not Authenticated' }, status: :unauthorized
     end
   end
 
   def super_admin_required
-    unless @current_user['access'].include?("super_admin")
-      render json: { error: 'Not Allowed.' }
-    end
+    render json: { error: 'Not Allowed.' } unless @current_user['access'].include?("super_admin")
   end
 
   def admin_required
-    unless @current_user['access'].include?("admin")
-      render json: { error: 'Not Allowed.' }
-    end
+    render json: { error: 'Not Allowed.' } unless @current_user['access'].include?("admin")
   end
 
   def set_raven_context
@@ -64,7 +60,5 @@ class ApplicationController < ActionController::Base
       return users if users.present?
     end
   end
-  
 
-  
 end

@@ -87,9 +87,9 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   def provide_feedback(data)
     NationalQueue::ProvideFeedback.call(
       requestor: current_user,
-      task_id:     data["task_id"],
-      notes:    data["notes"],
-      rating: data["rating"]
+      task_id:   data["task_id"],
+      notes:     data["notes"],
+      rating:    data["rating"]
     )
   end
 
@@ -124,7 +124,7 @@ class NationalQueueChannel < ApplicationCable::UpdateChannel
   end
 
   def toggle_duty(data)
-    if  data["user_uid"] == current_user["uid"] || current_user['access'].include?("admin")
+    if data["user_uid"] == current_user["uid"] || current_user['access'].include?("admin")
       NationalQueue::ToggleDuty.call(
         user_uid: data["user_uid"]
       )

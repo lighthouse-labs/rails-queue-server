@@ -15,7 +15,7 @@ class NationalQueue::SmartTaskRoute
           assistance_request: @assistance_request
         )
         context.fail! unless smart_task_result.success?
-  
+
         updates = smart_task_result.assigned_tasks
       else
         task = @assistance_request.assign_task(@assistor)

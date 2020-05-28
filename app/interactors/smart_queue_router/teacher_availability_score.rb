@@ -23,11 +23,11 @@ class SmartQueueRouter::TeacherAvailabilityScore
     end
   end
 
-  private 
+  private
 
   def normalize(quantity)
     half_point = @max_queue_size / 2
-    return (-1 / (quantity/half_point + 1) + 1) * -1
+    (-1 / (quantity / half_point + 1) + 1) * -1
   end
 
 end

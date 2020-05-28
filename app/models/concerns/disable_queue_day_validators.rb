@@ -21,6 +21,7 @@ module DisableQueueDayValidators
       disable_queue_days.each do |day|
         match_data = week_num_regex.match(day)
         return false if match_data.nil?
+
         week_num = week_num_regex.match(day)[0].to_i
         in_range = (1..Program.first.weeks).member?(week_num)
         errors.add(:disable_queue_days, "has a entry with a invaild week number, not in the program range") unless in_range

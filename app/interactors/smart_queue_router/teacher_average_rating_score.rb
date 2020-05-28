@@ -10,8 +10,9 @@ class SmartQueueRouter::TeacherAverageRatingScore
 
   def call
     @teachers.each do |_uid, teacher|
-      assistances =  Assistance.completed.assisted_by(teacher[:object])
+      assistances = Assistance.completed.assisted_by(teacher[:object])
       break if assistances.empty?
+
       average_rating = assistances.average_feedback_rating.to_f.round(2) || 2
       score = normalize(average_rating) * @avg_rating_weight
       teacher[:routing_score].total += score
@@ -23,7 +24,7 @@ class SmartQueueRouter::TeacherAverageRatingScore
 
   def normalize(rating)
     # -1 for 1 star up to +1 for 5 star
-    (rating -2) / 2
+    (rating - 2) / 2
   end
 
 end

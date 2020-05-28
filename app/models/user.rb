@@ -128,6 +128,7 @@ class User < ApplicationRecord
 
   def can_access_day?(day)
     return unlocked? CurriculumDay.new(day, cohort) if cohort
+
     false
   end
 
@@ -262,7 +263,7 @@ class User < ApplicationRecord
     self.on_duty = !on_duty
     status_log = UserStatusLog.using(:master).new(
       user_uid: uid,
-      status: on_duty ? 'on_duty' : 'off_duty'
+      status:   on_duty ? 'on_duty' : 'off_duty'
     )
     status_log.save
     save
@@ -272,7 +273,7 @@ class User < ApplicationRecord
     self.on_duty = value
     status_log = UserStatusLog.using(:master).new(
       user_uid: uid,
-      status: value ? 'on_duty' : 'off_duty'
+      status:   value ? 'on_duty' : 'off_duty'
     )
     save
   end
@@ -286,7 +287,7 @@ class User < ApplicationRecord
   end
 
   def assistances
-    Assistance.for_user(self)  
+    Assistance.for_user(self)
   end
 
   def assistance_requests
@@ -300,12 +301,13 @@ class User < ApplicationRecord
   def user_status_logs
     UserStatusLogs.for_user(self)
   end
-  
+
   class << self
 
     def authenticate_via_github(auth)
       @user = where(uid: auth["uid"]).first
       return @user if @user
+
       @user = new
       @user.uid = auth["uid"]
       @user.save(validate: false)

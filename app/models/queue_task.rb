@@ -10,16 +10,16 @@ class QueueTask < ApplicationRecord
   scope :pending, -> { joins(:assistance_request).merge(AssistanceRequest.pending) }
   scope :in_progress, -> { joins(:assistance_request).merge(AssistanceRequest.in_progress) }
   scope :closed, -> { joins(:assistance_request).merge(AssistanceRequest.closed) }
-  scope :finished, -> { 
+  scope :finished, -> {
     joins(assistance_request: :assistance)
       .merge(AssistanceRequest.finished)
       .where("(queue_tasks.assistor_uid = assistances.assistor_uid) OR queue_tasks.assistor_uid IS NULL")
   }
   scope :pending_or_in_progress, -> { joins(:assistance_request).merge(AssistanceRequest.pending_or_in_progress) }
-  
+
   scope :for_user, ->(user) { where(assistor_uid: user.uid) }
   scope :assisting, ->(uid) { joins(:assistance_request).where("assistance_requests.requestor->>'uid' = ?", uid) }
-  scope :general, ->{ where(assistor_uid: nil) }
+  scope :general, -> { where(assistor_uid: nil) }
   # 2ADD and OR (assistances.id IS NOT NULL AND assistances.end_at IS NULL AND queue task belongs to assistance.assistor)
   scope :teachers_queue_or_in_progress, ->(uid) {
     left_joins(assistance_request: :assistance)

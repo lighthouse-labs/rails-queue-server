@@ -11,8 +11,9 @@ class SmartQueueRouter::TeacherPreviousAssistanceScore
 
   def call
     @teachers.each do |_uid, teacher|
-      assistances =  Assistance.completed.assisted_by(teacher[:object]).requested_by(@requestor['uid'])
+      assistances = Assistance.completed.assisted_by(teacher[:object]).requested_by(@requestor['uid'])
       break if assistances.empty?
+
       successfull_assistances = assistances.with_feedback_greater_than(2).count || 0
       negative_assistances = assistances.with_feedback_less_than(2).count || 0
 
@@ -28,7 +29,7 @@ class SmartQueueRouter::TeacherPreviousAssistanceScore
 
   def normalize(quantity)
     half_point = 5 # 5 assistances will normalize to 0.5
-    return -1 / (quantity/half_point + 1) + 1
+    -1 / (quantity / half_point + 1) + 1
   end
 
 end

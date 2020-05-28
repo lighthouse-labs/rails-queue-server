@@ -11,13 +11,13 @@ class NationalQueue::CreateAssistance
 
   def call
     context.fail! unless @requestor
-    compass_instance = @compass_instance 
+    compass_instance = @compass_instance
     compass_instance ||= CompassInstance.find_by(id: @requestor['compass_instance_id'])
     compass_instance ||= CompassInstance.find_by(id: @assistor['compass_instance_id'])
     assistance_request = AssistanceRequest.new(
-      requestor: @requestor,
+      requestor:        @requestor,
       compass_instance: compass_instance,
-      type: @request_type
+      type:             @request_type
     )
     context.fail! unless assistance_request.save
     task = assistance_request.assign_task(@assistor)

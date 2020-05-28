@@ -1,4 +1,5 @@
 class FeedbacksController < ApplicationController
+
   before_action :super_admin_required
 
   def index

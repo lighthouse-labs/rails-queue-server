@@ -10,11 +10,11 @@ class SmartQueueRouter::TeacherMaxQueueScore
 
   def call
     @teachers.each do |_uid, teacher|
-      if teacher[:object].queue_tasks.pending.count > @max_queue_size
-        score =  -1 * @max_queue_weight
-        teacher[:routing_score].summary['TeacherMaxQueueScore'] = score
-        teacher[:routing_score].total += score
-      end
+      next unless teacher[:object].queue_tasks.pending.count > @max_queue_size
+
+      score = -1 * @max_queue_weight
+      teacher[:routing_score].summary['TeacherMaxQueueScore'] = score
+      teacher[:routing_score].total += score
     end
   end
 

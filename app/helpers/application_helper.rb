@@ -43,12 +43,14 @@ module ApplicationHelper
     # very defensive b/c at one time user validation was not enforced and location timezone is not required.
     return false if current_user.cohort.nil? || current_user.location.nil?
     return false if current_user.location.timezone.nil? || current_user.cohort.location.timezone.nil?
+
     current_user.location.timezone != current_user.cohort.location.timezone
   end
 
   def seconds_to_formatted_time(secs)
     return "0 seconds" if secs.nil?
     return "#{secs.to_i} seconds" if secs < 60
+
     mins = secs / 60
     [[60, :minute], [24, :hour], [1000, :day]].map do |count, name|
       if mins > 0
@@ -80,7 +82,7 @@ module ApplicationHelper
   end
 
   def shortened_github_url(url)
-    url.to_s.strip.gsub(/https?\:\/\/.*github\.com\//, '')
+    url.to_s.strip.gsub(%r{https?\://.*github\.com/}, '')
   end
 
   def progress_bar_class(percent)
@@ -97,6 +99,7 @@ module ApplicationHelper
 
   def l_score_label_class(val)
     return 'badge-secondary' if val.nil?
+
     val = val.to_f
 
     if val < 2.1

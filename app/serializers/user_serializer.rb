@@ -25,7 +25,7 @@ class UserSerializer < ActiveModel::Serializer
   def avatar_url
     avatar_for(object)
   end
-  
+
   def socials
     socials = {}
     socials['github'] = object.github_username if object.github_username?
@@ -41,9 +41,9 @@ class UserSerializer < ActiveModel::Serializer
     # info['week'] = object.cohort.week if object.cohort&.week
     info
   end
-  
+
   def info_url
-    # when mentors are moved to queue db this should link to a mentor profile page. 
+    # when mentors are moved to queue db this should link to a mentor profile page.
   end
 
   def access
