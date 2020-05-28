@@ -24,6 +24,7 @@ db/*.sqlite3
 .sass-cache
 /config/config.yml
 /config/database.yml
+/config/shards.yml
 /coverage.data
 /coverage/
 /db/*.javadb/

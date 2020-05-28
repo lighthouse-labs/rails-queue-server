@@ -1,0 +1,46 @@
+octopus:
+  environments:
+    - development
+    - staging
+    - production
+  development:
+    program_shards:
+      web:
+        adapter:  postgresql
+        host:     localhost
+        encoding: unicode
+        database: compass_development
+        pool:     10
+
+      web_2:
+        adapter:  postgresql
+        host:     localhost
+        encoding: unicode
+        database: compass_development_2
+        pool:     10
+
+  staging:
+    program_shards:
+      web:
+        adapter:  postgresql
+        host:     localhost
+        encoding: unicode
+        database: web_staging
+      pt:
+        adapter:  postgresql
+        host:     localhost
+        encoding: unicode
+        database: pt_staging
+
+  production:
+    program_shards:
+      web:
+        adapter:  postgresql
+        host:     localhost
+        encoding: unicode
+        database: web_production
+      pt:
+        adapter:  postgresql
+        host:     localhost
+        encoding: unicode
+        database: pt_production
