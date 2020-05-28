@@ -260,7 +260,7 @@ class User < ApplicationRecord
 
   def toggle_duty
     self.on_duty = !on_duty
-    status_log = UserStatusLog.new(
+    status_log = UserStatusLog.using(:master).new(
       user_uid: uid,
       status: on_duty ? 'on_duty' : 'off_duty'
     )
@@ -270,6 +270,10 @@ class User < ApplicationRecord
 
   def set_duty(value)
     self.on_duty = value
+    status_log = UserStatusLog.using(:master).new(
+      user_uid: uid,
+      status: value ? 'on_duty' : 'off_duty'
+    )
     save
   end
 

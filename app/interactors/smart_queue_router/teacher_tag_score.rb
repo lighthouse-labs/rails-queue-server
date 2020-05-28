@@ -17,11 +17,13 @@ class SmartQueueRouter::TeacherTagScore
       @teachers.each do |_id, teacher|
         if teacher[:object].tagged_with?(tag)
           # bonus
-          teacher[:routing_score].total += (1 * tag.match_bonus_multiplier) if tag.match_bonus_multiplier?
+          score = (1 * tag.match_bonus_multiplier) if tag.match_bonus_multiplier?
         else
           # penalty
-          teacher[:routing_score].total += (-1 * tag.mismatch_penalty_multiplier) if tag.mismatch_penalty_multiplier?
+          score = (-1 * tag.mismatch_penalty_multiplier) if tag.mismatch_penalty_multiplier?
         end
+        teacher[:routing_score].total += score if score
+        teacher[:routing_score].summary["TeacherTagScore_#{tag.name}"] = score
       end
     end
   end

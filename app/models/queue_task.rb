@@ -20,10 +20,11 @@ class QueueTask < ApplicationRecord
   scope :for_user, ->(user) { where(assistor_uid: user.uid) }
   scope :assisting, ->(uid) { joins(:assistance_request).where("assistance_requests.requestor->>'uid' = ?", uid) }
   scope :general, ->{ where(assistor_uid: nil) }
+  # 2ADD and OR (assistances.id IS NOT NULL AND assistances.end_at IS NULL AND queue task belongs to assistance.assistor)
   scope :teachers_queue_or_in_progress, ->(uid) {
     left_joins(assistance_request: :assistance)
       .where(assistance_requests: { canceled_at: nil })
-      .where("( assistances.id IS NULL AND queue_tasks.assistor_uid IN (?) ) OR (assistances.id IS NOT NULL AND assistances.end_at IS NULL)", [nil, uid])
+      .where("( assistances.id IS NULL AND (queue_tasks.assistor_uid IS NULL OR queue_tasks.assistor_uid = ?) ) OR (assistances.id IS NOT NULL AND assistances.end_at IS NULL)", uid)
   }
   scope :for_resource, ->(resource) { joins(:assistance_request).where("assistance_requests.request->>'resource_type' = ?", resource) }
   scope :this_month, -> { joins(:assistance_request).where(assistance_requests: { created_at: DateTime.now.beginning_of_month..DateTime.now.end_of_month }) }
