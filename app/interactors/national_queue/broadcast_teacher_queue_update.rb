@@ -16,6 +16,7 @@ class NationalQueue::BroadcastTeacherQueueUpdate
         NationalQueueChannel.broadcast 'admin-national-queue', type: "queueUpdate", object: QueueTaskSerializer.new(task).as_json
       end
     end
+
   end
 
 end

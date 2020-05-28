@@ -1,10 +1,13 @@
 {
-  "task_penalty": -2,
-  "assistance_penalty": -2,
-  "evaluation_penalty": -2,
-  "tech_interview_penalty": -2,
-  "same_location_bonus": 5,
-  "rating_multiplier": 1.5, 
+  "max_queue_weight": 100,
+  "max_queue_size": 10,
   "desired_task_assignment": 5,
-  "max_queue_size": 10
+  "active_task_weight": 1,
+  "active_assistance_weight": 1,
+  "active_evaluation_weight": 1,
+  "active_tech_interview_weight": 1,
+  "same_location_weight": 1,
+  "avg_rating_weight": 1,
+  "successfull_assistance_weight": 1,
+  "negative_assistance_weight": 1
 }

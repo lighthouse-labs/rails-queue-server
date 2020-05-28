@@ -16,11 +16,11 @@ class ApplicationController < ActionController::Base
   end
 
   def super_admin_required
-    render json: { error: 'Not Allowed.' } unless @current_user['access'].include?("super_admin")
+    render(json: { error: 'Not Allowed.' }, status: :unauthorized) unless @current_user['access'].include?("super-admin")
   end
 
   def admin_required
-    render json: { error: 'Not Allowed.' } unless @current_user['access'].include?("admin")
+    render(json: { error: 'Not Allowed.' }, status: :unauthorized) unless @current_user['access'].include?("admin")
   end
 
   def set_raven_context

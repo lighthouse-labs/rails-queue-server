@@ -17,6 +17,7 @@ class NationalQueue::SmartTaskRequeue
       context.fail! unless @assistor ? context.assistor.set_duty(@assistor.on_duty) : context.assistor.toggle_duty
       @assistor = context.assistor
     end
+    context.assistor = @assistor
     context.fail! unless @assistor
     smart_task_result = if @assistor.on_duty?
                           SmartQueueRouter::AssignQueue.call(
@@ -27,6 +28,7 @@ class NationalQueue::SmartTaskRequeue
                             assistor: @assistor
                           )
                         end
+
     context.fail! unless smart_task_result.success?
     smart_task_result.assigned_assistance_requests.each do |assistance_request|
       NationalQueue::BroadcastStudentQueueUpdate.call(assistance_request: assistance_request)

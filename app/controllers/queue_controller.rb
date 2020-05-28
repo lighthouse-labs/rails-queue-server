@@ -28,7 +28,7 @@ class QueueController < ApplicationController
       request:   request_params
     )
     if result.success?
-      render json: { queueSettings: queue_settings }
+      render json: { message: 'Assistance Request created' }
     else
       render json: { message: 'Unable to Post Request' }, status: :internal_server_error
     end
@@ -49,6 +49,7 @@ class QueueController < ApplicationController
 
   def update_settings
     compass_instance = CompassInstance.find_by(id: @current_user['compass_instance_id'])
+    render(json: { message: 'No compass instance' }, status: :internal_server_error) unless compass_instance
     compass_instance.settings['task_router_settings'] = queue_settings_params
     if compass_instance.save!
       render json: { message: 'Settings Updated' }, status: :ok
@@ -63,10 +64,6 @@ class QueueController < ApplicationController
     render json: { error: 'Not Allowed.' } unless @current_user['access'].include?("teacher")
   end
 
-  def super_admin_required
-    render json: { error: 'Not Allowed.' } unless @current_user['access'].include?("super_admin")
-  end
-
   def requestor_params
     info_options = params.require(:requestor)[:info].try(:permit!)
     social_options = params.require(:requestor)[:social].try(:permit!)
@@ -79,7 +76,7 @@ class QueueController < ApplicationController
   end
 
   def queue_settings_params
-    params.require(:queue_settings).permit(:task_penalty, :max_queue_size, :rating_multiplier, :assistance_penalty, :evaluation_penalty, :same_location_bonus, :tech_interview_penalty, :desired_task_assignment)
+    params.require(:queue_settings).permit(:desired_task_assignment, :max_queue_size, :max_queue_weight, :active_task_weight, :active_assistance_weight, :active_evaluation_weight, :active_tech_interview_weight, :same_location_weight, :avg_rating_weight, :successfull_assistance_weight, :negative_assistance_weight)
   end
 
 end

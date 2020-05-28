@@ -6,9 +6,9 @@ class CompassInstancesController < ApplicationController
   def create
     compass_instance = CompassInstance.new(compass_instance_params)
     file = File.join(Rails.root, 'config', 'default_router_settings.json')
-    default_settings = File.read(file)
+    default_settings = JSON.parse File.read(file)
 
-    compass_instance.settings = default_settings
+    compass_instance.settings = { task_router_settings: default_settings }
     compass_instance.key = SecureRandom.hex(8)
     secret = SecureRandom.hex(16)
     compass_instance.secret = BCrypt::Password.create(secret)

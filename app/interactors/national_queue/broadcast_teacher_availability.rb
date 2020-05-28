@@ -7,12 +7,9 @@ class NationalQueue::BroadcastTeacherAvailability
   end
 
   def call
-    if @assistor&.busy?
+    if @assistor
       NationalQueueChannel.broadcast "student-national-queue", type:   "teacherUpdate",
                                                                object: UserSerializer.new(@assistor).as_json
-    elsif @assistor
-      NationalQueueChannel.broadcast "student-national-queue",  type:   "teacherUpdate",
-                                                                object: UserSerializer.new(@assistor).as_json
     end
   end
 
