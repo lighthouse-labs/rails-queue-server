@@ -16,15 +16,4 @@ LaserShark::Application.routes.draw do
 
   resources :compass_instances, only: [:create]
 
-  # ADMIN
-  namespace :admin do
-    resources :queue_tasks
-  
-    resources :feedbacks
-  
-    resources :assistance_requests
-  
-    resources :assistances
-  end
-
 end

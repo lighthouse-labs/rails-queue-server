@@ -8,5 +8,4 @@ class TagAttribution < ApplicationRecord
   scope :on_students, ->{ on_users.where(taggable_id: Student.all.select(:id)) }
   scope :on_teachers, ->{ on_users.where(taggable_id: Teacher.all.select(:id)) }
 
-
 end
