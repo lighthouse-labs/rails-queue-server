@@ -1,4 +1,4 @@
-class UserMailer < ApplicationMailer
+class UserMailer < ActionMailer::Base
 
   add_template_helper(ActivitiesHelper)
 
