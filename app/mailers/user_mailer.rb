@@ -1,7 +1,5 @@
 class UserMailer < ActionMailer::Base
 
-  add_template_helper(ActivitiesHelper)
-
   default from: ENV['EMAIL_SENDER']
 
   def notify_education_manager(assistance)
