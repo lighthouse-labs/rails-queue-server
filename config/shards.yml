@@ -37,9 +37,6 @@ octopus:
       web:
         adapter:  postgresql
         encoding: unicode
-        host:     <%= ENV['WEB_DATABASE_HOST'] %> 
-        username: <%= ENV['WEB_DATABASE_USERNAME'] %> 
-        password: <%= ENV['WEB_DATABASE_PASSWORD'] %> 
-        database: <%= ENV['WEB_DATABASE_NAME'] %> 
+        url:     <%= ENV['WEB_DATABASE_URL'] %> 
         encoding: unicode
         pool:     10
