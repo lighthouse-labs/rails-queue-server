@@ -12,6 +12,13 @@ octopus:
         database: compass_development
         pool:     10
 
+      web_2:
+        adapter:  postgresql
+        host:     localhost
+        encoding: unicode
+        database: compass_development_2
+        pool:     10
+
   staging:
     program_shards:
       web:
@@ -29,11 +36,10 @@ octopus:
     program_shards:
       web:
         adapter:  postgresql
-        host:     localhost
         encoding: unicode
-        database: web_production
-      pt:
-        adapter:  postgresql
-        host:     localhost
+        host:     <%= ENV['WEB_DATABASE_HOST'] %> 
+        username: <%= ENV['WEB_DATABASE_USERNAME'] %> 
+        password: <%= ENV['WEB_DATABASE_PASSWORD'] %> 
+        database: <%= ENV['WEB_DATABASE_NAME'] %> 
         encoding: unicode
-        database: pt_production
+        pool:     10
