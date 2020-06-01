@@ -38,3 +38,4 @@ octopus:
         encoding: unicode
         host: <%= ENV['WEB_DATABASE_HOST'] %>
         database: <%= ENV['WEB_DATABASE_NAME'] %>
+        pool: 10
