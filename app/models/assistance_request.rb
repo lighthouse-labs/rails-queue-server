@@ -63,6 +63,7 @@ class AssistanceRequest < ApplicationRecord
 
   def cancel
     self.canceled_at = Time.current
+    assistance&.destroy
     save
   end
 
@@ -143,9 +144,10 @@ class AssistanceRequest < ApplicationRecord
   def creation_webhooks
     Webhooks::Requests.call(
       model:         'AssistanceRequest',
-      resource_type: request['resource_type'],
+      resource_type: request.try(:[], 'resource_type'),
       action:        'create',
-      object:        self
+      object:        self,
+      compass_instance: compass_instance
     )
   end
 

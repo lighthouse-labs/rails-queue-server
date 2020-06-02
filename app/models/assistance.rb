@@ -42,9 +42,10 @@ class Assistance < ApplicationRecord
     UserMailer.notify_education_manager(self).deliver_later if flag?
     result = Webhooks::Requests.call(
       model:         'Assistance',
-      resource_type: assistance_request.request['resourceType'],
+      resource_type: assistance_request.request.try(:[], 'resourceType'),
       action:        'end',
-      object:        self
+      object:        self,
+      compass_instance: assistance_request.compass_instance
     )
     save!
   end
@@ -78,9 +79,10 @@ class Assistance < ApplicationRecord
   def creation_webhooks
     Webhooks::Requests.call(
       model:         'Assistance',
-      resource_type: assistance_request.request['resourceType'],
+      resource_type: assistance_request.request.try(:[], 'resourceType'),
       action:        'create',
-      object:        self
+      object:        self,
+      compass_instance: assistance_request.compass_instance
     )
   end
 
