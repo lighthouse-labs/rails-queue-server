@@ -10,6 +10,7 @@ octopus:
         adapter:  postgresql
         host:     localhost
         database: compass_development
+        pool: 10
 
       web_2:
         adapter:  postgresql

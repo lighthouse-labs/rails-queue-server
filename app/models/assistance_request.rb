@@ -62,8 +62,6 @@ class AssistanceRequest < ApplicationRecord
   }
 
   def cancel
-    return if assistance.present?
-
     self.canceled_at = Time.current
     save
   end
