@@ -13,10 +13,6 @@ class Webhooks::Requests
   def call
     webhooks = @compass_instance.webhooks.for_model(@model).for_action(@action).for_resource_type(@resource_type)
     webhooks.each do |webhook|
-      uri = URI.parse(webhook.url)
-      request = Net::HTTP::Post.new(uri.request_uri)
-      request["content-type"] = "application/json"
-      request["Authorization"] = webhook.compass_instance.key
       if @object.is_a? Assistance
         body = {
           assistance:        AssistanceSerializer.new(@object).as_json,
@@ -27,15 +23,7 @@ class Webhooks::Requests
           feedback: @object
         }
       end
-      request.body = body.to_json
-      # 2ADD re request if request failed, and make request non blocking?
-      http = Net::HTTP.new(uri.host, uri.port)
-      if uri.scheme == 'https'
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      end
-      response = http.request(request)
-      context.fail! unless response.code.to_i == 200
+      WebhookRequestJob.perform_later(webhook.url, webhook.compass_instance.key, body.to_json)
     end
   end
 
