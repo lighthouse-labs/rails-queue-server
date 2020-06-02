@@ -35,7 +35,8 @@ class Feedback < ApplicationRecord
       model:         'Feedback',
       resource_type: feedbackable.class.name,
       action:        'create',
-      object:        self
+      object:        self,
+      compass_instance: feedbackable.try(:assistance_request)&.compass_instance
     )
   end
 
