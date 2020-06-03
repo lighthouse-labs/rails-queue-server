@@ -32,21 +32,22 @@ class AssistanceRequestsController < ApplicationController
   end
 
   def update
-    assitance_request = AssistanceRequest.with_request_id(request_params[:id]).first
-    render json: { message: 'Unable to Update Request' }, status: :internal_server_error if assitance_request.blank?
+    assistance_request = AssistanceRequest.with_request_id(request_params[:id]).first
+    return render json: { message: 'Unable to Update Request' }, status: :internal_server_error if assistance_request.blank?
 
     if params[:assistor].present?
       assistor = first_compass_instance_result { User.find_by(uid: assistor_params[:uid]) }
       render(json: { message: 'Invalid Assistor' }, status: :internal_server_error) if assistor.blank?
-      type = assitance_request.in_progress? ? 'finish_assistance' : 'start_assistance'
+      type = assistance_request.in_progress? ? 'finish_assistance' : 'start_assistance'
     else
-      type = assitance_request.in_progress? ? 'cancel_assistance' : 'cancel'
+      type = assistance_request.in_progress? ? 'cancel_assistance' : 'cancel'
     end
     result = NationalQueue::UpdateRequest.call(
       assistor: assistor,
       options:  {
         type:       type,
-        request_id: assitance_request.id
+        notes: request_params[:notes],
+        request_id: assistance_request.id
       }
     )
     if result.success?
@@ -83,7 +84,7 @@ class AssistanceRequestsController < ApplicationController
 
   def request_params
     info_options = params.require(:request)[:info].try(:permit!)
-    params.require(:request).permit(:reason, :id, :resourceUuid, :resourceLink, :resourceName, :resourceType, :finishResourceUrl, :route).merge(info: info_options)
+    params.require(:request).permit(:reason, :id, :resourceUuid, :resourceLink, :resourceName, :resourceType, :finishResourceUrl, :route, :notes).merge(info: info_options)
   end
 
 end

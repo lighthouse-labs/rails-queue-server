@@ -1,7 +1,9 @@
+class WebhookWorker
 
-class WebhookRequestJob < ActiveJob::Base
-  queue_as :default
- 
+  include Sidekiq::Worker
+
+  sidekiq_options retry: false, queue: 'low'
+
   def perform(url, key, body, repeat=true)
     uri = URI.parse(url)
     request = Net::HTTP::Post.new(uri.request_uri)
@@ -14,8 +16,6 @@ class WebhookRequestJob < ActiveJob::Base
       http.verify_mode = OpenSSL::SSL::VERIFY_PEER
     end
     response = http.request(request)
-    # on fail repeat once
-    WebhookRequestJob.perform_later(url, key, body, false) unless response.code.to_i == 200
   end
 
 end

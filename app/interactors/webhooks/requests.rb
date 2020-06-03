@@ -23,7 +23,7 @@ class Webhooks::Requests
           feedback: @object
         }
       end
-      WebhookRequestJob.perform_later(webhook.url, webhook.compass_instance.key, body.to_json)
+      WebhookWorker.perform_async(webhook.url, webhook.compass_instance.key, body.to_json)
     end
   end
 

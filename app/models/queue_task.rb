@@ -44,7 +44,7 @@ class QueueTask < ApplicationRecord
   end
 
   def position_in_queue
-    assistor.queue_tasks.pending.where('queue_tasks.id < ?', id).count + 1 if pending?
+    assistor.queue_tasks.pending.where('queue_tasks.id < ?', id).count + 1 if pending? && assistor
   end
 
   def set_start_at
