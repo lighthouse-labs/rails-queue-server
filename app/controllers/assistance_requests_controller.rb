@@ -13,17 +13,30 @@ class AssistanceRequestsController < ApplicationController
 
   def create
     #  create ar and qt
+    assistance_request = AssistanceRequest.with_request_id(request_params[:id]).first
     if params[:assistor].present?
       assistor = first_compass_instance_result { User.find_by(uid: assistor_params[:uid]) }
       render(json: { message: 'Invalid Assistor' }, status: :internal_server_error) if assistor.blank?
     end
-    result = NationalQueue::RequestAssistance.call(
-      requestor:        requestor_params,
-      request:          request_params,
-      assistor:         assistor,
-      type:             'ResourceRequest',
-      compass_instance: @compass_instance
-    )
+
+    if assistance_request.present?
+      result = NationalQueue::UpdateRequest.call(
+        assistor: assistor,
+        options:  {
+          type:       'start_assistance',
+          request_id: assistance_request.id
+        }
+      )
+    else
+      result = NationalQueue::RequestAssistance.call(
+        requestor:        requestor_params,
+        request:          request_params,
+        assistor:         nil,
+        type:             'ResourceRequest',
+        compass_instance: @compass_instance
+      )
+    end
+
     if result.success?
       render json: { message: 'Request created' }
     else
