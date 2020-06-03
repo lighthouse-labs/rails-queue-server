@@ -31,7 +31,7 @@ class AssistanceRequestsController < ApplicationController
       result = NationalQueue::RequestAssistance.call(
         requestor:        requestor_params,
         request:          request_params,
-        assistor:         nil,
+        assistor:         assistor,
         type:             'ResourceRequest',
         compass_instance: @compass_instance
       )

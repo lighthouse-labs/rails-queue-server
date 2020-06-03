@@ -20,6 +20,7 @@ class NationalQueue::SmartTaskRoute
       else
         task = @assistance_request.assign_task(@assistor)
         if @assistor
+          @assistance_request.assign_task(nil)
           context.fail!(error: 'Failed creating assistance.') unless @assistance_request.start_assistance(@assistor)
         end
         context.fail!(error: 'Failed creating queue task.') unless task
