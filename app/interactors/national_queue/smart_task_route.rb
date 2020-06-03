@@ -39,7 +39,7 @@ class NationalQueue::SmartTaskRoute
   end
 
   def public_task(task)
-    task.assistor_uid == @assistor&.uid
+    (task.assistor_uid == @assistor&.uid) || task.assistor_uid.nil?
   end
 
 end
