@@ -18,7 +18,7 @@ gem 'active_model_serializers', '0.9.7'
 
 gem 'pg'
 gem 'bcrypt'
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 5.6'
 
 gem 'kaminari'
 
